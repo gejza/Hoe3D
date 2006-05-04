@@ -1,0 +1,9 @@
+2.5.2006
+Win32:
+	U Visual Studia soubor rules, kde je nastaveny flex. Soubor tools.rules je v common
+HoeGame:
+	Vytvorena trida Config a ConfigVars, pro lepsi prace s konfigem
+-------------------------------------
+1.5.2006  
+	Vytoren changelog :-)
+ 

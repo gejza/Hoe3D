@@ -1,0 +1,138 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Czech resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CSY)
+#ifdef _WIN32
+LANGUAGE LANG_CZECH, SUBLANG_DEFAULT
+#pragma code_page(1250)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // Czech resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_PANEL DIALOGEX 0, 0, 244, 247
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Hoe Export..."
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,185,7,52,16
+    CONTROL         "Tree1",IDC_TREEC,"SysTreeView32",TVS_HASBUTTONS | 
+                    TVS_HASLINES | TVS_LINESATROOT | TVS_EDITLABELS | 
+                    TVS_DISABLEDRAGDROP | TVS_CHECKBOXES | WS_BORDER | 
+                    WS_TABSTOP,7,7,173,233,WS_EX_CLIENTEDGE
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_PANEL, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 237
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 240
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_LIBDESCRIPTION      "Export Hoe htx model files"
+    IDS_CATEGORY            "Hoe export"
+    IDS_CLASS_NAME          "HoeMax"
+    IDS_PARAMS              "Parameters"
+    IDS_SPIN                "Spin"
+    IDS_PROGRESS_MSG        "Exporting ..."
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

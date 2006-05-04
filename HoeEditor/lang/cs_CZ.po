@@ -1,0 +1,311 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: HoeStudio\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2005-08-19 16:18+0100\n"
+"Last-Translator: gejza <gejza@gejza.net>\n"
+"Language-Team: Heimdall <gejza@gejza.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Czech\n"
+"X-Poedit-Country: CZECH REPUBLIC\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Basepath: ../src\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: editor_app.cpp:51
+msgid "Hoe World Editor"
+msgstr "Hoe Studio"
+
+#: engine_view.cpp:50
+#, c-format
+msgid "Failed load library: %s"
+msgstr "Chyba při nahrávaní knihovny: %s"
+
+#: engine_view.cpp:57
+msgid "Find symbol GetEngineInterface failed."
+msgstr "Nenalezen symbol GetEngineInterface."
+
+# C:\work\HoeEditor\src/mainframe.cpp:151
+#: mainframe.cpp:58
+msgid "Project"
+msgstr "Projekt"
+
+# C:\work\HoeEditor\src/mainframe.cpp:49
+#: mainframe.cpp:76
+msgid "Properties"
+msgstr "Vlastnosti"
+
+# C:\work\HoeEditor\src/mainframe.cpp:146
+#: mainframe.cpp:164
+msgid "&New...\tCtrl+N"
+msgstr "&Nový...\tCtrl+N"
+
+# C:\work\HoeEditor\src/mainframe.cpp:146
+#: mainframe.cpp:164
+msgid "Creates a new file or project."
+msgstr ""
+
+# C:\work\HoeEditor\src/mainframe.cpp:147
+#: mainframe.cpp:165
+msgid "&Open...\tCtrl+O"
+msgstr "&Otevřít...\tCtrl+O"
+
+# C:\work\HoeEditor\src/mainframe.cpp:147
+#: mainframe.cpp:165
+msgid "Open an existing file."
+msgstr ""
+
+# C:\work\HoeEditor\src/mainframe.cpp:148
+#: mainframe.cpp:166
+msgid "&Close"
+msgstr "&Zavřít"
+
+# C:\work\HoeEditor\src/mainframe.cpp:148
+#: mainframe.cpp:166
+msgid "Closes the file."
+msgstr ""
+
+# C:\work\HoeEditor\src/mainframe.cpp:150
+#: mainframe.cpp:168
+msgid "O&pen Project..."
+msgstr "O&tevřít Projekt..."
+
+# C:\work\HoeEditor\src/mainframe.cpp:150
+#: mainframe.cpp:168
+msgid "Open project."
+msgstr ""
+
+# C:\work\HoeEditor\src/mainframe.cpp:151
+#: mainframe.cpp:169
+msgid "Sa&ve Project"
+msgstr "Uložit p&rojekt"
+
+# C:\work\HoeEditor\src/mainframe.cpp:151
+# C:\work\HoeEditor\src/mainframe.cpp:152
+#: mainframe.cpp:169
+#: mainframe.cpp:170
+msgid "Save project."
+msgstr "Uložit projekt."
+
+# C:\work\HoeEditor\src/mainframe.cpp:152
+#: mainframe.cpp:170
+msgid "Save Pro&ject As..."
+msgstr "Uložit pro&jekt jako..."
+
+# C:\work\HoeEditor\src/mainframe.cpp:153
+#: mainframe.cpp:171
+msgid "Cl&ose Project"
+msgstr "&Zavřít projekt"
+
+# C:\work\HoeEditor\src/mainframe.cpp:153
+#: mainframe.cpp:171
+msgid "Close current project."
+msgstr ""
+
+# C:\work\HoeEditor\src/mainframe.cpp:155
+#: mainframe.cpp:173
+msgid "&Save\tCtrl+S"
+msgstr "&Uložit\tCtrl+S"
+
+# C:\work\HoeEditor\src/mainframe.cpp:155
+# C:\work\HoeEditor\src/mainframe.cpp:156
+#: mainframe.cpp:173
+#: mainframe.cpp:174
+msgid "Save file."
+msgstr ""
+
+# C:\work\HoeEditor\src/mainframe.cpp:156
+#: mainframe.cpp:174
+msgid "Save &As..."
+msgstr ""
+
+# C:\work\HoeEditor\src/mainframe.cpp:157
+#: mainframe.cpp:175
+msgid "Save A&ll"
+msgstr "Uložit vše"
+
+# C:\work\HoeEditor\src/mainframe.cpp:157
+#: mainframe.cpp:175
+msgid "Saves all the open files."
+msgstr ""
+
+# C:\work\HoeEditor\src/mainframe.cpp:159
+#: mainframe.cpp:177
+msgid "E&xit\tAlt-F4"
+msgstr "&Konec\tAlt-F4"
+
+# C:\work\HoeEditor\src/mainframe.cpp:159
+#: mainframe.cpp:177
+msgid "Quit this program"
+msgstr ""
+
+# C:\work\HoeEditor\src/mainframe.cpp:163
+#: mainframe.cpp:181
+msgid "&Console"
+msgstr ""
+
+# C:\work\HoeEditor\src/mainframe.cpp:163
+#: mainframe.cpp:181
+msgid "Show log console."
+msgstr ""
+
+#: mainframe.cpp:182
+msgid "&Engine"
+msgstr ""
+
+#: mainframe.cpp:182
+msgid "Show engine view."
+msgstr ""
+
+#: mainframe.cpp:183
+msgid "&Code Editor"
+msgstr "Editor &Kódu"
+
+#: mainframe.cpp:183
+msgid "Show code editor."
+msgstr ""
+
+#: mainframe.cpp:187
+msgid "View &White Space"
+msgstr "Zobrazit netisknutelné znaky"
+
+#: mainframe.cpp:187
+msgid "View white space in code editor."
+msgstr ""
+
+#: mainframe.cpp:188
+msgid "Ad&vanced"
+msgstr "D&alší"
+
+# C:\work\HoeEditor\src/mainframe.cpp:167
+#: mainframe.cpp:192
+msgid "&Load Engine...\tF10"
+msgstr "&Nahrát Engine...\tF10"
+
+# C:\work\HoeEditor\src/mainframe.cpp:167
+#: mainframe.cpp:192
+msgid "Load engine from library"
+msgstr "Nahrát engine z knihovny."
+
+# C:\work\HoeEditor\src/mainframe.cpp:169
+#: mainframe.cpp:194
+msgid "&Plug-in Manager..."
+msgstr "&Manažer zásuvných modulů"
+
+# C:\work\HoeEditor\src/mainframe.cpp:169
+#: mainframe.cpp:194
+msgid "Plugin editor"
+msgstr ""
+
+# C:\work\HoeEditor\src/mainframe.cpp:172
+#: mainframe.cpp:198
+msgid "&About..."
+msgstr "&O programu..."
+
+# C:\work\HoeEditor\src/mainframe.cpp:172
+#: mainframe.cpp:198
+msgid "Show about"
+msgstr ""
+
+# C:\work\HoeEditor\src/mainframe.cpp:176
+#: mainframe.cpp:202
+msgid "&File"
+msgstr "&Soubor"
+
+# C:\work\HoeEditor\src/mainframe.cpp:177
+#: mainframe.cpp:203
+msgid "&View"
+msgstr "&Zobrazit"
+
+# C:\work\HoeEditor\src/mainframe.cpp:178
+#: mainframe.cpp:204
+msgid "&Tools"
+msgstr "&Nástroje"
+
+# C:\work\HoeEditor\src/mainframe.cpp:179
+#: mainframe.cpp:205
+msgid "&Help"
+msgstr "Nápověda"
+
+#: mainframe.cpp:233
+msgid "New file"
+msgstr ""
+
+#: mainframe.cpp:234
+msgid "Open file"
+msgstr ""
+
+#: mainframe.cpp:235
+msgid "Save file"
+msgstr ""
+
+#: mainframe.cpp:236
+msgid "Save all"
+msgstr "Uložit vše"
+
+#: mainframe.cpp:255
+#: mainframe.cpp:257
+msgid "Choose a engine..."
+msgstr "Vybrat knihovnu enginu..."
+
+#: mainframe.cpp:255
+msgid "Engine|*.dll"
+msgstr ""
+
+#: mainframe.cpp:257
+msgid "Engine|*.so"
+msgstr ""
+
+#: mainframe.cpp:301
+#: mainframe.cpp:316
+msgid "Open file..."
+msgstr "Otevřít soubor..."
+
+#: mainframe.cpp:316
+#: mainframe.cpp:339
+msgid "Project File (*.hps)|*.hps"
+msgstr "Projekt (*.hps)|*.hps"
+
+#: mainframe.cpp:339
+msgid "Save project file..."
+msgstr ""
+
+# C:\work\HoeEditor\src/mainframe.cpp:176
+#: newdialog.cpp:54
+msgid "New File"
+msgstr "Nový soubor"
+
+#: newdialog.cpp:66
+msgid "Name:"
+msgstr "Jméno:"
+
+#: newdialog.cpp:74
+msgid "Location:"
+msgstr "Umístění:"
+
+#: newdialog.cpp:81
+msgid "Browse..."
+msgstr "Najít..."
+
+#: newdialog.cpp:132
+msgid "Name must not empty."
+msgstr "Jméno nesmí být prázdné."
+
+#: newdialog.cpp:132
+msgid "File name error."
+msgstr "Chyba ve jménu souboru."
+
+#: newdialog.cpp:144
+msgid "File exist"
+msgstr "Soubor existuje"
+
+#: newdialog.cpp:144
+msgid "nejakej text"
+msgstr ""
+
+#: newdialog.cpp:166
+msgid "Choose directory"
+msgstr "Vybrat adresář"
+

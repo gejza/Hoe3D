@@ -1,0 +1,56 @@
+HOE_DIR = ./src
+OUTPUT_DIR = ../bin
+TMP_DIR = ./tmp
+
+OUTPUT_BINARY = $(OUTPUT_DIR)/Hoe3D.so
+
+GCC=g++
+C_FLAGS= -D_LINUX -D_USE_OPENGL_ -ggdb3 -I/usr/include/freetype2
+LINK=g++
+L_FLAGS= -shared -fPIC -L/usr/X11R6/lib
+LINK_LIBRARIES = -lGL -lGLU -ljpeg -lopenal -lXxf86vm -lXxf86dga -lfreetype -lfl
+
+OBJ_FILES = $(TMP_DIR)/ref_opengl.o $(TMP_DIR)/ref_opengl_ext.o $(TMP_DIR)/ref.o $(TMP_DIR)/camera.o $(TMP_DIR)/ref_base.o $(TMP_DIR)/config.o \
+$(TMP_DIR)/filesystem.o \
+$(TMP_DIR)/hoe2d.o $(TMP_DIR)/hoe.o $(TMP_DIR)/hoefile.o $(TMP_DIR)/hoe_font.o \
+$(TMP_DIR)/hoe_format.o $(TMP_DIR)/hoe_index.o $(TMP_DIR)/hoe_info.o \
+$(TMP_DIR)/hoe_input.o $(TMP_DIR)/hoe_input_xwin.o $(TMP_DIR)/hoe_main.o \
+$(TMP_DIR)/hoe_material.o $(TMP_DIR)/hoe_model.o \
+$(TMP_DIR)/hoe_picture.o $(TMP_DIR)/hoe_stream.o $(TMP_DIR)/hoe_texture.o \
+$(TMP_DIR)/hoe_time.o $(TMP_DIR)/icreate.o $(TMP_DIR)/iget.o $(TMP_DIR)/light_system.o \
+$(TMP_DIR)/material_system.o $(TMP_DIR)/model_loader.o \
+$(TMP_DIR)/object_inspector.o $(TMP_DIR)/object_controller.o $(TMP_DIR)/physics.o \
+$(TMP_DIR)/shared.o $(TMP_DIR)/sound_al.o $(TMP_DIR)/sound.o \
+$(TMP_DIR)/states.o $(TMP_DIR)/texture_converter.o $(TMP_DIR)/texture_convjpg.o \
+$(TMP_DIR)/texture_loader.o $(TMP_DIR)/texture_system.o $(TMP_DIR)/utils.o \
+$(TMP_DIR)/icreate_parser.o $(TMP_DIR)/material_parser.o  $(TMP_DIR)/freetype.o $(TMP_DIR)/scene.o $(TMP_DIR)/map_utils.o $(TMP_DIR)/cmdexec.o \
+$(TMP_DIR)/resmgr.o \
+$(TMP_DIR)/scene_base.o $(TMP_DIR)/heightmap.o $(TMP_DIR)/scene_part.o $(TMP_DIR)/scene_env.o 
+
+all:	BUILD 
+
+$(TMP_DIR) $(TMP_DIR)/fs:
+	mkdir -p $@
+
+$(OUTPUT_DIR):
+	mkdir -p $(OUTPUT_DIR)
+
+BUILD:		$(TMP_DIR) $(OUTPUT_DIR) $(OBJ_FILES) 
+
+	$(LINK) $(L_FLAGS) -o $(OUTPUT_BINARY) $(OBJ_FILES) $(LINK_LIBRARIES)
+
+clean:
+	rm -f $(OBJ_FILES) $(OUTPUT_BINARY)
+
+#
+# Generic rules to build object files
+#
+
+$(TMP_DIR)/%.o:		$(HOE_DIR)/%.cpp
+	$(GCC) $(C_FLAGS) -c $< -o $@
+
+$(TMP_DIR)/%.o:		$(HOE_DIR)/%.c
+	$(CC) $(C_FLAGS) -c $< -o $@
+
+$(TMP_DIR)/fs/%.o:		$(HOE_DIR)/fs/%.cpp
+	$(GCC) $(C_FLAGS) -c $< -o $@

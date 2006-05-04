@@ -1,0 +1,63 @@
+
+#ifndef _HOE_SCENE_H_
+#define _HOE_SCENE_H_
+
+#include "object_inspector.h"
+#include "scene_base.h"
+#include "scene_graph.h"
+
+class Hoe2DScene : public HoeBaseScene
+{
+};
+
+class HoeScene : public HoeBaseScene
+{
+protected:
+	ObjectInspector m_objects;
+	LightSystem m_lights;
+	HoeCamera cam;
+public:
+	HoeScene();
+
+	virtual int HOEAPI RegisterObject(XHoeObject *, unsigned long flags = 0);
+	virtual void HOEAPI UnregisterObject(int);
+
+	/** @see IHoeScene::CreateLight() */
+	virtual IHoeLight * HOEAPI CreateLight();
+	//virtual IHoeScenePhysics * HOEAPI GetScenePhysics();
+	virtual IHoeCamera * HOEAPI GetCamera();
+
+	virtual void Process(const double dtime);
+	virtual void Render();
+
+};
+
+class HoeGraphScene : public HoeScene , public IHoeScenePhysics, public IHoeSceneEnv
+{
+protected:
+	TSceneGroup * m_root;
+	TSceneGroup * NewGroup();
+public:
+	HoeGraphScene();
+	virtual void Render();
+	/** Metoda pro ziskani jmena objektu. */
+	virtual const char * GetName() { return "GraphScene";}
+	virtual IHoeScenePhysics * HOEAPI GetScenePhysics() { return this; }
+	virtual IHoeSceneEnv * HOEAPI GetSceneEnv() { return this; }
+
+	// environment
+	virtual IHoeEnv::Poly * HOEAPI CreatePolygon(int numVec);
+	virtual void HOEAPI RemovePolygon(int id);
+	virtual IHoeEnv::HeightMapSurface * HOEAPI CreateHeightMapSurface();
+	virtual IHoeMaterial * HOEAPI GetMaterial(const char * name);
+
+	// physicks
+	//iHoeMap * HOEAPI LoadMap(const char * name, XMapLoaderCallback *);
+	virtual XHoeObject * HOEAPI Ray(float * vPickRayDir, float * vPickRayOrig);
+	virtual float HOEAPI GetHeight(float x,float y);
+	virtual bool HOEAPI GetCamber(const float x1,const float x2,const float y1,const float y2, float & min,float &max);
+
+};
+
+#endif // _HOE_SCENE_H_
+
