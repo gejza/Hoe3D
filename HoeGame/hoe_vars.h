@@ -59,7 +59,9 @@ public:
 	bool IsInt() { return (flags & TVAR_INTEGER) != 0; }
 	bool IsFloat() { return (flags & TVAR_FLOAT) != 0; } 
 	bool IsModified() { return (flags & TVAR_MODIFIED) != 0; }
+	void Set(int i);
 	void Set(float f);
+	void Set(bool b);
 	void Set(const char * str);
 	// statics
 	static CVar * GetVar(const char * name);

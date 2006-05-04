@@ -164,6 +164,64 @@ void CVar::Set(float f)
 	flags |= TVAR_MODIFIED;
 }
 
+void CVar::Set(int i)
+{
+	switch (flags & TVAR_TYPE)
+	{
+	case TVAR_BOOL:
+		if (i==0)
+			value.b = false;
+		else
+			value.b = true;
+		break;
+	case TVAR_INTEGER:
+		value.i = i;
+		break;
+	case TVAR_FLOAT:
+		value.f = (float)i;
+		break;
+	case TVAR_STR:
+	case TVAR_SSTR:
+		{
+			char str[50];
+			sprintf(str, "%d", i);
+			SetString(str);
+		}
+		break;
+	default:
+		assert(!"Unknown var type");
+	};
+	flags |= TVAR_MODIFIED;
+}
+
+void CVar::Set(bool b)
+{
+	switch (flags & TVAR_TYPE)
+	{
+	case TVAR_BOOL:
+		value.b = b;
+		break;
+	case TVAR_INTEGER:
+		value.i = b ? 1:0;
+		break;
+	case TVAR_FLOAT:
+		value.f = b ? 1.f:0.f;
+		break;
+	case TVAR_STR:
+	case TVAR_SSTR:
+		{
+			if (b)
+				SetString("true");
+			else
+				SetString("false");
+		}
+		break;
+	default:
+		assert(!"Unknown var type");
+	};
+	flags |= TVAR_MODIFIED;
+}
+
 void CVar::SetString(const char * str)
 {
 	if ((flags & 0xff) == TVAR_STR && value.str)
