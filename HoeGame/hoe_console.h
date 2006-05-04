@@ -5,12 +5,6 @@
    @version $Revision: 1.5 $
    @brief   Konzole pro logování.
 */
-/*
-	$Id: hoe_console.h,v 1.5 2005/04/05 00:48:39 gejza Exp $
-	$Author: gejza $
-	$Date: 2005/04/05 00:48:39 $
-	$Revision: 1.5 $
-*/ 
 
 #ifndef _HOE_CONSOLE_H_
 #define _HOE_CONSOLE_H_

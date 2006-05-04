@@ -58,7 +58,7 @@ public:
 	/** Destruktor */
 	virtual ~HoeApp();
 
-	virtual bool Init();
+	virtual bool Init(const char * title);
 	virtual void Run();
 	virtual void OnSize(int width, int height);
 	virtual void OnPaint();

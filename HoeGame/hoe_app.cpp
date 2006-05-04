@@ -33,14 +33,14 @@ HoeApp::~HoeApp()
 
 #ifdef _WIN32
 
-bool HoeApp::Init()
+bool HoeApp::Init(const char * title)
 {
 	THoeInitSettings his;
 
 	if (!this->RegisterApp())
 		return false;
 
-	if (!CreateWin(this->GetTitle(),m_width.GetInt(),m_height.GetInt(),m_fullscreen.GetBool()))
+	if (!CreateWin(title,m_width.GetInt(),m_height.GetInt(),m_fullscreen.GetBool()))
 		return false;
 
 	m_con->SetCallback(this);
@@ -135,6 +135,11 @@ const char * HoeApp::GetTitle()
 
 void HoeApp::Run()
 {
+	if (!m_engine.IsLoaded())
+	{
+		while (GetMsg(m_engine.GetInstance()));
+		return;
+	}
 	float t=GetEngine()->SysFloatTime();
 	while (1)
 	{
