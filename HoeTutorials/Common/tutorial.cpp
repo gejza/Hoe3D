@@ -12,7 +12,7 @@ HoeTutorial::HoeTutorial(HOE_INSTANCE instance, HoeGame::Console * con) : HoeApp
 
 bool HoeTutorial::InitTutorial(HOE_TYPE_SCENE ts)
 {
-	if (!Init())
+	if (!Init(GetTitle()))
 		return false;
 
 	GetEngine()->SetActiveScene(GetEngine()->CreateScene(ts));
