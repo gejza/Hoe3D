@@ -214,6 +214,14 @@
 			>
 		</File>
 		<File
+			RelativePath="..\htex\png_comp.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\htex\png_comp.h"
+			>
+		</File>
+		<File
 			RelativePath="..\htex\script.cpp"
 			>
 		</File>

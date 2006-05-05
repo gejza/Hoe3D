@@ -3,8 +3,10 @@
 #define _TEXTURE_CONVERTER_H_
 
 #include "hoe_format.h"
+#include <png.h>
 
-/*
+
+/**
  * TextureConverter
  * konvertuje textury do jinych formatu
  */
@@ -18,6 +20,11 @@ protected:
 public:
 	TextureConverter(TextureLoader *,HoeLog *);
 	~TextureConverter();
+	/**
+	* Funkce ma za ukol nacist hlavicku obrazku. Zjistit velikosti a vsechny ostatni udaje
+	* aby se mohla vytvorit textura.
+	* @return Pokud vse v poradku vraci true
+	*/
 	virtual bool Run() = 0;
 	virtual void Destroy() = 0;
 
@@ -25,6 +32,12 @@ public:
 	virtual dword GetHeight() = 0;
 	virtual HOEFORMAT GetFormat() = 0;
 
+	/**
+	* Funkce pro ziskani dat.
+	* @param p Kam zapsat vysledna data
+	* @param pitch Pitch obrazku (tedy velikost jedne radky v bytech)
+	* @return Pokud vse v poradku vraci true
+	*/
 	virtual bool Get(byte * p,dword pitch) = 0;
 	virtual byte * Get(dword pitch);
 
@@ -71,6 +84,26 @@ public:
 	virtual dword GetHeight() { return m_height;}
 	HOEFORMAT GetFormat() { return m_format;};
 
+};
+
+class TextureConverterPNG : public TextureConverter
+{
+	dword m_width;
+	dword m_height;
+	HOEFORMAT m_format;
+	png_structp png_ptr;
+	png_infop info_ptr;
+public:
+	TextureConverterPNG(TextureLoader *,HoeLog *);
+	~TextureConverterPNG();
+
+	virtual bool Run();
+	virtual void Destroy();
+	virtual bool Get(byte * p,dword pitch);
+
+	virtual dword GetWidth() { return m_width;}
+	virtual dword GetHeight() { return m_height;}
+	HOEFORMAT GetFormat() { return m_format;};
 };
 
 #endif // _TEXTURE_CONVERTER_H_

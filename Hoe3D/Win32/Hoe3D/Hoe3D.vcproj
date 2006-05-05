@@ -80,12 +80,12 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="winmm.lib"
+				AdditionalDependencies="winmm.lib libpngd.lib zlibd.lib"
 				OutputFile="../../../Bin/Hoe3Dd_D3D9.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories=""
-				IgnoreDefaultLibraryNames=""
+				IgnoreDefaultLibraryNames="MSVCRTD.lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\DebugD3D9/Hoe3D.pdb"
 				ImportLibrary=".\DebugD3D9/Hoe3D.lib"
@@ -179,7 +179,7 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="winmm.lib"
+				AdditionalDependencies="winmm.lib libpng.lib zlib.lib"
 				OutputFile="../../../Bin/Hoe3D_D3D9.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -276,7 +276,7 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="winmm.lib"
+				AdditionalDependencies="winmm.lib libpngd.lib zlibd.lib"
 				OutputFile="../../../Bin/Hoe3Dd_GL.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
@@ -376,7 +376,7 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="winmm.lib"
+				AdditionalDependencies="winmm.lib libpng.lib zlib.lib"
 				OutputFile="../../../Bin/Hoe3D_GL.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -473,7 +473,7 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="winmm.lib"
+				AdditionalDependencies="winmm.lib libpngd.lib zlibd.lib"
 				OutputFile="../../../Bin/Hoe3Dd_D3D8.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
@@ -651,7 +651,7 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="winmm.lib"
+				AdditionalDependencies="winmm.lib libpng.lib zlib.lib"
 				OutputFile="../../../Bin/Hoe3D_D3D8.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -963,6 +963,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\texture_convpng.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\texture_loader.cpp"
 				>
 			</File>
@@ -1081,13 +1085,6 @@
 			<File
 				RelativePath="..\..\src\material_parser.l"
 				>
-				<FileConfiguration
-					Name="DebugD3D9|Win32"
-					>
-					<Tool
-						Name="Flex"
-					/>
-				</FileConfiguration>
 				<FileConfiguration
 					Name="ReleaseD3D9|Win32"
 					>
@@ -1223,13 +1220,6 @@
 			<File
 				RelativePath="..\..\src\icreate_parser.l"
 				>
-				<FileConfiguration
-					Name="DebugD3D9|Win32"
-					>
-					<Tool
-						Name="Flex"
-					/>
-				</FileConfiguration>
 				<FileConfiguration
 					Name="ReleaseD3D9|Win32"
 					>

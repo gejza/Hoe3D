@@ -38,5 +38,9 @@ bool TextureLoader::GetData(void * buff,dword * size)
 	return m_reader.Read(buff,*size);
 }
 
-
+bool TextureLoader::GetData(void * buff,dword size)
+{
+	dword s = size;
+	return (GetData(buff, &s) && (s == size));
+}
 

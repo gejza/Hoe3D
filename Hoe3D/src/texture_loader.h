@@ -17,6 +17,7 @@ public:
     bool Load(const char * name);
 	hft_texture & GetHeader() { return m_head; }
 	bool GetData(void * buff,dword * size);
+	bool GetData(void * buff,dword size);
 };
 
 #endif // _TEXTURE_LOADER_H_

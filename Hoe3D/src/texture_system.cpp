@@ -41,6 +41,8 @@ HoeTexture * TextureSystem::GetTexture(const char * name)
 		if (loader.GetHeader().format == HOE_JPEG)
 			// jpeg conv
 			conv = new TextureConverterJPG(&loader,m_log);
+		else if (loader.GetHeader().format == HOE_PNG)
+			conv = new TextureConverterPNG(&loader,m_log);
 		else
 			conv = new TextureConverterHX(&loader,m_log);
 
