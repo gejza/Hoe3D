@@ -23,6 +23,10 @@ enum HOEFORMAT
     HOE_A8R3G3B2             = 29,
     HOE_X4R4G4B4             = 30,
 	HOE_A8L8				 = 51,
+	HOE_R8G8B8A8			 = 52,
+	HOE_B8G8R8X8			 = 53,
+	HOE_B8G8R8A8			 = 54,
+	HOE_B8G8R8				 = 55,
 
     HOE_DXT1                 = MAKEFOURCC('D', 'X', 'T', '1'),
     HOE_DXT2                 = MAKEFOURCC('D', 'X', 'T', '2'),
@@ -71,24 +75,35 @@ struct HOECOLOR
 
 
 #ifdef _HOE_D3D_
-typedef D3DFORMAT HoeFormat;
+D3DFORMAT HoeFormatX(HOEFORMAT);
+HOEFORMAT HoeFormatX(D3DFORMAT);
 #endif // _HOE_D3D9_
 
 #ifdef _HOE_OPENGL_
-typedef GLint HoeFormat;
+GLint HoeFormatX(HOEFORMAT);
+HOEFORMAT HoeFormatX(GLint);
 #endif // _HOE_OPENGL_
 
 const char * HoeFormatString(HOEFORMAT);
 int HoeFormatSize(HOEFORMAT);
 int HoeFormatSizeAlpha(HOEFORMAT);
 
-#if defined (_HOE_D3D_) || defined (_HOE_OPENGL_)
-HoeFormat HoeFormatX(HOEFORMAT);
-HOEFORMAT HoeFormatX(HoeFormat);
-#endif
-
-typedef void (*parse_format_func)(unsigned char *,HOECOLOR *);
+/*typedef void (*parse_format_func)(unsigned char *,HOECOLOR *);
 parse_format_func HoeFormatGetFunc(HOEFORMAT format,bool set);
+
+void HoeFormatConvert(byte * p, size_t height,  HOEFORMAT format);*/
+class HFConvert
+{
+	size_t m_num;
+	HOEFORMAT m_from;
+	HOEFORMAT m_to;
+	byte * m_origin;
+public:
+	HFConvert(size_t num, HOEFORMAT from, HOEFORMAT to);
+	~HFConvert();
+	byte * GetPointer(byte * origin);
+	void Make();
+};
 
 #endif // _HOE_FORMAT_H_
 

@@ -62,7 +62,19 @@ bool Config::CheckTexture(dword &width,dword &height,HOEFORMAT &format)
 	if (format == HOE_X8R8G8B8) format = HOE_R8G8B8;
 #endif
 #ifdef _HOE_D3D9_
-	if (format == HOE_R8G8B8) format = HOE_X8R8G8B8;
+	switch (format)
+	{
+	case HOE_A8R8G8B8:
+	case HOE_R8G8B8A8:
+		format = HOE_B8G8R8A8;
+		break;
+	case HOE_X8R8G8B8:
+	case HOE_R8G8B8:
+		format = HOE_B8G8R8X8;
+		break;
+	default:
+		assert(!"warning: check format");
+	};
 #endif
 	return false;
 }

@@ -1,3 +1,8 @@
+7.5.2006
+Hoe3D & utils:
+	Vytvorena podpora PNG, pro preklad jsou potrebny knihovny libpng a zlib (v common, nahrany na hugo adr: hoe/libs)
+	Ujasneni nekterych veci ohledne formatu. HOEFORMAT ted znaci jen zpusob ulozeni v pameti po bytech.
+--------------------------------------
 2.5.2006
 Win32:
 	U Visual Studia soubor rules, kde je nastaveny flex. Soubor tools.rules je v common

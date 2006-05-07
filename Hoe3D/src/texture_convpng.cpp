@@ -61,56 +61,81 @@ bool TextureConverterPNG::Run()
 		return false;
 	}
 
-	   /* Allocate/initialize the memory for image information.  REQUIRED. */
-   info_ptr = png_create_info_struct(png_ptr);
-   if (info_ptr == NULL)
-   {
-      png_destroy_read_struct(&png_ptr, png_infopp_NULL, png_infopp_NULL);
-      return false;
-   } 
+	/* Allocate/initialize the memory for image information.  REQUIRED. */
+	info_ptr = png_create_info_struct(png_ptr);
+	if (info_ptr == NULL)
+	{
+		png_destroy_read_struct(&png_ptr, png_infopp_NULL, png_infopp_NULL);
+		return false;
+	} 
 
-   png_set_read_fn(png_ptr, (void *)m_loader, ReadPng); 
+	png_set_read_fn(png_ptr, (void *)m_loader, ReadPng); 
 
-	 png_set_sig_bytes(png_ptr, 4);
+	png_set_sig_bytes(png_ptr, 4);
 
-	    png_read_info(png_ptr, info_ptr);
+	png_read_info(png_ptr, info_ptr);
 
 	png_get_IHDR(png_ptr, info_ptr, &width, &height, &bit_depth, &color_type,
-       &interlace_type, int_p_NULL, int_p_NULL); 
+		&interlace_type, int_p_NULL, int_p_NULL); 
 
-   if (color_type == PNG_COLOR_TYPE_PALETTE)
-   {
-	   png_ptr = png_ptr;
-      //png_set_palette_rgb(png_ptr); 
-   }
-
-	// ziskani dat a nastaveni priznaku
 	m_width = width;
 	m_height = height;
-	// nejaky format
-	m_format = HOE_A8R8G8B8;
+
+	m_format = GetSourceFormat();
+
 	GetConfig()->CheckTexture(m_width,m_height,m_format);
+
 	return true;
 }
 
 bool TextureConverterPNG::Get(byte * p,dword pitch)
 {
-	int number_passes = number_passes = png_set_interlace_handling(png_ptr);
+	png_uint_32 width, height;
+	int bit_depth, color_type, interlace_type; 
+	int number_passes = png_set_interlace_handling(png_ptr);
 	size_t rb = png_get_rowbytes(png_ptr, info_ptr); 
-   for (int pass = 0; pass < number_passes; pass++)
-   {
-	   byte * ps = p;
-      for (dword y = 0; y < m_height; y++)
-      {
-         png_read_row(png_ptr, p, png_bytep_NULL);
-		 p += pitch;
-      }
-   }
+	png_get_IHDR(png_ptr, info_ptr, &width, &height, &bit_depth, &color_type,
+		&interlace_type, int_p_NULL, int_p_NULL); 
+	HFConvert conv(width, GetSourceFormat(),m_format);
+	for (int pass = 0; pass < number_passes; pass++)
+	{
+		byte * ps = p;
+		for (dword y = 0; y < m_height; y++)
+		{
+			png_read_row(png_ptr, conv.GetPointer(p), png_bytep_NULL);
+			conv.Make();
+			p += pitch;
+		}
+	}
 
-   /* read rest of file, and get additional chunks in info_ptr - REQUIRED */
-   png_read_end(png_ptr, info_ptr);
- 
+	/* read rest of file, and get additional chunks in info_ptr - REQUIRED */
+	png_read_end(png_ptr, info_ptr);
+
 	return true;
+}
+
+HOEFORMAT TextureConverterPNG::GetSourceFormat()
+{
+	png_uint_32 width, height;
+	int bit_depth, color_type, interlace_type; 
+	png_get_IHDR(png_ptr, info_ptr, &width, &height, &bit_depth, &color_type,
+		&interlace_type, int_p_NULL, int_p_NULL); 
+	switch (color_type)
+	{
+	case PNG_COLOR_TYPE_RGB:
+		if (bit_depth != 8)
+			return HOE_UNKNOWN;
+		return HOE_R8G8B8;
+		break;
+	case PNG_COLOR_TYPE_RGB_ALPHA:
+		if (bit_depth != 8)
+			return HOE_UNKNOWN;
+		return HOE_R8G8B8A8;
+		break;
+	default:
+	case PNG_COLOR_TYPE_PALETTE:
+	   return HOE_UNKNOWN;
+	};
 }
 
 void TextureConverterPNG::Destroy()

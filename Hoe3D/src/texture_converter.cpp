@@ -70,7 +70,7 @@ void TextureConverter::MixRGB(void * buff,dword size)
 	}
 }
 
-void TextureConverter::Convert(byte * p1,dword s1,HOEFORMAT f1,byte * p2,dword s2,HOEFORMAT f2)
+/*void TextureConverter::Convert(byte * p1,dword s1,HOEFORMAT f1,byte * p2,dword s2,HOEFORMAT f2)
 {
 	dword fs1 = HoeFormatSize(f1) / 8;
 	dword fs2 = HoeFormatSize(f2) / 8;
@@ -91,7 +91,7 @@ void TextureConverter::Convert(byte * p1,dword s1,HOEFORMAT f1,byte * p2,dword s
 		p1 += fs1;
 		p2 += fs2;
 	}
-}
+}*/
 
 
 //////////////////////////////////////////

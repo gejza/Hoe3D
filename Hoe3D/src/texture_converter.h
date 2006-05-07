@@ -103,7 +103,8 @@ public:
 
 	virtual dword GetWidth() { return m_width;}
 	virtual dword GetHeight() { return m_height;}
-	HOEFORMAT GetFormat() { return m_format;};
+	HOEFORMAT GetFormat() { return m_format;}
+	HOEFORMAT GetSourceFormat();
 };
 
 #endif // _TEXTURE_CONVERTER_H_

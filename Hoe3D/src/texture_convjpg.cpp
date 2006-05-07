@@ -64,56 +64,22 @@ bool TextureConverterJPG::Run()
 
 	m_width = cinfo->output_width;
 	m_height = cinfo->output_height;
-	m_format = HOE_X8R8G8B8;
+	m_format = HOE_R8G8B8;
 
 	GetConfig()->CheckTexture(m_width,m_height,m_format);
-	if (m_width != cinfo->output_width || m_height != cinfo->output_height || (m_format != HOE_X8R8G8B8 && m_format != HOE_R8G8B8))
-		return false;
 	return true;
 }
 
 bool TextureConverterJPG::Get(byte * p,dword pitch)
 {
-	byte * jpgdata = new byte[row_stride];
 	jpeg_decompress_struct * cinfo = (jpeg_decompress_struct *)jpginfo;
 
+	HFConvert conv(m_width, HOE_R8G8B8, m_format);
 	while (cinfo->output_scanline < m_height) {
-		byte * pd = p + (pitch * cinfo->output_scanline);
-		byte * ps = jpgdata;
-		jpeg_read_scanlines(cinfo, &jpgdata, 1);
-
-		switch (m_format)
-		{
-		case HOE_X8R8G8B8:
-#ifdef _DFMT_D3D9_
-			{
-                dword x;
-				for (x=0;x < m_width;x++)
-				{
-
-						byte r = *ps++;
-						byte g = *ps++;
-						byte b = *ps++;
-						*pd++ = b;
-						*pd++ = g;
-						*pd++ = r;
-						*pd++ = 0xff;
-				}
-			}
-#endif
-#ifdef _DFMT_OPENGL_
-			assert(1);
-#endif 
-			break;
-		case HOE_R8G8B8:
-#ifdef _DFMT_OPENGL_
-			memcpy(pd,ps,pitch);
-#endif 
-			break;
-		}
+		byte * pd = conv.GetPointer(p + (pitch * cinfo->output_scanline));
+		jpeg_read_scanlines(cinfo, &pd, 1);
+		conv.Make();
 	}
-
-	delete [] jpgdata;
 
 	jpeg_finish_decompress(cinfo);
 	jpeg_destroy_decompress(cinfo);

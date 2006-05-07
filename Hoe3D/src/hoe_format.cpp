@@ -37,12 +37,15 @@ int HoeFormatSize(HOEFORMAT format)
 	{
 	case HOE_A8R8G8B8:
 	case HOE_X8R8G8B8:
+	case HOE_B8G8R8A8:
+	case HOE_B8G8R8X8:
 	case HOE_DXT2:
 	case HOE_DXT3:
 	case HOE_DXT4:
 	case HOE_DXT5:
 		return 32;
 	case HOE_R8G8B8:
+	case HOE_B8G8R8:
 		return 24;
 	case HOE_DXT1:
 	case HOE_R5G6B5:
@@ -160,23 +163,32 @@ HOEFORMAT HoeFormatX(D3DFORMAT format)
 	default:
 		return HOE_UNKNOWN;
 	}*/
-	return (HOEFORMAT) format;
+	switch (format)
+	{
+	case D3DFMT_X8R8G8B8: return HOE_B8G8R8X8;
+    case D3DFMT_A8R8G8B8: return HOE_B8G8R8A8;
+	case D3DFMT_R8G8B8: return HOE_B8G8R8;
+	default:
+		//Con_Print("warning: %s format not convert to D3D",HoeFormatString(format));
+		return HOE_UNKNOWN;
+	}
 }
 
+
+/** Funkce ktera prevadi HOEFORMAT (tak jak je to na disku), 
+ * na D3DFORMAT (tak jak to chape direct x) */
 D3DFORMAT HoeFormatX(HOEFORMAT format)
 {
-	/*switch (format)
+	switch (format)
 	{
-	case HOE_X8R8G8B8: return D3DFMT_X8R8G8B8;
-    case HOE_A8R8G8B8: return D3DFMT_A8R8G8B8;
-	case HOE_R8G8B8: return D3DFMT_R8G8B8;
-	case HOE_A8L8: return D3DFMT_
+	case HOE_B8G8R8X8: return D3DFMT_X8R8G8B8;
+    case HOE_B8G8R8A8: return D3DFMT_A8R8G8B8;
+	case HOE_B8G8R8: return D3DFMT_R8G8B8;
 	default:
 		Con_Print("warning: %s format not convert to D3D",HoeFormatString(format));
 		return D3DFMT_UNKNOWN;
-	}*/
-	return (D3DFORMAT)format;
-	
+	}
+
 }
 #endif // _HOE_D3D9_
 #ifdef _HOE_OPENGL_
@@ -185,7 +197,7 @@ GLint HoeFormatX(HOEFORMAT format)
 {
 	switch (format)
 	{
-    case HOE_A8R8G8B8: return GL_RGBA8;
+    case HOE_R8G8B8A8: return GL_RGBA8;
 	case HOE_R8G8B8: return GL_RGB8;
 	default:
 		Con_Print("warning: %s format not convert to Glformat",HoeFormatString(format));
@@ -195,102 +207,50 @@ GLint HoeFormatX(HOEFORMAT format)
 }
 #endif // _HOE_OPENGL_
 
-
-namespace HoeFormatFunctions
+HFConvert::HFConvert(size_t num, HOEFORMAT from, HOEFORMAT to)
 {
-
-void set_X8R8G8B8(byte * p,HOECOLOR * c)
-{
-	*p++ = c->b;
-	*p++ = c->g;
-	*p++ = c->r;
-	*p++ = 0xff;
+	m_num = num;
+	m_from = from;
+	m_to = to;
 }
 
-void get_X8R8G8B8(byte * p,HOECOLOR * c)
+HFConvert::~HFConvert()
 {
-	p++;
-	c->a = 0xff;
-	c->r = *p++;
-	c->g = *p++;
-	c->b = *p++;
 }
 
-void set_A8R8G8B8(byte * p,HOECOLOR * c)
+byte * HFConvert::GetPointer(byte *origin)
 {
-	*p++ = c->a;
-	*p++ = c->r;
-	*p++ = c->g;
-	*p++ = c->b;
+	return m_origin = origin;
 }
 
-void get_A8R8G8B8(byte * p,HOECOLOR * c)
+void HFConvert::Make()
 {
-	c->a = *p++;
-	c->r = *p++;
-	c->g = *p++;
-	c->b = *p++;
-}
-
-void set_R8G8B8(byte * p,HOECOLOR * c)
-{
-	*p++ = c->r;
-	*p++ = c->g;
-	*p++ = c->b;
-}
-
-void get_R8G8B8(byte * p,HOECOLOR * c)
-{
-	c->a = 0xff;
-	c->r = *p++;
-	c->g = *p++;
-	c->b = *p++;
-}
-
-void set_B8G8R8(byte * p,HOECOLOR * c)
-{
-	*p++ = c->b;
-	*p++ = c->g;
-	*p++ = c->r;
-}
-
-void get_B8G8R8(byte * p,HOECOLOR * c)
-{
-	c->a = 0xff;
-	c->b = *p++;
-	c->g = *p++;
-	c->r = *p++;
-}
-
-void unknown(byte * p,HOECOLOR * c)
-{
-	
-}
-
-};
-
-parse_format_func HoeFormatGetFunc(HOEFORMAT format,bool set)
-{
-	switch (format)
+	if (m_from == HOE_R8G8B8 && m_to == HOE_B8G8R8X8)
 	{
-	case HOE_X8R8G8B8:
-		if (set)
-			return HoeFormatFunctions::set_X8R8G8B8;
-		else
-			return HoeFormatFunctions::get_X8R8G8B8;	
-	case HOE_A8R8G8B8:
-		if (set)
-			return HoeFormatFunctions::set_A8R8G8B8;
-		else
-			return HoeFormatFunctions::get_A8R8G8B8;
-	case HOE_R8G8B8:
-		if (set)
-			return HoeFormatFunctions::set_R8G8B8;
-		else
-			return HoeFormatFunctions::get_R8G8B8;
-	default:
-		return HoeFormatFunctions::unknown;
+		for (int n=m_num-1;n >=0;n--)
+		{
+			// nacist 
+			byte r = *(m_origin+(n*3)+0);
+			byte g = *(m_origin+(n*3)+1);
+			byte b = *(m_origin+(n*3)+2);
+			*(m_origin+(n*4)+0) = b;
+			*(m_origin+(n*4)+1) = g;
+			*(m_origin+(n*4)+2) = r;
+			*(m_origin+(n*4)+3) = 0xff;
+		}
+	}
+	if (m_from == HOE_R8G8B8A8 && m_to == HOE_B8G8R8A8)
+	{
+		for (int n=m_num-1;n >=0;n--)
+		{
+			// nacist 
+			byte r = *(m_origin+(n*4)+0);
+			byte b = *(m_origin+(n*4)+2);
+			*(m_origin+(n*4)+0) = b;
+			*(m_origin+(n*4)+2) = r;
+		}
 	}
 }
+
 
 
