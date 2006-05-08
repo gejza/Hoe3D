@@ -26,6 +26,8 @@ const char * HoeFormatString(HOEFORMAT format)
 	case HOE_R3G3B2: return "R3G3B2";
 	case HOE_A8: return "A8";
 	case HOE_A8L8: return "A8L8";
+	case HOE_JPEG: return "JPEG";
+	case HOE_PNG: return "PNG";
 	default:
 		return "UNKNOWN";
 	}
@@ -36,6 +38,7 @@ int HoeFormatSize(HOEFORMAT format)
     switch (format)
 	{
 	case HOE_A8R8G8B8:
+	case HOE_R8G8B8A8:
 	case HOE_X8R8G8B8:
 	case HOE_B8G8R8A8:
 	case HOE_B8G8R8X8:
@@ -61,6 +64,7 @@ int HoeFormatSize(HOEFORMAT format)
 	case HOE_A8:
 		return 8;
 	default:
+		assert(!"unsupported format");
 		return 0;
 	}
 }
@@ -70,6 +74,7 @@ int HoeFormatSizeAlpha(HOEFORMAT format)
     switch (format)
 	{
 	case HOE_A8R8G8B8:
+	case HOE_R8G8B8A8:
 	case HOE_A8R3G3B2:
 	case HOE_A8:
 	case HOE_A8L8:
