@@ -75,7 +75,7 @@ bool HoeApp::Init(const char * title)
 #endif // _WIN32
 #ifdef _LINUX
 
-bool HoeApp::Init()
+bool HoeApp::Init(const char * title)
 {
     Atom wmDelete;
 

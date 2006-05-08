@@ -144,3 +144,4 @@ void TextureConverterPNG::Destroy()
 	png_destroy_read_struct(&png_ptr, &info_ptr, png_infopp_NULL); 
 	delete this;
 }
+

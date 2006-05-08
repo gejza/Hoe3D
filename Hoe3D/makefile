@@ -8,7 +8,7 @@ GCC=g++
 C_FLAGS= -D_LINUX -D_USE_OPENGL_ -ggdb3 -I/usr/include/freetype2
 LINK=g++
 L_FLAGS= -shared -fPIC -L/usr/X11R6/lib
-LINK_LIBRARIES = -lGL -lGLU -ljpeg -lopenal -lXxf86vm -lXxf86dga -lfreetype -lfl
+LINK_LIBRARIES = -lGL -lGLU -ljpeg -lpng -lopenal -lXxf86vm -lXxf86dga -lfreetype -lfl
 
 OBJ_FILES = $(TMP_DIR)/ref_opengl.o $(TMP_DIR)/ref_opengl_ext.o $(TMP_DIR)/ref.o $(TMP_DIR)/camera.o $(TMP_DIR)/ref_base.o $(TMP_DIR)/config.o \
 $(TMP_DIR)/filesystem.o \
@@ -25,7 +25,7 @@ $(TMP_DIR)/states.o $(TMP_DIR)/texture_converter.o $(TMP_DIR)/texture_convjpg.o 
 $(TMP_DIR)/texture_loader.o $(TMP_DIR)/texture_system.o $(TMP_DIR)/utils.o \
 $(TMP_DIR)/icreate_parser.o $(TMP_DIR)/material_parser.o  $(TMP_DIR)/freetype.o $(TMP_DIR)/scene.o $(TMP_DIR)/map_utils.o $(TMP_DIR)/cmdexec.o \
 $(TMP_DIR)/resmgr.o \
-$(TMP_DIR)/scene_base.o $(TMP_DIR)/heightmap.o $(TMP_DIR)/scene_part.o $(TMP_DIR)/scene_env.o 
+$(TMP_DIR)/scene_base.o $(TMP_DIR)/heightmap.o $(TMP_DIR)/scene_part.o $(TMP_DIR)/scene_env.o $(TMP_DIR)/light.o $(TMP_DIR)/texture_convpng.o
 
 all:	BUILD 
 

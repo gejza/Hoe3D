@@ -11,6 +11,8 @@
 
 #include "glext.h"
 
+typedef void (*GLPROCEDURE)(void);
+
 namespace GLExt { 
 
 struct Extension
@@ -30,7 +32,7 @@ struct Extension
 	*/
 	static void PrintGlExt();
 
-	static PROC GetProc(const char * name);
+	static GLPROCEDURE GetProc(const char * name);
 };
 
 struct CompressTextures : public Extension

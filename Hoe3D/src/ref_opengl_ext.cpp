@@ -70,13 +70,13 @@ void Extension::PrintGlExt()
 
 }
 
-PROC Extension::GetProc(const char * name)
+GLPROCEDURE Extension::GetProc(const char * name)
 {
 #ifdef _WIN32
-	return wglGetProcAddress(name);
+	return (GLPROCEDURE)wglGetProcAddress(name);
 #endif
 #ifdef _LINUX
-	return glXGetProcAddress(name);
+	return glXGetProcAddressARB((GLubyte*)name);
 #endif
 }
 
@@ -102,7 +102,7 @@ void CompressTextures::Check()
 // Vertex buffer
 void VertexBuffer::Check()
 {
-	supported = TestExt("GL_ARB_vertex_buffer_object");
+	supported = false;//TestExt("GL_ARB_vertex_buffer_object");
 	if (supported)
 	{
 		Con_Print("Use extension: GL_ARB_vertex_buffer_object");
