@@ -9,13 +9,14 @@
 #ifndef _HOE_OPENGL_EXT_H_
 #define _HOE_OPENGL_EXT_H_
 
+#include "glext.h"
+
 namespace GLExt { 
 
-class Extension
+struct Extension
 {
-protected:
 	bool supported;
-public:
+
 	Extension();
 	inline bool IsSupported() { return supported; }
 	/**
@@ -28,11 +29,12 @@ public:
 	* Vypise opengl rozisreni do konzole
 	*/
 	static void PrintGlExt();
+
+	static PROC GetProc(const char * name);
 };
 
-class CompressTextures : public Extension
+struct CompressTextures : public Extension
 {
-public:
 	void Check();
 };
 
@@ -40,6 +42,10 @@ class VertexBuffer : public Extension
 {
 public:
 	void Check();
+	PFNGLGENBUFFERSARBPROC glGenBuffersARB;// Generování VBO jména
+	PFNGLBINDBUFFERARBPROC glBindBufferARB;// Zvolení VBO bufferu
+	PFNGLBUFFERDATAARBPROC glBufferDataARB;// Nahrávání dat VBO
+	PFNGLDELETEBUFFERSARBPROC glDeleteBuffersARB;// Mazání VBO
 };
 
 }

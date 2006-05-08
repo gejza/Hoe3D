@@ -84,8 +84,13 @@ bool ModelApp::LoadScene()
 		CreateObj(mod, sinf(a) * leng, cosf(a) * leng);
 	}*/
 	CreateObj(mod2, 0, 0);
-	//CreateObj(mod1, 30, -10);
-	//CreateObj(mod1, -30, -10);
+	CreateObj(mod1, 30, -10);
+	CreateObj(mod1, -30, -10);
+	CreateObj(mod1, 0, -10);
+	CreateObj(mod1, -15, -10);
+	CreateObj(mod1, 15, -10);
+	CreateObj(mod1, -45, -10);
+	CreateObj(mod1, 45, -10);
 
 	//GetEngine()->exec("hidefps");
 

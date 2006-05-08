@@ -7,6 +7,7 @@ class HoeStream
 #ifdef _HOE_D3D_
 	SysVertexBuffer m_vb;
 #elif defined( _HOE_OPENGL_)
+	GLuint m_vb;
 #else
 #error Render device must be defined.
 #endif

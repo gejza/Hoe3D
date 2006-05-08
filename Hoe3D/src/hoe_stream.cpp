@@ -1,5 +1,6 @@
 
 #include "system.h"
+#include "shared.h"
 #include "utils.h"
 #include "ref.h"
 #include "hoe3d_math.h"
@@ -40,6 +41,11 @@ bool HoeStream::Create(dword numvert,const char * fvf,dword size)
 
 #ifdef _HOE_OPENGL_
 	m_pVertices = new byte[size];
+	// jestli i opengl vytvorit paralelne s tim i vertex buffer object
+	if (GetRef()->ext.vb.IsSupported())
+		GetRef()->ext.vb.glGenBuffersARB(1, &m_vb);
+	else
+		m_vb = 0;
 #endif // _HOE_OPENGL_
 #ifdef _HOE_D3D_
 
@@ -66,6 +72,15 @@ void HoeStream::Unlock()
 #ifdef _HOE_D3D_
 	m_vb->Unlock();
 #endif
+#ifdef _HOE_OPENGL_
+	if (GetRef()->ext.vb.IsSupported())
+	{
+		GetRef()->ext.vb.glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_vb);
+		GetRef()->ext.vb.glBufferDataARB(GL_ARRAY_BUFFER_ARB, m_size, m_pVertices, GL_STATIC_DRAW_ARB);
+		delete [] m_pVertices;
+		m_pVertices = 0;
+	}
+#endif
 }
 
 void HoeStream::Set(int n)
@@ -79,17 +94,20 @@ void HoeStream::Set(int n)
 #endif // _HOE_D3D_
 #endif // _HOE_D3D_
 #ifdef _HOE_OPENGL_
+	const bool vb = GetRef()->ext.vb.IsSupported();
 	int stride = 0;
+	if (vb)
+		GetRef()->ext.vb.glBindBufferARB(GL_ARRAY_BUFFER_ARB,m_vb);
 	if (m_dwfvf & FVF_XYZ)
 	{
 		glEnableClientState(GL_VERTEX_ARRAY);
-		glVertexPointer(3,GL_FLOAT,m_size / m_numvert,m_pVertices);
+		glVertexPointer(3,GL_FLOAT,m_size / m_numvert,vb ? NULL:m_pVertices);
 		stride += 3*sizeof(float);
 	}
 	else if (m_dwfvf & FVF_XYZRHW)
 	{
 		glEnableClientState(GL_VERTEX_ARRAY);
-		glVertexPointer(4,GL_FLOAT,m_size / m_numvert,m_pVertices);
+		glVertexPointer(4,GL_FLOAT,m_size / m_numvert,vb ? NULL:m_pVertices);
 		stride += 4*sizeof(float);
 	}
 	else
@@ -97,7 +115,7 @@ void HoeStream::Set(int n)
 	if (m_dwfvf & FVF_NORMAL)
 	{
 		glEnableClientState(GL_NORMAL_ARRAY);
-		glNormalPointer(GL_FLOAT,m_size / m_numvert,m_pVertices + stride);
+		glNormalPointer(GL_FLOAT,m_size / m_numvert,vb ? (byte*)stride:(m_pVertices + stride));
 		stride += 3*sizeof(float);
 	}
 	else
@@ -105,7 +123,7 @@ void HoeStream::Set(int n)
 	if (m_dwfvf & FVF_TEX1)
 	{
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		glTexCoordPointer(2,GL_FLOAT,m_size / m_numvert,m_pVertices+stride);
+		glTexCoordPointer(2,GL_FLOAT,m_size / m_numvert,vb ? (byte*)stride:(m_pVertices+stride));
 		stride += 2*sizeof(float);
 	}
 	else

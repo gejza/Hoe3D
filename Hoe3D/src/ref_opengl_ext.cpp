@@ -70,11 +70,23 @@ void Extension::PrintGlExt()
 
 }
 
+PROC Extension::GetProc(const char * name)
+{
+#ifdef _WIN32
+	return wglGetProcAddress(name);
+#endif
+#ifdef _LINUX
+	return glXGetProcAddress(name);
+#endif
+}
+
 ////////////////////////////////////////////////
 // Compressed textures
 void CompressTextures::Check()
 {
 	supported = TestExt("GL_ARB_texture_compression");
+	if (supported)
+		Con_Print("Use extension: GL_ARB_texture_compression");
 	/*"GL_3DFX_texture_compression_FXT1";
 	"GL_EXT_texture_compression_s3tc";
 	"GL_S3_s3tc";
@@ -91,6 +103,21 @@ void CompressTextures::Check()
 void VertexBuffer::Check()
 {
 	supported = TestExt("GL_ARB_vertex_buffer_object");
+	if (supported)
+	{
+		Con_Print("Use extension: GL_ARB_vertex_buffer_object");
+		glGenBuffersARB = (PFNGLGENBUFFERSARBPROC) GetProc("glGenBuffersARB");
+		glBindBufferARB = (PFNGLBINDBUFFERARBPROC) GetProc("glBindBufferARB");
+		glBufferDataARB = (PFNGLBUFFERDATAARBPROC) GetProc("glBufferDataARB");
+		glDeleteBuffersARB = (PFNGLDELETEBUFFERSARBPROC) GetProc("glDeleteBuffersARB");
+	}
+	else
+	{
+		glGenBuffersARB = NULL;// Generování VBO jména
+		glBindBufferARB = NULL;// Zvolení VBO bufferu
+		glBufferDataARB = NULL;// Nahrávání dat VBO
+		glDeleteBuffersARB = NULL;// Mazání VBO
+	}
 }
 
 };

@@ -1,6 +1,7 @@
 8.5.2006
 Hoe3D:
 	OpenGL extensions. zakladni komprese textur v opengl
+	Vertex buffer v opengl
 --------------------------------------
 7.5.2006
 Hoe3D & utils:
