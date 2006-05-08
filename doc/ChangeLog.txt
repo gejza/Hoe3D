@@ -1,3 +1,7 @@
+8.5.2006
+Hoe3D:
+	OpenGL extensions. zakladni komprese textur v opengl
+--------------------------------------
 7.5.2006
 Hoe3D & utils:
 	Vytvorena podpora PNG, pro preklad jsou potrebny knihovny libpng a zlib (v common, nahrany na hugo adr: hoe/libs)

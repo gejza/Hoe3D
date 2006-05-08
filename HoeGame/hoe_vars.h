@@ -6,39 +6,10 @@
 
 BEGIN_HOEGAME
 
-#ifndef BIT
-#define BIT( num )				( 1 << ( num ) )
-#endif 
-
-enum EVarFlags
-{
-	TVAR_BOOL				= 1,	// variable is a boolean
-	TVAR_INTEGER			= 2,	// variable is an integer
-	TVAR_FLOAT				= 3,	// variable is a float
-	TVAR_STR				= 4,	// variable is a string
-	TVAR_SSTR				= 5,	// variable is a static string
-	TVAR_TYPE				= 0xff, // all types
-	TVAR_MODIFIED			= BIT(9)
-};
-
-struct TVar
-{
-	const char * name;
-	union {
-		bool b;
-		int i;
-		float f;
-		char * str;
-		const char * cstr;
-	} value;
-	int flags;
-	TVar * next;
-};
-
-class CVar : protected TVar
+class CVar : protected THoeVar
 {
 protected:
-	static TVar * staticVars;
+	static THoeVar * staticVars;
 
 	void Register();
 	void Init(const char * name, int flags);

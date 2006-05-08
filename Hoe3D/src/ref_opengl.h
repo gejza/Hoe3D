@@ -19,6 +19,7 @@
 #endif 
 
 #include "ref_base.h"
+#include "ref_opengl_ext.h"
 
 typedef GLuint SysTexture;
 typedef GLuint SysIndexBuffer;
@@ -30,6 +31,12 @@ struct THoeInitSettings;
 */
 class RefOpenGL : public RefBase
 {
+public:
+	struct TGLext
+	{
+		GLExt::CompressTextures comp;
+		GLExt::VertexBuffer vb;
+	} ext;
 protected:
 #ifdef _LINUX
 	Display *m_Dpy; ///< Display
@@ -68,16 +75,6 @@ public:
 	* Konec vykreslovani sceny. viz OpenGL help.
 	*/
 	void End();
-	/**
-	* Test na pritomnost rozsireni
-	* @param ext_name Jmeno extension
-	* @param extensions String extensions. Pokud je NULL funkce si zjisti rozsireni z ovladece OpenGL
-	*/
-	bool TestExt(const char * ext_name,const char * extensions = NULL);
-	/**
-	* Vypise opengl rozisreni do konzole
-	*/
-	void PrintGlExt();
 	/**
 	* Nastaveni barvy pozadi
 	*/
@@ -130,6 +127,8 @@ public:
 	* Zruseni OpenGL
 	*/
 	void Destroy();
+
+
 };
 
 #include "ref_opengl.inl"

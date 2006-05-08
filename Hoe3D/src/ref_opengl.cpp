@@ -281,14 +281,11 @@ bool RefOpenGL::Init(THoeInitSettings * his)
 	glDepthFunc(GL_LEQUAL);// Typ hloubkového testování
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);// Nejlepší perspektivní korekce
 
+	// extensions 
+	//GLExt::Extension::PrintGlExt();
+	ext.comp.Check();
+	ext.vb.Check();
 	//glPixelStorei(GL_UNPACK_SWAP_BYTES,GL_FALSE);
-	//Con_Print("%s",(char *)glGetString(GL_EXTENSIONS));
-
-	//PrintGlExt();
-	//if (testExt("GL_ARB_vertex_buffer_object"))
-	//Con_Print("OKi!");
-	//else
-	//Con_Print("NO!");
 
 	return true;
 }

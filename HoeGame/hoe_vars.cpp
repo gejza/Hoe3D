@@ -5,7 +5,7 @@
 
 BEGIN_HOEGAME
 
-TVar * CVar::staticVars;
+THoeVar * CVar::staticVars;
 
 CVar::CVar(const char *_name, bool _value, int _flags)
 {
@@ -74,7 +74,7 @@ void CVar::Register()
 
 CVar * CVar::GetVar(const char * name)
 {
-	for (TVar * v = staticVars;v;v=v->next)
+	for (THoeVar * v = staticVars;v;v=v->next)
 		if (strcmp(name,v->name)==0)
 			return static_cast<CVar*>(v);
 	return NULL;

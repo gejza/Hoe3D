@@ -1,5 +1,6 @@
 
 #include "system.h"
+#include "shared.h"
 #include "utils.h"
 #include "ref.h"
 #include "hoe_format.h"
@@ -197,13 +198,14 @@ D3DFORMAT HoeFormatX(HOEFORMAT format)
 }
 #endif // _HOE_D3D9_
 #ifdef _HOE_OPENGL_
+#include "glext.h"
 
 GLint HoeFormatX(HOEFORMAT format)
 {
 	switch (format)
 	{
-    case HOE_R8G8B8A8: return GL_RGBA8;
-	case HOE_R8G8B8: return GL_RGB8;
+	case HOE_R8G8B8A8: return GetRef()->ext.comp.IsSupported() ? GL_COMPRESSED_RGBA:GL_RGBA8;
+	case HOE_R8G8B8: return GetRef()->ext.comp.IsSupported() ? GL_COMPRESSED_RGB:GL_RGB8;
 	default:
 		Con_Print("warning: %s format not convert to Glformat",HoeFormatString(format));
 		return 0;

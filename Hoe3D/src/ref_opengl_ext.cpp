@@ -1,13 +1,20 @@
 
+// ciste opengl zdrojak
+
 #include "system.h"
 #include "utils.h"
 #include "ref_opengl.h"
 #include "glext.h"
 
+namespace GLExt { 
+//////////////////////////////////
 
-#ifdef _HOE_OPENGL_
+Extension::Extension()
+{
+	supported = false;
+}
 
-bool RefOpenGL::TestExt(const char * ext_name,const char * extensions)
+bool Extension::TestExt(const char * ext_name,const char * extensions)
 {
 	const char * pe;
 	if (extensions)
@@ -38,7 +45,7 @@ bool RefOpenGL::TestExt(const char * ext_name,const char * extensions)
 	return false;
 }
 
-void RefOpenGL::PrintGlExt()
+void Extension::PrintGlExt()
 {
 	//
 	char buff[256];
@@ -60,9 +67,31 @@ void RefOpenGL::PrintGlExt()
 			pe++;
 		}
 	}
+
 }
 
+////////////////////////////////////////////////
+// Compressed textures
+void CompressTextures::Check()
+{
+	supported = TestExt("GL_ARB_texture_compression");
+	/*"GL_3DFX_texture_compression_FXT1";
+	"GL_EXT_texture_compression_s3tc";
+	"GL_S3_s3tc";
 
 
-#endif // _HOE_OPENGL_
+	GLint NumFormat = 0;
+	GLint *Formats = NULL;
+	glGetIntegerv(GL_NUM_COMPRESSED_TEXTURE_FORMATS_ARB, &NumFormat);
+	NumFormat;*/
+}
+
+///////////////////////////////////////////////
+// Vertex buffer
+void VertexBuffer::Check()
+{
+	supported = TestExt("GL_ARB_vertex_buffer_object");
+}
+
+};
 

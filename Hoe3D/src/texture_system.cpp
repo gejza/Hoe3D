@@ -27,7 +27,6 @@ TextureSystem::~TextureSystem()
 
 HoeTexture * TextureSystem::GetTexture(const char * name)
 {
-
 	LOG(m_log)->Log("Load texture %s",name);
 
 	TextureLoader loader(m_log);

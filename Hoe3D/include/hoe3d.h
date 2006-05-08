@@ -50,9 +50,31 @@ typedef int (*HOE_CMDFUNC)(int argc, const char * argv[], void * param);
 
 #ifndef HOE_VAR_DEF
 #define HOE_VAR_DEF
+#ifndef BIT
+#define BIT( num )				( 1 << ( num ) )
+#endif 
+
+enum EVarFlags
+{
+	TVAR_BOOL				= 1,	// variable is a boolean
+	TVAR_INTEGER			= 2,	// variable is an integer
+	TVAR_FLOAT				= 3,	// variable is a float
+	TVAR_STR				= 4,	// variable is a string
+	TVAR_SSTR				= 5,	// variable is a static string
+	TVAR_TYPE				= 0xff, // all types
+	TVAR_MODIFIED			= BIT(9)
+};
+
 struct THoeVar
 {
 	const char * name;
+	union {
+		bool b;
+		int i;
+		float f;
+		char * str;
+		const char * cstr;
+	} value;
 	int flags;
 	THoeVar * next;
 };
