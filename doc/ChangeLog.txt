@@ -1,3 +1,7 @@
+10.5.2006
+HoeGame:
+	Zdrojaky a includy rozdeleny do adresaru include a src, jako to je u ostatnich projektu
+--------------------------------------
 8.5.2006
 Hoe3D:
 	OpenGL extensions. zakladni komprese textur v opengl
