@@ -27,6 +27,7 @@ enum HOEFORMAT
 	HOE_B8G8R8X8			 = 53,
 	HOE_B8G8R8A8			 = 54,
 	HOE_B8G8R8				 = 55,
+	HOE_L8A8				 = 56,
 
     HOE_DXT1                 = MAKEFOURCC('D', 'X', 'T', '1'),
     HOE_DXT2                 = MAKEFOURCC('D', 'X', 'T', '2'),
@@ -84,6 +85,8 @@ GLint HoeFormatX(HOEFORMAT);
 HOEFORMAT HoeFormatX(GLint);
 #endif // _HOE_OPENGL_
 
+#ifndef HOEFORMAT_ONLY_DEF
+
 const char * HoeFormatString(HOEFORMAT);
 int HoeFormatSize(HOEFORMAT);
 int HoeFormatSizeAlpha(HOEFORMAT);
@@ -104,6 +107,8 @@ public:
 	byte * GetPointer(byte * origin);
 	void Make();
 };
+
+#endif // HOEFORMAT_ONLY_DEF
 
 #endif // _HOE_FORMAT_H_
 

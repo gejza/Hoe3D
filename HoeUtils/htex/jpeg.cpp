@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <io.h>
 #include <iostream>
+#define HOEFORMAT_ONLY_DEF
 #include "../../Hoe3D/src/hoe_format.h"
 #include "../../Hoe3D/include/hfmt/htex_file.h"
 #include "../lib/hoeUtils.h"

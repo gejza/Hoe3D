@@ -47,7 +47,7 @@ bool HoeTexture::BindData(byte * pix)
 	
 	switch (format)
 	{
-	case HOE_A8L8: 
+	case HOE_L8A8: 
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, pix);
 		break;
 	default:

@@ -59,6 +59,7 @@ int HoeFormatSize(HOEFORMAT format)
 	case HOE_X4R4G4B4:
 	case HOE_L16:
 	case HOE_A8L8:
+	case HOE_L8A8:
 	case HOE_A4R4G4B4:
 		return 16;
 	case HOE_R3G3B2:
@@ -79,6 +80,7 @@ int HoeFormatSizeAlpha(HOEFORMAT format)
 	case HOE_A8R3G3B2:
 	case HOE_A8:
 	case HOE_A8L8:
+	case HOE_L8A8:
 		return 8;
 	case HOE_A4R4G4B4:
 		return 4;
@@ -190,6 +192,7 @@ D3DFORMAT HoeFormatX(HOEFORMAT format)
 	case HOE_B8G8R8X8: return D3DFMT_X8R8G8B8;
     case HOE_B8G8R8A8: return D3DFMT_A8R8G8B8;
 	case HOE_B8G8R8: return D3DFMT_R8G8B8;
+	case HOE_L8A8: return D3DFMT_A8L8;
 	default:
 		Con_Print("warning: %s format not convert to D3D",HoeFormatString(format));
 		return D3DFMT_UNKNOWN;

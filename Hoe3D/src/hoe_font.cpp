@@ -90,10 +90,11 @@ bool HoeFont::Init()
 	bool lformat = true;
 
 	this->m_tex = new HoeTexture;
-	if (!this->m_tex->Create(256,256,HOE_A8L8))
+
+	if (!this->m_tex->Create(256,256,HOE_L8A8))
 	{
 		lformat = false;
-		Con_Print("A8L8 format failed, use A8R8G8B8");
+		Con_Print("L8A8 format failed, use A8R8G8B8");
 		if (!this->m_tex->Create(256,256,HOE_A8R8G8B8))
 			return false;
 	}

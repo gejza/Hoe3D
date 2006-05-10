@@ -102,7 +102,7 @@ void CompressTextures::Check()
 // Vertex buffer
 void VertexBuffer::Check()
 {
-	supported = false;//TestExt("GL_ARB_vertex_buffer_object");
+	supported = TestExt("GL_ARB_vertex_buffer_object");
 	if (supported)
 	{
 		Con_Print("Use extension: GL_ARB_vertex_buffer_object");

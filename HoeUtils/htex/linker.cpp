@@ -1,7 +1,7 @@
 
 #include <stdio.h>
 #include <memory.h>
-
+#define HOEFORMAT_ONLY_DEF
 #include "../../Hoe3D/src/hoe_format.h"
 #include "../../Hoe3D/include/hfmt/hres_file.h"
 #include "../../Hoe3D/include/hfmt/htex_file.h"
