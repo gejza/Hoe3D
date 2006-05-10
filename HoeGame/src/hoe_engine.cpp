@@ -1,6 +1,6 @@
 
 #include "StdAfx.h"
-#include "hoe_engine.h"
+#include "../include/hoe_engine.h"
 
 BEGIN_HOEGAME
 

@@ -7,10 +7,10 @@ extern "C" {
 #include <lauxlib.h>
 }
 
-#include "lua_script.h"
-#include "hoe_resource_mgr.h"
-#include "hoe_lang.h"
-#include "hoe_fs.h"
+#include "../include/lua_script.h"
+#include "../include/hoe_resource_mgr.h"
+#include "../include/hoe_lang.h"
+#include "../include/hoe_fs.h"
 
 BEGIN_HOEGAME
 

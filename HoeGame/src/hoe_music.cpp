@@ -1,8 +1,8 @@
 
 #include "StdAfx.h"
-#include "hoe_console.h"
+#include "../include/hoe_console.h"
 #include <bassmod.h>
-#include "hoe_music.h"
+#include "../include/hoe_music.h"
 
 BEGIN_HOEGAME
 

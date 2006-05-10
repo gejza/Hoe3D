@@ -1,7 +1,7 @@
 
 #include "StdAfx.h"
-#include "hoe_fs.h"
-#include "hoe_console.h"
+#include "../include/hoe_fs.h"
+#include "../include/hoe_console.h"
 #include <hfmt/hres_file.h>
 
 BEGIN_HOEGAME

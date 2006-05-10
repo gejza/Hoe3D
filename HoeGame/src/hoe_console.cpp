@@ -2,8 +2,8 @@
 
 #include "StdAfx.h"
 #include <hoe3d.h>
-#include "hoe_console.h"
-#include "hoe_app.h"
+#include "../include/hoe_console.h"
+#include "../include/hoe_app.h"
 
 BEGIN_HOEGAME
 

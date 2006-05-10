@@ -1,8 +1,8 @@
 
 #include "StdAfx.h"
 #include <hoe3d.h>
-#include "hoe_inputkeys.h"
-#include "hoe_gui.h"
+#include "../include/hoe_inputkeys.h"
+#include "../include/hoe_gui.h"
 
 BEGIN_HOEGAME
 

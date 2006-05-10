@@ -1,6 +1,6 @@
 
 #include "StdAfx.h"
-#include "hoe_win32.h"
+#include "../include/hoe_win32.h"
 
 BEGIN_HOEGAME 
 

@@ -1,8 +1,8 @@
 
 #include "StdAfx.h"
-#include "hoe_config.h"
-#include "hoe_vars.h"
-#include "hoe_console.h"
+#include "../include/hoe_config.h"
+#include "../include/hoe_vars.h"
+#include "../include/hoe_console.h"
 
 extern "C"
 {

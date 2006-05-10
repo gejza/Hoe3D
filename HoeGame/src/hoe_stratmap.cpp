@@ -1,6 +1,6 @@
 
 #include "StdAfx.h"
-#include "hoe_stratmap.h"
+#include "../include/hoe_stratmap.h"
 
 BEGIN_HOEGAME
 namespace Strategy {

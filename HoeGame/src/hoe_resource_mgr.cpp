@@ -1,7 +1,7 @@
 
 #include "StdAfx.h"
-#include "hoe_resource_mgr.h"
-#include "hoe_app.h"
+#include "../include/hoe_resource_mgr.h"
+#include "../include/hoe_app.h"
 
 BEGIN_HOEGAME
 

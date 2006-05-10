@@ -1,7 +1,7 @@
 
 #include "StdAfx.h"
-#include "hoe_lang.h"
-#include "hoe_console.h"
+#include "../include/hoe_lang.h"
+#include "../include/hoe_console.h"
 
 extern "C" {
 

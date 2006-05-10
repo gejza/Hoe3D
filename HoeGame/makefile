@@ -41,12 +41,10 @@ clean:
 # Generic rules to build object files
 #
 
-$(TMP_DIR)/%.o:		%.cpp
+$(TMP_DIR)/%.o:		src/%.cpp
 	$(GCC) $(C_FLAGS) -c $< -o $@
 
-$(TMP_DIR)/%.o:		%.c
+$(TMP_DIR)/%.o:		src/%.c
 	$(CC) $(C_FLAGS) -c $< -o $@
 
-$(TMP_DIR)/%.o:		ini/%.c
-	$(CC) $(C_FLAGS) -c $< -o $@
 

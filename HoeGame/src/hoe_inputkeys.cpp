@@ -1,5 +1,5 @@
 
-#include "hoe_inputkeys.h"
+#include "../include/hoe_inputkeys.h"
 
 #ifndef NULL
 #define NULL 0

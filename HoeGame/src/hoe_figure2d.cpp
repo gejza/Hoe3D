@@ -1,6 +1,6 @@
 
 #include "StdAfx.h"
-#include "hoe_figure2d.h"
+#include "../include/hoe_figure2d.h"
 
 BEGIN_HOEGAME
 
