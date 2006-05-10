@@ -11,26 +11,43 @@ class ResourceMgr;
 class Lang;
 class FileSystem;
 
+class LuaScript;
+
 class LuaParam
 {
+protected:
 	lua_State * m_L;
+	int nump;
 public:
+	LuaParam(lua_State * L);
 	void SaveString(const char * str);
 	bool GetBool(int pos) const;
 	const char * GetString(int pos) const;
 	int GetNum(int pos) const;
 	double GetDouble(int pos) const;
 	void * GetPointer(int pos) const;
-	LuaParam(lua_State * L);
 	bool CheckPar(int num, const char * par) const;
 	bool CheckPar(int num, const char * par, const char * func);
 	int GetNumParam() const; 
 	bool IsString(int pos) const;
 	bool IsNum(int pos) const;
+	bool IsNil(int pos) const;
+	bool IsTable(int pos) const;
 	void Error(const char * szFormat, ...);
 	void PushNum(int num);
 	void PushPointer(void * p);
+	void PushTable();
+	void SetTableInteger(const char * par, int data, int tab = -2);
+	int GetTableInteger(const char * par, int table);
 
+	void Pop(int num);
+};
+
+class LuaFunc : public LuaParam
+{
+public:
+	LuaFunc(LuaScript * scr, const char * funcname);
+	bool Run(int nres);
 };
 
 class LuaThread
@@ -40,13 +57,9 @@ protected:
 public:
 	void run(const char * fn);
 	LuaThread();
-	void func(const char * name);
 	void func(const char * name, int);
 	bool Next();
 
-	lua_State * GetLua() { return m_L; }
-
-	friend class LuaScript;
 };
 
 class LuaFile
@@ -111,9 +124,11 @@ public:
 	int GetAutoID(const char * id);
 };
 
-class LuaScript : public virtual LuaThread
+class LuaScript
 {
 	static LuaScript * _this;
+protected:
+	lua_State* m_L;
 	BaseConsole * con;
 	IHoe3DEngine * engine;
 	ResourceMgr * resources;
@@ -126,10 +141,12 @@ public:
 	bool Connect(FileSystem * fs);
 	LuaScript(BaseConsole * c);
 	static LuaScript * GetInstance() { return _this; }
+	lua_State * GetLua() { return m_L; }
 	bool Init();
 	bool Load(const char * fn, LuaPreprocess::IDConst * csts = NULL);
 	void Close();
 	void AddFunc(const char * funcname, int (*)(lua_State*));
+	void func(const char * name);
 private:
 	static int error(lua_State * L);
 	static int print(lua_State * L);

@@ -633,6 +633,14 @@
 			Name="Utils"
 			>
 			<File
+				RelativePath="..\src\hoe_benchmark.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\include\hoe_benchmark.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\hoe_timer.cpp"
 				>
 				<FileConfiguration

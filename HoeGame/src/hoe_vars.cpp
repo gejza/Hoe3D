@@ -301,7 +301,7 @@ int CVar::l_getvar(lua_State * L)
 	HoeGame::LuaParam lp(L);
 	if (lp.CheckPar(1,"s", "GetVar"))
 	{
-		CVar * v = CVar::GetVar(lp.GetString(-2));
+		CVar * v = CVar::GetVar(lp.GetString(-1));
 		if (v)
 		{
 			if (v->IsInt())

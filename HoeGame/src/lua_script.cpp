@@ -26,23 +26,6 @@ bool LuaThread::Next()
 	return lua_resume(m_L,0) == 0;
 }
 
-void LuaThread::func(const char * name)
-{
-	//lua_Debug ar;
-	lua_getglobal(m_L, name);
-	int err = lua_resume(m_L,0);
-	switch (err)
-	{
-	case LUA_ERRRUN:
-	case LUA_ERRMEM:
-	case LUA_ERRERR:
-		//lua_getstack(m_L,1,&ar);
-		LuaScript::GetInstance()->con->Con_Print (lua_tostring(m_L, -1));
-		exit(1);
-		break;
-	};
-}
-
 void LuaThread::run(const char *fn)
 {
 	lua_getglobal(m_L, fn);
@@ -54,6 +37,7 @@ void LuaThread::run(const char *fn)
 LuaParam::LuaParam(lua_State * L)
 {
 	m_L = L;
+	nump = 0;
 }
 
 bool LuaParam::CheckPar(int num, const char * par) const
@@ -128,16 +112,19 @@ void * LuaParam::GetPointer(int pos) const
 void LuaParam::SaveString(const char *str)
 {
 	lua_pushstring(m_L,str);
+	nump++;
 }
 
 void LuaParam::PushNum(int num)
 {
 	lua_pushnumber(m_L, num);
+	nump++;
 }
 
 void LuaParam::PushPointer(void *p)
 {
 	lua_pushlightuserdata(m_L, p);
+	nump++;
 }
 
 int LuaParam::GetNumParam() const
@@ -155,6 +142,41 @@ bool LuaParam::IsNum(int pos) const
 	return lua_isnumber(m_L,pos) != 0;
 }
 
+bool LuaParam::IsNil(int pos) const
+{
+	return lua_isnil(m_L, pos) != 0;
+}
+
+bool LuaParam::IsTable(int pos) const
+{
+	return lua_istable(m_L, pos) != 0;
+}
+
+void LuaParam::PushTable()
+{
+	lua_newtable(m_L);
+	nump++;
+}
+
+void LuaParam::SetTableInteger(const char *par, int data, int tab)
+{
+	lua_pushinteger(m_L, data);
+	lua_setfield(m_L,tab,par);
+}
+
+int LuaParam::GetTableInteger(const char *par, int tab)
+{
+	lua_getfield(m_L,tab,par);
+	int i = lua_tonumber(m_L,-1);
+	lua_pop(m_L, 1);
+	return i;
+}
+
+void LuaParam::Pop(int num)
+{
+	lua_pop(m_L, num);
+}
+
 void LuaParam::Error(const char * szFormat, ...)
 {
 	va_list args;
@@ -162,6 +184,29 @@ void LuaParam::Error(const char * szFormat, ...)
 	lua_pushvfstring(m_L, szFormat, args);
 	va_end(args);
 	lua_error(m_L);
+}
+
+//////////////////////////////////////////////////////
+LuaFunc::LuaFunc(LuaScript * scr, const char * funcname) : LuaParam(scr->GetLua())
+{
+	lua_getglobal(m_L, funcname);
+}
+
+bool LuaFunc::Run(int nres)
+{
+	//lua_Debug ar;
+	lua_call(m_L,nump,nres);
+	/*switch (err)
+	{
+	case LUA_ERRRUN:
+	case LUA_ERRMEM:
+	case LUA_ERRERR:
+		//lua_getstack(m_L,1,&ar);
+		Console::Printf("%s", lua_tostring(m_L, -1));
+		exit(1);
+		break;
+	};*/
+	return false;
 }
 
 //////////////////////////////////////////////////////
@@ -210,6 +255,12 @@ void LuaScript::Close()
 	if (m_L)
 		lua_close(m_L);
 	m_L = NULL;
+}
+
+void LuaScript::func(const char * name)
+{
+	LuaFunc f(this, name);
+	f.Run(0);
 }
 
 bool LuaFile::Open(const char * filename)
