@@ -2,11 +2,14 @@ Hoe3D:
 	Particle
 	Shadery
 	Fyzika
+	Matematicka knihovna vyuzivajici mmx a ssh2 instrukce
 HoeGame:
 HoeEditor:
 HoeUtils:
 	TextureView
 	ModelView
+
+Odladit na MacOS a 64bitu
 
 
 
