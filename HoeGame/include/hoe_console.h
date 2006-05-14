@@ -33,7 +33,7 @@ public:
  * @brief Konzole
  */
 
-class Console : public BaseConsole
+class Console: public BaseConsole
 {
 	int count;
 	int ptr;

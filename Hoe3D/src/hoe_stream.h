@@ -30,8 +30,9 @@ public:
 	dword GetNumVert() { 
 		return m_numvert;
 	}
-	void Draw();
 	const HoeMath::BoundingBox * GetBounding() { return &m_box;}
+
+	void Dump(HoeLog * log);
 };
 
 #endif // _HOE_STREAM_

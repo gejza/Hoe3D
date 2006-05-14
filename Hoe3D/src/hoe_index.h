@@ -12,7 +12,7 @@ public:
 	bool Create(int num_indices);
 	word * Lock();
 	void Unlock();
-	//void Set();
+	void Dump(HoeLog *log);
 
 	SysIndexBuffer GetIndexBuffer() { 
 #ifdef _HOE_D3D_

@@ -9,6 +9,7 @@
 #include "material_system.h"
 #include "light_system.h"
 #include "model_loader.h"
+#include "model_generator.h"
 #include "resmgr.h"
 #include "camera.h"
 #include "hoe_model.h"
@@ -32,7 +33,7 @@ const char *parser_getstring();
 
 namespace icreate {
 
-	char * get_string(char * buff)
+	static char * get_string(char * buff)
 	{
 		const char * str = parser_getstring();
 		if (str[0] == '\'' || str[0] == '\"')
@@ -46,11 +47,46 @@ namespace icreate {
 		return buff;
 	}
 
-	IHoeModel * CreateModel()
+	static bool get_param(HoeLog *& log, int & flags)
+	{
+		int token;
+		token = parse();
+		while (token)
+		{
+			if (HOE_T_IS_LOGTYPE(token))
+			{
+				char logname[256] = {0};
+				if (parse())
+					get_string(logname);
+				switch (token)
+				{
+				case HOE_T_CON:
+					log = new HoeLogConsole(logname);
+					break;
+				case HOE_T_FILE:
+					log = new HoeLogFile(logname);
+					break;
+				}
+			}
+			else if (token == HOE_T_DUMP)
+			{
+				flags = 1;
+			}
+			else
+			{
+				Con_Print("parse error: unknown '%s'",parser_getstring());
+				return false;
+			}
+			token = parse();
+		}
+		return true;
+	}
+
+	static IHoeModel * CreateModel()
 	{
 		HoeLog * log = NULL;
+		int flags = 0;
 		char modelname[512];
-		int token;
 		if (HOE_T_IS_STRING(parse())) {
 			get_string(modelname);
 		}
@@ -59,33 +95,15 @@ namespace icreate {
 			return NULL;
 		}
 
-		token = parse();
-		if (HOE_T_IS_LOGTYPE(token))
-		{
-			char logname[256] = {0};
-			if (parse())
-				get_string(logname);
-			switch (token)
-			{
-			case HOE_T_CON:
-				log = new HoeLogConsole(logname);
-				break;
-			case HOE_T_FILE:
-				log = NULL;//new HoeLogFile(logname);
-				break;
-			}
-		}
-		else if (token)
-		{
-			Con_Print("parse error: unknown '%s'",parser_getstring());
-		}
+		get_param(log, flags);
 
-		ModelLoader ml(log);
-		return ml.LoadModel(modelname);
-
+		ModelLoader ml(log, flags);
+		HoeModel * m = ml.LoadModel(modelname);
+		if (log) delete log;
+		return m;
 	}
 
-	IHoePicture * CreatePicture()
+	static IHoePicture * CreatePicture()
 	{
 		char picturename[256];
 		if (HOE_T_IS_STRING(parse())) {
@@ -99,7 +117,7 @@ namespace icreate {
 		return Get2D()->CreatePicture(picturename);
 	}
 
-	IHoeFont * CreateFont()
+	static IHoeFont * CreateFont()
 	{
 		char fontname[256];
 		int height;
@@ -127,7 +145,7 @@ namespace icreate {
 		return f;
 	}
 
-	IHoeSound * CreateSound()
+	static IHoeSound * CreateSound()
 	{
 		char soundname[256];
 		if (HOE_T_IS_STRING(parse())) {
@@ -140,7 +158,34 @@ namespace icreate {
 
 		return GetSound()->GetSound(soundname);
 	}
+	////////////////////////////////////////////////////////
+	static IHoeModel * GenModel()
+	{
+		HoeLog * log = NULL;
+		int flags = 0;
+		int type = parse();
+		float size = 1;
+		if (parse() == HOE_T_INT) {
+			size = atoi(parser_getstring());
+		}
+		else {
+			Con_Print("parse error: missing box size");
+			return NULL;
+		}		
+		get_param(log, flags);
+		ModelGenerator mg(log, flags);
+		HoeModel * ret = NULL;
+		switch (type)
+		{
+		case HOE_T_BOX:
+			ret = mg.GenBox(size);
+			break;
+		case HOE_T_SPHERE:
 
+			break;
+		};
+		return ret;
+	}
 }
 
 IHoeResource * HOEAPI Hoe3D::Create(const char * str)
@@ -162,6 +207,25 @@ IHoeResource * HOEAPI Hoe3D::Create(const char * str)
 		break;
 	case HOE_T_SOUND:
 		ret = icreate::CreateSound();
+		break;
+	case HOE_T_GENERATE:
+		switch (parse())
+		{
+		case HOE_T_MODEL:
+			ret = icreate::GenModel();
+			break;
+		/*case HOE_T_PICTURE:
+			ret = icreate::CreatePicture();
+			break;
+		case HOE_T_FONT:
+			ret = icreate::CreateFont();
+			break;
+		case HOE_T_SOUND:
+			ret = icreate::CreateSound();
+			break;*/
+		default:
+			Con_Print("error parse create line '%s'",str);
+		};
 		break;
 	default:
 		Con_Print("error parse create line '%s'",str);

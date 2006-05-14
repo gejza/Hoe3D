@@ -115,6 +115,7 @@ void HoeStream::Set(int n)
 	}
 	else
 		glDisableClientState(GL_VERTEX_ARRAY);
+
 	if (m_dwfvf & FVF_NORMAL)
 	{
 		glEnableClientState(GL_NORMAL_ARRAY);
@@ -135,9 +136,70 @@ void HoeStream::Set(int n)
 #endif
 }
 
-void HoeStream::Draw()
+void HoeStream::Dump(HoeLog *log)
 {
+	if (!log)
+		return;
 
+	byte * p = this->m_pVertices;
+	if (!p)
+	{
+		log->Log("NULL pointer -> stop dumping");
+		return;
+	}
+	log->Log("Memory address %p -> %p", m_pVertices, m_pVertices+m_size);
+	m_box.Compute((const HoeMath::VECTOR3 *)m_pVertices,m_numvert,m_size/m_numvert);
+
+	size_t stride = m_size / m_numvert;
+
+	for (int i=0; i < this->m_numvert;i++)
+	{
+		char line[2000] = {0};
+		char tmp[1000] = {0};
+		const char * d = this->m_fvf;
+		p = m_pVertices + (i*stride);
+		while (*d)
+		{
+			switch (*d)
+			{
+			case 'p':
+				{
+					float * n = (float*)p;
+					sprintf(tmp, "p:(%f, %f, %f) ", n[0], n[1], n[2]);
+					strcat(line, tmp);
+					p += 12;
+					break;
+				}
+				break;
+			case 'n':
+				{
+					float * n = (float*)p;
+					sprintf(tmp, "n:(%f, %f, %f) = %f ", n[0], n[1], n[2], sqrtf(n[0]*n[0]+n[1]*n[1]+n[2]*n[2]));
+					strcat(line, tmp);
+					p += 12;
+					break;
+				}
+				break;
+			//case 'd':
+
+			case 't':
+				{
+					float * n = (float*)p;
+					sprintf(tmp, "t:(%f, %f) ", n[0], n[1]);
+					strcat(line, tmp);
+					p += 8;
+					break;
+				}
+				break;
+			default:
+				while (d[1]) d++;
+			};
+			d++;
+		}
+		log->Log("%s",line);
+	}
+	log->Log("box:(%f,%f,%f)-(%f,%f,%f) ball: %f", m_box.min.x, m_box.min.y, m_box.min.z, m_box.max.x,
+		m_box.max.y, m_box.max.z, m_box.ball);
 }
 
 dword HoeStream::GetFVF(const char * f)

@@ -18,10 +18,11 @@ class ModelLoader
 	HoeFileReader m_reader;
 
 	HoeLog * m_log;
+	int m_flags;
 
 	HoeModel * LoadModel();
 public:
-	ModelLoader(HoeLog * log = NULL);
+	ModelLoader(HoeLog * log = NULL, int flags = 0);
 	HoeModel * LoadModel(const char * name);
 
 	HoeStream * GetStream(int id);

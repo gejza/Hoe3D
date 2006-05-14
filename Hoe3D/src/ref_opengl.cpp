@@ -278,7 +278,7 @@ bool RefOpenGL::Init(THoeInitSettings * his)
 	SetBackgroundColor(m_BackColor);
 	glClearDepth(1.0f);// Nastavení hloubkového bufferu
 	glEnable(GL_DEPTH_TEST);// Zapne hloubkové testování
-	glDepthFunc(GL_LEQUAL);// Typ hloubkového testování
+	glDepthFunc(GL_LESS);// Typ hloubkového testování
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);// Nejlepší perspektivní korekce
 
 	// extensions 

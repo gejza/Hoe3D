@@ -6,11 +6,15 @@
 #include "model.h"
 #include <hoe_view.h>
 
+struct DebugLight : public XHoeObject
+{
+	IHoeLight * light;
+};
 
 class ModelApp : public HoeTutorial
 {
 	HoeGame::ModelViewCtrl m_view;
-	IHoeLight *m_l[8];
+	DebugLight m_l[8];
 public:
 	bool CreateObj(IHoeModel * m, float x, float y);
 	bool LoadScene();

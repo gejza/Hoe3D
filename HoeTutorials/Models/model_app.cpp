@@ -1,8 +1,9 @@
 
-#include "StdAfx.h"
 #include "model_app.h"
 
 const char * g_TutorialName = "models";
+
+const int n_light = 8;
 
 int _hoemain(HOE_INSTANCE instance, HoeGame::Console * con)
 {
@@ -42,22 +43,32 @@ bool ModelApp::LoadScene()
 		return false;
 
 	m_view.SetTargetPosition(0,0,0);
-	m_view.SetAngle(3.1f);
+	m_view.SetAngle(0.1f);
 	m_view.SetArcAngle(-0.16f);
 	m_view.SetDistance(150);
 //	HoeGetInput(GetEngine())->RegisterKeyboard(&m_view);
 	HoeGetInput(GetEngine())->RegisterMouse(IHoeInput::MT_Foreground, &m_view);
 
-	for (int i=0;i < 8;i++)
-		m_l[i] = GetEngine()->GetActiveScene()->CreateLight();
-	m_l[ 0]->SetColor( 1.0f, 0.0f, 0.0f);
-	m_l[ 1]->SetColor( 0.0f, 1.0f, 0.0f);
-	m_l[ 2]->SetColor( 0.0f, 0.0f, 1.0f);
-	m_l[ 3]->SetColor( 0.5f, 0.5f, 0.0f);
-	m_l[ 4]->SetColor( 0.5f, 0.0f, 0.5f);
-	m_l[ 5]->SetColor( 0.0f, 0.5f, 0.5f);
-	m_l[ 6]->SetColor( 0.3f, 0.3f, 0.3f);
-	m_l[ 7]->SetColor( 1.0f, 1.0f, 1.0f);
+	IHoeModel * lght = (IHoeModel*)GetEngine()->Create("generate model box 5 file:'box.txt' -dump");
+	if (!lght)
+		return false;
+
+	for (int i=0;i < n_light;i++)
+	{
+		m_l[i].light = GetEngine()->GetActiveScene()->CreateLight();
+		GetEngine()->GetActiveScene()->RegisterObject(&m_l[i]);
+		m_l[i].SetModel(lght);
+		m_l[i].SetPosition(0.f,0.f,0.f);
+		m_l[i].Show(true);
+	}
+	if (0 < n_light) m_l[ 0].light->SetColor( 1.0f, 0.0f, 0.0f);
+	if (1 < n_light) m_l[ 1].light->SetColor( 0.0f, 1.0f, 0.0f);
+	if (2 < n_light) m_l[ 2].light->SetColor( 0.0f, 0.0f, 1.0f);
+	if (3 < n_light) m_l[ 3].light->SetColor( 0.5f, 0.5f, 0.0f);
+	if (4 < n_light) m_l[ 4].light->SetColor( 0.5f, 0.0f, 0.5f);
+	if (5 < n_light) m_l[ 5].light->SetColor( 0.0f, 0.5f, 0.5f);
+	if (6 < n_light) m_l[ 6].light->SetColor( 0.3f, 0.3f, 0.3f);
+	if (7 < n_light) m_l[ 7].light->SetColor( 1.0f, 1.0f, 1.0f);
 	//m_l[ 7]->SetColor( 0.6f, 0.4f, 0.0f);
 	/*m_l[ 8]->SetColor( 0.6f, 0.0f, 0.4f);
 	m_l[ 9]->SetColor( 0.4f, 0.6f, 0.0f);
@@ -69,10 +80,12 @@ bool ModelApp::LoadScene()
 	m_l[15]->SetColor( 0.2f, 0.2f, 0.6f);
 	m_l[16]->SetColor( 0.8f, 0.1f, 0.1f);*/
 
-	IHoeModel * mod1 = (IHoeModel*)GetEngine()->Create("model jackolan");
+	//IHoeModel * mod1 = (IHoeModel*)GetEngine()->Create("model jackolan");
+	/*IHoeModel * mod1 = (IHoeModel*)GetEngine()->Create("generate model box file:'box.txt' -dump");
 	if (!mod1)
-		return false;
-	IHoeModel * mod2 = (IHoeModel*)GetEngine()->Create("model angel");
+		return false;*/
+	IHoeModel * mod2 = (IHoeModel*)GetEngine()->Create("model angel file:'angel.txt' -dump");
+	//IHoeModel * mod2 = (IHoeModel*)GetEngine()->Create("generate model box 40");
 	if (!mod2)
 		return false;
 
@@ -84,13 +97,13 @@ bool ModelApp::LoadScene()
 		CreateObj(mod, sinf(a) * leng, cosf(a) * leng);
 	}*/
 	CreateObj(mod2, 0, 0);
-	CreateObj(mod1, 30, -10);
+	/*CreateObj(mod1, 30, -10);
 	CreateObj(mod1, -30, -10);
 	CreateObj(mod1, 0, -10);
 	CreateObj(mod1, -15, -10);
 	CreateObj(mod1, 15, -10);
 	CreateObj(mod1, -45, -10);
-	CreateObj(mod1, 45, -10);
+	CreateObj(mod1, 45, -10);*/
 
 	//GetEngine()->exec("hidefps");
 
@@ -124,10 +137,11 @@ void ModelApp::OnUpdate(float timeframe)
 {
 	static float rotz = 0;
 	static float roty = 0;
-	rotz+=90.f*timeframe;
-	roty+=10.f*timeframe;
-	const float l = 100.f;
-	for(int i=0; i<8; i++)
+	const float speed = .3f;
+	rotz+=90.f*timeframe*speed;
+	roty+=10.f*timeframe*speed;
+	const float l = 50.f;
+	for(int i=0; i<n_light; i++)
 	{
 		Vec a;
 		a.x = 2.0f; a.y = 0; a.z = 0;
@@ -145,7 +159,8 @@ void ModelApp::OnUpdate(float timeframe)
 			a.RotZ(-45.f);
 			a.RotY(roty+90.f);
 		}
-		m_l[i]->SetPosition(a.x*l, a.y*l, a.z*l);
+		m_l[i].light->SetPosition(a.x*l, a.y*l, a.z*l);
+		m_l[i].SetPosition(a.x*l, a.y*l, a.z*l);
 	}
 
 }

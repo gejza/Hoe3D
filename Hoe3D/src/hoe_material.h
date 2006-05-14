@@ -34,6 +34,7 @@ struct HoeMaterialColor
 class HoeMaterial
 {
 	class HoeTexture * m_tex;
+	bool m_lightreag;
 #ifdef _HOE_D3D_
 	D3DMaterial m_mtrl;
 #endif
@@ -53,7 +54,8 @@ public:
 	bool LoadFromFile(const char *path);
 	void SetTexture(HoeTexture * t) { m_tex = t; }
 	void SetColor(int type, const HoeMaterialColor & color);
-
+	void SetLightReag(bool lr) { m_lightreag = lr; }
+		
 	friend class MaterialSystem;
 };
 

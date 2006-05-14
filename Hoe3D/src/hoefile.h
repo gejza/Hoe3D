@@ -4,7 +4,7 @@
 
 #include "../include/hoefs.h"
 
-class HoeLogFile// : public HoeLog
+class HoeLogFile : public HoeLog
 {
 	XHoeFile *m_file;
 public:

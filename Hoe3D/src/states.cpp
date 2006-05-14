@@ -37,13 +37,13 @@ int HoeStates::c_setwireframe(int argc, const char * argv[], void * param)
 void HoeStates::Reset()
 {
 #ifdef _HOE_D3D_
-	/*float fFogStart = 50.f;
+	float fFogStart = 50.f;
 	float fFogEnd = 120.f;
     D3DDevice()->SetRenderState(D3DRS_FOGCOLOR, 0xaaaaaa);
     D3DDevice()->SetRenderState(D3DRS_FOGTABLEMODE, D3DFOG_LINEAR);//DESTALPHA);
     D3DDevice()->SetRenderState(D3DRS_FOGSTART, *((DWORD*) (&fFogStart)));
 	D3DDevice()->SetRenderState(D3DRS_FOGEND, *((DWORD*) (&fFogEnd)));
-    D3DDevice()->SetRenderState(D3DRS_FOGENABLE, TRUE);*/
+    D3DDevice()->SetRenderState(D3DRS_FOGENABLE, TRUE);
 #endif
 #ifdef _HOE_D3D_
 

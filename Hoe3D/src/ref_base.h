@@ -11,6 +11,7 @@
 
 #include "../include/hoeinterfaces.h"
 #include "hoe3d_math.h"
+#include "render_target.h"
 
 /** 
 * @brief Zakladni trida ref.
@@ -22,6 +23,7 @@ protected:
 	uint m_Width;      ///< Sirka vykreslovaciho okna
 	uint m_Height;     ///< Vyska vykreslovaciho okna
 	dword m_BackColor; ///< Aktualni barva pozadi
+	HoeRenderTarget m_rt; ///< Hlavni RenderTarget
 public:
 	/** 
 	* Kontruktor 

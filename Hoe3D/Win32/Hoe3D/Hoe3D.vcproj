@@ -1162,6 +1162,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\model_generator.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\model_generator.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\model_loader.cpp"
 				>
 			</File>
@@ -1814,6 +1822,14 @@
 			</File>
 			<File
 				RelativePath="..\..\src\object_inspector.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\render_target.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\render_target.h"
 				>
 			</File>
 		</Filter>

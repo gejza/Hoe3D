@@ -44,6 +44,7 @@ public:
 	virtual bool HOEAPI GetParameter(const char * name, THoeParameter * parameter);
 
 	friend class ModelLoader;
+	friend class ModelGenerator;
 };
 
 

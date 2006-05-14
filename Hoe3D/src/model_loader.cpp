@@ -15,9 +15,10 @@
 #include "shared.h"
 
 
-ModelLoader::ModelLoader(HoeLog * log)
+ModelLoader::ModelLoader(HoeLog * log, int flags)
 {
 	m_log = log;
+	m_flags = flags;
 	m_reader = HoeFileReader(NULL,0);
 }
 
@@ -172,6 +173,12 @@ HoeStream * ModelLoader::GetStream(int id)
 	HoeStream * stream = new HoeStream();
 	stream->Create(header.numvert,fvf,header.size);
 	reader.Read(stream->Lock(),header.size);
+	if (m_flags && m_log)
+	{
+		m_log->Log("Dumping stream-----");
+		stream->Dump(m_log);
+		m_log->Log("-------------------");
+	}
 	stream->Unlock();
 
 	return stream;
@@ -199,6 +206,12 @@ HoeIndex * ModelLoader::GetIndex(int id)
 	HoeIndex * index = new HoeIndex();
 	index->Create(header.numinx);
 	reader.Read(index->Lock(),header.numinx * 2);
+	if (m_flags && m_log)
+	{
+		m_log->Log("Dumping index-----");
+		index->Dump(m_log);
+		m_log->Log("-------------------");
+	}
 	index->Unlock();
 
 	return index;

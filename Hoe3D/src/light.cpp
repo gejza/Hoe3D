@@ -43,6 +43,7 @@ void HoeLight::Set(int slot)
 	GLfloat LightAmbient[]	=	{ 0.0f, 0.0f, 0.0f, 0.0f };		//svetlo ktore osvetluje zo vsetkych stran rovnako (okolite svetlo)
 
 	glLightModelfv ( GL_LIGHT_MODEL_AMBIENT, LightAmbient );	// nastavenie okoliteho (Ambient) svetla
+	glLightfv ( GL_LIGHT0+slot, GL_AMBIENT, LightAmbient );	// nastavenie 
 	glLightfv (GL_LIGHT0+slot,GL_DIFFUSE, color.m );			// nastavenie difuzneho svetla
 	glLightfv ( GL_LIGHT0+slot,GL_POSITION, pos.m  );		// pozicia difuzneho svetla
 	glEnable  ( GL_LIGHT0+slot );									// aktivovanie svetla 0
@@ -55,7 +56,10 @@ void HoeLight::SetPosition(const float x, const float y, const float z)
 	light.Position.x = x; light.Position.y = y; light.Position.z = z;
 #endif
 #ifdef _HOE_OPENGL_
+	//HoeMath::VECTOR3 p(x,y,z);
+	//p.Normalize();
 	pos.x = x; pos.y = y; pos.z = z; pos.w = 1.f;
+	
 #endif
 }
 
@@ -65,6 +69,6 @@ void HoeLight::SetColor(const float r, const float g, const float b)
 	light.Diffuse.r = r; light.Diffuse.g = g; light.Diffuse.b = b;light.Diffuse.a = 1.f;
 #endif
 #ifdef _HOE_OPENGL_
-	color.x = r; color.y = g; color.z = b;
+	color.x = r; color.y = g; color.z = b; color.w = 1.f;
 #endif
 }

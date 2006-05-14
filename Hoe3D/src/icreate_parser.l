@@ -29,7 +29,12 @@ name    ({alpha}|\$)({alpha}|{dig}|[_\-/$:@#%^&*])*
 "picture"			return HOE_T_PICTURE;
 "font"				return HOE_T_FONT;
 "sound"				return HOE_T_SOUND;
+"generate"			return HOE_T_GENERATE;
 
+"box"				return HOE_T_BOX;
+"sphere"			return HOE_T_SPHERE;
+
+"-dump"				return HOE_T_DUMP; /* do logu se vypisou vsechna data */
 "con:"				return HOE_T_CON;
 "file:"				return HOE_T_FILE;
 {name}				return HOE_T_NAME;
