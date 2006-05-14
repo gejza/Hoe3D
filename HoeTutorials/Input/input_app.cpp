@@ -1,5 +1,4 @@
 
-#include "StdAfx.h"
 #include "input_app.h"
 #include "hoe_inputkeys.h"
 

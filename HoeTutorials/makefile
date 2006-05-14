@@ -3,10 +3,10 @@ TMP_DIR = ./tmp
 
 CC=gcc
 GCC=g++
-C_FLAGS= -D_LINUX -ggdb3 -I../Hoe3D/include -I../HoeGame
+C_FLAGS= -D_LINUX -ggdb3 -I../Hoe3D/include -I../HoeGame/include
 LINK=g++
 L_FLAGS= -L/usr/X11R6/lib -L../bin
-LINK_LIBRARIES = Common/tutorial.cpp -lHoeGame -llua -llualib -ldl -lX11 -lfl
+LINK_LIBRARIES = Common/tutorial.cpp -lHoeGame -llua -ldl -lX11 -lfl
 
 all: bFirstApp bModels bPaint2D bInput bTerrain bLevel
 

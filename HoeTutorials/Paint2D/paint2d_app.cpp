@@ -1,5 +1,4 @@
 
-#include "StdAfx.h"
 #include "paint2d_app.h"
 
 const char * g_TutorialName = "paint2d";

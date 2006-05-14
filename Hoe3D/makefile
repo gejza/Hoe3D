@@ -25,7 +25,8 @@ $(TMP_DIR)/states.o $(TMP_DIR)/texture_converter.o $(TMP_DIR)/texture_convjpg.o 
 $(TMP_DIR)/texture_loader.o $(TMP_DIR)/texture_system.o $(TMP_DIR)/utils.o \
 $(TMP_DIR)/icreate_parser.o $(TMP_DIR)/material_parser.o  $(TMP_DIR)/freetype.o $(TMP_DIR)/scene.o $(TMP_DIR)/map_utils.o $(TMP_DIR)/cmdexec.o \
 $(TMP_DIR)/resmgr.o \
-$(TMP_DIR)/scene_base.o $(TMP_DIR)/heightmap.o $(TMP_DIR)/scene_part.o $(TMP_DIR)/scene_env.o $(TMP_DIR)/light.o $(TMP_DIR)/texture_convpng.o
+$(TMP_DIR)/scene_base.o $(TMP_DIR)/heightmap.o $(TMP_DIR)/scene_part.o $(TMP_DIR)/scene_env.o $(TMP_DIR)/light.o $(TMP_DIR)/texture_convpng.o \
+$(TMP_DIR)/model_generator.o $(TMP_DIR)/render_target.o
 
 all:	BUILD 
 
