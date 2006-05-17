@@ -36,6 +36,7 @@ public:
 	{
 		GLExt::CompressTextures comp;
 		GLExt::VertexBuffer vb;
+		GLExt::VertexShaderARB vs;
 	} ext;
 protected:
 #ifdef _LINUX

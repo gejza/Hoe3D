@@ -50,6 +50,16 @@ public:
 	PFNGLDELETEBUFFERSARBPROC glDeleteBuffersARB;// Mazání VBO
 };
 
+class VertexShaderARB : public Extension
+{
+public:
+	void Check();
+	PFNGLPROGRAMLOCALPARAMETER4FVARBPROC glProgramLocalParameter4fvARB;
+	PFNGLGENPROGRAMSARBPROC glGenProgramsARB;
+	PFNGLBINDPROGRAMARBPROC glBindProgramARB;
+	PFNGLPROGRAMSTRINGARBPROC glProgramStringARB;
+};
+
 }
 
 #endif // _HOE_OPENGL_EXT_H_

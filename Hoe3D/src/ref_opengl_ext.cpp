@@ -120,5 +120,27 @@ void VertexBuffer::Check()
 	}
 }
 
+///////////////////////////////////////////////
+// Vertex buffer
+void VertexShaderARB::Check()
+{
+	supported = TestExt("GL_ARB_vertex_program");
+	if (supported)
+	{
+		Con_Print("Use extension: GL_ARB_vertex_program");
+		this->glProgramLocalParameter4fvARB = (PFNGLPROGRAMLOCALPARAMETER4FVARBPROC) GetProc("glVertexAttrib4fvARB");
+		glGenProgramsARB = (PFNGLGENPROGRAMSARBPROC) GetProc("glGenProgramsARB");
+		glBindProgramARB = (PFNGLBINDPROGRAMARBPROC) GetProc("glBindProgramARB");
+		glProgramStringARB = (PFNGLPROGRAMSTRINGARBPROC) GetProc("glProgramStringARB");
+	}
+	else
+	{
+		glProgramLocalParameter4fvARB = NULL;
+		glGenProgramsARB = NULL;
+		glBindProgramARB = NULL;
+		glProgramStringARB = NULL;
+	}
+}
+
 };
 

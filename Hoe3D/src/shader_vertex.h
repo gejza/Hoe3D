@@ -10,7 +10,9 @@ protected:
 #ifdef _HOE_D3D9_
 	IDirect3DVertexShader9 * m_shader;
 #endif
-
+#ifdef _HOE_OPENGL_
+	GLuint m_shader;
+#endif
 public:
 	bool Load();
 	void Setup(const HoeScene * scene) const;
