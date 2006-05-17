@@ -309,15 +309,9 @@ void HoeVertexShader::Setup(const HoeScene * scene) const
 	scene->GetCamera()->GetViewProjMatrix(&m);
 	HoeMath::MATRIX w;
 #ifdef _HOE_D3D9_
-	HRESULT hRes = D3DDevice()->SetVertexShader( m_shader);
-	assert(hRes == S_OK);
 	D3DDevice()->GetTransform(D3DTS_WORLD, w);
 #endif
 #ifdef _HOE_OPENGL_
-	if (!GetRef()->ext.vs.IsSupported())
-		return;
-	GetRef()->ext.vs.glBindProgramARB(GL_VERTEX_PROGRAM_ARB, m_shader);
-	glEnable(GL_VERTEX_PROGRAM_ARB);
 	// consts
 	w.Identity();
 	glGetFloatv(GL_MODELVIEW_MATRIX,(GLfloat*)w.m);
@@ -326,10 +320,27 @@ void HoeVertexShader::Setup(const HoeScene * scene) const
 	//HoeMath::VECTOR3 vv(0,0,0);
 	//vv.Multiply(w);
 	w.Multiply(m);
-	//w.Transpoze();
+	w.Transpoze();
+	Con_Print(w);
+/*
+direct x:
+2.402153 0.000000 -0.241019 169.857834
+0.038399 2.383378 0.382707 171.245438
+0.098568 -0.159334 0.982394 344.738098
+0.098558 -0.159318 0.982295 345.703613
+ogl:
+2.402153 0.000000 -0.241019 169.857834
+0.038399 2.383378 0.382707 171.245438
+0.098568 -0.159334 0.982394 344.738098
+0.098558 -0.159318 0.982295 345.703613
+
+*/
+	exit(1);
 
 	HoeMath::VECTOR4 zero(0,0,0,0);
 #ifdef _HOE_D3D9_
+	HRESULT hRes = D3DDevice()->SetVertexShader( m_shader);
+	assert(hRes == S_OK);
 	D3DDevice()->SetVertexShaderConstantF(  0, (float*)w.m, 4 );		// c0-c3 contains composite transform matrix
 	D3DDevice()->SetVertexShaderConstantF(  5, zero.m, 1 );	// c5   0,0,0,0
 
@@ -340,6 +351,11 @@ void HoeVertexShader::Setup(const HoeScene * scene) const
 		}
 #endif
 #ifdef _HOE_OPENGL_
+	if (!GetRef()->ext.vs.IsSupported())
+		return;
+	GetRef()->ext.vs.glBindProgramARB(GL_VERTEX_PROGRAM_ARB, m_shader);
+	glEnable(GL_VERTEX_PROGRAM_ARB);
+
 	GetRef()->ext.vs.glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, 0, &w._11 );
 	GetRef()->ext.vs.glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, 1, &w._21 );
 	GetRef()->ext.vs.glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, 2, &w._31 );

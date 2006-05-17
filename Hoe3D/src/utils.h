@@ -34,6 +34,10 @@ class HoeLog;
 
 void Con_Print(const char *,...);
 void Con_Print(HoeLog * log, const char * szFormat,...);
+namespace HoeMath {
+	class MATRIX;
+};
+void Con_Print(HoeMath::MATRIX &m);
 
 #ifdef _DXERR9_H_
 #define Con_PrintHRes(text,hRes) Con_Print(text ": %s",DXGetErrorString9(hRes))

@@ -1745,6 +1745,10 @@
 			Name="Physics"
 			>
 			<File
+				RelativePath="..\..\src\hoe3d_math.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\hoe3d_math.h"
 				>
 			</File>

@@ -3,6 +3,7 @@
 /*!!!*///#include <dxerr9.h>
 #include "utils.h"
 #include "../include/hoeinterfaces.h"
+#include "hoe3d_math.h"
 
 
 //////// Conzole /////////////
@@ -54,8 +55,16 @@ void Con_Print(HoeLog * log, const char * szFormat,...)
 		vsnprintf( szBuff, 1024, szFormat, args );
 		va_end(args);
 
-		_Con->Con_Print(szBuff);
+		log->Log("%s",szBuff);
 	}
+}
+
+void Con_Print(HoeMath::MATRIX &m)
+{
+	Con_Print("%f %f %f %f", m._11,m._12,m._13,m._14);
+	Con_Print("%f %f %f %f", m._21,m._22,m._23,m._24);
+	Con_Print("%f %f %f %f", m._31,m._32,m._33,m._34);
+	Con_Print("%f %f %f %f", m._41,m._42,m._43,m._44);
 }
 
 int string_ex(const char * ex,const char * str)

@@ -397,6 +397,7 @@ public:
 	HOE_INLINE void Multiply( const MATRIX &a,const MATRIX &b);
 	HOE_INLINE void Multiply( const MATRIX &m);
 
+	void ConPrint();
 };
 
 struct BoundingBox
