@@ -285,7 +285,18 @@ bool HoeVertexShader::Load()
 	GetRef()->ext.vs.glGenProgramsARB( 1, &m_shader );
 	GetRef()->ext.vs.glBindProgramARB( GL_VERTEX_PROGRAM_ARB, m_shader );
 	GetRef()->ext.vs.glProgramStringARB( GL_VERTEX_PROGRAM_ARB, GL_PROGRAM_FORMAT_ASCII_ARB, sizeof(g_vs11_char),g_vs11_char); 
-	assert(GL_INVALID_OPERATION != glGetError());
+	if (GL_INVALID_OPERATION == glGetError())
+	{
+		GLint errPos;
+		glGetIntegerv( GL_PROGRAM_ERROR_POSITION_ARB, &errPos );
+
+		// Print implementation-dependent program errors and warnings string.
+		const unsigned char *errString;
+		errString = glGetString( GL_PROGRAM_ERROR_STRING_ARB );
+		Con_Print("Vertex program failed on line %d:", errPos);
+		Con_Print("%s", errString);
+		exit(1);
+	}
 #endif
 
 	return false;
