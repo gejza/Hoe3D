@@ -285,6 +285,7 @@ bool HoeVertexShader::Load()
 	GetRef()->ext.vs.glGenProgramsARB( 1, &m_shader );
 	GetRef()->ext.vs.glBindProgramARB( GL_VERTEX_PROGRAM_ARB, m_shader );
 	GetRef()->ext.vs.glProgramStringARB( GL_VERTEX_PROGRAM_ARB, GL_PROGRAM_FORMAT_ASCII_ARB, sizeof(g_vs11_char),g_vs11_char); 
+	assert(GL_INVALID_OPERATION != glGetError());
 #endif
 
 	return false;
@@ -327,9 +328,9 @@ void HoeVertexShader::Setup(const HoeScene * scene) const
 #endif
 #ifdef _HOE_OPENGL_
 	GetRef()->ext.vs.glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, 0, &w._11 );
-	GetRef()->ext.vs.glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, 1, &w._12 );
-	GetRef()->ext.vs.glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, 2, &w._13 );
-	GetRef()->ext.vs.glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, 3, &w._14 );
+	GetRef()->ext.vs.glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, 1, &w._21 );
+	GetRef()->ext.vs.glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, 2, &w._31 );
+	GetRef()->ext.vs.glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, 3, &w._41 );
 	GetRef()->ext.vs.glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB,  5, zero.m);	// c5   0,0,0,0
 
 	for(uint i=0; i<17 && i < scene->GetLS()->GetNumActiveLights(); i++)
