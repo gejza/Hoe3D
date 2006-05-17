@@ -1,12 +1,13 @@
 
 #include "system.h"
+#include "utils.h"
 #include "shared.h"
 #include "ref.h"
 #include "shader_vertex.h"
 #include "scene.h"
 #include "light_system.h"
 
-const DWORD g_vs11_main[] =
+const dword g_vs11_main[] =
 {
     0xfffe0101, 0x0000001f, 0x80000000, 0x900f0000, 0x0000001f, 0x80000003, 
     0x900f0001, 0x00000014, 0xc00f0000, 0x90e40000, 0xa0e40000, 0x00000002, 
@@ -284,7 +285,7 @@ bool HoeVertexShader::Load()
 		return false;
 	GetRef()->ext.vs.glGenProgramsARB( 1, &m_shader );
 	GetRef()->ext.vs.glBindProgramARB( GL_VERTEX_PROGRAM_ARB, m_shader );
-	GetRef()->ext.vs.glProgramStringARB( GL_VERTEX_PROGRAM_ARB, GL_PROGRAM_FORMAT_ASCII_ARB, sizeof(g_vs11_char),g_vs11_char); 
+	GetRef()->ext.vs.glProgramStringARB( GL_VERTEX_PROGRAM_ARB, GL_PROGRAM_FORMAT_ASCII_ARB, sizeof(g_vs11_char)-1,g_vs11_char); 
 	if (GL_INVALID_OPERATION == glGetError())
 	{
 		GLint errPos;
@@ -319,12 +320,13 @@ void HoeVertexShader::Setup(const HoeScene * scene) const
 	glEnable(GL_VERTEX_PROGRAM_ARB);
 	// consts
 	w.Identity();
+	glGetFloatv(GL_MODELVIEW_MATRIX,(GLfloat*)w.m);
 #endif
 
 	//HoeMath::VECTOR3 vv(0,0,0);
 	//vv.Multiply(w);
 	w.Multiply(m);
-	w.Transpoze();
+	//w.Transpoze();
 
 	HoeMath::VECTOR4 zero(0,0,0,0);
 #ifdef _HOE_D3D9_

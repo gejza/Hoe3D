@@ -285,6 +285,7 @@ bool RefOpenGL::Init(THoeInitSettings * his)
 	GLExt::Extension::PrintGlExt();
 	ext.comp.Check();
 	ext.vb.Check();
+	ext.vs.Check();
 	//glPixelStorei(GL_UNPACK_SWAP_BYTES,GL_FALSE);
 
 	return true;
