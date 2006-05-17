@@ -125,7 +125,8 @@ bool Hoe3D::Init(THoeInitSettings * his)
 
 	Con_Print("Init system ---");
 	if (!GetRef()->Init(his))
-		return false;;
+		return false;
+	GetConfig()->PostCheck();
 	m_rt.InitMain();
 #ifdef _WIN32
 	if (GetRef()->IsFullscreen())
@@ -222,7 +223,7 @@ bool Hoe3D::Frame()
 		HoePicture pic;
 		pic.SetSource(rt.GetTexture());
 		const uint w=5,h=5;
-		Get2D()->SetRect(w,h);
+		Get2D()->SetRect((float)w,(float)h);
 		for (int i=0;i<w;i++)
 			for (int j=0;j < h;j++)
 				Get2D()->BltFast(i,i+1,j,j+1,&pic);

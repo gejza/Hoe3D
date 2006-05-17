@@ -34,8 +34,6 @@ HoeLight::HoeLight(bool direct)
 
 void HoeLight::Set(int slot)
 {
-	if (slot > 7)
-		return;
 #ifdef _HOE_D3D_
 	D3DDevice()->SetLight( slot, &light );
 	D3DDevice()->LightEnable( slot, TRUE);
@@ -78,11 +76,22 @@ void HoeLight::SetColor(const float r, const float g, const float b)
 
 const HoeMath::VECTOR4 HoeLight::GetPosition() const
 {
+#ifdef _HOE_D3D_
 	return HoeMath::VECTOR4(light.Position);
+#endif
+#ifdef _HOE_OPENGL_
+	return this->pos;
+#endif
 }
 
 const HoeMath::VECTOR4 HoeLight::GetColor() const
 {
+#ifdef _HOE_D3D_
 	return HoeMath::VECTOR4((float*)&light.Diffuse);
+#endif
+#ifdef _HOE_OPENGL_
+	return this->color;
+#endif
+
 }
 

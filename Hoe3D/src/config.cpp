@@ -90,6 +90,17 @@ bool Config::Check(THoeInitSettings * his)
 	return true;
 }
 
+bool Config::PostCheck()
+{
+#ifdef _HOE_D3D_
+	max_lights = 8;
+#endif
+#ifdef _HOE_OPENGL_
+	glGetIntegerv(GL_MAX_LIGHTS, &max_lights);
+#endif
+	return true;
+}
+
 ////////////////////////////
 
 bool Config::IsFullscreen()

@@ -166,7 +166,7 @@ namespace icreate {
 		int type = parse();
 		float size = 1;
 		if (parse() == HOE_T_INT) {
-			size = atoi(parser_getstring());
+			size = (float)atof(parser_getstring());
 		}
 		else {
 			Con_Print("parse error: missing box size");

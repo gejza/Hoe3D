@@ -7,6 +7,7 @@
 #include "hoe3d_math.h"
 #include "light_system.h"
 #include "hoe_time.h"
+#include "config.h"
 
 LightSystem::LightSystem()
 {
@@ -35,10 +36,12 @@ void LightSystem::Setup()
 	m_active = 0;
 	while (l!=NULL)
 	{
-		l->Set(i);
-		m_index[i] = l;
-		i++;
-		m_active++;
+		if (i < GetConfig()->GetMaxLights())
+		{
+			l->Set(i);
+			i++;
+		}
+		m_index[m_active++] = l;
 		l = l->next;
 	}	
 #ifdef _HOE_D3D_

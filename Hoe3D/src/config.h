@@ -8,9 +8,13 @@ struct THoeInitSettings;
 
 class Config
 {
+protected:
 	bool fullscreen;
 	uint fs_width;
 	uint fs_height;
+
+	// stats
+	int max_lights;
 public:
 	Config();
 	~Config();
@@ -28,11 +32,13 @@ public:
 	bool CheckTexture(dword &width,dword &height,HOEFORMAT &format);
 
 	bool Check(THoeInitSettings *);
+	bool PostCheck();
 
 	bool IsFullscreen();
 	uint GetWidthView();
 	uint GetHeightView();
 
+	int GetMaxLights() { return max_lights; }
 };
 
 
