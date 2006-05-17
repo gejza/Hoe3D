@@ -92,184 +92,184 @@ const DWORD g_vs11_main[] =
     0x0000ffff
 };
 
-const char g_vs11_char[] = "!!ARBvp1.0\
-\
-ATTRIB iPos = vertex.position;\
-ATTRIB iNormal = vertex.normal;\
-\
-PARAM mvp[4] = { state.matrix.mvp };\
-# PARAM mvp[4] = { program.local[0..3] };\
-PARAM light[17] = { program.local[10..26] };\
-PARAM color[17] = { program.local[40..56] };\
-PARAM zero = { 0.0, 0.0, 0.0, 0.0 };\
-\
-TEMP r0,r1;\
-\
-OUTPUT oPos = result.position;\
-OUTPUT oD0 = result.color;\
-\
-# shader\
-DP4 oPos.x, mvp[0], iPos;\
-DP4 oPos.y, mvp[1], iPos;\
-DP4 oPos.z, mvp[2], iPos;\
-DP4 oPos.w, mvp[3], iPos;\
-\
-# light 0\
-ADD  r0, light[0], -iPos;	# L = light_pos - vertex_pos\
-# normalize L\
-DP3  r0.w, r0, r0;			# r0.w = |r0|^2\
-RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\
-MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\
-# compute diffuse light, L in r0\
-DP3  r0, r0, iNormal;		# L.N\
-MAX  r0, r0, zero;			# max r0,0\
-# apply diffuse material color\
-MUL  r1, r0, color[0];\
-\
-# light 1\
-ADD  r0, light[1], -iPos;	# L = light_pos - vertex_pos\
-DP3  r0.w, r0, r0;			# r0.w = |r0|^2\
-RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\
-MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\
-DP3  r0, r0, iNormal;		# L.N = diffuse light\
-MAX  r0, r0, zero;			# max r0,0\
-MAD  r1, r0, color[1], r1;	# apply diffuse material color\
-\
-# light 2\
-ADD  r0, light[2], -iPos;	# L = light_pos - vertex_pos\
-DP3  r0.w, r0, r0;			# r0.w = |r0|^2\
-RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\
-MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\
-DP3  r0, r0, iNormal;		# L.N = diffuse light\
-MAX  r0, r0, zero;			# max r0,0\
-MAD  r1, r0, color[2], r1;	# apply diffuse material color\
-\
-# light 3\
-ADD  r0, light[3], -iPos;	# L = light_pos - vertex_pos\
-DP3  r0.w, r0, r0;			# r0.w = |r0|^2\
-RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\
-MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\
-DP3  r0, r0, iNormal;		# L.N = diffuse light\
-MAX  r0, r0, zero;			# max r0,0\
-MAD  r1, r0, color[3], r1;	# apply diffuse material color\
-\
-# light 4\
-ADD  r0, light[4], -iPos;	# L = light_pos - vertex_pos\
-DP3  r0.w, r0, r0;			# r0.w = |r0|^2\
-RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\
-MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\
-DP3  r0, r0, iNormal;		# L.N = diffuse light\
-MAX  r0, r0, zero;			# max r0,0\
-MAD  r1, r0, color[4], r1;	# apply diffuse material color\
-\
-# light 5\
-ADD  r0, light[5], -iPos;	# L = light_pos - vertex_pos\
-DP3  r0.w, r0, r0;			# r0.w = |r0|^2\
-RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\
-MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\
-DP3  r0, r0, iNormal;		# L.N = diffuse light\
-MAX  r0, r0, zero;			# max r0,0\
-MAD  r1, r0, color[5], r1;	# apply diffuse material color\
-\
-# light 6\
-ADD  r0, light[6], -iPos;	# L = light_pos - vertex_pos\
-DP3  r0.w, r0, r0;			# r0.w = |r0|^2\
-RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\
-MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\
-DP3  r0, r0, iNormal;		# L.N = diffuse light\
-MAX  r0, r0, zero;			# max r0,0\
-MAD  r1, r0, color[6], r1;	# apply diffuse material color\
-\
-# light 7\
-ADD  r0, light[7], -iPos;	# L = light_pos - vertex_pos\
-DP3  r0.w, r0, r0;			# r0.w = |r0|^2\
-RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\
-MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\
-DP3  r0, r0, iNormal;		# L.N = diffuse light\
-MAX  r0, r0, zero;			# max r0,0\
-MAD  r1, r0, color[7], r1;	# apply diffuse material color\
-\
-# light 8\
-ADD  r0, light[8], -iPos;	# L = light_pos - vertex_pos\
-DP3  r0.w, r0, r0;			# r0.w = |r0|^2\
-RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\
-MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\
-DP3  r0, r0, iNormal;		# L.N = diffuse light\
-MAX  r0, r0, zero;			# max r0,0\
-MAD  r1, r0, color[8], r1;	# apply diffuse material color\
-\
-# light 9\
-ADD  r0, light[9], -iPos;	# L = light_pos - vertex_pos\
-DP3  r0.w, r0, r0;			# r0.w = |r0|^2\
-RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\
-MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\
-DP3  r0, r0, iNormal;		# L.N = diffuse light\
-MAX  r0, r0, zero;			# max r0,0\
-MAD  r1, r0, color[9], r1;	# apply diffuse material color\
-\
-# light 10\
-ADD  r0, light[10], -iPos;	# L = light_pos - vertex_pos\
-DP3  r0.w, r0, r0;			# r0.w = |r0|^2\
-RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\
-MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\
-DP3  r0, r0, iNormal;		# L.N = diffuse light\
-MAX  r0, r0, zero;			# max r0,0\
-MAD  r1, r0, color[10], r1;	# apply diffuse material color\
-\
-# light 11\
-ADD  r0, light[11], -iPos;	# L = light_pos - vertex_pos\
-DP3  r0.w, r0, r0;			# r0.w = |r0|^2\
-RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\
-MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\
-DP3  r0, r0, iNormal;		# L.N = diffuse light\
-MAX  r0, r0, zero;			# max r0,0\
-MAD  r1, r0, color[11], r1;	# apply diffuse material color\
-\
-# light 12\
-ADD  r0, light[12], -iPos;	# L = light_pos - vertex_pos\
-DP3  r0.w, r0, r0;			# r0.w = |r0|^2\
-RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\
-MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\
-DP3  r0, r0, iNormal;		# L.N = diffuse light\
-MAX  r0, r0, zero;			# max r0,0\
-MAD  r1, r0, color[12], r1;	# apply diffuse material color\
-\
-# light 13\
-ADD  r0, light[13], -iPos;	# L = light_pos - vertex_pos\
-DP3  r0.w, r0, r0;			# r0.w = |r0|^2\
-RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\
-MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\
-DP3  r0, r0, iNormal;		# L.N = diffuse light\
-MAX  r0, r0, zero;			# max r0,0\
-MAD  r1, r0, color[13], r1;	# apply diffuse material color\
-\
-# light 14\
-ADD  r0, light[14], -iPos;	# L = light_pos - vertex_pos\
-DP3  r0.w, r0, r0;			# r0.w = |r0|^2\
-RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\
-MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\
-DP3  r0, r0, iNormal;		# L.N = diffuse light\
-MAX  r0, r0, zero;			# max r0,0\
-MAD  r1, r0, color[14], r1;	# apply diffuse material color\
-\
-# light 15\
-ADD  r0, light[15], -iPos;	# L = light_pos - vertex_pos\
-DP3  r0.w, r0, r0;			# r0.w = |r0|^2\
-RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\
-MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\
-DP3  r0, r0, iNormal;		# L.N = diffuse light\
-MAX  r0, r0, zero;			# max r0,0\
-MAD  r1, r0, color[15], r1;	# apply diffuse material color\
-\
-# light 16\
-ADD  r0, light[16], -iPos;	# L = light_pos - vertex_pos\
-DP3  r0.w, r0, r0;			# r0.w = |r0|^2\
-RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\
-MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\
-DP3  r0, r0, iNormal;		# L.N = diffuse light\
-MAX  r0, r0, zero;			# max r0,0\
-MAD  oD0, r0, color[16], r1;# apply diffuse material color\
-\
+const char g_vs11_char[] = "!!ARBvp1.0\n\
+\n\
+ATTRIB iPos = vertex.position;\n\
+ATTRIB iNormal = vertex.normal;\n\
+\n\
+PARAM mvp[4] = { state.matrix.mvp };\n\
+# PARAM mvp[4] = { program.local[0..3] };\n\
+PARAM light[17] = { program.local[10..26] };\n\
+PARAM color[17] = { program.local[40..56] };\n\
+PARAM zero = { 0.0, 0.0, 0.0, 0.0 };\n\
+\n\
+TEMP r0,r1;\n\
+\n\
+OUTPUT oPos = result.position;\n\
+OUTPUT oD0 = result.color;\n\
+\n\
+# shader\n\
+DP4 oPos.x, mvp[0], iPos;\n\
+DP4 oPos.y, mvp[1], iPos;\n\
+DP4 oPos.z, mvp[2], iPos;\n\
+DP4 oPos.w, mvp[3], iPos;\n\
+\n\
+# light 0\n\
+ADD  r0, light[0], -iPos;	# L = light_pos - vertex_pos\n\
+# normalize L\n\
+DP3  r0.w, r0, r0;			# r0.w = |r0|^2\n\
+RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\n\
+MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\n\
+# compute diffuse light, L in r0\n\
+DP3  r0, r0, iNormal;		# L.N\n\
+MAX  r0, r0, zero;			# max r0,0\n\
+# apply diffuse material color\n\
+MUL  r1, r0, color[0];\n\
+\n\
+# light 1\n\
+ADD  r0, light[1], -iPos;	# L = light_pos - vertex_pos\n\
+DP3  r0.w, r0, r0;			# r0.w = |r0|^2\n\
+RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\n\
+MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\n\
+DP3  r0, r0, iNormal;		# L.N = diffuse light\n\
+MAX  r0, r0, zero;			# max r0,0\n\
+MAD  r1, r0, color[1], r1;	# apply diffuse material color\n\
+\n\
+# light 2\n\
+ADD  r0, light[2], -iPos;	# L = light_pos - vertex_pos\n\
+DP3  r0.w, r0, r0;			# r0.w = |r0|^2\n\
+RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\n\
+MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\n\
+DP3  r0, r0, iNormal;		# L.N = diffuse light\n\
+MAX  r0, r0, zero;			# max r0,0\n\
+MAD  r1, r0, color[2], r1;	# apply diffuse material color\n\
+\n\
+# light 3\n\
+ADD  r0, light[3], -iPos;	# L = light_pos - vertex_pos\n\
+DP3  r0.w, r0, r0;			# r0.w = |r0|^2\n\
+RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\n\
+MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\n\
+DP3  r0, r0, iNormal;		# L.N = diffuse light\n\
+MAX  r0, r0, zero;			# max r0,0\n\
+MAD  r1, r0, color[3], r1;	# apply diffuse material color\n\
+\n\
+# light 4\n\
+ADD  r0, light[4], -iPos;	# L = light_pos - vertex_pos\n\
+DP3  r0.w, r0, r0;			# r0.w = |r0|^2\n\
+RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\n\
+MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\n\
+DP3  r0, r0, iNormal;		# L.N = diffuse light\n\
+MAX  r0, r0, zero;			# max r0,0\n\
+MAD  r1, r0, color[4], r1;	# apply diffuse material color\n\
+\n\
+# light 5\n\
+ADD  r0, light[5], -iPos;	# L = light_pos - vertex_pos\n\
+DP3  r0.w, r0, r0;			# r0.w = |r0|^2\n\
+RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\n\
+MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\n\
+DP3  r0, r0, iNormal;		# L.N = diffuse light\n\
+MAX  r0, r0, zero;			# max r0,0\n\
+MAD  r1, r0, color[5], r1;	# apply diffuse material color\n\
+\n\
+# light 6\n\
+ADD  r0, light[6], -iPos;	# L = light_pos - vertex_pos\n\
+DP3  r0.w, r0, r0;			# r0.w = |r0|^2\n\
+RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\n\
+MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\n\
+DP3  r0, r0, iNormal;		# L.N = diffuse light\n\
+MAX  r0, r0, zero;			# max r0,0\n\
+MAD  r1, r0, color[6], r1;	# apply diffuse material color\n\
+\n\
+# light 7\n\
+ADD  r0, light[7], -iPos;	# L = light_pos - vertex_pos\n\
+DP3  r0.w, r0, r0;			# r0.w = |r0|^2\n\
+RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\n\
+MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\n\
+DP3  r0, r0, iNormal;		# L.N = diffuse light\n\
+MAX  r0, r0, zero;			# max r0,0\n\
+MAD  r1, r0, color[7], r1;	# apply diffuse material color\n\
+\n\
+# light 8\n\
+ADD  r0, light[8], -iPos;	# L = light_pos - vertex_pos\n\
+DP3  r0.w, r0, r0;			# r0.w = |r0|^2\n\
+RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\n\
+MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\n\
+DP3  r0, r0, iNormal;		# L.N = diffuse light\n\
+MAX  r0, r0, zero;			# max r0,0\n\
+MAD  r1, r0, color[8], r1;	# apply diffuse material color\n\
+\n\
+# light 9\n\
+ADD  r0, light[9], -iPos;	# L = light_pos - vertex_pos\n\
+DP3  r0.w, r0, r0;			# r0.w = |r0|^2\n\
+RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\n\
+MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\n\
+DP3  r0, r0, iNormal;		# L.N = diffuse light\n\
+MAX  r0, r0, zero;			# max r0,0\n\
+MAD  r1, r0, color[9], r1;	# apply diffuse material color\n\
+\n\
+# light 10\n\
+ADD  r0, light[10], -iPos;	# L = light_pos - vertex_pos\n\
+DP3  r0.w, r0, r0;			# r0.w = |r0|^2\n\
+RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\n\
+MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\n\
+DP3  r0, r0, iNormal;		# L.N = diffuse light\n\
+MAX  r0, r0, zero;			# max r0,0\n\
+MAD  r1, r0, color[10], r1;	# apply diffuse material color\n\
+\n\
+# light 11\n\
+ADD  r0, light[11], -iPos;	# L = light_pos - vertex_pos\n\
+DP3  r0.w, r0, r0;			# r0.w = |r0|^2\n\
+RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\n\
+MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\n\
+DP3  r0, r0, iNormal;		# L.N = diffuse light\n\
+MAX  r0, r0, zero;			# max r0,0\n\
+MAD  r1, r0, color[11], r1;	# apply diffuse material color\n\
+\n\
+# light 12\n\
+ADD  r0, light[12], -iPos;	# L = light_pos - vertex_pos\n\
+DP3  r0.w, r0, r0;			# r0.w = |r0|^2\n\
+RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\n\
+MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\n\
+DP3  r0, r0, iNormal;		# L.N = diffuse light\n\
+MAX  r0, r0, zero;			# max r0,0\n\
+MAD  r1, r0, color[12], r1;	# apply diffuse material color\n\
+\n\
+# light 13\n\
+ADD  r0, light[13], -iPos;	# L = light_pos - vertex_pos\n\
+DP3  r0.w, r0, r0;			# r0.w = |r0|^2\n\
+RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\n\
+MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\n\
+DP3  r0, r0, iNormal;		# L.N = diffuse light\n\
+MAX  r0, r0, zero;			# max r0,0\n\
+MAD  r1, r0, color[13], r1;	# apply diffuse material color\n\
+\n\
+# light 14\n\
+ADD  r0, light[14], -iPos;	# L = light_pos - vertex_pos\n\
+DP3  r0.w, r0, r0;			# r0.w = |r0|^2\n\
+RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\n\
+MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\n\
+DP3  r0, r0, iNormal;		# L.N = diffuse light\n\
+MAX  r0, r0, zero;			# max r0,0\n\
+MAD  r1, r0, color[14], r1;	# apply diffuse material color\n\
+\n\
+# light 15\n\
+ADD  r0, light[15], -iPos;	# L = light_pos - vertex_pos\n\
+DP3  r0.w, r0, r0;			# r0.w = |r0|^2\n\
+RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\n\
+MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\n\
+DP3  r0, r0, iNormal;		# L.N = diffuse light\n\
+MAX  r0, r0, zero;			# max r0,0\n\
+MAD  r1, r0, color[15], r1;	# apply diffuse material color\n\
+\n\
+# light 16\n\
+ADD  r0, light[16], -iPos;	# L = light_pos - vertex_pos\n\
+DP3  r0.w, r0, r0;			# r0.w = |r0|^2\n\
+RSQ  r0.w, r0.w;			# r0.w = 1/sqrt(r0.w) = 1/|r0|\n\
+MUL  r0.xyz, r0, r0.w;		# r0 - normalized L vector\n\
+DP3  r0, r0, iNormal;		# L.N = diffuse light\n\
+MAX  r0, r0, zero;			# max r0,0\n\
+MAD  oD0, r0, color[16], r1;# apply diffuse material color\n\
+\n\
 END";
 
 bool HoeVertexShader::Load()
