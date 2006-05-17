@@ -57,7 +57,19 @@ bool TerrainApp::LoadScene()
 
 	HoeGetRef(GetEngine())->SetBackgroundColor(0xff0000ff);
 
+	IHoeLight * l = GetEngine()->GetActiveScene()->CreateLight(false);
+	l->SetColor(1,1,1);
 	
+	// 
+	IHoeModel * m = (IHoeModel*)GetEngine()->Create("generate model box 5");
+	XHoeObject * obj = new XHoeObject();
+	GetEngine()->GetActiveScene()->RegisterObject(obj);
+	obj->SetModel(m);
+	obj->SetPosition(300,300,300);
+	obj->Show(true);
+
+	l->SetPosition(300,300,300);
+
 	return true;
 
 }

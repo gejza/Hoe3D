@@ -58,6 +58,8 @@ public:
 		return pos;
 	}
 
+	void GetViewProjMatrix(HoeMath::MATRIX * m) const;
+
 	bool PointInFlustrum(const HoeMath::VECTOR3 & point) const;
 
 	bool BoundInFlustrum(const HoeMath::VECTOR3 & center, const HoeMath::BoundingBox & box) const;

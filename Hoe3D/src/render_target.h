@@ -9,16 +9,31 @@
 #ifndef _HOE_RENDER_TARGET_H_
 #define _HOE_RENDER_TARGET_H_
 
-/*
-Renderovani do textury
-1) scena se musi nejdrive vykreslit do textury, pak normalne
-2) rozdilna kamera
-*/
+#include "hoe_texture.h"
 
 class HoeRenderTarget
 {
 public:
-	HoeRenderTarget();
+	enum Type
+	{
+		eMain,
+		eToTexture
+	};
+protected:
+	Type m_type;
+	class HoeRenderTexture * m_tex;
+#ifdef _HOE_D3D9_
+	IDirect3DSurface9 * m_rt;
+#endif
+#ifdef _HOE_D3D8_
+	IDirect3DSurface8 * m_rt;
+#endif
+public:
+	HoeRenderTarget(Type type);
+	void InitMain();
+	void Setup();
+	void EndRender();
+	const HoeTexture * GetTexture() { return m_tex; }
 };
 
 #endif // _HOE_RENDER_TARGET_H_

@@ -13,6 +13,7 @@
 #include "hoe3d_math.h"
 #include "hoe_index.h"
 #include "hoe_stream.h"
+#include "hoe_material.h"
 #include "filesystem.h"
 #include "camera.h"
 #include "structures.h"
@@ -74,6 +75,7 @@ private:
 	HoeStream vertexStream;
 	HoeIndex indexStream;
 	HoeStream normalStream;
+	HoeMaterial material;
 
 	HoeHeightMap heightMap;
 

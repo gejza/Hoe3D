@@ -24,9 +24,9 @@ class IHoePicture : public IHoeResource
 public:
 	virtual void CreateRegions(unsigned int x,unsigned int y) = 0;
 	virtual void SetActiveRegion(unsigned int) = 0;
-	virtual unsigned int GetNumRegions() = 0;
-	virtual unsigned int GetWidth() = 0;
-	virtual unsigned int GetHeight() = 0;
+	virtual unsigned int GetNumRegions() const = 0;
+	virtual unsigned int GetWidth() const = 0;
+	virtual unsigned int GetHeight() const = 0;
 };
 
 struct THoeFontSize

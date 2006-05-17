@@ -228,6 +228,20 @@ HOE_INLINE void MATRIX::Adjung(const MATRIX &m)
 
 }
 
+HOE_INLINE void MATRIX::Transpoze(const MATRIX &m)
+{
+	_11 = m._11;_12 = m._21; _13 = m._31; _14 = m._41;
+	_21 = m._12;_22 = m._22; _23 = m._32; _24 = m._42;
+	_31 = m._13;_32 = m._23; _33 = m._33; _34 = m._43;
+	_41 = m._14;_42 = m._24; _43 = m._34; _44 = m._44;
+}
+
+HOE_INLINE void MATRIX::Transpoze()
+{
+	MATRIX m = *this;
+	Transpoze(m);
+}
+
 HOE_INLINE float MATRIX::Inverse( const MATRIX &m)
 {
 	Adjung(m);

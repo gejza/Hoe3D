@@ -159,6 +159,7 @@ void InfoSystem::Publish()
 				y += 2 + h;
 			}
 		}
+		// dalsi debug info
 	}
 }
 

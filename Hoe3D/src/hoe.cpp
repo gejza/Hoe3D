@@ -29,6 +29,7 @@
 #include "physics.h"
 #include "hoe.h"
 #include "scene.h"
+#include "hoe_picture.h"
 
 // libgw32c.a libz.a  procinfo.lib jpeg_d.lib  flexlib.lib 
 #pragma comment (lib,"libjpeg.lib")
@@ -36,7 +37,7 @@
 #pragma comment (lib,"freetype2110MT_D.lib")
 
 
-Hoe3D::Hoe3D(int flags)
+Hoe3D::Hoe3D(int flags) : m_rt(HoeRenderTarget::eMain)
 {	
 	SET_SHARED_PTR(hoe3d);
 	m_active = NULL;
@@ -125,6 +126,7 @@ bool Hoe3D::Init(THoeInitSettings * his)
 	Con_Print("Init system ---");
 	if (!GetRef()->Init(his))
 		return false;;
+	m_rt.InitMain();
 #ifdef _WIN32
 	if (GetRef()->IsFullscreen())
 	{
@@ -195,27 +197,51 @@ void Hoe3D::Process(const double dtime)
 bool Hoe3D::Frame()
 {
 	// scene preprocess
-	if (m_active) m_active->Render();
+	//if (m_active) m_active->Render();
 
 	GetInfo()->BeginFrame();
 	GetRef()->Begin();
 
-	GetHoeStates()->Reset();
+	if (m_active)
+	{
+		// render to texture
+		static HoeRenderTarget rt(HoeRenderTarget::eToTexture);
+		static int pc = 0;
+		//if (pc++ % 5 == 0)
+		{
+		rt.Setup();
+		GetHoeStates()->Reset();
 
-	if (m_active) m_active->Render();
+		m_active->Render();
 
-	// render user 2d
+		rt.EndRender();}
+		// render normal
+		m_rt.Setup();
+		// render vysledku
+		Get2D()->Begin();
+		HoePicture pic;
+		pic.SetSource(rt.GetTexture());
+		const uint w=5,h=5;
+		Get2D()->SetRect(w,h);
+		for (int i=0;i<w;i++)
+			for (int j=0;j < h;j++)
+				Get2D()->BltFast(i,i+1,j,j+1,&pic);
+		Get2D()->End();
 
-	Get2D()->Begin();
-	
-	if (m_active) m_active->Paint2D();
+		GetHoeStates()->Reset();
 
-	// render stats & logos
-	GetInfo()->Publish();
-	Get2D()->End(); 
+		m_active->Render();
+		// render user 2d
+		Get2D()->Begin();
+		
+		m_active->Paint2D();
+		// render stats & logos
+		GetInfo()->Publish();
+		Get2D()->End(); 
 
-	//HoeCursor::Draw();
-
+		//HoeCursor::Draw();
+		m_rt.EndRender();
+	}
 	GetInfo()->PreEndFrame();
 	GetRef()->End();
 	GetInfo()->EndFrame();

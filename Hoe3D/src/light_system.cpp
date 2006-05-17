@@ -11,6 +11,7 @@
 LightSystem::LightSystem()
 {
 	m_lights = NULL;
+	m_active = 0;
 }
 
 LightSystem::~LightSystem()
@@ -31,10 +32,13 @@ void LightSystem::Setup()
 {
 	int i=0;
 	HoeLight * l = m_lights;
+	m_active = 0;
 	while (l!=NULL)
 	{
 		l->Set(i);
+		m_index[i] = l;
 		i++;
+		m_active++;
 		l = l->next;
 	}	
 #ifdef _HOE_D3D_
@@ -49,4 +53,15 @@ void LightSystem::Setup()
 	else
 		glDisable(GL_LIGHTING);
 #endif
+}
+
+uint LightSystem::GetNumActiveLights() const
+{
+	return m_active;
+}
+
+const HoeLight * LightSystem::GetActiveLight(uint i) const
+{
+	assert(i >= 0 && i < m_active);
+	return m_index[i];
 }

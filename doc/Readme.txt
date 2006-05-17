@@ -83,6 +83,13 @@ base tools (multiplatform)
    sound manager
    objects
    world
+   
+shadery
+problem univerzalnosti mezi direct a opengl
+extension
+
+nez bude hotovo musi se osefovat model shader
+
 
 //////////////
 

@@ -293,8 +293,6 @@ bool RefOpenGL::Init(THoeInitSettings * his)
 
 bool RefOpenGL::Begin()
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glLoadIdentity();
 	return true;
 }
 
@@ -307,6 +305,11 @@ void RefOpenGL::End()
 #elif defined (_WIN32)
 	SwapBuffers(m_hDC);
 #endif
+}
+
+void RefOpenGL::ClearBuffers(bool target, bool depth)
+{
+	glClear((target?GL_COLOR_BUFFER_BIT:0) | (depth?GL_DEPTH_BUFFER_BIT:0));
 }
 
 void RefOpenGL::SetBackgroundColor(unsigned long color)

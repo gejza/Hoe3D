@@ -140,14 +140,20 @@ struct VECTOR4
 	};
 
 	VECTOR4() { };
-	VECTOR4(float X,float Y,float Z,float W)
+	VECTOR4(const float X,const float Y,const float Z,const float W)
 	{
 		x = X;y = Y;z = Z;w = W;
 	}
-	VECTOR4(float * v)
+	VECTOR4(const float * v)
 	{
 		x = v[0];y = v[1]; z = v[2];w = v[3];
 	}
+#ifdef D3DVECTOR_DEFINED
+	VECTOR4(const D3DVECTOR & v)
+	{
+		x = v.x;y = v.y; z = v.z; w = 0.f;
+	}
+#endif
 };
 
 
@@ -356,6 +362,10 @@ public:
 	{
 		return reinterpret_cast<const D3DMATRIX*>(this);
 	}
+	operator D3DMATRIX*()
+	{
+		return reinterpret_cast<D3DMATRIX*>(this);
+	}
 #endif
 #ifdef _HOE_OPENGL_
 	operator const GLfloat*() const
@@ -375,6 +385,8 @@ public:
 	HOE_INLINE void Translate(const VECTOR3 &v);
 	HOE_INLINE float Inverse(const MATRIX &m);
 	HOE_INLINE void Adjung(const MATRIX &m);
+	HOE_INLINE void Transpoze(const MATRIX &m);
+	HOE_INLINE void Transpoze();
 
 	HOE_INLINE void Camera(const VECTOR3 &pos,const VECTOR3 &look);
 	HOE_INLINE void Ortho(const float w,const float h,const float zn,const float zf);

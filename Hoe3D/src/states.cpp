@@ -64,9 +64,9 @@ void HoeStates::Setup2D()
 	D3DDevice()->SetRenderState( D3DRS_LIGHTING, FALSE );
 	D3DDevice()->SetRenderState( D3DRS_ALPHABLENDENABLE ,FALSE);
 	D3DDevice()->SetRenderState( D3DRS_ALPHATESTENABLE ,FALSE);
-
+   	D3DDevice()->SetRenderState( D3DRS_ZENABLE, FALSE );
 	D3DDevice()->SetTextureStageState(0,D3DTSS_ALPHAOP,D3DTOP_DISABLE);
-
+	D3DDevice()->SetVertexShader( NULL);
 #endif // _HOE_D3D9_
 #ifdef _HOE_OPENGL_
 	glDisable(GL_LIGHTING);
@@ -169,9 +169,8 @@ void HoeStates::SetupMap()
 
 	D3DDevice()->SetSamplerState(0,D3DSAMP_MAGFILTER,D3DTEXF_LINEAR);
 	D3DDevice()->SetSamplerState(0,D3DSAMP_MINFILTER,D3DTEXF_LINEAR);
-	D3DDevice()->SetRenderState( D3DRS_CULLMODE,   D3DCULL_NONE );
+	//D3DDevice()->SetRenderState( D3DRS_CULLMODE,   D3DCULL_NONE );
    	D3DDevice()->SetRenderState( D3DRS_ZENABLE, TRUE ); 
-	D3DDevice()->SetRenderState(D3DRS_LIGHTING,FALSE);
 	//D3DDevice()->SetTextureStageState(0,D3DTSS_COLOROP,D3DTOP_MODULATE);
 	D3DDevice()->SetTexture(0,NULL);
 #endif // _HOE_D3D9_

@@ -1933,6 +1933,18 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="Shaders"
+			>
+			<File
+				RelativePath="..\..\src\shader_vertex.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\shader_vertex.h"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

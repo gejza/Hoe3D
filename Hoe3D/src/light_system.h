@@ -8,11 +8,15 @@
 class LightSystem
 {
 	HoeLight * m_lights;
+	HoeLight * m_index[32];
+	uint m_active;
 public:
 	LightSystem();
 	~LightSystem();
 	void AddLight(HoeLight *l);
 	void Setup();
+	uint GetNumActiveLights() const;
+	const HoeLight * GetActiveLight(uint i) const;
 };
 
 

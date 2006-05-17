@@ -76,6 +76,12 @@ public:
 	*/
 	void End();
 	/**
+	* Vymazani bufferu
+	* @param target Smaze target buffer
+	* @param depth Smaze depth buffer
+	*/
+	void ClearBuffers(bool target, bool depth);
+	/**
 	* Nastaveni barvy pozadi
 	*/
 	virtual void HOEAPI SetBackgroundColor(unsigned long color);

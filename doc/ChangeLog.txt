@@ -1,3 +1,11 @@
+17.5.2006
+Hoe3D:
+	Nastinena podpora shaderu
+--------------------------------------
+16.5.2006
+Hoe3D:
+	Pridano renderovani do textury
+--------------------------------------
 10.5.2006
 HoeGame:
 	Zdrojaky a includy rozdeleny do adresaru include a src, jako to je u ostatnich projektu

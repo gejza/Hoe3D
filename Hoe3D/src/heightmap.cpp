@@ -178,7 +178,7 @@ void HoeHeightMap::setHeightAt(int x, int y, float height)
 //	teren
 //
 //-------------------------------------------------------
-HoeQuadTerrain::HoeQuadTerrain()
+HoeQuadTerrain::HoeQuadTerrain() : vertexStream(true), normalStream(true)
 {
 	loaded = false;
 	enabledVertex = NULL;	
@@ -284,7 +284,8 @@ void HoeQuadTerrain::loadHeight(float _distX,float _distY,int _sizeLevel, float 
 	//	maximalni velikosti:
 	//	pocet bodu, pocet trojuhelniku
 	//	kvuli nutnosti ho predem urcit (meni se jen pri zmene mapy)
-	
+	material.SetColor(HoeMaterial::Diffuse,HoeMaterialColor(1,1,1,1));
+
 	int vertNum=size * size;
 	vertexStream.Create(vertNum, "pnd" , vertNum*sizeof(Vec));
 	createVertexList();
@@ -640,6 +641,7 @@ void HoeQuadTerrain::render(HoeCamera *cam)
 	createIndexList();
 
 	//printIndexList(&m_index);
+	material.Setup();
 
 	int vertCounter=size*size;
 	HoeMath::MATRIX matWorld;

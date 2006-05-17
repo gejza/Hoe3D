@@ -73,6 +73,12 @@ public:
 	*/
 	void End();
 	/**
+	* Vymazani bufferu
+	* @param target Smaze target buffer
+	* @param depth Smaze depth buffer
+	*/
+	void ClearBuffers(bool target, bool depth);
+	/**
 	* Vykresleni objektu. Pocet trojuhelniku se urcuje podle velikosti bufferu.
 	* @param stream Vrcholy
 	* @param index Indexy
@@ -86,6 +92,12 @@ public:
 	* @param ind Pocet indexu = pocet trojuhelniku * 3
 	*/
 	static void DrawStdObject(HoeStream * stream, HoeIndex * index, dword vert, dword ind);
+	/**
+	* Vykresleni fanu.
+	* @param offset Od ktereho index uzacit
+	* @param count Pocet indexu = pocet trojuhelniku + 2
+	*/
+	static void DrawFanObject(dword offset, dword count);
 	/**
 	* Vykresleni car podle vrcholu.
 	* @param stream Vrcholy

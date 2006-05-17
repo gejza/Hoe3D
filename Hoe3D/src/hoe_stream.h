@@ -15,12 +15,13 @@ class HoeStream
 	dword m_dwfvf;
 	dword m_size;
 	dword m_numvert;
+	bool m_dynamic;
 	byte * m_pVertices;
 	HoeMath::BoundingBox m_box;
 
 	dword GetFVF(const char *);
 public:
-	HoeStream();
+	HoeStream(bool dynamic = false);
 	bool Create(dword numvert,const char * fvf,dword size);
 	byte * Lock();
 	void Unlock();

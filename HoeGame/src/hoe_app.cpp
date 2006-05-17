@@ -55,10 +55,19 @@ bool HoeApp::Init(const char * title)
 		exit(0);
 
 	his.hInst = m_hInstance;
-	his.win = m_hWnd;
-	his.width = m_width.GetInt();
-	his.height = m_height.GetInt();
 	his.fullscreen = m_fullscreen.GetBool();
+	his.win = m_hWnd;
+	if (his.fullscreen)
+	{
+		his.width =  m_width.GetInt();
+		his.height = m_height.GetInt();
+	} else 
+	{
+		RECT rect;
+		GetClientRect(m_hWnd, &rect);
+		his.width = rect.right - rect.left;
+		his.height = rect.bottom - rect.top;
+	}
 	his.forcewnd = false;
 
 	if (!m_engine.GetInstance()->Init(&his))

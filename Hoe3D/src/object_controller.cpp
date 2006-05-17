@@ -6,6 +6,7 @@
 #include "object_controller.h"
 #include "shared.h"
 #include "camera.h"
+#include "scene.h"
 
 #include "hoe.h"
 #include "hoe3d_math.h"
@@ -83,13 +84,14 @@ void HoePaint3D::Paint(IHoeModel * model)
 	actmatrix.Multiply(*this->m_basematrix);
 	Ref::SetMatrix(actmatrix);
 	const HoeModel * m = dynamic_cast<HoeModel*>(model);
-	assert(m != NULL);	
-	m->Render();
+	assert(m != NULL);
+	assert(!"old code");
+	m->Render(NULL);
 }
 
-void ObjectController::Render(const HoeCamera * cam)
+void ObjectController::Render(const HoeScene * scene)
 {
-	if (!model || !cam->BoundInFlustrum(pos.xyz, model->GetBound()))
+	if (!model || !scene->GetCamera()->BoundInFlustrum(pos.xyz, model->GetBound()))
 		return;
 
 	HoeMath::MATRIX m;
@@ -103,7 +105,7 @@ void ObjectController::Render(const HoeCamera * cam)
 	Ref::SetMatrix(m);
 
 	if (model)
-        model->Render();
+        model->Render(scene);
 
 	// info
 	if (flags & HOF_ADVSHOW)

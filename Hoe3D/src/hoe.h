@@ -3,11 +3,12 @@
 #define _HOE_CLASS_
 
 #include "../include/hoe3d.h"
+#include "render_target.h"
 
 class Hoe3D : public IHoe3DEngine 
 {
 	class HoeBaseScene * m_active;
-
+	HoeRenderTarget m_rt; ///< Hlavni RenderTarget
 public:
 	Hoe3D(int flags);
 	~Hoe3D();

@@ -79,7 +79,7 @@ HoeTexture * TextureSystem::GetTexture(const char * name)
 	return tex;
 }
 
-void TextureSystem::SetTexture(int stage,HoeTexture * t)
+void TextureSystem::SetTexture(int stage,const HoeTexture * t)
 {
 #ifdef _HOE_D3D_
 	

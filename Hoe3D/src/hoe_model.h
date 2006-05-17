@@ -7,6 +7,7 @@
 #include "model_shader.h"
 
 #include "hoe_material.h"
+#include "shader_vertex.h"
 
 class HoeIndex;
 class HoeStream;
@@ -23,6 +24,7 @@ class HoeModel : public IHoeModel
 
 
 	HoeMath::BoundingBox m_box;
+	HoeVertexShader m_shader;
 	// atd..
 	// type, params, co delat kdyz projde (dalsi uroven)
 protected:
@@ -38,7 +40,7 @@ public:
 	uint GetNumIndex() const { return m_num_index; }
 	uint GetNumMats() const { return m_num_mat; }
 
-	void Render() const ;
+	void Render(const HoeScene * scene) const ;
 	const HoeMath::BoundingBox & GetBound() const { return m_box; }
 
 	virtual bool HOEAPI GetParameter(const char * name, THoeParameter * parameter);

@@ -5,6 +5,8 @@
 #include "object_inspector.h"
 #include "scene_base.h"
 #include "scene_graph.h"
+#include "light_system.h"
+#include "camera.h"
 
 class Hoe2DScene : public HoeBaseScene
 {
@@ -23,8 +25,10 @@ public:
 	virtual void HOEAPI UnregisterObject(int);
 
 	/** @see IHoeScene::CreateLight() */
-	virtual IHoeLight * HOEAPI CreateLight();
+	virtual IHoeLight * HOEAPI CreateLight(bool direct);
 	//virtual IHoeScenePhysics * HOEAPI GetScenePhysics();
+	const HoeCamera * GetCamera() const { return &cam; }
+	const LightSystem * GetLS() const { return &m_lights; }
 	virtual IHoeCamera * HOEAPI GetCamera();
 
 	virtual void Process(const double dtime);

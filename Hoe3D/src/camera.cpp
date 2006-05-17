@@ -138,6 +138,12 @@ void HoeCamera::GetSize(int *w, int *h) const
 	*h = (int)m_height;
 }
 
+void HoeCamera::GetViewProjMatrix(HoeMath::MATRIX * m) const
+{
+	m->Multiply(matView,matProj);
+
+}
+
 bool HoeCamera::PointInFlustrum(const VECTOR3 & point) const
 {
 	for(int i = 0; i < 6; i++ )

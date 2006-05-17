@@ -7,8 +7,9 @@
 #include "hoe3d_math.h"
 #include "light.h"
 
-HoeLight::HoeLight()
+HoeLight::HoeLight(bool direct)
 {
+	m_direct = direct;
 #ifdef _HOE_D3D_
 	ZeroMemory( &light, sizeof(light) );
 	light.Type = D3DLIGHT_POINT;
@@ -33,6 +34,8 @@ HoeLight::HoeLight()
 
 void HoeLight::Set(int slot)
 {
+	if (slot > 7)
+		return;
 #ifdef _HOE_D3D_
 	D3DDevice()->SetLight( slot, &light );
 	D3DDevice()->LightEnable( slot, TRUE);
@@ -52,14 +55,14 @@ void HoeLight::Set(int slot)
 
 void HoeLight::SetPosition(const float x, const float y, const float z)
 {
+	HoeMath::VECTOR3 p(x,y,z);
+	if (m_direct)
+		p.Normalize();
 #ifdef _HOE_D3D_
-	light.Position.x = x; light.Position.y = y; light.Position.z = z;
+	light.Position = p;
 #endif
 #ifdef _HOE_OPENGL_
-	//HoeMath::VECTOR3 p(x,y,z);
-	//p.Normalize();
-	pos.x = x; pos.y = y; pos.z = z; pos.w = 1.f;
-	
+	pos.x = p.x; pos.y = p.y; pos.z = p.z; pos.w = m_direct ? 0.f:1.f;
 #endif
 }
 
@@ -72,3 +75,14 @@ void HoeLight::SetColor(const float r, const float g, const float b)
 	color.x = r; color.y = g; color.z = b; color.w = 1.f;
 #endif
 }
+
+const HoeMath::VECTOR4 HoeLight::GetPosition() const
+{
+	return HoeMath::VECTOR4(light.Position);
+}
+
+const HoeMath::VECTOR4 HoeLight::GetColor() const
+{
+	return HoeMath::VECTOR4((float*)&light.Diffuse);
+}
+

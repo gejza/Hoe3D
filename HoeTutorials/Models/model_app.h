@@ -14,7 +14,7 @@ struct DebugLight : public XHoeObject
 class ModelApp : public HoeTutorial
 {
 	HoeGame::ModelViewCtrl m_view;
-	DebugLight m_l[8];
+	DebugLight m_l[17];
 public:
 	bool CreateObj(IHoeModel * m, float x, float y);
 	bool LoadScene();

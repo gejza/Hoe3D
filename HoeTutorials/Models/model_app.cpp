@@ -3,7 +3,7 @@
 
 const char * g_TutorialName = "models";
 
-const int n_light = 8;
+const int n_light = 17;
 
 int _hoemain(HOE_INSTANCE instance, HoeGame::Console * con)
 {
@@ -45,7 +45,7 @@ bool ModelApp::LoadScene()
 	m_view.SetTargetPosition(0,0,0);
 	m_view.SetAngle(0.1f);
 	m_view.SetArcAngle(-0.16f);
-	m_view.SetDistance(150);
+	m_view.SetDistance(350);
 //	HoeGetInput(GetEngine())->RegisterKeyboard(&m_view);
 	HoeGetInput(GetEngine())->RegisterMouse(IHoeInput::MT_Foreground, &m_view);
 
@@ -55,7 +55,7 @@ bool ModelApp::LoadScene()
 
 	for (int i=0;i < n_light;i++)
 	{
-		m_l[i].light = GetEngine()->GetActiveScene()->CreateLight();
+		m_l[i].light = GetEngine()->GetActiveScene()->CreateLight(false);
 		GetEngine()->GetActiveScene()->RegisterObject(&m_l[i]);
 		m_l[i].SetModel(lght);
 		m_l[i].SetPosition(0.f,0.f,0.f);
@@ -68,17 +68,17 @@ bool ModelApp::LoadScene()
 	if (4 < n_light) m_l[ 4].light->SetColor( 0.5f, 0.0f, 0.5f);
 	if (5 < n_light) m_l[ 5].light->SetColor( 0.0f, 0.5f, 0.5f);
 	if (6 < n_light) m_l[ 6].light->SetColor( 0.3f, 0.3f, 0.3f);
-	if (7 < n_light) m_l[ 7].light->SetColor( 1.0f, 1.0f, 1.0f);
-	//m_l[ 7]->SetColor( 0.6f, 0.4f, 0.0f);
-	/*m_l[ 8]->SetColor( 0.6f, 0.0f, 0.4f);
-	m_l[ 9]->SetColor( 0.4f, 0.6f, 0.0f);
-	m_l[10]->SetColor( 0.0f, 0.6f, 0.4f);
-	m_l[11]->SetColor( 0.4f, 0.0f, 0.6f);
-	m_l[12]->SetColor( 0.0f, 0.4f, 0.6f);
-	m_l[13]->SetColor( 0.6f, 0.2f, 0.2f);
-	m_l[14]->SetColor( 0.2f, 0.6f, 0.2f);
-	m_l[15]->SetColor( 0.2f, 0.2f, 0.6f);
-	m_l[16]->SetColor( 0.8f, 0.1f, 0.1f);*/
+	//if (7 < n_light) m_l[ 7].light->SetColor( 1.0f, 1.0f, 1.0f);
+	if (7 < n_light) m_l[ 7].light->SetColor( 0.6f, 0.4f, 0.0f);
+	if (8 < n_light) m_l[ 8].light->SetColor( 0.6f, 0.0f, 0.4f);
+	if (9 < n_light) m_l[ 9].light->SetColor( 0.4f, 0.6f, 0.0f);
+	if (10 < n_light) m_l[10].light->SetColor( 0.0f, 0.6f, 0.4f);
+	if (11 < n_light) m_l[11].light->SetColor( 0.4f, 0.0f, 0.6f);
+	if (12 < n_light) m_l[12].light->SetColor( 0.0f, 0.4f, 0.6f);
+	if (13 < n_light) m_l[13].light->SetColor( 0.6f, 0.2f, 0.2f);
+	if (14 < n_light) m_l[14].light->SetColor( 0.2f, 0.6f, 0.2f);
+	if (15 < n_light) m_l[15].light->SetColor( 0.2f, 0.2f, 0.6f);
+	if (16 < n_light) m_l[16].light->SetColor( 0.8f, 0.1f, 0.1f);
 
 	//IHoeModel * mod1 = (IHoeModel*)GetEngine()->Create("model jackolan");
 	/*IHoeModel * mod1 = (IHoeModel*)GetEngine()->Create("generate model box file:'box.txt' -dump");
@@ -141,11 +141,33 @@ void ModelApp::OnUpdate(float timeframe)
 	rotz+=90.f*timeframe*speed;
 	roty+=10.f*timeframe*speed;
 	const float l = 50.f;
+	Vec a;
 	for(int i=0; i<n_light; i++)
+	{
+		a.x = 2.0f; a.y = 0; a.z = 0;
+		if(i<8)
+		{
+			a.RotZ(rotz+(float)i*360.f/(float)8.f);
+			a.y *= 0.5f;
+			a.RotZ(45.f);
+			a.RotY(roty);
+		}
+		else
+		{
+			a.RotZ(rotz+(float)i*360.f/(float)9.f+45.f);
+			a.y *= 0.5f;
+			a.RotZ(-45.f);
+			a.RotY(roty+90.f);
+		}
+		m_l[i].light->SetPosition(a.x*l, a.y*l, a.z*l);
+		m_l[i].SetPosition(a.x*l, a.y*l, a.z*l);
+	}
+
+	/*for(int i=0; i<n_light; i++)
 	{
 		Vec a;
 		a.x = 2.0f; a.y = 0; a.z = 0;
-		if(i<4)
+		if(i<8)
 		{
 			a.RotZ(rotz+(float)i*360.f/(float)4.f);
 			a.y *= 0.5;
@@ -161,7 +183,7 @@ void ModelApp::OnUpdate(float timeframe)
 		}
 		m_l[i].light->SetPosition(a.x*l, a.y*l, a.z*l);
 		m_l[i].SetPosition(a.x*l, a.y*l, a.z*l);
-	}
+	}*/
 
 }
 

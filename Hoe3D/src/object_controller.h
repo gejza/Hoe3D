@@ -6,7 +6,7 @@
 #include "map_utils.h"
 
 class HoeModel;
-class HoeCamera;
+class HoeScene;
 
 class ObjectController : public IHoeObjectController
 {
@@ -21,7 +21,7 @@ public:
 	ObjectController();
 	bool IsValid() { return (object != NULL); }
 	bool Create(XHoeObject * obj);
-	void Render(const HoeCamera * cam);
+	void Render(const HoeScene * scene);
 	//inline bool IsShow() { return flags & 0x1; }
 	inline dword GetFlags() { return flags; }
 	inline XHoeObject * GetObject() { return object; }

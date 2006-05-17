@@ -109,9 +109,6 @@ bool RefD3D8::Init(THoeInitSettings * his)
 
 bool RefD3D8::Begin()
 {
-	// Clear the back buffer to a blue color
-	m_Dev->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, m_BackColor, 1.0f, 0 );
-	
 	// Begin the scene.
 	m_Dev->BeginScene();
 	return true;
@@ -124,6 +121,11 @@ void RefD3D8::End()
 	m_Dev->Present( NULL, NULL, NULL, NULL );
 }
 
+void RefD3D8::ClearBuffers(bool target, bool depth)
+{
+	// Clear the back buffer to a blue color
+	m_Dev->Clear( 0, NULL, (target?D3DCLEAR_TARGET:0) | (depth?D3DCLEAR_ZBUFFER:0), m_BackColor, 1.0f, 0 );
+}
 
 void RefD3D8::Destroy()
 {
@@ -148,12 +150,18 @@ void RefD3D8::DrawStdObject(HoeStream * stream, HoeIndex * index, dword vert, dw
 	GetInfo()->AddStatTriangles(ind/3);
 }
 
+void RefD3D8::DrawFanObject(dword offset, dword count)
+{
+	HRESULT hRes = D3DDevice()->DrawPrimitive( D3DPT_TRIANGLEFAN, offset, count-2);
+	assert(hRes == S_OK);
+	GetInfo()->AddStatTriangles(count-2);
+}
+
 void RefD3D8::DrawPointObject(class HoeStream * stream, int vertCount)
 {
 	stream->Set(0);
 	HRESULT hRes = D3DDevice()->DrawPrimitive( D3DPT_POINTLIST, 0, vertCount);
-	if (FAILED(hRes))
-		exit(1);
+	assert(hRes == S_OK);
 }
 
 void RefD3D8::DrawLineObject(class HoeStream * stream, int lineCount)

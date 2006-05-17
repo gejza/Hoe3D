@@ -30,9 +30,9 @@ void HoeScene::UnregisterObject(int id)
 	m_objects.UnregisterObject(id);
 }
 
-IHoeLight * HoeScene::CreateLight()
+IHoeLight * HoeScene::CreateLight(bool direct)
 {
-	HoeLight * l = new HoeLight();
+	HoeLight * l = new HoeLight(direct);
 	m_lights.AddLight(l);
 	return l;
 }
@@ -48,7 +48,7 @@ void HoeScene::Render()
 	m_objects.SetStreaming(HOF_SHOW);
 	while ((obj = m_objects.Object()) != NULL)
 	{
-		obj->Render(&cam);
+		obj->Render(this);
 	}
 
 }
@@ -118,7 +118,7 @@ void HoeGraphScene::Render()
 	m_objects.SetStreaming(HOF_SHOW);
 	while ((obj = m_objects.Object()) != NULL)
 	{
-		obj->Render(&cam);
+		obj->Render(this);
 	}
 	
 

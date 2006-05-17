@@ -21,7 +21,7 @@ int HoeBaseScene::RegisterObject(XHoeObject * obj, unsigned long flags)
 	return -1;
 }
 
-IHoeLight * HoeBaseScene::CreateLight()
+IHoeLight * HoeBaseScene::CreateLight(bool direct)
 {
 	return NULL;
 }

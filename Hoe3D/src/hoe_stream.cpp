@@ -24,11 +24,14 @@
 #define FVF_TEX1		(1 << 5)
 #endif
 
-HoeStream::HoeStream()
+HoeStream::HoeStream(bool dynamic)
 {
 	m_size = 0;
 	m_fvf[0] = 0;
 	m_numvert = 0;
+	m_dynamic = dynamic; /*!!!*/ // musi byt podporavanej hw (v pripade directx)
+	m_pVertices = NULL;
+	m_vb = 0;
 }
 
 bool HoeStream::Create(dword numvert,const char * fvf,dword size)
@@ -38,11 +41,9 @@ bool HoeStream::Create(dword numvert,const char * fvf,dword size)
 	m_numvert = numvert;
 
 	m_dwfvf = this->GetFVF(fvf);
-
 #ifdef _HOE_OPENGL_
-	m_pVertices = new byte[size];
 	// jestli i opengl vytvorit paralelne s tim i vertex buffer object
-	if (GetRef()->ext.vb.IsSupported())
+	if (!m_dynamic && GetRef()->ext.vb.IsSupported())
 	{	
 		assert(GetRef()->ext.vb.glGenBuffersARB);
 		GetRef()->ext.vb.glGenBuffersARB(1, &m_vb);
@@ -53,7 +54,7 @@ bool HoeStream::Create(dword numvert,const char * fvf,dword size)
 #ifdef _HOE_D3D_
 
 	if( FAILED( D3DDevice()->CreateVertexBuffer( size,
-         D3DUSAGE_DYNAMIC /* Usage */, m_dwfvf, D3DPOOL_DEFAULT, &m_vb RESERVE_PAR ) ) )
+		m_dynamic ? D3DUSAGE_DYNAMIC:0 /* Usage */, m_dwfvf, D3DPOOL_DEFAULT, &m_vb RESERVE_PAR ) ) )
 		 return false;
 #endif // _HOE_D3D9_
 
@@ -66,6 +67,10 @@ byte * HoeStream::Lock()
 	if( FAILED( m_vb->Lock( 0, m_size, (D3DLOCKTYPE)&m_pVertices, 0 ) ) )
 		return 0;
 #endif
+#ifdef _HOE_OPENGL_
+	if (m_pVertices == NULL)
+		m_pVertices = new byte[m_size];
+#endif
 	return m_pVertices;
 }
 
@@ -76,7 +81,7 @@ void HoeStream::Unlock()
 	m_vb->Unlock();
 #endif
 #ifdef _HOE_OPENGL_
-	if (GetRef()->ext.vb.IsSupported())
+	if (m_vb != 0)
 	{
 		GetRef()->ext.vb.glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_vb);
 		GetRef()->ext.vb.glBufferDataARB(GL_ARRAY_BUFFER_ARB, m_size, m_pVertices, GL_STATIC_DRAW_ARB);
@@ -97,7 +102,7 @@ void HoeStream::Set(int n)
 #endif // _HOE_D3D_
 #endif // _HOE_D3D_
 #ifdef _HOE_OPENGL_
-	const bool vb = GetRef()->ext.vb.IsSupported();
+	const bool vb = m_vb != 0;
 	int stride = 0;
 	if (vb)
 		GetRef()->ext.vb.glBindBufferARB(GL_ARRAY_BUFFER_ARB,m_vb);

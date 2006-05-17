@@ -120,7 +120,7 @@ public:
 	/** Vytvori particle emitor */
 	virtual IHoeParticleEmitor * HOEAPI CreateParticleEmitor() = 0;
 	/** Vytvori svetlo */
-	virtual IHoeLight * HOEAPI CreateLight() = 0;
+	virtual IHoeLight * HOEAPI CreateLight(bool direct) = 0;
 	/** Fyzika */
 	virtual IHoeScenePhysics * HOEAPI GetScenePhysics() = 0;
 

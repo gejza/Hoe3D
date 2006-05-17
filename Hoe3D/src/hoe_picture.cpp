@@ -32,12 +32,12 @@ void HoePicture::SetActiveRegion(uint u)
 	m_active = u;
 }
 
-uint HoePicture::GetNumRegions()
+uint HoePicture::GetNumRegions() const
 {
 	return this->m_rX * this->m_rY;
 }
 
-void HoePicture::GetRect(THoeRect * rect)
+void HoePicture::GetRect(THoeRect * rect) const
 {
 	const float res_x = 1.f / m_rX;
 	const float res_y = 1.f / m_rY;
@@ -51,12 +51,12 @@ void HoePicture::GetRect(THoeRect * rect)
 	rect->bottom = (radek+1)*res_y;
 }
 
-unsigned int HoePicture::GetWidth()
+unsigned int HoePicture::GetWidth() const
 {
 	return m_tex->GetWidth();
 }
 
-unsigned int HoePicture::GetHeight()
+unsigned int HoePicture::GetHeight() const
 {
 	return m_tex->GetHeight();
 }

@@ -73,6 +73,12 @@ public:
 	*/
 	void End();
 	/**
+	* Vymazani bufferu
+	* @param target Smaze target buffer
+	* @param depth Smaze depth buffer
+	*/
+	void ClearBuffers(bool target, bool depth);
+	/**
 	* Vykresleni objektu. Pocet trojuhelniku se urcuje podle velikosti bufferu.
 	* @param stream Vrcholy
 	* @param index Indexy

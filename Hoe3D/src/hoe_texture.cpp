@@ -31,6 +31,15 @@ bool HoeTexture::Create(uint w,uint h,HOEFORMAT f)
 	return true;
 }
 
+bool HoeTexture::Create(uint w,uint h,HOEFORMAT f, SysTexture tex)
+{
+	width = w;
+	height = h;
+	format = f;
+	m_texture = tex;
+	return true;
+}
+
 bool HoeTexture::BindData(byte * pix)
 {
 #ifdef _HOE_D3D_
@@ -90,6 +99,19 @@ void HoeTexture::Unlock()
 
 }
 
+void HoeTexture::FillEmpty()
+{
+	LOCKRECT l;
+	if (this->Lock(&l))
+	{
+		for (uint y=0;y < height;y++)
+		{
+			memset(l.data+y*l.pitch,0, l.pitch);
+		}
+		this->Unlock();
+	}
+}
+
 void HoeTexture::Set()
 {
 #ifdef _HOE_D3D_
@@ -108,3 +130,38 @@ bool HoeTexture::Load(const char * name, HoeLog * log)
 {
 	return true;
 }
+
+///////////////////////////////////////////////////
+bool HoeRenderTexture::Create(uint w,uint h,HOEFORMAT f)
+{
+	width = w;
+	height = h;
+	format = f;
+#ifdef _HOE_D3D_
+	HRESULT hRes;
+	hRes = D3DDevice()->CreateTexture(w,h,1,D3DUSAGE_RENDERTARGET,HoeFormatX(f),D3DPOOL_DEFAULT,&m_texture RESERVE_PAR);
+	assert(hRes==S_OK);
+#endif
+#ifdef _HOE_OPENGL_
+	glGenTextures(1,&m_texture);
+	FillEmpty();
+#endif
+	return true;
+}
+
+#ifdef _HOE_D3D_
+#ifdef _HOE_D3D9_
+IDirect3DSurface9 * HoeRenderTexture::GetSurface()
+{
+	IDirect3DSurface9 * sur = NULL;
+#else
+IDirect3DSurface8 * HoeRenderTexture::GetSurface()
+{
+	IDirect3DSurface8 * sur = NULL;
+#endif
+	assert(m_texture);
+	HRESULT hRef = m_texture->GetSurfaceLevel(0,&sur);
+	assert(hRef==S_OK);
+	return sur;
+}
+#endif
