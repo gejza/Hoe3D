@@ -44,10 +44,10 @@ int config_load(FILE * f)
 int config_parse(char ** text)
 {
 	int ret;
+	ret = yylex();
 	*text = yytext;
 	while (**text == 10)
 		(*text)++;
-	ret = yylex();
 	return ret;
 }
 

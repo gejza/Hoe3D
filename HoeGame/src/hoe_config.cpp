@@ -56,20 +56,29 @@ int Config::Load(const char * filename)
 		// value
 		switch (config_parse(&str))
 		{
+		case 5:
+			{
+				const char * env = getenv(str+1);
+				bool cont = config_parse(&str) == 4;
+				if (env)
+				{
+					this->Var(var, env);
+					break;
+				}
+				if (!cont)
+					break;
+				/* pokud neprectena tak to ma projit do dalsiho*/
+			}
 		case 4:
 			{
-				char buffer[1000];
-				while (str[0]!='\'' && str[0] != '"' && str[0] != 0) str++;
-				strncpy(buffer, str+1,999);
-				size_t l = strlen(buffer) - 1;
-				assert(buffer[l] == '\'' || buffer[l] == '"');
-				buffer[l] = '\0';
-				this->Var(var, buffer);
+				str++;
+				size_t l = strlen(str) - 1;
+				assert(str[l] == '\'' || str[l] == '"');
+				str[l] = '\0';
+				this->Var(var, str);
 			}
 			break;
-		case 5:
-			this->Var(var, getenv(str+1));
-			break;
+
 		case 6: // cislo
 			while (str[0]!='+' && str[0]!='-' && (str[0]<'0' || str[0]>'9') && str[0]!=0) str++;
 			assert(str[0]!=0);
