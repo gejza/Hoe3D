@@ -36,7 +36,6 @@
 #pragma comment (lib,"libfl.a")
 #pragma comment (lib,"freetype2110MT_D.lib")
 
-
 Hoe3D::Hoe3D(int flags) : m_rt(HoeRenderTarget::eMain)
 {	
 	SET_SHARED_PTR(hoe3d);
@@ -117,6 +116,8 @@ Hoe3D::~Hoe3D()
 
 bool Hoe3D::Init(THoeInitSettings * his)
 {
+	BEGIN_TRY
+
 	Con_Print("init hoe");
 	int x,y;
 	unsigned int width,height;
@@ -168,6 +169,8 @@ bool Hoe3D::Init(THoeInitSettings * his)
 	}
 
 	Con_Print("Load");
+
+	END_TRY(return false);
 	
 	return true;
 }
@@ -195,37 +198,42 @@ void Hoe3D::Process(const double dtime)
 	if (m_active) m_active->Process(dtime);
 }
 
+HoeRenderTarget * GetRT()
+{
+	static HoeRenderTarget rt(HoeRenderTarget::eToTexture);
+	return &rt;
+}
+
 bool Hoe3D::Frame()
 {
+	BEGIN_TRY
+
 	// scene preprocess
 	//if (m_active) m_active->Render();
-
 	GetInfo()->BeginFrame();
 	GetRef()->Begin();
 
 	if (m_active)
 	{
 		// render to texture
-		static HoeRenderTarget rt(HoeRenderTarget::eToTexture);
-		static int pc = 0;
-		//if (pc++ % 5 == 0)
+		HoeRenderTarget * rt = GetRT();
 		{
-		rt.Setup();
+		rt->Setup();
 		GetHoeStates()->Reset();
 
 		m_active->Render();
 
-		rt.EndRender();}
+		rt->EndRender();}
 		// render normal
 		m_rt.Setup();
 		// render vysledku
 		Get2D()->Begin();
 		HoePicture pic;
-		pic.SetSource(rt.GetTexture());
-		const uint w=5,h=5;
-		Get2D()->SetRect((float)w,(float)h);
-		for (int i=0;i<w;i++)
-			for (int j=0;j < h;j++)
+		pic.SetSource(rt->GetTexture());
+		const float w=5,h=5;
+		Get2D()->SetRect(w,h);
+		for (float i=0;i<w;i++)
+			for (float j=0;j < h;j++)
 				Get2D()->BltFast(i,i+1,j,j+1,&pic);
 		Get2D()->End();
 
@@ -246,6 +254,8 @@ bool Hoe3D::Frame()
 	GetInfo()->PreEndFrame();
 	GetRef()->End();
 	GetInfo()->EndFrame();
+
+	END_TRY(return false)
 
 	return true;
 }

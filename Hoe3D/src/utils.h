@@ -16,7 +16,6 @@
 //-----------------------------------------------------------------------------
 // Debug printing support & ERRORS HTHROW
 //-----------------------------------------------------------------------------
-#define ASSERT(a) // pouzivat!!!
 
 #define _tp Con_Print("Tracing point " __FILE__ " l: %d",__LINE__ );
 
@@ -39,14 +38,10 @@ namespace HoeMath {
 };
 void Con_Print(HoeMath::MATRIX &m);
 
-#ifdef _DXERR9_H_
-#define Con_PrintHRes(text,hRes) Con_Print(text ": %s",DXGetErrorString9(hRes))
-#pragma comment (lib,"dxerr9.lib")
-
-#else
-#define Con_PrintHRes(text,hRes) Con_Print(text ": 0x%x",hRes)
+#ifdef _WIN32
+void d3derr(const char * file, dword line, const char * fnc, const char *ffnc, HRESULT hRes);
+#define checkres(hRes,fnc) if (FAILED(hRes)) d3derr(__FILE__, __LINE__, fnc,__FUNCTION__, hRes);
 #endif
-
 
 static const char tovelk(const char c)
 {
@@ -117,6 +112,18 @@ public:
 	bool IsEmpty() { return _num == 0;}
 	PTR * GetLast() { return _first[_num-1]; }
 };
+
+#ifdef _WIN32
+#define BEGIN_TRY __try {
+#define END_TRY(code)  } __except (ExpFilter(GetExceptionInformation(), GetExceptionCode())) \
+{ \
+	code ; \
+} 
+LONG WINAPI ExpFilter(EXCEPTION_POINTERS* pExp, DWORD dwExpCode);
+#else
+#define BEGIN_TRY
+#define END_TRY(code)
+#endif
 
 #include "cmdexec.h"
 

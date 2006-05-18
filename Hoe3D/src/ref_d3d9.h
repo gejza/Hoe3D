@@ -40,6 +40,8 @@ protected:
 	uint m_Adapter; ///< Cislo adapteru
 	IDirect3D9 * m_pD3D; ///< Ukazatel na Direct3D 
 	static IDirect3DDevice9 * m_Dev; ///< Device
+	D3DFORMAT m_AdapterFormat; ///< Format backbufferu
+	D3DCAPS9 m_Caps; ///< caps
 public:
 	/**
 	* Konstruktor
@@ -122,6 +124,21 @@ public:
 	* @param m Matice
 	*/
 	static HOE_INLINE void SetMatrix(const HoeMath::MATRIX & m);
+
+	/**
+	* Zjisti zda zarizeni podporuje format textury
+	* @param TextureFormat format textury
+	*/
+	bool IsTextureFormatOk( enum HOEFORMAT TextureFormat);
+	/**
+	* Podporovana verze vertex shaderu
+	* @return Verze shaderu jako hiword a loword
+	*/
+	word HOE_INLINE GetVertexShaderVersion()
+	{
+		return (word)(0xffff&m_Caps.VertexShaderVersion);
+	}
+
 	/**
 	* Zruseni Direct3D
 	*/

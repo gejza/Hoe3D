@@ -30,11 +30,11 @@ void HoeRenderTarget::InitMain()
 {
 #ifdef _HOE_D3D8_
 	 HRESULT hRef = D3DDevice()->GetRenderTarget(&m_rt);
-	 assert(hRef==S_OK);
+	 checkres(hRef,"GetRenderTarget");
 #endif
 #ifdef _HOE_D3D9_
 	 HRESULT hRef = D3DDevice()->GetRenderTarget(0,&m_rt);
-	 assert(hRef==S_OK);
+	 checkres(hRef,"GetRenderTarget");
 #endif
 }
 
@@ -43,14 +43,14 @@ void HoeRenderTarget::Setup()
 	// nastaveni view pointu atd
 	// clear atd.
 #ifdef _HOE_D3D8_
-	HRESULT hRef;
-	//hRef = D3DDevice()->SetRenderTarget(m_rt,NULL);
-	//assert(hRef==S_OK);
+	HRESULT hRes;
+	//hRes = D3DDevice()->SetRenderTarget(m_rt,NULL);
+	//checkres(hRes);
 #endif
 #ifdef _HOE_D3D9_
-	HRESULT hRef;
-	hRef = D3DDevice()->SetRenderTarget(0,m_rt);
-	assert(hRef==S_OK);
+	HRESULT hRes;
+	hRes = D3DDevice()->SetRenderTarget(0,m_rt);
+	checkres(hRes,"SetRenderTarget");
 #endif
 #ifdef _HOE_OPENGL_
 	switch (m_type)

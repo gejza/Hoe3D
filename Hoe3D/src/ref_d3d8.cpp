@@ -145,7 +145,7 @@ void RefD3D8::DrawStdObject(HoeStream * stream, HoeIndex * index, dword vert, dw
 	stream->Set(0);
 	D3DDevice()->SetIndices(index->GetIndexBuffer(),0);
 	HRESULT hRes = D3DDevice()->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, 0, vert, 0,  ind/3);
-	assert(hRes == S_OK);
+	checkres(hRes);
 	
 	GetInfo()->AddStatTriangles(ind/3);
 }
@@ -153,7 +153,7 @@ void RefD3D8::DrawStdObject(HoeStream * stream, HoeIndex * index, dword vert, dw
 void RefD3D8::DrawFanObject(dword offset, dword count)
 {
 	HRESULT hRes = D3DDevice()->DrawPrimitive( D3DPT_TRIANGLEFAN, offset, count-2);
-	assert(hRes == S_OK);
+	checkres(hRes);
 	GetInfo()->AddStatTriangles(count-2);
 }
 
@@ -161,15 +161,14 @@ void RefD3D8::DrawPointObject(class HoeStream * stream, int vertCount)
 {
 	stream->Set(0);
 	HRESULT hRes = D3DDevice()->DrawPrimitive( D3DPT_POINTLIST, 0, vertCount);
-	assert(hRes == S_OK);
+	checkres(hRes);
 }
 
 void RefD3D8::DrawLineObject(class HoeStream * stream, int lineCount)
 {
 	stream->Set(0);
 	HRESULT hRes = D3DDevice()->DrawPrimitive( D3DPT_LINELIST, 0, lineCount);
-	if (FAILED(hRes))
-		exit(1);
+	checkres(hRes);
 }
 
 

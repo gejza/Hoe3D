@@ -19,18 +19,12 @@ bool SoundSystemDS::Init(THoeInitSettings * his)
 	HRESULT hRes;
 
 	// Create IDirectSound using the primary sound device
-    if( FAILED( hRes = DirectSoundCreate8( NULL, &m_pDS, NULL ) ) )
-	{
-		Con_PrintHRes("DirectSoundCreate8 failed", hRes);
-        return false;
-	}
+    hRes = DirectSoundCreate8( NULL, &m_pDS, NULL );
+	checkres(hRes,"DirectSoundCreate8");
 
     // Set DirectSound coop level 
-    if( FAILED( hRes = m_pDS->SetCooperativeLevel( his->win, DSSCL_PRIORITY ) ) )
-	{
-		Con_PrintHRes("DirectSound SetCooperativeLevel", hRes);
-        return false;
-	}
+	hRes = m_pDS->SetCooperativeLevel( his->win, DSSCL_PRIORITY );
+	checkres(hRes,"SetCooperativeLevel");
 
 	Con_Print("DirectSoundCreate8 OK");
 

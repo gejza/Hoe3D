@@ -275,14 +275,15 @@ END";
 
 bool HoeVertexShader::Load()
 {
+	Con_Print("shader version: %x", GetRef()->GetVertexShaderVersion());
+	if (GetRef()->GetVertexShaderVersion() >= makeword(1,1))
+	{
 #ifdef _HOE_D3D9_
 	HRESULT hRes = D3DDevice()->CreateVertexShader( g_vs11_main, &m_shader);
-	assert(hRes == S_OK);
+	checkres(hRes,"CreateVertexShader")
 	return true;
 #endif
 #ifdef _HOE_OPENGL_
-	if (!GetRef()->ext.vs.IsSupported())
-		return false;
 	GetRef()->ext.vs.glGenProgramsARB( 1, &m_shader );
 	GetRef()->ext.vs.glBindProgramARB( GL_VERTEX_PROGRAM_ARB, m_shader );
 	GetRef()->ext.vs.glProgramStringARB( GL_VERTEX_PROGRAM_ARB, GL_PROGRAM_FORMAT_ASCII_ARB, sizeof(g_vs11_char)-1,g_vs11_char); 
@@ -299,12 +300,17 @@ bool HoeVertexShader::Load()
 		exit(1);
 	}
 #endif
+	}
+	else
+		m_shader = NULL;
 
 	return false;
 }
 
 void HoeVertexShader::Setup(const HoeScene * scene) const
 {
+	if (m_shader)
+	{
 	HoeMath::MATRIX m;
 	scene->GetCamera()->GetViewProjMatrix(&m);
 	HoeMath::MATRIX w;
@@ -321,7 +327,7 @@ void HoeVertexShader::Setup(const HoeScene * scene) const
 	//vv.Multiply(w);
 	w.Multiply(m);
 	w.Transpoze();
-	Con_Print(w);
+	//Con_Print(w);
 /*
 direct x:
 2.402153 0.000000 -0.241019 169.857834
@@ -335,7 +341,7 @@ ogl:
 0.098558 -0.159318 0.982295 345.703613
 
 */
-	exit(1);
+	//exit(1);
 
 	HoeMath::VECTOR4 zero(0,0,0,0);
 #ifdef _HOE_D3D9_
@@ -351,8 +357,6 @@ ogl:
 		}
 #endif
 #ifdef _HOE_OPENGL_
-	if (!GetRef()->ext.vs.IsSupported())
-		return;
 	GetRef()->ext.vs.glBindProgramARB(GL_VERTEX_PROGRAM_ARB, m_shader);
 	glEnable(GL_VERTEX_PROGRAM_ARB);
 
@@ -368,5 +372,6 @@ ogl:
 			GetRef()->ext.vs.glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, i+40, scene->GetLS()->GetActiveLight(i)->GetColor().m);
 		}
 #endif
+	}
 }
 

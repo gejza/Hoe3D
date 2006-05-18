@@ -91,12 +91,16 @@ bool HoeFont::Init()
 
 	this->m_tex = new HoeTexture;
 
-	if (!this->m_tex->Create(256,256,HOE_L8A8))
-	{
+	dword width=256,height=256;
+	HOEFORMAT format = HOE_L8A8;
+	/* poladit formaty */
+	GetConfig()->CheckTexture(width, height, format);
+	if (format == HOE_B8G8R8A8)
 		lformat = false;
-		Con_Print("L8A8 format failed, use A8R8G8B8");
-		if (!this->m_tex->Create(256,256,HOE_A8R8G8B8))
-			return false;
+
+	if (!this->m_tex->Create(width,height,format))
+	{
+		return false;
 	}
 	
 	HoeTexture::LOCKRECT lr;

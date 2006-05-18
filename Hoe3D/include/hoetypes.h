@@ -41,6 +41,8 @@ typedef unsigned short word;
 typedef unsigned int  uint;
 typedef unsigned char byte;
 
+#define makeword(a,b) (((a)<<8)|(b))
+
 struct THoeRect
 {
 	float left; 

@@ -128,10 +128,14 @@ void VertexShaderARB::Check()
 	if (supported)
 	{
 		Con_Print("Use extension: GL_ARB_vertex_program");
-		this->glProgramLocalParameter4fvARB = (PFNGLPROGRAMLOCALPARAMETER4FVARBPROC) GetProc("glVertexAttrib4fvARB");
+		glProgramLocalParameter4fvARB = (PFNGLPROGRAMLOCALPARAMETER4FVARBPROC) GetProc("glVertexAttrib4fvARB");
+		assert(glProgramLocalParameter4fvARB);
 		glGenProgramsARB = (PFNGLGENPROGRAMSARBPROC) GetProc("glGenProgramsARB");
+		assert(glGenProgramsARB);
 		glBindProgramARB = (PFNGLBINDPROGRAMARBPROC) GetProc("glBindProgramARB");
+		assert(glBindProgramARB);
 		glProgramStringARB = (PFNGLPROGRAMSTRINGARBPROC) GetProc("glProgramStringARB");
+		assert(glProgramStringARB);
 	}
 	else
 	{

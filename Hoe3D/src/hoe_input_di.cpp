@@ -58,28 +58,14 @@ bool HoeInputDI::UseKeyb()
 		return true;
 
 	hRes = m_lpDI->CreateDevice(GUID_SysKeyboard, &m_lpDIKeyb, NULL); 
-	if FAILED(hRes) { 
-		m_lpDIKeyb = NULL;
-		Con_PrintHRes("CreateDevice GUID_SysKeyboard FAILED",hRes);
-		return false;
-	} 
+	checkres(hRes,"CreateDevice");
 
 	hRes = m_lpDIKeyb->SetDataFormat(&c_dfDIKeyboard); 
-
-	if FAILED(hRes) { 
-		m_lpDIKeyb = 0;
-		Con_PrintHRes("SetDataFormat GUID_SysKeyboard FAILED",hRes);
-		return false;
-	} 
+	checkres(hRes,"SetDataFormat");
 
 	hRes = m_lpDIKeyb->SetCooperativeLevel(m_hwnd, 
 		DISCL_FOREGROUND | DISCL_NONEXCLUSIVE); 
-
-	if FAILED(hRes) { 
-		m_lpDIKeyb = 0;
-		Con_PrintHRes("SetCooperativeLevel GUID_SysKeyboard FAILED",hRes);
-		return false;
-	} 
+	checkres(hRes,"SetCooperativeLevel");
 
 	// imediate
 	DIPROPDWORD dipdw;
@@ -103,19 +89,10 @@ bool HoeInputDI::InstallMouse(MouseType mt)
 	if (m_lpDIMous == NULL)
 	{
 		hRes = m_lpDI->CreateDevice(GUID_SysMouse, &m_lpDIMous, NULL); 
-		if FAILED(hRes) { 
-			m_lpDIMous = NULL;
-			Con_PrintHRes("CreateDevice GUID_SysMouse FAILED",hRes);
-			return false;
-		} 
+		checkres(hRes,"CreateDevice");
 
 		hRes = m_lpDIMous->SetDataFormat(&c_dfDIMouse2); 
-
-		if FAILED(hRes) { 
-			m_lpDIMous = NULL;
-			Con_PrintHRes("SetDataFormat GUID_SysMouse FAILED",hRes);
-			return false;
-		} 
+		checkres(hRes,"SetDataFormat");
 	}
 	else
 	{
@@ -129,12 +106,7 @@ bool HoeInputDI::InstallMouse(MouseType mt)
 			hRes = m_lpDIMous->SetCooperativeLevel(m_hwnd, DISCL_EXCLUSIVE | DISCL_FOREGROUND); 
 		else
 			hRes = m_lpDIMous->SetCooperativeLevel(m_hwnd, DISCL_NONEXCLUSIVE | DISCL_BACKGROUND); 
-
-		if FAILED(hRes) { 
-			m_lpDIMous = NULL;
-			Con_PrintHRes("SetCooperativeLevel GUID_SysMouse FAILED",hRes);
-			return false;
-		} 
+		checkres(hRes,"SetCooperativeLevel");
 
 		m_lpDIMous->Acquire();
 		m_type = mt;

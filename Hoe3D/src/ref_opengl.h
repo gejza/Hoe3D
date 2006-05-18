@@ -130,6 +130,15 @@ public:
 	* @param m Matice
 	*/
 	static HOE_INLINE void SetMatrix(const HoeMath::MATRIX & m);
+
+	dword HOE_INLINE GetVertexShaderVersion()
+	{	
+		if (ext.vs.IsSupported())
+			return makeword(1,1);
+		else
+			return makeword(0,0);
+	}
+
 	/**
 	* Zruseni OpenGL
 	*/

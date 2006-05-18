@@ -45,7 +45,7 @@ bool ModelApp::LoadScene()
 	m_view.SetTargetPosition(0,0,0);
 	m_view.SetAngle(0.1f);
 	m_view.SetArcAngle(-0.16f);
-	m_view.SetDistance(350);
+	m_view.SetDistance(150);
 //	HoeGetInput(GetEngine())->RegisterKeyboard(&m_view);
 	HoeGetInput(GetEngine())->RegisterMouse(IHoeInput::MT_Foreground, &m_view);
 

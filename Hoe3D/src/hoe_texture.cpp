@@ -19,11 +19,8 @@ bool HoeTexture::Create(uint w,uint h,HOEFORMAT f)
 #ifdef _HOE_D3D_
 
 	HRESULT hRes;
-	if (FAILED(hRes = D3DDevice()->CreateTexture(w,h,1,0,HoeFormatX(f),D3DPOOL_MANAGED,&m_texture RESERVE_PAR)))
-	{
-		Con_PrintHRes("Error on create texture",hRes);
-		return false;
-	}
+	hRes = D3DDevice()->CreateTexture(w,h,1,0,HoeFormatX(f),D3DPOOL_MANAGED,&m_texture RESERVE_PAR);
+	checkres(hRes,"CreateTexture");
 #endif
 #ifdef _HOE_OPENGL_
 	glGenTextures(1,&m_texture);
