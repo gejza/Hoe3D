@@ -6,15 +6,19 @@
 #include "ref_opengl.h"
 #include "glext.h"
 
-namespace GLExt { 
+PFNGLPROGRAMLOCALPARAMETER4FVARBPROC glProgramLocalParameter4fvARB = NULL;
+PFNGLGENPROGRAMSARBPROC glGenProgramsARB = NULL;
+PFNGLBINDPROGRAMARBPROC glBindProgramARB = NULL;
+PFNGLPROGRAMSTRINGARBPROC glProgramStringARB = NULL;
+
+PFNGLGENBUFFERSARBPROC glGenBuffersARB = NULL;// Generování VBO jména
+PFNGLBINDBUFFERARBPROC glBindBufferARB = NULL;// Zvolení VBO bufferu
+PFNGLBUFFERDATAARBPROC glBufferDataARB = NULL;// Nahrávání dat VBO
+PFNGLDELETEBUFFERSARBPROC glDeleteBuffersARB = NULL;// Mazání VBO
+
 //////////////////////////////////
 
-Extension::Extension()
-{
-	supported = false;
-}
-
-bool Extension::TestExt(const char * ext_name,const char * extensions)
+bool RefOpenGL::TestExt(const char * ext_name,const char * extensions)
 {
 	const char * pe;
 	if (extensions)
@@ -45,7 +49,7 @@ bool Extension::TestExt(const char * ext_name,const char * extensions)
 	return false;
 }
 
-void Extension::PrintGlExt()
+void RefOpenGL::PrintGlExt()
 {
 	//
 	char buff[256];
@@ -70,7 +74,7 @@ void Extension::PrintGlExt()
 
 }
 
-GLPROCEDURE Extension::GetProc(const char * name)
+GLPROCEDURE RefOpenGL::GetProc(const char * name)
 {
 #ifdef _WIN32
 	return (GLPROCEDURE)wglGetProcAddress(name);
@@ -80,30 +84,25 @@ GLPROCEDURE Extension::GetProc(const char * name)
 #endif
 }
 
-////////////////////////////////////////////////
-// Compressed textures
-void CompressTextures::Check()
+
+void RefOpenGL::LoadExtensions()
 {
-	supported = TestExt("GL_ARB_texture_compression");
-	if (supported)
+	memset(&ext, 0, sizeof(ext));
+	// Compressed textures
+	ext.comp = TestExt("GL_ARB_texture_compression");
+	if (ext.comp)
 		Con_Print("Use extension: GL_ARB_texture_compression");
 	/*"GL_3DFX_texture_compression_FXT1";
 	"GL_EXT_texture_compression_s3tc";
 	"GL_S3_s3tc";
-
-
 	GLint NumFormat = 0;
 	GLint *Formats = NULL;
 	glGetIntegerv(GL_NUM_COMPRESSED_TEXTURE_FORMATS_ARB, &NumFormat);
 	NumFormat;*/
-}
-
-///////////////////////////////////////////////
-// Vertex buffer
-void VertexBuffer::Check()
-{
-	supported = TestExt("GL_ARB_vertex_buffer_object");
-	if (supported)
+	
+	// Vertex buffer
+	ext.vb = TestExt("GL_ARB_vertex_buffer_object");
+	if (ext.vb)
 	{
 		Con_Print("Use extension: GL_ARB_vertex_buffer_object");
 		glGenBuffersARB = (PFNGLGENBUFFERSARBPROC) GetProc("glGenBuffersARB");
@@ -118,14 +117,9 @@ void VertexBuffer::Check()
 		glBufferDataARB = NULL;// Nahrávání dat VBO
 		glDeleteBuffersARB = NULL;// Mazání VBO
 	}
-}
-
-///////////////////////////////////////////////
-// Vertex buffer
-void VertexShaderARB::Check()
-{
-	supported = TestExt("GL_ARB_vertex_program");
-	if (supported)
+	// Vertex shader
+	ext.vs = TestExt("GL_ARB_vertex_program");
+	if (ext.vs)
 	{
 		Con_Print("Use extension: GL_ARB_vertex_program");
 		glProgramLocalParameter4fvARB = (PFNGLPROGRAMLOCALPARAMETER4FVARBPROC) GetProc("glVertexAttrib4fvARB");
@@ -146,5 +140,4 @@ void VertexShaderARB::Check()
 	}
 }
 
-};
 

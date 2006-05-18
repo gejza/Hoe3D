@@ -284,9 +284,9 @@ bool HoeVertexShader::Load()
 	return true;
 #endif
 #ifdef _HOE_OPENGL_
-	GetRef()->ext.vs.glGenProgramsARB( 1, &m_shader );
-	GetRef()->ext.vs.glBindProgramARB( GL_VERTEX_PROGRAM_ARB, m_shader );
-	GetRef()->ext.vs.glProgramStringARB( GL_VERTEX_PROGRAM_ARB, GL_PROGRAM_FORMAT_ASCII_ARB, sizeof(g_vs11_char)-1,g_vs11_char); 
+	glGenProgramsARB( 1, &m_shader );
+	glBindProgramARB( GL_VERTEX_PROGRAM_ARB, m_shader );
+	glProgramStringARB( GL_VERTEX_PROGRAM_ARB, GL_PROGRAM_FORMAT_ASCII_ARB, sizeof(g_vs11_char)-1,g_vs11_char); 
 	if (GL_INVALID_OPERATION == glGetError())
 	{
 		GLint errPos;
@@ -357,19 +357,19 @@ ogl:
 		}
 #endif
 #ifdef _HOE_OPENGL_
-	GetRef()->ext.vs.glBindProgramARB(GL_VERTEX_PROGRAM_ARB, m_shader);
+	glBindProgramARB(GL_VERTEX_PROGRAM_ARB, m_shader);
 	glEnable(GL_VERTEX_PROGRAM_ARB);
 
-	GetRef()->ext.vs.glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, 0, &w._11 );
-	GetRef()->ext.vs.glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, 1, &w._21 );
-	GetRef()->ext.vs.glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, 2, &w._31 );
-	GetRef()->ext.vs.glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, 3, &w._41 );
-	GetRef()->ext.vs.glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB,  5, zero.m);	// c5   0,0,0,0
+	glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, 0, &w._11 );
+	glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, 1, &w._21 );
+	glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, 2, &w._31 );
+	glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, 3, &w._41 );
+	glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB,  5, zero.m);	// c5   0,0,0,0
 
 	for(uint i=0; i<17 && i < scene->GetLS()->GetNumActiveLights(); i++)
 		{
-			GetRef()->ext.vs.glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, i+10, scene->GetLS()->GetActiveLight(i)->GetPosition().m);
-			GetRef()->ext.vs.glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, i+40, scene->GetLS()->GetActiveLight(i)->GetColor().m);
+			glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, i+10, scene->GetLS()->GetActiveLight(i)->GetPosition().m);
+			glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, i+40, scene->GetLS()->GetActiveLight(i)->GetColor().m);
 		}
 #endif
 	}

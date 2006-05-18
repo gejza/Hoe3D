@@ -26,18 +26,13 @@ typedef GLuint SysIndexBuffer;
 
 struct THoeInitSettings;
 
+typedef void (*GLPROCEDURE)(void);
+
 /**
 * @brief Trida s implementaci zakladnich vlastnosti <b>OpenGL</b>
 */
 class RefOpenGL : public RefBase
 {
-public:
-	struct TGLext
-	{
-		GLExt::CompressTextures comp;
-		GLExt::VertexBuffer vb;
-		GLExt::VertexShaderARB vs;
-	} ext;
 protected:
 #ifdef _LINUX
 	Display *m_Dpy; ///< Display
@@ -52,8 +47,9 @@ protected:
 	HGLRC m_hRC; ///< Trvaly Rendering Context
 	HWND m_hWnd; ///< Handle okna
 #endif
-
+	
 public:
+	GLExt ext;
 	/**
 	* Konstruktor
 	*/
@@ -130,10 +126,31 @@ public:
 	* @param m Matice
 	*/
 	static HOE_INLINE void SetMatrix(const HoeMath::MATRIX & m);
-
+	/**
+	* Test na pritomnost rozsireni
+	* @param ext_name Jmeno extension
+	* @param extensions String extensions. Pokud je NULL funkce si zjisti rozsireni z ovladece OpenGL
+	*/
+	static bool TestExt(const char * ext_name,const char * extensions = NULL);
+	/**
+	* Vypise opengl rozisreni do konzole
+	*/
+	static void PrintGlExt();
+	/**
+	* Vrati ukazatel na proceduru opengl
+	*/
+	static GLPROCEDURE GetProc(const char * name);
+	/**
+	* Load extensions and desc
+	*/
+	void LoadExtensions();
+	/**
+	* Podporovana verze vertex shaderu
+	* @return Verze shaderu jako hiword a loword
+	*/
 	dword HOE_INLINE GetVertexShaderVersion()
 	{	
-		if (ext.vs.IsSupported())
+		if (ext.vs)
 			return makeword(1,1);
 		else
 			return makeword(0,0);

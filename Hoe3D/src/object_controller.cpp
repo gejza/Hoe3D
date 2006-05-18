@@ -85,7 +85,7 @@ void HoePaint3D::Paint(IHoeModel * model)
 	Ref::SetMatrix(actmatrix);
 	const HoeModel * m = dynamic_cast<HoeModel*>(model);
 	assert(m != NULL);
-	assert(!"old code");
+	//assert(!"old code");
 	m->Render(NULL);
 }
 

@@ -43,10 +43,9 @@ bool HoeStream::Create(dword numvert,const char * fvf,dword size)
 	m_dwfvf = this->GetFVF(fvf);
 #ifdef _HOE_OPENGL_
 	// jestli i opengl vytvorit paralelne s tim i vertex buffer object
-	if (!m_dynamic && GetRef()->ext.vb.IsSupported())
+	if (!m_dynamic && GetRef()->ext.vb)
 	{	
-		assert(GetRef()->ext.vb.glGenBuffersARB);
-		GetRef()->ext.vb.glGenBuffersARB(1, &m_vb);
+		glGenBuffersARB(1, &m_vb);
 	}
 	else
 		m_vb = 0;
@@ -83,8 +82,8 @@ void HoeStream::Unlock()
 #ifdef _HOE_OPENGL_
 	if (m_vb != 0)
 	{
-		GetRef()->ext.vb.glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_vb);
-		GetRef()->ext.vb.glBufferDataARB(GL_ARRAY_BUFFER_ARB, m_size, m_pVertices, GL_STATIC_DRAW_ARB);
+		glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_vb);
+		glBufferDataARB(GL_ARRAY_BUFFER_ARB, m_size, m_pVertices, GL_STATIC_DRAW_ARB);
 		delete [] m_pVertices;
 		m_pVertices = 0;
 	}
@@ -105,7 +104,7 @@ void HoeStream::Set(int n)
 	const bool vb = m_vb != 0;
 	int stride = 0;
 	if (vb)
-		GetRef()->ext.vb.glBindBufferARB(GL_ARRAY_BUFFER_ARB,m_vb);
+		glBindBufferARB(GL_ARRAY_BUFFER_ARB,m_vb);
 	if (m_dwfvf & FVF_XYZ)
 	{
 		glEnableClientState(GL_VERTEX_ARRAY);

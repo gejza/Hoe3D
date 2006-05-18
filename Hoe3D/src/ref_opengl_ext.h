@@ -11,56 +11,22 @@
 
 #include "glext.h"
 
-typedef void (*GLPROCEDURE)(void);
-
-namespace GLExt { 
-
-struct Extension
+struct GLExt
 {
-	bool supported;
-
-	Extension();
-	inline bool IsSupported() { return supported; }
-	/**
-	* Test na pritomnost rozsireni
-	* @param ext_name Jmeno extension
-	* @param extensions String extensions. Pokud je NULL funkce si zjisti rozsireni z ovladece OpenGL
-	*/
-	static bool TestExt(const char * ext_name,const char * extensions = NULL);
-	/**
-	* Vypise opengl rozisreni do konzole
-	*/
-	static void PrintGlExt();
-
-	static GLPROCEDURE GetProc(const char * name);
+	bool vb;
+	bool vs;
+	bool comp;
 };
 
-struct CompressTextures : public Extension
-{
-	void Check();
-};
+extern PFNGLPROGRAMLOCALPARAMETER4FVARBPROC glProgramLocalParameter4fvARB;
+extern PFNGLGENPROGRAMSARBPROC glGenProgramsARB;
+extern PFNGLBINDPROGRAMARBPROC glBindProgramARB;
+extern PFNGLPROGRAMSTRINGARBPROC glProgramStringARB;
 
-class VertexBuffer : public Extension
-{
-public:
-	void Check();
-	PFNGLGENBUFFERSARBPROC glGenBuffersARB;// Generování VBO jména
-	PFNGLBINDBUFFERARBPROC glBindBufferARB;// Zvolení VBO bufferu
-	PFNGLBUFFERDATAARBPROC glBufferDataARB;// Nahrávání dat VBO
-	PFNGLDELETEBUFFERSARBPROC glDeleteBuffersARB;// Mazání VBO
-};
-
-class VertexShaderARB : public Extension
-{
-public:
-	void Check();
-	PFNGLPROGRAMLOCALPARAMETER4FVARBPROC glProgramLocalParameter4fvARB;
-	PFNGLGENPROGRAMSARBPROC glGenProgramsARB;
-	PFNGLBINDPROGRAMARBPROC glBindProgramARB;
-	PFNGLPROGRAMSTRINGARBPROC glProgramStringARB;
-};
-
-}
+extern PFNGLGENBUFFERSARBPROC glGenBuffersARB;// Generování VBO jména
+extern PFNGLBINDBUFFERARBPROC glBindBufferARB;// Zvolení VBO bufferu
+extern PFNGLBUFFERDATAARBPROC glBufferDataARB;// Nahrávání dat VBO
+extern PFNGLDELETEBUFFERSARBPROC glDeleteBuffersARB;// Mazání VBO
 
 #endif // _HOE_OPENGL_EXT_H_
 

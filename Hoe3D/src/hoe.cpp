@@ -170,7 +170,7 @@ bool Hoe3D::Init(THoeInitSettings * his)
 
 	Con_Print("Load");
 
-	END_TRY(return false);
+	END_TRY(exit(1));
 	
 	return true;
 }

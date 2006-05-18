@@ -282,10 +282,8 @@ bool RefOpenGL::Init(THoeInitSettings * his)
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);// Nejlepší perspektivní korekce
 
 	// extensions 
-	GLExt::Extension::PrintGlExt();
-	ext.comp.Check();
-	ext.vb.Check();
-	ext.vs.Check();
+	PrintGlExt();
+	LoadExtensions();
 	//glPixelStorei(GL_UNPACK_SWAP_BYTES,GL_FALSE);
 
 	return true;
