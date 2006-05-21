@@ -19,7 +19,6 @@
 			OutputDirectory=".\Debug"
 			IntermediateDirectory=".\Debug"
 			ConfigurationType="4"
-			
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="0"
@@ -49,7 +48,7 @@
 				Name="VCCLCompilerTool"
 				UseUnicodeResponseFiles="false"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../Common;../../Hoe3D/utils/sdk;../../Hoe3D/include;../../HoeGame"
+				AdditionalIncludeDirectories="../../../Common;../../Hoe3D/utils/sdk;../../Hoe3D/include;../../HoeGame/include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -102,7 +101,6 @@
 			OutputDirectory=".\Release"
 			IntermediateDirectory=".\Release"
 			ConfigurationType="4"
-			
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="0"

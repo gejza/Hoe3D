@@ -216,18 +216,18 @@ bool Hoe3D::Frame()
 	if (m_active)
 	{
 		// render to texture
-		HoeRenderTarget * rt = GetRT();
+		/*HoeRenderTarget * rt = GetRT();
 		{
 		rt->Setup();
 		GetHoeStates()->Reset();
 
 		m_active->Render();
 
-		rt->EndRender();}
+		rt->EndRender();}*/
 		// render normal
 		m_rt.Setup();
 		// render vysledku
-		Get2D()->Begin();
+		/*Get2D()->Begin();
 		HoePicture pic;
 		pic.SetSource(rt->GetTexture());
 		const float w=5,h=5;
@@ -235,7 +235,7 @@ bool Hoe3D::Frame()
 		for (float i=0;i<w;i++)
 			for (float j=0;j < h;j++)
 				Get2D()->BltFast(i,i+1,j,j+1,&pic);
-		Get2D()->End();
+		Get2D()->End();*/
 
 		GetHoeStates()->Reset();
 
