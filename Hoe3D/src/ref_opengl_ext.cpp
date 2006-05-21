@@ -122,7 +122,7 @@ void RefOpenGL::LoadExtensions()
 	if (ext.vs)
 	{
 		Con_Print("Use extension: GL_ARB_vertex_program");
-		glProgramLocalParameter4fvARB = (PFNGLPROGRAMLOCALPARAMETER4FVARBPROC) GetProc("glVertexAttrib4fvARB");
+		glProgramLocalParameter4fvARB = (PFNGLPROGRAMLOCALPARAMETER4FVARBPROC) GetProc("glProgramLocalParameter4fvARB");
 		assert(glProgramLocalParameter4fvARB);
 		glGenProgramsARB = (PFNGLGENPROGRAMSARBPROC) GetProc("glGenProgramsARB");
 		assert(glGenProgramsARB);

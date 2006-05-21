@@ -150,9 +150,9 @@ public:
 	*/
 	dword HOE_INLINE GetVertexShaderVersion()
 	{	
-		//if (ext.vs)
-		//	return makeword(1,1);
-		//else
+		if (ext.vs)
+			return makeword(1,1);
+		else
 			return makeword(0,0);
 	}
 
