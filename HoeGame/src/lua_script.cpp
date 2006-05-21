@@ -161,12 +161,20 @@ void LuaParam::PushTable()
 void LuaParam::SetTableInteger(const char *par, int data, int tab)
 {
 	lua_pushinteger(m_L, data);
+#ifndef LUA_COMPAT
 	lua_setfield(m_L,tab,par);
+#else
+	assert(!"tato funkce neni dostupna ve verzi Lua 5.0");
+#endif
 }
 
 int LuaParam::GetTableInteger(const char *par, int tab)
 {
+#ifndef LUA_COMPAT
 	lua_getfield(m_L,tab,par);
+#else
+	assert(!"tato funkce neni dostupna ve verzi Lua 5.0");
+#endif
 	int i = lua_tonumber(m_L,-1);
 	lua_pop(m_L, 1);
 	return i;

@@ -2,7 +2,12 @@
 %option prefix="yyconfig"
 
 %{
-#undef yywrap
+//#ifdef yywrap
+//#undef yywrap
+//#else
+//#define yyconfigwrap yywrap
+static int yywrap() { return 1; } 
+//#endif
 #include "StdAfx.h"
 %}
 

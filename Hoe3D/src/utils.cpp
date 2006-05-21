@@ -200,13 +200,13 @@ void d3derr(const char * file, dword line, const char * fnc, const char *ffnc,HR
 	}
 }
 #endif
-
+#ifdef _WIN32
 LONG WINAPI ExpFilter(EXCEPTION_POINTERS* pExp, DWORD dwExpCode)
 {
    GenerateDump(pExp);
    return EXCEPTION_EXECUTE_HANDLER;
 }
-
+#endif
 	// test
 	/*EXCEPTION_POINTERS  ExPtrs;
 	CONTEXT             stCtx;

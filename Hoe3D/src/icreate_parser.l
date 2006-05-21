@@ -1,9 +1,11 @@
 %option prefix="yycreate"
-	#ifdef yywrap
-	#undef yywrap
-	#endif
-	//#define yycreatewrap yywrap
 %{
+//#ifdef yywrap
+//#undef yywrap
+//#else
+//#define yyconfigwrap yywrap
+static int yywrap() { return 1; } 
+//#endif
 #include <stdlib.h>
 #include "hoe_tokens.h"
 //int mylineno = 0;
