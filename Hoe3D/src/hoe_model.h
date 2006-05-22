@@ -24,7 +24,7 @@ class HoeModel : public IHoeModel
 
 
 	HoeMath::BoundingBox m_box;
-	HoeVertexShader m_shader;
+	//HoeVertexShader m_shader;
 	// atd..
 	// type, params, co delat kdyz projde (dalsi uroven)
 protected:

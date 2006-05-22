@@ -200,6 +200,28 @@ void d3derr(const char * file, dword line, const char * fnc, const char *ffnc,HR
 	}
 }
 #endif
+//////////////////////////////
+#ifdef _HOE_OPENGL_
+void glerr(const char * file, dword line, const char * fnc, const char *ffnc, int code)
+{
+	if (code!=GL_NO_ERROR)
+	{
+		char buff[2048];
+		_snprintf(buff, sizeof(buff)-1,
+			"File: %s\nLine: %d\nIn Function: %s\nFunction: %s\nglGetError: %x\nProgram will exit..", file, line, ffnc,fnc, (int)code);
+		Con_Print("glGetError return %x!", (int)code);
+		Con_Print("%s",buff);
+
+		MessageBox(GetActiveWindow(), buff, "glGetError failed!", MB_OK);
+		// call stack
+		BEGIN_TRY
+		__debugbreak();
+		throw("aa");
+		END_TRY(exit(1))
+	}
+}
+#endif
+
 #ifdef _WIN32
 LONG WINAPI ExpFilter(EXCEPTION_POINTERS* pExp, DWORD dwExpCode)
 {

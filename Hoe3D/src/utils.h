@@ -42,6 +42,8 @@ void Con_Print(HoeMath::MATRIX &m);
 void d3derr(const char * file, dword line, const char * fnc, const char *ffnc, HRESULT hRes);
 #define checkres(hRes,fnc) if (FAILED(hRes)) d3derr(__FILE__, __LINE__, fnc,__FUNCTION__, hRes);
 #endif
+void glerr(const char * file, dword line, const char * fnc, const char *ffnc,int code);
+#define checkgl(fnc) { register int code;if ((code=glGetError()) != GL_NO_ERROR) glerr(__FILE__, __LINE__, fnc,__FUNCTION__, code);}
 
 static const char tovelk(const char c)
 {

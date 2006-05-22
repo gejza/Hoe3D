@@ -1,3 +1,7 @@
+22.5.2006
+Hoe3D: 
+	Extension GL_EXT_compiled_vertex_array
+--------------------------------------
 17.5.2006
 Hoe3D:
 	Nastinena podpora shaderu

@@ -43,7 +43,7 @@ bool HoeStream::Create(dword numvert,const char * fvf,dword size)
 	m_dwfvf = this->GetFVF(fvf);
 #ifdef _HOE_OPENGL_
 	// jestli i opengl vytvorit paralelne s tim i vertex buffer object
-	if (!m_dynamic && GetRef()->ext.vb)
+	if (!m_dynamic && GetRef()->ext.ARB_vertex_buffer_object)
 	{	
 		glGenBuffersARB(1, &m_vb);
 	}

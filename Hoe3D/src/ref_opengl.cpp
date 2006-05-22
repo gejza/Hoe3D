@@ -4,7 +4,7 @@
 #include "utils.h"
 #include "config.h"
 #include "../include/hoe3d.h"
-#include "ref_opengl.h"
+#include "ref.h"
 #include "hoe_stream.h"
 #include "hoe_index.h"
 #include "hoe_info.h"
@@ -361,14 +361,37 @@ void RefOpenGL::Destroy()
 void RefOpenGL::DrawStdObject(HoeStream * stream, HoeIndex * index)
 {
 	stream->Set(0);
-	glDrawElements(GL_TRIANGLES,index->GetNumIndices(),GL_UNSIGNED_SHORT,(GLvoid*)index->GetIndexBuffer());	
+	if (GetRef()->ext.EXT_compiled_vertex_array)
+	{
+		glLockArraysEXT(0, (GLsizei)stream->GetNumVert());
+		checkgl("glLockArraysEXT");
+	}
+	
+	glDrawElements(GL_TRIANGLES,index->GetNumIndices(),GL_UNSIGNED_SHORT,(GLvoid*)index->GetIndexBuffer());
+	checkgl("glDrawElements");
+	if (GetRef()->ext.EXT_compiled_vertex_array)
+	{
+		glUnlockArraysEXT();
+		checkgl("glUnlockArraysEXT");
+	}
 	GetInfo()->AddStatTriangles(index->GetNumIndices()/3);
 }
 
 void RefOpenGL::DrawStdObject(HoeStream * stream, HoeIndex * index, dword vert, dword ind)
 {
 	stream->Set(0);
-	glDrawElements(GL_TRIANGLES,ind,GL_UNSIGNED_SHORT,(GLvoid*)index->GetIndexBuffer());	
+	if (GetRef()->ext.EXT_compiled_vertex_array)
+	{
+		glLockArraysEXT(0, (GLsizei)vert);
+		//checkgl("glLockArraysEXT");
+	}
+	glDrawElements(GL_TRIANGLES,ind,GL_UNSIGNED_SHORT,(GLvoid*)index->GetIndexBuffer());
+	//checkgl("glDrawElements");
+	if (GetRef()->ext.EXT_compiled_vertex_array)
+	{
+		glUnlockArraysEXT();
+		//checkgl("glUnlockArraysEXT");
+	}
 	GetInfo()->AddStatTriangles(ind/3);
 }
 

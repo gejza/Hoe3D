@@ -150,7 +150,7 @@ public:
 	*/
 	dword HOE_INLINE GetVertexShaderVersion()
 	{	
-		if (ext.vs)
+		if (ext.ARB_vertex_program)
 			return makeword(1,1);
 		else
 			return makeword(0,0);

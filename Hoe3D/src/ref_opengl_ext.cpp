@@ -16,6 +16,12 @@ PFNGLBINDBUFFERARBPROC glBindBufferARB = NULL;// Zvolení VBO bufferu
 PFNGLBUFFERDATAARBPROC glBufferDataARB = NULL;// Nahrávání dat VBO
 PFNGLDELETEBUFFERSARBPROC glDeleteBuffersARB = NULL;// Mazání VBO
 
+// compiled arrays
+PFNGLLOCKARRAYSEXTPROC glLockArraysEXT = NULL;
+PFNGLUNLOCKARRAYSEXTPROC glUnlockArraysEXT = NULL;
+
+#define check(p) assert((p)!=NULL)
+
 //////////////////////////////////
 
 bool RefOpenGL::TestExt(const char * ext_name,const char * extensions)
@@ -76,12 +82,15 @@ void RefOpenGL::PrintGlExt()
 
 GLPROCEDURE RefOpenGL::GetProc(const char * name)
 {
+	GLPROCEDURE proc = NULL;
 #ifdef _WIN32
-	return (GLPROCEDURE)wglGetProcAddress(name);
+	proc = (GLPROCEDURE)wglGetProcAddress(name);
 #endif
 #ifdef _LINUX
-	return glXGetProcAddressARB((GLubyte*)name);
+	proc = glXGetProcAddressARB((GLubyte*)name);
 #endif
+	assert(proc && "Procedure not found");
+	return proc;
 }
 
 
@@ -89,8 +98,12 @@ void RefOpenGL::LoadExtensions()
 {
 	memset(&ext, 0, sizeof(ext));
 	// Compressed textures
-	ext.comp = TestExt("GL_ARB_texture_compression");
-	if (ext.comp)
+	ext.ARB_texture_compression = TestExt("GL_ARB_texture_compression");
+	ext.ARB_vertex_buffer_object = TestExt("GL_ARB_vertex_buffer_object");
+	if (!ext.ARB_vertex_buffer_object)
+		ext.EXT_compiled_vertex_array = TestExt("GL_EXT_compiled_vertex_array");
+	ext.ARB_vertex_program = TestExt("GL_ARB_vertex_program");
+	if (ext.ARB_texture_compression)
 		Con_Print("Use extension: GL_ARB_texture_compression");
 	/*"GL_3DFX_texture_compression_FXT1";
 	"GL_EXT_texture_compression_s3tc";
@@ -101,8 +114,7 @@ void RefOpenGL::LoadExtensions()
 	NumFormat;*/
 	
 	// Vertex buffer
-	ext.vb = TestExt("GL_ARB_vertex_buffer_object");
-	if (ext.vb)
+	if (ext.ARB_vertex_buffer_object)
 	{
 		Con_Print("Use extension: GL_ARB_vertex_buffer_object");
 		glGenBuffersARB = (PFNGLGENBUFFERSARBPROC) GetProc("glGenBuffersARB");
@@ -110,34 +122,24 @@ void RefOpenGL::LoadExtensions()
 		glBufferDataARB = (PFNGLBUFFERDATAARBPROC) GetProc("glBufferDataARB");
 		glDeleteBuffersARB = (PFNGLDELETEBUFFERSARBPROC) GetProc("glDeleteBuffersARB");
 	}
-	else
-	{
-		glGenBuffersARB = NULL;// Generování VBO jména
-		glBindBufferARB = NULL;// Zvolení VBO bufferu
-		glBufferDataARB = NULL;// Nahrávání dat VBO
-		glDeleteBuffersARB = NULL;// Mazání VBO
-	}
 	// Vertex shader
-	ext.vs = TestExt("GL_ARB_vertex_program");
-	if (ext.vs)
+	if (ext.ARB_vertex_program)
 	{
 		Con_Print("Use extension: GL_ARB_vertex_program");
 		glProgramLocalParameter4fvARB = (PFNGLPROGRAMLOCALPARAMETER4FVARBPROC) GetProc("glProgramLocalParameter4fvARB");
-		assert(glProgramLocalParameter4fvARB);
 		glGenProgramsARB = (PFNGLGENPROGRAMSARBPROC) GetProc("glGenProgramsARB");
-		assert(glGenProgramsARB);
 		glBindProgramARB = (PFNGLBINDPROGRAMARBPROC) GetProc("glBindProgramARB");
-		assert(glBindProgramARB);
 		glProgramStringARB = (PFNGLPROGRAMSTRINGARBPROC) GetProc("glProgramStringARB");
-		assert(glProgramStringARB);
 	}
-	else
+
+	// locked arrays
+	if (ext.EXT_compiled_vertex_array)
 	{
-		glProgramLocalParameter4fvARB = NULL;
-		glGenProgramsARB = NULL;
-		glBindProgramARB = NULL;
-		glProgramStringARB = NULL;
+		glLockArraysEXT = (PFNGLLOCKARRAYSEXTPROC) GetProc("glLockArraysEXT");
+		glUnlockArraysEXT = (PFNGLUNLOCKARRAYSEXTPROC) GetProc("glUnlockArraysEXT");	
+		Con_Print("Use extension: GL_EXT_compiled_vertex_array");
 	}
+
 }
 
 

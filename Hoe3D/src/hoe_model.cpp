@@ -22,7 +22,7 @@ HoeModel::HoeModel(int numr)
 	m_num_index = 0;
 	m_num_mat = 0;
 
-	m_shader.Load();
+	//m_shader.Load();
 }
 
 void HoeModel::AddDefStream(HoeStream * stream)
@@ -65,7 +65,7 @@ void HoeModel::Render(const HoeScene * scene) const
 	for (uint i=0;i<m_num_stream;i++)
 	{
 		if (m_mat[i]) m_mat[i]->Setup();
-		m_shader.Setup(scene);
+		//m_shader.Setup(scene);
 		Ref::DrawStdObject(m_stream[i],m_index[i],m_stream[i]->GetNumVert(),m_index[i]->GetNumIndices());
 	}
 }

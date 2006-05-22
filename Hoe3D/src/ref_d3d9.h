@@ -136,7 +136,7 @@ public:
 	*/
 	word HOE_INLINE GetVertexShaderVersion()
 	{
-		return 0;//(word)(0xffff&m_Caps.VertexShaderVersion);
+		return (word)(0xffff&m_Caps.VertexShaderVersion);
 	}
 
 	/**

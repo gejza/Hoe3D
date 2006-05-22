@@ -216,6 +216,7 @@ bool Hoe3D::Frame()
 	if (m_active)
 	{
 		// render to texture
+		/*
 		HoeRenderTarget * rt = GetRT();
 		{
 		rt->Setup();
@@ -224,9 +225,11 @@ bool Hoe3D::Frame()
 		m_active->Render();
 
 		rt->EndRender();}
+		*/
 		// render normal
 		m_rt.Setup();
 		// render vysledku
+		/*
 		Get2D()->Begin();
 		HoePicture pic;
 		pic.SetSource(rt->GetTexture());
@@ -236,7 +239,7 @@ bool Hoe3D::Frame()
 			for (float j=0;j < h;j++)
 				Get2D()->BltFast(i,i+1,j,j+1,&pic);
 		Get2D()->End();
-
+		*/
 		GetHoeStates()->Reset();
 
 		m_active->Render();
@@ -274,7 +277,10 @@ void Hoe3D::Destroy()
 	}
 
 	GetRef()->Destroy();
-	GetSound()->Destroy();
+	if (IsSoundLoaded())
+	{
+		GetSound()->Destroy();
+	}
 	delete this;
 }
 

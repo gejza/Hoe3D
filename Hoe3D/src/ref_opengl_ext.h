@@ -13,9 +13,10 @@
 
 struct GLExt
 {
-	bool vb;
-	bool vs;
-	bool comp;
+	bool ARB_texture_compression;
+	bool EXT_compiled_vertex_array;
+	bool ARB_vertex_buffer_object;
+	bool ARB_vertex_program;
 };
 
 extern PFNGLPROGRAMLOCALPARAMETER4FVARBPROC glProgramLocalParameter4fvARB;
@@ -27,6 +28,11 @@ extern PFNGLGENBUFFERSARBPROC glGenBuffersARB;// Generování VBO jména
 extern PFNGLBINDBUFFERARBPROC glBindBufferARB;// Zvolení VBO bufferu
 extern PFNGLBUFFERDATAARBPROC glBufferDataARB;// Nahrávání dat VBO
 extern PFNGLDELETEBUFFERSARBPROC glDeleteBuffersARB;// Mazání VBO
+
+// compiled arrays
+extern PFNGLLOCKARRAYSEXTPROC glLockArraysEXT;
+extern PFNGLUNLOCKARRAYSEXTPROC glUnlockArraysEXT;
+
 
 #endif // _HOE_OPENGL_EXT_H_
 
