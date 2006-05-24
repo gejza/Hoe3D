@@ -202,7 +202,7 @@ void d3derr(const char * file, dword line, const char * fnc, const char *ffnc,HR
 #endif
 //////////////////////////////
 #ifdef _WIN32
-#define _snprintf snprintf
+#define snprintf _snprintf
 #endif
 #ifdef _HOE_OPENGL_
 void glerr(const char * file, dword line, const char * fnc, const char *ffnc, int code)
