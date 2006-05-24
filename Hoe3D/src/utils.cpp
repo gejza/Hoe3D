@@ -201,23 +201,29 @@ void d3derr(const char * file, dword line, const char * fnc, const char *ffnc,HR
 }
 #endif
 //////////////////////////////
+#ifdef _WIN32
+#define _snprintf snprintf
+#endif
 #ifdef _HOE_OPENGL_
 void glerr(const char * file, dword line, const char * fnc, const char *ffnc, int code)
 {
 	if (code!=GL_NO_ERROR)
 	{
 		char buff[2048];
-		_snprintf(buff, sizeof(buff)-1,
+		snprintf(buff, sizeof(buff)-1,
 			"File: %s\nLine: %d\nIn Function: %s\nFunction: %s\nglGetError: %x\nProgram will exit..", file, line, ffnc,fnc, (int)code);
 		Con_Print("glGetError return %x!", (int)code);
 		Con_Print("%s",buff);
-
+#ifdef _WIN32
 		MessageBox(GetActiveWindow(), buff, "glGetError failed!", MB_OK);
 		// call stack
 		BEGIN_TRY
 		__debugbreak();
 		throw("aa");
 		END_TRY(exit(1))
+#else
+		exit(1);
+#endif
 	}
 }
 #endif

@@ -106,8 +106,7 @@ bool HoeInputXWin::InstallMouse(MouseType mt)
 					   600, 400);
 			  XSync(m_disp, False);
 
-			    //XGetPointerControl(dpy, &mouse_accel_numerator, &mouse_accel_denominator,
-			//				 &mouse_threshold);
+			  XGetPointerControl(m_disp, &m_mouse_accel_numerator, &m_mouse_accel_denominator, &m_mouse_threshold);
 
 			  XChangePointerControl(m_disp, True, True, 1, 1, 0);
 
@@ -131,9 +130,7 @@ void HoeInputXWin::UninstallMouse()
 	if (m_xwinMouse || m_directMouse)
 	{
 
-	  //XChangePointerControl(m_disp, true, true, mouse_accel_numerator, 
-		//					mouse_accel_denominator, mouse_threshold);
-
+	  XChangePointerControl(m_disp, true, true, m_mouse_accel_numerator,m_mouse_accel_denominator, m_mouse_threshold);
 	  XUngrabPointer(m_disp, CurrentTime);
 	  //XUngrabKeyboard(dpy, CurrentTime);
 

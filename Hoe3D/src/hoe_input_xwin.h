@@ -11,6 +11,9 @@ class HoeInputXWin : public HoeInput
 	HOE_WINDOW m_win;
 	bool m_directMouse;
 	bool m_xwinMouse;
+	int m_mouse_accel_numerator;
+	int m_mouse_accel_denominator;
+	int m_mouse_threshold;
 public:
 	HoeInputXWin();
 	bool Init(THoeInitSettings *);
