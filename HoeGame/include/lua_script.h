@@ -5,14 +5,6 @@
 #include "hoe_game.h"
 #include "hoe_console.h"
 
-#define LUA_COMPAT
-// kompatibilita se starsima verzema
-#ifdef LUA_COMPAT
-// verze 5.0
-#define lua_pushinteger lua_pushnumber
-#endif
-
-
 BEGIN_HOEGAME
 
 class ResourceMgr;

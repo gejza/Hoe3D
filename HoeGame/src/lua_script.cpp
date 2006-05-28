@@ -7,6 +7,11 @@ extern "C" {
 #include <lauxlib.h>
 }
 
+// kompatibilita se starsi versi luy
+#ifndef LUA_VERSION_NUM
+#define LUA_VERSION_NUM 500
+#endif
+
 #include "../include/lua_script.h"
 #include "../include/hoe_resource_mgr.h"
 #include "../include/hoe_lang.h"
@@ -160,8 +165,8 @@ void LuaParam::PushTable()
 
 void LuaParam::SetTableInteger(const char *par, int data, int tab)
 {
+#if LUA_VERSION_NUM >= 501
 	lua_pushinteger(m_L, data);
-#ifndef LUA_COMPAT
 	lua_setfield(m_L,tab,par);
 #else
 	assert(!"tato funkce neni dostupna ve verzi Lua 5.0");
@@ -170,12 +175,12 @@ void LuaParam::SetTableInteger(const char *par, int data, int tab)
 
 int LuaParam::GetTableInteger(const char *par, int tab)
 {
-#ifndef LUA_COMPAT
+#if LUA_VERSION_NUM >= 501
 	lua_getfield(m_L,tab,par);
 #else
 	assert(!"tato funkce neni dostupna ve verzi Lua 5.0");
 #endif
-	int i = lua_tonumber(m_L,-1);
+	int i = (int)lua_tonumber(m_L,-1);
 	lua_pop(m_L, 1);
 	return i;
 }
