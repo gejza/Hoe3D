@@ -78,6 +78,14 @@ bool Config::CheckTexture(dword &width,dword &height,HOEFORMAT &format)
 		else
 			format = HOE_B8G8R8X8;
 		break;
+	// povolene formaty
+	case HOE_DXT1:
+	case HOE_DXT2:
+	case HOE_DXT3:
+	case HOE_DXT4:
+	case HOE_DXT5:
+	case HOE_U8V8:
+		break;
 	default:
 		assert(!"warning: check format");
 	};

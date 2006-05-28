@@ -29,7 +29,7 @@ bool HTexCompilerDDS::SaveToStream(HoeUtils::Stream * stream)
 	DWORD dwMagic;
 	if (!fin.Read(&dwMagic,4) || dwMagic != DDS_MAGIC)
 	{
-		//print("Error: no dds file.\n");
+		//printf("Error: no dds file.\n");
 		return false;
 	}
 
@@ -67,14 +67,15 @@ HOEFORMAT HTexCompilerDDS::DDSGetFormat(DDS_PIXELFORMAT * ddpf)
 		switch (ddpf->dwRGBBitCount)
 		{
 		case 32:
-			return HOE_A8R8G8B8;
-		case 16:
+			return HOE_B8G8R8A8;
+		/*case 16:
 			if (ddpf->dwABitMask == 0x8000)
 				return HOE_A1R5G5B5; //16-bit pixel format where 5 bits are reserved for each color and 1 bit is reserved for alpha. 
 			else if (ddpf->dwABitMask == 0xf000)
 				return HOE_A4R4G4B4; //16-bit ARGB pixel format with 4 bits for each channel. 
 			else if (ddpf->dwABitMask == 0xff00)
-				return HOE_A8R3G3B2; //16-bit ARGB texture format using 8 bits for alpha, 3 bits each for red and green, and 2 bits for blue. 
+				return HOE_A8R3G3B2; //16-bit ARGB texture format using 8 bits for alpha, 3 bits each for red and green, and 2 bits for blue.
+				*/
 		}
 	}
 	else  if (ddpf->dwFlags == DDS_RGB)
@@ -82,10 +83,10 @@ HOEFORMAT HTexCompilerDDS::DDSGetFormat(DDS_PIXELFORMAT * ddpf)
 		switch (ddpf->dwRGBBitCount)
 		{
 		case 32:
-			return HOE_X8R8G8B8;
+			return HOE_B8G8R8X8;
 		case 24:
-			return HOE_R8G8B8;
-		case 16:
+			return HOE_B8G8R8;
+		/*case 16:
 			if (ddpf->dwGBitMask == 0x07B0)
 				return HOE_R5G6B5; //16-bit RGB pixel format with 5 bits for red, 6 bits for green, and 5 bits for blue. 
 			else if (ddpf->dwGBitMask == 0x03B0)
@@ -94,8 +95,16 @@ HOEFORMAT HTexCompilerDDS::DDSGetFormat(DDS_PIXELFORMAT * ddpf)
 				return HOE_X4R4G4B4; //16-bit RGB pixel format using 4 bits for each color. 
 			break;
 		case 8:
-			return HOE_R3G3B2; //8-bit RGB texture format using 3 bits for red, 3 bits for green, and 2 bits for blue. 
+			return HOE_R3G3B2; //8-bit RGB texture format using 3 bits for red, 3 bits for green, and 2 bits for blue. */
 		}
+	}
+	else if (ddpf->dwFlags == 0x80000)
+	{
+		switch (ddpf->dwRGBBitCount)
+		{
+		case 16:
+			return HOE_U8V8;
+		};
 	}
 	
 	return HOE_UNKNOWN;

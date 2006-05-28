@@ -53,6 +53,8 @@ enum HOEFORMAT
     HOE_INDEX16              =101,
     HOE_INDEX32              =102,
 
+	HOE_U8V8				 = 201,
+
 	HOE_JPEG				 = MAKEFOURCC('J', 'P', 'E', 'G'),
 	HOE_PNG 				 = MAKEFOURCC('P', 'N', 'G', ' '),
 

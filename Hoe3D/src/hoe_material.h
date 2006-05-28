@@ -34,6 +34,7 @@ struct HoeMaterialColor
 class HoeMaterial
 {
 	class HoeTexture * m_tex;
+	class HoeTexture * m_bump;
 	bool m_lightreag;
 #ifdef _HOE_D3D_
 	D3DMaterial m_mtrl;

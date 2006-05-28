@@ -126,7 +126,7 @@ bool TextureConverterHX::Get(byte * p,dword pitch)
 	dword size = m_loader->GetHeader().size;
 #ifdef _DFMT_D3D9_
 	m_loader->GetData(p,&size);
-	if (size == (dword)m_loader->GetHeader().size)
+	if (size != (dword)m_loader->GetHeader().size)
 		return false;
 #endif
 #ifdef _DFMT_OPENGL_

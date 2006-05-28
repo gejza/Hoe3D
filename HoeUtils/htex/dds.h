@@ -10,7 +10,7 @@
 #ifndef _DDS_H_
 #define _DDS_H_
 
-#define DDS_MAGIC ('D'+('D'<<8)+('S'<<16)+(' '<<24))
+#define DDS_MAGIC ('D'+('D'<<8)+('S'<<16)+(' '<<24)) 
 
 struct DDS_PIXELFORMAT
 {

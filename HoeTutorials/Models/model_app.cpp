@@ -3,7 +3,7 @@
 
 const char * g_TutorialName = "models";
 
-const int n_light = 17;
+const int n_light = 2;
 
 int _hoemain(HOE_INSTANCE instance, HoeGame::Console * con)
 {
@@ -35,6 +35,7 @@ bool ModelApp::LoadScene()
 
 	GetFS()->AddResourceFile("../data/jackolan.hm");
 	GetFS()->AddResourceFile("../data/angel.hm");
+	GetFS()->AddResourceFile("../data/bump.hx");
 	//GetEngine()->AddResource("../data/konvice.hm");
 	//HoeGetRef(GetEngine())->SetBackgroundColor(0xfff00a79);
 	HoeGetRef(GetEngine())->SetBackgroundColor(0xff000000);
@@ -49,7 +50,7 @@ bool ModelApp::LoadScene()
 //	HoeGetInput(GetEngine())->RegisterKeyboard(&m_view);
 	HoeGetInput(GetEngine())->RegisterMouse(IHoeInput::MT_Foreground, &m_view);
 
-	IHoeModel * lght = (IHoeModel*)GetEngine()->Create("generate model box 5 file:'box.txt' -dump");
+	IHoeModel * lght = (IHoeModel*)GetEngine()->Create("generate model box 5");
 	if (!lght)
 		return false;
 
@@ -61,14 +62,15 @@ bool ModelApp::LoadScene()
 		m_l[i].SetPosition(0.f,0.f,0.f);
 		m_l[i].Show(true);
 	}
-	if (0 < n_light) m_l[ 0].light->SetColor( 1.0f, 0.0f, 0.0f);
-	if (1 < n_light) m_l[ 1].light->SetColor( 0.0f, 1.0f, 0.0f);
+	if (0 < n_light) m_l[ 0].light->SetColor( 1.0f, 1.0f, 1.0f);
+	//if (0 < n_light) m_l[ 0].light->SetColor( 1.0f, 0.0f, 0.0f);
+	if (1 < n_light) m_l[ 1].light->SetColor( 1.0f, 1.0f, 1.0f);
+	//if (1 < n_light) m_l[ 1].light->SetColor( 0.0f, 1.0f, 0.0f);
 	if (2 < n_light) m_l[ 2].light->SetColor( 0.0f, 0.0f, 1.0f);
 	if (3 < n_light) m_l[ 3].light->SetColor( 0.5f, 0.5f, 0.0f);
 	if (4 < n_light) m_l[ 4].light->SetColor( 0.5f, 0.0f, 0.5f);
 	if (5 < n_light) m_l[ 5].light->SetColor( 0.0f, 0.5f, 0.5f);
 	if (6 < n_light) m_l[ 6].light->SetColor( 0.3f, 0.3f, 0.3f);
-	//if (7 < n_light) m_l[ 7].light->SetColor( 1.0f, 1.0f, 1.0f);
 	if (7 < n_light) m_l[ 7].light->SetColor( 0.6f, 0.4f, 0.0f);
 	if (8 < n_light) m_l[ 8].light->SetColor( 0.6f, 0.0f, 0.4f);
 	if (9 < n_light) m_l[ 9].light->SetColor( 0.4f, 0.6f, 0.0f);
@@ -84,8 +86,8 @@ bool ModelApp::LoadScene()
 	/*IHoeModel * mod1 = (IHoeModel*)GetEngine()->Create("generate model box file:'box.txt' -dump");
 	if (!mod1)
 		return false;*/
-	IHoeModel * mod2 = (IHoeModel*)GetEngine()->Create("model angel file:'angel.txt' -dump");
-	//IHoeModel * mod2 = (IHoeModel*)GetEngine()->Create("generate model box 40");
+	//IHoeModel * mod2 = (IHoeModel*)GetEngine()->Create("model angel file:'angel.txt' -dump");
+	IHoeModel * mod2 = (IHoeModel*)GetEngine()->Create("generate model box 40");
 	if (!mod2)
 		return false;
 

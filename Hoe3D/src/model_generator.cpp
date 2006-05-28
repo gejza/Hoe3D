@@ -12,6 +12,7 @@ struct BoxVertex
 {
 	HoeMath::VECTOR3 pos;
 	HoeMath::VECTOR3 n;
+	HoeMath::VECTOR2 tex;
 };
 
 ModelGenerator::ModelGenerator(HoeLog *log, int flags)
@@ -38,7 +39,7 @@ HoeModel * ModelGenerator::GenBox(float size)
 	HoeIndex * index = new HoeIndex();
 	// 8 vertexu a 
 	LOG(m_log)->Log("Generating box of size %f", size);
-	stream->Create(8, "pn", sizeof(BoxVertex) * 8);
+	stream->Create(8, "pn2", sizeof(BoxVertex) * 8);
 	byte * l = stream->Lock();
 	for (i=0;i < 8;i++)
 	{
@@ -48,6 +49,8 @@ HoeModel * ModelGenerator::GenBox(float size)
 		bv->n.z = (i/2)%2 ? 1.f:-1.f;
 		bv->pos = bv->n * (size / 2);
 		bv->n.Normalize();
+		bv->tex.x = i%2 ? 0.f:1.f;
+		bv->tex.y = (i/2)%2 ? 0.f:1.f;
 		l += sizeof(BoxVertex);
 	}
 	if (m_log && m_flags)

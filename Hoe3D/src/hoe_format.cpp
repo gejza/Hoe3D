@@ -193,8 +193,15 @@ D3DFORMAT HoeFormatX(HOEFORMAT format)
     case HOE_B8G8R8A8: return D3DFMT_A8R8G8B8;
 	case HOE_B8G8R8: return D3DFMT_R8G8B8;
 	case HOE_L8A8: return D3DFMT_A8L8;
+	case HOE_DXT1: return D3DFMT_DXT1;
+	case HOE_DXT2: return D3DFMT_DXT2;
+	case HOE_DXT3: return D3DFMT_DXT3;
+	case HOE_DXT4: return D3DFMT_DXT4;
+	case HOE_DXT5: return D3DFMT_DXT5;
+	case HOE_U8V8: return D3DFMT_V8U8;
 	default:
 		Con_Print("warning: %s format not convert to D3D",HoeFormatString(format));
+		assert(!"format not convert to D3D");
 		return D3DFMT_UNKNOWN;
 	}
 

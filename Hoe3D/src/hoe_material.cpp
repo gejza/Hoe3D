@@ -27,6 +27,7 @@ const int HoeMaterial::Specular = 0x04;
 HoeMaterial::HoeMaterial()
 {
 	m_tex = NULL;
+	m_bump = NULL;
 	m_lightreag = true;
 #ifdef _HOE_D3D_
 	ZeroMemory( &m_mtrl, sizeof(m_mtrl) );
@@ -34,34 +35,14 @@ HoeMaterial::HoeMaterial()
 	SetColor(~0, HoeMaterialColor(1,1,1,1));
 }
 
+inline DWORD F2DW( FLOAT f ) { return *((DWORD*)&f); }
+
+
 void HoeMaterial::Setup()
 {
-	if (m_tex)
-	{
-		GetHoeStates()->EnableTexture();
-		GetTextureSystem()->SetTexture(0,m_tex);
-	}
-	else
-	{
-		GetHoeStates()->DisableTexture();
-	}
-	dword c = 0xffffffff;
+	// material
 #ifdef _HOE_D3D_
-
 	D3DDevice()->SetMaterial( &m_mtrl );
-    D3DDevice()->SetTextureStageState( 0, D3DTSS_COLOROP,   D3DTOP_MODULATE );
-	D3DDevice()->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-	D3DDevice()->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
-	D3DDevice()->SetTextureStageState( 0, D3DTSS_ALPHAOP,   D3DTOP_DISABLE );
-	D3DDevice()->SetTextureStageState( 1, D3DTSS_COLOROP,   D3DTOP_DISABLE );
-
-	/*D3DDevice()->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
-	D3DDevice()->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
-	D3DDevice()->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
-    D3DDevice()->SetRenderState(D3DRS_ALPHAREF, (DWORD)0x000000b0);
-    D3DDevice()->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE); 
-    D3DDevice()->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATEREQUAL);
-	*/
 #endif
 #ifdef _HOE_OPENGL_
 	glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,m_ambient);
@@ -70,6 +51,70 @@ void HoeMaterial::Setup()
 	float em[4] = { 0.f,0.f,0.f,1.f };
 	glMaterialfv( GL_FRONT, GL_EMISSION, em);
 	glMaterialf( GL_FRONT, GL_SHININESS, 0);
+#endif
+
+	int tex = 0;
+	if (m_tex)
+	{
+		GetHoeStates()->EnableTexture();
+		GetTextureSystem()->SetTexture(tex,m_tex);
+#ifdef _HOE_D3D_
+		D3DDevice()->SetTextureStageState( tex, D3DTSS_COLOROP,   D3DTOP_MODULATE );
+		D3DDevice()->SetTextureStageState( tex, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+		D3DDevice()->SetTextureStageState( tex, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+#endif
+#ifdef _HOE_OPENGL_
+#endif
+		tex++;
+	}
+
+	// bump
+	if (m_bump)
+	{
+		GetTextureSystem()->SetTexture(tex,m_bump);
+#ifdef _HOE_D3D_
+		D3DDevice()->SetTextureStageState( tex, D3DTSS_TEXCOORDINDEX, 0 );
+		D3DDevice()->SetTextureStageState( tex, D3DTSS_COLOROP,   D3DTOP_BUMPENVMAPLUMINANCE );		
+		D3DDevice()->SetTextureStageState( tex, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+		D3DDevice()->SetTextureStageState( tex, D3DTSS_COLORARG2, D3DTA_CURRENT );
+		// Set the bump mapping matrix.
+		//
+		// Note  These calls rely on the following inline shortcut function:
+		D3DDevice()->SetTextureStageState( 1, D3DTSS_BUMPENVMAT00, F2DW(1.0f) );
+		D3DDevice()->SetTextureStageState( 1, D3DTSS_BUMPENVMAT01, F2DW(0.0f) );
+		D3DDevice()->SetTextureStageState( 1, D3DTSS_BUMPENVMAT10, F2DW(0.0f) );
+		D3DDevice()->SetTextureStageState( 1, D3DTSS_BUMPENVMAT11, F2DW(1.0f) );
+
+		D3DDevice()->SetTextureStageState( 1, D3DTSS_BUMPENVLSCALE, F2DW(1.5f) );
+		D3DDevice()->SetTextureStageState( 1, D3DTSS_BUMPENVLOFFSET, F2DW(0.0f) );
+#endif
+#ifdef _HOE_OPENGL_
+#endif
+		tex++;
+	}
+
+#ifdef _HOE_D3D_
+	D3DDevice()->SetTextureStageState( tex, D3DTSS_COLOROP,   D3DTOP_DISABLE );
+#endif
+#ifdef _HOE_OPENGL_
+#endif
+
+	if (tex==0)
+		GetHoeStates()->DisableTexture();
+	//else
+	//	GetHoeStates()->EnableTexture();
+
+	dword c = 0xffffffff;
+
+#ifdef _HOE_D3D_
+	//D3DDevice()->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+	//D3DDevice()->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+	//D3DDevice()->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_DISABLE);
+    //D3DDevice()->SetRenderState(D3DRS_ALPHAREF, (DWORD)0x000000b0);
+    D3DDevice()->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE); 
+    //D3DDevice()->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATEREQUAL);
+#endif
+#ifdef _HOE_OPENGL_
 	//glAlphaFunc( GL_GREATER, 0.6f);// Nastavení alfa testingu
 	glDisable(GL_ALPHA_TEST);// Zapne alfa testing
 	glDisable(GL_ALPHA);// Zapne alfa testing

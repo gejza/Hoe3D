@@ -306,7 +306,7 @@ void HoeStates::EnableTexture()
 	//	return;
 
 #ifdef _HOE_D3D_
-	D3DDevice()->SetRenderState(D3DRS_SHADEMODE,D3DSHADE_FLAT );
+	//D3DDevice()->SetRenderState(D3DRS_SHADEMODE,D3DSHADE_FLAT );
 	D3DDevice()->SetTextureStageState( 0, D3DTSS_COLOROP,   D3DTOP_SELECTARG1 );
     D3DDevice()->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
     D3DDevice()->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
