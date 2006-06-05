@@ -63,8 +63,8 @@ public:
 	void OnQuit(wxCommandEvent& event);
 	void OnShowLog(wxCommandEvent& event);
 
-	virtual void KeyDown(int code) {};
-	virtual void KeyUp(int code) {};
+	virtual void KeyDown(wxKeyEvent& event) {};
+	virtual void KeyUp(wxKeyEvent& event) {};
 	virtual void MouseLeftDown(const int x, const int y, wxMouseEvent & e) {};
 	virtual void MouseLeftUp(const int x, const int y, wxMouseEvent & e) {};
 	virtual void MouseRightDown(const int x, const int y, wxMouseEvent & e) {};

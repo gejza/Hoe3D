@@ -305,7 +305,7 @@ void EngineView::OnMouseWheel(wxMouseEvent& event)
 
 void EngineView::OnKeyDown(wxKeyEvent& event)
 {
-	App::Get()->GetEditor()->KeyDown(event.GetKeyCode());
+	App::Get()->GetEditor()->KeyDown(event);
 
 /*
         case WXK_NUMPAD_DECIMAL: key = _T("NUMPAD_DECIMAL"); break;
@@ -336,7 +336,7 @@ void EngineView::OnKeyDown(wxKeyEvent& event)
 
 void EngineView::OnKeyUp(wxKeyEvent& event)
 {
-	App::Get()->GetEditor()->KeyUp(event.GetKeyCode());
+	App::Get()->GetEditor()->KeyUp(event);
 	event.Skip();
 }
 
@@ -352,7 +352,7 @@ void EngineView::OnSetFocus(wxFocusEvent &event)
 }
 
 
-void EngineView::OnKillFocus(wxFocusEvent &event)
+void EngineView::OnKillFocus(wxFocusEvent &even)
 {
     //GetApp()->GetMainFrame()->SetTitle("unfocused");
     //event.Skip();
