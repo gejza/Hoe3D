@@ -64,7 +64,7 @@ bool HoeEngine::Load(const char * dllname, Console * con, XHoeFS * fs)
 	}
 #endif
 
-	this->m_engine = GetEngineInterface(HOESDK_VERSION,con,fs, NULL,0,HOEF_NOSOUND);
+	this->m_engine = GetEngineInterface(HOESDK_VERSION,con,fs, NULL,0,0);
 
 	if (m_engine)
 	{
