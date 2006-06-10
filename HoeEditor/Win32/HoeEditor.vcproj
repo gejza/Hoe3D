@@ -203,6 +203,14 @@
 			>
 		</File>
 		<File
+			RelativePath="..\src\engine_console.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\include\he\engine_console.h"
+			>
+		</File>
+		<File
 			RelativePath="..\src\engview.cpp"
 			>
 		</File>

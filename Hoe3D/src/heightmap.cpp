@@ -54,9 +54,8 @@ int HoeHeightMap::load(int sizeX, int sizeY, float * f)
 	//-------------------------------------------------------
 	//	generator
 	//-------------------------------------------------------
-void HoeHeightMap::generateMap(int SizeX, int SizeY)
+void HoeHeightMap::generatePlaneMap(int SizeX, int SizeY, float height)
 {
-	float height;
 	int x,y;
 
 	sizeX=SizeX;
@@ -73,7 +72,7 @@ void HoeHeightMap::generateMap(int SizeX, int SizeY)
 			
 			//if(y%7==0 && x%4==0) height=50.0f;
 			//else 
-				height=(float)(10 + sin(3.14/180*x)*x*10 + cos(3.14/180*y*7)*x*2);
+				//height=(float)(10 + sin(3.14/180*x)*x*10 + cos(3.14/180*y*7)*x*2);
 
 			//height=0.0f;
 			setHeightAt(x,y,height);
@@ -275,9 +274,14 @@ void HoeQuadTerrain::loadHeight(float _distX,float _distY,int _sizeLevel, float 
 	distX=4.0f;
 	distY=4.0f;
 	
+	assert(!"doedlat funkci na nahrani mapy");
 	//heights.Load(size,size,f);
-	heightMap.generateMap(size, size);
-	
+	//heightMap.generatePlaneMap(size, size);
+	load();
+}
+
+void HoeQuadTerrain::load()
+{
 	SAFE_DELETE(enabledVertex);
 	enabledVertex=new bool[size*size];
 	
@@ -310,7 +314,6 @@ void HoeQuadTerrain::loadHeight(float _distX,float _distY,int _sizeLevel, float 
 		}
 	normalStream.Unlock();
 	loaded = true;	
-
 }
 
 //-------------------------------------------------------
@@ -628,9 +631,9 @@ void HoeQuadTerrain::createQuadrantList(int x0,int y0,int x1,int y1,int x2,int y
 void HoeQuadTerrain::render(HoeCamera *cam)
 {
 		
-	//float lod=1.0f;
+	float lod=1.0f;
 
-	//if(!loaded) return;
+	if(!loaded) return;
 							
 	//float distance; //=0.0f;
 	
@@ -662,11 +665,39 @@ HeightMapSurfaceSet::HeightMapSurfaceSet(HoeQuadTerrain * ter)
 	m_ter = ter;
 }
 
-void HeightMapSurfaceSet::LoadHeight(float _distX,float _distY,int _sizeLevel, float *f)
+void HOEAPI HeightMapSurfaceSet::GenerateHeight(float sizeX,float sizeY,int res)
 {
 	assert(m_ter);
-	m_ter->loadHeight(_distX, _distY, _sizeLevel, f);
+	m_ter->setDistX(sizeX);
+	m_ter->setDistY(sizeY);
+	m_ter->setSizeLevel(res);
+	m_ter->getHeightMap().generatePlaneMap(m_ter->getSize(), m_ter->getSize(), 0);
+	m_ter->load();
 }
+
+void HOEAPI HeightMapSurfaceSet::SetHeight(float sizeX,float sizeY,int res, float *f)
+{
+	assert(m_ter);
+	m_ter->loadHeight(sizeX, sizeY, res, f);
+}
+
+void HOEAPI HeightMapSurfaceSet::ShowBrush(bool show)
+{
+}
+
+void HOEAPI HeightMapSurfaceSet::SetBrush(float x, float y, float radius, dword color)
+{
+}
+
+void HOEAPI HeightMapSurfaceSet::MoveHeight(float x, float y, float radius, float value)
+{
+	for (int x=0;x < m_ter->getHeightMap().getSizeX();x++)
+	for (int y=0;y < m_ter->getHeightMap().getSizeY();y++)
+		m_ter->getHeightMap().setHeightAt(x,y,value+m_ter->getHeightMap().getHeightAt(x,y));
+	m_ter->createVertexList();
+}
+
+
 
 
 

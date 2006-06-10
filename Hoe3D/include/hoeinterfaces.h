@@ -12,7 +12,7 @@
 
 #include "hoetypes.h"
 
-#define HOE_INTERFACE_VER  66
+#define HOE_INTERFACE_VER  67
 
 /**
  * @brief Zakladni interface
@@ -43,6 +43,7 @@ public:
 #include "hoeobject.h"
 #include "hoeresources.h"
 #include "hoeelements.h"
+#include "hoescene.h"
 #include "hoesystems.h"
 #include "hoeinput.h"
 

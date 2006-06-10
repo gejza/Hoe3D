@@ -32,14 +32,14 @@ public:
 	HoeHeightMap();
 	~HoeHeightMap();
 	
-	void generateMap(int SizeX, int SizeY);	//	docasne, test
+	void generatePlaneMap(int SizeX, int SizeY, float height);	//	docasne, test
 	int load(int sizeX, int sizeY, float *);
 	int getSizeX();
 	int getSizeY();
 	void setHeightAt(int x, int y, float height);	
 	float getHeightAt(int x, int y);
 	HoeMath::VECTOR3 getNormalAt(int x, int y);
-
+	bool isEmpty() { return heights == NULL; }
 };
 
 /**
@@ -59,7 +59,6 @@ private:
 	bool checkVertex(int x, int y, int level, int sx, int sy);
 	void checkVertices();
 
-	void createVertexList();
 	void createIndexList();
 	void createQuadrantList(int x0,int y0,int x1,int y1,int x2,int y2,int level);
 
@@ -99,14 +98,19 @@ public:
 	void setDistY(float DistY);
 	void setSizeLevel(int SizeLevel);
 
-	virtual void setLOD(float _lod);
+	void createVertexList();
+
+	void setLOD(float _lod);
 	
-	virtual void increaseLOD(float increasement);
-	virtual void decreaseLOD(float decreasement);
-	virtual void loadHeight(float _distX,float _distY,int _sizeLevel, float *);
+	void increaseLOD(float increasement);
+	void decreaseLOD(float decreasement);
+	void loadHeight(float _distX,float _distY,int _sizeLevel, float *);
 	//virtual void Create(float width, float height);
+	void load();
 	void render(HoeCamera *cam);
 	
+	HoeHeightMap & getHeightMap() { return heightMap; }
+
 	float lod;
 };
 
@@ -117,7 +121,11 @@ public:
 	HeightMapSurfaceSet(HoeQuadTerrain * ter);
 	virtual int HOEAPI GetID() { return 0; }
 	virtual void HOEAPI Release() { delete this; };
-	virtual void HOEAPI LoadHeight(float _distX,float _distY,int _sizeLevel, float *f);
+	virtual void HOEAPI GenerateHeight(float sizeX,float sizeY,int res);
+	virtual void HOEAPI SetHeight(float sizeX,float sizeY,int res, float *f);
+	virtual void HOEAPI ShowBrush(bool show);
+	virtual void HOEAPI SetBrush(float x, float y, float radius, dword color);
+	virtual void HOEAPI MoveHeight(float x, float y, float radius, float value);
 };
 
 #endif // _HOE_HEIGHTMAP_H_

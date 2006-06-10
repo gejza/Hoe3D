@@ -30,6 +30,12 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
 			/>
 			<Tool
@@ -128,6 +134,12 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
 			/>
 			<Tool
@@ -224,6 +236,12 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="NASM"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -325,6 +343,12 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
 			/>
 			<Tool
@@ -421,6 +445,12 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="NASM"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -521,10 +551,16 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="HTML help"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
 			/>
 			<Tool
 				Name="Flex"
+			/>
+			<Tool
+				Name="NASM"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -598,6 +634,12 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="NASM"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -697,10 +739,16 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="HTML help"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
 			/>
 			<Tool
 				Name="Flex"
+			/>
+			<Tool
+				Name="NASM"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -1914,6 +1962,10 @@
 			</File>
 			<File
 				RelativePath="..\..\include\hoeresources.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\hoescene.h"
 				>
 			</File>
 			<File
