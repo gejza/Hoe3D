@@ -53,6 +53,7 @@ public:
 	virtual IHoeEnv::Poly * HOEAPI CreatePolygon(int numVec);
 	virtual void HOEAPI RemovePolygon(int id);
 	virtual IHoeEnv::HeightMapSurface * HOEAPI CreateHeightMapSurface();
+	virtual IHoeEnv::GridSurface * HOEAPI CreateGridSurface();
 	virtual IHoeMaterial * HOEAPI GetMaterial(const char * name);
 
 	// physicks

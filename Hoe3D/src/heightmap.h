@@ -45,7 +45,7 @@ public:
 /**
 * Trida vlastniho terenu
 */
-class HoeQuadTerrain
+class HoeQuadTerrain : public IHoeEnv::HeightMapSurface
 {
 private:
 	void enableVertex(int x, int y);
@@ -112,21 +112,15 @@ public:
 	HoeHeightMap & getHeightMap() { return heightMap; }
 
 	float lod;
-};
 
-class HeightMapSurfaceSet : public IHoeEnv::HeightMapSurface
-{
-	HoeQuadTerrain * m_ter;
-public:
-	HeightMapSurfaceSet(HoeQuadTerrain * ter);
-	virtual int HOEAPI GetID() { return 0; }
-	virtual void HOEAPI Release() { delete this; };
-	virtual void HOEAPI GenerateHeight(float sizeX,float sizeY,int res);
-	virtual void HOEAPI SetHeight(float sizeX,float sizeY,int res, float *f);
+	// interface
+	virtual void HOEAPI SetPosCenter( float x, float y, float z);
+	virtual void HOEAPI SetSize(float sizeX, float sizeY);
+	virtual void HOEAPI GenerateHeight(int resX,int resY);
+	virtual void HOEAPI SetHeightMap(int resX,int resY, float *f);
 	virtual void HOEAPI ShowBrush(bool show);
 	virtual void HOEAPI SetBrush(float x, float y, float radius, dword color);
-	virtual void HOEAPI MoveHeight(float x, float y, float radius, float value);
-};
+	virtual void HOEAPI MoveHeight(float x, float y, float radius, float value);};
 
 #endif // _HOE_HEIGHTMAP_H_
 

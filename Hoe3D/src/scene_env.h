@@ -11,6 +11,7 @@
 #include "hoe_material.h"
 
 #include "heightmap.h"
+#include "gridsurface.h"
 
 class HoePolygon
 {

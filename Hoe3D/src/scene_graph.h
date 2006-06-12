@@ -11,11 +11,13 @@ struct TSceneGroup
 	TSceneGroup * next;
 	enum Type {
 		ePolygon,
-		eTerrain,
+		eHeightMapSurface,
+		eGridSurface,
 	} type;
 	union {
 		class HoePolygon * p;
 		class HoeQuadTerrain * ter;
+		class GridSurface * grid;
 	} value;
 };
 

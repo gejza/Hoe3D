@@ -107,8 +107,11 @@ void HoeGraphScene::Render()
 		case TSceneGroup::ePolygon:
 			g->value.p->Render();
 			break;
-		case TSceneGroup::eTerrain:
+		case TSceneGroup::eHeightMapSurface:
 			g->value.ter->render(&cam);
+			break;
+		case TSceneGroup::eGridSurface:
+			g->value.grid->Render();
 			break;
 		};
 		g = g->next;
@@ -151,11 +154,17 @@ void HoeGraphScene::RemovePolygon(int id)
 IHoeEnv::HeightMapSurface * HoeGraphScene::CreateHeightMapSurface()
 {
 	TSceneGroup * g = NewGroup();
-	HoeQuadTerrain * t = new HoeQuadTerrain();
-	//p->Create(numVec);
-	g->type = TSceneGroup::eTerrain;
-	g->value.ter = t;
-	return new HeightMapSurfaceSet(t);
+	g->type = TSceneGroup::eHeightMapSurface;
+	g->value.ter = new HoeQuadTerrain();
+	return g->value.ter;
+}
+
+IHoeEnv::GridSurface * HoeGraphScene::CreateGridSurface()
+{
+	TSceneGroup * g = NewGroup();
+	g->type = TSceneGroup::eGridSurface;
+	g->value.grid = new GridSurface();
+	return g->value.grid;
 }
 
 IHoeMaterial * HoeGraphScene::GetMaterial(const char * name)

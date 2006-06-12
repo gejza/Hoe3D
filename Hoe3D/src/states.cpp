@@ -37,13 +37,14 @@ int HoeStates::c_setwireframe(int argc, const char * argv[], void * param)
 void HoeStates::Reset()
 {
 #ifdef _HOE_D3D_
-	float fFogStart = 50.f;
+	/*float fFogStart = 50.f;
 	float fFogEnd = 120.f;
     D3DDevice()->SetRenderState(D3DRS_FOGCOLOR, 0xaaaaaa);
     D3DDevice()->SetRenderState(D3DRS_FOGTABLEMODE, D3DFOG_LINEAR);//DESTALPHA);
     D3DDevice()->SetRenderState(D3DRS_FOGSTART, *((DWORD*) (&fFogStart)));
 	D3DDevice()->SetRenderState(D3DRS_FOGEND, *((DWORD*) (&fFogEnd)));
-    D3DDevice()->SetRenderState(D3DRS_FOGENABLE, TRUE);
+    D3DDevice()->SetRenderState(D3DRS_FOGENABLE, TRUE);*/
+	D3DDevice()->SetRenderState(D3DRS_FILLMODE, wireframe ? D3DFILL_WIREFRAME:D3DFILL_SOLID);
 #endif
 #ifdef _HOE_D3D_
 
@@ -336,3 +337,31 @@ void HoeStates::DisableTexture()
 	this->texture = false;
 
 }
+
+void HoeStates::StartWireframe()
+{
+#ifdef _HOE_D3D_
+	D3DDevice()->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+#endif
+#ifdef _HOE_OPENGL_
+	glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
+#endif // _HOE_OPENGL_
+}
+
+void HoeStates::EndWireframe()
+{
+#ifdef _HOE_D3D_
+	D3DDevice()->SetRenderState(D3DRS_FILLMODE, wireframe ? D3DFILL_WIREFRAME:D3DFILL_SOLID);
+#endif
+#ifdef _HOE_D3D_
+
+#endif
+#ifdef _HOE_OPENGL_
+	if (wireframe)
+		glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
+	else
+		glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
+#endif // _HOE_OPENGL_
+}
+
+

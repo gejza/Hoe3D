@@ -1465,14 +1465,6 @@
 			Name="Scene"
 			>
 			<File
-				RelativePath="..\..\src\heightmap.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\heightmap.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\hoe_map.cpp"
 				>
 				<FileConfiguration
@@ -1732,6 +1724,26 @@
 				RelativePath="..\..\src\skybox.h"
 				>
 			</File>
+			<Filter
+				Name="Elements"
+				>
+				<File
+					RelativePath="..\..\src\gridsurface.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\gridsurface.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\heightmap.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\heightmap.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Input"

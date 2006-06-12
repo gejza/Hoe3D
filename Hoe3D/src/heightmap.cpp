@@ -5,6 +5,7 @@
 #include "ref.h"
 #include "states.h"
 #include "heightmap.h"
+#include "texture_system.h"
 
 struct Vec
 {
@@ -660,44 +661,32 @@ void HoeQuadTerrain::render(HoeCamera *cam)
 	
 }
 
-HeightMapSurfaceSet::HeightMapSurfaceSet(HoeQuadTerrain * ter)
-{
-	m_ter = ter;
-}
-
-void HOEAPI HeightMapSurfaceSet::GenerateHeight(float sizeX,float sizeY,int res)
-{
-	assert(m_ter);
-	m_ter->setDistX(sizeX);
-	m_ter->setDistY(sizeY);
-	m_ter->setSizeLevel(res);
-	m_ter->getHeightMap().generatePlaneMap(m_ter->getSize(), m_ter->getSize(), 0);
-	m_ter->load();
-}
-
-void HOEAPI HeightMapSurfaceSet::SetHeight(float sizeX,float sizeY,int res, float *f)
-{
-	assert(m_ter);
-	m_ter->loadHeight(sizeX, sizeY, res, f);
-}
-
-void HOEAPI HeightMapSurfaceSet::ShowBrush(bool show)
+void HOEAPI HoeQuadTerrain::SetPosCenter(float x, float y, float z)
 {
 }
 
-void HOEAPI HeightMapSurfaceSet::SetBrush(float x, float y, float radius, dword color)
+void HOEAPI HoeQuadTerrain::SetSize(float sizeX, float sizeY)
 {
 }
 
-void HOEAPI HeightMapSurfaceSet::MoveHeight(float x, float y, float radius, float value)
+void HOEAPI HoeQuadTerrain::GenerateHeight(int sizeX,int sizeY)
 {
-	for (int x=0;x < m_ter->getHeightMap().getSizeX();x++)
-	for (int y=0;y < m_ter->getHeightMap().getSizeY();y++)
-		m_ter->getHeightMap().setHeightAt(x,y,value+m_ter->getHeightMap().getHeightAt(x,y));
-	m_ter->createVertexList();
 }
 
+void HOEAPI HoeQuadTerrain::SetHeightMap(int sizeX,int sizeY, float *f)
+{
+}
 
+void HOEAPI HoeQuadTerrain::ShowBrush(bool show)
+{
+}
 
+void HOEAPI HoeQuadTerrain::SetBrush(float x, float y, float radius, dword color)
+{
+}
+
+void HOEAPI HoeQuadTerrain::MoveHeight(float x, float y, float radius, float value)
+{
+}
 
 

@@ -12,7 +12,7 @@
 
 #include "hoetypes.h"
 
-#define HOE_INTERFACE_VER  67
+#define HOE_INTERFACE_VER  71
 
 /**
  * @brief Zakladni interface

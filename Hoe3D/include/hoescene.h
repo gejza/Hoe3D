@@ -6,27 +6,75 @@
 
 namespace IHoeEnv
 {
-	class Unknown
+	class Base
 	{
 	public:
-		virtual int HOEAPI GetID() = 0;
-		virtual void HOEAPI Release() = 0;
 	};
-	class Poly : public Unknown
+	class Poly : public Base
 	{
 	public:
 		virtual void HOEAPI SetPos(float * v, uint stride) = 0;
 		virtual void HOEAPI SetTex(float * v, uint stride) = 0;
 		virtual void HOEAPI SetMaterial(IHoeMaterial * m) = 0;
 	};
-	class HeightMapSurface : public Unknown
+	class HeightMapSurface : public Base
 	{
 	public:
-		virtual void HOEAPI GenerateHeight(float sizeX,float sizeY,int res) = 0;
-		virtual void HOEAPI SetHeight(float sizeX,float sizeY,int res, float *f) = 0;
+		/**
+		* Nastavi pozici stredu mapy
+		*/
+		virtual void HOEAPI SetPosCenter( float x, float y, float z) = 0;
+		/**
+		* Nastavi velikost mapy
+		*/
+		virtual void HOEAPI SetSize(float sizeX, float sizeY) = 0;
+		/**
+		* Vygeneruje vyskovou mapu
+		* @param resX rozliseni sirky (pocet bodu mapy)
+		* @param resY rozliseni vysky (pocet bodu mapy)
+		*/
+		virtual void HOEAPI GenerateHeight(int resX,int resY) = 0;
+		/**
+		* Nastavi vyskovou mapu
+		* @param resX rozliseni sirky (pocet bodu mapy)
+		* @param resY rozliseni vysky (pocet bodu mapy)
+		* @param f Jednotlive vysky mapy, ulozene po radcich (podle sizeX)
+		*/
+		virtual void HOEAPI SetHeightMap(int resX,int resY, float *f) = 0;
 		virtual void HOEAPI ShowBrush(bool show) = 0;
 		virtual void HOEAPI SetBrush(float x, float y, float radius, dword color) = 0;
 		virtual void HOEAPI MoveHeight(float x, float y, float radius, float value) = 0;
+		// Dump
+		
+	};
+	class GridSurface : public Base
+	{
+	public:
+		/**
+		* Nastavi pozici stredu mapy
+		*/
+		virtual void HOEAPI SetPosCenter( float x, float y, float z) = 0;
+		/**
+		* Nastavi velikost mapy
+		*/
+		virtual void HOEAPI SetSize(float sizeX, float sizeY) = 0;
+		/**
+		* Vygeneruje vyskovou mapu
+		* @param resX rozliseni sirky (pocet bodu mapy)
+		* @param resY rozliseni vysky (pocet bodu mapy)
+		*/
+		virtual void HOEAPI GenerateHeight(int resX,int resY) = 0;
+		/**
+		* Nastavi vyskovou mapu
+		* @param resX rozliseni sirky (pocet bodu mapy)
+		* @param resY rozliseni vysky (pocet bodu mapy)
+		* @param f Jednotlive vysky mapy, ulozene po radcich (podle sizeX)
+		*/
+		virtual void HOEAPI SetHeightMap(int resX,int resY, float *f) = 0;
+		virtual void HOEAPI ShowBrush(bool show) = 0;
+		virtual void HOEAPI SetBrush(float x, float y, float radius, dword color) = 0;
+		virtual void HOEAPI MoveHeight(float x, float y, float radius, float value) = 0;
+		// Dump
 		
 	};
 };
@@ -48,6 +96,7 @@ public:
 	virtual IHoeEnv::Poly * HOEAPI CreatePolygon(int numVec) = 0;
 	virtual void HOEAPI RemovePolygon(int id) = 0;
 	virtual IHoeEnv::HeightMapSurface * HOEAPI CreateHeightMapSurface() = 0;
+	virtual IHoeEnv::GridSurface * HOEAPI CreateGridSurface() = 0;
 	virtual IHoeMaterial * HOEAPI GetMaterial(const char * name) = 0;
 };
 

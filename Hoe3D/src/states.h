@@ -40,6 +40,9 @@ public:
 	void EnableTexture();
 	void DisableTexture();
 
+	void StartWireframe();
+	void EndWireframe();
+
 	static int c_setwireframe(int argc, const char * argv[], void * param);
 };
 
