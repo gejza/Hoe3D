@@ -74,7 +74,7 @@ namespace IHoeEnv
 		virtual void HOEAPI ShowBrush(bool show) = 0;
 		virtual void HOEAPI SetBrush(float x, float y, float radius, dword color) = 0;
 		virtual void HOEAPI MoveHeight(float x, float y, float radius, float value) = 0;
-		// Dump
+		virtual void HOEAPI ShowWireframe(bool show) = 0;
 		
 	};
 };

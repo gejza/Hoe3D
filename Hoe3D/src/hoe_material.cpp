@@ -117,11 +117,12 @@ void HoeMaterial::Setup()
 #ifdef _HOE_OPENGL_
 	//glAlphaFunc( GL_GREATER, 0.6f);// Nastavení alfa testingu
 	glDisable(GL_ALPHA_TEST);// Zapne alfa testing
-	glDisable(GL_ALPHA);// Zapne alfa testing
-	if (m_lightreag)
+	/*!!!*/
+	/*if (!m_lightreag)
 		glEnable(GL_LIGHTING);
 	else
 		glDisable(GL_LIGHTING);
+		*/
 #endif
 	
 }

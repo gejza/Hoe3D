@@ -75,7 +75,8 @@ void HoeStates::Setup2D()
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);// Funkce blendingu pro prùsvitnost založená na hodnotì alfa
 	glDisable(GL_BLEND);// vypne blending
 	glDisable(GL_ALPHA_TEST);// vypne
-	glDisable(GL_VERTEX_PROGRAM_ARB);
+	if (GetRef()->ext.ARB_vertex_program)
+		glDisable(GL_VERTEX_PROGRAM_ARB);
 #endif // _HOE_OPENGL_
 }
 
@@ -183,6 +184,7 @@ void HoeStates::SetupMap()
 	glEnable(GL_DEPTH_TEST);
 	//glDisable(GL_LIGHTING);
 	glDisable(GL_BLEND);
+	glDisable(GL_CULL_FACE);
 #endif // _HOE_OPENGL_
 
 }

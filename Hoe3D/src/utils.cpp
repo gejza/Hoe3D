@@ -186,8 +186,13 @@ void d3derr(const char * file, dword line, const char * fnc, const char *ffnc,HR
 	if (FAILED(hRes))
 	{
 		char buff[2048];
+#ifdef _HOE_D3D9_
 		_snprintf(buff, sizeof(buff)-1,
 			"File: %s\nLine: %d\nIn Function: %s\nFunction: %s\nHRESULT: %s\nProgram will exit..", file, line, ffnc,fnc, DXGetErrorString9(hRes));
+#else
+		_snprintf(buff, sizeof(buff)-1,
+			"File: %s\nLine: %d\nIn Function: %s\nFunction: %s\nHRESULT: 0x%x\nProgram will exit..", file, line, ffnc,fnc, hRes);
+#endif
 		Con_Print("HRESULT failed!");
 		Con_Print("%s",buff);
 
@@ -205,13 +210,43 @@ void d3derr(const char * file, dword line, const char * fnc, const char *ffnc,HR
 #define snprintf _snprintf
 #endif
 #ifdef _HOE_OPENGL_
+const char * glstrerror(int code)
+{
+	switch (code)
+	{
+	case GL_INVALID_ENUM:
+		return "GL_INVALID_ENUM";
+	case GL_INVALID_VALUE:
+		return "GL_INVALID_VALUE";
+	case GL_INVALID_OPERATION:
+		return "GL_INVALID_OPERATION";
+	case GL_STACK_OVERFLOW:
+		return "GL_STACK_OVERFLOW";
+	case GL_STACK_UNDERFLOW:
+		return "GL_STACK_UNDERFLOW";
+	case GL_OUT_OF_MEMORY:
+		return "GL_OUT_OF_MEMORY";
+	default:
+		return NULL;
+	};
+}
+
 void glerr(const char * file, dword line, const char * fnc, const char *ffnc, int code)
 {
 	if (code!=GL_NO_ERROR)
 	{
 		char buff[2048];
+		const char * strerr = glstrerror(code);
+		if (strerr)
+		{
+		snprintf(buff, sizeof(buff)-1,
+			"File: %s\nLine: %d\nIn Function: %s\nFunction: %s\nglGetError: %s\nProgram will exit..", file, line, ffnc,fnc, strerr);
+		}
+		else
+		{
 		snprintf(buff, sizeof(buff)-1,
 			"File: %s\nLine: %d\nIn Function: %s\nFunction: %s\nglGetError: %x\nProgram will exit..", file, line, ffnc,fnc, (int)code);
+		}
 		Con_Print("glGetError return %x!", (int)code);
 		Con_Print("%s",buff);
 #ifdef _WIN32

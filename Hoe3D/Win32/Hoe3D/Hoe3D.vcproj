@@ -165,7 +165,7 @@
 				AdditionalIncludeDirectories=""
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_D3D9_"
 				StringPooling="true"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile=".\Release/Hoe3D.pch"
@@ -667,7 +667,7 @@
 				AdditionalIncludeDirectories=""
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_D3D8_"
 				StringPooling="true"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile=".\ReleaseD3D8/Hoe3D.pch"
@@ -698,6 +698,7 @@
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories=""
+				IgnoreDefaultLibraryNames="libcmtd.lib"
 				ProgramDatabaseFile=".\Release/Hoe3D.pdb"
 				ImportLibrary=".\Release/Hoe3D.lib"
 			/>
@@ -850,7 +851,23 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="ReleaseD3D9|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="DebugGL|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseGL|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -894,7 +911,23 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="ReleaseGL|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="DebugD3D8|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D8|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -930,6 +963,14 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="ReleaseD3D9|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="DebugD3D8|Win32"
 					ExcludedFromBuild="true"
 					>
@@ -939,6 +980,14 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="DebugD3D9 (static)|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D8|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -966,6 +1015,14 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="ReleaseD3D9|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="DebugD3D8|Win32"
 					ExcludedFromBuild="true"
 					>
@@ -975,6 +1032,14 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="DebugD3D9 (static)|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D8|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1921,16 +1986,80 @@
 			Name="Config"
 			>
 			<File
-				RelativePath="..\..\src\config.asm"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\config.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\..\src\config.h"
 				>
+			</File>
+			<File
+				RelativePath="..\..\src\config_asm.asm"
+				>
+				<FileConfiguration
+					Name="DebugD3D9|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="NASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D9|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="NASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="NASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseGL|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="NASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D8|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="NASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9 (static)|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="NASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D8|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="NASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL (static)|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="NASM"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\src\states.cpp"
@@ -2007,6 +2136,22 @@
 			<File
 				RelativePath="..\..\src\shader_vertex.cpp"
 				>
+				<FileConfiguration
+					Name="DebugD3D8|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D8|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\src\shader_vertex.h"

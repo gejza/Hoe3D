@@ -1,3 +1,9 @@
+14.6.2006
+Hoe3D
+	Kontrola chyb v OpenGL a vycisteni od chyb.
+	Zprovozneni D3D8
+	beta multitexturing v gridsurface
+--------------------------------------
 22.5.2006
 Hoe3D: 
 	Extension GL_EXT_compiled_vertex_array

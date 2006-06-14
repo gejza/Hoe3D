@@ -29,6 +29,8 @@ class GridSurface : public IHoeEnv::GridSurface
 	bool m_loaded;
 	float m_sizeX;
 	float m_sizeY;
+	bool m_wire;
+	HoeTexture * tex1, *tex2;
 public:
 	GridSurface();
 	void Load();
@@ -40,6 +42,7 @@ public:
 	virtual void HOEAPI ShowBrush(bool show);
 	virtual void HOEAPI SetBrush(float x, float y, float radius, dword color);
 	virtual void HOEAPI MoveHeight(float x, float y, float radius, float value);
+	virtual void HOEAPI ShowWireframe(bool show);
 };
 
 #endif // _HOE_GRIDSURFACE_H_

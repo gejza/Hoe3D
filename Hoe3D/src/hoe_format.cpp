@@ -214,6 +214,7 @@ GLint HoeFormatX(HOEFORMAT format)
 {
 	switch (format)
 	{
+	case HOE_A8R8G8B8:
 	case HOE_R8G8B8A8: return GetRef()->ext.ARB_texture_compression ? GL_COMPRESSED_RGBA:GL_RGBA8;
 	case HOE_R8G8B8: return GetRef()->ext.ARB_texture_compression ? GL_COMPRESSED_RGB:GL_RGB8;
 	default:

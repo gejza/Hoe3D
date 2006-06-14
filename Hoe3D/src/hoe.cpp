@@ -241,22 +241,23 @@ bool Hoe3D::Frame()
 		Get2D()->End();
 		*/
 		GetHoeStates()->Reset();
-
 		m_active->Render();
 		// render user 2d
 		Get2D()->Begin();
-		
 		m_active->Paint2D();
 		// render stats & logos
 		GetInfo()->Publish();
 		Get2D()->End(); 
-
 		//HoeCursor::Draw();
 		m_rt.EndRender();
 	}
 	GetInfo()->PreEndFrame();
 	GetRef()->End();
 	GetInfo()->EndFrame();
+	
+#ifdef _HOE_OPENGL_
+	checkgl("sumary check");
+#endif
 
 	END_TRY(return false)
 

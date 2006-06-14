@@ -104,38 +104,82 @@ void HoeStream::Set(int n)
 	const bool vb = m_vb != 0;
 	int stride = 0;
 	if (vb)
+	{
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB,m_vb);
+		checkgl("glBindBufferARB");
+	}
 	if (m_dwfvf & FVF_XYZ)
 	{
-		glEnableClientState(GL_VERTEX_ARRAY);
 		glVertexPointer(3,GL_FLOAT,m_size / m_numvert,vb ? NULL:m_pVertices);
+		checkgl("glVertexPointer");
+		glEnableClientState(GL_VERTEX_ARRAY);
+		checkgl("glEnableClientState");
 		stride += 3*sizeof(float);
 	}
 	else if (m_dwfvf & FVF_XYZRHW)
 	{
 		glEnableClientState(GL_VERTEX_ARRAY);
+		checkgl("glEnableClientState");
 		glVertexPointer(4,GL_FLOAT,m_size / m_numvert,vb ? NULL:m_pVertices);
+		checkgl("glVertexPointer");
 		stride += 4*sizeof(float);
 	}
 	else
+	{
 		glDisableClientState(GL_VERTEX_ARRAY);
+		checkgl("glDisableClientState");
+	}
 
 	if (m_dwfvf & FVF_NORMAL)
 	{
 		glEnableClientState(GL_NORMAL_ARRAY);
+		checkgl("glEnableClientState");
 		glNormalPointer(GL_FLOAT,m_size / m_numvert,vb ? (byte*)stride:(m_pVertices + stride));
+		checkgl("glNormalPointer");
 		stride += 3*sizeof(float);
 	}
 	else
-		glDisableClientState(GL_NORMAL_ARRAY);
-	if (m_dwfvf & FVF_TEX1)
 	{
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		glTexCoordPointer(2,GL_FLOAT,m_size / m_numvert,vb ? (byte*)stride:(m_pVertices+stride));
-		stride += 2*sizeof(float);
+		glDisableClientState(GL_NORMAL_ARRAY);
+		checkgl("glDisableClientState");
+	}
+	// diffuse
+	if (m_dwfvf & FVF_DIFFUSE)
+	{
+		glEnableClientState(GL_COLOR_ARRAY);
+		checkgl("glEnableClientState");
+		glColorPointer(4,GL_BYTE,m_size / m_numvert,vb ? (byte*)stride:(m_pVertices+stride));
+		checkgl("glTexCoordPointer");
+		stride += sizeof(dword);
 	}
 	else
+	{
+		glDisableClientState(GL_COLOR_ARRAY);
+		checkgl("glDisableClientState");
+	}
+
+	if (m_dwfvf & FVF_TEX1)
+	{
+		glClientActiveTextureARB(GL_TEXTURE0_ARB);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		checkgl("glEnableClientState");
+		glTexCoordPointer(2,GL_FLOAT,m_size / m_numvert,vb ? (byte*)stride:(m_pVertices+stride));
+		checkgl("glTexCoordPointer");
+
+		glClientActiveTextureARB(GL_TEXTURE1_ARB);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		checkgl("glEnableClientState");
+		glTexCoordPointer(2,GL_FLOAT,m_size / m_numvert,vb ? (byte*)stride:(m_pVertices+stride));
+		checkgl("glTexCoordPointer");
+		stride += 2*sizeof(float);
+
+		glClientActiveTextureARB(GL_TEXTURE0_ARB);
+	}
+	else
+	{
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		checkgl("glDisableClientState");
+	}
 
 #endif
 }

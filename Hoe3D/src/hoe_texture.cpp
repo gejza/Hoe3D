@@ -24,6 +24,7 @@ bool HoeTexture::Create(uint w,uint h,HOEFORMAT f)
 #endif
 #ifdef _HOE_OPENGL_
 	glGenTextures(1,&m_texture);
+	checkgl("glGenTextures");
 #endif
 	return true;
 }
@@ -50,18 +51,21 @@ bool HoeTexture::BindData(byte * pix)
 #endif
 #ifdef _HOE_OPENGL_
 	glBindTexture(GL_TEXTURE_2D, m_texture);
-	
+	checkgl("glBindTexture");
 	switch (format)
 	{
 	case HOE_L8A8: 
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, pix);
+		checkgl("glTexImage2D");
 		break;
 	default:
-        glTexImage2D(GL_TEXTURE_2D, 0, HoeFormatX(format), width, height, 0, (HoeFormatSizeAlpha(format) > 0) ? GL_RGBA:GL_RGB, GL_UNSIGNED_BYTE, pix);// Vlastní vytváøení textury
+		glTexImage2D(GL_TEXTURE_2D, 0, HoeFormatX(format), width, height, 0, (HoeFormatSizeAlpha(format) > 0) ? GL_RGBA:GL_RGB, GL_UNSIGNED_BYTE, pix);// Vlastní vytváøení textury
+		checkgl("glTexImage2D");
 		break;
 	}
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);// Filtrování pøi zmenšení
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);// Filtrování pøi zvìtšení
+	checkgl("glTexParameteri");
 #endif
 	return true;
 }

@@ -43,7 +43,7 @@ void HoeRenderTarget::Setup()
 	// nastaveni view pointu atd
 	// clear atd.
 #ifdef _HOE_D3D8_
-	HRESULT hRes;
+	//HRESULT hRes;
 	//hRes = D3DDevice()->SetRenderTarget(m_rt,NULL);
 	//checkres(hRes);
 #endif

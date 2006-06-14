@@ -50,7 +50,7 @@ bool TerrainApp::LoadScene()
 
 	// vytvoreni terenu
 	terrain = GetEngine()->GetActiveScene()->GetSceneEnv()->CreateHeightMapSurface();
-	terrain->LoadHeight(100,100,4,NULL);
+	terrain->SetHeight(100,100,4,NULL);
 
 	HoeGetInput(GetEngine())->RegisterKeyboard(this);
 	HoeGetInput(GetEngine())->RegisterMouse(IHoeInput::MT_Foreground, &m_view);

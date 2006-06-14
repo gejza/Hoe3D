@@ -66,7 +66,7 @@ void HoeModel::Render(const HoeScene * scene) const
 	{
 		if (m_mat[i]) m_mat[i]->Setup();
 		//m_shader.Setup(scene);
-		Ref::DrawStdObject(m_stream[i],m_index[i],m_stream[i]->GetNumVert(),m_index[i]->GetNumIndices());
+		Ref::DrawStdObject(m_stream[i],m_index[i]);
 	}
 }
 

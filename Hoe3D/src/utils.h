@@ -45,6 +45,13 @@ void d3derr(const char * file, dword line, const char * fnc, const char *ffnc, H
 void glerr(const char * file, dword line, const char * fnc, const char *ffnc,int code);
 #define checkgl(fnc) { register int code;if ((code=glGetError()) != GL_NO_ERROR) glerr(__FILE__, __LINE__, fnc,__FUNCTION__, code);}
 
+
+/*#define TEST_OPENGL glEnableClientState(GL_VERTEX_ARRAY);\
+		checkgl("glEnableClientState");\
+		glDisableClientState(GL_VERTEX_ARRAY);\
+		checkgl("glDisableClientState");*/
+//#define TEST_OPENGL checkgl("check error")
+
 static const char tovelk(const char c)
 {
 	return ((c >= 'a' && c <= 'z') ? c - 'a' + 'A':c);

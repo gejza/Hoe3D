@@ -130,7 +130,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="../../../Common;../../Hoe3D/utils/sdk;../../Hoe3D/include;../../HoeGame"
+				AdditionalIncludeDirectories="../../../Common;../../Hoe3D/utils/sdk;../../Hoe3D/include;../../HoeGame/include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				StringPooling="true"
 				RuntimeLibrary="2"

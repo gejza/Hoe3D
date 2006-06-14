@@ -11,7 +11,7 @@
 #include "../include/hoe3d.h"
 
 extern "C" {
-int testMMX(void);
+//int testMMX(void);
 }
 
 Config::Config()
@@ -61,7 +61,7 @@ bool Config::CheckTexture(dword &width,dword &height,HOEFORMAT &format)
 #ifdef _HOE_OPENGL_
 	if (format == HOE_X8R8G8B8) format = HOE_R8G8B8;
 #endif
-#ifdef _HOE_D3D9_
+#ifdef _HOE_D3D_
 	switch (format)
 	{
 	case HOE_A8R8G8B8:
