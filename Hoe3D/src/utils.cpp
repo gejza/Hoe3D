@@ -266,6 +266,7 @@ void glerr(const char * file, dword line, const char * fnc, const char *ffnc, in
 #ifdef _WIN32
 LONG WINAPI ExpFilter(EXCEPTION_POINTERS* pExp, DWORD dwExpCode)
 {
+	Con_Print("Error exception.");
    GenerateDump(pExp);
    return EXCEPTION_EXECUTE_HANDLER;
 }

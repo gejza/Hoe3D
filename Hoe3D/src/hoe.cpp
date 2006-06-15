@@ -40,6 +40,7 @@ Hoe3D::Hoe3D(int flags) : m_rt(HoeRenderTarget::eMain)
 {	
 	SET_SHARED_PTR(hoe3d);
 	m_active = NULL;
+	m_stop = false;
 
 	// 
 	new CmdExec();
@@ -192,10 +193,17 @@ int Hoe3D::exec(const char * cmd)
 
 void Hoe3D::Process(const double dtime)
 {
+	if (m_stop)
+		return;
+
+	BEGIN_TRY
+
 	if (IsInputLoaded())
 		GetInput()->Process(float(dtime));
 
 	if (m_active) m_active->Process(dtime);
+
+	END_TRY(m_stop=true)
 }
 
 HoeRenderTarget * GetRT()
@@ -206,6 +214,9 @@ HoeRenderTarget * GetRT()
 
 bool Hoe3D::Frame()
 {
+	if (m_stop)
+		return false;
+
 	BEGIN_TRY
 
 	// scene preprocess
@@ -259,7 +270,7 @@ bool Hoe3D::Frame()
 	checkgl("sumary check");
 #endif
 
-	END_TRY(return false)
+	END_TRY(m_stop=true; return false)
 
 	return true;
 }

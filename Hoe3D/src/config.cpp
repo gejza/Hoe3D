@@ -11,7 +11,7 @@
 #include "../include/hoe3d.h"
 
 extern "C" {
-//int testMMX(void);
+int testMMX(void);
 }
 
 Config::Config()

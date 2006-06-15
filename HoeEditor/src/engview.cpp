@@ -154,7 +154,7 @@ void EngineView::OnPaint(wxPaintEvent& event)
 	else
 	{
 		dc.SetTextForeground(*wxWHITE);
-        dc.DrawLabel(_T("Engine not loaded."), GetClientRect(), wxALIGN_CENTER);
+        dc.DrawLabel(_("Engine not loaded."), GetClientRect(), wxALIGN_CENTER);
 	}
 	event.Skip();
 }
