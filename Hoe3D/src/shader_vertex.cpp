@@ -98,8 +98,8 @@ const char g_vs11_char[] = "!!ARBvp1.0\n\
 ATTRIB iPos = vertex.position;\n\
 ATTRIB iNormal = vertex.normal;\n\
 \n\
-PARAM mvp[4] = { state.matrix.mvp };\n\
-# PARAM mvp[4] = { program.local[0..3] };\n\
+#PARAM mvp[4] = { state.matrix.mvp };\n\
+PARAM mvp[4] = { program.local[0..3] };\n\
 PARAM light[17] = { program.local[10..26] };\n\
 PARAM color[17] = { program.local[40..56] };\n\
 PARAM zero = { 0.0, 0.0, 0.0, 0.0 };\n\
@@ -302,7 +302,7 @@ bool HoeVertexShader::Load()
 #endif
 	}
 	else
-		m_shader = NULL;
+		m_shader = 0;
 
 	return false;
 }
@@ -327,7 +327,7 @@ void HoeVertexShader::Setup(const HoeScene * scene) const
 	//vv.Multiply(w);
 	w.Multiply(m);
 	w.Transpoze();
-	//Con_Print(w);
+//	Con_Print(w);
 /*
 direct x:
 2.402153 0.000000 -0.241019 169.857834
@@ -341,7 +341,7 @@ ogl:
 0.098558 -0.159318 0.982295 345.703613
 
 */
-	//exit(1);
+//	exit(1);
 
 	HoeMath::VECTOR4 zero(0,0,0,0);
 #ifdef _HOE_D3D9_

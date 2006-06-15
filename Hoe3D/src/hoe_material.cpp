@@ -35,7 +35,7 @@ HoeMaterial::HoeMaterial()
 	SetColor(~0, HoeMaterialColor(1,1,1,1));
 }
 
-inline DWORD F2DW( FLOAT f ) { return *((DWORD*)&f); }
+inline dword F2DW( float f ) { return *((dword*)&f); }
 
 
 void HoeMaterial::Setup()

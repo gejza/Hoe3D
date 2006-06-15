@@ -9,7 +9,7 @@ tmpdir = tmp/
 CXX = g++
 # -Wno-ctor-dtor-privacy
 CXXFLAGS = -O2 -pthread
-CPPFLAGS = -D_LINUX -DWX_PRECOMP -DNO_GCC_PRAGMA -DGTK_NO_CHECK_CASTS -I/usr/local/lib/wx/include/gtk2-ansi-release-2.6 -I/usr/local/include/wx-2.6 -DXTHREADS -D_REENTRANT -DXUSE_MTSAFE_API -pthread -I/usr/include/gtk-2.0 -I/usr/lib/gtk-2.0/include -I/usr/X11R6/include -I/usr/include/atk-1.0 -I/usr/include/pango-1.0 -I/usr/include/freetype2 -I/usr/include/freetype2/config -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I../HoeGame -I../Hoe3D/include  -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -D_LARGEFILE_SOURCE=1
+CPPFLAGS = -D_LINUX -DWX_PRECOMP -DNO_GCC_PRAGMA -DGTK_NO_CHECK_CASTS -I/usr/local/lib/wx/include/gtk2-ansi-release-2.6 -I/usr/local/include/wx-2.6 -DXTHREADS -D_REENTRANT -DXUSE_MTSAFE_API -pthread -I/usr/include/gtk-2.0 -I/usr/lib/gtk-2.0/include -I/usr/X11R6/include -I/usr/include/atk-1.0 -I/usr/include/pango-1.0 -I/usr/include/freetype2 -I/usr/include/freetype2/config -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I../HoeGame/include -I../Hoe3D/include  -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -D_LARGEFILE_SOURCE=1
 LDFLAGS = -pthread   -L/usr/X11R6/lib 
 WX_LIB_FLAVOUR = 
 TOOLKIT = GTK

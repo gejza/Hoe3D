@@ -209,6 +209,7 @@ void d3derr(const char * file, dword line, const char * fnc, const char *ffnc,HR
 #ifdef _WIN32
 #define snprintf _snprintf
 #endif
+
 #ifdef _HOE_OPENGL_
 const char * glstrerror(int code)
 {
@@ -271,39 +272,4 @@ LONG WINAPI ExpFilter(EXCEPTION_POINTERS* pExp, DWORD dwExpCode)
    return EXCEPTION_EXECUTE_HANDLER;
 }
 #endif
-	// test
-	/*EXCEPTION_POINTERS  ExPtrs;
-	CONTEXT             stCtx;
-	stCtx.ContextFlags = CONTEXT_FULL;
-	GetThreadContext(GetCurrentThread(),&stCtx);
-	ExPtrs.ContextRecord=&stCtx;
-	BOOL b=SymInitialize(GetCurrentProcess(),NULL,1);
-	//const char *szBuff=GetFirstStackTraceString(STACKOPTS,&ExPtrs);
-	//while(NULL != szBuff);
-	//{
-	//	szBuff=GetNextStackTraceString(STACKOPTS,pExPtrs);
-	//}
-	STACKFRAME64 stack;
-	memset(&stack, 0 , sizeof stack);
-	stack.AddrPC.Offset     = stCtx.Eip;
-	stack.AddrPC.Mode       = AddrModeFlat;
-	stack.AddrStack.Offset  = stCtx.Esp;
-	stack.AddrStack.Mode    = AddrModeFlat;
-	stack.AddrFrame.Offset  = stCtx.Ebp;
-	stack.AddrFrame.Mode    = AddrModeFlat;
-	while (1){
-	b = StackWalk64(IMAGE_FILE_MACHINE_I386, GetCurrentProcess(), GetCurrentThread(), &stack,	NULL,NULL,NULL,NULL,NULL);
-	SYMBOL_INFO sym;
-	char str[45];
-	memset(&sym,0,sizeof sym);
-	sym.SizeOfStruct = sizeof sym+40;
-	sym.MaxNameLen = 40;
-	
-	b = SymFromAddr(GetCurrentProcess(),stack.AddrPC.Offset,0,&sym);
-	if (!b)
-	{
-		DWORD le = GetLastError();
-		le=le;
-	}
-	}*/
 
