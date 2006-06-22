@@ -23,28 +23,60 @@ GridSurface::GridSurface() : m_vertices(true)
 	m_worldpos.Identity();
 	m_loaded = false;
 	m_sizeX = m_sizeY = 10.f;
+	m_grids = NULL;
+	m_ntex = 0;
 	m_wire = false;
 }
 
 void GridSurface::Load()
 {
-	m_loaded = false;
-	if (m_heights.isEmpty())
-		return;
-	int hx=m_heights.getSizeX();
-	int hy=m_heights.getSizeY();
-	if (!m_vertices.Create(hx*hy, "pdt", hx*hy*sizeof(VecPDT)))
-		return;
-	VecPDT * pv = (VecPDT*)m_vertices.Lock();
+	size_t x,y;
 
-	for (int x=0;x < hx;x++)
-		for (int y=0;y < hy;y++)
+	m_loaded = false;
+	if (!m_grids)
+		return;
+	if (!m_vertices.Create(m_width*m_height*4, "pdt", m_width*m_height*4*sizeof(VecPDT)))
+		return;
+	if (!m_indices.Create(m_width*m_height*6))
+		return;
+	// generate vertices
+	VecPDT * pv = (VecPDT*)m_vertices.Lock();
+	const float vx = m_sizeX / (m_width+1);
+	const float vy = m_sizeY / (m_height+1);
+	for (x=0;x < m_width;x++)
+		for (int y=0;y < m_height;y++)
 		{
-			const float px = x*m_sizeX/hx-m_sizeX/2;
+			for (int i=0;i < 4;i++) {
+			// levo nahore
+			pv->pos.x = (x+i%2) * vx - (m_sizeX*0.5f);
+			pv->pos.y = 0.f;
+			pv->pos.z = (y+i/2) * vy - (m_sizeY*0.5f);
+			pv->color = 0xffffffff;
+			pv->tex.x = (i%2) * (1/8.f) + (m_grids[y*m_width+x].x1/8.f);
+			pv->tex.y = (i/2) * (1/4.f) + (m_grids[y*m_width+x].y1/4.f);
+			pv++;
+			}
+		}
+	m_vertices.Unlock();
+
+	word * i = m_indices.Lock();
+	for (x=0;x < m_width;x++)
+		for (y=0;y < m_height;y++)
+		{
+			const word s = (y * m_height + x) * 4;
+			*i++ = s + 0;
+			*i++ = s + 1;
+			*i++ = s + 2;
+			*i++ = s + 1;
+			*i++ = s + 3;
+			*i++ = s + 2;
+		}
+	m_indices.Unlock();
+	/*const float px = x*m_sizeX/hx-m_sizeX/2;
 			const float py = y*m_sizeY/hy-m_sizeY/2;
 			const float l = sqrtf((0-px)*(0-px)+(0-py)*(0-py));
 			pv->pos = HoeMath::VECTOR3(px,m_heights.getHeightAt(x,y),py);
-			pv->tex = HoeMath::VECTOR2(x / (float)(hx-1)*20.f,y / (float)(hy-1)*20.f);
+			pv->tex = HoeMath::VECTOR2((x % 2) * (1/8.f) + (7/8.f),(y % 2) * (1/4.f) + (2/4.f));
 
 			// compute color
 			//if (l > 100.f)
@@ -55,31 +87,18 @@ void GridSurface::Load()
 			//	pv->color = (c << 8 | c) | 0xffff0000;
 			//}
 			pv++;
-		}
-	m_vertices.Unlock();
-	if (!m_indices.Create((m_heights.getSizeX()-1)*(m_heights.getSizeY()-1)*6))
-		return;
-	word * i = m_indices.Lock();
-#define POS(xx,yy) ((y+(yy))*hx + (x+(xx)))
-	for (int x=0;x < hx-1;x++)
-		for (int y=0;y < hy-1;y++)
-		{
-			*i++ = POS(0,0);
-			*i++ = POS(1,0);
-			*i++ = POS(1,1);
-			*i++ = POS(0,0);
-			*i++ = POS(1,1);
-			*i++ = POS(0,1);
-		}
-#undef POS
-	m_indices.Unlock();
+		}*/
+
 	tex1 = GetTextureSystem()->GetTexture("trava");
 	tex2 = GetTextureSystem()->GetTexture("strom_war3");
 	m_loaded = true;
+
 }
 
 void GridSurface::Render()
 {
+	// vykreslovat jenom celky v polickach
+
 	if (m_loaded)
 	{
 		// wireframe
@@ -88,7 +107,9 @@ void GridSurface::Render()
 		if (m_wire)
 			GetHoeStates()->StartWireframe();
 		//m_mat.Setup();
+
 #ifdef _HOE_D3D_
+
 		D3DDevice()->SetTexture(0, tex1->GetTexture());
 		D3DDevice()->SetTexture(1, tex2->GetTexture());
 		D3DDevice()->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE); 
@@ -125,11 +146,12 @@ void GridSurface::Render()
 		// Bind the detail texture
 		glBindTexture(GL_TEXTURE_2D, tex2->GetTexture());
 		glDisable(GL_LIGHTING);
-		glActiveTextureARB(GL_TEXTURE0_ARB);
 		checkgl("multitexture");
 #endif
 
 		Ref::DrawStdObject(&m_vertices, &m_indices);
+		glDisable(GL_TEXTURE_2D);
+		glActiveTextureARB(GL_TEXTURE0_ARB);
 		// wireframe
 		if (m_wire)
 			GetHoeStates()->EndWireframe();
@@ -145,13 +167,25 @@ void HOEAPI GridSurface::SetSize(float sizeX, float sizeY)
 {
 	m_sizeX = sizeX;
 	m_sizeY = sizeY;
-	if (!m_heights.isEmpty())
+	if (m_grids)
 		Load();
 }
 
 void HOEAPI GridSurface::GenerateHeight(int resX,int resY)
 {
-	m_heights.generatePlaneMap( resX, resY, 0.f);
+	//m_heights.generatePlaneMap( resX, resY, 0.f);
+	SAFE_DELETE(m_grids);
+	m_width = (size_t)resX;
+	m_height = (size_t)resY;
+	m_grids = new TGrid[m_width*m_height];
+	for (size_t i=0;i < m_width * m_height;i++)
+	{
+		memset(&m_grids[i], 0, sizeof TGrid);
+		m_grids[i].tex1 = m_grids[i].tex2 = 0xff;
+		m_grids[i].x1 = rand() % 4 + 4;
+		m_grids[i].y1 = rand() % 4;
+
+	}
 	Load();
 }
 
@@ -169,7 +203,7 @@ void HOEAPI GridSurface::SetBrush(float x, float y, float radius, dword color)
 
 void HOEAPI GridSurface::MoveHeight(float x, float y, float radius, float value)
 {
-	int hx=m_heights.getSizeX();
+	/*int hx=m_heights.getSizeX();
 	int hy=m_heights.getSizeY();
 
 	for (int mx=0;mx < hx;mx++)
@@ -183,6 +217,7 @@ void HOEAPI GridSurface::MoveHeight(float x, float y, float radius, float value)
 			m_heights.setHeightAt(mx,my, m_heights.getHeightAt(mx,my) + value * (radius-l)/radius);
 		}
 	Load();
+	*/
 }
 
 void HOEAPI GridSurface::ShowWireframe(bool show)

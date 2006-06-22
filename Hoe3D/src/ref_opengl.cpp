@@ -361,7 +361,7 @@ void RefOpenGL::Destroy()
 void RefOpenGL::DrawStdObject(HoeStream * stream, HoeIndex * index)
 {
 	stream->Set(0);
-	if (GetRef()->ext.EXT_compiled_vertex_array)
+	if (stream->IsDynamic() && GetRef()->ext.EXT_compiled_vertex_array)
 	{
 		glLockArraysEXT(0, (GLsizei)stream->GetNumVert());
 		checkgl("glLockArraysEXT");
@@ -369,7 +369,7 @@ void RefOpenGL::DrawStdObject(HoeStream * stream, HoeIndex * index)
 	
 	glDrawElements(GL_TRIANGLES,index->GetNumIndices(),GL_UNSIGNED_SHORT,(GLvoid*)index->GetIndexBuffer());
 	checkgl("glDrawElements");
-	if (GetRef()->ext.EXT_compiled_vertex_array)
+	if (stream->IsDynamic() && GetRef()->ext.EXT_compiled_vertex_array)
 	{
 		glUnlockArraysEXT();
 		checkgl("glUnlockArraysEXT");
@@ -380,14 +380,14 @@ void RefOpenGL::DrawStdObject(HoeStream * stream, HoeIndex * index)
 void RefOpenGL::DrawStdObject(HoeStream * stream, HoeIndex * index, dword vert, dword ind)
 {
 	stream->Set(0);
-	if (GetRef()->ext.EXT_compiled_vertex_array)
+	if (stream->IsDynamic() && GetRef()->ext.EXT_compiled_vertex_array)
 	{
 		glLockArraysEXT(0, (GLsizei)vert);
 		checkgl("glLockArraysEXT");
 	}
 	glDrawElements(GL_TRIANGLES,ind,GL_UNSIGNED_SHORT,(GLvoid*)index->GetIndexBuffer());
 	checkgl("glDrawElements");
-	if (GetRef()->ext.EXT_compiled_vertex_array)
+	if (stream->IsDynamic() && GetRef()->ext.EXT_compiled_vertex_array)
 	{
 		glUnlockArraysEXT();
 		checkgl("glUnlockArraysEXT");

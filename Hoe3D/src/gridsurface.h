@@ -19,20 +19,45 @@
 #include "structures.h"
 #include "heightmap.h"
 
+struct TGrid
+{
+	byte tex1; ///< index textury
+	byte x1; ///< x-ove policko v texture
+	byte y1; ///< y-ove policko v texture
+	byte ori1; ///< orientace policka 0-3
+	byte tex2; ///< index textury
+	byte x2; ///< x-ove policko v texture
+	byte y2; ///< y-ove policko v texture
+	byte ori2; ///< orientace policka 0-3
+};
+
+class GridTexture
+{
+public:
+	HoeTexture * tex; ///< textura 
+	size_t nx,ny; ///< velikost policek v texture
+};
+
 class GridSurface : public IHoeEnv::GridSurface
 {
-	HoeHeightMap m_heights;
-	HoeMath::MATRIX m_worldpos;
-	HoeStream m_vertices;
-	HoeIndex m_indices;
-	HoeMaterial m_mat;
-	bool m_loaded;
-	float m_sizeX;
-	float m_sizeY;
-	bool m_wire;
-	HoeTexture * tex1, *tex2;
+	HoeMath::MATRIX m_worldpos; ///< pozice stredu surface
+	TGrid * m_grids; ///< ukazatel na pole gridu
+	uint m_width, m_height; ///< velikost mrize
+	float m_sizeX, m_sizeY; ///< realna velikost mrize
+	GridTexture m_textures[32]; ///< povrchy
+	size_t m_ntex; ///< pocet povrchu
+
+	HoeStream m_vertices; ///< stream pro vertexy
+	HoeIndex m_indices; ///< indexy
+	bool m_loaded; ///< jestli jsou nahrany data
+	bool m_wire; /// vykreslit v drataku
+
+	HoeTexture * tex1,*tex2;
 public:
 	GridSurface();
+	/**
+	* Vytvori index a vertex streamy z gridu
+	*/
 	void Load();
 	void Render();
 	virtual void HOEAPI SetPosCenter( float x, float y, float z);

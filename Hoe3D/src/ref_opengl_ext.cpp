@@ -138,8 +138,7 @@ void RefOpenGL::LoadExtensions()
 	ext.EXT_texture_env_combine = TestExt("GL_EXT_texture_env_combine");
 	ext.ARB_texture_compression = TestExt("GL_ARB_texture_compression");
 	ext.ARB_vertex_buffer_object = TestExt("GL_ARB_vertex_buffer_object");
-	if (!ext.ARB_vertex_buffer_object)
-		ext.EXT_compiled_vertex_array = TestExt("GL_EXT_compiled_vertex_array");
+	ext.EXT_compiled_vertex_array = TestExt("GL_EXT_compiled_vertex_array");
 	ext.ARB_vertex_program = TestExt("GL_ARB_vertex_program");
 
 	if (ext.ARB_texture_compression)

@@ -36,6 +36,14 @@
 #pragma comment (lib,"libfl.a")
 #pragma comment (lib,"freetype2110MT_D.lib")
 
+// vypnuti vyjimek
+#if 1
+#undef BEGIN_TRY
+#undef END_TRY
+#define BEGIN_TRY
+#define END_TRY(code)
+#endif
+
 Hoe3D::Hoe3D(int flags) : m_rt(HoeRenderTarget::eMain)
 {	
 	SET_SHARED_PTR(hoe3d);

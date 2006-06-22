@@ -32,6 +32,7 @@ public:
 		return m_numvert;
 	}
 	const HoeMath::BoundingBox * GetBounding() { return &m_box;}
+	bool IsDynamic() { return m_dynamic; }
 
 	void Dump(HoeLog * log);
 };
