@@ -42,6 +42,7 @@ typedef unsigned int  uint;
 typedef unsigned char byte;
 
 #define makeword(a,b) (((a)<<8)|(b))
+#define makedword(a,b) (((a)<<16)|(b))
 
 struct THoeRect
 {
