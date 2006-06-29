@@ -43,6 +43,8 @@ typedef unsigned char byte;
 
 #define makeword(a,b) (((a)<<8)|(b))
 #define makedword(a,b) (((a)<<16)|(b))
+#define hiword(a) (((a)&0xffff0000)>>16)
+#define loword(a) ((a)&0xffff)
 
 struct THoeRect
 {

@@ -55,27 +55,32 @@ namespace IHoeEnv
 		*/
 		virtual void HOEAPI SetPosCenter( float x, float y, float z) = 0;
 		/**
-		* Nastavi velikost mapy
-		*/
-		virtual void HOEAPI SetSize(float sizeX, float sizeY) = 0;
-		/**
-		* Vygeneruje vyskovou mapu
+		* Vytvori grid mapu
+		* @param sizeX realna velikost na sirku
+		* @param sizeY realna velikost na vysku
 		* @param resX rozliseni sirky (pocet bodu mapy)
 		* @param resY rozliseni vysky (pocet bodu mapy)
 		*/
-		virtual void HOEAPI GenerateHeight(int resX,int resY) = 0;
+		virtual void HOEAPI Create(float sizeX, float sizeY, int resX,int resY) = 0;
 		/**
-		* Nastavi vyskovou mapu
-		* @param resX rozliseni sirky (pocet bodu mapy)
-		* @param resY rozliseni vysky (pocet bodu mapy)
-		* @param f Jednotlive vysky mapy, ulozene po radcich (podle sizeX)
+		* Nastavi texturu
+		* @param slot Na ktery slot nastavit texturu
+		* @param texname Jmeno textury
+		* @param width Pocet ctvercu na sirku
+		* @param height Pocet ctvercu na vysku
 		*/
-		virtual void HOEAPI SetHeightMap(int resX,int resY, float *f) = 0;
-		virtual void HOEAPI ShowBrush(bool show) = 0;
-		virtual void HOEAPI SetBrush(float x, float y, float radius, dword color) = 0;
-		virtual void HOEAPI MoveHeight(float x, float y, float radius, float value) = 0;
+		virtual void HOEAPI SetTexture(int slot, const char * texname, int width, int height) = 0;
+		//virtual void HOEAPI ShowBrush(bool show) = 0;
+		//virtual void HOEAPI SetBrush(float x, float y, float radius, dword color) = 0;
 		virtual void HOEAPI ShowWireframe(bool show) = 0;
-		
+		/**
+		* Ulozi objekt do streamu
+		*/
+		virtual void HOEAPI Dump() = 0;
+		/**
+		* Nahraje objekt ze streamu
+		*/
+		virtual void HOEAPI LoadDump() = 0;
 	};
 };
 

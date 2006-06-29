@@ -126,16 +126,19 @@ public:
 	}
 };
 
+
+
 class GridSurface : public IHoeEnv::GridSurface
 {
+	static const int MaxTextureSlots = 32;
+
 	HoeMath::MATRIX m_worldpos; ///< pozice stredu surface
 
 	TGrid * m_grids; ///< ukazatel na pole gridu
 	uint m_width, m_height; ///< velikost mrize
 	float m_sizeX, m_sizeY; ///< realna velikost mrize
 
-	TGridTexture m_textures[32]; ///< textury povrchu
-	size_t m_ntex; ///< pocet textur povrchu
+	TGridTexture m_textures[MaxTextureSlots]; ///< sloty na textury povrchu
 
 	TGridSurfaceType * m_gst_first; ///< ruzne povrchy
 
@@ -154,13 +157,18 @@ public:
 	void Load();
 	void Render();
 	virtual void HOEAPI SetPosCenter( float x, float y, float z);
-	virtual void HOEAPI SetSize(float sizeX, float sizeY);
-	virtual void HOEAPI GenerateHeight(int resX,int resY);
-	virtual void HOEAPI SetHeightMap(int resX,int resY, float *f);
+	/** @see IHoeEnv::GridSurface::Create */
+	virtual void HOEAPI Create(float sizeX, float sizeY, int resX,int resY);
+	/** @see IHoeEnv::GridSurface::SetTexture */
+	virtual void HOEAPI SetTexture(int slot, const char * texname, int width, int height);
 	virtual void HOEAPI ShowBrush(bool show);
 	virtual void HOEAPI SetBrush(float x, float y, float radius, dword color);
 	virtual void HOEAPI MoveHeight(float x, float y, float radius, float value);
 	virtual void HOEAPI ShowWireframe(bool show);
+	/** @see IHoeEnv::GridSurface::Dump */
+	virtual void HOEAPI Dump();
+	/** @see IHoeEnv::GridSurface::LoadDump */
+	virtual void HOEAPI LoadDump();
 };
 
 #endif // _HOE_GRIDSURFACE_H_

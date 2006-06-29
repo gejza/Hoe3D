@@ -18,10 +18,6 @@ HoeMaterialColor::HoeMaterialColor(float _r, float _g, float _b, float _a)
 	a = _a;r = _r; g = _g; b = _b;
 }
 
-const int HoeMaterial::Ambient = 0x01;
-const int HoeMaterial::Diffuse = 0x02;
-const int HoeMaterial::Specular = 0x04;
-
 ///////////////////////////////////////////
 
 HoeMaterial::HoeMaterial()
@@ -115,8 +111,8 @@ void HoeMaterial::Setup()
     //D3DDevice()->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATEREQUAL);
 #endif
 #ifdef _HOE_OPENGL_
-	//glAlphaFunc( GL_GREATER, 0.6f);// Nastavení alfa testingu
-	glDisable(GL_ALPHA_TEST);// Zapne alfa testing
+	glAlphaFunc( GL_GREATER, 0.6f);// Nastavení alfa testingu
+	glEnable(GL_ALPHA_TEST);// Zapne alfa testing
 	/*!!!*/
 	/*if (!m_lightreag)
 		glEnable(GL_LIGHTING);

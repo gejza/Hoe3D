@@ -45,9 +45,9 @@ class HoeMaterial
 	HoeMaterialColor m_specular;
 #endif
 public:
-	static const int Ambient;
-	static const int Diffuse;
-	static const int Specular;
+	static const int Ambient = 0x01;
+	static const int Diffuse = 0x02;
+	static const int Specular = 0x04;
 
 	HoeMaterial();
 	void Setup();

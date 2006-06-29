@@ -78,8 +78,8 @@ GridSurface::GridSurface()
 	m_sizeX = m_sizeY = 10.f;
 	m_grids = NULL;
 	m_gst_first = NULL;
-	m_ntex = 0;
 	m_wire = false;
+	memset(m_textures, 0, sizeof m_textures);
 }
 
 TGridSurfaceTreeItem * GridSurface::CreateQuadTree(dword * gr, uint ngr, uint minx, uint maxx, uint miny, uint maxy)
@@ -101,8 +101,8 @@ TGridSurfaceTreeItem * GridSurface::CreateQuadTree(dword * gr, uint ngr, uint mi
 		// nalezeni vsech pusobnych gridu
 		for (uint i=0;i < ngr;i++)
 		{
-			uint x = gr[i] >> 16 && 0xffff;
-			uint y = gr[i] && 0xffff;
+			uint x = hiword(gr[i]);
+			uint y = loword(gr[i]);
 			if (x < minx || x > maxx || y < miny || y > maxy)
 				continue;
 
@@ -203,8 +203,12 @@ void GridSurface::Load()
 			TGridSurfaceType * nt = new TGridSurfaceType();
 			
 			// nastaveni textur
-			nt->tex1 = GetTextureSystem()->GetTexture("trava");
-			nt->tex2 = GetTextureSystem()->GetTexture("strom_war3");
+			nt->tex1 = m_textures[type->tex1].tex;
+			//GetTextureSystem()->GetTexture("trava");
+			nt->tex2 = m_textures[type->tex2].tex;
+			//GetTextureSystem()->GetTexture("strom_war3");
+			assert(nt->tex1 || nt->tex2);
+
 
 			uint numgrids = 1;
 			uint maxx,maxy,minx,miny;
@@ -280,6 +284,7 @@ void GridSurface::Render()
 
 		glDisable(GL_TEXTURE_2D);
 		glActiveTextureARB(GL_TEXTURE0_ARB);
+		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE);
 		// wireframe
 		if (m_wire)
 			GetHoeStates()->EndWireframe();
@@ -291,16 +296,26 @@ void HOEAPI GridSurface::SetPosCenter(float x, float y, float z)
 	m_worldpos.Translate(x,z,y);
 }
 
-void HOEAPI GridSurface::SetSize(float sizeX, float sizeY)
+void HOEAPI GridSurface::SetTexture(int slot, const char *texname, int width, int height)
+{
+	assert(slot >= 0 && slot < MaxTextureSlots);
+	if (texname)
+	{
+		m_textures[slot].tex = GetTextureSystem()->GetTexture(texname);
+		assert(width > 0 && height > 0);
+		m_textures[slot].nx = width;
+		m_textures[slot].ny = height;
+	}
+	else
+	{
+		m_textures[slot].tex = NULL;
+	}
+}
+
+void HOEAPI GridSurface::Create(float sizeX, float sizeY, int resX,int resY)
 {
 	m_sizeX = sizeX;
 	m_sizeY = sizeY;
-	if (m_grids)
-		Load();
-}
-
-void HOEAPI GridSurface::GenerateHeight(int resX,int resY)
-{
 	//m_heights.generatePlaneMap( resX, resY, 0.f);
 	SAFE_DELETE(m_grids);
 	m_width = (size_t)resX;
@@ -309,16 +324,12 @@ void HOEAPI GridSurface::GenerateHeight(int resX,int resY)
 	for (size_t i=0;i < m_width * m_height;i++)
 	{
 		memset(&m_grids[i], 0, sizeof TGrid);
-		m_grids[i].tex1 = m_grids[i].tex2 = 0xff;
+		m_grids[i].tex1 = m_grids[i].tex2 = 0x0;
 		m_grids[i].x1 = rand() % 4 + 4;
 		m_grids[i].y1 = rand() % 4;
 
 	}
 	Load();
-}
-
-void HOEAPI GridSurface::SetHeightMap(int sizeX,int sizeY, float *f)
-{
 }
 
 void HOEAPI GridSurface::ShowBrush(bool show)
@@ -352,4 +363,14 @@ void HOEAPI GridSurface::ShowWireframe(bool show)
 {
 	m_wire = show;
 }
+
+void HOEAPI GridSurface::Dump()
+{
+}
+
+void HOEAPI GridSurface::LoadDump()
+{
+}
+
+
 
