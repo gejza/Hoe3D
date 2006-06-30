@@ -13,12 +13,17 @@ HoeIndex::HoeIndex()
 
 bool HoeIndex::Create(int num_indices)
 {
+	if (m_num==num_indices)
+		return true;
+
 	m_num = num_indices;
 #ifdef _HOE_D3D_ 
+	SAFE_RELEASE(m_ib);
 	HRESULT hRes = D3DDevice()->CreateIndexBuffer(m_num * 2,D3DUSAGE_WRITEONLY | D3DUSAGE_DYNAMIC,
 		D3DFMT_INDEX16,D3DPOOL_DEFAULT,&m_ib RESERVE_PAR);
 #endif
 #ifdef _HOE_OPENGL_
+	SAFE_DELETE_ARRAY(m_sw);
 	m_sw = new word[num_indices];
 #endif
 	return true;

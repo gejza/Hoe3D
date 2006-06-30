@@ -69,6 +69,35 @@ void TGridSurfaceType::Setup()
 #endif
 }
 
+//////////////////////////////////////////////////////////
+void TGridSurfaceTreeItem::DeleteSub()
+{
+	if (q1)
+	{
+		q1->DeleteSub();
+		delete q1;
+		q1 = NULL;
+	}
+	if (q2)
+	{
+		q2->DeleteSub();
+		delete q2;
+		q2 = NULL;
+	}
+	if (q3)
+	{
+		q3->DeleteSub();
+		delete q3;
+		q3 = NULL;
+	}
+	if (q4)
+	{
+		q4->DeleteSub();
+		delete q4;
+		q4 = NULL;
+	}
+}
+
 
 //////////////////////////////////////////////////////////
 GridSurface::GridSurface()
@@ -173,11 +202,11 @@ TGridSurfaceTreeItem * GridSurface::CreateQuadTree(dword * gr, uint ngr, uint mi
 
 void GridSurface::Load()
 {
-	m_loaded = false;
 	if (!m_grids)
 		return;
 
 	// odstraneni predesleho
+	Unload();
 	// na zacatku grid a nekolik textur
 	// predelat do streamu, indexu a matrose
 	// postupne vyplnovat pole gridu, dokud nebude cele predelane
@@ -199,7 +228,7 @@ void GridSurface::Load()
 				continue; // preskoceni zpracovanych
 
 			// nalezeni prvniho gridu a sestaveni surface
-			TGrid * type = &m_grids[y*m_width+x];
+			TGridDesc * type = &m_grids[y*m_width+x];
 			TGridSurfaceType * nt = new TGridSurfaceType();
 			
 			// nastaveni textur
@@ -256,6 +285,24 @@ void GridSurface::Load()
 	delete [] gl;
 	m_loaded = true;
 
+}
+
+void GridSurface::Unload()
+{
+	TGridSurfaceType * gst = m_gst_first;
+	while (gst)
+	{
+		TGridSurfaceType * next = gst->next;
+		if (gst->root)
+		{
+			gst->root->DeleteSub();
+			delete gst->root;
+		}
+		delete gst;
+		gst = next;
+	}
+	m_gst_first = NULL;
+	m_loaded = false;
 }
 
 void GridSurface::Render()
@@ -320,10 +367,10 @@ void HOEAPI GridSurface::Create(float sizeX, float sizeY, int resX,int resY)
 	SAFE_DELETE(m_grids);
 	m_width = (size_t)resX;
 	m_height = (size_t)resY;
-	m_grids = new TGrid[m_width*m_height];
+	m_grids = new TGridDesc[m_width*m_height];
 	for (size_t i=0;i < m_width * m_height;i++)
 	{
-		memset(&m_grids[i], 0, sizeof TGrid);
+		memset(&m_grids[i], 0, sizeof TGridDesc);
 		m_grids[i].tex1 = m_grids[i].tex2 = 0x0;
 		m_grids[i].x1 = rand() % 4 + 4;
 		m_grids[i].y1 = rand() % 4;
@@ -332,31 +379,22 @@ void HOEAPI GridSurface::Create(float sizeX, float sizeY, int resX,int resY)
 	Load();
 }
 
-void HOEAPI GridSurface::ShowBrush(bool show)
+void HOEAPI GridSurface::SetGridDesc(int x, int y, IHoeEnv::GridSurface::TGridDesc *desc)
 {
-}
-
-void HOEAPI GridSurface::SetBrush(float x, float y, float radius, dword color)
-{
-}
-
-void HOEAPI GridSurface::MoveHeight(float x, float y, float radius, float value)
-{
-	/*int hx=m_heights.getSizeX();
-	int hy=m_heights.getSizeY();
-
-	for (int mx=0;mx < hx;mx++)
-		for (int my=0;my < hy;my++)
-		{
-			const float px = mx*m_sizeX/hx-m_sizeX/2;
-			const float py = my*m_sizeY/hy-m_sizeY/2;
-			const float l = sqrtf((x-px)*(x-px)+(y-py)*(y-py));
-			if (l > radius)
-				continue;
-			m_heights.setHeightAt(mx,my, m_heights.getHeightAt(mx,my) + value * (radius-l)/radius);
-		}
+	assert(m_grids);
+	assert(x >= 0 && x < m_width);
+	assert(y >= 0 && y < m_height);
+	memcpy(&m_grids[m_width*y+x], desc, sizeof IHoeEnv::GridSurface::TGridDesc);
 	Load();
-	*/
+}
+
+void HOEAPI GridSurface::GetGridDesc(int x, int y, IHoeEnv::GridSurface::TGridDesc *desc)
+{
+	assert(m_grids);
+	assert(x >= 0 && x < m_width);
+	assert(y >= 0 && y < m_height);
+	memcpy(desc, &m_grids[m_width*y+x], sizeof IHoeEnv::GridSurface::TGridDesc);
+
 }
 
 void HOEAPI GridSurface::ShowWireframe(bool show)

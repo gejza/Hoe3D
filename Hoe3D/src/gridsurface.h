@@ -25,7 +25,7 @@ struct TGridTexture
 	size_t nx,ny; ///< velikost policek v texture
 };
 
-struct TGrid
+/*struct TGrid
 {
 	byte tex1; ///< index textury
 	byte x1; ///< x-ove policko v texture
@@ -35,7 +35,7 @@ struct TGrid
 	byte x2; ///< x-ove policko v texture
 	byte y2; ///< y-ove policko v texture
 	byte ori2; ///< orientace policka 0-3
-};
+};*/
 
 // nejdriv zjistit nakolik objekt lezi v kamere
 // pokud cely, preda se do kresleni cely
@@ -51,6 +51,7 @@ struct TGridSurfaceTreeItem
 	
 	dword start; ///< zacatek trojuhelniku pro vykresleni
 	dword end; ///< konec trojuhelniku pro vykresleni
+	void DeleteSub();
 };
 
 struct TGridSurfaceType
@@ -134,7 +135,7 @@ class GridSurface : public IHoeEnv::GridSurface
 
 	HoeMath::MATRIX m_worldpos; ///< pozice stredu surface
 
-	TGrid * m_grids; ///< ukazatel na pole gridu
+	TGridDesc * m_grids; ///< ukazatel na pole gridu
 	uint m_width, m_height; ///< velikost mrize
 	float m_sizeX, m_sizeY; ///< realna velikost mrize
 
@@ -155,15 +156,20 @@ public:
 	* Vytvori index a vertex streamy z gridu
 	*/
 	void Load();
+	void Unload();
 	void Render();
 	virtual void HOEAPI SetPosCenter( float x, float y, float z);
 	/** @see IHoeEnv::GridSurface::Create */
 	virtual void HOEAPI Create(float sizeX, float sizeY, int resX,int resY);
 	/** @see IHoeEnv::GridSurface::SetTexture */
 	virtual void HOEAPI SetTexture(int slot, const char * texname, int width, int height);
-	virtual void HOEAPI ShowBrush(bool show);
-	virtual void HOEAPI SetBrush(float x, float y, float radius, dword color);
-	virtual void HOEAPI MoveHeight(float x, float y, float radius, float value);
+	/** @see IHoeEnv::GridSurface::SetGridDesc */
+	virtual void HOEAPI SetGridDesc(int x, int y, TGridDesc * desc);
+	/** @see IHoeEnv::GridSurface::GetGriddesc */
+	virtual void HOEAPI GetGridDesc(int x, int y, TGridDesc * desc);
+	//virtual void HOEAPI ShowBrush(bool show);
+	//virtual void HOEAPI SetBrush(float x, float y, float radius, dword color);
+	/** @see IHoeEnv::GridSurface::ShowWireframe */
 	virtual void HOEAPI ShowWireframe(bool show);
 	/** @see IHoeEnv::GridSurface::Dump */
 	virtual void HOEAPI Dump();

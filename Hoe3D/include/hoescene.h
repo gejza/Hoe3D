@@ -47,9 +47,26 @@ namespace IHoeEnv
 		// Dump
 		
 	};
+	/**
+	* Model mrizky, s vice definovatelnymi povrchy
+	*/
 	class GridSurface : public Base
 	{
 	public:
+		/**
+		* Parametr jednoho policka
+		*/
+		struct TGridDesc
+		{
+			byte tex1; ///< index textury
+			byte x1; ///< x-ove policko v texture
+			byte y1; ///< y-ove policko v texture
+			byte ori1; ///< orientace policka 0-3
+			byte tex2; ///< index textury
+			byte x2; ///< x-ove policko v texture
+			byte y2; ///< y-ove policko v texture
+			byte ori2; ///< orientace policka 0-3
+		};
 		/**
 		* Nastavi pozici stredu mapy
 		*/
@@ -70,8 +87,24 @@ namespace IHoeEnv
 		* @param height Pocet ctvercu na vysku
 		*/
 		virtual void HOEAPI SetTexture(int slot, const char * texname, int width, int height) = 0;
-		//virtual void HOEAPI ShowBrush(bool show) = 0;
-		//virtual void HOEAPI SetBrush(float x, float y, float radius, dword color) = 0;
+		/**
+		* Nastavi parametry jedne mrize
+		* @param x X-ova souradnice policka
+		* @param y Y-ova souradnice policka
+		* @param desc ukazatel na strukturu GridDesc
+		*/
+		virtual void HOEAPI SetGridDesc(int x, int y, TGridDesc * desc) = 0;
+		/**
+		* Precte parametry jedne mrize
+		* @param x X-ova souradnice policka
+		* @param y Y-ova souradnice policka
+		* @param desc ukazatel na strukturu GridDesc
+		*/
+		virtual void HOEAPI GetGridDesc(int x, int y, TGridDesc * desc) = 0;
+		/**
+		* nastavi na zobrazeni dratoveho modelu
+		* @param show Zda zobrazit wireframe
+		*/
 		virtual void HOEAPI ShowWireframe(bool show) = 0;
 		/**
 		* Ulozi objekt do streamu

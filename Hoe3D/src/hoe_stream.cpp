@@ -36,22 +36,27 @@ HoeStream::HoeStream(bool dynamic)
 
 bool HoeStream::Create(dword numvert,const char * fvf,dword size)
 {
+	if (m_numvert == numvert && m_size == size && strcmp(m_fvf,fvf) == 0)
+		return true;
 	m_size = size;
 	strcpy(m_fvf,fvf);
 	m_numvert = numvert;
 
 	m_dwfvf = this->GetFVF(fvf);
 #ifdef _HOE_OPENGL_
+	SAFE_DELETE_ARRAY(m_pVertices);
 	// jestli i opengl vytvorit paralelne s tim i vertex buffer object
 	if (!m_dynamic && GetRef()->ext.ARB_vertex_buffer_object)
 	{	
+		if (m_vb)
+			glDeleteBuffersARB(1, &m_vb);
 		glGenBuffersARB(1, &m_vb);
 	}
 	else
 		m_vb = 0;
 #endif // _HOE_OPENGL_
 #ifdef _HOE_D3D_
-
+	SAFE_RELEASE(m_vb);
 	if( FAILED( D3DDevice()->CreateVertexBuffer( size,
 		m_dynamic ? D3DUSAGE_DYNAMIC:0 /* Usage */, m_dwfvf, D3DPOOL_DEFAULT, &m_vb RESERVE_PAR ) ) )
 		 return false;
