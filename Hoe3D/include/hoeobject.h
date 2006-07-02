@@ -69,6 +69,7 @@ class XHoeObject
 protected:
 	IHoeObjectController * controler;
 public:
+	XHoeObject() { controler = NULL; }
 	inline IHoeObjectController * GetCtrl() { assert(controler); return controler; }
 	inline void SetCtrl(IHoeObjectController * ctrl) { controler = ctrl; };
 

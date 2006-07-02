@@ -328,10 +328,11 @@ void GridSurface::Render()
 			m_multi.Render();
 			gst = gst->next;
 		}
-
+#ifdef _HOE_OPENGL_
 		glDisable(GL_TEXTURE_2D);
 		glActiveTextureARB(GL_TEXTURE0_ARB);
 		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE);
+#endif
 		// wireframe
 		if (m_wire)
 			GetHoeStates()->EndWireframe();
