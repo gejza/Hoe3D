@@ -18,6 +18,27 @@ enum EHoeFileMode
 };
 
 class HoeFileReader;
+class XHoeStreamWrite
+{
+public:
+	virtual bool Write(const void * buff,size_t size) = 0;
+	template<class T> bool Write(T t)
+	{
+		return Write(&t, sizeof(T));
+	}
+};
+class XHoeStreamRead
+{
+public:
+	virtual bool Read(void * buff,size_t size) = 0;
+	virtual bool Skip(size_t size) = 0;
+	template<class T> T Read()
+	{
+		T t;
+		Read(&t, sizeof(T));
+		return t;
+	}
+};
 
 /** popis souboru */
 struct THoeFileDesc
@@ -31,7 +52,7 @@ struct THoeFileDesc
 /**
  * Interface souboru
  */
-class XHoeFile
+class XHoeFile : public XHoeStreamWrite, public XHoeStreamRead
 {
 public:
 	/// vraci id souboru pokud je zaregistrovan v systemu jinak vraci -1
@@ -51,7 +72,7 @@ public:
 	/// vraci aktualni pozici v souboru
 	virtual size_t Tell() = 0;
 	/// preskoceni aktualni pozice, pokud je soubor otevren pro zapis zapise same 0
-	virtual void Skip(int ptr) = 0;
+	virtual bool Skip(size_t ptr) = 0;
 	/// cteni ze souboru
 	virtual bool Read(void * buff,size_t size) = 0;
 	/// zapis do souboru
@@ -62,7 +83,7 @@ public:
 	virtual void GetDesc(THoeFileDesc * desc) = 0;
 };
 
-class HoeFileReader
+class HoeFileReader : public XHoeStreamRead
 {
 	XHoeFile * m_file;
 	size_t m_startpos;
@@ -109,7 +130,7 @@ public:
 	void Reset() { m_pos = m_startpos; }
 };
 
-class HoeFileWriter
+class HoeFileWriter : public XHoeStreamWrite
 {
 	XHoeFile * m_file;
 	size_t m_startpos;

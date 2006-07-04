@@ -4,6 +4,9 @@
 
 /////////////////////////////////////////////////////////
 
+class XHoeStreamWrite;
+class XHoeStreamRead;
+
 namespace IHoeEnv
 {
 	class Base
@@ -109,11 +112,11 @@ namespace IHoeEnv
 		/**
 		* Ulozi objekt do streamu
 		*/
-		virtual void HOEAPI Dump() = 0;
+		virtual void HOEAPI Dump(XHoeStreamWrite * stream) = 0;
 		/**
 		* Nahraje objekt ze streamu
 		*/
-		virtual void HOEAPI LoadDump() = 0;
+		virtual void HOEAPI LoadDump(XHoeStreamRead * stream) = 0;
 	};
 };
 

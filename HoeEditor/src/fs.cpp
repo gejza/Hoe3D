@@ -58,9 +58,10 @@ size_t HoeEditor::EditorFile::Tell()
 	return file.Tell();
 }
 
-void HoeEditor::EditorFile::Skip(int size)
+bool HoeEditor::EditorFile::Skip(size_t size)
 {
 	file.Seek(size, wxFromCurrent);
+	return true;
 }
 
 bool HoeEditor::EditorFile::Read(void * buff,size_t size)

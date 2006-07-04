@@ -49,7 +49,7 @@ void HoeIndex::Dump(HoeLog *log)
 		min = m_sw[0];
 		max = m_sw[0];
 	}
-	for (int i=0; i < this->m_num/3;i++)
+	for (dword i=0; i < this->m_num/3;i++)
 	{
 		log->Log("[%d %d %d]",m_sw[i*3+0],m_sw[i*3+1],m_sw[i*3+2]);
 		SETMAX(m_sw[i*3+0]);

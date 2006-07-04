@@ -7,6 +7,7 @@
 #include "gridsurface.h"
 #include "texture_system.h"
 #include "hoe_texture.h"
+#include "hoe_time.h"
 
 struct VecPDT
 {
@@ -139,23 +140,30 @@ TGridSurfaceTreeItem * GridSurface::CreateQuadTree(dword * gr, uint ngr, uint mi
 			VecPDT * pv = (VecPDT*)m_multi.GetLockedVertices();
 			const float vx = m_sizeX / (m_width+1);
 			const float vy = m_sizeY / (m_height+1);
+			const HoeMath::VECTOR2 s[4] = { HoeMath::VECTOR2(0,0),
+											HoeMath::VECTOR2(1/8.f,0),
+											HoeMath::VECTOR2(0,1/4.f),
+											HoeMath::VECTOR2(1/8.f,1/4.f)};
+			pv[0].pos = HoeMath::VECTOR3((x+0) * vx - (m_sizeX*0.5f), 0, (y+0) * vy - (m_sizeY*0.5f));
+			pv[1].pos = HoeMath::VECTOR3((x+1) * vx - (m_sizeX*0.5f), 0, (y+0) * vy - (m_sizeY*0.5f));
+			pv[2].pos = HoeMath::VECTOR3((x+1) * vx - (m_sizeX*0.5f), 0, (y+1) * vy - (m_sizeY*0.5f));
+			pv[3].pos = HoeMath::VECTOR3((x+0) * vx - (m_sizeX*0.5f), 0, (y+1) * vy - (m_sizeY*0.5f));
 			for (int i=0;i < 4;i++) {
 			// levo nahore
-				pv->pos.x = (x+i%2) * vx - (m_sizeX*0.5f);
-				pv->pos.y = 0.f;
-				pv->pos.z = (y+i/2) * vy - (m_sizeY*0.5f);
-				pv->color = 0xffffffff;
-				pv->tex.x = (i%2) * (1/8.f) + (m_grids[y*m_width+x].x1/8.f);
-				pv->tex.y = (i/2) * (1/4.f) + (m_grids[y*m_width+x].y1/4.f);
+				int sup = (m_grids[y*m_width+x].ori1+i)%4;
+				pv->color = 0xffffff00;
+				// orientace
+				// vypocitat souradnice podle map
+				pv->tex = s[sup] + HoeMath::VECTOR2(m_grids[y*m_width+x].x1/8.f,m_grids[y*m_width+x].y1/4.f);
 				pv++;
 			}
 
 			m_multi.AddIndex(0);
 			m_multi.AddIndex(1);
-			m_multi.AddIndex(2);
-			m_multi.AddIndex(1);
 			m_multi.AddIndex(3);
+			m_multi.AddIndex(1);
 			m_multi.AddIndex(2);
+			m_multi.AddIndex(3);
 			
 			m_multi.SkipVertices(4);
 			/*const float px = x*m_sizeX/hx-m_sizeX/2;
@@ -207,6 +215,9 @@ void GridSurface::Load()
 
 	// odstraneni predesleho
 	Unload();
+	// podle urovne rozdeleni do skupin (meni se jen jedna skupina),
+	// zase na druhou stranu pomalejsi render (pro editor)
+
 	// na zacatku grid a nekolik textur
 	// predelat do streamu, indexu a matrose
 	// postupne vyplnovat pole gridu, dokud nebude cele predelane
@@ -311,6 +322,10 @@ void GridSurface::Render()
 
 	if (m_loaded && m_gst_first)
 	{
+		/*static TimeMeter tm("Load terrain",true); 
+		tm.Begin();
+		Load();
+		tm.End();*/
 		// wireframe
 		Ref::SetMatrix(m_worldpos);
 		GetHoeStates()->SetupMap();
@@ -383,8 +398,8 @@ void HOEAPI GridSurface::Create(float sizeX, float sizeY, int resX,int resY)
 void HOEAPI GridSurface::SetGridDesc(int x, int y, IHoeEnv::GridSurface::TGridDesc *desc)
 {
 	assert(m_grids);
-	assert(x >= 0 && x < m_width);
-	assert(y >= 0 && y < m_height);
+	assert(x >= 0 && (uint)x < m_width);
+	assert(y >= 0 && (uint)y < m_height);
 	memcpy(&m_grids[m_width*y+x], desc, sizeof IHoeEnv::GridSurface::TGridDesc);
 	Load();
 }
@@ -392,8 +407,8 @@ void HOEAPI GridSurface::SetGridDesc(int x, int y, IHoeEnv::GridSurface::TGridDe
 void HOEAPI GridSurface::GetGridDesc(int x, int y, IHoeEnv::GridSurface::TGridDesc *desc)
 {
 	assert(m_grids);
-	assert(x >= 0 && x < m_width);
-	assert(y >= 0 && y < m_height);
+	assert(x >= 0 && (uint)x < m_width);
+	assert(y >= 0 && (uint)y < m_height);
 	memcpy(desc, &m_grids[m_width*y+x], sizeof IHoeEnv::GridSurface::TGridDesc);
 
 }
@@ -403,12 +418,37 @@ void HOEAPI GridSurface::ShowWireframe(bool show)
 	m_wire = show;
 }
 
-void HOEAPI GridSurface::Dump()
+void HOEAPI GridSurface::Dump(XHoeStreamWrite * stream)
 {
+	// write version
+	assert(m_grids);
+	stream->Write<uint>(le_uint(1));
+	// size
+	stream->Write<uint>(le_uint(m_width));
+	stream->Write<uint>(le_uint(m_height));
+	stream->Write<float>(le_float(m_sizeX));
+	stream->Write<float>(le_float(m_sizeY));
+	// struktura pro data
+	// pak jednotlive gridy
+	stream->Write(m_grids, sizeof(TGridDesc) * m_height * m_width);
+	// hotovo
 }
 
-void HOEAPI GridSurface::LoadDump()
+void HOEAPI GridSurface::LoadDump(XHoeStreamRead * stream)
 {
+	assert(le_uint(stream->Read<uint>())==1);
+	// size
+	m_width=le_uint(stream->Read<uint>());
+	m_height=le_uint(stream->Read<uint>());
+	m_sizeX=le_float(stream->Read<float>());
+	m_sizeY=le_float(stream->Read<float>());
+	// struktura pro data
+	// pak jednotlive gridy
+	SAFE_DELETE_ARRAY(m_grids);
+	m_grids = new TGridDesc[m_height * m_width];
+	stream->Read(m_grids, sizeof(TGridDesc) * m_height * m_width);
+	// hotovo
+	Load();
 }
 
 

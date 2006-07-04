@@ -162,15 +162,16 @@ size_t HoeFile::Tell()
 #endif
 }
 
-void HoeFile::Skip(int size)
+bool HoeFile::Skip(size_t size)
 {
 	if (!Opended())
-		return;
+		return false;
 #ifdef _WIN32
 	SetFilePointer(file,size,0,FILE_CURRENT);
 #else
 	fseek(file,size,SEEK_CUR);
 #endif
+	return true;
 }
 
 void HoeFile::Reset()

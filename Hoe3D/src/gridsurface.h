@@ -172,9 +172,9 @@ public:
 	/** @see IHoeEnv::GridSurface::ShowWireframe */
 	virtual void HOEAPI ShowWireframe(bool show);
 	/** @see IHoeEnv::GridSurface::Dump */
-	virtual void HOEAPI Dump();
+	virtual void HOEAPI Dump(XHoeStreamWrite * stream);
 	/** @see IHoeEnv::GridSurface::LoadDump */
-	virtual void HOEAPI LoadDump();
+	virtual void HOEAPI LoadDump(XHoeStreamRead * stream);
 };
 
 #endif // _HOE_GRIDSURFACE_H_

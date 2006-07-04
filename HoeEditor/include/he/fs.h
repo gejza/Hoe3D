@@ -31,7 +31,7 @@ public:
 	/// vrati akt. pozici
 	virtual size_t Tell();
 	/// preskoceni aktualni pozice, pokud je soubor otevren pro zapis zapise same 0
-	virtual void Skip(int ptr);
+	virtual bool Skip(size_t ptr);
 	/// cteni ze souboru
 	virtual bool Read(void * buff,size_t size);
 	/// zapis do souboru

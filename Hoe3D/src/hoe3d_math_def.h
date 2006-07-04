@@ -29,6 +29,15 @@ struct VECTOR2
 	{
 		x = v[0];y = v[1];
 	}
+	const VECTOR2 operator + ( const VECTOR2& v ) const
+	{
+		return VECTOR2(x + v.x, y + v.y);
+	}
+	const VECTOR2& operator = ( const VECTOR2& v )
+	{
+		x = v.x;y = v.y;
+		return *this;
+	}
 };
 
 struct VECTOR3

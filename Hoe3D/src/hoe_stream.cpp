@@ -201,7 +201,7 @@ void HoeStream::Dump(HoeLog *log)
 
 	size_t stride = m_size / m_numvert;
 
-	for (int i=0; i < this->m_numvert;i++)
+	for (dword i=0; i < this->m_numvert;i++)
 	{
 		char line[2000] = {0};
 		char tmp[1000] = {0};
