@@ -13,6 +13,7 @@
 #define FVF_DIFFUSE D3DFVF_DIFFUSE
 #define FVF_SPECULAR D3DFVF_SPECULAR
 #define FVF_TEX1 D3DFVF_TEX1
+#define FVF_TEX2 D3DFVF_TEX2
 #endif
 
 #ifdef _HOE_OPENGL_
@@ -22,6 +23,7 @@
 #define FVF_DIFFUSE		(1 << 3)
 #define FVF_SPECULAR	(1 << 4)
 #define FVF_TEX1		(1 << 5)
+#define FVF_TEX2		(1 << 6)
 #endif
 
 HoeStream::HoeStream(bool dynamic)
@@ -159,28 +161,37 @@ void HoeStream::Set(int n)
 		checkgl("glDisableClientState");
 	}
 
+	glClientActiveTextureARB(GL_TEXTURE0_ARB);
 	if (m_dwfvf & FVF_TEX1)
 	{
-		glClientActiveTextureARB(GL_TEXTURE0_ARB);
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		checkgl("glEnableClientState");
-		glTexCoordPointer(2,GL_FLOAT,m_size / m_numvert,m_vb ? (byte*)stride:(m_pVertices+stride));
-		checkgl("glTexCoordPointer");
-
-		glClientActiveTextureARB(GL_TEXTURE1_ARB);
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 		checkgl("glEnableClientState");
 		glTexCoordPointer(2,GL_FLOAT,m_size / m_numvert,m_vb ? (byte*)stride:(m_pVertices+stride));
 		checkgl("glTexCoordPointer");
 		stride += 2*sizeof(float);
-
-		glClientActiveTextureARB(GL_TEXTURE0_ARB);
 	}
 	else
 	{
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		checkgl("glDisableClientState");
 	}
+
+	glClientActiveTextureARB(GL_TEXTURE1_ARB);
+	if (m_dwfvf & FVF_TEX2)
+	{
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		checkgl("glEnableClientState");
+		glTexCoordPointer(2,GL_FLOAT,m_size / m_numvert,m_vb ? (byte*)stride:(m_pVertices+stride));
+		checkgl("glTexCoordPointer");
+		stride += 2*sizeof(float);
+	}
+	else
+	{
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		checkgl("glDisableClientState");
+	}
+
+	glClientActiveTextureARB(GL_TEXTURE0_ARB);
 
 #endif
 }
@@ -294,6 +305,12 @@ dword HoeStream::GetFVF(const char * f)
 	{
 		f++;
 		fvf |= FVF_TEX1;
+	}
+
+	if (*f == 't')
+	{
+		f++;
+		fvf |= FVF_TEX2;
 	}
 
 	if (*f == '\0')
