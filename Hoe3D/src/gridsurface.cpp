@@ -65,6 +65,8 @@ void TGridSurfaceType::Setup()
 		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
 		glActiveTextureARB(GL_TEXTURE1_ARB);
+		if (tex2)
+		{
 		glEnable(GL_TEXTURE_2D);
 
 		// Here we turn on the COMBINE properties and increase our RGB
@@ -74,9 +76,18 @@ void TGridSurfaceType::Setup()
 		glTexEnvi(GL_TEXTURE_ENV,GL_SOURCE2_RGB_ARB, GL_TEXTURE);
 		glTexEnvi(GL_TEXTURE_ENV,GL_OPERAND2_RGB_ARB, GL_SRC_ALPHA);
 
+		glCullFace(GL_FRONT);
+		glDisable(GL_CULL_FACE);
+
 		// Bind the detail texture
 		glBindTexture(GL_TEXTURE_2D, tex2->GetTexture());
+
+		}
+		else
+			glDisable(GL_TEXTURE_2D);
+
 		glDisable(GL_LIGHTING);
+		glDisable(GL_ALPHA_TEST);// Zapne alfa testing
 		checkgl("multitexture");
 #endif
 }
@@ -370,8 +381,8 @@ void GridSurface::Render()
 		{
 			gst->Setup();
 			// renderovani multistreamu pres grid tree
-
-			m_multi.Render();
+			assert(gst->root);
+			m_multi.Render(gst->root->start,gst->root->end);
 			gst = gst->next;
 		}
 #ifdef _HOE_OPENGL_
@@ -425,6 +436,14 @@ void HOEAPI GridSurface::Create(float sizeX, float sizeY, int resX,int resY)
 
 	}
 	Load();
+}
+
+void HOEAPI GridSurface::GetDesc(float *sizeX, float *sizeY, uint *resX,uint *resY)
+{
+	if (sizeX) *sizeX = m_sizeX;
+	if (sizeY) *sizeY = m_sizeY;
+	if (resX) *resX = m_width;
+	if (resY) *resY = m_height;
 }
 
 void HOEAPI GridSurface::SetGridDesc(int x, int y, IHoeEnv::GridSurface::TGridDesc *desc)

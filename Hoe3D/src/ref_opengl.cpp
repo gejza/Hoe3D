@@ -395,6 +395,25 @@ void RefOpenGL::DrawStdObject(HoeStream * stream, HoeIndex * index, dword vert, 
 	GetInfo()->AddStatTriangles(ind/3);
 }
 
+void RefOpenGL::DrawStdObjectFT(HoeStream * stream, HoeIndex * index, dword start, dword num)
+{
+	stream->Set(0);
+	if (stream->IsDynamic() && GetRef()->ext.EXT_compiled_vertex_array)
+	{
+		glLockArraysEXT(0, (GLsizei)stream->GetNumVert());
+		checkgl("glLockArraysEXT");
+	}
+	word * w = ((word*)index->GetIndexBuffer())+start;
+	glDrawElements(GL_TRIANGLES,num,GL_UNSIGNED_SHORT,(GLvoid*)w);
+	checkgl("glDrawElements");
+	if (stream->IsDynamic() && GetRef()->ext.EXT_compiled_vertex_array)
+	{
+		glUnlockArraysEXT();
+		checkgl("glUnlockArraysEXT");
+	}
+	GetInfo()->AddStatTriangles(num/3);
+}
+
 void RefOpenGL::DrawIndex(HoeIndex * index, dword offset, dword count)
 {
 	byte * ui = reinterpret_cast<byte*>(index->GetIndexBuffer());

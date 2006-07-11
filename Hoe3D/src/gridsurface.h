@@ -121,9 +121,9 @@ public:
 		m_indices.Unlock();
 
 	}
-	void Render()
+	void Render(dword from, dword to)
 	{
-		Ref::DrawStdObject(&m_vertices, &m_indices);
+		Ref::DrawStdObjectFT(&m_vertices, &m_indices, from, to-from);
 	}
 };
 
@@ -163,6 +163,8 @@ public:
 	virtual void HOEAPI Create(float sizeX, float sizeY, int resX,int resY);
 	/** @see IHoeEnv::GridSurface::SetTexture */
 	virtual void HOEAPI SetTexture(int slot, const char * texname, int width, int height);
+	/** @see IHoeEnv::GridSurface::GetDesc */
+	virtual void HOEAPI GetDesc(float *sizeX, float *sizeY, uint *resX,uint *resY);
 	/** @see IHoeEnv::GridSurface::SetGridDesc */
 	virtual void HOEAPI SetGridDesc(int x, int y, TGridDesc * desc);
 	/** @see IHoeEnv::GridSurface::GetGriddesc */

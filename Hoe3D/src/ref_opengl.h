@@ -97,6 +97,15 @@ public:
 	*/
 	static void DrawStdObject(HoeStream * stream, HoeIndex * index, dword vert, dword ind);
 	/**
+	* Vykresleni objektu s urcenim intervalu.
+	* @param stream Vrcholy
+	* @param index Indexy
+	* @param from Zacatek kresleni
+	* @param num Pocet indexu = pocet trojuhelniku * 3
+	*/
+	static void DrawStdObjectFT(HoeStream * stream, HoeIndex * index, dword from, dword num);
+
+	/**
 	* Vykresleni indexu s prednastavenym streamem.
 	* @param index Indexy
 	* @param offset Od ktereho index uzacit

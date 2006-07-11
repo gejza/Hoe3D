@@ -162,6 +162,16 @@ void RefD3D9::DrawStdObject(HoeStream * stream, HoeIndex * index, dword vert, dw
 	GetInfo()->AddStatTriangles(ind/3);
 }
 
+void RefD3D9::DrawStdObjectFT(HoeStream * stream, HoeIndex * index, dword start, dword num)
+{
+	stream->Set(0);
+	D3DDevice()->SetIndices(index->GetIndexBuffer());
+	HRESULT hRes = D3DDevice()->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, 0, 0, stream->GetNumVert(), start,  num/3);
+	//hRes = D3DERR_INVALIDCALL;
+	checkres(hRes,"DrawIndexedPrimitive");	
+	GetInfo()->AddStatTriangles(num/3);
+}
+
 void RefD3D9::DrawIndex(HoeIndex * index, dword offset, dword count)
 {
 	assert(!"nefunkcni procedura, kvuli pevne nastavenemu poctu vertexu");

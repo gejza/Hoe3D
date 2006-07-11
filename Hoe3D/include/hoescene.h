@@ -91,6 +91,14 @@ namespace IHoeEnv
 		*/
 		virtual void HOEAPI SetTexture(int slot, const char * texname, int width, int height) = 0;
 		/**
+		* Ziskani parametru gridu. Muze byt i NULL
+		* @param sizeX realna velikost na sirku
+		* @param sizeY realna velikost na vysku
+		* @param resX rozliseni sirky (pocet bodu mapy)
+		* @param resY rozliseni vysky (pocet bodu mapy)
+		*/
+		virtual void HOEAPI GetDesc(float *sizeX, float *sizeY, uint *resX,uint *resY) = 0;
+		/**
 		* Nastavi parametry jedne mrize
 		* @param x X-ova souradnice policka
 		* @param y Y-ova souradnice policka
