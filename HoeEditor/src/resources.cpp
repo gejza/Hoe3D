@@ -60,13 +60,22 @@ reply:
 	}
 
 	wxString buf;
-	buf.Printf(_("Missing resource %s"),findid.c_str());
+	buf.Printf(_("Missing resource id %s"),findid.c_str());
 	wxMessageBox(buf);
 
 	if (ShowDlg())
 		goto reply;
 
 	return NULL;
+}
+
+bool Resources::ReqResource(const char * name)
+{
+	wxString buf;
+	buf.Printf(_("Missing resource %s"), name);
+	wxMessageBox(buf);
+
+	return ShowDlg();
 }
 
 XHoeFile * Resources::GetFileResource(int index)

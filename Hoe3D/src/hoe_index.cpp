@@ -4,28 +4,32 @@
 #include "ref.h"
 #include "hoe_index.h"
 
-HoeIndex::HoeIndex()
+HoeIndex::HoeIndex(bool soft)
 {
 	m_num = 0;
+	m_soft = soft;
 	m_ib = 0;
 	m_sw = NULL;
 }
 
-bool HoeIndex::Create(int num_indices)
+bool HoeIndex::Create(dword num_indices)
 {
+	assert(num_indices > 0);
+
 	if (m_num==num_indices)
 		return true;
 
 	m_num = num_indices;
 #ifdef _HOE_D3D_ 
+	if (!m_soft)
+	{
 	SAFE_RELEASE(m_ib);
 	HRESULT hRes = D3DDevice()->CreateIndexBuffer(m_num * 2,D3DUSAGE_WRITEONLY | D3DUSAGE_DYNAMIC,
 		D3DFMT_INDEX16,D3DPOOL_DEFAULT,&m_ib RESERVE_PAR);
+	}
+	else
 #endif
-#ifdef _HOE_OPENGL_
-	SAFE_DELETE_ARRAY(m_sw);
-	m_sw = new word[num_indices];
-#endif
+		SAFE_DELETE_ARRAY(m_sw);
 	return true;
 }
 
@@ -62,15 +66,24 @@ void HoeIndex::Dump(HoeLog *log)
 word * HoeIndex::Lock()
 {
 #ifdef _HOE_D3D_
-	m_ib->Lock(0,m_num * 2,(D3DLOCKTYPE)&m_sw,0);
+	if (!m_soft)
+	{
+		assert(m_ib);
+		m_ib->Lock(0,m_num * 2,(D3DLOCKTYPE)&m_sw,0);
+	}
 #endif
+	if (!m_sw)
+		m_sw = new word[m_num];
 	return m_sw;
 }
 
 void HoeIndex::Unlock()
 {
 #ifdef _HOE_D3D_
-	m_ib->Unlock();
-	m_sw = NULL;
+	if (!m_soft)
+	{
+		m_ib->Unlock();
+		m_sw = NULL;
+	}
 #endif
 }

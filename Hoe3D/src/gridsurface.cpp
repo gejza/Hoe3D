@@ -8,6 +8,8 @@
 #include "texture_system.h"
 #include "hoe_texture.h"
 #include "hoe_time.h"
+#include "model_loader.h"
+#include "hoe_model.h"
 
 struct VecPDT
 {
@@ -15,6 +17,13 @@ struct VecPDT
 		dword color;
 		HoeMath::VECTOR2 tex1;
 		HoeMath::VECTOR2 tex2;
+};
+
+struct ModStr
+{
+		HoeMath::VECTOR3 pos;
+		HoeMath::VECTOR3 norm;
+		HoeMath::VECTOR2 tex1;
 };
 
 // D3DTOP_BLENDTEXTUREALPHA current textura -- alpha current
@@ -134,6 +143,126 @@ GridSurface::GridSurface()
 	memset(m_textures, 0, sizeof m_textures);
 }
 
+HoeModel *  GetModel()
+{
+	static HoeModel * m = NULL;
+	if (!m)
+	{
+		ModelLoader ml(0, 0);
+		m = ml.LoadModel("terrain", true);
+	}
+	return m;
+}
+
+bool GridSurface::PlaneToMulti(float vx, float vy, const HoeMath::MATRIX & matrix, const TGridDesc & grid)
+{
+	const float tx1 = (grid.tex1 == 0xff) ? 1/4.f:1.f/m_textures[grid.tex1].nx;
+	const float ty1 = (grid.tex1 == 0xff) ? 1/4.f:1.f/m_textures[grid.tex1].ny;
+	const float tx2 = (grid.tex2 == 0xff) ? 1/4.f:1.f/m_textures[grid.tex2].nx;
+	const float ty2 = (grid.tex2 == 0xff) ? 1/4.f:1.f/m_textures[grid.tex2].ny;
+
+	// ulozit grid
+	VecPDT * pv = (VecPDT*)m_multi.GetLockedVertices();
+
+	const HoeMath::VECTOR2 s[4] = { HoeMath::VECTOR2(0,1/4.f),
+									HoeMath::VECTOR2(1/8.f,1/4.f),
+									HoeMath::VECTOR2(0,0),
+									HoeMath::VECTOR2(1/8.f,0)};
+	vx /= 2;
+	vy /= 2;
+	pv[0].pos = HoeMath::VECTOR3(-vx, 0, -vy).Multiply(matrix);
+	pv[1].pos = HoeMath::VECTOR3(+vx, 0, -vy).Multiply(matrix);
+	pv[2].pos = HoeMath::VECTOR3(+vx, 0, +vy).Multiply(matrix);
+	pv[3].pos = HoeMath::VECTOR3(-vx, 0, +vy).Multiply(matrix);
+	pv[0].color = 0xffffff00;
+	pv[1].color = 0xffffff00;
+	pv[2].color = 0xffffff00;
+	pv[3].color = 0xffffff00;
+	pv[0].tex1 = HoeMath::VECTOR2(grid.x1*tx1,(grid.y1+1)*ty1);
+	pv[1].tex1 = HoeMath::VECTOR2((grid.x1+1)*tx1,(grid.y1+1)*ty1);
+	pv[2].tex1 = HoeMath::VECTOR2((grid.x1+1)*tx1,grid.y1*ty1);
+	pv[3].tex1 = HoeMath::VECTOR2(grid.x1*tx1,grid.y1*ty1);
+	pv[0].tex2 = HoeMath::VECTOR2(grid.x2*tx2,(grid.y2+1)*ty2);
+	pv[1].tex2 = HoeMath::VECTOR2((grid.x2+1)*tx2,(grid.y2+1)*ty2);
+	pv[2].tex2 = HoeMath::VECTOR2((grid.x2+1)*tx2,grid.y2*ty2);
+
+	pv[3].tex2 = HoeMath::VECTOR2(grid.x2*tx2,grid.y2*ty2);
+
+	/*for (int i=0;i < 4;i++) {
+	// levo nahore
+		// orientace
+		// vypocitat souradnice podle map
+		pv->tex1 = s[(grid.ori1+i)%4] + HoeMath::VECTOR2(grid.x1*tx1,grid.y1*ty1);
+		pv->tex2 = s[(grid.ori2+i)%4] + HoeMath::VECTOR2(grid.x2*tx2,grid.y2*ty2);
+		pv++;
+	}*/
+
+	m_multi.AddIndex(0);
+	m_multi.AddIndex(3);
+	m_multi.AddIndex(1);
+	m_multi.AddIndex(1);
+	m_multi.AddIndex(3);
+	m_multi.AddIndex(2);
+	
+	m_multi.SkipVertices(4);
+	/*const float px = x*m_sizeX/hx-m_sizeX/2;
+	const float py = y*m_sizeY/hy-m_sizeY/2;
+	const float l = sqrtf((0-px)*(0-px)+(0-py)*(0-py));
+	pv->pos = HoeMath::VECTOR3(px,m_heights.getHeightAt(x,y),py);
+	pv->tex = HoeMath::VECTOR2((x % 2) * (1/8.f) + (7/8.f),(y % 2) * (1/4.f) + (2/4.f));
+
+	// compute color
+	//if (l > 100.f)
+		pv->color = 0xffffffff;
+	//else
+	//{
+	//	byte c = byte(0xff * l/100.f);
+	//	pv->color = (c << 8 | c) | 0xffff0000;
+	//}
+	pv++;
+	}*/
+	return true;
+}
+
+bool GridSurface::ModelToMulti(const HoeMath::MATRIX & matrix, const TGridDesc & grid)
+{
+	const float tx1 = (grid.tex1 == 0xff) ? 1/4.f:1.f/m_textures[grid.tex1].nx;
+	const float ty1 = (grid.tex1 == 0xff) ? 1/4.f:1.f/m_textures[grid.tex1].ny;
+	const float tx2 = (grid.tex2 == 0xff) ? 1/4.f:1.f/m_textures[grid.tex2].nx;
+	const float ty2 = (grid.tex2 == 0xff) ? 1/4.f:1.f/m_textures[grid.tex2].ny;
+
+	VecPDT * pv = (VecPDT*)m_multi.GetLockedVertices();
+	// vertex
+	HoeModel * m = GetModel();
+	HoeStream * str = m->m_stream[0];
+	HoeIndex * ind = m->m_index[0];
+	
+	ModStr * mv = (ModStr *)str->Lock();
+	for (dword i=0;i<str->GetNumVert();i++)
+	{
+		HoeMath::VECTOR3 pos = mv[i].pos;
+		pv[i].pos = pos.Multiply(matrix);
+		pv[i].color = 0xffffff00;
+		// upravit tex
+		HoeMath::VECTOR2 tex = mv[i].tex1;
+		pv[i].tex1.x = (grid.x1+tex.x)*tx1;
+		pv[i].tex1.y = (grid.y1+tex.y)*ty1;
+		pv[i].tex2.x = (grid.x2+tex.x)*tx2;
+		pv[i].tex2.y = (grid.y2+tex.y)*ty2;
+	}
+	str->Unlock();
+
+	word * w = ind->Lock();
+	for (dword i=0;i<ind->GetNumIndices();i++)
+	{
+		m_multi.AddIndex(w[i]);		
+	}
+	ind->Unlock();
+
+	m_multi.SkipVertices(str->GetNumVert());
+	return true;
+}
+
 TGridSurfaceTreeItem * GridSurface::CreateQuadTree(dword * gr, uint ngr, uint minx, uint maxx, uint miny, uint maxy)
 {
 
@@ -157,73 +286,16 @@ TGridSurfaceTreeItem * GridSurface::CreateQuadTree(dword * gr, uint ngr, uint mi
 			const uint y = loword(gr[i]);
 			if (x < minx || x > maxx || y < miny || y > maxy)
 				continue;
-
-			const TGridDesc & grid = m_grids[y*m_width+x];
-			const float tx1 = (grid.tex1 == 0xff) ? 1/4.f:1.f/m_textures[grid.tex1].nx;
-			const float ty1 = (grid.tex1 == 0xff) ? 1/4.f:1.f/m_textures[grid.tex1].ny;
-			const float tx2 = (grid.tex2 == 0xff) ? 1/4.f:1.f/m_textures[grid.tex2].nx;
-			const float ty2 = (grid.tex2 == 0xff) ? 1/4.f:1.f/m_textures[grid.tex2].ny;
+			HoeMath::MATRIX mat;
 			const float vx = m_sizeX / m_width;
 			const float vy = m_sizeY / m_height;
+			mat.Translate((x * vx) - (m_sizeX*0.5f) + (vx * 0.5f), 0,
+				(y * vy) - (m_sizeY*0.5f) + (vx * 0.5f));
 
-			// ulozit grid
-			VecPDT * pv = (VecPDT*)m_multi.GetLockedVertices();
-
-			const HoeMath::VECTOR2 s[4] = { HoeMath::VECTOR2(0,1/4.f),
-											HoeMath::VECTOR2(1/8.f,1/4.f),
-											HoeMath::VECTOR2(0,0),
-											HoeMath::VECTOR2(1/8.f,0)};
-			pv[0].pos = HoeMath::VECTOR3((x+0) * vx - (m_sizeX*0.5f), 0, (y+0) * vy - (m_sizeY*0.5f));
-			pv[1].pos = HoeMath::VECTOR3((x+1) * vx - (m_sizeX*0.5f), 0, (y+0) * vy - (m_sizeY*0.5f));
-			pv[2].pos = HoeMath::VECTOR3((x+1) * vx - (m_sizeX*0.5f), 0, (y+1) * vy - (m_sizeY*0.5f));
-			pv[3].pos = HoeMath::VECTOR3((x+0) * vx - (m_sizeX*0.5f), 0, (y+1) * vy - (m_sizeY*0.5f));
-			pv[0].color = 0xffffff00;
-			pv[1].color = 0xffffff00;
-			pv[2].color = 0xffffff00;
-			pv[3].color = 0xffffff00;
-			pv[0].tex1 = HoeMath::VECTOR2(grid.x1*tx1,(grid.y1+1)*ty1);
-			pv[1].tex1 = HoeMath::VECTOR2((grid.x1+1)*tx1,(grid.y1+1)*ty1);
-			pv[2].tex1 = HoeMath::VECTOR2((grid.x1+1)*tx1,grid.y1*ty1);
-			pv[3].tex1 = HoeMath::VECTOR2(grid.x1*tx1,grid.y1*ty1);
-			pv[0].tex2 = HoeMath::VECTOR2(grid.x2*tx2,(grid.y2+1)*ty2);
-			pv[1].tex2 = HoeMath::VECTOR2((grid.x2+1)*tx2,(grid.y2+1)*ty2);
-			pv[2].tex2 = HoeMath::VECTOR2((grid.x2+1)*tx2,grid.y2*ty2);
-
-			pv[3].tex2 = HoeMath::VECTOR2(grid.x2*tx2,grid.y2*ty2);
-
-			/*for (int i=0;i < 4;i++) {
-			// levo nahore
-				// orientace
-				// vypocitat souradnice podle map
-				pv->tex1 = s[(grid.ori1+i)%4] + HoeMath::VECTOR2(grid.x1*tx1,grid.y1*ty1);
-				pv->tex2 = s[(grid.ori2+i)%4] + HoeMath::VECTOR2(grid.x2*tx2,grid.y2*ty2);
-				pv++;
-			}*/
-
-			m_multi.AddIndex(0);
-			m_multi.AddIndex(3);
-			m_multi.AddIndex(1);
-			m_multi.AddIndex(1);
-			m_multi.AddIndex(3);
-			m_multi.AddIndex(2);
-			
-			m_multi.SkipVertices(4);
-			/*const float px = x*m_sizeX/hx-m_sizeX/2;
-			const float py = y*m_sizeY/hy-m_sizeY/2;
-			const float l = sqrtf((0-px)*(0-px)+(0-py)*(0-py));
-			pv->pos = HoeMath::VECTOR3(px,m_heights.getHeightAt(x,y),py);
-			pv->tex = HoeMath::VECTOR2((x % 2) * (1/8.f) + (7/8.f),(y % 2) * (1/4.f) + (2/4.f));
-
-			// compute color
-			//if (l > 100.f)
-				pv->color = 0xffffffff;
-			//else
-			//{
-			//	byte c = byte(0xff * l/100.f);
-			//	pv->color = (c << 8 | c) | 0xffff0000;
-			//}
-			pv++;
-			}*/
+			if (x != 5 || y != 5)
+				PlaneToMulti(vx, vy, mat, m_grids[y*m_width+x]);
+			else
+				ModelToMulti(mat, m_grids[y*m_width+x]);
 		}
 
 		dword end = m_multi.GetPos();
@@ -270,7 +342,7 @@ void GridSurface::Load()
 	dword * gl = new dword[m_width*m_height];
 	// multistream create
 	// dobre by bylo spocitat kolik budevrcholu (to je mozne, protoze se tam musi premistit vsichny)
-	if (!m_multi.Begin(m_width*m_height*4, m_width*m_height*6, "pdtt", sizeof(VecPDT)))
+	if (!m_multi.Begin(m_width*m_height*4 + 100, m_width*m_height*6 + 400, "pdtt", sizeof(VecPDT)))
 		return; /*!!!*/
 
 	for (uint y=0;y < m_height;y++)

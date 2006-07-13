@@ -120,27 +120,30 @@ XHoeFile * HoeEditor::EditorFS::Open(const char *fname,EHoeFileMode mode)
 
 HoeFileReader HoeEditor::EditorFS::FindResource_(const char * name, dword type)
 {
-	// prohledat soubory
-	for (uint i=0;i < this->GetFilesCount();i++)
-	{
-		XHoeFile * f = this->GetFileResource(i);
-		if (!f)
-			continue;
-		HoeFileReader r(f,0);
-		hfres_header head;
-		r.Read(&head,sizeof(head));
-		if (head.fileid != IDRESHEADER)
-			continue;
-		if (head.resid != type)
-			continue;
-		for (uint j=0;j < head.numres;j++)
+	do {
+		// prohledat soubory
+		for (uint i=0;i < this->GetFilesCount();i++)
 		{
-			hfres_name resname;
-			r.Read(&resname,sizeof(resname));
-			if (strcmp(resname.name, name) == 0)
-				return HoeFileReader(f, resname.filepos);
+			XHoeFile * f = this->GetFileResource(i);
+			if (!f)
+				continue;
+			HoeFileReader r(f,0);
+			hfres_header head;
+			r.Read(&head,sizeof(head));
+			if (head.fileid != IDRESHEADER)
+				continue;
+			if (head.resid != type)
+				continue;
+			for (uint j=0;j < head.numres;j++)
+			{
+				hfres_name resname;
+				r.Read(&resname,sizeof(resname));
+				if (strcmp(resname.name, name) == 0)
+					return HoeFileReader(f, resname.filepos);
+			}
 		}
-	}
+	} while (ReqResource(name));
+	
 
 	return HoeFileReader();
 

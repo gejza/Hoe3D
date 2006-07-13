@@ -52,10 +52,11 @@ HOE_INLINE void VECTOR3::Multiply(const VECTOR3 &v,const MATRIX &m)
 	z = v.x * m._13 + v.y * m._23 + v.z * m._33 + m._43;
 }
 
-HOE_INLINE void VECTOR3::Multiply(const MATRIX &m)
+HOE_INLINE const VECTOR3 &  VECTOR3::Multiply(const MATRIX &m)
 {
 	VECTOR3 v = *this;
 	Multiply(v,m);
+	return *this;
 }
 
 HOE_INLINE void VECTOR3::Max(const VECTOR3 & v)

@@ -98,7 +98,7 @@ namespace icreate {
 		get_param(log, flags);
 
 		ModelLoader ml(log, flags);
-		HoeModel * m = ml.LoadModel(modelname);
+		HoeModel * m = ml.LoadModel(modelname, false);
 		if (log) delete log;
 		return m;
 	}

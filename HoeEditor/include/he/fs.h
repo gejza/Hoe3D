@@ -44,6 +44,9 @@ public:
 
 class EditorFS : public XHoeFS
 {
+protected:
+	/** funkce ktera se vola, pokud nejake resource chybi */
+	virtual bool ReqResource(const char * name) { return false; }
 public:
 	virtual XHoeFile * Open(const char *fname,EHoeFileMode mode = hftRead);
 	virtual uint AddResourceFile(const char *) { return -1; };

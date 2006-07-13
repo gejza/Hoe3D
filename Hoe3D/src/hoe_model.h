@@ -15,6 +15,7 @@ class HoeMaterial;
 
 class HoeModel : public IHoeModel
 {
+public:
 	HoeIndex ** m_index;
 	HoeStream ** m_stream;
 	HoeMaterial **m_mat;

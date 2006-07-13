@@ -20,10 +20,12 @@ class ModelLoader
 	HoeLog * m_log;
 	int m_flags;
 
+	bool m_soft;
+
 	HoeModel * LoadModel();
 public:
 	ModelLoader(HoeLog * log = NULL, int flags = 0);
-	HoeModel * LoadModel(const char * name);
+	HoeModel * LoadModel(const char * name, bool soft);
 
 	HoeStream * GetStream(int id);
 	HoeIndex * GetIndex(int id);

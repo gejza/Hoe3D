@@ -117,7 +117,7 @@ struct VECTOR3
 	HOE_INLINE float Magnitudef(void) const;
 	HOE_INLINE const VECTOR3 & Normalize(void);
 	HOE_INLINE void Multiply(const VECTOR3 &,const MATRIX &);
-	HOE_INLINE void Multiply(const MATRIX &);
+	HOE_INLINE const VECTOR3 & Multiply(const MATRIX &);
 	/** Funkce slozi vektor z nejvetsich slozek */
 	HOE_INLINE void Max(const VECTOR3 & v);
 	/** Funkce slozi vektor z nejvetsich slozek */

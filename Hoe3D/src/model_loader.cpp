@@ -23,9 +23,17 @@ ModelLoader::ModelLoader(HoeLog * log, int flags)
 }
 
 
-HoeModel * ModelLoader::LoadModel(const char * name)
+HoeModel * ModelLoader::LoadModel(const char * name, bool soft)
 {
 	LOG(m_log)->Log("LoadModel %s",name);
+
+	if (soft)
+	{
+		LOG(m_log)->Log("Use soft loading.");
+		m_soft = true;
+	}
+	else
+		m_soft = false;
 
 	m_reader = GetFileSystem()->FindResource_(name,IDMDLHEADER);
 	if (!m_reader) 
@@ -170,7 +178,7 @@ HoeStream * ModelLoader::GetStream(int id)
 
 	LOG(m_log)->Log("Reading stream fvf=%s num=%d size=%d",fvf,header.numvert,header.size);
 
-	HoeStream * stream = new HoeStream();
+	HoeStream * stream = new HoeStream(false, m_soft);
 	stream->Create(header.numvert,fvf,header.size);
 	reader.Read(stream->Lock(),header.size);
 	if (m_flags && m_log)
@@ -203,7 +211,7 @@ HoeIndex * ModelLoader::GetIndex(int id)
 
 	LOG(m_log)->Log("Reading index num=%d",header.numinx);
 
-	HoeIndex * index = new HoeIndex();
+	HoeIndex * index = new HoeIndex(m_soft);
 	index->Create(header.numinx);
 	reader.Read(index->Lock(),header.numinx * 2);
 	if (m_flags && m_log)

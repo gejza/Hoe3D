@@ -23,6 +23,7 @@
 
 typedef GLuint SysTexture;
 typedef GLuint SysIndexBuffer;
+typedef GLuint SysVertexBuffer;
 
 struct THoeInitSettings;
 

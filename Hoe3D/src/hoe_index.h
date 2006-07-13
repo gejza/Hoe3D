@@ -2,28 +2,50 @@
 #ifndef _HOE_INDEX_H_
 #define _HOE_INDEX_H_
 
+/**
+* Index buffer
+*/
 class HoeIndex
 {
-	SysIndexBuffer m_ib;
-	word  *m_sw;
-	dword m_num;
+	SysIndexBuffer m_ib; ///< hardware buffer
+	word  *m_sw; ///< ukazatel na zamcene indexy
+	dword m_num; ///< pocet indexu
+	bool m_soft; ///< softwarovy stream
 public:
-	HoeIndex();
-	bool Create(int num_indices);
+	/**
+	* Konstruktor
+	* @param soft Pouzit softwarovy index
+	*/
+	HoeIndex(bool soft = false);
+	/**
+	* Vytvoreni bufferu. Pri zavolani smaze puvodni
+	* @param num_indices Pocet indexu
+	*/
+	bool Create(dword num_indices);
+	/**
+	* Zamceni bufferu a ziskani ukazatele na zamcena data.
+	*/
 	word * Lock();
+	/**
+	* Odemceni bufferu.
+	*/
 	void Unlock();
+	/**
+	* Dumpnuti indexu do logu
+	*/
 	void Dump(HoeLog *log);
-
-	SysIndexBuffer GetIndexBuffer() { 
+	/**
+	* Handle na buffer
+	*/
 #ifdef _HOE_D3D_
-		return m_ib;
+	inline SysIndexBuffer GetIndexBuffer() { return m_ib; }
 #else
-		return (SysIndexBuffer)m_sw;
+	inline SysIndexBuffer GetIndexBuffer() { return (SysIndexBuffer)m_sw; }
 #endif
-	}
-	dword GetNumIndices() { 
-		return m_num;
-	}
+	/**
+	* Pocet vertexu
+	*/
+	inline dword GetNumIndices() { return m_num; }
 };
 
 #endif // _HOE_INDEX_H_

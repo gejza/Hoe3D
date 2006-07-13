@@ -60,6 +60,7 @@ protected:
 	ArrayResources m_res;
 protected:
 	virtual IHoeResource * MissingResource(int id);
+	virtual bool ReqResource(const char * name);
 public:
 	Resources() { }
 	~Resources() { }

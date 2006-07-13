@@ -25,17 +25,25 @@ struct TGridTexture
 	size_t nx,ny; ///< velikost policek v texture
 };
 
-/*struct TGrid
+struct TGridPattern
 {
-	byte tex1; ///< index textury
-	byte x1; ///< x-ove policko v texture
-	byte y1; ///< y-ove policko v texture
-	byte ori1; ///< orientace policka 0-3
-	byte tex2; ///< index textury
-	byte x2; ///< x-ove policko v texture
-	byte y2; ///< y-ove policko v texture
-	byte ori2; ///< orientace policka 0-3
-};*/
+	class HoeModel * model;
+};
+/*
+musi se vymyslet jak se budou prirazovat vzory
+k polickum, v zasade mohou byt 3 typy
+1) placka (texturove souradnice jako pohled zezhora)
+   - vyska
+1.5 skosena placka
+   - 4x vyska
+2) podle vzoru (texturove souradnice ve vzoru)
+   museji se nejak definovat vzory (pravdepodobne jako textury, nebo to budou modely, spis modely)
+   - vzor
+   - vyska
+   - orientace
+3) mala vyskova mapa (texturove souradnice zezhora)
+   nastavitelne rozliseni
+*/
 
 // nejdriv zjistit nakolik objekt lezi v kamere
 // pokud cely, preda se do kresleni cely
@@ -150,6 +158,8 @@ class GridSurface : public IHoeEnv::GridSurface
 	/** funkce ktera vytvari podstromy
 	*/
 	TGridSurfaceTreeItem * CreateQuadTree(dword * gr, uint ngr, uint minx, uint maxx, uint miny, uint maxy);
+	bool PlaneToMulti(float vx, float vy, const HoeMath::MATRIX & matrix, const TGridDesc & grid);
+	bool ModelToMulti(const HoeMath::MATRIX & matrix, const TGridDesc & grid);
 public:
 	GridSurface();
 	/**

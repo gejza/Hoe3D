@@ -26,18 +26,20 @@
 #define FVF_TEX2		(1 << 6)
 #endif
 
-HoeStream::HoeStream(bool dynamic)
+HoeStream::HoeStream(bool dynamic, bool soft)
 {
 	m_size = 0;
 	m_fvf[0] = 0;
 	m_numvert = 0;
 	m_dynamic = dynamic; /*!!!*/ // musi byt podporavanej hw (v pripade directx)
 	m_pVertices = NULL;
+	m_soft = soft;
 	m_vb = 0;
 }
 
 bool HoeStream::Create(dword numvert,const char * fvf,dword size)
 {
+	assert(numvert > 0 && fvf && size > 0);
 	if (m_numvert == numvert && m_size == size && strcmp(m_fvf,fvf) == 0)
 		return true;
 	m_size = size;
@@ -45,14 +47,15 @@ bool HoeStream::Create(dword numvert,const char * fvf,dword size)
 	m_numvert = numvert;
 
 	m_dwfvf = this->GetFVF(fvf);
-#ifdef _HOE_OPENGL_
 	SAFE_DELETE_ARRAY(m_pVertices);
+	if (!m_soft)
+	{
+#ifdef _HOE_OPENGL_
 	// jestli i opengl vytvorit paralelne s tim i vertex buffer object
 	if (!m_dynamic && GetRef()->ext.ARB_vertex_buffer_object)
 	{	
-		if (m_vb)
-			glDeleteBuffersARB(1, &m_vb);
-		glGenBuffersARB(1, &m_vb);
+		if (!m_vb)
+			glGenBuffersARB(1, &m_vb);
 	}
 	else
 		m_vb = 0;
@@ -61,28 +64,32 @@ bool HoeStream::Create(dword numvert,const char * fvf,dword size)
 	SAFE_RELEASE(m_vb);
 	if( FAILED( D3DDevice()->CreateVertexBuffer( size,
 		m_dynamic ? D3DUSAGE_DYNAMIC:0 /* Usage */, m_dwfvf, D3DPOOL_DEFAULT, &m_vb RESERVE_PAR ) ) )
-		 return false;
+		return false;
 #endif // _HOE_D3D9_
+	}
 
 	return true;
 }
 
 byte * HoeStream::Lock()
 {
-#ifdef _HOE_D3D_
-	if( FAILED( m_vb->Lock( 0, m_size, (D3DLOCKTYPE)&m_pVertices, 0 ) ) )
-		return 0;
-#endif
-#ifdef _HOE_OPENGL_
+	#ifdef _HOE_D3D_
+		if (!m_soft)
+		{
+			if( FAILED( m_vb->Lock( 0, m_size, (D3DLOCKTYPE)&m_pVertices, 0 ) ) )
+				return 0;
+		}
+	#endif
 	if (m_pVertices == NULL)
 		m_pVertices = new byte[m_size];
-#endif
 	return m_pVertices;
 }
 
 void HoeStream::Unlock()
 {
 	m_box.Compute((const HoeMath::VECTOR3 *)m_pVertices,m_numvert,m_size/m_numvert);
+	if (m_soft)
+		return;
 #ifdef _HOE_D3D_
 	m_vb->Unlock();
 #endif
@@ -91,14 +98,14 @@ void HoeStream::Unlock()
 	{
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, m_vb);
 		glBufferDataARB(GL_ARRAY_BUFFER_ARB, m_size, m_pVertices, GL_STATIC_DRAW_ARB);
-		delete [] m_pVertices;
-		m_pVertices = 0;
+		SAFE_DELETE_ARRAY(m_pVertices);
 	}
 #endif
 }
 
 void HoeStream::Set(int n)
 {
+	assert(!m_soft && "Soft stream not use for rendering.");
 #ifdef _HOE_D3D_
 	D3DDevice()->SetFVF(m_dwfvf);
 #ifdef _HOE_D3D9_
