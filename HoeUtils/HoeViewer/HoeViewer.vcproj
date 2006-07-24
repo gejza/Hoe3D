@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="TextureView"
-	ProjectGUID="{50441E5A-508D-4540-8F06-83F1FD7E759D}"
-	RootNamespace="TextureView"
+	Name="HoeViewer"
+	ProjectGUID="{B54F706D-D360-4EB8-BDFB-74638CC64790}"
+	RootNamespace="HoeViewer"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -17,8 +17,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="Debug"
-			IntermediateDirectory="Debug"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="0"
 			>
@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../HoeEditor/include;../../Hoe3D/include"
+				AdditionalIncludeDirectories="..\..\HoeEditor\include;../../HoeGame/include;../../Hoe3D/include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -61,11 +61,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				UseUnicodeResponseFiles="false"
-				AdditionalDependencies="../../bin/HoeUtils_d.lib ../../bin/HoeEditor_d.lib wxbase26d.lib wxmsw26d_core.lib wxmsw26d_adv.lib wxmsw26d_propgrid.lib wxbase26d_xml.lib wxmsw26d_stc.lib wxexpatd.lib rpcrt4.lib comctl32.lib User32.lib Gdi32.lib AdvAPI32.lib Shell32.lib Ole32.lib ComDlg32.lib"
-				OutputFile="..\..\bin\$(ProjectName)_d.exe"
+				OutputFile="..\bin\$(ProjectName)_d.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories=" ../../bin"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -97,10 +94,11 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="Release"
-			IntermediateDirectory="Release"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="0"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -119,8 +117,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="2"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				AdditionalIncludeDirectories="..\..\HoeEditor\include;../../HoeGame/include;../../Hoe3D/include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -138,9 +136,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				OutputFile="..\bin\$(ProjectName).exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
-				SubSystem="1"
+				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				TargetMachine="1"
@@ -175,11 +174,39 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\textureview.cpp"
+			RelativePath=".\modelview.cpp"
+			>
+			<FileConfiguration
+				Name="Debug|Win32"
+				ExcludedFromBuild="true"
+				>
+				<Tool
+					Name="VCCLCompilerTool"
+				/>
+			</FileConfiguration>
+		</File>
+		<File
+			RelativePath=".\modelview.h"
 			>
 		</File>
 		<File
+			RelativePath=".\textureview.cpp"
+			>
+			<FileConfiguration
+				Name="Debug|Win32"
+				ExcludedFromBuild="true"
+				>
+				<Tool
+					Name="VCCLCompilerTool"
+				/>
+			</FileConfiguration>
+		</File>
+		<File
 			RelativePath=".\textureview.h"
+			>
+		</File>
+		<File
+			RelativePath=".\viewer.cpp"
 			>
 		</File>
 	</Files>
