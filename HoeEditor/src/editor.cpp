@@ -75,7 +75,6 @@ void HoeEditor::BaseEditor::OnEngine(wxCommandEvent& event)
 	if (dialog.ShowModal() == wxID_OK)
 	{
 		LoadEngine(dialog.GetPath());
-
 		// select item
 		//this->m_left->GetTree()->GetCtrl()->Reselect();
 	}
@@ -93,6 +92,7 @@ void HoeEditor::BaseEditor::LoadEngine(wxString path)
 			if ( pConfig == NULL )
 				return;
 			pConfig->Write(_T("/engine"), path);
+			MenuUpdate();
 		}
 	}
 }

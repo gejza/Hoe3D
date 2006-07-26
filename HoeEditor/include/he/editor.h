@@ -46,6 +46,7 @@ public:
 	~BaseEditor();
 	bool Create(const wxString & title);
 	virtual void OnInitMenu() {}
+	virtual void MenuUpdate() {}
 
 	virtual PanelMgr * GetPanelMgr() { return NULL; }
 	virtual EngineView * GetEngineView() { return NULL; }
