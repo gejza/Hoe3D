@@ -107,9 +107,9 @@ void HoeGraphScene::Render()
 		case TSceneGroup::ePolygon:
 			g->value.p->Render();
 			break;
-		case TSceneGroup::eHeightMapSurface:
-			g->value.ter->render(&cam);
-			break;
+		//case TSceneGroup::eHeightMapSurface:
+		//	g->value.ter->render(&cam);
+		//	break;
 		case TSceneGroup::eGridSurface:
 			g->value.grid->Render();
 			break;
@@ -153,10 +153,12 @@ void HoeGraphScene::RemovePolygon(int id)
 
 IHoeEnv::HeightMapSurface * HoeGraphScene::CreateHeightMapSurface()
 {
+    assert(!"nedodelano");
 	TSceneGroup * g = NewGroup();
-	g->type = TSceneGroup::eHeightMapSurface;
-	g->value.ter = new HoeQuadTerrain();
-	return g->value.ter;
+	//g->type = TSceneGroup::eHeightMapSurface;
+	//g->value.ter = new HoeQuadTerrain();
+	//return g->value.ter;
+    return NULL;
 }
 
 IHoeEnv::GridSurface * HoeGraphScene::CreateGridSurface()

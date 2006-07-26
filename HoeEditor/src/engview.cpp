@@ -177,6 +177,7 @@ void EngineView::OnSize( wxSizeEvent& event)
 
 void EngineView::OnEnterWindow( wxMouseEvent& event )
 {
+    SetFocus();
 	App::Get()->GetEditor()->MouseEnter(event.GetX(), event.GetY());
     m_lastmouseevent = event;
 	event.Skip();

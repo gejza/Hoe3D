@@ -179,6 +179,8 @@ bool Hoe3D::Init(THoeInitSettings * his)
 
 	Con_Print("Load");
 
+    
+
 	END_TRY(exit(1));
 	
 	return true;
@@ -229,6 +231,7 @@ bool Hoe3D::Frame()
 
 	// scene preprocess
 	//if (m_active) m_active->Render();
+
 	GetInfo()->BeginFrame();
 	GetRef()->Begin();
 
@@ -270,6 +273,13 @@ bool Hoe3D::Frame()
 		//HoeCursor::Draw();
 		m_rt.EndRender();
 	}
+    else
+    {
+        // set barva
+        GetRef()->SetBackgroundColor(0x80ff);
+        GetRef()->ClearBuffers(true, true);
+    }
+
 	GetInfo()->PreEndFrame();
 	GetRef()->End();
 	GetInfo()->EndFrame();
