@@ -165,7 +165,8 @@ public:
 	/**
 	* Vytvori index a vertex streamy z gridu
 	*/
-	void Load();
+	/** @see IHoeEnv::GridSurface::Load */
+	virtual void HOEAPI Load();
 	void Unload();
 	void Render();
 	virtual void HOEAPI SetPosCenter( float x, float y, float z);

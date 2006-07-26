@@ -524,7 +524,6 @@ void HOEAPI GridSurface::SetGridDesc(int x, int y, IHoeEnv::GridSurface::TGridDe
 	assert(x >= 0 && (uint)x < m_width);
 	assert(y >= 0 && (uint)y < m_height);
 	memcpy(&m_grids[m_width*y+x], desc, sizeof IHoeEnv::GridSurface::TGridDesc);
-	Load();
 }
 
 void HOEAPI GridSurface::GetGridDesc(int x, int y, IHoeEnv::GridSurface::TGridDesc *desc)

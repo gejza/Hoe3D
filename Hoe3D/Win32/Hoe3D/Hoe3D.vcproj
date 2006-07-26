@@ -1678,22 +1678,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Octree.cpp"
-				>
-				<FileConfiguration
-					Name="DebugGL|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\src\Octree.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\scene.cpp"
 				>
 			</File>
@@ -1822,38 +1806,6 @@
 				</File>
 				<File
 					RelativePath="..\..\src\heightmap.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\QuadSurface.cpp"
-					>
-					<FileConfiguration
-						Name="DebugGL|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\..\src\QuadSurface.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\Surface.cpp"
-					>
-					<FileConfiguration
-						Name="DebugGL|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\..\src\Surface.h"
 					>
 				</File>
 			</Filter>

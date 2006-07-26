@@ -83,6 +83,10 @@ namespace IHoeEnv
 		*/
 		virtual void HOEAPI Create(float sizeX, float sizeY, int resX,int resY) = 0;
 		/**
+		* Aktualizuje mapu
+		*/
+		virtual void HOEAPI Load() = 0;
+		/**
 		* Nastavi texturu
 		* @param slot Na ktery slot nastavit texturu
 		* @param texname Jmeno textury
