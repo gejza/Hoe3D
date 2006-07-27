@@ -122,18 +122,6 @@ public:
 	PTR * GetLast() { return _first[_num-1]; }
 };
 
-#ifdef _WIN32
-#define BEGIN_TRY __try {
-#define END_TRY(code)  } __except (ExpFilter(GetExceptionInformation(), GetExceptionCode())) \
-{ \
-	code ; \
-} 
-LONG WINAPI ExpFilter(EXCEPTION_POINTERS* pExp, DWORD dwExpCode);
-#else
-#define BEGIN_TRY
-#define END_TRY(code)
-#endif
-
 #include "cmdexec.h"
 
 #endif //_HOE_UTIL_H

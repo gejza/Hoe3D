@@ -1,8 +1,16 @@
 
 #include "StdAfx.h"
 #include "../include/hoe_utils.h"
+#include "../include/hoe_console.h"
 
 BEGIN_HOEGAME
+
+#ifdef _WIN32
+#include <dbghelp.h>
+#include <shellapi.h>
+#include <shlobj.h>
+#pragma comment (lib,"dbghelp.lib")
+#endif
 
 #ifdef _LINUX
 #define MAX_PATH 512
@@ -54,5 +62,56 @@ bool SetRootFromInstance(HINSTANCE hInstance)
 	return SetRootFromExe(moduleName);
 }
 #endif
+
+
+int GenerateDump(EXCEPTION_POINTERS* pExceptionPointers)
+{
+    BOOL bMiniDumpSuccessful;
+    //CHAR szPath[MAX_PATH]; 
+    CHAR szFileName[MAX_PATH]; 
+    CHAR* szAppName = "AppName";
+    CHAR* szVersion = "v1.0";
+    DWORD dwBufferSize = MAX_PATH;
+    HANDLE hDumpFile;
+    SYSTEMTIME stLocalTime;
+    MINIDUMP_EXCEPTION_INFORMATION ExpParam;
+
+    GetLocalTime( &stLocalTime );
+
+    _snprintf( szFileName, MAX_PATH, "%s-%04d%02d%02d-%02d%02d%02d-%ld-%ld.dmp", 
+               szVersion, 
+               stLocalTime.wYear, stLocalTime.wMonth, stLocalTime.wDay, 
+               stLocalTime.wHour, stLocalTime.wMinute, stLocalTime.wSecond, 
+               GetCurrentProcessId(), GetCurrentThreadId());
+    hDumpFile = CreateFile(szFileName, GENERIC_READ|GENERIC_WRITE, 
+                FILE_SHARE_WRITE|FILE_SHARE_READ, 0, CREATE_ALWAYS, 0, 0);
+	if (hDumpFile==INVALID_HANDLE_VALUE)
+	{
+		BaseConsole::Printf("Failed open file %s for write dump. (%d)", szFileName,GetLastError());
+		return 0;
+	}
+
+    ExpParam.ThreadId = GetCurrentThreadId();
+    ExpParam.ExceptionPointers = pExceptionPointers;
+    ExpParam.ClientPointers = TRUE;
+
+    bMiniDumpSuccessful = MiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), 
+                    hDumpFile, MiniDumpWithDataSegs, &ExpParam, NULL, NULL);
+
+	if (bMiniDumpSuccessful)
+		BaseConsole::Printf("Core dump saved to: %s", szFileName);
+	else
+		BaseConsole::Printf("Failed create core dump.");
+
+    //return EXCEPTION_EXECUTE_HANDLER;
+	return 0;
+}
+
+LONG WINAPI ExpFilter(EXCEPTION_POINTERS* pExp, DWORD dwExpCode)
+{
+   BaseConsole::Printf("Error exception.");
+   GenerateDump(pExp);
+   return EXCEPTION_EXECUTE_HANDLER;
+}
 
 END_HOEGAME

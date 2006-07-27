@@ -9,7 +9,6 @@ class Hoe3D : public IHoe3DEngine
 {
 	class HoeBaseScene * m_active;
 	HoeRenderTarget m_rt; ///< Hlavni RenderTarget
-	bool m_stop; ///< Promena ktera zastavi engine pri chybe
 public:
 	Hoe3D(int flags);
 	~Hoe3D();

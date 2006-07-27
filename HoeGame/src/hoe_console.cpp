@@ -31,6 +31,7 @@ void BaseConsole::Printfarg(const char * szFormat, va_list args)
 #endif
 	if (m_shared)
 		m_shared->Con_Print(szBuff);
+	/*!!!*/
 }
 
 void BaseConsole::Printf(const char * szFormat, ...)

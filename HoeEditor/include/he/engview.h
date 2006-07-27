@@ -20,6 +20,7 @@ class EngineView : public wxPanel
 	bool m_loaded;
 	wxMouseEvent m_lastmouseevent;
 	wxTimer m_infotimer;
+	bool InitUntry(XHoeFS * hfs);
 public:
 	void Unload();
 	EngineView();

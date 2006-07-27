@@ -36,20 +36,10 @@
 #pragma comment (lib,"libfl.a")
 #pragma comment (lib,"freetype2110MT_D.lib")
 
-// vypnuti vyjimek
-#if 1
-#undef BEGIN_TRY
-#undef END_TRY
-#define BEGIN_TRY
-#define END_TRY(code)
-#endif
-
 Hoe3D::Hoe3D(int flags) : m_rt(HoeRenderTarget::eMain)
 {	
 	SET_SHARED_PTR(hoe3d);
 	m_active = NULL;
-	m_stop = false;
-
 	// 
 	new CmdExec();
 
@@ -125,8 +115,6 @@ Hoe3D::~Hoe3D()
 
 bool Hoe3D::Init(THoeInitSettings * his)
 {
-	BEGIN_TRY
-
 	Con_Print("init hoe");
 	int x,y;
 	unsigned int width,height;
@@ -179,10 +167,6 @@ bool Hoe3D::Init(THoeInitSettings * his)
 
 	Con_Print("Load");
 
-    
-
-	END_TRY(exit(1));
-	
 	return true;
 }
 
@@ -203,17 +187,11 @@ int Hoe3D::exec(const char * cmd)
 
 void Hoe3D::Process(const double dtime)
 {
-	if (m_stop)
-		return;
-
-	BEGIN_TRY
-
 	if (IsInputLoaded())
 		GetInput()->Process(float(dtime));
 
 	if (m_active) m_active->Process(dtime);
 
-	END_TRY(m_stop=true)
 }
 
 HoeRenderTarget * GetRT()
@@ -224,11 +202,6 @@ HoeRenderTarget * GetRT()
 
 bool Hoe3D::Frame()
 {
-	if (m_stop)
-		return false;
-
-	BEGIN_TRY
-
 	// scene preprocess
 	//if (m_active) m_active->Render();
 
@@ -287,8 +260,6 @@ bool Hoe3D::Frame()
 #ifdef _HOE_OPENGL_
 	checkgl("sumary check");
 #endif
-
-	END_TRY(m_stop=true; return false)
 
 	return true;
 }

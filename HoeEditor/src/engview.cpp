@@ -3,6 +3,7 @@
 #include "../include/he/app.h"
 #include "../include/he/editor.h"
 #include "../include/he/engview.h"
+#include "../../HoeGame/include/hoe_utils.h"
 
 namespace HoeEditor {
 
@@ -49,6 +50,14 @@ bool EngineView::InitStatic(XHoeFS * hfs)
 #else
 bool EngineView::Init(XHoeFS * hfs)
 {
+	BEGIN_TRY
+		InitUntry(hfs);
+	END_TRY(return false);
+	return true;
+}
+
+bool EngineView::InitUntry(XHoeFS * hfs)
+{
 	Unload();
 
 	assert(strlen(m_dllpath) > 0);
@@ -74,6 +83,7 @@ bool EngineView::Init(XHoeFS * hfs)
 	if (m_engine == NULL)
 		return false; 
 
+	{
 	THoeInitSettings his;
 	memset(&his,0,sizeof(THoeInitSettings));
 	his.hInst = NULL;
@@ -99,21 +109,27 @@ bool EngineView::Init(XHoeFS * hfs)
 	his.depth = 16;
 
 	wxLogMessage("* Init Engine with %dx%dx%d *",his.width,his.height,his.depth);
+
 	if (!this->m_engine->Init(&his))
 		return false;
-
+	}
 	m_loaded = true;
 
 	// arial
 	HoeGetRef(m_engine)->SetBackgroundColor(0xff000000);
-
+	
 	return true;
 }
+
+static wxString str; /*!!!*/ /** @todo odstranit tuhleprasarnicku */
 
 void EngineView::Frame(float dtime)
 {
 	if (!this->IsLoaded())
 		return;
+
+
+	BEGIN_TRY
 
 	assert(m_engine);
 	this->m_engine->Process(dtime);
@@ -121,10 +137,11 @@ void EngineView::Frame(float dtime)
 
 	// update fps
 	// info
-	wxString str;
+
 	str.Printf("FPS: %f", HoeGetInfo(m_engine)->GetFPS());
 	App::Get()->GetEditor()->SetStatusText(str, 1);
 
+	END_TRY(return);
 }
 
 
