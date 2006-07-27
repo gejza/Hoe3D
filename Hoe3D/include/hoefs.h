@@ -160,7 +160,11 @@ public:
 			return false;
 		return true;
 	}
-	template<class T> bool Write(T t)
+	template<class T> bool Write(T &t)
+	{
+		return Write(&t, sizeof(T));
+	}
+	template<class T> bool WriteValue(T t)
 	{
 		return Write(&t, sizeof(T));
 	}

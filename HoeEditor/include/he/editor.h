@@ -75,8 +75,7 @@ public:
 	virtual void MouseEnter(int absX, int absY) {};
 	virtual void MouseLeave() {};
 
-
-    // any class wishing to process wxWindows events must use this macro
+	// any class wishing to process wxWindows events must use this macro
     DECLARE_EVENT_TABLE()
 };
 

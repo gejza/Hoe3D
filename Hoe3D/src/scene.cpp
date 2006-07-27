@@ -124,7 +124,6 @@ void HoeGraphScene::Render()
 		obj->Render(this);
 	}
 	
-
 }
 //////////////////////////////////////////////////////////
 TSceneGroup * HoeGraphScene::NewGroup()

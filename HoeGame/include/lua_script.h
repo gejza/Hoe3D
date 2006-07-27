@@ -39,6 +39,8 @@ public:
 	void PushTable();
 	void SetTableInteger(const char * par, int data, int tab = -2);
 	int GetTableInteger(const char * par, int table);
+	void SetTablePointer(const char * par, void * data, int tab = -2);
+	void * GetTablePointer(const char * par, int table);
 
 	void Pop(int num);
 };

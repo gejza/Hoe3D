@@ -185,6 +185,28 @@ int LuaParam::GetTableInteger(const char *par, int tab)
 	return i;
 }
 
+void LuaParam::SetTablePointer(const char *par, void * data, int tab)
+{
+#if LUA_VERSION_NUM >= 501
+	lua_pushlightuserdata(m_L, data);
+	lua_setfield(m_L,tab,par);
+#else
+	assert(!"tato funkce neni dostupna ve verzi Lua 5.0");
+#endif
+}
+
+void * LuaParam::GetTablePointer(const char *par, int tab)
+{
+#if LUA_VERSION_NUM >= 501
+	lua_getfield(m_L,tab,par);
+#else
+	assert(!"tato funkce neni dostupna ve verzi Lua 5.0");
+#endif
+	void * p = lua_touserdata(m_L,-1);
+	lua_pop(m_L, 1);
+	return p;
+}
+
 void LuaParam::Pop(int num)
 {
 	lua_pop(m_L, num);

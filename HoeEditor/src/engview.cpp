@@ -141,7 +141,7 @@ void EngineView::Frame(float dtime)
 	str.Printf("FPS: %f", HoeGetInfo(m_engine)->GetFPS());
 	App::Get()->GetEditor()->SetStatusText(str, 1);
 
-	END_TRY(return);
+	END_TRY(exit(0));
 }
 
 
