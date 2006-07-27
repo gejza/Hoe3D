@@ -86,6 +86,7 @@ public:
 	void SetProp(wxPGId i, int id, unsigned long flags, const char * help);
 
 	void AppendLong(int id, const char * label, long def, unsigned long flags = 0, const char * help = NULL);
+	void AppendBool(int id, const char * label, bool def, unsigned long flags = 0, const char * help = NULL);
 
 	DECLARE_EVENT_TABLE()
 };

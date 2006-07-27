@@ -376,6 +376,12 @@ void HoeEditor::PropertyGrid::AppendLong(int id, const char * label, long def, u
 	SetProp( pgid, id, flags, help);
 }
 
+void HoeEditor::PropertyGrid::AppendBool(int id, const char * label, bool def, unsigned long flags, const char * help)
+{
+	wxPGId pgid = Append(label, label, (bool)def);
+	SetProp( pgid, id, flags, help);
+}
+
 ///////////////////////////////
 /*
 PropertyCtrl::PropertyCtrl()
