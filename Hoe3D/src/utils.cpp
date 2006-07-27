@@ -201,10 +201,7 @@ void glerr(const char * file, dword line, const char * fnc, const char *ffnc, in
 #ifdef _WIN32
 		MessageBox(GetActiveWindow(), buff, "glGetError failed!", MB_OK);
 		// call stack
-		BEGIN_TRY
 		__debugbreak();
-		throw("aa");
-		END_TRY(exit(1))
 #else
 		exit(1);
 #endif
