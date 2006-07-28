@@ -48,7 +48,14 @@ void HoeScene::Render()
 	m_objects.SetStreaming(HOF_SHOW);
 	while ((obj = m_objects.Object()) != NULL)
 	{
-		obj->Render(this);
+		if (obj->GetFlags() & HOF_WIRE)
+		{
+			GetHoeStates()->StartWireframe();
+			obj->Render(this);
+			GetHoeStates()->EndWireframe();
+		}
+		else
+			obj->Render(this);
 	}
 
 }
@@ -121,7 +128,14 @@ void HoeGraphScene::Render()
 	m_objects.SetStreaming(HOF_SHOW);
 	while ((obj = m_objects.Object()) != NULL)
 	{
-		obj->Render(this);
+		if (obj->GetFlags() & HOF_WIRE)
+		{
+			GetHoeStates()->StartWireframe();
+			obj->Render(this);
+			GetHoeStates()->EndWireframe();
+		}
+		else
+			obj->Render(this);
 	}
 	
 }

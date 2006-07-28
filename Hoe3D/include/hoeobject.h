@@ -18,6 +18,8 @@ class IHoeModel;
 #define HOF_SCALED   0x08
 // pri vykresleni zavola jeste proceduru dodatecneho vykresleni
 #define HOF_ADVSHOW  0x10
+// vykresluje jako dratovy model
+#define HOF_WIRE	 0x20
 
 /**
  * @brief Nastaveni objektu v enginu.  
