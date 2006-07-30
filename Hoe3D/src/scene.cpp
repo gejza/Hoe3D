@@ -246,12 +246,27 @@ XHoeObject * HoeGraphScene::Ray(float * vPickRayDir, float * vPickRayOrig)
 
 float HoeGraphScene::GetHeight(float x,float y)
 {
+	/** @todo predelat nejen na terrain */
+	TSceneGroup * g = m_root;
+	float h;
+	while (g)
+	{
+		switch (g->type)
+		{
+		case TSceneGroup::eGridSurface:
+			if (g->value.grid->GetHeight(x,y,&h))
+				return h;
+			break;
+		};
+		g = g->next;
+	}
+
 	//float distX, distY;
 
 	//distX=m_terrain.getDistX();
 	//distY=m_terrain.getDistY();
 
-	//return m_terrain.heightMap.getHeightAt(int(x/distX),(int)(y/distY));	
+	//return m_terrain.heightMap.getHeightAt(int(x/distX),(int)(y/distY));*/	
 	return 0.f;
 }
 

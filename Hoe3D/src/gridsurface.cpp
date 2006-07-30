@@ -150,15 +150,17 @@ GridSurface::~GridSurface()
 	ReleaseData();
 }
 
-HoeModel *  GetModel()
+HoeModel *  GetModel(int id)
 {
-	static HoeModel * m = NULL;
-	if (!m)
+	static HoeModel * m[8] = {0};
+	if (!m[id])
 	{
 		ModelLoader ml(0, 0);
-		m = ml.LoadModel("terrain", true);
+		char s[3] = "m0";
+		s[1] = id + '0';
+		m[id] = ml.LoadModel(s, true);
 	}
-	return m;
+	return m[id];
 }
 
 bool GridSurface::PlaneToMulti(float vx, float vy, const HoeMath::MATRIX & matrix, const TGridData & grid)
@@ -237,7 +239,7 @@ bool GridSurface::ModelToMulti(const HoeMath::MATRIX & matrix, const TGridData &
 	const float ty2 = (grid.tex2 == 0xff) ? 1/4.f:1.f/m_textures[grid.tex2].ny;
 
 	// vertex
-	HoeModel * m = GetModel();
+	HoeModel * m = GetModel(grid.modelid);
 	HoeStream * str = m->m_stream[0];
 	HoeIndex * ind = m->m_index[0];
 	VecPDT * pv = (VecPDT*)m_multi.LockNewVertices(str->GetNumVert(), ind->GetNumIndices());
@@ -557,8 +559,16 @@ void HOEAPI GridSurface::GetGridDesc(int x, int y, IHoeEnv::GridSurface::TGridDe
 void HOEAPI GridSurface::SetGridModel(int x, int y, float height, int modelid)
 {
 	// prenastaveni v gridu na model, pokud height mapa tak odstranit
-	m_grids[m_width*y+x].type = TGridData::eModel;
-	m_grids[m_width*y+x].base_height = height;
+	if (m_grids[m_width*y+x].type == TGridData::eModel)
+	{
+		m_grids[m_width*y+x].modelid = (m_grids[m_width*y+x].modelid + 1) % 8;
+	}
+	else
+	{
+		m_grids[m_width*y+x].type = TGridData::eModel;
+		m_grids[m_width*y+x].base_height = height;
+		m_grids[m_width*y+x].modelid = 0;
+	}
 }
 
 void HOEAPI GridSurface::SetGridPlane(int x, int y, float height,float lt, float rt, float lb, float rb)
@@ -632,6 +642,57 @@ void HOEAPI GridSurface::MoveHeight(float x, float y, float moveheight, float ra
 void HOEAPI GridSurface::ShowWireframe(bool show)
 {
 	m_wire = show;
+}
+
+bool GridSurface::GetHeight(const float x, const float y, float * height)
+{
+	if (!m_grids)
+		return false;
+	const float distX = m_sizeX / m_width;
+	const float distY = m_sizeY / m_height;
+	const uint sx = (uint)((x+(m_sizeX*0.5f))/(distX));
+	const uint sy = (uint)((y+(m_sizeY*0.5f))/(distY));
+	if (sx < 0 || sx >= m_width || sy < 0 || sy >= m_height)
+		return false;
+	const TGridData & g = m_grids[m_width*sy+sx];
+	const float xx = x - ((sx * distX) - (m_sizeX*0.5f));// - (distX * 0.5f);
+	const float yy = y - ((sy * distY) - (m_sizeY*0.5f));// - (distY * 0.5f);
+	switch (g.type)
+	{
+	case TGridData::ePlane:
+		{
+			float l1 = sqrt(xx*xx+yy*yy);
+			if (l1 < 0.0001f)
+			{
+				*height = g.plane_heights[0]; return true;
+			}
+			float l2 = sqrt((1-xx)*(1-xx)+yy*yy);
+			if (l2 < 0.0001f)
+			{
+				*height = g.plane_heights[1]; return true;
+			}
+			float l3 = sqrt(xx*xx+(1-yy)*(1-yy));
+			if (l3 < 0.0001f)
+			{
+				*height = g.plane_heights[2]; return true;
+			}
+			float l4 = sqrt((1-xx)*(1-xx)+(1-yy)*(1-yy));
+			if (l4 < 0.0001f)
+			{
+				*height = g.plane_heights[3]; return true;
+			}
+			l1 = 1.f / l1;
+			l2 = 1.f / l2;
+			l3 = 1.f / l3;
+			l4 = 1.f / l4;
+			*height = (l1*g.plane_heights[0]+l2*g.plane_heights[1]+
+				l3*g.plane_heights[2]+l4*g.plane_heights[3]) / (l1+l2+l3+l4);
+			return true;
+		}
+		return true;
+	default:
+		return false;
+	};
 }
 
 void HOEAPI GridSurface::Dump(XHoeStreamWrite * stream)

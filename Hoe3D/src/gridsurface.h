@@ -223,6 +223,8 @@ public:
 	// hejbani
 	virtual void HOEAPI MoveHeight(float x, float y, float moveheight, float radius);
 
+	bool GetHeight(const float x, const float y, float * height);
+
 	//virtual void HOEAPI ShowBrush(bool show);
 	//virtual void HOEAPI SetBrush(float x, float y, float radius, dword color);
 	/** @see IHoeEnv::GridSurface::ShowWireframe */
