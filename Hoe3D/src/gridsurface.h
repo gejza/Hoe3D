@@ -34,14 +34,17 @@ struct TGridData : public IHoeEnv::GridSurface::TGridDesc
 		eHM,
 		TypeReqdword = 0x7fffffff
 	} type;
-	float base_height;
 	union {
-		int modelid;
+		struct {
+			int modelid;
+			float base_height;
+		};
 		struct {
 			int resx;
 			int resy;
-			float * heights; //< v dumpu se pak uklada uplne na konci
+			float * map_heights; //< v dumpu se pak uklada uplne na konci
 		};
+		float plane_heights[4];
 	};
 };
 /*
@@ -114,7 +117,7 @@ protected:
 	word * m_il; ///< zamcene indexy
 	byte * m_vbuffer; ///< ukazatel na buffer vertexy
 	word * m_ibuffer; ///< ukazatel na buffer indexu
-	dword m_actvertex;
+	dword m_actvertex; ///< 
 	dword m_actindex;
 	word m_vertexoffset;
 	/**
@@ -184,8 +187,8 @@ class GridSurface : public IHoeEnv::GridSurface
 	/** funkce ktera vytvari podstromy
 	*/
 	TGridSurfaceTreeItem * CreateQuadTree(dword * gr, uint ngr, uint minx, uint maxx, uint miny, uint maxy);
-	bool PlaneToMulti(float vx, float vy, const HoeMath::MATRIX & matrix, const TGridDesc & grid);
-	bool ModelToMulti(const HoeMath::MATRIX & matrix, const TGridDesc & grid);
+	bool PlaneToMulti(float vx, float vy, const HoeMath::MATRIX & matrix, const TGridData & grid);
+	bool ModelToMulti(const HoeMath::MATRIX & matrix, const TGridData & grid);
 public:
 	/** Konstruktor */
 	GridSurface();
@@ -213,9 +216,12 @@ public:
 	/** @see IHoeEnv::GridSurface::SetGridModel */
 	virtual void HOEAPI SetGridModel(int x, int y, float height, int modelid);
 	/** @see IHoeEnv::GridSurface::SetGridPlane */
-	virtual void HOEAPI SetGridPlane(int x, int y, float height);
+	virtual void HOEAPI SetGridPlane(int x, int y, float height, float lt = 0.f, float rt = 0.f, float lb = 0.f, float rb = 0.f);
 	/** @see IHoeEnv::GridSurface::SetGridHeightmap */
 	virtual void HOEAPI SetGridHeightmap(int x, int y, float height, int resx, int resy, float * h);
+
+	// hejbani
+	virtual void HOEAPI MoveHeight(float x, float y, float moveheight, float radius);
 
 	//virtual void HOEAPI ShowBrush(bool show);
 	//virtual void HOEAPI SetBrush(float x, float y, float radius, dword color);

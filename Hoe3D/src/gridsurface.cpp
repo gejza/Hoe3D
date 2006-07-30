@@ -161,7 +161,7 @@ HoeModel *  GetModel()
 	return m;
 }
 
-bool GridSurface::PlaneToMulti(float vx, float vy, const HoeMath::MATRIX & matrix, const TGridDesc & grid)
+bool GridSurface::PlaneToMulti(float vx, float vy, const HoeMath::MATRIX & matrix, const TGridData & grid)
 {
 	const float tx1 = (grid.tex1 == 0xff) ? 1/4.f:1.f/m_textures[grid.tex1].nx;
 	const float ty1 = (grid.tex1 == 0xff) ? 1/4.f:1.f/m_textures[grid.tex1].ny;
@@ -177,10 +177,10 @@ bool GridSurface::PlaneToMulti(float vx, float vy, const HoeMath::MATRIX & matri
 									HoeMath::VECTOR2(1/8.f,0)};
 	vx /= 2;
 	vy /= 2;
-	pv[0].pos = HoeMath::VECTOR3(-vx, 0, -vy).Multiply(matrix);
-	pv[1].pos = HoeMath::VECTOR3(+vx, 0, -vy).Multiply(matrix);
-	pv[2].pos = HoeMath::VECTOR3(+vx, 0, +vy).Multiply(matrix);
-	pv[3].pos = HoeMath::VECTOR3(-vx, 0, +vy).Multiply(matrix);
+	pv[0].pos = HoeMath::VECTOR3(-vx, grid.plane_heights[0], -vy).Multiply(matrix);
+	pv[1].pos = HoeMath::VECTOR3(+vx, grid.plane_heights[1], -vy).Multiply(matrix);
+	pv[2].pos = HoeMath::VECTOR3(+vx, grid.plane_heights[3], +vy).Multiply(matrix);
+	pv[3].pos = HoeMath::VECTOR3(-vx, grid.plane_heights[2], +vy).Multiply(matrix);
 	pv[0].color = 0xffffff00;
 	pv[1].color = 0xffffff00;
 	pv[2].color = 0xffffff00;
@@ -229,7 +229,7 @@ bool GridSurface::PlaneToMulti(float vx, float vy, const HoeMath::MATRIX & matri
 	return true;
 }
 
-bool GridSurface::ModelToMulti(const HoeMath::MATRIX & matrix, const TGridDesc & grid)
+bool GridSurface::ModelToMulti(const HoeMath::MATRIX & matrix, const TGridData & grid)
 {
 	const float tx1 = (grid.tex1 == 0xff) ? 1/4.f:1.f/m_textures[grid.tex1].nx;
 	const float ty1 = (grid.tex1 == 0xff) ? 1/4.f:1.f/m_textures[grid.tex1].ny;
@@ -293,7 +293,7 @@ TGridSurfaceTreeItem * GridSurface::CreateQuadTree(dword * gr, uint ngr, uint mi
 			HoeMath::MATRIX mat;
 			const float vx = m_sizeX / m_width;
 			const float vy = m_sizeY / m_height;
-			mat.Translate((x * vx) - (m_sizeX*0.5f) + (vx * 0.5f), m_grids[y*m_width+x].base_height, // tady bude height
+			mat.Translate((x * vx) - (m_sizeX*0.5f) + (vx * 0.5f),(m_grids[y*m_width+x].type == TGridData::eModel) ? m_grids[y*m_width+x].base_height:0, // tady bude height
 				(y * vy) - (m_sizeY*0.5f) + (vx * 0.5f));
 
 			switch (m_grids[y*m_width+x].type)
@@ -561,15 +561,72 @@ void HOEAPI GridSurface::SetGridModel(int x, int y, float height, int modelid)
 	m_grids[m_width*y+x].base_height = height;
 }
 
-void HOEAPI GridSurface::SetGridPlane(int x, int y, float height)
+void HOEAPI GridSurface::SetGridPlane(int x, int y, float height,float lt, float rt, float lb, float rb)
 {
 	// jestli puvodne heightmapa tak odstranit
 	m_grids[m_width*y+x].type = TGridData::ePlane;
-	m_grids[m_width*y+x].base_height = height;
+	m_grids[m_width*y+x].plane_heights[0] = lt + height;
+	m_grids[m_width*y+x].plane_heights[1] = rt + height;
+	m_grids[m_width*y+x].plane_heights[2] = lb + height;
+	m_grids[m_width*y+x].plane_heights[3] = rb + height;
 }
 
 void HOEAPI GridSurface::SetGridHeightmap(int x, int y, float height, int resx, int resy, float * h)
 {
+}
+
+void HOEAPI GridSurface::MoveHeight(float x, float y, float moveheight, float radius)
+{
+	// hybnuti s mapou na spravnem miste
+	// spocitani mista? vymezit okruh pro pocitani
+	// 
+	const float distX = m_sizeX / m_width;
+	const float distY = m_sizeY / m_height;
+	const uint sx = (uint)((x-radius+(m_sizeX*0.5f))/(distX));
+	const uint sy = (uint)((y-radius+(m_sizeY*0.5f))/(distY));
+	const uint ex = (uint)((x+radius+(m_sizeX*0.5f))/(distX));
+	const uint ey = (uint)((y+radius+(m_sizeY*0.5f))/(distY));
+
+	for (uint i=sx;i<=ex;i++)
+		for (uint j=sy;j<=ey;j++)
+		{
+			if (i<0 || i>=m_width || j<0 || j>=m_height)
+				continue;
+			TGridData & g = m_grids[m_width*j+i];
+			if (g.type == TGridData::ePlane)
+			{
+				float dx,dy, l;
+				// dopocitat zpatky na plusove souradnice
+				dx = (i * distX) - (m_sizeX*0.5f);// - (distX * 0.5f);
+				dy = (j * distY) - (m_sizeY*0.5f);// - (distY * 0.5f);
+				l = sqrt((dx-x)*(dx-x) + (dy-y)*(dy-y));
+				if (l < radius)
+				{
+					g.plane_heights[0] += (1.f-l/radius)*moveheight;
+				}
+				dx = (i * distX) - (m_sizeX*0.5f) + distX;
+				dy = (j * distY) - (m_sizeY*0.5f);// - (distY * 0.5f);
+				l = sqrt((dx-x)*(dx-x) + (dy-y)*(dy-y));
+				if (l < radius)
+				{
+					g.plane_heights[1] += (1.f-l/radius)*moveheight;
+				}
+				dx = (i * distX) - (m_sizeX*0.5f);// + (distX * 0.5f);
+				dy = (j * distY) - (m_sizeY*0.5f) + distY;
+				l = sqrt((dx-x)*(dx-x) + (dy-y)*(dy-y));
+				if (l < radius)
+				{
+					g.plane_heights[2] += (1.f-l/radius)*moveheight;
+				}
+				dx = (i * distX) - (m_sizeX*0.5f) + distX;
+				dy = (j * distY) - (m_sizeY*0.5f) + distY;
+				l = sqrt((dx-x)*(dx-x) + (dy-y)*(dy-y));
+				if (l < radius)
+				{
+					g.plane_heights[3] += (1.f-l/radius)*moveheight;
+				}				
+			}
+		}
 }
 
 void HOEAPI GridSurface::ShowWireframe(bool show)
@@ -581,7 +638,7 @@ void HOEAPI GridSurface::Dump(XHoeStreamWrite * stream)
 {
 	// write version
 	assert(m_grids);
-	stream->Write<uint>(le_uint(2));
+	stream->Write<uint>(le_uint(3));
 	// size
 	stream->Write<uint>(le_uint(m_width));
 	stream->Write<uint>(le_uint(m_height));
@@ -595,7 +652,7 @@ void HOEAPI GridSurface::Dump(XHoeStreamWrite * stream)
 
 void HOEAPI GridSurface::LoadDump(XHoeStreamRead * stream)
 {
-	assert(le_uint(stream->Read<uint>())==2);
+	assert(le_uint(stream->Read<uint>())==3);
 	// size
 	m_width=le_uint(stream->Read<uint>());
 	m_height=le_uint(stream->Read<uint>());

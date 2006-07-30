@@ -131,9 +131,19 @@ namespace IHoeEnv
 		virtual void HOEAPI LoadDump(XHoeStreamRead * stream) = 0;
 		virtual void HOEAPI ReleaseData() = 0;
 
+		/**
+		* Nastavi skosenou rovinu
+		* lt - levy horni
+		* rt - pravy horni
+		* lb - levy dolni
+		* rb - pravy dolni
+		*/
+		virtual void HOEAPI SetGridPlane(int x, int y, float height, float lt = 0.f, float rt = 0.f, float lb = 0.f, float rb = 0.f) = 0;
 		virtual void HOEAPI SetGridModel(int x, int y, float height, int modelid) = 0;
-		virtual void HOEAPI SetGridPlane(int x, int y, float height) = 0;
 		virtual void HOEAPI SetGridHeightmap(int x, int y, float height, int resx, int resy, float * h) = 0;
+
+		// funkce na editovani
+		virtual void HOEAPI MoveHeight(float x, float y, float moveheight, float radius) = 0;
 	};
 };
 

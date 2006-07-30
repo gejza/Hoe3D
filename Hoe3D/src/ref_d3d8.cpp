@@ -163,6 +163,16 @@ void RefD3D8::DrawStdObject(HoeStream * stream, HoeIndex * index)
 	GetInfo()->AddStatTriangles(index->GetNumIndices()/3);
 }
 
+void RefD3D8::DrawStdObjectFT(HoeStream * stream, HoeIndex * index, dword start, dword num)
+{
+	stream->Set(0);
+	D3DDevice()->SetIndices(index->GetIndexBuffer(),0);
+	HRESULT hRes = D3DDevice()->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, 0, stream->GetNumVert(), start,  num/3);
+	//hRes = D3DERR_INVALIDCALL;
+	checkres(hRes,"DrawIndexedPrimitive");	
+	GetInfo()->AddStatTriangles(num/3);
+}
+
 void RefD3D8::DrawFanObject(dword offset, dword count)
 {
 	HRESULT hRes = D3DDevice()->DrawPrimitive( D3DPT_TRIANGLEFAN, offset, count-2);
