@@ -6,30 +6,9 @@
 #include "hoe3d_math.h"
 #include "hoe_stream.h"
 
-#ifdef _HOE_D3D_
-#define FVF_XYZ D3DFVF_XYZ
-#define FVF_XYZRHW D3DFVF_XYZRHW
-#define FVF_NORMAL D3DFVF_NORMAL
-#define FVF_DIFFUSE D3DFVF_DIFFUSE
-#define FVF_SPECULAR D3DFVF_SPECULAR
-#define FVF_TEX1 D3DFVF_TEX1
-#define FVF_TEX2 D3DFVF_TEX2
-#endif
-
-#ifdef _HOE_OPENGL_
-#define FVF_XYZ			(1 << 0)
-#define FVF_XYZRHW		(1 << 1) 
-#define FVF_NORMAL		(1 << 2)
-#define FVF_DIFFUSE		(1 << 3)
-#define FVF_SPECULAR	(1 << 4)
-#define FVF_TEX1		(1 << 5)
-#define FVF_TEX2		(1 << 6)
-#endif
-
 HoeStream::HoeStream(bool dynamic, bool soft)
 {
 	m_size = 0;
-	m_fvf[0] = 0;
 	m_numvert = 0;
 	m_dynamic = dynamic; /*!!!*/ // musi byt podporavanej hw (v pripade directx)
 	m_pVertices = NULL;
@@ -40,13 +19,12 @@ HoeStream::HoeStream(bool dynamic, bool soft)
 bool HoeStream::Create(dword numvert,const char * fvf,dword size)
 {
 	assert(numvert > 0 && fvf && size > 0);
-	if (m_numvert == numvert && m_size == size && strcmp(m_fvf,fvf) == 0)
+	if (m_numvert == numvert && m_size == size && m_fvf == fvf)
 		return true;
 	m_size = size;
-	strcpy(m_fvf,fvf);
+	m_fvf.Set(fvf);
 	m_numvert = numvert;
 
-	m_dwfvf = this->GetFVF(fvf);
 	SAFE_DELETE_ARRAY(m_pVertices);
 	if (!m_soft)
 	{
@@ -63,11 +41,22 @@ bool HoeStream::Create(dword numvert,const char * fvf,dword size)
 #ifdef _HOE_D3D_
 	SAFE_RELEASE(m_vb);
 	if( FAILED( D3DDevice()->CreateVertexBuffer( size,
-		m_dynamic ? D3DUSAGE_DYNAMIC:0 /* Usage */, m_dwfvf, D3DPOOL_DEFAULT, &m_vb RESERVE_PAR ) ) )
+		m_dynamic ? D3DUSAGE_DYNAMIC:0 /* Usage */, m_fvf.GetFVF(), D3DPOOL_DEFAULT, &m_vb RESERVE_PAR ) ) )
 		return false;
 #endif // _HOE_D3D9_
 	}
 
+	return true;
+}
+
+bool HoeStream::Create(dword numvert,const char * fvf,dword size, byte * data)
+{
+	if (!Create(numvert, fvf, size))
+		return false;
+	byte * lc = Lock();
+	assert(lc);
+	memcpy(lc, data, size);
+	Unlock();
 	return true;
 }
 
@@ -92,6 +81,7 @@ void HoeStream::Unlock()
 		return;
 #ifdef _HOE_D3D_
 	m_vb->Unlock();
+	m_pVertices = NULL;
 #endif
 #ifdef _HOE_OPENGL_
 	if (m_vb != 0)
@@ -107,7 +97,7 @@ void HoeStream::Set(int n)
 {
 	assert(!m_soft && "Soft stream not use for rendering.");
 #ifdef _HOE_D3D_
-	D3DDevice()->SetFVF(m_dwfvf);
+	D3DDevice()->SetFVF(m_fvf.GetFVF());
 #ifdef _HOE_D3D9_
     D3DDevice()->SetStreamSource( n, m_vb, 0, m_size / m_numvert );
 #else
@@ -223,7 +213,7 @@ void HoeStream::Dump(HoeLog *log)
 	{
 		char line[2000] = {0};
 		char tmp[1000] = {0};
-		const char * d = this->m_fvf;
+		const char * d = this->m_fvf.GetStringFVF();
 		p = m_pVertices + (i*stride);
 		while (*d)
 		{
@@ -267,64 +257,6 @@ void HoeStream::Dump(HoeLog *log)
 	}
 	log->Log("box:(%f,%f,%f)-(%f,%f,%f) ball: %f", m_box.min.x, m_box.min.y, m_box.min.z, m_box.max.x,
 		m_box.max.y, m_box.max.z, m_box.ball);
-}
-
-dword HoeStream::GetFVF(const char * f)
-{
-	dword fvf = 0;
-	if (*f == 'p')
-	{
-		f++;
-		fvf |= FVF_XYZ;
-	}
-
-	if (*f == 'r')
-	{
-		f++;
-		fvf |= FVF_XYZRHW;
-	}
-
-	if (*f == 'n')
-	{
-		f++;
-		fvf |= FVF_NORMAL;
-	}
-
-	if (*f == 'd')
-	{
-		f++;
-		fvf |= FVF_DIFFUSE;
-	}
-
-	if (*f == 's')
-	{
-		f++;
-		fvf |= FVF_SPECULAR;
-	}
-
-	if (*f == '2')
-	{
-		f++;
-		fvf |= FVF_TEX1;
-	}
-
-	if (*f == 't')
-	{
-		f++;
-		fvf |= FVF_TEX1;
-	}
-
-	if (*f == 't')
-	{
-		f++;
-		fvf |= FVF_TEX2;
-	}
-
-	if (*f == '\0')
-		return fvf;
-
-	assert(false && "spatne fvf");
-	return 0;
 }
 
 

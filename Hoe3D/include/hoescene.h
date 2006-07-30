@@ -129,6 +129,11 @@ namespace IHoeEnv
 		* Nahraje objekt ze streamu
 		*/
 		virtual void HOEAPI LoadDump(XHoeStreamRead * stream) = 0;
+		virtual void HOEAPI ReleaseData() = 0;
+
+		virtual void HOEAPI SetGridModel(int x, int y, float height, int modelid) = 0;
+		virtual void HOEAPI SetGridPlane(int x, int y, float height) = 0;
+		virtual void HOEAPI SetGridHeightmap(int x, int y, float height, int resx, int resy, float * h) = 0;
 	};
 };
 

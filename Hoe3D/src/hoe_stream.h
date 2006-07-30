@@ -2,13 +2,14 @@
 #ifndef _HOE_STREAM_
 #define _HOE_STREAM_
 
+#include "ref_utils.h"
+
 /**
 * Stream - buffer pro vertexy
 */
 class HoeStream
 {
-	char m_fvf[8]; ///< textove fvf
-	dword m_dwfvf; ///< zakodovane fvf
+	HoeFVF m_fvf;
 	dword m_size; ///< velikost celeho bufferu
 	dword m_numvert; ///< pocet vertexu
 	bool m_dynamic; ///< dynamicky stream
@@ -16,7 +17,6 @@ class HoeStream
 	SysVertexBuffer m_vb; ///< hardware vertex buffer
 	byte * m_pVertices; ///< ukazatel na zamcene vertexy
 	HoeMath::BoundingBox m_box; ///< bounding box
-	static dword GetFVF(const char *); 
 public:
 	/**
 	* Konstruktor
@@ -31,6 +31,14 @@ public:
 	* @param size Velikost bufferu v bytech
 	*/
 	bool Create(dword numvert,const char * fvf,dword size);
+	/**
+	* Vytvoreni bufferu s daty. Pri zavolani smaze puvodni
+	* @param numvert Pocet vertexu
+	* @param fvf String fvf
+	* @param size Velikost bufferu v bytech
+	* @param data Data na vytvoreni
+	*/
+	bool Create(dword numvert,const char * fvf,dword size, byte * data);
 	/**
 	* Zamceni bufferu a ziskani ukazatele na zamcena data.
 	*/
@@ -47,7 +55,7 @@ public:
 	/**
 	* Ziskani zakodovaneho fvf
 	*/
-	dword GetFVF() { return m_dwfvf;}
+	dword GetFVF() { return m_fvf.GetFVF();}
 	/**
 	* Pocet vertexu
 	*/

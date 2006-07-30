@@ -27,6 +27,14 @@ typedef GLuint SysVertexBuffer;
 
 struct THoeInitSettings;
 
+#define FVF_XYZ			(1 << 0)
+#define FVF_XYZRHW		(1 << 1) 
+#define FVF_NORMAL		(1 << 2)
+#define FVF_DIFFUSE		(1 << 3)
+#define FVF_SPECULAR	(1 << 4)
+#define FVF_TEX1		(1 << 5)
+#define FVF_TEX2		(1 << 6)
+
 typedef void (*GLPROCEDURE)(void);
 
 /**

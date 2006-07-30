@@ -25,9 +25,24 @@ struct TGridTexture
 	size_t nx,ny; ///< velikost policek v texture
 };
 
-struct TGridPattern
+struct TGridData : public IHoeEnv::GridSurface::TGridDesc
 {
-	class HoeModel * model;
+	enum Type
+	{
+		ePlane = 0,
+		eModel,
+		eHM,
+		TypeReqdword = 0x7fffffff
+	} type;
+	float base_height;
+	union {
+		int modelid;
+		struct {
+			int resx;
+			int resy;
+			float * heights; //< v dumpu se pak uklada uplne na konci
+		};
+	};
 };
 /*
 musi se vymyslet jak se budou prirazovat vzory
@@ -83,56 +98,67 @@ struct TGridSurfaceType
 class MultiStream
 {
 protected:
-	HoeStream m_vertices; ///< stream pro vertexy
-	HoeIndex m_indices; ///< indexy
-	size_t m_sn;
-	byte * m_lv;
-	word * m_il;
-	word m_vert;
-	dword m_pos;
+	static const uint MaxVerticesSize = 65000;
+	static const uint MaxIndicesSize = 65000;
+	struct Mesh
+	{
+		HoeStream vertices; ///< stream pro vertexy
+		HoeIndex indices; ///< indexy
+		dword numvert; ///< pocet vertexu
+		dword numind; ///< pocet indexu
+	} m_mesh[30];
+	uint m_nummesh; ///< pocet vytvorenych meshu
+	HoeFVF m_fvf; ///< FVF
+	size_t m_sn; ///< velikost jednoho vertexu
+	byte * m_lv; ///< Zamcene vertexy
+	word * m_il; ///< zamcene indexy
+	byte * m_vbuffer; ///< ukazatel na buffer vertexy
+	word * m_ibuffer; ///< ukazatel na buffer indexu
+	dword m_actvertex;
+	dword m_actindex;
+	word m_vertexoffset;
+	/**
+	* Vytvori z bufferu Mesh
+	*/
+	bool CreateMeshFromBuffer();
 public:
-	byte * GetLockedVertices() { return m_lv; }
-	void AddIndex(word ind)
-	{
-		*m_il = ind + m_vert;
-		m_il++;
-		m_pos++;
-	}
-	void SkipVertices(uint nv)
-	{
-		m_lv += nv * m_sn;
-		m_vert += nv;
-	}
-
-	dword GetPos()
-	{
-		return m_pos;
-	}
-	bool Begin(uint vnum, uint inum, const char * fvf, size_t sn)
-	{
-		if (!m_vertices.Create(vnum, fvf, vnum*sn))
-			return false;
-		if (!m_indices.Create(inum))
-			return false;
-		m_sn = sn;
-		m_lv = m_vertices.Lock();
-		m_il = m_indices.Lock();
-
-		m_pos = 0;
-		m_vert = 0;
-		return true;
-	}
-	void End()
-	{
-		// optimize
-		m_vertices.Unlock();
-		m_indices.Unlock();
-
-	}
-	void Render(dword from, dword to)
-	{
-		Ref::DrawStdObjectFT(&m_vertices, &m_indices, from, to-from);
-	}
+	/** Konstruktor */
+	MultiStream();
+	/** Destruktor */
+	virtual ~MultiStream();
+	/**
+	* Zacatek vytvareni streamu
+	* @param fvf Textove fvf
+	* @param sn Velikost jednoho vertexu v bytech
+	*/
+	bool Begin(const char * fvf, size_t sn);
+	/**
+	* Konec vytvareni streamu
+	*/
+	void End();
+	/** 
+	* Vytvoreni novych vertexu a indexu
+	* @param numvert Pocet dalsich vertexu
+	* @param numind Pocet dalsich indexu
+	* @return Ukazatel na vertexy
+	*/
+	byte * LockNewVertices(dword numvert, dword numind);
+	/**
+	* Prida dalsi index do streamu, k indexu se automaticky pricte 
+	* posledni index predchazejici skupiny indexu
+	* @param ind Index
+	*/
+	void AddIndex(word ind);
+	/**
+	* Vraceni zakodovane pozice, obsahuje zakodovane cislo meshe a pozici
+	*/
+	dword GetPos() const;
+	/**
+	* Renderovani casti multistreamu
+	* @param from zakodovana pozice odkud se ma renderovat
+	* @param to zakodovana pozice mista kam az se ma renderovat
+	*/
+	void Render(dword from, dword to);
 };
 
 
@@ -143,7 +169,7 @@ class GridSurface : public IHoeEnv::GridSurface
 
 	HoeMath::MATRIX m_worldpos; ///< pozice stredu surface
 
-	TGridDesc * m_grids; ///< ukazatel na pole gridu
+	TGridData * m_grids; ///< ukazatel na pole gridu
 	uint m_width, m_height; ///< velikost mrize
 	float m_sizeX, m_sizeY; ///< realna velikost mrize
 
@@ -161,12 +187,16 @@ class GridSurface : public IHoeEnv::GridSurface
 	bool PlaneToMulti(float vx, float vy, const HoeMath::MATRIX & matrix, const TGridDesc & grid);
 	bool ModelToMulti(const HoeMath::MATRIX & matrix, const TGridDesc & grid);
 public:
+	/** Konstruktor */
 	GridSurface();
+	/** Destruktor */
+	virtual ~GridSurface();
 	/**
 	* Vytvori index a vertex streamy z gridu
 	*/
 	/** @see IHoeEnv::GridSurface::Load */
 	virtual void HOEAPI Load();
+	virtual void HOEAPI ReleaseData();
 	void Unload();
 	void Render();
 	virtual void HOEAPI SetPosCenter( float x, float y, float z);
@@ -180,6 +210,13 @@ public:
 	virtual void HOEAPI SetGridDesc(int x, int y, TGridDesc * desc);
 	/** @see IHoeEnv::GridSurface::GetGriddesc */
 	virtual void HOEAPI GetGridDesc(int x, int y, TGridDesc * desc);
+	/** @see IHoeEnv::GridSurface::SetGridModel */
+	virtual void HOEAPI SetGridModel(int x, int y, float height, int modelid);
+	/** @see IHoeEnv::GridSurface::SetGridPlane */
+	virtual void HOEAPI SetGridPlane(int x, int y, float height);
+	/** @see IHoeEnv::GridSurface::SetGridHeightmap */
+	virtual void HOEAPI SetGridHeightmap(int x, int y, float height, int resx, int resy, float * h);
+
 	//virtual void HOEAPI ShowBrush(bool show);
 	//virtual void HOEAPI SetBrush(float x, float y, float radius, dword color);
 	/** @see IHoeEnv::GridSurface::ShowWireframe */

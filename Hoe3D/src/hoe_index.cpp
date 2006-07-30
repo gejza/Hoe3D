@@ -33,6 +33,18 @@ bool HoeIndex::Create(dword num_indices)
 	return true;
 }
 
+bool HoeIndex::Create(dword num_indices, word * data)
+{
+	word * li;
+	if (!Create(num_indices))
+			return false;
+	li = Lock();
+	assert(li);
+	memcpy(li, data, num_indices*sizeof(word));
+	Unlock();
+	return true;
+}
+
 #define SETMAX(m) if (m > max) max = m; if (m < min) min = m;
 
 void HoeIndex::Dump(HoeLog *log)

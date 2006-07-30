@@ -820,7 +820,27 @@
 			Name="Ref"
 			>
 			<File
-				RelativePath="..\..\src\glext.h"
+				RelativePath="..\..\src\hoe_index.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\hoe_index.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\hoe_material.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\hoe_material.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\hoe_stream.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\hoe_stream.h"
 				>
 			</File>
 			<File
@@ -840,217 +860,241 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\ref_d3d8.cpp"
-				>
-				<FileConfiguration
-					Name="DebugD3D9|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="ReleaseD3D9|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DebugGL|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="ReleaseGL|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DebugD3D9 (static)|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DebugGL (static)|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\src\ref_d3d8.h"
+				RelativePath="..\..\src\ref_utils.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\ref_d3d8.inl"
+				RelativePath="..\..\src\ref_utils.h"
 				>
 			</File>
-			<File
-				RelativePath="..\..\src\ref_d3d9.cpp"
+			<Filter
+				Name="OpenGL"
 				>
-				<FileConfiguration
-					Name="DebugGL|Win32"
-					ExcludedFromBuild="true"
+				<File
+					RelativePath="..\..\src\glext.h"
 					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="ReleaseGL|Win32"
-					ExcludedFromBuild="true"
+				</File>
+				<File
+					RelativePath="..\..\src\ref_opengl.cpp"
 					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DebugD3D8|Win32"
-					ExcludedFromBuild="true"
+					<FileConfiguration
+						Name="DebugD3D9|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseD3D9|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugD3D8|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugD3D9 (static)|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseD3D8|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\src\ref_opengl.h"
 					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="ReleaseD3D8|Win32"
-					ExcludedFromBuild="true"
+				</File>
+				<File
+					RelativePath="..\..\src\ref_opengl.inl"
 					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DebugGL (static)|Win32"
-					ExcludedFromBuild="true"
+				</File>
+				<File
+					RelativePath="..\..\src\ref_opengl_ext.cpp"
 					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\src\ref_d3d9.h"
+					<FileConfiguration
+						Name="DebugD3D9|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseD3D9|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugD3D8|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugD3D9 (static)|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseD3D8|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\src\ref_opengl_ext.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="D3D9"
 				>
-			</File>
-			<File
-				RelativePath="..\..\src\ref_d3d9.inl"
+				<File
+					RelativePath="..\..\src\ref_d3d9.cpp"
+					>
+					<FileConfiguration
+						Name="DebugGL|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseGL|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugD3D8|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseD3D8|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugGL (static)|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\src\ref_d3d9.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\ref_d3d9.inl"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="D3D8"
 				>
-			</File>
-			<File
-				RelativePath="..\..\src\ref_opengl.cpp"
-				>
-				<FileConfiguration
-					Name="DebugD3D9|Win32"
-					ExcludedFromBuild="true"
+				<File
+					RelativePath="..\..\src\ref_d3d8.cpp"
 					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="ReleaseD3D9|Win32"
-					ExcludedFromBuild="true"
+					<FileConfiguration
+						Name="DebugD3D9|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseD3D9|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugGL|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseGL|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugD3D9 (static)|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugGL (static)|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\src\ref_d3d8.h"
 					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DebugD3D8|Win32"
-					ExcludedFromBuild="true"
+				</File>
+				<File
+					RelativePath="..\..\src\ref_d3d8.inl"
 					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DebugD3D9 (static)|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="ReleaseD3D8|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\src\ref_opengl.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\ref_opengl.inl"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\ref_opengl_ext.cpp"
-				>
-				<FileConfiguration
-					Name="DebugD3D9|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="ReleaseD3D9|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DebugD3D8|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DebugD3D9 (static)|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="ReleaseD3D8|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\src\ref_opengl_ext.h"
-				>
-			</File>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Textures"
@@ -1164,35 +1208,11 @@
 			Name="Model"
 			>
 			<File
-				RelativePath="..\..\src\hoe_index.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\hoe_index.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\hoe_material.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\hoe_material.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\hoe_model.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\..\src\hoe_model.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\hoe_stream.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\hoe_stream.h"
 				>
 			</File>
 			<File

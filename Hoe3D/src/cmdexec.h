@@ -15,6 +15,8 @@ struct THoeVar;
 class CVar : public THoeVar
 {
 public:
+	CVar(const char * name, bool value, int flags) {}
+	bool GetBool() const { return value.b; }
 };
 
 class CmdExec

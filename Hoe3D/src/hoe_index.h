@@ -23,6 +23,12 @@ public:
 	*/
 	bool Create(dword num_indices);
 	/**
+	* Vytvoreni bufferu z predanych dat. Pri zavolani smaze puvodni
+	* @param num_indices Pocet indexu
+	* @param data Predavana data
+	*/
+	bool Create(dword num_indices, word * data);
+	/**
 	* Zamceni bufferu a ziskani ukazatele na zamcena data.
 	*/
 	word * Lock();

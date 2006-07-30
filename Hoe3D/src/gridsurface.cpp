@@ -11,6 +11,8 @@
 #include "model_loader.h"
 #include "hoe_model.h"
 
+static CVar v_optimize("gridsurface_optimize", true, 0);
+
 struct VecPDT
 {
 		HoeMath::VECTOR3 pos;
@@ -143,6 +145,11 @@ GridSurface::GridSurface()
 	memset(m_textures, 0, sizeof m_textures);
 }
 
+GridSurface::~GridSurface()
+{
+	ReleaseData();
+}
+
 HoeModel *  GetModel()
 {
 	static HoeModel * m = NULL;
@@ -162,7 +169,7 @@ bool GridSurface::PlaneToMulti(float vx, float vy, const HoeMath::MATRIX & matri
 	const float ty2 = (grid.tex2 == 0xff) ? 1/4.f:1.f/m_textures[grid.tex2].ny;
 
 	// ulozit grid
-	VecPDT * pv = (VecPDT*)m_multi.GetLockedVertices();
+	VecPDT * pv = (VecPDT*)m_multi.LockNewVertices(4, 6);
 
 	const HoeMath::VECTOR2 s[4] = { HoeMath::VECTOR2(0,1/4.f),
 									HoeMath::VECTOR2(1/8.f,1/4.f),
@@ -203,8 +210,6 @@ bool GridSurface::PlaneToMulti(float vx, float vy, const HoeMath::MATRIX & matri
 	m_multi.AddIndex(1);
 	m_multi.AddIndex(3);
 	m_multi.AddIndex(2);
-	
-	m_multi.SkipVertices(4);
 	/*const float px = x*m_sizeX/hx-m_sizeX/2;
 	const float py = y*m_sizeY/hy-m_sizeY/2;
 	const float l = sqrtf((0-px)*(0-px)+(0-py)*(0-py));
@@ -231,11 +236,11 @@ bool GridSurface::ModelToMulti(const HoeMath::MATRIX & matrix, const TGridDesc &
 	const float tx2 = (grid.tex2 == 0xff) ? 1/4.f:1.f/m_textures[grid.tex2].nx;
 	const float ty2 = (grid.tex2 == 0xff) ? 1/4.f:1.f/m_textures[grid.tex2].ny;
 
-	VecPDT * pv = (VecPDT*)m_multi.GetLockedVertices();
 	// vertex
 	HoeModel * m = GetModel();
 	HoeStream * str = m->m_stream[0];
 	HoeIndex * ind = m->m_index[0];
+	VecPDT * pv = (VecPDT*)m_multi.LockNewVertices(str->GetNumVert(), ind->GetNumIndices());
 	
 	ModStr * mv = (ModStr *)str->Lock();
 	for (dword i=0;i<str->GetNumVert();i++)
@@ -259,13 +264,12 @@ bool GridSurface::ModelToMulti(const HoeMath::MATRIX & matrix, const TGridDesc &
 	}
 	ind->Unlock();
 
-	m_multi.SkipVertices(str->GetNumVert());
 	return true;
 }
 
 TGridSurfaceTreeItem * GridSurface::CreateQuadTree(dword * gr, uint ngr, uint minx, uint maxx, uint miny, uint maxy)
 {
-
+	// podle v_optimize
 	// najdrive rozdelit na kvadranty
 	// spocitat v kterem kvadrantu je kolik ctvercu
 	// pustit subtree na kazdy vyznamny kvadrant
@@ -289,13 +293,20 @@ TGridSurfaceTreeItem * GridSurface::CreateQuadTree(dword * gr, uint ngr, uint mi
 			HoeMath::MATRIX mat;
 			const float vx = m_sizeX / m_width;
 			const float vy = m_sizeY / m_height;
-			mat.Translate((x * vx) - (m_sizeX*0.5f) + (vx * 0.5f), 0,
+			mat.Translate((x * vx) - (m_sizeX*0.5f) + (vx * 0.5f), m_grids[y*m_width+x].base_height, // tady bude height
 				(y * vy) - (m_sizeY*0.5f) + (vx * 0.5f));
 
-			if (x != 5 || y != 5)
+			switch (m_grids[y*m_width+x].type)
+			{
+			case TGridData::ePlane:
 				PlaneToMulti(vx, vy, mat, m_grids[y*m_width+x]);
-			else
+				break;
+			case TGridData::eModel:
 				ModelToMulti(mat, m_grids[y*m_width+x]);
+				break;
+			default:
+				assert(!"Unknown grid type.");
+			};
 		}
 
 		dword end = m_multi.GetPos();
@@ -342,8 +353,8 @@ void GridSurface::Load()
 	dword * gl = new dword[m_width*m_height];
 	// multistream create
 	// dobre by bylo spocitat kolik budevrcholu (to je mozne, protoze se tam musi premistit vsichny)
-	if (!m_multi.Begin(m_width*m_height*4 + 100, m_width*m_height*6 + 400, "pdtt", sizeof(VecPDT)))
-		return; /*!!!*/
+	if (!m_multi.Begin("pdtt", sizeof(VecPDT)))
+		return;
 
 	for (uint y=0;y < m_height;y++)
 	{
@@ -410,6 +421,14 @@ void GridSurface::Load()
 	delete [] gl;
 	m_loaded = true;
 
+}
+
+void HOEAPI GridSurface::ReleaseData()
+{
+	// projit a vymazat heightmapy
+	
+
+	SAFE_DELETE_ARRAY(m_grids);
 }
 
 void GridSurface::Unload()
@@ -494,13 +513,13 @@ void HOEAPI GridSurface::Create(float sizeX, float sizeY, int resX,int resY)
 	m_sizeX = sizeX;
 	m_sizeY = sizeY;
 	//m_heights.generatePlaneMap( resX, resY, 0.f);
-	SAFE_DELETE(m_grids);
+	ReleaseData();
 	m_width = (size_t)resX;
 	m_height = (size_t)resY;
-	m_grids = new TGridDesc[m_width*m_height];
+	m_grids = new TGridData[m_width*m_height];
 	for (size_t i=0;i < m_width * m_height;i++)
 	{
-		memset(&m_grids[i], 0, sizeof TGridDesc);
+		memset(&m_grids[i], 0, sizeof TGridData);
 		m_grids[i].tex1 = 0;
 		m_grids[i].tex2 = 1;
 		m_grids[i].x2 = rand() % 8;
@@ -535,6 +554,24 @@ void HOEAPI GridSurface::GetGridDesc(int x, int y, IHoeEnv::GridSurface::TGridDe
 
 }
 
+void HOEAPI GridSurface::SetGridModel(int x, int y, float height, int modelid)
+{
+	// prenastaveni v gridu na model, pokud height mapa tak odstranit
+	m_grids[m_width*y+x].type = TGridData::eModel;
+	m_grids[m_width*y+x].base_height = height;
+}
+
+void HOEAPI GridSurface::SetGridPlane(int x, int y, float height)
+{
+	// jestli puvodne heightmapa tak odstranit
+	m_grids[m_width*y+x].type = TGridData::ePlane;
+	m_grids[m_width*y+x].base_height = height;
+}
+
+void HOEAPI GridSurface::SetGridHeightmap(int x, int y, float height, int resx, int resy, float * h)
+{
+}
+
 void HOEAPI GridSurface::ShowWireframe(bool show)
 {
 	m_wire = show;
@@ -544,7 +581,7 @@ void HOEAPI GridSurface::Dump(XHoeStreamWrite * stream)
 {
 	// write version
 	assert(m_grids);
-	stream->Write<uint>(le_uint(1));
+	stream->Write<uint>(le_uint(2));
 	// size
 	stream->Write<uint>(le_uint(m_width));
 	stream->Write<uint>(le_uint(m_height));
@@ -552,13 +589,13 @@ void HOEAPI GridSurface::Dump(XHoeStreamWrite * stream)
 	stream->Write<float>(le_float(m_sizeY));
 	// struktura pro data
 	// pak jednotlive gridy
-	stream->Write(m_grids, sizeof(TGridDesc) * m_height * m_width);
+	stream->Write(m_grids, sizeof(TGridData) * m_height * m_width);
 	// hotovo
 }
 
 void HOEAPI GridSurface::LoadDump(XHoeStreamRead * stream)
 {
-	assert(le_uint(stream->Read<uint>())==1);
+	assert(le_uint(stream->Read<uint>())==2);
 	// size
 	m_width=le_uint(stream->Read<uint>());
 	m_height=le_uint(stream->Read<uint>());
@@ -566,12 +603,114 @@ void HOEAPI GridSurface::LoadDump(XHoeStreamRead * stream)
 	m_sizeY=le_float(stream->Read<float>());
 	// struktura pro data
 	// pak jednotlive gridy
-	SAFE_DELETE_ARRAY(m_grids);
-	m_grids = new TGridDesc[m_height * m_width];
-	stream->Read(m_grids, sizeof(TGridDesc) * m_height * m_width);
+	ReleaseData();
+	m_grids = new TGridData[m_height * m_width];
+	stream->Read(m_grids, sizeof(TGridData) * m_height * m_width);
+
+	// modely atd..
+
+
 	// hotovo
 	Load();
 }
 
+/////////////////////////////
+MultiStream::MultiStream()
+{
+	m_nummesh = 0;
+	m_vbuffer = NULL;
+	m_ibuffer = NULL;
+}
+
+MultiStream::~MultiStream()
+{
+}
+
+bool MultiStream::Begin(const char * fvf, size_t sn)
+{
+	m_fvf.Set(fvf);
+	m_sn = sn;
+	assert(m_vbuffer == NULL && m_ibuffer == NULL);
+	// vytvorit prvni pole
+	// vytvorit buffer pro data a vynulovat nastaveni
+	m_vbuffer = new byte[sn*MaxVerticesSize];
+	m_ibuffer = new word[MaxIndicesSize];
+	m_actvertex = 0;
+	m_actindex = 0;
+	m_vertexoffset = 0;
+	// smazat naposledy pouzite buffery
+	/*!!!*/
+	m_nummesh = 0;
+	return true;
+}
+
+void MultiStream::End()
+{
+	// vytvorit z bufferu stream a vymazat buffer
+	CreateMeshFromBuffer();
+	SAFE_DELETE_ARRAY(m_vbuffer);
+	SAFE_DELETE_ARRAY(m_ibuffer);
+}
+
+byte * MultiStream::LockNewVertices(dword numvert, dword numind)
+{
+	byte * ret = NULL;
+	// zkusit pridat, pokud vetsi nez dosavadni tak novy buffer
+	if ((m_actvertex+numvert) > MaxVerticesSize || (m_actindex+numind) > MaxIndicesSize)
+	{
+		if (!CreateMeshFromBuffer())
+			return false;
+	}
+	ret = m_vbuffer + (m_actvertex * m_sn);
+	m_vertexoffset = (word)m_actvertex;
+	m_actvertex += numvert;
+	return ret;
+}
+
+void MultiStream::AddIndex(word ind)
+{
+	assert(m_actindex < MaxIndicesSize);
+	m_ibuffer[m_actindex++] = ind + m_vertexoffset;
+}
+
+dword MultiStream::GetPos() const
+{
+	return (((byte)m_nummesh) << 24) | m_actindex;
+}
+
+void MultiStream::Render(dword from, dword to)
+{
+	uint fm = (from&0xff000000) >> 24;
+	uint tm = (to&0xff000000) >> 24;
+	for (;fm <= tm;fm++)
+	{
+		assert(fm < m_nummesh);
+		dword f = (fm << 24) > from ? 0:from & 0xffff;
+		dword t = (fm < tm) ? m_mesh[fm].numind : (to & 0xffff);
+		Ref::DrawStdObjectFT(&m_mesh[fm].vertices, &m_mesh[fm].indices, f, t-f);
+	}
+}
+
+bool MultiStream::CreateMeshFromBuffer()
+{
+	assert(m_vbuffer && m_ibuffer);
+	if (m_actvertex > 0 || m_actindex > 0)
+	{
+		assert(m_actvertex > 0 && m_actindex > 0);
+		assert(m_nummesh < 29);
+		m_mesh[m_nummesh].numvert = m_actvertex;
+		m_mesh[m_nummesh].numind = m_actindex;
+		if (!m_mesh[m_nummesh].vertices.Create(m_actvertex, m_fvf.GetStringFVF(), m_actvertex * m_sn, m_vbuffer))
+			return false;
+		if (!m_mesh[m_nummesh].indices.Create(m_actindex,m_ibuffer))
+			return false;
+		m_nummesh++;
+
+		m_actvertex = 0;
+		m_actindex = 0;
+		m_vertexoffset = 0;
+	}
+	return true;
+}
 
 
