@@ -5,7 +5,7 @@ OUTPUT = $(OUTPUT_DIR)/libHoeGame.a
 
 CC=gcc
 GCC=g++
-C_FLAGS= -D_LINUX -ggdb3 -I../Hoe3D/include
+C_FLAGS= -mmmx -msse -march=pentium3  -D_LINUX -ggdb3 -I../Hoe3D/include
 LINK=ar
 L_FLAGS= cr
 
