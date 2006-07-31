@@ -5,10 +5,10 @@ TMP_DIR = ./tmp
 OUTPUT_BINARY = $(OUTPUT_DIR)/Hoe3D.so
 
 GCC=g++
-C_FLAGS= -D_LINUX -D_USE_OPENGL_ -ggdb3 -I/usr/include/freetype2
+C_FLAGS= -mmmx -msse -march=pentium3 -D_LINUX -D_USE_OPENGL_ -ggdb3 -I/usr/include/freetype2
 LINK=g++
 L_FLAGS= -shared -fPIC -L/usr/X11R6/lib
-LINK_LIBRARIES = -lGL -lGLU -ljpeg -lpng -lopenal -lXxf86vm -lXxf86dga -lfreetype -lfl
+LINK_LIBRARIES = -lGL -ljpeg -lpng -lopenal -lXxf86vm -lXxf86dga -lfreetype -lfl
 
 OBJ_FILES = $(TMP_DIR)/ref_opengl.o $(TMP_DIR)/ref_opengl_ext.o $(TMP_DIR)/ref.o $(TMP_DIR)/camera.o $(TMP_DIR)/ref_base.o $(TMP_DIR)/config.o \
 $(TMP_DIR)/filesystem.o \
