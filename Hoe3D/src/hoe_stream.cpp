@@ -106,8 +106,11 @@ void HoeStream::Set(int n)
 #endif // _HOE_D3D_
 #ifdef _HOE_OPENGL_
 	int stride = 0;
-	glBindBufferARB(GL_ARRAY_BUFFER_ARB,m_vb);
-	checkgl("glBindBufferARB");
+	if (m_vb)
+	{
+		glBindBufferARB(GL_ARRAY_BUFFER_ARB,m_vb);
+		checkgl("glBindBufferARB");
+	}
 	if (m_fvf.GetFVF() & FVF_XYZ)
 	{
 		glVertexPointer(3,GL_FLOAT,m_size / m_numvert,m_vb ? NULL:m_pVertices);

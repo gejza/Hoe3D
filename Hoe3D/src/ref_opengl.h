@@ -10,7 +10,7 @@
 #define _HOE_OPENGL_
 
 #include <GL/gl.h>
-#include <GL/glu.h>
+//#include <GL/glu.h>
 
 #ifdef _LINUX
 #include <GL/glx.h>

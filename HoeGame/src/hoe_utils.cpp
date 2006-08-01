@@ -61,7 +61,6 @@ bool SetRootFromInstance(HINSTANCE hInstance)
 
 	return SetRootFromExe(moduleName);
 }
-#endif
 
 
 int GenerateDump(EXCEPTION_POINTERS* pExceptionPointers)
@@ -113,5 +112,7 @@ LONG WINAPI ExpFilter(EXCEPTION_POINTERS* pExp, DWORD dwExpCode)
    GenerateDump(pExp);
    return EXCEPTION_EXECUTE_HANDLER;
 }
+
+#endif
 
 END_HOEGAME

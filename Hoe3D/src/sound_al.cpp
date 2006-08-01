@@ -101,7 +101,7 @@ bool HoeALBuffer::LoadFromFile(const char * filename)
 	ALboolean loop;
 
 	// Load ding.wav
-	alutLoadWAVFile((ALbyte *)filename,&format,&data,&size,&freq,&loop);
+	/*alutLoadWAVFile((ALbyte *)filename,&format,&data,&size,&freq,&loop);
 	if ((error = alGetError()) != AL_NO_ERROR)
 	{
 		return false;
@@ -120,7 +120,8 @@ bool HoeALBuffer::LoadFromFile(const char * filename)
 	{
 		return false;
 	}
-	return true;
+	return true;*/
+	return false;
 }
 
 /////////////////////////////////////////////////////////////

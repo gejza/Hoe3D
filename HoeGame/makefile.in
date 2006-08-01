@@ -19,7 +19,7 @@ $(TMP_DIR)/iniparser.o $(TMP_DIR)/lang_parser.o $(TMP_DIR)/hoe_settings.o $(TMP_
 $(TMP_DIR)/hoe_view.o $(TMP_DIR)/hoe_utils.o $(TMP_DIR)/hoe_gui.o $(TMP_DIR)/hoe_inputkeys.o $(TMP_DIR)/hoe_strategy.o $(TMP_DIR)/hoe_stratmap.o \
 $(TMP_DIR)/lua_script.o $(TMP_DIR)/hoe_scene.o $(TMP_DIR)/hoe_input.o $(TMP_DIR)/hoe_fs.o \
 $(TMP_DIR)/hoe_timer.o $(TMP_DIR)/hoe_vars.o $(TMP_DIR)/hoe_config.o \
-$(TMP_DIR)/config_parser.o \
+$(TMP_DIR)/config_parser.o $(TMP_DIR)/hoe_music.o \
 $(TMP_DIR)/hoe_benchmark.o
 
 

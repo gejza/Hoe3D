@@ -21,7 +21,7 @@ struct GLExt
 	bool ARB_vertex_buffer_object;
 	bool ARB_vertex_program;
 };
-
+/*
 // multitexture
 extern PFNGLACTIVETEXTUREARBPROC glActiveTextureARB;
 extern PFNGLCLIENTACTIVETEXTUREARBPROC glClientActiveTextureARB;
@@ -57,7 +57,7 @@ extern PFNGLMULTITEXCOORD4IARBPROC glMultiTexCoord4iARB;
 extern PFNGLMULTITEXCOORD4IVARBPROC glMultiTexCoord4ivARB;
 extern PFNGLMULTITEXCOORD4SARBPROC glMultiTexCoord4sARB;
 extern PFNGLMULTITEXCOORD4SVARBPROC glMultiTexCoord4svARB;
-
+*/
 // program
 extern PFNGLPROGRAMLOCALPARAMETER4FVARBPROC glProgramLocalParameter4fvARB;
 extern PFNGLGENPROGRAMSARBPROC glGenProgramsARB;

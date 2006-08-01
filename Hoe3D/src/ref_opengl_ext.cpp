@@ -7,7 +7,7 @@
 #include "glext.h"
 
 // multitexture
-PFNGLACTIVETEXTUREARBPROC glActiveTextureARB = NULL;
+/*PFNGLACTIVETEXTUREARBPROC glActiveTextureARB = NULL;
 PFNGLCLIENTACTIVETEXTUREARBPROC glClientActiveTextureARB = NULL;
 PFNGLMULTITEXCOORD1DARBPROC glMultiTexCoord1dARB = NULL;
 PFNGLMULTITEXCOORD1DVARBPROC glMultiTexCoord1dvARB = NULL;
@@ -41,7 +41,7 @@ PFNGLMULTITEXCOORD4IARBPROC glMultiTexCoord4iARB = NULL;
 PFNGLMULTITEXCOORD4IVARBPROC glMultiTexCoord4ivARB = NULL;
 PFNGLMULTITEXCOORD4SARBPROC glMultiTexCoord4sARB = NULL;
 PFNGLMULTITEXCOORD4SVARBPROC glMultiTexCoord4svARB = NULL;
-
+*/
 PFNGLPROGRAMLOCALPARAMETER4FVARBPROC glProgramLocalParameter4fvARB = NULL;
 PFNGLGENPROGRAMSARBPROC glGenProgramsARB = NULL;
 PFNGLBINDPROGRAMARBPROC glBindProgramARB = NULL;
@@ -123,7 +123,7 @@ GLPROCEDURE RefOpenGL::GetProc(const char * name)
 	proc = (GLPROCEDURE)wglGetProcAddress(name);
 #endif
 #ifdef _LINUX
-	proc = glXGetProcAddressARB((GLubyte*)name);
+	proc = glXGetProcAddress((GLubyte*)name);
 #endif
 	assert(proc && "Procedure not found");
 	return proc;
@@ -155,7 +155,7 @@ void RefOpenGL::LoadExtensions()
 	{
 		glGetIntegerv(GL_MAX_TEXTURE_UNITS_ARB, &ext.MAX_TEXTURE_UNITS_ARB);
 		Con_Print("Use extension: GL_ARB_multitexture, %d texture units", ext.MAX_TEXTURE_UNITS_ARB);
-		glActiveTextureARB = (PFNGLACTIVETEXTUREARBPROC) GetProc("glActiveTextureARB");
+		/*glActiveTextureARB = (PFNGLACTIVETEXTUREARBPROC) GetProc("glActiveTextureARB");
 		glClientActiveTextureARB = (PFNGLCLIENTACTIVETEXTUREARBPROC) GetProc("glClientActiveTextureARB");
 		glMultiTexCoord1dARB = (PFNGLMULTITEXCOORD1DARBPROC) GetProc("glMultiTexCoord1dARB");
 		glMultiTexCoord1dvARB = (PFNGLMULTITEXCOORD1DVARBPROC) GetProc("glMultiTexCoord1dvARB");
@@ -188,7 +188,7 @@ void RefOpenGL::LoadExtensions()
 		glMultiTexCoord4iARB = (PFNGLMULTITEXCOORD4IARBPROC) GetProc("glMultiTexCoord4iARB");
 		glMultiTexCoord4ivARB = (PFNGLMULTITEXCOORD4IVARBPROC) GetProc("glMultiTexCoord4ivARB");
 		glMultiTexCoord4sARB = (PFNGLMULTITEXCOORD4SARBPROC) GetProc("glMultiTexCoord4sARB");
-		glMultiTexCoord4svARB = (PFNGLMULTITEXCOORD4SVARBPROC) GetProc("glMultiTexCoord4svARB");
+		glMultiTexCoord4svARB = (PFNGLMULTITEXCOORD4SVARBPROC) GetProc("glMultiTexCoord4svARB");*/
 	}
 	else
 		ext.MAX_TEXTURE_UNITS_ARB = 1;

@@ -61,7 +61,7 @@ private:
 	HoeMusic_Module module;
 
 public:
-	HoeMusic::HoeMusic(HoeMusic_Module Module);
+	HoeMusic(HoeMusic_Module Module);
 	~HoeMusic();
 
 	bool Init();

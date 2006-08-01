@@ -43,6 +43,7 @@ bool TGridModel::LoadModel(const char * name)
 {
 	if (name)
 	{
+		Con_Print("Loading gridsurface model %s",name);
 		ModelLoader ml(0, 0);
 		mod = ml.LoadModel(name, true);
 		// update radku atd
@@ -559,7 +560,7 @@ void HOEAPI GridSurface::Create(float sizeX, float sizeY, int resX,int resY)
 	m_grids = new TGridData[m_width*m_height];
 	for (size_t i=0;i < m_width * m_height;i++)
 	{
-		memset(&m_grids[i], 0, sizeof TGridData);
+		memset(&m_grids[i], 0, sizeof(TGridData));
 		m_grids[i].tex1 = 0;
 		m_grids[i].tex2 = 1;
 		m_grids[i].x2 = rand() % 8;
@@ -582,7 +583,7 @@ void HOEAPI GridSurface::SetGridDesc(int x, int y, IHoeEnv::GridSurface::TGridDe
 	assert(m_grids);
 	assert(x >= 0 && (uint)x < m_width);
 	assert(y >= 0 && (uint)y < m_height);
-	memcpy(&m_grids[m_width*y+x], desc, sizeof IHoeEnv::GridSurface::TGridDesc);
+	memcpy(&m_grids[m_width*y+x], desc, sizeof(IHoeEnv::GridSurface::TGridDesc));
 }
 
 void HOEAPI GridSurface::GetGridDesc(int x, int y, IHoeEnv::GridSurface::TGridDesc *desc)
@@ -590,7 +591,7 @@ void HOEAPI GridSurface::GetGridDesc(int x, int y, IHoeEnv::GridSurface::TGridDe
 	assert(m_grids);
 	assert(x >= 0 && (uint)x < m_width);
 	assert(y >= 0 && (uint)y < m_height);
-	memcpy(desc, &m_grids[m_width*y+x], sizeof IHoeEnv::GridSurface::TGridDesc);
+	memcpy(desc, &m_grids[m_width*y+x], sizeof(IHoeEnv::GridSurface::TGridDesc));
 
 }
 
