@@ -50,10 +50,15 @@ bool EngineView::InitStatic(XHoeFS * hfs)
 #else
 bool EngineView::Init(XHoeFS * hfs)
 {
+	bool ret;
 	BEGIN_TRY
-		InitUntry(hfs);
-	END_TRY(return false);
-	return true;
+		ret = InitUntry(hfs);
+	END_TRY(ret = false);
+#ifndef HOE_STATIC_ENGINE
+	if (!ret)
+		m_lib.Unload();
+#endif
+	return ret;
 }
 
 bool EngineView::InitUntry(XHoeFS * hfs)
@@ -138,6 +143,7 @@ void EngineView::Frame(float dtime)
 	// update fps
 	// info
 
+	//float fps = HoeGetInfo(m_engine)->GetFPS();
 	str.Printf("FPS: %f", HoeGetInfo(m_engine)->GetFPS());
 	App::Get()->GetEditor()->SetStatusText(str, 1);
 

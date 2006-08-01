@@ -756,7 +756,13 @@ void HOEAPI GridSurface::Dump(XHoeStreamWrite * stream)
 
 void HOEAPI GridSurface::LoadDump(XHoeStreamRead * stream)
 {
-	assert(le_uint(stream->Read<uint>())==3);
+	uint ver = stream->Read<uint>();
+	if (ver!=3)
+	{
+		Con_Print("Error: GridSurface Dump - bad version");
+		return;
+	}
+	assert(ver==3);
 	// size
 	m_width=le_uint(stream->Read<uint>());
 	m_height=le_uint(stream->Read<uint>());
@@ -787,7 +793,7 @@ float GridSurface::Opt_GetHeight(uint x, uint y)
 		// tady se to zepta vsech tech okolnich ploch a vrati se podle toho prumer
 		const uint xx = (i&1) ? x-1:x;
 		const uint yy = (i&2) ? y-1:y;
-		if (x < 0 || y < 0 || x >= m_width || y >= m_height)
+		if (xx < 0 || yy < 0 || xx >= m_width || yy >= m_height)
 			continue;
 		if (m_grids[m_width*yy+xx].type == TGridData::ePlane)
 		{
@@ -809,7 +815,9 @@ float GridSurface::Opt_GetHeight(uint x, uint y)
 	}
 	// prumer rovin
 	// prumer modelu
-	return (nmodel) ? rmodel / nmodel:rplane / nplane;
+	float ret = (nmodel) ? rmodel / nmodel:rplane / nplane;
+	assert(ret > -100.f && ret < 100.f);
+	return ret;
 }
 
 void GridSurface::Opt_ProcessPlanes(uint fromx, uint tox, uint fromy, uint toy)
@@ -817,6 +825,8 @@ void GridSurface::Opt_ProcessPlanes(uint fromx, uint tox, uint fromy, uint toy)
 	for (uint x=fromx;x<=tox;x++)
 		for (uint y=fromy;y<=toy;y++)
 		{
+			if (x<0 || x>=m_width || y<0 || y>=m_height)
+				continue;
 			if (m_grids[m_width*y+x].type==TGridData::ePlane)
 			{
 				m_grids[m_width*y+x].plane_heights[0] = Opt_GetHeight(x,y);
