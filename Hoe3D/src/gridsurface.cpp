@@ -50,6 +50,7 @@ bool TGridModel::LoadModel(const char * name)
 		ModStr * m = (ModStr *)s.Lock();
 		for (uint i=0;i < s.GetNumVert();i++)
 		{
+			m[i].pos.y *= 1.8f;
 			if (Tol(m[i].pos.x, -10.f) && Tol(m[i].pos.z, -10.f))
 			{
 				m[i].pos.x = -10.f; m[i].pos.z = -10.f;this->coigns[0] = m[i].pos.y;
@@ -282,10 +283,11 @@ bool GridSurface::ModelToMulti(const HoeMath::MATRIX & matrix, const TGridData &
 		pv[i].color = 0xffffff00;
 		// upravit tex
 		HoeMath::VECTOR2 tex = mv[i].tex1;
-		pv[i].tex1.x = (grid.x1+tex.x)*tx1;
-		pv[i].tex1.y = (grid.y1+tex.y)*ty1;
 		pv[i].tex2.x = (grid.x2+tex.x)*tx2;
 		pv[i].tex2.y = (grid.y2+tex.y)*ty2;
+		// tex 1 podle stareho pravidla
+		pv[i].tex1.x = (grid.x1+((pos.x + 10.f) / 20.f))*tx1;
+		pv[i].tex1.y = (grid.y1+((pos.z + 10.f) / 20.f))*ty1;
 	}
 	str->Unlock();
 
