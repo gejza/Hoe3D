@@ -95,6 +95,12 @@ namespace IHoeEnv
 		*/
 		virtual void HOEAPI SetTexture(int slot, const char * texname, int width, int height) = 0;
 		/**
+		* Nastavi model
+		* @param slot Na ktery slot nastavit model
+		* @param modname Jmeno modelu
+		*/		
+		virtual void HOEAPI SetModel(int slot, const char * modname) = 0;
+		/**
 		* Ziskani parametru gridu. Muze byt i NULL
 		* @param sizeX realna velikost na sirku
 		* @param sizeY realna velikost na vysku

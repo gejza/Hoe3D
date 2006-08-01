@@ -19,12 +19,6 @@
 #include "structures.h"
 #include "heightmap.h"
 
-struct TGridTexture
-{
-	HoeTexture *tex; ///< textura
-	size_t nx,ny; ///< velikost policek v texture
-};
-
 struct TGridData : public IHoeEnv::GridSurface::TGridDesc
 {
 	enum Type
@@ -47,28 +41,20 @@ struct TGridData : public IHoeEnv::GridSurface::TGridDesc
 		float plane_heights[4];
 	};
 };
-/*
-musi se vymyslet jak se budou prirazovat vzory
-k polickum, v zasade mohou byt 3 typy
-1) placka (texturove souradnice jako pohled zezhora)
-   - vyska
-1.5 skosena placka
-   - 4x vyska
-2) podle vzoru (texturove souradnice ve vzoru)
-   museji se nejak definovat vzory (pravdepodobne jako textury, nebo to budou modely, spis modely)
-   - vzor
-   - vyska
-   - orientace
-3) mala vyskova mapa (texturove souradnice zezhora)
-   nastavitelne rozliseni
-*/
 
-// nejdriv zjistit nakolik objekt lezi v kamere
-// pokud cely, preda se do kresleni cely
-// pokud jen cast, proparsuje se dovnitr
-// pokud zadny tak zahodit
-// chce to seznam na kresleni
+struct TGridTexture
+{
+	HoeTexture *tex; ///< textura
+	size_t nx,ny; ///< velikost policek v texture
+};
 
+class HoeModel;
+struct TGridModel
+{
+	HoeModel * mod;
+	float coigns[4];
+	bool LoadModel(const char * name);
+};
 
 struct TGridSurfaceTreeItem
 {
@@ -177,6 +163,7 @@ class GridSurface : public IHoeEnv::GridSurface
 	float m_sizeX, m_sizeY; ///< realna velikost mrize
 
 	TGridTexture m_textures[MaxTextureSlots]; ///< sloty na textury povrchu
+	TGridModel m_models[MaxTextureSlots];///< sloty na modely
 
 	TGridSurfaceType * m_gst_first; ///< ruzne povrchy
 
@@ -187,8 +174,15 @@ class GridSurface : public IHoeEnv::GridSurface
 	/** funkce ktera vytvari podstromy
 	*/
 	TGridSurfaceTreeItem * CreateQuadTree(dword * gr, uint ngr, uint minx, uint maxx, uint miny, uint maxy);
+	/** Nahrani roviny */
 	bool PlaneToMulti(float vx, float vy, const HoeMath::MATRIX & matrix, const TGridData & grid);
+	/** Nahrani modelu */
 	bool ModelToMulti(const HoeMath::MATRIX & matrix, const TGridData & grid);
+	/** Upravit roviny podle pripadnych modelu (nebo rovin). */
+	void Opt_ProcessPlanes(uint fromx, uint tox, uint fromy, uint toy);
+	/** Funkce ktera vraci vypoctenou vysku rohoveho bodu (zadava se spodni hranice)
+	* Modely se prumeruji, roviny se prizpusobuji modelum, pripadne se prumeruji */
+	float Opt_GetHeight(uint x, uint y);
 public:
 	/** Konstruktor */
 	GridSurface();
@@ -207,6 +201,8 @@ public:
 	virtual void HOEAPI Create(float sizeX, float sizeY, int resX,int resY);
 	/** @see IHoeEnv::GridSurface::SetTexture */
 	virtual void HOEAPI SetTexture(int slot, const char * texname, int width, int height);
+	/** @see IHoeEnv::GridSurface::SetModel */
+	virtual void HOEAPI SetModel(int slot, const char * modname);
 	/** @see IHoeEnv::GridSurface::GetDesc */
 	virtual void HOEAPI GetDesc(float *sizeX, float *sizeY, uint *resX,uint *resY);
 	/** @see IHoeEnv::GridSurface::SetGridDesc */

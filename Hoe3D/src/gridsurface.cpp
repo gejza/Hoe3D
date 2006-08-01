@@ -34,7 +34,48 @@ struct ModStr
 // vykresleni podle povrchu (kazdy povrch, svoje quadtree)
 // 
 
+inline bool Tol(float a, float b)
+{
+	return abs(a-b) < 2.f;
+}
 
+bool TGridModel::LoadModel(const char * name)
+{
+	if (name)
+	{
+		ModelLoader ml(0, 0);
+		mod = ml.LoadModel(name, true);
+		// update radku atd
+		HoeStream & s = *mod->m_stream[0];
+		ModStr * m = (ModStr *)s.Lock();
+		for (uint i=0;i < s.GetNumVert();i++)
+		{
+			if (Tol(m[i].pos.x, -10.f) && Tol(m[i].pos.z, -10.f))
+			{
+				m[i].pos.x = -10.f; m[i].pos.z = -10.f;this->coigns[0] = m[i].pos.y;
+			}
+			if (Tol(m[i].pos.x, 10.f) && Tol(m[i].pos.z, -10.f))
+			{
+				m[i].pos.x = 10.f; m[i].pos.z = -10.f;this->coigns[1] = m[i].pos.y;
+			}
+			if (Tol(m[i].pos.x, -10.f) && Tol(m[i].pos.z, 10.f))
+			{
+				m[i].pos.x = -10.f; m[i].pos.z = 10.f;this->coigns[2] = m[i].pos.y;
+			}
+			if (Tol(m[i].pos.x, 10.f) && Tol(m[i].pos.z, 10.f))
+			{
+				m[i].pos.x = 10.f; m[i].pos.z = 10.f;this->coigns[3] = m[i].pos.y;
+			}
+		}
+		s.Unlock();
+	}
+	else
+	{
+		mod = NULL; /*!!!*/
+	}
+
+	return true;
+}
 
 //////////////////////////////////////////////////////////
 // GridSurfaceType
@@ -143,24 +184,12 @@ GridSurface::GridSurface()
 	m_gst_first = NULL;
 	m_wire = false;
 	memset(m_textures, 0, sizeof m_textures);
+	memset(m_models, 0, sizeof(m_models));
 }
 
 GridSurface::~GridSurface()
 {
 	ReleaseData();
-}
-
-HoeModel *  GetModel(int id)
-{
-	static HoeModel * m[8] = {0};
-	if (!m[id])
-	{
-		ModelLoader ml(0, 0);
-		char s[3] = "m0";
-		s[1] = id + '0';
-		m[id] = ml.LoadModel(s, true);
-	}
-	return m[id];
 }
 
 bool GridSurface::PlaneToMulti(float vx, float vy, const HoeMath::MATRIX & matrix, const TGridData & grid)
@@ -239,7 +268,8 @@ bool GridSurface::ModelToMulti(const HoeMath::MATRIX & matrix, const TGridData &
 	const float ty2 = (grid.tex2 == 0xff) ? 1/4.f:1.f/m_textures[grid.tex2].ny;
 
 	// vertex
-	HoeModel * m = GetModel(grid.modelid);
+	assert(m_models[grid.modelid].mod);
+	HoeModel * m = m_models[grid.modelid].mod;
 	HoeStream * str = m->m_stream[0];
 	HoeIndex * ind = m->m_index[0];
 	VecPDT * pv = (VecPDT*)m_multi.LockNewVertices(str->GetNumVert(), ind->GetNumIndices());
@@ -510,6 +540,12 @@ void HOEAPI GridSurface::SetTexture(int slot, const char *texname, int width, in
 	}
 }
 
+void HOEAPI GridSurface::SetModel(int slot, const char *modname)
+{
+	assert(slot >= 0 && slot < MaxTextureSlots);
+	m_models[slot].LoadModel(modname);
+}
+
 void HOEAPI GridSurface::Create(float sizeX, float sizeY, int resX,int resY)
 {
 	m_sizeX = sizeX;
@@ -569,6 +605,7 @@ void HOEAPI GridSurface::SetGridModel(int x, int y, float height, int modelid)
 		m_grids[m_width*y+x].base_height = height;
 		m_grids[m_width*y+x].modelid = 0;
 	}
+	Opt_ProcessPlanes(x-1,x+1,y-1,y+1);
 }
 
 void HOEAPI GridSurface::SetGridPlane(int x, int y, float height,float lt, float rt, float lb, float rb)
@@ -637,6 +674,9 @@ void HOEAPI GridSurface::MoveHeight(float x, float y, float moveheight, float ra
 				}				
 			}
 		}
+
+	// vyladit zpatky
+	Opt_ProcessPlanes(sx,ex,sy,ey);
 }
 
 void HOEAPI GridSurface::ShowWireframe(bool show)
@@ -730,6 +770,58 @@ void HOEAPI GridSurface::LoadDump(XHoeStreamRead * stream)
 
 	// hotovo
 	Load();
+}
+
+//////////////////////////////
+// Optimize
+float GridSurface::Opt_GetHeight(uint x, uint y)
+{
+	float rplane = 0.f, rmodel = 0.f;
+	uint nplane =0, nmodel = 0;
+	/*!!!*/
+	for (int i=0;i<4;i++)
+	{
+		// tady se to zepta vsech tech okolnich ploch a vrati se podle toho prumer
+		const uint xx = (i&1) ? x-1:x;
+		const uint yy = (i&2) ? y-1:y;
+		if (x < 0 || y < 0 || x >= m_width || y >= m_height)
+			continue;
+		if (m_grids[m_width*yy+xx].type == TGridData::ePlane)
+		{
+			rplane += m_grids[m_width*yy+xx].plane_heights[i];
+			nplane++;
+		}
+		else if (m_grids[m_width*yy+xx].type == TGridData::eModel)
+		{
+			// zeptat se modelu na vysku praveho rohu
+			rmodel += m_grids[m_width*yy+xx].base_height;
+			assert(m_models[m_grids[m_width*yy+xx].modelid].mod);
+			rmodel += m_models[m_grids[m_width*yy+xx].modelid].coigns[i];
+			nmodel++;
+		}
+		else
+		{
+			assert(!"unknown type");
+		}
+	}
+	// prumer rovin
+	// prumer modelu
+	return (nmodel) ? rmodel / nmodel:rplane / nplane;
+}
+
+void GridSurface::Opt_ProcessPlanes(uint fromx, uint tox, uint fromy, uint toy)
+{
+	for (uint x=fromx;x<=tox;x++)
+		for (uint y=fromy;y<=toy;y++)
+		{
+			if (m_grids[m_width*y+x].type==TGridData::ePlane)
+			{
+				m_grids[m_width*y+x].plane_heights[0] = Opt_GetHeight(x,y);
+				m_grids[m_width*y+x].plane_heights[1] = Opt_GetHeight(x+1,y);
+				m_grids[m_width*y+x].plane_heights[2] = Opt_GetHeight(x,y+1);
+				m_grids[m_width*y+x].plane_heights[3] = Opt_GetHeight(x+1,y+1);
+			}
+		}
 }
 
 /////////////////////////////
