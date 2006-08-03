@@ -16,6 +16,7 @@ static CVar v_optimize("gridsurface_optimize", true, 0);
 struct VecPDT
 {
 		HoeMath::VECTOR3 pos;
+		HoeMath::VECTOR3 norm;
 		dword color;
 		HoeMath::VECTOR2 tex1;
 		HoeMath::VECTOR2 tex2;
@@ -214,6 +215,7 @@ bool GridSurface::PlaneToMulti(float vx, float vy, const HoeMath::MATRIX & matri
 	pv[1].pos = HoeMath::VECTOR3(+vx, grid.plane_heights[1], -vy).Multiply(matrix);
 	pv[2].pos = HoeMath::VECTOR3(+vx, grid.plane_heights[3], +vy).Multiply(matrix);
 	pv[3].pos = HoeMath::VECTOR3(-vx, grid.plane_heights[2], +vy).Multiply(matrix);
+	pv[0].norm = pv[1].norm = pv[2].norm = pv[3].norm = HoeMath::VECTOR3(0,1,0);
 	pv[0].color = 0xffffff00;
 	pv[1].color = 0xffffff00;
 	pv[2].color = 0xffffff00;
@@ -282,6 +284,7 @@ bool GridSurface::ModelToMulti(const HoeMath::MATRIX & matrix, const TGridData &
 		HoeMath::VECTOR3 pos = mv[i].pos;
 		pv[i].pos = pos.Multiply(matrix);
 		pv[i].color = 0xffffff00;
+		pv[i].norm = mv[i].norm;
 		// upravit tex
 		HoeMath::VECTOR2 tex = mv[i].tex1;
 		pv[i].tex2.x = (grid.x2+tex.x)*tx2;
@@ -388,7 +391,7 @@ void GridSurface::Load()
 	dword * gl = new dword[m_width*m_height];
 	// multistream create
 	// dobre by bylo spocitat kolik budevrcholu (to je mozne, protoze se tam musi premistit vsichny)
-	if (!m_multi.Begin("pdtt", sizeof(VecPDT)))
+	if (!m_multi.Begin("pndtt", sizeof(VecPDT)))
 		return;
 
 	for (uint y=0;y < m_height;y++)
@@ -497,6 +500,13 @@ void GridSurface::Render()
 		// wireframe
 		Ref::SetMatrix(m_worldpos);
 		GetHoeStates()->SetupMap();
+		// nastavit matros
+		HoeMaterial mat;
+		mat.SetColor(HoeMaterial::Diffuse, HoeMaterialColor(1,1,1,1));
+		mat.Setup();
+		// enable textures
+		GetHoeStates()->EnableTexture();
+
 		if (m_wire)
 			GetHoeStates()->StartWireframe();
 		//m_mat.Setup();

@@ -263,6 +263,14 @@
 			>
 		</File>
 		<File
+			RelativePath="..\src\undolist.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\include\he\undolist.h"
+			>
+		</File>
+		<File
 			RelativePath="..\src\utils.cpp"
 			>
 		</File>

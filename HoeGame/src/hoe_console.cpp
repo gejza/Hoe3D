@@ -32,6 +32,9 @@ void BaseConsole::Printfarg(const char * szFormat, va_list args)
 	if (m_shared)
 		m_shared->Con_Print(szBuff);
 	/*!!!*/
+#if defined(DEBUG) | defined(_DEBUG)
+	OutputDebugString( szBuff );OutputDebugString( "\n" );
+#endif
 }
 
 void BaseConsole::Printf(const char * szFormat, ...)
@@ -92,10 +95,6 @@ void Console::AddLine(const char * str)
 	strncpy(buff[ptr],str,512);
 	
 	count++;
-
-#if defined(DEBUG) | defined(_DEBUG)
-	OutputDebugString( str );OutputDebugString( "\n" );
-#endif
 
 	if (app_callback)
 		app_callback->UpdateConsole();

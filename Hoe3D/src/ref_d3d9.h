@@ -10,6 +10,7 @@
 #define _HOE_D3D9_
 #define _HOE_D3D_
 
+#define D3D_DEBUG_INFO
 #include <d3d9.h>
 
 #include "ref_base.h"
@@ -166,6 +167,8 @@ public:
 * Globalni funkce pro ziskani Direct3DDevice
 */
 HOE_INLINE IDirect3DDevice9 * D3DDevice();
+
+void ListState();
 
 #include "ref_d3d9.inl"
 

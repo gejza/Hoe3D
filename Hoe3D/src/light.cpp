@@ -12,7 +12,7 @@ HoeLight::HoeLight(bool direct)
 	m_direct = direct;
 #ifdef _HOE_D3D_
 	ZeroMemory( &light, sizeof(light) );
-	light.Type = D3DLIGHT_POINT;
+	light.Type = D3DLIGHT_DIRECTIONAL;
 
 	light.Ambient.r = 0;
 	light.Ambient.g = 0;
@@ -25,7 +25,8 @@ HoeLight::HoeLight(bool direct)
 	light.Diffuse.a = 1.0f;
 	light.Attenuation0 = 1.f;
 
-	light.Range = 1000;
+	light.Direction = HoeMath::VECTOR3(0,-1,0);
+	light.Range = 50;
 
 #endif
 
@@ -55,10 +56,16 @@ void HoeLight::SetPosition(const float x, const float y, const float z)
 {
 	HoeMath::VECTOR3 p(x,y,z);
 	if (m_direct)
+	{
 		p.Normalize();
 #ifdef _HOE_D3D_
-	light.Position = p;
+		light.Direction = p;
+	}
+	else
+	{
+		light.Position = p;
 #endif
+	}
 #ifdef _HOE_OPENGL_
 	pos.x = p.x; pos.y = p.y; pos.z = p.z; pos.w = m_direct ? 0.f:1.f;
 #endif

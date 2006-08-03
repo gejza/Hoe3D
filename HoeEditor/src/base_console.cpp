@@ -29,5 +29,8 @@ void EditBaseConsole::Con_Print(const char * str)
 {
 	fprintf(stderr,"%s\n",str);
 	//this->AppendText(s);
+#if defined(DEBUG) | defined(_DEBUG)
+	OutputDebugString( str );OutputDebugString( "\n" );
+#endif
 	wxLogMessage(str);
 }
