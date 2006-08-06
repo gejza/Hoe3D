@@ -25,8 +25,6 @@ struct TGridData : public IHoeEnv::GridSurface::TGridDesc
 	{
 		ePlane = 0,
 		eModel,
-		eHM,
-		TypeReqdword = 0x7fffffff
 	} type;
 	union {
 		struct {

@@ -43,6 +43,8 @@ typedef unsigned char byte;
 
 /* pro big endian */
 #if 1 // little endian
+#define le_1b(i) (i)
+#define be_1b(i) (i) /* prevraci */
 #define le_4b(i) (i)
 #define be_4b(i) (i) /* prevraci */
 #endif
@@ -55,9 +57,11 @@ typedef unsigned char byte;
 #define le_float(i) le_4b(i)
 #define be_float(i) be_4b(i)
 #define le_word(i) le_2b(i)
-#define be_word(i) le_2b(i)
+#define be_word(i) be_2b(i)
 #define le_short(i) le_2b(i)
-#define be_short(i) le_2b(i)
+#define be_short(i) be_2b(i)
+#define le_byte(i) le_1b(i)
+#define be_byte(i) be_1b(i)
 
 #define makeword(a,b) (((a)<<8)|(b))
 #define makedword(a,b) (((a)<<16)|(b))

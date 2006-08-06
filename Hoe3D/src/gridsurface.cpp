@@ -610,7 +610,7 @@ void HOEAPI GridSurface::SetGridModel(int x, int y, float height, int modelid)
 	// prenastaveni v gridu na model, pokud height mapa tak odstranit
 	if (m_grids[m_width*y+x].type == TGridData::eModel)
 	{
-		m_grids[m_width*y+x].modelid = (m_grids[m_width*y+x].modelid + 1) % 8;
+		m_grids[m_width*y+x].modelid = (m_grids[m_width*y+x].modelid + 1) % 12;
 	}
 	else
 	{
@@ -752,7 +752,7 @@ void HOEAPI GridSurface::Dump(XHoeStreamWrite * stream)
 {
 	// write version
 	assert(m_grids);
-	stream->Write<uint>(le_uint(3));
+	stream->WriteValue<uint>(le_uint(4));
 	// size
 	stream->Write<uint>(le_uint(m_width));
 	stream->Write<uint>(le_uint(m_height));
@@ -760,8 +760,28 @@ void HOEAPI GridSurface::Dump(XHoeStreamWrite * stream)
 	stream->Write<float>(le_float(m_sizeY));
 	// struktura pro data
 	// pak jednotlive gridy
-	stream->Write(m_grids, sizeof(TGridData) * m_height * m_width);
-	// hotovo
+
+	for (uint i=0;i < m_height * m_width;i++)
+	{
+		TGridData & d = m_grids[i];
+		// textures
+		stream->Write(&d, 6); // trosku prasarnicka, proste se nacte tex informace 
+		
+		stream->WriteValue<byte>(le_byte((byte)d.type));
+		switch (d.type)
+		{
+		case TGridData::ePlane:
+			stream->Write<float>(le_float(d.plane_heights[0]));
+			stream->Write<float>(le_float(d.plane_heights[1]));
+			stream->Write<float>(le_float(d.plane_heights[2]));
+			stream->Write<float>(le_float(d.plane_heights[3]));
+			break;
+		case TGridData::eModel:
+			stream->WriteValue<byte>(le_byte((byte)d.modelid));
+			stream->Write<float>(le_float(d.base_height));
+			break;
+		};
+	}
 }
 
 void HOEAPI GridSurface::LoadDump(XHoeStreamRead * stream)
@@ -772,7 +792,7 @@ void HOEAPI GridSurface::LoadDump(XHoeStreamRead * stream)
 		Con_Print("Error: GridSurface Dump - bad version");
 		return;
 	}
-	assert(ver==3);
+	assert(ver==4);
 	// size
 	m_width=le_uint(stream->Read<uint>());
 	m_height=le_uint(stream->Read<uint>());
@@ -782,7 +802,27 @@ void HOEAPI GridSurface::LoadDump(XHoeStreamRead * stream)
 	// pak jednotlive gridy
 	ReleaseData();
 	m_grids = new TGridData[m_height * m_width];
-	stream->Read(m_grids, sizeof(TGridData) * m_height * m_width);
+	for (uint i=0;i < m_height * m_width;i++)
+	{
+		TGridData & d = m_grids[i];
+		// textures
+		stream->Read(&d, 6); // trosku prasarnicka, proste se nacte tex informace 
+		
+		d.type = (TGridData::Type)le_byte(stream->Read<byte>());
+		switch (d.type)
+		{
+		case TGridData::ePlane:
+			d.plane_heights[0] = le_float(stream->Read<float>());
+			d.plane_heights[1] = le_float(stream->Read<float>());
+			d.plane_heights[2] = le_float(stream->Read<float>());
+			d.plane_heights[3] = le_float(stream->Read<float>());
+			break;
+		case TGridData::eModel:
+			d.modelid = le_byte(stream->Read<byte>());
+			d.base_height = le_float(stream->Read<float>());
+			break;
+		};
+	}
 
 	// modely atd..
 

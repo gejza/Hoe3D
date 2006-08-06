@@ -64,11 +64,9 @@ namespace IHoeEnv
 			byte tex1; ///< index textury
 			byte x1; ///< x-ove policko v texture
 			byte y1; ///< y-ove policko v texture
-			byte ori1; ///< orientace policka 0-3
 			byte tex2; ///< index textury
 			byte x2; ///< x-ove policko v texture
 			byte y2; ///< y-ove policko v texture
-			byte ori2; ///< orientace policka 0-3
 		};
 		/**
 		* Nastavi pozici stredu mapy
