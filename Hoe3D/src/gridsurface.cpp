@@ -787,9 +787,9 @@ void HOEAPI GridSurface::Dump(XHoeStreamWrite * stream)
 void HOEAPI GridSurface::LoadDump(XHoeStreamRead * stream)
 {
 	uint ver = stream->Read<uint>();
-	if (ver!=3)
+	if (ver!=4)
 	{
-		Con_Print("Error: GridSurface Dump - bad version");
+		Con_Print("Error: GridSurface Dump - bad version (%d)",ver);
 		return;
 	}
 	assert(ver==4);

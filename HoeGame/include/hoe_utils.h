@@ -26,6 +26,11 @@ LONG WINAPI ExpFilter(EXCEPTION_POINTERS* pExp, DWORD dwExpCode);
 #define END_TRY(code)
 #endif
 
+// list
+template<class C> class PtrList
+{
+};
+
 END_HOEGAME
 
 #endif // _HOE_GAME_UTILS_H_
