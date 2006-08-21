@@ -35,6 +35,7 @@ public:
 	bool IsLoaded() { return m_loaded; }
 	void OnPaint(wxPaintEvent& WXUNUSED(event));
 	void OnSize( wxSizeEvent& event );
+	void OnSizing( wxSizeEvent& event );
 	void OnMouseMove(wxMouseEvent& event); 
 	void OnMouseWheel(wxMouseEvent& event); 
 	void OnMouseUp(wxMouseEvent& event); 

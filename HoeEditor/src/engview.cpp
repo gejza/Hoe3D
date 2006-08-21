@@ -23,6 +23,7 @@ BEGIN_EVENT_TABLE(EngineView, wxWindow)
 	EVT_SET_FOCUS(EngineView::OnSetFocus)
 	EVT_KILL_FOCUS( EngineView::OnKillFocus ) 
 	EVT_SIZE(EngineView::OnSize)
+	EVT_SIZING(EngineView::OnSizing)
 END_EVENT_TABLE()
 
 EngineView::EngineView()
@@ -197,6 +198,24 @@ void EngineView::OnSize( wxSizeEvent& event)
 	else
 		Refresh();
 }
+
+void EngineView::OnSizing( wxSizeEvent& event)
+{
+	event;
+	/*if (m_loaded)
+	{
+		assert(m_engine);
+		int x = 0;
+		int y = 0;
+		GetClientSize( &x, &y );
+
+		m_engine->Resize(x,y);
+		Frame(0);
+	}
+	else
+		Refresh();*/
+}
+
 
 void EngineView::OnEnterWindow( wxMouseEvent& event )
 {

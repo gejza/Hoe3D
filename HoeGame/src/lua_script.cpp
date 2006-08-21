@@ -173,7 +173,7 @@ void LuaParam::SetTableInteger(const char *par, int data, int tab)
 #endif
 }
 
-int LuaParam::GetTableInteger(const char *par, int tab)
+int LuaParam::GetTableInteger(const char *par, int tab) const
 {
 #if LUA_VERSION_NUM >= 501
 	lua_getfield(m_L,tab,par);
@@ -181,6 +181,29 @@ int LuaParam::GetTableInteger(const char *par, int tab)
 	assert(!"tato funkce neni dostupna ve verzi Lua 5.0");
 #endif
 	int i = (int)lua_tonumber(m_L,-1);
+	lua_pop(m_L, 1);
+	return i;
+}
+
+void LuaParam::SetTableFloat(const char *par, float data, int tab)
+{
+#if LUA_VERSION_NUM >= 501
+	lua_pushnumber(m_L, data);
+	lua_setfield(m_L,tab,par);
+#else
+	assert(!"tato funkce neni dostupna ve verzi Lua 5.0");
+#endif
+}
+
+
+float LuaParam::GetTableFloat(const char *par, int tab) const
+{
+#if LUA_VERSION_NUM >= 501
+	lua_getfield(m_L,tab,par);
+#else
+	assert(!"tato funkce neni dostupna ve verzi Lua 5.0");
+#endif
+	float i = (float)lua_tonumber(m_L,-1);
 	lua_pop(m_L, 1);
 	return i;
 }
@@ -195,7 +218,7 @@ void LuaParam::SetTablePointer(const char *par, void * data, int tab)
 #endif
 }
 
-void * LuaParam::GetTablePointer(const char *par, int tab)
+void * LuaParam::GetTablePointer(const char *par, int tab) const
 {
 #if LUA_VERSION_NUM >= 501
 	lua_getfield(m_L,tab,par);

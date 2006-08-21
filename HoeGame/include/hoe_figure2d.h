@@ -16,6 +16,10 @@ BEGIN_HOEGAME
 
 /**
  * @brief	Rozložení 2d scény.
+ * No jasne.. to bude uprava tohoto, tohle bude obsahovat informace
+ * o tom co a jak a v jakem poradi se ma kreslit.
+ * pres nastavitelne parametry se budou moci pozmenovat infa
+ * proste takovy 2d engine, s pojmenovanymi oblastmi
  */
 
 class Hoe2DFigure : public XHoe2DCallback

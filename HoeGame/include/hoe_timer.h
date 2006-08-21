@@ -7,6 +7,15 @@
 
 BEGIN_HOEGAME
 
+class StopWatch
+{
+	float m_time;
+public:
+	StopWatch() { m_time = 0.f; }
+	inline void Reset() { m_time = 0.f; }
+	bool AddTime(const float t, const float fin) { m_time+=t; return m_time >= fin; }
+};
+
 class Timer
 {
 public:
