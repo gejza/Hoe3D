@@ -185,6 +185,11 @@ void EngineView::OnPaint(wxPaintEvent& event)
 
 void EngineView::OnSize( wxSizeEvent& event)
 {
+	/*int x = 0;
+	int y = 0;
+	GetClientSize( &x, &y );
+	y = (3 * x) / 4;
+	SetClientSize(x,y);*/
 	if (m_loaded)
 	{
 		assert(m_engine);

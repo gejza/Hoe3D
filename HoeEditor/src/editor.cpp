@@ -47,9 +47,6 @@ bool HoeEditor::BaseEditor::Create(const wxString & title)
 {
 	wxFrame::Create(NULL, -1, title, wxDefaultPosition, wxSize(800,600) );
 
-	OnInitMenu();
-	this->CreateStatusBar();
-
 	return true;
 }
 
@@ -92,7 +89,7 @@ void HoeEditor::BaseEditor::LoadEngine(wxString path)
 			if ( pConfig == NULL )
 				return;
 			pConfig->Write(_T("/engine"), path);
-			MenuUpdate();
+			UpdateControls();
 		}
 	}
 }

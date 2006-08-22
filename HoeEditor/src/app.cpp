@@ -45,9 +45,6 @@ bool HoeEditor::App::OnInit()
 	}
 
 	m_editor = CreateEditor();
-	// create status bar
-	wxStatusBar *statbar = m_editor->GetStatusBar();
-	statbar->SetFieldsCount(2);
 
 	//  zacatek logovani
 	m_log = new Log();
@@ -106,10 +103,10 @@ void HoeEditor::App::Process()
 	switch (m_state)
 	{
 	case 0:
-		//GetMainFrame()->Refresh();
+		m_editor->Refresh();
 		m_state = 10;
 		break;
-	case 10:
+/*	case 10:
 		{
 #ifdef HOE_STATIC_ENGINE
 			// init
@@ -125,7 +122,6 @@ void HoeEditor::App::Process()
 			if (eng != "")
 			{
 				m_editor->LoadEngine(eng);
-
 			}
 #endif
 			m_state = 20;
@@ -136,8 +132,8 @@ void HoeEditor::App::Process()
 			wxString lp = wxConfigBase::Get()->Read(wxT("/lastproject"),wxT(""));
 			if (lp != "")
 			{
-				/*wxWindowDisabler disableAll;
-				wxBusyInfo info(_T("Working, please wait..."), m_frame);*/
+				//wxWindowDisabler disableAll;
+				//wxBusyInfo info(_T("Working, please wait..."), m_frame);
 
 				//if (m_project.LoadProject(lp,&m_plugins))
 				//    m_frame->GetTreeCtrl()->SetWorkspace(GetApp()->GetProject()->GetProjectName());
@@ -149,9 +145,18 @@ void HoeEditor::App::Process()
 	case 30:
 		OnPostInit();
 		m_state = 40;
+		break;*/
+	case 10:
+		if (!m_editor->OnPostInit())
+			m_state = 20;
+		break;
+	case 20:
+		if (!OnPostInit())
+			m_state = 40;
 		break;
 	case 40:
 		// tips
+		m_state = 50;
 		if (wxConfigBase::Get()->Read(wxT("/showtips"),(long)1))
 		{
 			static size_t s_index = (size_t)-1;
@@ -165,16 +170,15 @@ void HoeEditor::App::Process()
 				s_index = rand() % 5;
 			}
 
-			/*wxTipProvider *tipProvider = wxCreateFileTipProvider(_T("tips.txt"), s_index);
+			wxTipProvider *tipProvider = wxCreateFileTipProvider(_T("tips.txt"), s_index);
 
-			bool showAtStartup = wxShowTip(m_frame, tipProvider);
+			bool showAtStartup = wxShowTip(m_editor, tipProvider);
 
 			wxConfigBase::Get()->Write(wxT("/showtips"),showAtStartup ? (long)1:(long)0);
 
 			s_index = tipProvider->GetCurrentTip();
-			delete tipProvider;*/
+			delete tipProvider;
 		}
-		m_state = 50;
 		break;
 	case 50:
 		// log dialog

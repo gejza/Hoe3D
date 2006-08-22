@@ -18,7 +18,7 @@ extern const char * EditorName;
 namespace HoeEditor {
 
 enum {
-	ID_QUIT = 1,
+	ID_QUIT = wxID_HIGHEST + 1,
 	ID_ABOUT,
 	ID_OPEN,
 	ID_NEW,
@@ -45,8 +45,15 @@ public:
 	BaseEditor();
 	~BaseEditor();
 	bool Create(const wxString & title);
-	virtual void OnInitMenu() {}
-	virtual void MenuUpdate() {}
+	/**
+	* Post init faze
+	* @return vraci true pokud potrebuje dalsi fazi
+	*/
+	virtual bool OnPostInit() { return false; }
+	/**
+	* Funkce je zavolana pokud kterekoliv ovladaci prvky potrebuji update
+	*/
+	virtual void UpdateControls() {}
 
 	virtual PanelMgr * GetPanelMgr() { return NULL; }
 	virtual EngineView * GetEngineView() { return NULL; }

@@ -73,8 +73,9 @@ class PropertyGrid : public wxPropertyGridManager
 protected:
 	PropObject * m_propo;
 public:
-	PropertyGrid(wxWindow * parent);
+	PropertyGrid();
 	~PropertyGrid();
+	bool Create(wxWindow * parent);
     void OnChange ( wxPropertyGridEvent& event );
     void OnSelect ( wxPropertyGridEvent& event );
     void OnHighlight ( wxPropertyGridEvent& event );

@@ -297,29 +297,9 @@ BEGIN_EVENT_TABLE(HoeEditor::PropertyGrid, wxPropertyGridManager)
 END_EVENT_TABLE()
 ///////////////////////////////////////////////////////////////////////////
 
-HoeEditor::PropertyGrid::PropertyGrid(wxWindow * parent) : wxPropertyGridManager(parent, PG_ID,
-        wxDefaultPosition, wxSize(100,350),
-        wxPG_BOLD_MODIFIED|
-        wxPG_SPLITTER_AUTO_CENTER|
-        wxPG_AUTO_SORT|
-        //wxPG_HIDE_MARGIN|wxPG_STATIC_SPLITTER|
-        //wxPG_HIDE_CATEGORIES|
-        //wxPG_LIMITED_EDITING |
-        wxTAB_TRAVERSAL |
-        //wxPG_TOOLBAR |
-        wxPG_DESCRIPTION |
-        //wxPG_COMPACTOR |
-        wxPGMAN_DEFAULT_STYLE
-       )
+HoeEditor::PropertyGrid::PropertyGrid()
 {
-	wxConfigBase *pConfig = wxConfigBase::Get();
-
-	// restore frame position and size
-	int w = pConfig->Read(_T("/MainFrame/prop_width"), 100),
-		h = pConfig->Read(_T("/MainFrame/prop_height"), 300);
-
 	m_propo = NULL;
-	SetSize(w, h);
 }
 
 HoeEditor::PropertyGrid::~PropertyGrid()
@@ -333,6 +313,28 @@ HoeEditor::PropertyGrid::~PropertyGrid()
 	GetSize(&w, &h);
 	pConfig->Write(_T("/MainFrame/prop_width"), (long) w);
 	pConfig->Write(_T("/MainFrame/prop_height"), (long) h);
+}
+
+bool HoeEditor::PropertyGrid::Create(wxWindow * parent)
+{
+	wxConfigBase *pConfig = wxConfigBase::Get();
+	int w = pConfig->Read(_T("/MainFrame/prop_width"), 100),
+		h = pConfig->Read(_T("/MainFrame/prop_height"), 300);
+	wxPropertyGridManager::Create(parent, PG_ID,
+        wxDefaultPosition, wxSize(w,h),
+        wxPG_BOLD_MODIFIED|
+        wxPG_SPLITTER_AUTO_CENTER|
+        wxPG_AUTO_SORT|
+        //wxPG_HIDE_MARGIN|wxPG_STATIC_SPLITTER|
+        //wxPG_HIDE_CATEGORIES|
+        //wxPG_LIMITED_EDITING |
+        wxTAB_TRAVERSAL |
+        //wxPG_TOOLBAR |
+        wxPG_DESCRIPTION |
+        //wxPG_COMPACTOR |
+        wxPGMAN_DEFAULT_STYLE
+       );
+	return true;
 }
 
 void HoeEditor::PropertyGrid::OnChange( wxPropertyGridEvent& event )

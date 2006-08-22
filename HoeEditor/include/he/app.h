@@ -36,13 +36,12 @@ public:
     // initialization (doing it here and not in the ctor allows to have an error
     // return: if OnInit() returns false, the application terminates)
     virtual bool OnInit();
-
+	virtual bool OnPostInit() { return false; }
 	virtual int OnExit();
 	//virtual int OnRun();
 	virtual bool ProcessIdle();
 	
 	virtual BaseEditor * CreateEditor() = 0;
-	virtual void OnPostInit() {}
 	BaseEditor * GetEditor() { return m_editor; }
 	/*FileMgr * GetFileMgr() { return &m_files; }
 	MainFrame * GetMainFrame() { return m_frame; }
