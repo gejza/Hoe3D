@@ -203,6 +203,14 @@
 			RelativePath=".\StdAfx.h"
 			>
 		</File>
+		<File
+			RelativePath=".\tools.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\tools.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

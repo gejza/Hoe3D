@@ -67,6 +67,76 @@ void wxSizePropertyClass::ChildChanged ( wxPGProperty* p )
 }
 
 // -----------------------------------------------------------------------
+// wxRectProperty
+// -----------------------------------------------------------------------
+WX_PG_DECLARE_VALUE_TYPE_VOIDP(wxRect)
+WX_PG_DECLARE_PROPERTY(wxRectProperty,const wxRect&,wxRect(0,0,0,0))
+WX_PG_IMPLEMENT_VALUE_TYPE_VOIDP(wxRect,wxRectProperty,wxRect(0,0,0,0))
+
+class wxRectPropertyClass : public wxPGPropertyWithChildren
+{
+    WX_PG_DECLARE_PROPERTY_CLASS()
+public:
+
+    wxRectPropertyClass ( const wxString& label, const wxString& name,
+        const wxRect& value );
+    virtual ~wxRectPropertyClass ();
+
+    WX_PG_DECLARE_PARENTAL_TYPE_METHODS()
+    WX_PG_DECLARE_PARENTAL_METHODS()
+
+protected:
+    wxRect                  m_value;
+};
+
+WX_PG_IMPLEMENT_PROPERTY_CLASS(wxRectProperty,wxBaseParentProperty,wxRect,const wxRect&,TextCtrl)
+
+wxRectPropertyClass::wxRectPropertyClass ( const wxString& label, const wxString& name,
+    const wxRect& value) : wxPGPropertyWithChildren(label,name)
+{
+    wxPG_INIT_REQUIRED_TYPE(wxRect)
+    DoSetValue((void*)&value);
+    AddChild( wxIntProperty(_("Left"),wxPG_LABEL,value.GetLeft()) );
+    AddChild( wxIntProperty(_("Top"),wxPG_LABEL,value.GetTop()) );
+     AddChild( wxIntProperty(_("Right"),wxPG_LABEL,value.GetRight()) );
+   AddChild( wxIntProperty(_("Bottom"),wxPG_LABEL,value.GetBottom()) );
+}
+
+wxRectPropertyClass::~wxRectPropertyClass () { }
+
+void wxRectPropertyClass::DoSetValue ( wxPGVariant value )
+{
+    wxRect* pObj = (wxRect*)wxPGVariantToVoidPtr(value);
+    m_value = *pObj;
+    RefreshChildren();
+}
+
+wxPGVariant wxRectPropertyClass::DoGetValue () const
+{
+    return wxPGVariant((void*)&m_value);
+}
+
+void wxRectPropertyClass::RefreshChildren()
+{
+    if ( !GetCount() ) return;
+    Item(0)->DoSetValue( (long)m_value.GetLeft() );
+    Item(1)->DoSetValue( (long)m_value.GetTop() );
+    Item(2)->DoSetValue( (long)m_value.GetRight() );
+    Item(3)->DoSetValue( (long)m_value.GetBottom() );
+}
+
+void wxRectPropertyClass::ChildChanged ( wxPGProperty* p )
+{
+    switch ( p->GetIndexInParent() )
+    {
+        case 0: m_value.SetLeft(p->DoGetValue().GetLong()); break;
+        case 1: m_value.SetTop(p->DoGetValue().GetLong()); break;
+        case 2: m_value.SetRight(p->DoGetValue().GetLong()); break;
+        case 3: m_value.SetBottom(p->DoGetValue().GetLong()); break;
+    }
+}
+
+// -----------------------------------------------------------------------
 // wxPointProperty
 // -----------------------------------------------------------------------
 WX_PG_DECLARE_VALUE_TYPE_VOIDP(wxRealPoint)
@@ -230,16 +300,20 @@ void HoeEditor::PropItem::GetSize(int * width, int * height) const
 	*height = s->GetHeight();
 }
 
+const wxRect HoeEditor::PropItem::GetRect() const
+{
+	wxRect *s = reinterpret_cast<wxRect *>(prop->DoGetValue().GetVoidPtr());
+	return *s;
+}
+
 float HoeEditor::PropItem::GetFloat() const
 {
 	return (float)prop->DoGetValue().GetDouble();
 }
 
-bool HoeEditor::PropItem::GetString(char * buff, size_t bufflen) const
+const wxString & HoeEditor::PropItem::GetString() const
 {
-	wxString str = prop->DoGetValue().GetString();
-	strncpy(buff,str.c_str(),bufflen);
-	return true;
+	return prop->DoGetValue().GetString();
 }
 
 unsigned long HoeEditor::PropItem::GetColor() const
@@ -266,6 +340,11 @@ void HoeEditor::PropItem::GetPoint3D(float *x, float *y, float *z) const
 long HoeEditor::PropItem::GetLong() const 
 {
 	return prop->DoGetValue().GetLong();
+}
+
+bool HoeEditor::PropItem::GetBool() const 
+{
+	return prop->DoGetValue().GetBool();
 }
 
 float HoeEditor::PropItem::GetAngle() const
@@ -386,7 +465,67 @@ void HoeEditor::PropertyGrid::AppendBool(int id, const char * label, bool def, u
 
 void HoeEditor::PropertyGrid::AppendFloat(int id, const char * label, float def, unsigned long flags, const char * help)
 {
-	wxPGId pgid = Append(label, label, (float)def);
+	wxPGId pgid = Append(label, label, (double)def);
+	SetProp( pgid, id, flags, help);
+}
+
+void HoeEditor::PropertyGrid::AppendColor(int id, const char * label, unsigned long color, unsigned long flags, const char *help, void * data)
+{
+	wxPGId pgid = Append(
+		wxColourProperty(label, label, wxColour((color>>16)&0xff,(color>>8)&0xff,0xff&color)));
+	SetProp( pgid, id, flags, help);
+}
+
+void HoeEditor::PropertyGrid::AppendCategory(const char * label)
+{
+	wxPropertyGridManager::AppendCategory(label);
+}
+
+void HoeEditor::PropertyGrid::AppendString(int id, const char * label, const char * def, unsigned long flags, const char * help, void * data)
+{
+	wxPGId pgid = Append( wxStringProperty(label, label, def));
+	SetProp( pgid, id, flags, help);
+}
+
+void HoeEditor::PropertyGrid::AppendSize(int id, const char *label, int width, int height, unsigned long flags, const char *help, void * data)
+{
+	wxPGId pgid = Append(wxSizeProperty(label, label, wxSize(width,height)));
+	SetProp( pgid, id, flags, help);
+}
+
+void HoeEditor::PropertyGrid::AppendRect(int id, const char *label, const wxRect & rect, unsigned long flags, const char *help, void * data)
+{
+	wxPGId pgid = Append(wxRectProperty(label, label, rect));
+	SetProp( pgid, id, flags, help);
+}
+
+void HoeEditor::PropertyGrid::AppendPoint(int id, const char * label, const float x, const float y, unsigned long flags, const char * help, void * data)
+{
+	wxPGId pgid = Append(wxPointProperty(label, label, wxRealPoint(x,y)));
+	SetProp( pgid, id, flags, help);
+}
+
+void HoeEditor::PropertyGrid::AppendPoint3D(int id, const char * label, const float x, const float y, const float z, unsigned long flags, const char * help, void * data)
+{
+	wxPGId pgid = Append(wxPoint3DProperty(label, label, Point3D(x,y,z)));
+	SetProp( pgid, id, flags, help);
+}
+
+void HoeEditor::PropertyGrid::AppendList(int id, const char * label, const char *list[], long values[], long value, unsigned long flags, const char * help, void * data)
+{
+	wxPGId pgid = Append(wxEnumProperty(label, label, list, values, value));
+	SetProp( pgid, id, flags, help);
+}
+
+void HoeEditor::PropertyGrid::AppendAngle(int id, const char * label, float def, unsigned long flags, const char * help, void * data)
+{
+	wxPGId pgid = Append(label, label, int(def * (180.f / 3.141592654)));
+	SetProp( pgid, id, flags, help);
+}
+
+void HoeEditor::PropertyGrid::AppendImageFile(int id, const char * label, const char * str, unsigned long flags, const char * help, void * data)
+{
+	wxPGId pgid = Append(wxImageFileProperty(label, label, str));
 	SetProp( pgid, id, flags, help);
 }
 
@@ -420,83 +559,6 @@ void PropertyCtrl::SetData(wxPGId id, int i, void *data)
 	pd->data = data;
 	id.GetProperty().SetClientData(pd);
 
-}
-
-void PropertyCtrl::AppendCategory(const char * label)
-{
-	m_property->AppendCategory(label);
-}
-
-void PropertyCtrl::AppendString(int id, const char * label, const char * def, unsigned long flags, const char * help, void * data)
-{
-	wxPGId pgid = m_property->Append( wxStringProperty(label, label, def));
-	SetProp( pgid, flags, help);
-	SetData( pgid, id, data);
-}
-
-void PropertyCtrl::AppendFloat(int id, const char * label, float def, unsigned long flags, const char * help, void * data)
-{
-	wxPGId pgid = m_property->Append(label, label, def);
-	SetProp( pgid, flags, help);
-	SetData( pgid, id, data);
-}
-
-void PropertyCtrl::AppendBool(int id, const char * label, bool def, unsigned long flags, const char * help, void * data)
-{
-	wxPGId pgid = m_property->Append(wxBoolProperty(label, label, def));
-	SetProp( pgid, flags, help);
-	SetData( pgid, id, data);
-}
-
-void PropertyCtrl::AppendColor(int id, const char * label, unsigned long color, unsigned long flags, const char *help, void * data)
-{
-	wxPGId pgid = m_property->Append(
-		wxColourProperty(label, label, wxColour((color>>16)&0xff,(color>>8)&0xff,0xff&color)));
-	SetProp( pgid, flags, help);
-	SetData( pgid, id, data);
-}
-
-void PropertyCtrl::AppendSize(int id, const char *label, int width, int height, unsigned long flags, const char *help, void * data)
-{
-	wxPGId pgid = m_property->Append(wxSizeProperty(label, label, wxSize(width,height)));
-	SetProp( pgid, flags, help);
-	SetData( pgid, id, data);
-}
-
-void PropertyCtrl::AppendPoint(int id, const char * label, const float x, const float y, unsigned long flags, const char * help, void * data)
-{
-	wxPGId pgid = m_property->Append(wxPointProperty(label, label, wxRealPoint(x,y)));
-	SetProp( pgid, flags, help);
-	SetData( pgid, id, data);	
-}
-
-void PropertyCtrl::AppendPoint3D(int id, const char * label, const float x, const float y, const float z, unsigned long flags, const char * help, void * data)
-{
-	wxPGId pgid = m_property->Append(wxPoint3DProperty(label, label, Point3D(x,y,z)));
-	SetProp( pgid, flags, help);
-	SetData( pgid, id, data);
-
-}
-
-void PropertyCtrl::AppendList(int id, const char * label, const char *list[], long values[], long value, unsigned long flags, const char * help, void * data)
-{
-	wxPGId pgid = m_property->Append(wxEnumProperty(label, label, list, values, value));
-	SetProp( pgid, flags, help);
-	SetData( pgid, id, data);
-}
-
-void PropertyCtrl::AppendAngle(int id, const char * label, float def, unsigned long flags, const char * help, void * data)
-{
-	wxPGId pgid = m_property->Append(label, label, int(def * (180.f / 3.141592654)));
-	SetProp( pgid, flags, help);
-	SetData( pgid, id, data);
-}
-
-void PropertyCtrl::AppendImageFile(int id, const char * label, const char * str, unsigned long flags, const char * help, void * data)
-{
-	wxPGId pgid = m_property->Append(wxImageFileProperty(label, label, str));
-	SetProp( pgid, flags, help);
-	SetData( pgid, id, data);
 }
 
 /*/

@@ -12,6 +12,7 @@ namespace HoeEditor {
 
 class EngineView : public wxPanel
 {
+protected:
 #ifndef HOE_STATIC_ENGINE
 	wxDynamicLibrary m_lib;
 	char m_dllpath[512];
@@ -20,10 +21,12 @@ class EngineView : public wxPanel
 	bool m_loaded;
 	wxMouseEvent m_lastmouseevent;
 	wxTimer m_infotimer;
+	static EngineView * m_shared;
 	bool InitUntry(XHoeFS * hfs);
 public:
 	void Unload();
 	EngineView();
+	virtual ~EngineView();
 	IHoe3DEngine * GetEngine() { return m_engine; } 
 #ifdef HOE_STATIC_ENGINE
 	bool InitStatic(XHoeFS * hfs);
@@ -47,6 +50,8 @@ public:
 	void OnLeaveWindow( wxMouseEvent& );
 	void OnSetFocus(wxFocusEvent &event);
 	void OnKillFocus(wxFocusEvent &event);
+
+	static inline EngineView * Get() { return m_shared; }
 private:
 
     // any class wishing to process wxWindows events must use this macro

@@ -5,6 +5,7 @@
 #include "../include/he/engview.h"
 #include "../include/he/panels.h"
 #include "../include/he/log.h"
+#include "../include/he/utils.h"
 
 // the event tables connect the wxWindows events with the functions (event
 // handlers) which process them. It can be also done at run-time, but for the
@@ -36,10 +37,12 @@ END_EVENT_TABLE()
 HoeEditor::BaseEditor::BaseEditor()
 {
 	m_menu = NULL;
+	m_tool = NULL;
 }
 
 HoeEditor::BaseEditor::~BaseEditor()
 {
+	SetTool(NULL);
 	App::Get()->StateToEnd();
 }
 
@@ -106,5 +109,74 @@ void HoeEditor::BaseEditor::OnShowLog(wxCommandEvent& event)
 	App::Get()->GetLog()->ShowDialog();
 }
 
+void HoeEditor::BaseEditor::SetTool(EditorTool *tool)
+{
+	if (m_tool)
+		m_tool->Exit();
+	//if (tool)
+		m_tool = tool;
+	//else
+	//	m_tool = new ToolSelect();
+}
+
+/////////////////////////////////////
+void HoeEditor::BaseEditor::MouseEnter(int absX, int absY)
+{
+	if (m_tool)
+		m_tool->Enter(absX, absY);
+}
+
+void HoeEditor::BaseEditor::MouseLeave()
+{
+	if (m_tool)
+		m_tool->Leave();
+}
+
+void HoeEditor::BaseEditor::MouseMove(int relX, int relY, int absX, int absY, const wxMouseEvent & ev)
+{
+	if (m_tool)
+		m_tool->Move(relX, relY, absX, absY, ev);
+}
+
+void HoeEditor::BaseEditor::MouseLeftDown(const int x, const int y, wxMouseEvent & e)
+{
+	if (m_tool)
+		m_tool->LeftDown(x,y,e);
+}
+
+void HoeEditor::BaseEditor::MouseLeftUp(const int x, const int y, wxMouseEvent & e)
+{
+	if (m_tool)
+		m_tool->LeftUp(x,y,e);
+}
+
+void HoeEditor::BaseEditor::MouseRightDown(const int x, const int y, wxMouseEvent & e)
+{
+	if (m_tool)
+		m_tool->RightDown(x,y,e);
+}
+
+void HoeEditor::BaseEditor::MouseRightUp(const int x, const int y, wxMouseEvent & e)
+{
+	if (m_tool)
+		m_tool->RightUp(x,y,e);
+}
+
+void HoeEditor::BaseEditor::MouseWheel(wxMouseEvent & e)
+{
+	//if (m_map)
+	//{
+	//	if (e.ControlDown() && m_tool)
+	//	{
+	if (m_tool)
+			m_tool->Wheel(e);
+	//	}
+	//	else if (e.ShiftDown())
+	//		m_map->GetView()->Zoom(e.GetWheelRotation() / 20.f);
+	//	else
+	//		m_map->GetView()->Rotate(e.GetWheelRotation() / 400.f);
+	//}
+		
+}
 
 

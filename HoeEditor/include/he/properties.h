@@ -21,17 +21,6 @@ public:
 	void Create(wxWindow * parent);
 	myPropertyGrid * GetPropertyGrid() const { return m_property; }
 	virtual void Clear();
-	virtual void AppendCategory(const char * label);
-	virtual void AppendString(int id, const char * label, const char * str, unsigned long flags = 0, const char * help = NULL, void * data = NULL);
-	virtual void AppendFloat(int id, const char * label, float def, unsigned long flags = 0,  const char * help = NULL, void * data = NULL);
-	virtual void AppendBool(int id, const char * label, bool def, unsigned long flags = 0,  const char * help = NULL, void * data = NULL);
-	virtual void AppendColor(int id, const char * label, unsigned long color, unsigned long flags = 0, const char * help = NULL, void * data = NULL);
-	virtual void AppendSize(int id, const char * label, int width, int height, unsigned long flags = 0, const char * help = NULL, void * data = NULL);
-	virtual void AppendPoint(int id, const char * label, const float x, const float y, unsigned long flags = 0, const char * help = NULL, void * data = NULL);
-	virtual void AppendPoint3D(int id, const char * label, const float x, const float y, const float z, unsigned long flags = 0, const char * help = NULL, void * data = NULL);
-	virtual void AppendList(int id, const char * label, const char *list[], long values[] = NULL, long value = 0, unsigned long flags = 0, const char * help = NULL, void * data = NULL); 
-	virtual void AppendAngle(int id, const char * label, float def, unsigned long flags = 0, const char * help = NULL, void * data = NULL);
-	virtual void AppendImageFile(int id, const char * label, const char * str, unsigned long flags = 0, const char * help = NULL, void * data = NULL);
 
 	friend class LeftPanel;
 
@@ -51,8 +40,10 @@ class PropItem
 public:
 	PropItem(wxPGProperty * _p);
 	float GetFloat() const ;
-	bool GetString(char * buff, size_t bufflen) const;
+	bool GetBool() const ;
+	const wxString & GetString() const;
 	void GetSize(int * width, int * height)const ;
+	const wxRect GetRect()const ;
 	unsigned long GetColor() const ;
 	void GetPoint(float *x, float *y) const;
 	void GetPoint3D(float *x, float *y, float *z) const;
@@ -86,9 +77,19 @@ public:
 	void End();
 	void SetProp(wxPGId i, int id, unsigned long flags, const char * help);
 
+	void AppendCategory(const char * label);
+	void AppendString(int id, const char * label, const char * str, unsigned long flags = 0, const char * help = NULL, void * data = NULL);
 	void AppendLong(int id, const char * label, long def, unsigned long flags = 0, const char * help = NULL);
 	void AppendBool(int id, const char * label, bool def, unsigned long flags = 0, const char * help = NULL);
 	void AppendFloat(int id, const char * label, float def, unsigned long flags = 0, const char * help = NULL);
+	void AppendColor(int id, const char * label, unsigned long color, unsigned long flags = 0, const char * help = NULL, void * data = NULL);
+	void AppendSize(int id, const char * label, int width, int height, unsigned long flags = 0, const char * help = NULL, void * data = NULL);
+	void AppendRect(int id, const char * label, const wxRect & rect, unsigned long flags = 0, const char * help = NULL, void * data = NULL);
+	void AppendPoint(int id, const char * label, const float x, const float y, unsigned long flags = 0, const char * help = NULL, void * data = NULL);
+	void AppendPoint3D(int id, const char * label, const float x, const float y, const float z, unsigned long flags = 0, const char * help = NULL, void * data = NULL);
+	void AppendList(int id, const char * label, const char *list[], long values[] = NULL, long value = 0, unsigned long flags = 0, const char * help = NULL, void * data = NULL); 
+	void AppendAngle(int id, const char * label, float def, unsigned long flags = 0, const char * help = NULL, void * data = NULL);
+	void AppendImageFile(int id, const char * label, const char * str, unsigned long flags = 0, const char * help = NULL, void * data = NULL);
 
 	DECLARE_EVENT_TABLE()
 };

@@ -9,15 +9,26 @@
 #include "StdAfx.h"
 #include "editor.h"
 #include "figure.h"
+#include "items.h"
+#include "tools.h"
 
 IMPLEMENT_APP(Hoe2DEditApp)
 
 const char * EditorName = "Hoe2DEditor";
 
+enum {
+	ID_TREE = HoeEditor::ID_CUSTOMMENU_FIRST,
+	ID_COLORRECT,
+	ID_STATICITEM,
 
-BEGIN_EVENT_TABLE(Hoe2DEdit, HoeEditor::LevelEditor)
+};
+
+BEGIN_EVENT_TABLE(Hoe2DEdit, HoeEditor::BaseEditor)
 	EVT_MENU(HoeEditor::ID_NEW, Hoe2DEdit::OnNewFile)
-	//EVT_MENU(ID_SHOWINFO, BecherEdit::OnShowInfo)
+	EVT_TREE_SEL_CHANGED(ID_TREE, Hoe2DEdit::OnTreeSelect)
+	//EVT_TREE_BEGIN_DRAG(ID_TREE, Hoe2DEdit::OnTreeDrag)
+	EVT_MENU(ID_COLORRECT, Hoe2DEdit::OnNewItem)
+	EVT_MENU(ID_STATICITEM, Hoe2DEdit::OnNewItem)
 
 	//EVT_MENU_RANGE(ID_OBJECT, ID_OBJECT + EBO_Max, BecherEdit::OnNewObject)
 
@@ -66,6 +77,7 @@ Hoe2DEdit::Hoe2DEdit()
 	assert(s_actinstance == NULL);
 	s_actinstance = this;
 	m_figure = NULL;
+	m_select = NULL;
 }
 
 Hoe2DEdit::~Hoe2DEdit()
@@ -89,7 +101,7 @@ bool Hoe2DEdit::Create(const wxString & title)
 		return false;
 	}
 */
-	HoeEditor::LevelEditor::Create(title);
+	HoeEditor::BaseEditor::Create(title);
 
 	// tool bar
 	wxToolBar * tool = CreateToolBar();
@@ -99,6 +111,9 @@ int w = newt.GetWidth(),
 	tool->SetToolBitmapSize(wxSize(w, h));
 
 	tool->AddTool(HoeEditor::ID_NEW,"nic",newt,"hokus pokus");
+	tool->AddSeparator();
+	tool->AddTool(ID_COLORRECT, "Color Rect", newt, "Color Rect");
+	tool->AddTool(ID_STATICITEM, "picture", newt, "Picture");
 	tool->Realize();
 
 	// vytvorit menu
@@ -112,10 +127,14 @@ int w = newt.GetWidth(),
 	menuFile->AppendSeparator();
 	menuFile->Append(HoeEditor::ID_QUIT, _("E&xit\tAlt-F4"), _("Quit this program")); 
 
+    wxMenu * menuView = new wxMenu;
+	menuView->AppendCheckItem(HoeEditor::ID_VIEWFULLSCREEN, _("F&ull Screen\tF12"), _("Switch to fullscreen."));
+
     // now append the freshly created menu to the menu bar...
     m_menu = new wxMenuBar(/*wxMB_DOCKABLE*/);
     m_menu->Append(menuFile, _("&File"));
-
+    m_menu->Append(menuView, _("&View"));
+	
     // ... and attach this menu bar to the frame
     SetMenuBar(m_menu); 
 
@@ -134,12 +153,10 @@ int w = newt.GetWidth(),
 	/*GetPanelMgr()->AddPanel(
 		new TerrainObject(GetPanelMgr()), _("Terrain"), true, true);*/
 	// list view
-	wxTreeCtrl * tc = new wxTreeCtrl(GetPanelMgr());
-	wxTreeItemId root = tc->AddRoot("root");
-	for (int i=0;i<40;i++) tc->AppendItem(root,"parent");
+	m_tc = new wxTreeCtrl(GetPanelMgr(), ID_TREE);
 
 	GetPanelMgr()->AddPanel(
-		tc, _("List"), false, true);
+		m_tc, _("List"), false, true);
 	m_prop = new HoeEditor::PropertyGrid();
 	m_prop->Create(GetPanelMgr());
 	GetPanelMgr()->AddPanel(
@@ -162,7 +179,7 @@ bool Hoe2DEdit::OnPostInit()
 }
 
 // updejt menu
-void Hoe2DEdit::MenuUpdate()
+void Hoe2DEdit::UpdateControls()
 {
 	/*if (m_menu)
 	{
@@ -181,21 +198,24 @@ void Hoe2DEdit::MenuUpdate()
 
 void Hoe2DEdit::OnNewFile(wxCommandEvent &)
 {
-	/*MapSettingsDialog dlg(this,NULL);
-	if (dlg.ShowModal() == wxID_OK)
-	{
-        // zjisti z dlg velikost
-           
-		CloseMap();
-		m_map = new EditorMap();
-		m_map->CreateNew(dlg.m_width->GetValue(),dlg.m_height->GetValue());
-		UpdateControls();
-		MenuUpdate();
-	}*/
-	m_figure = new FigureEdit();
+	CloseFile();
+
+	m_figure = new FigureEdit(m_tc);
 	m_figure->Create(m_engview->GetEngine());
-	//m_figure->_Paint();
+
+	UpdateControls();
 }
+
+void Hoe2DEdit::CloseFile()
+{
+	// unselect
+	// dotaz na ulozeni
+
+	if (m_figure)
+		m_figure->Delete();
+	m_figure = NULL;
+}
+
 /*
 void BecherEdit::OnOpenFile(wxCommandEvent &)
 {
@@ -272,34 +292,44 @@ void BecherEdit::OnAbout(wxCommandEvent &)
 {
 	AboutDlg dlg(this);
 	dlg.ShowModal();
-}
+}*/
 
-void BecherEdit::OnTypeShow(wxCommandEvent &)
+void Hoe2DEdit::OnNewItem(wxCommandEvent &e)
 {
-	if (m_map)
+	if (m_figure)
 	{
-		m_map->GetTerrain()->ShowWireframe(m_menu->IsChecked(ID_TERRAINWIRE));
-		if (m_menu->IsChecked(ID_OBJECTSHIDE))
-			m_map->ShowObjects(false, false);
-		else if (m_menu->IsChecked(ID_OBJECTSWIRE))
-			m_map->ShowObjects(true, true);
-		else if (m_menu->IsChecked(ID_OBJECTSFULL))
-			m_map->ShowObjects(true, false);
-		// zobrazit, hiddnout systemove objekty
-		m_map->ShowSystemObjects(m_menu->IsChecked(ID_SYSOBJECTS));
-
+		switch (e.GetId())
+		{
+		case ID_STATICITEM:
+			m_figure->AddItem(new StaticItem(), "static");
+			break;
+		case ID_COLORRECT:
+			m_figure->AddItem(new ColorRectItem(), "rect");
+			break;
+		};
 	}
-
 }
 
-void BecherEdit::OnTerrainTextures(wxCommandEvent &)
+void Hoe2DEdit::OnTreeSelect(wxTreeEvent &e)
 {
-	// textures dialog
-	TexturesDialog dlg(this);
-	dlg.ShowModal();
+	assert(m_figure);
+	wxTreeItemData * d = m_tc->GetItemData(e.GetItem());
+	if (!d)
+	{
+		m_prop->Begin(NULL);
+		m_select = NULL;
+		SetTool(NULL);
+		return;
+	}
+	else
+	{
+		m_select = dynamic_cast<BaseItem*>(d);
+		m_select->Select(m_prop);
+		SetTool(new ToolItem(m_select));
+	}
 }
 
-void BecherEdit::OnNewObject(wxCommandEvent &)
+/*void BecherEdit::OnNewObject(wxCommandEvent &)
 {
 }
 
@@ -316,47 +346,6 @@ void BecherEdit::CloseMap()
 }*/
 
 /////////////////////////////////////
-void Hoe2DEdit::MouseEnter(int absX, int absY)
-{
-	//if (m_tool)
-	//	m_tool->Enter(absX, absY);
-}
-
-void Hoe2DEdit::MouseLeave()
-{
-	//if (m_tool)
-	//	m_tool->Leave();
-}
-
-void Hoe2DEdit::MouseMove(int relX, int relY, int absX, int absY, const wxMouseEvent & ev)
-{
-	//if (m_tool)
-	//	m_tool->Move(relX, relY, absX, absY, ev);
-}
-
-void Hoe2DEdit::MouseLeftDown(const int x, const int y, wxMouseEvent & e)
-{
-	//if (m_tool)
-	//	m_tool->LeftDown(x,y,e);
-}
-
-void Hoe2DEdit::MouseLeftUp(const int x, const int y, wxMouseEvent & e)
-{
-	//if (m_tool)
-	//	m_tool->LeftUp(x,y,e);
-}
-
-void Hoe2DEdit::MouseRightDown(const int x, const int y, wxMouseEvent & e)
-{
-	//if (m_tool)
-	//	m_tool->RightDown(x,y,e);
-}
-
-void Hoe2DEdit::MouseWheel(wxMouseEvent & e)
-{
-	
-}
-
 void Hoe2DEdit::KeyDown(wxKeyEvent& e)
 {
 	/*if (m_map)

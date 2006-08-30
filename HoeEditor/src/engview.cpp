@@ -26,14 +26,24 @@ BEGIN_EVENT_TABLE(EngineView, wxWindow)
 	EVT_SIZING(EngineView::OnSizing)
 END_EVENT_TABLE()
 
+EngineView * EngineView::m_shared = NULL;
+
 EngineView::EngineView()
 {
+	assert(m_shared == NULL);
+	m_shared = this;
 	m_engine = NULL;
 #ifndef HOE_STATIC_ENGINE
 	m_dllpath[0] = '\0';
 #endif
 	m_loaded = false;
 	SetBackgroundColour(wxColor(57,67,140));
+}
+
+EngineView::~EngineView()
+{
+	assert(m_shared == this);
+	m_shared = NULL;
 }
 
 #ifndef HOE_STATIC_ENGINE

@@ -8,6 +8,8 @@
 #include <windows.h>
 #endif
 
+#include <vector>
+
 // wxwindows
 #include <wx/wxprec.h>
 #include <wx/choicebk.h>
