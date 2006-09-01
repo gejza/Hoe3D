@@ -24,7 +24,7 @@ protected:
 	HoeEditor::UndoList m_undo;
 
 	FigureEdit * m_figure;
-	HoeGame::FileSystem m_fs;
+	HoeEditor::Resources m_res;
 	BaseItem * m_select;
 public:
 	Hoe2DEdit();
@@ -33,7 +33,7 @@ public:
 	bool Create(const wxString & title);
 	virtual bool OnPostInit();
 
-	virtual XHoeFS * GetFS() { return &m_fs; }
+	virtual XHoeFS * GetFS() { return &m_res; }
 	HoeEditor::PropertyGrid * GetProp() { return m_prop; }
 	virtual HoeEditor::EngineView * GetEngineView() { return m_engview; }
 	virtual HoeEditor::PanelMgr * GetPanelMgr() { return m_leftpanel; }

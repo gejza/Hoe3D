@@ -8,6 +8,7 @@
 //#include "plugin_editlevel.h"
 //#include "id.h"
 #include "../include/he/resources.h"
+#include "../include/he/engview.h"
 
 namespace HoeEditor {
 
@@ -43,8 +44,9 @@ reply:
 	{
 		if(m_res[i].id == findid)
 		{
-			IHoeResource * res = 
-				(IHoeResource*)this->GetEngine()->Create(m_res[i].cmd.c_str());
+			IHoeResource * res = NULL;
+			if (EngineView::Get() && EngineView::Get()->GetEngine())
+				res = (IHoeResource*)EngineView::Get()->GetEngine()->Create(m_res[i].cmd.c_str());
 			if (res)
 				return res;
 			else

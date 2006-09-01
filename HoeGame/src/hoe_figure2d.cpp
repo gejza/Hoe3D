@@ -1,45 +1,85 @@
 
 #include "StdAfx.h"
 #include "../include/hoe_figure2d.h"
+#include "../include/hoe_gui.h"
 
 BEGIN_HOEGAME
 
 Hoe2DFigure::Hoe2DFigure()
 {
-	m_scene = NULL;
-	m_hoe2d = NULL;
 }
 
 Hoe2DFigure::~Hoe2DFigure()
 {
 }
 
-void Hoe2DFigure::Show(IHoeScene * scene)
+void HOEAPI Hoe2DFigure::_Paint(IHoe2D *)
 {
-	assert(scene);
-	scene->Set2DCallback(this);
-	m_scene = scene;
 }
 
-void Hoe2DFigure::Hide()
+
+bool Hoe2DFigure::Load(const char * fname)
 {
-	if (m_scene)
+	FigureFile ff;
+	if (!ff.Open(fname))
+		return false;
+
+	try
 	{
-		m_scene->Set2DCallback(NULL);
+
+		char buff[2048];
+		while (ff.GetLine(buff, sizeof(buff)))
+		{
+			// vytvorit base
+			HoeGame::BaseGui * gui = CreateGUI(buff);		
+			if (!gui)
+				throw "chyba";
+			if (!ff.GetLine(buff, sizeof(buff)) || strcmp(buff,"{") != 0)
+				throw "chyba";
+			while (1)
+			{
+				if (!ff.GetLine(buff, sizeof(buff)))
+					throw "chyba";
+				if (strcmp(buff,"}") == 0)
+					break;
+				char * p = buff;
+				while (*p == '\t' || *p == ' ') p++;
+				const char * stname = p;
+				while (*p > ' ' && *p != '=') p++;
+				if (*p == 0)
+					throw "chyba";
+				if (*p != '=')
+					*p++ = '\0';
+				while (*p != '=')
+				{
+					if (*p != ' ' && *p != '\t')
+						throw "chyba";
+					p++;
+				}
+				*p++ = '\0';
+				while (*p == ' ' || *p == '\t') p++;
+				if (*p == '\"')
+				{
+					p++;
+					const char *val = p;
+					while (*p) p++;
+					p--;
+					while (*p == ' ' || *p == '\t') p--;
+					if (*p != '\"')
+						throw "chyba";
+					*p = '\0';
+					gui->Set(stname, val);
+				}
+				else
+					gui->Set(stname,p);
+			}
+		}
+	} catch (...)
+	{
+		return false;
 	}
-}
-
-void Hoe2DFigure::_Paint(IHoe2D * e)
-{
-	m_hoe2d = e;
-
-	OnPaint();
-
-	//return 0;
-}
-
-void Hoe2DFigure::OnPaint()
-{
+	
+	return true;
 }
 
 END_HOEGAME

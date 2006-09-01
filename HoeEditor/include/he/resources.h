@@ -64,7 +64,6 @@ protected:
 public:
 	Resources() { }
 	~Resources() { }
-	virtual IHoe3DEngine * GetEngine() = 0;
 	wxString GetMainDir() const { return m_mainDir; }
 	void SetMainDir(wxString dir) { m_mainDir = dir; }
 	virtual uint GetFilesCount() const { return m_files.GetCount(); } 

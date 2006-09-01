@@ -56,5 +56,34 @@ void FigureEdit::AddItem(BaseItem * item, wxString name)
 	m_tc->SelectItem(item->m_id, true);
 }
 
+bool FigureEdit::Save(const wxString fname)
+{
+	FILE * f = fopen(fname.c_str(), "wt");
+	if (!f)
+		return false;
 
+	wxTreeItemIdValue cook;
+	wxTreeItemId item = m_tc->GetFirstChild(m_root, cook);
+	while (item.IsOk())
+	{
+		wxTreeItemData * d = m_tc->GetItemData(item);
+		if (d) dynamic_cast<BaseItem*>(d)->Save(f);
+		item = m_tc->GetNextChild(m_root, cook);
+	}
 
+	fclose(f);
+}
+
+HoeGame::BaseGui * FigureEdit::CreateGUI(const char * type)
+{
+	wxString t = type;
+	BaseItem * bi = NULL;
+	if (t == "static")
+		bi = new StaticItem;
+	else if (t == "colorrect")
+		bi = new ColorRectItem;
+	if (bi == NULL)
+		return NULL;
+	AddItem(bi, "");
+	return bi;
+}

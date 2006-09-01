@@ -11,8 +11,13 @@
 
 #include <hoe3d.h>
 #include "hoe_game.h"
+#include "hoe_fs.h"
 
 BEGIN_HOEGAME
+
+class FigureFile : public TextFile
+{
+};
 
 /**
  * @brief	Rozložení 2d scény.
@@ -21,29 +26,21 @@ BEGIN_HOEGAME
  * pres nastavitelne parametry se budou moci pozmenovat infa
  * proste takovy 2d engine, s pojmenovanymi oblastmi
  */
+class BaseGui;
 
 class Hoe2DFigure : public XHoe2DCallback
 {
-private:
-	IHoeScene * m_scene;
 protected:
-	IHoe2D * m_hoe2d;
+	// seznam vykresleni
 public:
 	/** Kontruktor */
 	Hoe2DFigure();
-
 	/** Destruktor */
 	~Hoe2DFigure();
 
-	void Show(IHoeScene *);
-	void Hide();
-
 	virtual void HOEAPI _Paint(IHoe2D *);
-
-	virtual void OnPaint();
-
-	inline IHoe2D * Get2D() { return m_hoe2d; }
-	//inline IHoe3DEngine * Get3D() { return m_hoe3d; }
+	virtual bool Load(const char * fname);
+	virtual BaseGui * CreateGUI(const char * type) = 0;
 };
 
 END_HOEGAME

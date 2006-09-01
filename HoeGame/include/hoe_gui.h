@@ -6,6 +6,12 @@
 
 BEGIN_HOEGAME
 
+class BaseGui
+{
+public:
+	virtual void Set(const char * prop, const char *value) = 0;
+};
+
 class TextDevice : public XHoeKeyboard
 {
 	int shift;

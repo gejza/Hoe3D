@@ -50,6 +50,34 @@ bool SetRootFromExe(const char * path)
 	return SetRootDir(GetBaseDir(path));
 }
 
+void RemoveEndLine(char * line)
+{
+	char * p = line;
+	while (*p) p++;
+	p--;
+	while (*p == 13 || *p == 10)
+	{
+		*p = '\0';
+		p--;
+		if (p < line)
+			break;
+	}
+}
+
+void RemoveWhiteEndLine(char * line)
+{
+	char * p = line;
+	while (*p) p++;
+	p--;
+	while (*p == 13 || *p == 10 || *p == ' ' || *p == '\t')
+	{
+		*p = '\0';
+		p--;
+		if (p < line)
+			break;
+	}
+}
+
 #ifdef _WIN32
 bool SetRootFromInstance(HINSTANCE hInstance)
 {

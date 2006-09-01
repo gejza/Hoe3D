@@ -20,11 +20,15 @@ enum {
 	ID_TREE = HoeEditor::ID_CUSTOMMENU_FIRST,
 	ID_COLORRECT,
 	ID_STATICITEM,
+	ID_SHOWRES,
 
 };
 
 BEGIN_EVENT_TABLE(Hoe2DEdit, HoeEditor::BaseEditor)
 	EVT_MENU(HoeEditor::ID_NEW, Hoe2DEdit::OnNewFile)
+	EVT_MENU(HoeEditor::ID_SAVE, Hoe2DEdit::OnSaveFile)
+	EVT_MENU(HoeEditor::ID_OPEN, Hoe2DEdit::OnOpenFile)
+	EVT_MENU(ID_SHOWRES, Hoe2DEdit::OnResMgr)
 	EVT_TREE_SEL_CHANGED(ID_TREE, Hoe2DEdit::OnTreeSelect)
 	//EVT_TREE_BEGIN_DRAG(ID_TREE, Hoe2DEdit::OnTreeDrag)
 	EVT_MENU(ID_COLORRECT, Hoe2DEdit::OnNewItem)
@@ -130,10 +134,14 @@ int w = newt.GetWidth(),
     wxMenu * menuView = new wxMenu;
 	menuView->AppendCheckItem(HoeEditor::ID_VIEWFULLSCREEN, _("F&ull Screen\tF12"), _("Switch to fullscreen."));
 
+	wxMenu * menuTools = new wxMenu;
+	menuTools->Append(ID_SHOWRES, _("&Resource Manager..."), _("Resource Manager"));
+
     // now append the freshly created menu to the menu bar...
     m_menu = new wxMenuBar(/*wxMB_DOCKABLE*/);
     m_menu->Append(menuFile, _("&File"));
     m_menu->Append(menuView, _("&View"));
+    m_menu->Append(menuTools, _("&Tools"));
 	
     // ... and attach this menu bar to the frame
     SetMenuBar(m_menu); 
@@ -166,8 +174,6 @@ int w = newt.GetWidth(),
 	m_engview->Create(split, -1, wxDefaultPosition, wxDefaultSize, wxWANTS_CHARS);
 
 	split->SplitVertically(m_leftpanel, m_engview, 150);
-
-	m_fs.AddResourceFile("hud.hx");
 
 	return true;
 }
@@ -216,10 +222,11 @@ void Hoe2DEdit::CloseFile()
 	m_figure = NULL;
 }
 
-/*
-void BecherEdit::OnOpenFile(wxCommandEvent &)
+
+void Hoe2DEdit::OnOpenFile(wxCommandEvent &)
 {
-	wxFileDialog dlg(this,_("Choose a map file..."),
+	m_figure->Load("aa.txt");
+	/*wxFileDialog dlg(this,_("Choose a map file..."),
 		_T(""), _T(""), _("Becher Map(*.bm)|*.bm|All Files(*.*)|*.*"), 
 		wxOPEN | wxHIDE_READONLY | wxFILE_MUST_EXIST); 
 	if (dlg.ShowModal() == wxID_OK)
@@ -243,15 +250,17 @@ void BecherEdit::OnOpenFile(wxCommandEvent &)
 		}
 	}
 	
-	UpdateControls();
+	UpdateControls();*/
 }
 
-void BecherEdit::OnSaveFile(wxCommandEvent &e)
+void Hoe2DEdit::OnSaveFile(wxCommandEvent &e)
 {
-	if (!m_map)
-		return;
+	//if (!m_map)
+	//	return;
 
-	if (m_map->GetFilePath().IsEmpty() || e.GetId() == HoeEditor::ID_SAVEAS)
+	m_figure->Save("aa.txt");
+
+	/*if (m_map->GetFilePath().IsEmpty() || e.GetId() == HoeEditor::ID_SAVEAS)
 	{
 		wxFileDialog dlg( this, _("Save map file..."),
 			_T(""), _T(""), _("Becher Map(*.bm)|*.bm"), wxSAVE | wxHIDE_READONLY);
@@ -278,9 +287,9 @@ nq:
 	}
 
 	if (m_map->SaveMap())
-		SetTitle(m_map->GetTitle());
+		SetTitle(m_map->GetTitle());*/
 }
-
+/*
 void BecherEdit::OnHelp(wxCommandEvent &)
 {
 	// help
@@ -329,10 +338,11 @@ void Hoe2DEdit::OnTreeSelect(wxTreeEvent &e)
 	}
 }
 
-/*void BecherEdit::OnNewObject(wxCommandEvent &)
+void Hoe2DEdit::OnResMgr(wxCommandEvent &)
 {
+	m_res.ShowDlg();
 }
-
+/*
 /////////////////////////////////////
 void BecherEdit::UpdateControls()
 {

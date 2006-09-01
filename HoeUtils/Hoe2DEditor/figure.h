@@ -11,7 +11,25 @@
 
 class BaseItem;
 
-class FigureEdit : public XHoe2DCallback
+/*
+
+static
+{ 
+ name = ""
+ rect = (10 10 100 20)
+
+}
+radio
+{
+}
+button
+check
+text
+
+
+*/
+
+class FigureEdit : public HoeGame::Hoe2DFigure
 {
 protected:
 	IHoeScene * m_scene;
@@ -19,7 +37,6 @@ protected:
 	wxTreeItemId m_root;
 	wxTreeCtrl * m_tc;
 	std::vector<BaseItem*> m_list; 
-
 public:
 	FigureEdit(wxTreeCtrl * tc);
 	bool Create(IHoe3DEngine * eng);
@@ -27,6 +44,8 @@ public:
 	inline wxTreeCtrl * GetTreeCtrl() const { return m_tc; }
 	virtual void HOEAPI _Paint(IHoe2D * );
 	void AddItem(BaseItem * item, const wxString name);
+	bool Save(const wxString fname);
+	virtual HoeGame::BaseGui * CreateGUI(const char * type);
 };
 
 #endif // _HOE_2D_EDITOR_FIGURE_H_

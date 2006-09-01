@@ -84,6 +84,7 @@ public:
 	bool Open(const char * filename);
 	void Close();
 	inline bool IsOpen() { return file != NULL; }
+	bool GetLine(char * buff, size_t size);
 };
 
 END_HOEGAME

@@ -3,6 +3,7 @@
 #include "../include/hoe_fs.h"
 #include "../include/hoe_console.h"
 #include <hfmt/hres_file.h>
+#include "../include/hoe_utils.h"
 
 BEGIN_HOEGAME
 
@@ -398,6 +399,14 @@ void TextFile::Close()
 		fclose(file);
 		file = NULL;
 	}
+}
+
+bool TextFile::GetLine(char * buff, size_t size)
+{
+	if (!fgets(buff, size, file))
+		return false;
+	RemoveEndLine(buff);
+	return true;
 }
 
 END_HOEGAME

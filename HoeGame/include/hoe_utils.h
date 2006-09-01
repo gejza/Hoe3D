@@ -9,6 +9,8 @@ BEGIN_HOEGAME
 bool SetRootDir(const char * dir);
 const char * GetBaseDir(const char * path);
 
+void RemoveEndLine(char * line);
+
 bool SetRootFromExe(const char * path);
 #ifdef _WIN32
 bool SetRootFromInstance(HINSTANCE hInstance);

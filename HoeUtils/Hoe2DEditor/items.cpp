@@ -27,6 +27,15 @@ void BaseItem::Resize(const float left, const float top, const float right, cons
 	m_bottom = bottom * 600.f / size.GetHeight();
 }
 
+void BaseItem::Set(const char * prop, const char *value)
+{
+	wxString p = prop;
+	if (p == "name")
+		m_owner->GetTreeCtrl()->SetItemText(m_id, value);
+	else if (p == "rect")
+		sscanf(value,"%f %f %f %f",&m_left, &m_top, &m_right, &m_bottom);
+}
+
 ColorRectItem::ColorRectItem()
 {
 	m_color = 0x80ffff00;
@@ -85,6 +94,30 @@ void ColorRectItem::_Paint(IHoe2D * h2d)
 	//h2d->BltFast(0,100,0,100,hud);
 }
 
+void ColorRectItem::Save(FILE * f)
+{
+	fprintf(f, "colorrect\n{\n");
+	fprintf(f, "\tname = \"%s\"\n", m_owner->GetTreeCtrl()->GetItemText(m_id).c_str());
+	fprintf(f,"\trect = %f %f %f %f\n", m_left, m_top, m_right, m_bottom);
+	fprintf(f,"\tfull = %s\n", m_full ? "true":"false");
+	fprintf(f,"\talpha = %f\n", m_alpha);
+	fprintf(f,"\tcolor = %x\n", m_color & 0xffffff);
+	fprintf(f,"}\n");
+}
+
+void ColorRectItem::Set(const char * prop, const char *value)
+{
+	wxString p = prop;
+	if (p == "full")
+		m_full = value[0] == 't';
+	else if (p == "alpha")
+		sscanf(value,"%f",&m_alpha);
+	else if (p == "color")
+		sscanf(value,"%x",&m_color);
+	else
+		BaseItem::Set(prop, value);
+}
+
 ////////////////////////////////////////////////
 
 StaticItem::StaticItem()
@@ -100,7 +133,7 @@ void StaticItem::Select(HoeEditor::PropertyGrid *prop)
 	prop->AppendString(0, _("Name"), m_owner->GetTreeCtrl()->GetItemText(m_id));
 	prop->AppendRect(4,_("Rect"), wxRect(m_left, m_top, m_right-m_left+1,m_bottom-m_top+1));
 	prop->AppendCategory(_("Picture Settings"));
-	prop->AppendString(2,_("Picture"), "");
+	prop->AppendString(2,_("Picture"), m_strpic);
 	//prop->AppendCategory(_("Color Settings"));
 	//prop->AppendColor(2,_("Color"), m_color);
 	prop->AppendBool(3,_("Alpha"), m_alpha);
@@ -117,7 +150,8 @@ void StaticItem::OnChangeProp(int id, const HoeEditor::PropItem &pi)
 	case 2:
 		{
 		wxString str;
-		str = wxString::Format("picture %s", (const char *)pi.GetString().c_str());
+		m_strpic = pi.GetString();
+		str = wxString::Format("picture %s", (const char *)m_strpic.c_str());
 		m_pic = (IHoePicture*)HoeEditor::EngineView::Get()->GetEngine()->Create(str.c_str());
 		}
 		break;
@@ -137,6 +171,16 @@ void StaticItem::OnChangeProp(int id, const HoeEditor::PropItem &pi)
 	}
 }
 
+void StaticItem::Save(FILE * f)
+{
+	fprintf(f, "static\n{\n");
+	fprintf(f, "\tname = \"%s\"\n", m_owner->GetTreeCtrl()->GetItemText(m_id).c_str());
+	fprintf(f,"\trect = %f %f %f %f\n", m_left, m_top, m_right, m_bottom);
+	fprintf(f,"\talpha = %s\n", m_alpha ? "true":"false");
+	fprintf(f,"\tpicture = \"%s\"\n", (const char*)m_strpic.c_str());
+	fprintf(f,"}\n");
+}
+
 // 	hud = (IHoePicture * )eng->Create("picture hud");
 void StaticItem::_Paint(IHoe2D * h2d)
 {
@@ -149,3 +193,20 @@ void StaticItem::_Paint(IHoe2D * h2d)
 		h2d->PaintRect(m_left,m_right,m_top,m_bottom,0xffffffff,false);
 	//
 }
+
+void StaticItem::Set(const char * prop, const char *value)
+{
+	wxString p = prop;
+	if (p == "picture")
+	{
+		wxString str;
+		m_strpic = value;
+		if (m_strpic == "")
+			return;
+		str = wxString::Format("picture %s", value);
+		m_pic = (IHoePicture*)HoeEditor::EngineView::Get()->GetEngine()->Create(str.c_str());
+	}
+	else
+		BaseItem::Set(prop, value);
+}
+

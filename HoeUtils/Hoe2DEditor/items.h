@@ -10,7 +10,7 @@
 #define _HOE_2D_EDITOR_ITEMS_H_
 
 
-class BaseItem : public wxTreeItemData, public HoeEditor::PropObject
+class BaseItem : public wxTreeItemData, public HoeEditor::PropObject, public HoeGame::BaseGui
 {
 	friend class FigureEdit;
 protected:
@@ -25,18 +25,24 @@ public:
 	virtual void HOEAPI _Paint(IHoe2D * ) = 0;
 	virtual void Select(HoeEditor::PropertyGrid *prop) {}
 	virtual void Resize(const float left, const float top, const float right, const float bottom);
+	virtual void Save(FILE * f) {}
+	virtual void Set(const char * prop, const char *value);
 };
 
 class StaticItem : public BaseItem
 {
 protected:
 	IHoePicture * m_pic;
+	wxString m_strpic;
 	bool m_alpha;
 public:
 	StaticItem();
 	virtual void HOEAPI _Paint(IHoe2D * );
 	virtual void Select(HoeEditor::PropertyGrid *prop);
 	virtual void OnChangeProp(int id, const HoeEditor::PropItem & pi);
+	virtual void Save(FILE * f);
+	virtual void Set(const char * prop, const char *value);
+
 };
 
 class ColorRectItem : public BaseItem
@@ -47,6 +53,21 @@ protected:
 	bool m_full;
 public:
 	ColorRectItem();
+	virtual void HOEAPI _Paint(IHoe2D * );
+	virtual void Select(HoeEditor::PropertyGrid *prop);
+	virtual void OnChangeProp(int id, const HoeEditor::PropItem & pi);
+	virtual void Save(FILE * f);
+	virtual void Set(const char * prop, const char *value);
+};
+
+class FontItem : public BaseItem
+{
+protected:
+	dword m_color;
+	float m_alpha;
+	bool m_full;
+public:
+	FontItem();
 	virtual void HOEAPI _Paint(IHoe2D * );
 	virtual void Select(HoeEditor::PropertyGrid *prop);
 	virtual void OnChangeProp(int id, const HoeEditor::PropItem & pi);
