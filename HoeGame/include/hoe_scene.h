@@ -8,7 +8,7 @@ BEGIN_HOEGAME
 
 class GuiConsole;
 
-class Scene : public Hoe2DFigure
+class Scene
 {
 	GuiConsole * console;
 public:

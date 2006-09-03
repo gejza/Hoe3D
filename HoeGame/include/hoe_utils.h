@@ -84,6 +84,10 @@ public:
 	uint Count() { return m_count; }
 };
 
+template <class C> class PtrList : public PtrSet<C>
+{
+};
+
 END_HOEGAME
 
 #endif // _HOE_GAME_UTILS_H_

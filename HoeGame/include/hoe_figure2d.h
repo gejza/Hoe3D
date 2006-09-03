@@ -12,6 +12,7 @@
 #include <hoe3d.h>
 #include "hoe_game.h"
 #include "hoe_fs.h"
+#include "hoe_utils.h"
 
 BEGIN_HOEGAME
 
@@ -27,20 +28,29 @@ class FigureFile : public TextFile
  * proste takovy 2d engine, s pojmenovanymi oblastmi
  */
 class BaseGui;
+class GuiItem;
 
-class Hoe2DFigure : public XHoe2DCallback
+class Hoe2DFigureBase : public XHoe2DCallback
 {
-protected:
-	// seznam vykresleni
 public:
 	/** Kontruktor */
-	Hoe2DFigure();
+	Hoe2DFigureBase();
 	/** Destruktor */
-	~Hoe2DFigure();
+	~Hoe2DFigureBase();
 
 	virtual void HOEAPI _Paint(IHoe2D *);
 	virtual bool Load(const char * fname);
 	virtual BaseGui * CreateGUI(const char * type) = 0;
+};
+
+class Hoe2DFigure : public Hoe2DFigureBase
+{
+protected:
+	// seznam vykresleni
+	PtrList<GuiItem*> m_list;
+public:
+	virtual BaseGui * CreateGUI(const char * type);
+	void Draw(IHoe2D * hoe2d);
 };
 
 END_HOEGAME

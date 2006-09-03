@@ -20,6 +20,8 @@ enum {
 	ID_TREE = HoeEditor::ID_CUSTOMMENU_FIRST,
 	ID_COLORRECT,
 	ID_STATICITEM,
+	ID_BUTTONITEM,
+	ID_INFOITEM,
 	ID_SHOWRES,
 
 };
@@ -137,9 +139,16 @@ int w = newt.GetWidth(),
 	wxMenu * menuTools = new wxMenu;
 	menuTools->Append(ID_SHOWRES, _("&Resource Manager..."), _("Resource Manager"));
 
+	wxMenu * menuInsert = new wxMenu;
+	menuInsert->Append(ID_STATICITEM, _("Picture Item"),_("New picture item."));
+	menuInsert->Append(ID_COLORRECT, _("Color rect Item"),_("New color rect item."));
+	menuInsert->Append(ID_INFOITEM, _("Info Item"),_("New info item."));
+	menuInsert->Append(ID_BUTTONITEM, _("Button Item"),_("New button item."));
+
     // now append the freshly created menu to the menu bar...
     m_menu = new wxMenuBar(/*wxMB_DOCKABLE*/);
     m_menu->Append(menuFile, _("&File"));
+    m_menu->Append(menuInsert, _("&Insert"));
     m_menu->Append(menuView, _("&View"));
     m_menu->Append(menuTools, _("&Tools"));
 	
@@ -225,45 +234,31 @@ void Hoe2DEdit::CloseFile()
 
 void Hoe2DEdit::OnOpenFile(wxCommandEvent &)
 {
-	m_figure->Load("aa.txt");
-	/*wxFileDialog dlg(this,_("Choose a map file..."),
-		_T(""), _T(""), _("Becher Map(*.bm)|*.bm|All Files(*.*)|*.*"), 
+	wxFileDialog dlg(this,_("Choose a figure file..."),
+		_T(""), _T(""), _("Figure file (*.*)|*.*"), 
 		wxOPEN | wxHIDE_READONLY | wxFILE_MUST_EXIST); 
 	if (dlg.ShowModal() == wxID_OK)
 	{
-		if (m_map == NULL)
-			m_map = new EditorMap();
-		m_map->SetFilePath(dlg.GetPath());
-		if (!m_map->LoadMap(dlg.GetPath()))
-		{
-			wxLogMessage(_("Open map file %s failed."), dlg.GetPath().c_str());
-			CloseMap();
-			MenuUpdate();
-		}
-		else
-		{
-			//m_mapfilepath = dlg.GetPath();
-			SetTitle(m_map->GetTitle());
-			GetEngine()->SetActiveScene(m_map->GetScene());
-			HoeGetRef(GetEngine())->SetBackgroundColor(0xffb060ff);
-			MenuUpdate();
-		}
+		CloseFile();
+		m_figure = new FigureEdit(m_tc);
+		m_figure->Create(m_engview->GetEngine());
+		m_figure->SetFilePath(dlg.GetPath());
+		m_figure->Load(dlg.GetPath().c_str());
+		SetTitle(dlg.GetFilename());
 	}
 	
-	UpdateControls();*/
+	UpdateControls();
 }
 
 void Hoe2DEdit::OnSaveFile(wxCommandEvent &e)
 {
-	//if (!m_map)
-	//	return;
+	if (!m_figure)
+		return;
 
-	m_figure->Save("aa.txt");
-
-	/*if (m_map->GetFilePath().IsEmpty() || e.GetId() == HoeEditor::ID_SAVEAS)
+	if (m_figure->GetFilePath().IsEmpty() || e.GetId() == HoeEditor::ID_SAVEAS)
 	{
-		wxFileDialog dlg( this, _("Save map file..."),
-			_T(""), _T(""), _("Becher Map(*.bm)|*.bm"), wxSAVE | wxHIDE_READONLY);
+		wxFileDialog dlg( this, _("Save figure file..."),
+			_T(""), _T(""), _("Figure file (*.*)|*.*"), wxSAVE | wxHIDE_READONLY);
 nq:
 		if (dlg.ShowModal() == wxID_OK)
 		{
@@ -280,14 +275,14 @@ nq:
 					return;
 			}
 
-			m_map->SetFilePath(dlg.GetPath());
+			m_figure->SetFilePath(dlg.GetPath());
 		}
 		else
 			return;
 	}
 
-	if (m_map->SaveMap())
-		SetTitle(m_map->GetTitle());*/
+	if (m_figure->SaveFile())
+		SetTitle(m_figure->GetFilePath());
 }
 /*
 void BecherEdit::OnHelp(wxCommandEvent &)
@@ -314,6 +309,9 @@ void Hoe2DEdit::OnNewItem(wxCommandEvent &e)
 			break;
 		case ID_COLORRECT:
 			m_figure->AddItem(new ColorRectItem(), "rect");
+			break;
+		case ID_INFOITEM:
+			m_figure->AddItem(new InfoItem(), "info");
 			break;
 		};
 	}

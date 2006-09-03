@@ -43,7 +43,7 @@ void HOEAPI FigureEdit::_Paint(IHoe2D * h2d)
 	h2d->SetRect(800,600);
 
 	for (std::vector<BaseItem*>::iterator i=m_list.begin();i != m_list.end();i++)
-		(*i)->_Paint(h2d);
+		(*i)->Draw(h2d);
 
 }
 
@@ -56,7 +56,7 @@ void FigureEdit::AddItem(BaseItem * item, wxString name)
 	m_tc->SelectItem(item->m_id, true);
 }
 
-bool FigureEdit::Save(const wxString fname)
+bool FigureEdit::OnSave(const wxString fname)
 {
 	FILE * f = fopen(fname.c_str(), "wt");
 	if (!f)
@@ -85,5 +85,5 @@ HoeGame::BaseGui * FigureEdit::CreateGUI(const char * type)
 	if (bi == NULL)
 		return NULL;
 	AddItem(bi, "");
-	return bi;
+	return bi->GetGui();
 }

@@ -29,7 +29,7 @@ text
 
 */
 
-class FigureEdit : public HoeGame::Hoe2DFigure
+class FigureEdit : public HoeGame::Hoe2DFigureBase, public HoeEditor::EditorFileObject
 {
 protected:
 	IHoeScene * m_scene;
@@ -44,7 +44,7 @@ public:
 	inline wxTreeCtrl * GetTreeCtrl() const { return m_tc; }
 	virtual void HOEAPI _Paint(IHoe2D * );
 	void AddItem(BaseItem * item, const wxString name);
-	bool Save(const wxString fname);
+	virtual bool OnSave(const wxString fname);
 	virtual HoeGame::BaseGui * CreateGUI(const char * type);
 };
 

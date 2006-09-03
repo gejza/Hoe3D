@@ -28,7 +28,7 @@ BEGIN_HOEGAME
 class HoeEngine
 {
 protected:
-	IHoe3DEngine * m_engine; /** < Ukazatel na engine */
+	static IHoe3DEngine * m_engine; /** < Ukazatel na engine */
 	HOE_LIBRARY m_lib; /** < Handle library */
 	bool m_loaded;
 public:
@@ -40,7 +40,7 @@ public:
 	/**
 	 * Metoda pro přístup k enginu.
 	 */
-	IHoe3DEngine * GetInstance()
+	static IHoe3DEngine * GetInstance()
 	{
 		assert(m_engine);
 		return m_engine;

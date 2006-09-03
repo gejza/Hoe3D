@@ -63,6 +63,18 @@ public:
 	inline bool IsRightDrag() { return m_rightdragging; }
 };
 
+class EditorFileObject
+{
+	wxString m_filepath;
+public:
+	const wxString & GetFilePath() { return m_filepath; }
+	void SetFilePath(wxString str) { m_filepath = str; }
+	bool SaveFile()
+	{
+		return OnSave(m_filepath);
+	}
+	virtual bool OnSave(const wxString fname) = 0;
+};
 
 }; // namespace HoeEditor
 

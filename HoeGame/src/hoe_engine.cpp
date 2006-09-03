@@ -4,6 +4,8 @@
 
 BEGIN_HOEGAME
 
+IHoe3DEngine * HoeEngine::m_engine = NULL;
+
 HoeEngine::HoeEngine()
 {
 	m_engine = NULL;

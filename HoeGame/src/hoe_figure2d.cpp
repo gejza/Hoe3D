@@ -5,20 +5,20 @@
 
 BEGIN_HOEGAME
 
-Hoe2DFigure::Hoe2DFigure()
+Hoe2DFigureBase::Hoe2DFigureBase()
 {
 }
 
-Hoe2DFigure::~Hoe2DFigure()
+Hoe2DFigureBase::~Hoe2DFigureBase()
 {
 }
 
-void HOEAPI Hoe2DFigure::_Paint(IHoe2D *)
+void HOEAPI Hoe2DFigureBase::_Paint(IHoe2D *)
 {
 }
 
 
-bool Hoe2DFigure::Load(const char * fname)
+bool Hoe2DFigureBase::Load(const char * fname)
 {
 	FigureFile ff;
 	if (!ff.Open(fname))
@@ -80,6 +80,26 @@ bool Hoe2DFigure::Load(const char * fname)
 	}
 	
 	return true;
+}
+
+BaseGui * Hoe2DFigure::CreateGUI(const char *type)
+{
+	GuiItem * g = NULL;
+#define IS(t) (strcmp(type,t)==0)
+	if (IS("static"))
+		g = new StaticPicture;
+	else if (IS("colorrect"))
+		g = new ColorRect;
+
+	m_list.Add(g);
+	return g;
+}
+
+void Hoe2DFigure::Draw(IHoe2D *hoe2d)
+{
+	hoe2d->SetRect(800,600);
+	for (uint i=0;i<m_list.Count();i++)
+		m_list.Get(i)->Draw(hoe2d);
 }
 
 END_HOEGAME
