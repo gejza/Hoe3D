@@ -15,9 +15,11 @@ public:
 class GuiItem : public BaseGui
 {
 protected:
+	bool m_visible;
 	THoeRect m_rect;
 public:
 	GuiItem();
+	virtual void Set(const char * prop, const char * value);
 	virtual void Draw(IHoe2D * h2d) = 0;
 	void SetRect(const THoeRect * rect);
 	void SetRect(const char * value);
@@ -41,7 +43,7 @@ class StaticPicture : public GuiItem
 protected:
 	IHoePicture * m_pic;
 public:
-	StaticPicture() { m_pic = NULL; }
+	StaticPicture();
 	virtual void Set(const char * prop, const char *value);
 	virtual void Draw(IHoe2D * h2d);
 	void SetPicture(IHoePicture * pic) { m_pic = pic; }
@@ -89,8 +91,22 @@ public:
 	void Add(int id);
 	void Add(const char *);
 	void Addf(const char *, ...);
+};
 
-	LUA_FUNCTION(l_info);
+class Button : public StaticPicture
+{
+public:
+	virtual void OnClick() {};
+};
+
+class DigiCounter : public StaticPicture
+{
+protected:
+	int m_value;
+public:
+	virtual void Draw(IHoe2D * hoe2d);
+	//virtual void Set(const char * prop, const char *value);
+	void SetValue(int value) { m_value = value; }
 };
 
 END_HOEGAME

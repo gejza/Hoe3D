@@ -22,6 +22,7 @@ enum {
 	ID_STATICITEM,
 	ID_BUTTONITEM,
 	ID_INFOITEM,
+	ID_DIGICOUNTERITEM,
 	ID_SHOWRES,
 
 };
@@ -35,6 +36,8 @@ BEGIN_EVENT_TABLE(Hoe2DEdit, HoeEditor::BaseEditor)
 	//EVT_TREE_BEGIN_DRAG(ID_TREE, Hoe2DEdit::OnTreeDrag)
 	EVT_MENU(ID_COLORRECT, Hoe2DEdit::OnNewItem)
 	EVT_MENU(ID_STATICITEM, Hoe2DEdit::OnNewItem)
+	EVT_MENU(ID_BUTTONITEM, Hoe2DEdit::OnNewItem)
+	EVT_MENU(ID_DIGICOUNTERITEM, Hoe2DEdit::OnNewItem)
 
 	//EVT_MENU_RANGE(ID_OBJECT, ID_OBJECT + EBO_Max, BecherEdit::OnNewObject)
 
@@ -144,6 +147,7 @@ int w = newt.GetWidth(),
 	menuInsert->Append(ID_COLORRECT, _("Color rect Item"),_("New color rect item."));
 	menuInsert->Append(ID_INFOITEM, _("Info Item"),_("New info item."));
 	menuInsert->Append(ID_BUTTONITEM, _("Button Item"),_("New button item."));
+	menuInsert->Append(ID_DIGICOUNTERITEM, _("Digi counter Item"),_("New digi counter item."));
 
     // now append the freshly created menu to the menu bar...
     m_menu = new wxMenuBar(/*wxMB_DOCKABLE*/);
@@ -312,6 +316,12 @@ void Hoe2DEdit::OnNewItem(wxCommandEvent &e)
 			break;
 		case ID_INFOITEM:
 			m_figure->AddItem(new InfoItem(), "info");
+			break;
+		case ID_BUTTONITEM:
+			m_figure->AddItem(new ButtonItem(), "button");
+			break;
+		case ID_DIGICOUNTERITEM:
+			m_figure->AddItem(new DigiCounterItem(), "counter");
 			break;
 		};
 	}

@@ -9,6 +9,7 @@
 #include "StdAfx.h"
 #include "figure.h"
 #include "items.h"
+#include <locale.h>
 
 FigureEdit::FigureEdit(wxTreeCtrl * tc)
 {
@@ -58,6 +59,8 @@ void FigureEdit::AddItem(BaseItem * item, wxString name)
 
 bool FigureEdit::OnSave(const wxString fname)
 {
+	setlocale(LC_NUMERIC, "C");
+
 	FILE * f = fopen(fname.c_str(), "wt");
 	if (!f)
 		return false;
@@ -82,8 +85,15 @@ HoeGame::BaseGui * FigureEdit::CreateGUI(const char * type)
 		bi = new StaticItem;
 	else if (t == "colorrect")
 		bi = new ColorRectItem;
+	else if (t == "button")
+		bi = new ButtonItem;
+	else if (t == "infopanel")
+		bi = new InfoItem;
+	else if (t == "digicounter")
+		bi = new DigiCounterItem;
+
 	if (bi == NULL)
 		return NULL;
 	AddItem(bi, "");
-	return bi->GetGui();
+	return bi;
 }

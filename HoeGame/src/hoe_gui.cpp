@@ -7,13 +7,19 @@
 
 BEGIN_HOEGAME
 
-/*GuiItem::GuiItem()
+GuiItem::GuiItem()
 {
 	m_rect.left = 200.f;
 	m_rect.top = 100.f;
 	m_rect.right = 600.f;
 	m_rect.bottom = 500.f;
-}*/
+}
+
+void GuiItem::Set(const char * prop, const char * value)
+{
+	if (strcmp(prop,"rect")==0)
+		SetRect(value);
+}
 
 void GuiItem::SetRect(const THoeRect * rect)
 {
@@ -73,6 +79,11 @@ void TextDevice::_KeyUp(int k)
 	}
 }
 
+StaticPicture::StaticPicture()
+{
+  m_pic = NULL;
+}
+
 void StaticPicture::Set(const char * prop, const char *value)
 {
 	if (strcmp(prop,"picture") == 0)
@@ -82,10 +93,8 @@ void StaticPicture::Set(const char * prop, const char *value)
 		sprintf(buff,"picture %s", value);
 		m_pic = (IHoePicture*)HoeEngine::GetInstance()->Create(buff);
 	}
-	else if (strcmp(prop,"rect") == 0)
-	{
-		sscanf(value, "%f %f %f %f", &m_rect.left, &m_rect.top, &m_rect.right, &m_rect.bottom);
-	}
+	else 
+		GuiItem::Set(prop, value);
 }
 
 void StaticPicture::Draw(IHoe2D * h2d)
@@ -262,22 +271,55 @@ void InfoPanel::Set(const char *prop, const char *value)
 /*void InfoPanel::Add(int id)
 {
 	Add(GetLang()->GetString(id));
-}
-
-int InfoPanel::l_info(lua_State * L)
-{
-	LuaParam lp(L);
-	if (lp.GetNumParam() != 1)
-		return 0;
-
-	//if (lp.IsNum(-1))
-	//	GetBecher()->GetInfoPanel()->Add(GetLang()->GetString(lp.GetNum(-1)));
-	//if (lp.IsString(-1))
-	//	GetBecher()->GetInfoPanel()->Add(lp.GetString(-1));
-	return 0;
 }*/
 
+////////////////////////////////////////////////
+void DigiCounter::Draw(IHoe2D * d2)
+{
+		// draw digit
+	IHoePicture * p = m_pic;//GetResMgr()->Get<IHoePicture>(ID_DIGITFONT);
+	if (!p)
+		return;
+	const int np = 7;
+	const int rl = m_rect.right;
+	const int ll = m_rect.left;
 
+	int i = m_value;
+	bool sign = false;
+	if (i < 0)
+	{
+		sign = true;
+		i = -i;
+	}
+
+	const float pp = ((float)(rl-ll)) / np;
+	float up = rl;
+	if (i == 0)
+	{
+		THoeRect r = {up-pp, m_rect.top, up, m_rect.bottom};
+		THoeRect r2={ 0, 0, 1*(60.0/64.0/4), 1*(60.0/64.0/3)};
+		d2->Blt(&r, p, &r2);
+		i = i / 10;
+		up -= pp;
+	}
+	while (i != 0)
+	{
+		THoeRect r = {up-pp, m_rect.top, up, m_rect.bottom};
+		int t=i%10;
+		THoeRect r2={ (t%4)*(60.0f/64.0f/4), (t/4)*(60.0f/64.0f/3), (t%4+1)*(60.0f/64.0f/4), (t/4+1)*(60.0f/64.0f/3)};
+		d2->Blt(&r, p, &r2);
+		i = i / 10;
+		up -= pp;
+	}
+	if (sign)
+	{
+		THoeRect r = {up-pp, m_rect.top, up, m_rect.bottom};
+		THoeRect r2={ 2*(60.0/64.0/4), 2*(60.0/64.0/3), 3*(60.0/64.0/4), 3*(60.0/64.0/3)};
+		d2->Blt(&r, p, &r2);
+		i = i / 10;
+		up -= pp;
+	}
+}
 
 END_HOEGAME
 

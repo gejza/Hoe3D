@@ -10,7 +10,7 @@
 #define _HOE_2D_EDITOR_ITEMS_H_
 
 
-class BaseItem : public wxTreeItemData, public HoeEditor::PropObject
+class BaseItem : public wxTreeItemData, public HoeEditor::PropObject, public HoeGame::BaseGui
 {
 	friend class FigureEdit;
 protected:
@@ -83,8 +83,7 @@ class ButtonItem : public BaseItem
 {
 protected:
 	wxString m_strpic;
-	bool m_alpha;
-	HoeGame::StaticPicture m_base;
+	HoeGame::Button m_base;
 public:
 	ButtonItem();
 	virtual void Select(HoeEditor::PropertyGrid *prop);
@@ -95,7 +94,7 @@ public:
 	BASE_CONNECT_DEFINE
 };
 
-class InfoItem : public BaseItem, public HoeGame::InfoPanel
+class InfoItem : public BaseItem
 {
 protected:
 	HoeGame::InfoPanel m_base;
@@ -109,18 +108,21 @@ public:
 	BASE_CONNECT_DEFINE
 };
 
-// dialog item
-// muze mit dalsi poditemy
-// pozadi
+class DigiCounterItem : public BaseItem
+{
+protected:
+	wxString m_strpic;
+	HoeGame::DigiCounter m_base;
+public:
+	DigiCounterItem();
+	virtual void Select(HoeEditor::PropertyGrid *prop);
+	virtual void OnChangeProp(int id, const HoeEditor::PropItem & pi);
+	virtual void Save(FILE * f);
+	virtual void Set(const char * prop, const char *value);
 
-// picture item
-// jen picture
+	BASE_CONNECT_DEFINE
+};
 
-// check item
-
-// button
-
-// rect
 
 #endif // _HOE_2D_EDITOR_ITEMS_H_
 

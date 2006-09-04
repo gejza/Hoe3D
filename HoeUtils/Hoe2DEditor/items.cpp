@@ -36,8 +36,8 @@ void BaseItem::Set(const char * prop, const char *value)
 	wxString p = prop;
 	if (p == "name")
 		m_owner->GetTreeCtrl()->SetItemText(m_id, value);
-	else if (p == "rect")
-		GetGui()->SetRect(value);
+	else 
+		GetGui()->Set(prop, value);
 }
 
 void BaseItem::OnChangeProp(int id, const HoeEditor::PropItem &pi)
@@ -203,6 +203,69 @@ void StaticItem::Set(const char * prop, const char *value)
 
 ////////////////////////////////////////////////
 
+ButtonItem::ButtonItem()
+{
+}
+
+void ButtonItem::Select(HoeEditor::PropertyGrid *prop)
+{
+	prop->Begin(this);
+	prop->AppendCategory(_("Globals Settings"));
+	prop->AppendString(0, _("Name"), m_owner->GetTreeCtrl()->GetItemText(m_id));
+	prop->AppendRect(4,_("Rect"), GetwxRect());
+	prop->AppendCategory(_("Picture Settings"));
+	prop->AppendString(2,_("Picture"), m_strpic);
+	//prop->AppendCategory(_("Color Settings"));
+	//prop->AppendColor(2,_("Color"), m_color);
+	//prop->AppendBool(3,_("Alpha"), m_alpha);
+	prop->End();
+}
+
+void ButtonItem::OnChangeProp(int id, const HoeEditor::PropItem &pi)
+{
+	switch (id)
+	{
+	case 2:
+		{
+		wxString str;
+		m_strpic = pi.GetString();
+		str = wxString::Format("picture %s", (const char *)m_strpic.c_str());
+		m_base.SetPicture((IHoePicture*)HoeEditor::EngineView::Get()->GetEngine()->Create(str.c_str()));
+		}
+		break;
+	default:
+		BaseItem::OnChangeProp(id,pi);
+	};
+}
+
+void ButtonItem::Save(FILE * f)
+{
+	fprintf(f, "button\n{\n");
+	fprintf(f, "\tname = \"%s\"\n", m_owner->GetTreeCtrl()->GetItemText(m_id).c_str());
+	fprintf(f,"\trect = %f %f %f %f\n", m_base.GetRect().left, m_base.GetRect().top, m_base.GetRect().right, m_base.GetRect().bottom);
+	//fprintf(f,"\talpha = %s\n", m_alpha ? "true":"false");
+	fprintf(f,"\tpicture = \"%s\"\n", (const char*)m_strpic.c_str());
+	fprintf(f,"}\n");
+}
+
+void ButtonItem::Set(const char * prop, const char *value)
+{
+	wxString p = prop;
+	if (p == "picture")
+	{
+		wxString str;
+		m_strpic = value;
+		if (m_strpic == "")
+			return;
+		str = wxString::Format("picture %s", value);
+		m_base.SetPicture((IHoePicture*)HoeEditor::EngineView::Get()->GetEngine()->Create(str.c_str()));
+	}
+	else
+		BaseItem::Set(prop, value);
+}
+
+////////////////////////////////////////////////
+
 InfoItem::InfoItem()
 {
 }
@@ -278,3 +341,69 @@ void InfoItem::Set(const char * prop, const char *value)
 		BaseItem::Set(prop, value);*/
 }
 
+////////////////////////////////////////////////
+
+DigiCounterItem::DigiCounterItem()
+{
+}
+
+void DigiCounterItem::Select(HoeEditor::PropertyGrid *prop)
+{
+	prop->Begin(this);
+	prop->AppendCategory(_("Globals Settings"));
+	prop->AppendString(0, _("Name"), m_owner->GetTreeCtrl()->GetItemText(m_id));
+	prop->AppendRect(4,_("Rect"), GetwxRect());
+	prop->AppendCategory(_("Picture Settings"));
+	prop->AppendString(2,_("Picture"), m_strpic);
+	prop->AppendLong(5,_("Value"),0);
+	//prop->AppendCategory(_("Color Settings"));
+	//prop->AppendColor(2,_("Color"), m_color);
+	//prop->AppendBool(3,_("Alpha"), m_alpha);
+	prop->End();
+}
+
+void DigiCounterItem::OnChangeProp(int id, const HoeEditor::PropItem &pi)
+{
+	switch (id)
+	{
+	case 2:
+		{
+		wxString str;
+		m_strpic = pi.GetString();
+		str = wxString::Format("picture %s", (const char *)m_strpic.c_str());
+		m_base.SetPicture((IHoePicture*)HoeEditor::EngineView::Get()->GetEngine()->Create(str.c_str()));
+		}
+		break;
+	case 5:
+		m_base.SetValue(pi.GetLong());
+		break;
+	default:
+		BaseItem::OnChangeProp(id,pi);
+	};
+}
+
+void DigiCounterItem::Save(FILE * f)
+{
+	fprintf(f, "digicounter\n{\n");
+	fprintf(f, "\tname = \"%s\"\n", m_owner->GetTreeCtrl()->GetItemText(m_id).c_str());
+	fprintf(f,"\trect = %f %f %f %f\n", m_base.GetRect().left, m_base.GetRect().top, m_base.GetRect().right, m_base.GetRect().bottom);
+	//fprintf(f,"\talpha = %s\n", m_alpha ? "true":"false");
+	fprintf(f,"\tpicture = \"%s\"\n", (const char*)m_strpic.c_str());
+	fprintf(f,"}\n");
+}
+
+void DigiCounterItem::Set(const char * prop, const char *value)
+{
+	wxString p = prop;
+	if (p == "picture")
+	{
+		wxString str;
+		m_strpic = value;
+		if (m_strpic == "")
+			return;
+		str = wxString::Format("picture %s", value);
+		m_base.SetPicture((IHoePicture*)HoeEditor::EngineView::Get()->GetEngine()->Create(str.c_str()));
+	}
+	else
+		BaseItem::Set(prop, value);
+}

@@ -2,6 +2,8 @@
 #include "StdAfx.h"
 #include "../include/hoe_figure2d.h"
 #include "../include/hoe_gui.h"
+#include <locale.h>
+
 
 BEGIN_HOEGAME
 
@@ -20,6 +22,8 @@ void HOEAPI Hoe2DFigureBase::_Paint(IHoe2D *)
 
 bool Hoe2DFigureBase::Load(const char * fname)
 {
+	setlocale(LC_NUMERIC, "C");
+
 	FigureFile ff;
 	if (!ff.Open(fname))
 		return false;
@@ -90,6 +94,10 @@ BaseGui * Hoe2DFigure::CreateGUI(const char *type)
 		g = new StaticPicture;
 	else if (IS("colorrect"))
 		g = new ColorRect;
+	else if (IS("button"))
+		g = new Button;
+	else if (IS("digicounter"))
+		g = new DigiCounter;
 
 	m_list.Add(g);
 	return g;
