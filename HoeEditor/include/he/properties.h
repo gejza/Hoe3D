@@ -2,30 +2,6 @@
 #ifndef _HOE_EDITOR_PROPERTIES_H_
 #define _HOE_EDITOR_PROPERTIES_H_
 
-// #include <wx/propgrid/propgrid.h>
-
-/*
-struct PropertyData
-{
-	HoePlugin::PluginObject * plugin;
-	int id;
-	void * data;
-};
-
-class PropertyCtrl : public HoeExtern::IProperty
-{
-public:
-	void SetData(wxPGId id, int i, void * data);
-	PropertyCtrl();
-	~PropertyCtrl();
-	void Create(wxWindow * parent);
-	myPropertyGrid * GetPropertyGrid() const { return m_property; }
-	virtual void Clear();
-
-	friend class LeftPanel;
-
-};*/
-
 namespace HoeEditor {
 
 enum 
@@ -90,6 +66,7 @@ public:
 	void AppendList(int id, const char * label, const char *list[], long values[] = NULL, long value = 0, unsigned long flags = 0, const char * help = NULL, void * data = NULL); 
 	void AppendAngle(int id, const char * label, float def, unsigned long flags = 0, const char * help = NULL, void * data = NULL);
 	void AppendImageFile(int id, const char * label, const char * str, unsigned long flags = 0, const char * help = NULL, void * data = NULL);
+	void AppendFont(int id, const char * label, const wxFont & font, unsigned long flags = 0, const char * help = NULL, void * data = NULL);
 
 	DECLARE_EVENT_TABLE()
 };

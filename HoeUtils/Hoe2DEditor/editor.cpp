@@ -18,11 +18,14 @@ const char * EditorName = "Hoe2DEditor";
 
 enum {
 	ID_TREE = HoeEditor::ID_CUSTOMMENU_FIRST,
+	ID_FIRSTITEM,
 	ID_COLORRECT,
 	ID_STATICITEM,
 	ID_BUTTONITEM,
 	ID_INFOITEM,
 	ID_DIGICOUNTERITEM,
+	ID_FONTITEM,
+	ID_LASTITEM,
 	ID_SHOWRES,
 
 };
@@ -34,12 +37,8 @@ BEGIN_EVENT_TABLE(Hoe2DEdit, HoeEditor::BaseEditor)
 	EVT_MENU(ID_SHOWRES, Hoe2DEdit::OnResMgr)
 	EVT_TREE_SEL_CHANGED(ID_TREE, Hoe2DEdit::OnTreeSelect)
 	//EVT_TREE_BEGIN_DRAG(ID_TREE, Hoe2DEdit::OnTreeDrag)
-	EVT_MENU(ID_COLORRECT, Hoe2DEdit::OnNewItem)
-	EVT_MENU(ID_STATICITEM, Hoe2DEdit::OnNewItem)
-	EVT_MENU(ID_BUTTONITEM, Hoe2DEdit::OnNewItem)
-	EVT_MENU(ID_DIGICOUNTERITEM, Hoe2DEdit::OnNewItem)
 
-	//EVT_MENU_RANGE(ID_OBJECT, ID_OBJECT + EBO_Max, BecherEdit::OnNewObject)
+	EVT_MENU_RANGE(ID_FIRSTITEM, ID_LASTITEM, Hoe2DEdit::OnNewItem)
 
 END_EVENT_TABLE()
 
@@ -148,6 +147,7 @@ int w = newt.GetWidth(),
 	menuInsert->Append(ID_INFOITEM, _("Info Item"),_("New info item."));
 	menuInsert->Append(ID_BUTTONITEM, _("Button Item"),_("New button item."));
 	menuInsert->Append(ID_DIGICOUNTERITEM, _("Digi counter Item"),_("New digi counter item."));
+	menuInsert->Append(ID_FONTITEM, _("Font Item"),_("New font item."));
 
     // now append the freshly created menu to the menu bar...
     m_menu = new wxMenuBar(/*wxMB_DOCKABLE*/);
@@ -322,6 +322,9 @@ void Hoe2DEdit::OnNewItem(wxCommandEvent &e)
 			break;
 		case ID_DIGICOUNTERITEM:
 			m_figure->AddItem(new DigiCounterItem(), "counter");
+			break;
+		case ID_FONTITEM:
+			m_figure->AddItem(new FontItem(), "font");
 			break;
 		};
 	}

@@ -13,12 +13,16 @@ GuiItem::GuiItem()
 	m_rect.top = 100.f;
 	m_rect.right = 600.f;
 	m_rect.bottom = 500.f;
+	m_name = NULL;
 }
 
 void GuiItem::Set(const char * prop, const char * value)
 {
 	if (strcmp(prop,"rect")==0)
 		SetRect(value);
+	else if (strcmp(prop,"name")==0)
+		m_name = strdup(value);
+
 }
 
 void GuiItem::SetRect(const THoeRect * rect)
@@ -138,7 +142,7 @@ int InfoPanel::Info::comp(const void * v1,const void *v2)
 
 InfoPanel::InfoPanel()
 {
-	font = NULL;
+	m_font = NULL;
 	memset(m_infos,0,sizeof(m_infos));
 }
 
@@ -162,19 +166,8 @@ void InfoPanel::Draw(IHoe2D * hoe2d)
 	hoe2d->SetRect(800,600);
 	float t = HoeEngine::GetInstance()->SysFloatTime();
 
-	// vypsat info o objektu
-	/*BecherObject * o = GetBecher()->GetLevel()->GetSelectedObject();
-	if (o)
-	{
-		char buff[200];
-		float top = 600.f-(o->GetNumInfos()+1)*20;
-		for (int i=0; i < o->GetNumInfos();i++)
-		{
-			o->GetInfo(i, buff, sizeof(buff));
-			font->DrawText(30, top, 0xff00cc00, buff);
-			top += 20;
-		}
-	}*/
+	stepsize = m_font->GetTextHeight();
+	startheight = m_rect.bottom - stepsize;
 
 	// predelat cas by se mel odecitat 
 
@@ -192,7 +185,7 @@ void InfoPanel::Draw(IHoe2D * hoe2d)
 			alpha = (unsigned long)(tt * float(0x80));
 			if (alpha > 0xff) alpha = 0xff;
 
-			font->DrawText(5,m_infos[i].y,((alpha & 0xff) << 24) | 0x00ffffff,m_infos[i].info);
+			m_font->DrawText(m_rect.left,m_infos[i].y,((alpha & 0xff) << 24) | 0x00ffffff,m_infos[i].info);
 		}
 	}
 	
@@ -208,8 +201,8 @@ void InfoPanel::Add(const char * str)
 		if (m_infos[i].visible)
 		{
 			// move up
-			m_infos[i].y -= stepsize;
-			if (m_infos[i].y < minheight)
+			m_infos[i].y -= stepsize * 1.3f;
+			if (m_infos[i].y < m_rect.top)
 			{
 				m_infos[i].visible = false;
 			}
@@ -266,12 +259,13 @@ void InfoPanel::Addf(const char * format, ...)
 
 void InfoPanel::Set(const char *prop, const char *value)
 {
+	if (strcmp(prop,"font")==0)
+	{
+		m_font = (IHoeFont*)HoeEngine::GetInstance()->Create(value);
+	}
+	else
+		GuiItem::Set(prop,value);
 }
-
-/*void InfoPanel::Add(int id)
-{
-	Add(GetLang()->GetString(id));
-}*/
 
 ////////////////////////////////////////////////
 void DigiCounter::Draw(IHoe2D * d2)
@@ -284,7 +278,7 @@ void DigiCounter::Draw(IHoe2D * d2)
 	const int rl = m_rect.right;
 	const int ll = m_rect.left;
 
-	int i = m_value;
+	int i = m_value ? *m_value:0;
 	bool sign = false;
 	if (i < 0)
 	{
@@ -319,6 +313,23 @@ void DigiCounter::Draw(IHoe2D * d2)
 		i = i / 10;
 		up -= pp;
 	}
+}
+
+//////////////////////////////////////////////////////
+void Font::Draw(IHoe2D *hoe2d)
+{
+	if (m_font && m_ptr)
+		m_font->DrawText(m_rect.left, m_rect.top, 0xffffffff, m_ptr);
+}
+
+void Font::Set(const char *prop, const char *value)
+{
+	if (strcmp(prop,"font")==0)
+	{
+		m_font = (IHoeFont*)HoeEngine::GetInstance()->Create(value);
+	}
+	else
+		GuiItem::Set(prop,value);
 }
 
 END_HOEGAME

@@ -67,14 +67,15 @@ public:
 class FontItem : public BaseItem
 {
 protected:
-	dword m_color;
-	float m_alpha;
-	bool m_full;
-	HoeGame::StaticPicture m_base;
+	HoeGame::Font m_base;
+	wxString m_font;
+	wxString m_string;
 public:
 	FontItem();
 	virtual void Select(HoeEditor::PropertyGrid *prop);
 	virtual void OnChangeProp(int id, const HoeEditor::PropItem & pi);
+	virtual void Save(FILE * f);
+	virtual void Set(const char * prop, const char *value);
 
 	BASE_CONNECT_DEFINE
 };
@@ -113,6 +114,7 @@ class DigiCounterItem : public BaseItem
 protected:
 	wxString m_strpic;
 	HoeGame::DigiCounter m_base;
+	int m_value;
 public:
 	DigiCounterItem();
 	virtual void Select(HoeEditor::PropertyGrid *prop);

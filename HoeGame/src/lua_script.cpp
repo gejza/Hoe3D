@@ -591,6 +591,7 @@ int LuaScript::error(lua_State * L)
 		strcat(buff,mbuff);
 	}
 	GetInstance()->con->Con_Print(buff);
+	MessageBox(NULL, buff, "Script error", 0);
 	return 0;
 }
 

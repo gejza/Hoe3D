@@ -4,6 +4,7 @@
 
 #define _CRT_SECURE_NO_DEPRECATE
 #ifdef _WIN32
+#pragma warning (disable: 4996 4267)
 #define _WIN32_WINNT 0x0500
 #include <windows.h>
 #endif

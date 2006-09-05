@@ -529,6 +529,12 @@ void HoeEditor::PropertyGrid::AppendImageFile(int id, const char * label, const 
 	SetProp( pgid, id, flags, help);
 }
 
+void HoeEditor::PropertyGrid::AppendFont(int id, const char * label, const wxFont & font, unsigned long flags, const char * help, void * data)
+{
+	wxPGId pgid = Append(wxFontProperty(label, label, font));
+	SetProp( pgid, id, flags, help);
+}
+
 ///////////////////////////////
 /*
 PropertyCtrl::PropertyCtrl()

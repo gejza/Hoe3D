@@ -39,7 +39,7 @@ public:
 	~Hoe2DFigureBase();
 
 	virtual void HOEAPI _Paint(IHoe2D *);
-	virtual bool Load(const char * fname);
+	bool Load(const char * fname);
 	virtual BaseGui * CreateGUI(const char * type) = 0;
 };
 
@@ -50,7 +50,9 @@ protected:
 	PtrList<GuiItem*> m_list;
 public:
 	virtual BaseGui * CreateGUI(const char * type);
-	void Draw(IHoe2D * hoe2d);
+	virtual void Draw(IHoe2D * hoe2d);
+	GuiItem * GetItem(const char * name);
+	GuiItem * ReqItem(const char * name);
 };
 
 END_HOEGAME

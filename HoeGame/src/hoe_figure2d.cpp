@@ -98,6 +98,10 @@ BaseGui * Hoe2DFigure::CreateGUI(const char *type)
 		g = new Button;
 	else if (IS("digicounter"))
 		g = new DigiCounter;
+	else if (IS("infopanel"))
+		g = new InfoPanel;
+	else if (IS("font"))
+		g = new Font;
 
 	m_list.Add(g);
 	return g;
@@ -108,6 +112,28 @@ void Hoe2DFigure::Draw(IHoe2D *hoe2d)
 	hoe2d->SetRect(800,600);
 	for (uint i=0;i<m_list.Count();i++)
 		m_list.Get(i)->Draw(hoe2d);
+}
+
+GuiItem * Hoe2DFigure::GetItem(const char * name)
+{
+	for (uint i=0;i<m_list.Count();i++)
+	{
+		const char * n = m_list.Get(i)->GetName();
+		if (n && strcmp(n,name)==0)
+			return m_list.Get(i);
+	}
+	return NULL;
+}
+
+GuiItem * Hoe2DFigure::ReqItem(const char * name)
+{
+	GuiItem * i = GetItem(name);
+	assert(i != NULL);
+	if (!i)
+	{
+		
+	}
+	return i;
 }
 
 END_HOEGAME

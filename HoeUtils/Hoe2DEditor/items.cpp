@@ -345,6 +345,8 @@ void InfoItem::Set(const char * prop, const char *value)
 
 DigiCounterItem::DigiCounterItem()
 {
+	m_value = 0;
+	m_base.Set(&m_value);
 }
 
 void DigiCounterItem::Select(HoeEditor::PropertyGrid *prop)
@@ -355,7 +357,7 @@ void DigiCounterItem::Select(HoeEditor::PropertyGrid *prop)
 	prop->AppendRect(4,_("Rect"), GetwxRect());
 	prop->AppendCategory(_("Picture Settings"));
 	prop->AppendString(2,_("Picture"), m_strpic);
-	prop->AppendLong(5,_("Value"),0);
+	prop->AppendLong(5,_("Value"),m_value);
 	//prop->AppendCategory(_("Color Settings"));
 	//prop->AppendColor(2,_("Color"), m_color);
 	//prop->AppendBool(3,_("Alpha"), m_alpha);
@@ -375,7 +377,7 @@ void DigiCounterItem::OnChangeProp(int id, const HoeEditor::PropItem &pi)
 		}
 		break;
 	case 5:
-		m_base.SetValue(pi.GetLong());
+		m_value = pi.GetLong();
 		break;
 	default:
 		BaseItem::OnChangeProp(id,pi);
@@ -407,3 +409,64 @@ void DigiCounterItem::Set(const char * prop, const char *value)
 	else
 		BaseItem::Set(prop, value);
 }
+
+////////////////////////////////////////////////
+
+FontItem::FontItem()
+{
+}
+
+void FontItem::Select(HoeEditor::PropertyGrid *prop)
+{
+	prop->Begin(this);
+	prop->AppendCategory(_("Globals Settings"));
+	prop->AppendString(0, _("Name"), m_owner->GetTreeCtrl()->GetItemText(m_id));
+	prop->AppendRect(4,_("Rect"), GetwxRect());
+	prop->AppendCategory(_("Font Settings"));
+	prop->AppendString(5,_("Font"),m_font);
+	prop->AppendString(6,_("Text"),m_string);
+	prop->End();
+}
+
+void FontItem::OnChangeProp(int id, const HoeEditor::PropItem &pi)
+{
+	switch (id)
+	{
+	case 5:
+		Set("font", pi.GetString().c_str());
+		break;
+	case 6:
+		Set("text", pi.GetString().c_str());
+		break;
+	default:
+		BaseItem::OnChangeProp(id,pi);
+	}
+}
+
+void FontItem::Save(FILE * f)
+{
+	fprintf(f,"font\n{\n");
+	fprintf(f,"\tname = \"%s\"\n", m_owner->GetTreeCtrl()->GetItemText(m_id).c_str());
+	fprintf(f,"\trect = %f %f %f %f\n", m_base.GetRect().left, m_base.GetRect().top, m_base.GetRect().right, m_base.GetRect().bottom);
+	fprintf(f,"\tfont = \"%s\"\n", m_font.c_str());
+	fprintf(f,"\ttext = \"%s\"\n", m_string.c_str());
+	fprintf(f,"}\n");
+}
+
+void FontItem::Set(const char * prop, const char *value)
+{
+	wxString p = prop;
+	if (p == "font")
+	{
+		m_font = value;
+		m_base.SetFont((IHoeFont*)HoeEditor::EngineView::Get()->GetEngine()->Create(m_font.c_str()));
+	}
+	else if (p == "text")
+	{
+		this->m_string = value;
+		m_base.SetPtr(m_string.c_str());
+	}
+	else
+		BaseItem::Set(prop, value);
+}
+

@@ -190,20 +190,20 @@ void HoeFont::Delete()
 
 struct FONT_VERTEX
 {
-	float x, y, z, rhw; 
+	float x, y, z; 
 	dword color;
 	float       tu, tv;   // The texture coordinates
 };
 
-#define FONT_VERTEX_FVF (D3DFVF_XYZRHW|D3DFVF_DIFFUSE|D3DFVF_TEX1)
+#define FONT_VERTEX_FVF (D3DFVF_XYZ|D3DFVF_DIFFUSE|D3DFVF_TEX1)
 
 struct FONTBACK_VERTEX
 {
-	float x, y, z, rhw; 
+	float x, y, z; 
 	dword color;
 };
 
-#define FONTBACK_VERTEX_FVF (D3DFVF_XYZRHW|D3DFVF_DIFFUSE)
+#define FONTBACK_VERTEX_FVF (D3DFVF_XYZ|D3DFVF_DIFFUSE)
 
 #endif
 
@@ -233,10 +233,10 @@ bool HoeFont::DrawText( float sx, float sy, dword dwColor,
 #ifdef _HOE_D3D_
 		FONTBACK_VERTEX pvb[] = 
 		{
-			{ sx-0.5f,sy-0.5f , 0.5f, 1.0f, 0xff000000 }, 
-			{ tx+0.5f,sy-0.5f , 0.5f, 1.0f, 0xff000000 }, 
-			{ tx+0.5f,ty+0.5f , 0.5f, 1.0f, 0xff000000 },
-			{ sx-0.5f,ty+0.5f , 0.5f, 1.0f, 0xff000000 }
+			{ sx-0.5f,sy-0.5f , 0.f, 0xff000000 }, 
+			{ tx+0.5f,sy-0.5f , 0.f, 0xff000000 }, 
+			{ tx+0.5f,ty+0.5f , 0.f, 0xff000000 },
+			{ sx-0.5f,ty+0.5f , 0.f, 0xff000000 }
 		};
 		D3DDevice()->SetFVF(FONTBACK_VERTEX_FVF);
 		D3DDevice()->DrawPrimitiveUP(D3DPT_TRIANGLEFAN,2,pvb,sizeof(FONTBACK_VERTEX));
@@ -283,10 +283,10 @@ bool HoeFont::DrawText( float sx, float sy, dword dwColor,
 #ifdef _HOE_D3D_
 		FONT_VERTEX pv[] = 
 		{
-			{ sx+0-0.5f,sy+0-0.5f-top , 0.5f, 1.0f, dwColor, tx1 , ty1}, 
-			{ sx+w-0.5f,sy+0-0.5f-top , 0.5f, 1.0f, dwColor, tx2, ty1}, 
-			{ sx+w-0.5f,sy+h-0.5f-top , 0.5f, 1.0f, dwColor, tx2 , ty2},
-			{ sx+0-0.5f,sy+h-0.5f-top , 0.5f, 1.0f, dwColor, tx1, ty2}
+			{ sx+0-0.5f,sy+0-0.5f-top , 0.f, dwColor, tx1 , ty1}, 
+			{ sx+w-0.5f,sy+0-0.5f-top , 0.f, dwColor, tx2, ty1}, 
+			{ sx+w-0.5f,sy+h-0.5f-top , 0.f, dwColor, tx2 , ty2},
+			{ sx+0-0.5f,sy+h-0.5f-top , 0.f, dwColor, tx1, ty2}
 		};
 		D3DDevice()->SetFVF(FONT_VERTEX_FVF);
 		D3DDevice()->DrawPrimitiveUP(D3DPT_TRIANGLEFAN,2,pv,sizeof(FONT_VERTEX));

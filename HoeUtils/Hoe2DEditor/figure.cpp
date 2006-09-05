@@ -91,6 +91,8 @@ HoeGame::BaseGui * FigureEdit::CreateGUI(const char * type)
 		bi = new InfoItem;
 	else if (t == "digicounter")
 		bi = new DigiCounterItem;
+	else if (t == "font")
+		bi = new FontItem;
 
 	if (bi == NULL)
 		return NULL;
