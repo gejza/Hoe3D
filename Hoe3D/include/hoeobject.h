@@ -7,12 +7,14 @@
 *
 */
 
-class IHoeModel; 
+class IHoeModel;
+class IHoeParticleEmitor;
 
 struct THoeSubObject
 {
 	enum Type {
-		Object
+		Object,
+		Particle
 	};
 };
 
@@ -23,6 +25,13 @@ struct THoeSub_Model : public THoeSubObject
 	float s_x, s_y, s_z;
 	bool rotate;
 };
+
+struct THoeSub_Particle : public THoeSubObject
+{
+	IHoeParticleEmitor * emitor;
+	float t_x, t_y, t_z;
+};
+
 
 // flags
 // zobrazi objekt

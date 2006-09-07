@@ -100,6 +100,10 @@ struct VECTOR3
 	{
 		return VECTOR3(x * f, y * f, z * f);
 	}
+	VECTOR3 operator / ( const float f ) const
+	{
+		return VECTOR3(x / f, y / f, z / f);
+	}
 	bool operator < ( const VECTOR3 & v)
 	{
 		return (x < v.x && y < v.y && z < v.z);

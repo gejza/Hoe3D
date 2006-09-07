@@ -59,7 +59,11 @@ public:
 	//virtual void SetCallback(HoeInput::MsgCallback) = 0;
 };
 
-class IHoeParticleEmitor;
+class IHoeParticleEmitor : public IHoeResource
+{
+public:
+};
+
 class IHoeLight
 {
 public:

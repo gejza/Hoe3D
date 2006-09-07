@@ -20,6 +20,7 @@
 #include "hoe_time.h"
 #include "hoe2d.h"
 #include "hoe_font.h"
+#include "particle_emitor.h"
 #include "hoe.h"
 #include "hoe_tokens.h"
 
@@ -158,6 +159,21 @@ namespace icreate {
 
 		return GetSound()->GetSound(soundname);
 	}
+	static IHoeParticleEmitor * CreateParticle()
+	{
+		/*char soundname[256];
+		if (HOE_T_IS_STRING(parse())) {
+			get_string(soundname);
+		}
+		else {
+			Con_Print("parse error: missing sound name");
+			return NULL;
+		}*/
+
+		//return GetSound()->GetSound(soundname);
+		ParticleEmitor * pe = new ParticleEmitor();
+		return pe;
+	}
 	////////////////////////////////////////////////////////
 	static IHoeModel * GenModel()
 	{
@@ -207,6 +223,9 @@ IHoeResource * HOEAPI Hoe3D::Create(const char * str)
 		break;
 	case HOE_T_SOUND:
 		ret = icreate::CreateSound();
+		break;
+	case HOE_T_PARTICLE:
+		ret = icreate::CreateParticle();
 		break;
 	case HOE_T_GENERATE:
 		switch (parse())

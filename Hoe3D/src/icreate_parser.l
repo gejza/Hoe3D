@@ -31,6 +31,7 @@ name    ({alpha}|\$)({alpha}|{dig}|[_\-/$:@#%^&*])*
 "picture"			return HOE_T_PICTURE;
 "font"				return HOE_T_FONT;
 "sound"				return HOE_T_SOUND;
+"particle"			return HOE_T_PARTICLE;
 "generate"			return HOE_T_GENERATE;
 
 "box"				return HOE_T_BOX;

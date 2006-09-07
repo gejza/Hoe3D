@@ -1034,13 +1034,6 @@
 					RelativePath="..\..\src\ref_d3d9_debug.cpp"
 					>
 					<FileConfiguration
-						Name="DebugD3D9|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
 						Name="ReleaseD3D9|Win32"
 						ExcludedFromBuild="true"
 						>
@@ -2245,6 +2238,14 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath="..\..\src\particle_emitor.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\..\src\particle_emitor.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

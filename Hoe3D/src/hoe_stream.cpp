@@ -76,7 +76,8 @@ byte * HoeStream::Lock()
 
 void HoeStream::Unlock()
 {
-	m_box.Compute((const HoeMath::VECTOR3 *)m_pVertices,m_numvert,m_size/m_numvert);
+	if (!m_dynamic)
+		m_box.Compute((const HoeMath::VECTOR3 *)m_pVertices,m_numvert,m_size/m_numvert);
 	if (m_soft)
 		return;
 #ifdef _HOE_D3D_

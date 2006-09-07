@@ -11,6 +11,7 @@
 
 #include "hoe.h"
 #include "hoe3d_math.h"
+#include "particle_emitor.h"
 
 ObjectController::ObjectController() : m_scale(1,1,1)
 {
@@ -69,6 +70,17 @@ void ObjectController::Render(const HoeScene * scene)
 					Ref::SetMatrix(a);
 					if (sm.model)
 						dynamic_cast<HoeModel*>(sm.model)->Render(scene);
+				}
+				break;
+			case THoeSubObject::Particle:
+				{
+					const THoeSub_Particle & sm = *reinterpret_cast<const THoeSub_Particle*>(p.ptr);
+					HoeMath::MATRIX a;
+					a.Translate(sm.t_x,sm.t_y,sm.t_z);
+					a.Multiply(m);
+					Ref::SetMatrix(a);
+					if (sm.emitor)
+						dynamic_cast<ParticleEmitor*>(sm.emitor)->Render();
 				}
 				break;
 			};
