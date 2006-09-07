@@ -7,6 +7,7 @@
 #include "shared.h"
 #include "camera.h"
 #include "scene.h"
+#include "hoe_time.h"
 
 #include "hoe.h"
 #include "hoe3d_math.h"
@@ -24,69 +25,6 @@ bool ObjectController::Create(XHoeObject * obj)
 	pos.Reset();
 	obj->SetCtrl(this);
 	return true;
-}
-
-class HoePaint3D : public IHoePaint3D
-{
-protected:
-	const HoeMath::MATRIX * m_basematrix;
-	HoeMath::MATRIX actmatrix;
-public:
-	HoePaint3D(const HoeMath::MATRIX * base);
-	virtual void ResetPos();
-	virtual void Move(float x, float y, float z);
-	virtual void Scale(float x, float y, float z);
-	virtual void RotateY(float angle);
-	virtual void Paint(IHoeModel * model);
-	virtual const char * GetName();
-};
-
-HoePaint3D::HoePaint3D(const HoeMath::MATRIX * base)
-{
-	m_basematrix = base;
-	ResetPos();
-}
-
-void HoePaint3D::ResetPos()
-{
-	actmatrix.Identity();
-}
-
-const char * HoePaint3D::GetName()
-{
-	return "Hoe Advanced Painter";
-}
-
-void HoePaint3D::Move(float x, float y, float z)
-{
-	HoeMath::MATRIX m;
-	m.Translate(x,y,z);
-	actmatrix.Multiply(m);
-}
-
-void HoePaint3D::Scale(float x, float y, float z)
-{
-	HoeMath::MATRIX m;
-	m.Scale(x,y,z);
-	actmatrix.Multiply(m);
-}
-
-
-void HoePaint3D::RotateY(float angle)
-{
-	HoeMath::MATRIX m;
-	m.RotationY(angle);
-	actmatrix.Multiply(m);
-}
-
-void HoePaint3D::Paint(IHoeModel * model)
-{
-	actmatrix.Multiply(*this->m_basematrix);
-	Ref::SetMatrix(actmatrix);
-	const HoeModel * m = dynamic_cast<HoeModel*>(model);
-	assert(m != NULL);
-	//assert(!"old code");
-	m->Render(NULL);
 }
 
 void ObjectController::Render(const HoeScene * scene)
@@ -108,10 +46,33 @@ void ObjectController::Render(const HoeScene * scene)
         model->Render(scene);
 
 	// info
-	if (flags & HOF_ADVSHOW)
+	if (m_adv.Count() > 0)
 	{
-		HoePaint3D p(&m);
-		this->object->AdvPaint(&p);
+		for (uint n=0;n < m_adv.Count();n++)
+		{
+			const TSubObjectPtr & p = m_adv.Get(n);
+			switch (p.type)
+			{
+			case THoeSubObject::Object:
+				{
+					const THoeSub_Model & sm = *reinterpret_cast<const THoeSub_Model*>(p.ptr);
+					HoeMath::MATRIX a,b;
+					a.Scale(sm.s_x,sm.s_y,sm.s_z);
+					if (sm.rotate)
+					{
+						b.RotationY(SysFloatTime());
+						a.Multiply(b);
+					}
+					b.Translate(sm.t_x,sm.t_y,sm.t_z);
+					a.Multiply(b);
+					a.Multiply(m);
+					Ref::SetMatrix(a);
+					if (sm.model)
+						dynamic_cast<HoeModel*>(sm.model)->Render(scene);
+				}
+				break;
+			};
+		}
 	}
 	/*if (m_infocount > 0 && m_info)
 	for (uint ii=0; ii < m_infocount;ii++)
@@ -190,6 +151,18 @@ void ObjectController::GetScale(float *x, float *y, float *z)
 	if (x) *x = m_scale.x;
 	if (y) *y = m_scale.y;
 	if (z) *z = m_scale.z;
+}
+
+void ObjectController::Link(THoeSubObject::Type type, THoeSubObject * obj)
+{
+	const TSubObjectPtr ptr = { type, obj };
+	m_adv.Add(ptr);
+}
+
+void ObjectController::Unlink(THoeSubObject * obj)
+{
+	assert(!"not implemented.");
+	//m_adv.Remove(obj);
 }
 
 void ObjectController::SetFlags(unsigned long f)

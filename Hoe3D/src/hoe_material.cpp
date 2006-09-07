@@ -52,7 +52,7 @@ void HoeMaterial::Setup()
 	int tex = 0;
 	if (m_tex)
 	{
-		GetHoeStates()->EnableTexture();
+		GetStates()->EnableTexture();
 		GetTextureSystem()->SetTexture(tex,m_tex);
 #ifdef _HOE_D3D_
 		D3DDevice()->SetTextureStageState( tex, D3DTSS_COLOROP,   D3DTOP_MODULATE );
@@ -96,19 +96,19 @@ void HoeMaterial::Setup()
 #endif
 
 	if (tex==0)
-		GetHoeStates()->DisableTexture();
+		GetStates()->DisableTexture();
 	//else
-	//	GetHoeStates()->EnableTexture();
+	//	GetStates()->EnableTexture();
 
 	dword c = 0xffffffff;
 
 #ifdef _HOE_D3D_
-	//D3DDevice()->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
-	//D3DDevice()->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
-	//D3DDevice()->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_DISABLE);
-    //D3DDevice()->SetRenderState(D3DRS_ALPHAREF, (DWORD)0x000000b0);
-    D3DDevice()->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE); 
-    //D3DDevice()->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATEREQUAL);
+	D3DDevice()->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+	D3DDevice()->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+	D3DDevice()->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+    D3DDevice()->SetRenderState(D3DRS_ALPHAREF, (DWORD)0x000000b0);
+    D3DDevice()->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE); 
+    D3DDevice()->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATEREQUAL);
 #endif
 #ifdef _HOE_OPENGL_
 	glAlphaFunc( GL_GREATER, 0.6f);// Nastavení alfa testingu

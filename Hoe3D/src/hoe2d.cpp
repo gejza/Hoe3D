@@ -50,7 +50,7 @@ void Hoe2D::Begin()
 {
     in_progress = true;
 	HoeCamera::Setup2DMatrices(m_maxX,m_maxY);
-	GetHoeStates()->Setup2D();
+	GetStates()->Setup2D();
 
 
 }
@@ -79,11 +79,11 @@ void Hoe2D::SetRect(const float w,const float h)
 
 void Hoe2D::PaintRect(const float l,const float r,const float t,const float b,dword color,bool full)
 {
-	GetHoeStates()->DisableTexture();
+	GetStates()->DisableTexture();
 	if ((color & 0xff000000) == 0xff000000)
-		GetHoeStates()->Setup2D();
+		GetStates()->Setup2D();
 	else
-		GetHoeStates()->Setup2DAlpha();
+		GetStates()->Setup2DAlpha();
 
 #ifdef _HOE_OPENGL_
 	const float ca = ((color & 0xff000000) >> 24) * (1/255.f);
@@ -158,8 +158,8 @@ void Hoe2D::BltFast(const float l,const float r,const float t,const float b,IHoe
 
 void Hoe2D::Blt(const THoeRect * dest,IHoePicture * pic,const THoeRect * src)
 {
-	GetHoeStates()->EnableTexture();
-	GetHoeStates()->Setup2DAlphaTest();
+	GetStates()->EnableTexture();
+	GetStates()->Setup2DAlphaTest();
 
 	GetTextureSystem()->SetTexture(0,reinterpret_cast<HoePicture *>(pic)->GetSource());
 #ifdef _HOE_OPENGL_
@@ -198,7 +198,7 @@ void Hoe2D::Blt(const THoeRect * dest,IHoePicture * pic)
 void Hoe2D::SetAlpha(bool set)
 {
 	if (set)
-		GetHoeStates()->Setup2DAlphaTest();
+		GetStates()->Setup2DAlphaTest();
 	//else
 	//	GetHoeStates()->D
 }

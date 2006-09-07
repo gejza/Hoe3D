@@ -7,7 +7,22 @@
 *
 */
 
-class IHoeModel;
+class IHoeModel; 
+
+struct THoeSubObject
+{
+	enum Type {
+		Object
+	};
+};
+
+struct THoeSub_Model : public THoeSubObject
+{
+	IHoeModel * model;
+	float t_x, t_y, t_z;
+	float s_x, s_y, s_z;
+	bool rotate;
+};
 
 // flags
 // zobrazi objekt
@@ -16,8 +31,6 @@ class IHoeModel;
 #define HOF_UPDATE   0x02
 // roztahnuty objekt
 #define HOF_SCALED   0x08
-// pri vykresleni zavola jeste proceduru dodatecneho vykresleni
-#define HOF_ADVSHOW  0x10
 // vykresluje jako dratovy model
 #define HOF_WIRE	 0x20
 
@@ -61,6 +74,12 @@ public:
 	/** odnastaveni priznaku */
 	virtual void HOEAPI UnsetFlags(unsigned long  flags) = 0;
 
+	/** prilinkovani podobjektu */
+	virtual void HOEAPI Link(THoeSubObject::Type type, THoeSubObject * obj) = 0;
+
+	/** odlinkovani podobjektu */
+	virtual void HOEAPI Unlink(THoeSubObject * obj) = 0;
+	
 };
 
 /**
@@ -96,8 +115,6 @@ public:
 	/** autoupdate */
 	virtual void Update(const double dtime) {};
 
-	/** Vykresleni infa */
-	virtual void AdvPaint(class IHoePaint3D * advpaint) {};
 };
 
 /////////// HoeObject ///////////

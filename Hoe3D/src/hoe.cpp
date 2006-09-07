@@ -106,7 +106,7 @@ Hoe3D::~Hoe3D()
 	}
 
 	delete GetPhysics();
-	delete GetHoeStates();
+	delete GetStates();
     
 	delete GetRef();
 	delete GetConfig();
@@ -235,7 +235,7 @@ bool Hoe3D::Frame()
 				Get2D()->BltFast(i,i+1,j,j+1,&pic);
 		Get2D()->End();
 		*/
-		GetHoeStates()->Reset();
+		GetStates()->Reset();
 		m_active->Render();
 		// render user 2d
 		Get2D()->Begin();

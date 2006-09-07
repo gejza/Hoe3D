@@ -75,17 +75,6 @@ public:
 	virtual bool HOEAPI IsFullscreen() const = 0;
 };
 
-class IHoePaint3D : public IHoeSystem
-{
-public:
-	virtual void ResetPos() = 0;
-	virtual void Move(float x, float y, float z) = 0;
-	virtual void Scale(float x, float y, float z) = 0;
-	virtual void RotateY(float angle) = 0;
-	virtual void Paint(IHoeModel * model) = 0;
-};
-
-
 #define HOEPHYS_ONLYVISIBLE		1
 
 class IHoePhysics : public IHoeSystem

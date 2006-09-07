@@ -244,7 +244,7 @@ bool HoeFont::DrawText( float sx, float sy, dword dwColor,
 	}*/
 	
 	this->m_tex->Set();
-	GetHoeStates()->SetupFont();
+	GetStates()->SetupFont();
 
 #ifdef _HOE_OPENGL_
 	glColor4f(GET_RED_FLOAT(dwColor),GET_GREEN_FLOAT(dwColor),GET_BLUE_FLOAT(dwColor),GET_ALPHA_FLOAT(dwColor));

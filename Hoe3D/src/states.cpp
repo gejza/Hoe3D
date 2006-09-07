@@ -30,7 +30,7 @@ int HoeStates::c_setwireframe(int argc, const char * argv[], void * param)
 	if (argc != 2)
 		return 1;
 
-	GetHoeStates()->wireframe = atoi(argv[1]) != 0;
+	GetStates()->wireframe = atoi(argv[1]) != 0;
 	return 0; 
 }
 
@@ -138,6 +138,7 @@ void HoeStates::Setup2DAlphaTest()
 void HoeStates::SetupModel()
 {
 #ifdef _HOE_D3D9_
+
 	D3DDevice()->SetRenderState( D3DRS_CULLMODE,   D3DCULL_CCW );
    	D3DDevice()->SetRenderState( D3DRS_ZENABLE, TRUE );
 

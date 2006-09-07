@@ -40,7 +40,7 @@ IHoeLight * HoeScene::CreateLight(bool direct)
 void HoeScene::Render()
 {
 	ObjectController * obj;
-	GetHoeStates()->SetupModel();
+	GetStates()->SetupModel();
 
 	cam.SetupMatrices();
 	m_lights.Setup();
@@ -50,9 +50,9 @@ void HoeScene::Render()
 	{
 		if (obj->GetFlags() & HOF_WIRE)
 		{
-			GetHoeStates()->StartWireframe();
+			GetStates()->StartWireframe();
 			obj->Render(this);
-			GetHoeStates()->EndWireframe();
+			GetStates()->EndWireframe();
 		}
 		else
 			obj->Render(this);
@@ -89,7 +89,7 @@ HoeGraphScene::HoeGraphScene()
 void HoeGraphScene::Render()
 {
 	ObjectController * obj;
-	GetHoeStates()->SetupModel();
+	GetStates()->SetupModel();
 
 	/*
 	preproces objektu (orezani a zjisteni svetel)
@@ -130,9 +130,9 @@ void HoeGraphScene::Render()
 	{
 		if (obj->GetFlags() & HOF_WIRE)
 		{
-			GetHoeStates()->StartWireframe();
+			GetStates()->StartWireframe();
 			obj->Render(this);
-			GetHoeStates()->EndWireframe();
+			GetStates()->EndWireframe();
 		}
 		else
 			obj->Render(this);

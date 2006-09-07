@@ -499,16 +499,16 @@ void GridSurface::Render()
 		tm.End();*/
 		// wireframe
 		Ref::SetMatrix(m_worldpos);
-		GetHoeStates()->SetupMap();
+		GetStates()->SetupMap();
 		// nastavit matros
 		HoeMaterial mat;
 		mat.SetColor(HoeMaterial::Diffuse, HoeMaterialColor(1,1,1,1));
 		mat.Setup();
 		// enable textures
-		GetHoeStates()->EnableTexture();
+		GetStates()->EnableTexture();
 
 		if (m_wire)
-			GetHoeStates()->StartWireframe();
+			GetStates()->StartWireframe();
 		//m_mat.Setup();
 
 		// toto by mohlo byt i v predrenderingu
@@ -528,7 +528,7 @@ void GridSurface::Render()
 #endif
 		// wireframe
 		if (m_wire)
-			GetHoeStates()->EndWireframe();
+			GetStates()->EndWireframe();
 	}
 }
 
