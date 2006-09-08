@@ -92,12 +92,6 @@ public:
 };
 
 
-
-class LevelEditor
-{
-};
-
-
 }; // napespace HoeEditor
 
 #endif // _EDITOR_MAIN_FRAME_H_

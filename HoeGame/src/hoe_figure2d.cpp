@@ -128,10 +128,12 @@ GuiItem * Hoe2DFigure::GetItem(const char * name)
 GuiItem * Hoe2DFigure::ReqItem(const char * name)
 {
 	GuiItem * i = GetItem(name);
-	assert(i != NULL);
 	if (!i)
 	{
-		
+		char err[1024];
+		sprintf(err,"Missing 2D object '%s'", name);
+		MessageBox(NULL,err,"2DFigure Error",0);
+		exit(1);
 	}
 	return i;
 }

@@ -2238,14 +2238,18 @@
 				>
 			</File>
 		</Filter>
-		<File
-			RelativePath="..\..\src\particle_emitor.cpp"
+		<Filter
+			Name="Effects"
 			>
-		</File>
-		<File
-			RelativePath="..\..\src\particle_emitor.h"
-			>
-		</File>
+			<File
+				RelativePath="..\..\src\particle_emitor.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\particle_emitor.h"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

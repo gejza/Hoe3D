@@ -8,6 +8,7 @@ class Particle : public HoeTutorial
 {
 public:
 	Particle(HOE_INSTANCE instance, HoeGame::Console * con);
+	bool LoadScene();
 };
 
 #endif // _PARTICLE_TUTORIAL_H_
