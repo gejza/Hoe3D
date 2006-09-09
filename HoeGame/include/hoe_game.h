@@ -5,12 +5,6 @@
    @version $Revision: 1.3 $
    @brief   Hlavní definice pro HoeGame
 */
-/*
-	$Id: hoe_game.h,v 1.3 2004/12/09 20:33:23 gejza Exp $
-	$Author: gejza $
-	$Date: 2004/12/09 20:33:23 $
-	$Revision: 1.3 $
-*/ 
 
 #ifndef _HOE_GAME_H_
 #define _HOE_GAME_H_

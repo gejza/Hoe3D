@@ -7,6 +7,8 @@
 
 BEGIN_HOEGAME
 
+using namespace Gui;
+
 Hoe2DFigureBase::Hoe2DFigureBase()
 {
 }
@@ -35,7 +37,7 @@ bool Hoe2DFigureBase::Load(const char * fname)
 		while (ff.GetLine(buff, sizeof(buff)))
 		{
 			// vytvorit base
-			HoeGame::BaseGui * gui = CreateGUI(buff);		
+			HoeGame::Gui::Base * gui = CreateGUI(buff);		
 			if (!gui)
 				throw "chyba";
 			if (!ff.GetLine(buff, sizeof(buff)) || strcmp(buff,"{") != 0)
@@ -86,9 +88,9 @@ bool Hoe2DFigureBase::Load(const char * fname)
 	return true;
 }
 
-BaseGui * Hoe2DFigure::CreateGUI(const char *type)
+Gui::Base * Hoe2DFigure::CreateGUI(const char *type)
 {
-	GuiItem * g = NULL;
+	Gui::Item * g = NULL;
 #define IS(t) (strcmp(type,t)==0)
 	if (IS("static"))
 		g = new StaticPicture;
@@ -114,10 +116,12 @@ void Hoe2DFigure::Draw(IHoe2D *hoe2d)
 		m_list.Get(i)->Draw(hoe2d);
 }
 
-GuiItem * Hoe2DFigure::GetItem(const char * name)
+Gui::Item * Hoe2DFigure::GetItem(const char * name, Gui::EType type)
 {
 	for (uint i=0;i<m_list.Count();i++)
 	{
+		if (type != Gui::ENone && m_list.Get(i)->GetType() != type)
+			continue;
 		const char * n = m_list.Get(i)->GetName();
 		if (n && strcmp(n,name)==0)
 			return m_list.Get(i);
@@ -125,9 +129,9 @@ GuiItem * Hoe2DFigure::GetItem(const char * name)
 	return NULL;
 }
 
-GuiItem * Hoe2DFigure::ReqItem(const char * name)
+Gui::Item * Hoe2DFigure::ReqItem(const char * name, Gui::EType type)
 {
-	GuiItem * i = GetItem(name);
+	Gui::Item * i = GetItem(name, type);
 	if (!i)
 	{
 		char err[1024];
@@ -136,6 +140,17 @@ GuiItem * Hoe2DFigure::ReqItem(const char * name)
 		exit(1);
 	}
 	return i;
+}
+
+bool Hoe2DFigure::Move(const float x, const float y)
+{
+	for (int i=m_list.Count()-1;i>=0;i--)
+	{
+		if (m_list.Get(i)->GetType() == Gui::EButton
+			&& dynamic_cast<Gui::Button*>(m_list.Get(i))->Move(x,y))
+			return true;
+	}
+	return false;
 }
 
 END_HOEGAME

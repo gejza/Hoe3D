@@ -26,7 +26,7 @@ static dword palete[] = { 0xff8080, 0xffb080, 0xffff80, 0xb0ff80,
 
 ParticleEmitor::ParticleEmitor() : m_stream(true)
 {
-	if (!Create(1500)) assert(!"failed");
+	if (!Create(50)) assert(!"failed");
 }
 
 ParticleEmitor::~ParticleEmitor()
@@ -134,9 +134,12 @@ void ParticleEmitor::Render()
 	D3DDevice()->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
     D3DDevice()->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE); 
     D3DDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE); 
+    D3DDevice()->SetRenderState(D3DRS_ZWRITEENABLE, FALSE); 
 #endif
 
 	Ref::DrawStdObject(&m_stream,&m_index);
+    D3DDevice()->SetRenderState(D3DRS_ZWRITEENABLE, TRUE); 
+
 }
 
 

@@ -52,7 +52,7 @@ public:
 	void SetCallback(HoeApp * app) { app_callback = app; }
 };
 
-class GuiConsole : public TextDevice, public Console
+class GuiConsole : public Gui::TextDevice, public Console
 {
 public:
 	enum EState

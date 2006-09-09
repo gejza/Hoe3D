@@ -6,31 +6,35 @@
 #include "../include/hoe_engine.h"
 
 BEGIN_HOEGAME
+namespace Gui {
 
-GuiItem::GuiItem()
+Item::Item()
 {
 	m_rect.left = 200.f;
 	m_rect.top = 100.f;
 	m_rect.right = 600.f;
 	m_rect.bottom = 500.f;
 	m_name = NULL;
+	m_show = true;
 }
 
-void GuiItem::Set(const char * prop, const char * value)
+void Item::Set(const char * prop, const char * value)
 {
 	if (strcmp(prop,"rect")==0)
 		SetRect(value);
 	else if (strcmp(prop,"name")==0)
 		m_name = strdup(value);
+	else if (strcmp(prop,"show")==0)
+		m_show = value[0] == 't' || value[0] == 'y';
 
 }
 
-void GuiItem::SetRect(const THoeRect * rect)
+void Item::SetRect(const THoeRect * rect)
 {
 	m_rect = *rect;
 }
 
-void GuiItem::SetRect(const char * str)
+void Item::SetRect(const char * str)
 {
 	sscanf(str,"%f %f %f %f",&m_rect.left, &m_rect.top, &m_rect.right, &m_rect.bottom);
 }
@@ -98,7 +102,7 @@ void StaticPicture::Set(const char * prop, const char *value)
 		m_pic = (IHoePicture*)HoeEngine::GetInstance()->Create(buff);
 	}
 	else 
-		GuiItem::Set(prop, value);
+		Item::Set(prop, value);
 }
 
 void StaticPicture::Draw(IHoe2D * h2d)
@@ -264,7 +268,7 @@ void InfoPanel::Set(const char *prop, const char *value)
 		m_font = (IHoeFont*)HoeEngine::GetInstance()->Create(value);
 	}
 	else
-		GuiItem::Set(prop,value);
+		Item::Set(prop,value);
 }
 
 ////////////////////////////////////////////////
@@ -275,8 +279,8 @@ void DigiCounter::Draw(IHoe2D * d2)
 	if (!p)
 		return;
 	const int np = 7;
-	const int rl = m_rect.right;
-	const int ll = m_rect.left;
+	const float rl = m_rect.right;
+	const float ll = m_rect.left;
 
 	int i = m_value ? *m_value:0;
 	bool sign = false;
@@ -329,8 +333,48 @@ void Font::Set(const char *prop, const char *value)
 		m_font = (IHoeFont*)HoeEngine::GetInstance()->Create(value);
 	}
 	else
-		GuiItem::Set(prop,value);
+		Item::Set(prop,value);
 }
 
+/////////////////////////////////////////////////////////
+Button::Button()
+{
+	m_active = false;
+}
+
+void Button::Draw(IHoe2D * h2d)
+{
+	if (m_show)
+	{
+		h2d->PaintRect(m_rect.left, m_rect.right, m_rect.top, m_rect.bottom, m_active ? 0xffff0000:0x80ff0000, true);
+		float widthr = (m_rect.right-m_rect.left) * 0.1f;
+		float heightr = (m_rect.bottom-m_rect.top) * 0.1f;
+		if (m_pic)
+			h2d->BltFast(m_rect.left+widthr, m_rect.right-widthr, m_rect.top+heightr, m_rect.bottom-heightr, m_pic);
+	}
+}
+
+bool Button::Move(const float x, const float y)
+{
+	if (m_show && m_rect.left <= x && m_rect.right >= x && m_rect.top <= y && m_rect.bottom >= y)
+	{
+		m_active = true;
+		return true;
+	}
+	m_active = false;
+	return false;
+}
+
+bool Button::Click(const float x, const float y)
+{
+	if (m_show && m_rect.left >= x && m_rect.right <= x && m_rect.top >= y && m_rect.bottom <= y)
+	{
+		OnClick();
+		return true;
+	}
+	return false;
+}
+
+} // namespace Gui
 END_HOEGAME
 
