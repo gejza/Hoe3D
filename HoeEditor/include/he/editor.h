@@ -75,6 +75,7 @@ public:
 	void OnShowLog(wxCommandEvent& event);
 
 	void SetTool(EditorTool * tool);
+	virtual void OnDefaultTool() {}
 
 	virtual void KeyDown(wxKeyEvent& event) {};
 	virtual void KeyUp(wxKeyEvent& event) {};

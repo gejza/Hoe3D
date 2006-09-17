@@ -38,8 +38,8 @@ public:
 	bool Open(const char *fname,EHoeFileMode mode = hftRead);
 	bool IsOpen() { return isopen;}
 	uint GetID() { return m_id;}
-	virtual bool Read(void * buff,size_t size);
-	virtual bool Write(const void * buff,size_t size);
+	virtual size_t Read(void * buff,const size_t size);
+	virtual bool Write(const void * buff, const size_t size);
 
 	void Seek(size_t ptr);
 	virtual size_t Tell();

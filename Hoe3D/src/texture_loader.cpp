@@ -35,7 +35,7 @@ bool TextureLoader::GetData(void * buff,dword * size)
 	{
 		*size = (sizeof(hft_texture) + (uint)m_head.size) - m_reader.GetReadSize();
 	}
-	return m_reader.Read(buff,*size);
+	return m_reader.Read(buff,*size)==*size;
 }
 
 bool TextureLoader::GetData(void * buff,dword size)

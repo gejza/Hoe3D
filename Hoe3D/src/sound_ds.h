@@ -27,18 +27,24 @@ struct THoeInitSettings;
 
 class HoeDSBuffer
 {
-	//ALuint	buffer; /**< DS buffer */
+	IDirectSoundBuffer8 * m_buffer;
+	IDirectSound3DBuffer8 * m_3d; /**< DS buffer */
+ 	LPVOID lpvWrite;
+	DWORD  dwLength;
 public:
 	/** Kontruktor 
 	 * @todo Dodelat destruktor 
 	 */
 	HoeDSBuffer();
-
-	/**
-	 * Provizorni nacteni ze souboru
-	 * @todo predelat nacitani z file systemu 
-	 */
-	bool LoadFromFile(const char * filename);
+	/** Vytvoreni bufferu
+	* @param channels Pocet kanalu
+	* @param freq Samplu za sekundu
+	* @param byts Pocet bitu
+	* @param samples Pocet samplu
+	*/
+	bool Create(int channels, int freq, int byts, long samples);
+	byte * Lock();
+	void Unlock();
 };
 
 /**
@@ -69,6 +75,7 @@ public:
 class SoundSystemDS
 {
 	LPDIRECTSOUND8 m_pDS; /**< DirectSound objekt */
+	IDirectSound3DListener8 * m_listener;
 public:
 	/** Konstruktor */
 	SoundSystemDS();
@@ -79,6 +86,8 @@ public:
 	 */
 	bool Init(THoeInitSettings *);
 
+	LPDIRECTSOUND8 GetHandle() { return m_pDS; }
+	IDirectSound3DListener8 * GetListener() { return m_listener; }
 	/** 
 	 * Uvolni z pameti vsechny zarizeni
 	 */

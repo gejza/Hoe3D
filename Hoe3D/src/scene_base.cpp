@@ -35,7 +35,7 @@ void HoeBaseScene::Process(const double dtime)
 {
 }
 
-void HoeBaseScene::Render()
+void HoeBaseScene::Render(TRenderParameters * rp)
 {
 }
 

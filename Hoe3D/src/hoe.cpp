@@ -200,6 +200,12 @@ HoeRenderTarget * GetRT()
 	return &rt;
 }
 
+class RenderQueBase
+{
+public:
+	virtual void DrawScene(HoeBaseScene * scene) = 0;
+};
+
 bool Hoe3D::Frame()
 {
 	// scene preprocess
@@ -211,32 +217,43 @@ bool Hoe3D::Frame()
 	if (m_active)
 	{
 		// render to texture
+		// vyrenderovani vseho do textur
+		// nastaveni render parameters
+		// prerender effect
+		// postrender effect
+
+		// render special scenes
 		/*
-		HoeRenderTarget * rt = GetRT();
-		{
+		for pres vsechny preeffekty
+		 preeffekt->drawscene(m_active);
+		 // renderovat 1x za 5 snimku treba
+		*/
+			
+		/*HoeRenderTarget * rt = GetRT();
 		rt->Setup();
-		GetHoeStates()->Reset();
+		GetStates()->Reset();
 
 		m_active->Render();
 
-		rt->EndRender();}
+		rt->EndRender();
 		*/
+		
 		// render normal
 		m_rt.Setup();
 		// render vysledku
-		/*
-		Get2D()->Begin();
+		
+		/*Get2D()->Begin();
 		HoePicture pic;
 		pic.SetSource(rt->GetTexture());
-		const float w=5,h=5;
+		const float w=2,h=2;
 		Get2D()->SetRect(w,h);
 		for (float i=0;i<w;i++)
 			for (float j=0;j < h;j++)
 				Get2D()->BltFast(i,i+1,j,j+1,&pic);
-		Get2D()->End();
-		*/
+		Get2D()->End();*/
+		
 		GetStates()->Reset();
-		m_active->Render();
+		m_active->Render(0);
 		// render user 2d
 		Get2D()->Begin();
 		m_active->Paint2D();

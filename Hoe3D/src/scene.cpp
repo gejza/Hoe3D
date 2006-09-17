@@ -37,7 +37,7 @@ IHoeLight * HoeScene::CreateLight(bool direct)
 	return l;
 }
 
-void HoeScene::Render()
+void HoeScene::Render(TRenderParameters * rp)
 {
 	ObjectController * obj;
 	GetStates()->SetupModel();
@@ -62,13 +62,13 @@ void HoeScene::Render()
 
 void HoeScene::Process(const double dtime)
 {
-
+	/*
 	ObjectController * obj;
 	m_objects.SetStreaming(HOF_UPDATE);
 	while ((obj = m_objects.Object()) != NULL)
 	{
 		obj->GetObject()->Update(dtime);
-	}
+	}*/
 }
 
 #define MAX_SIZE_HEADER (10*1024)
@@ -86,7 +86,7 @@ HoeGraphScene::HoeGraphScene()
 	//this->m_terrain.LoadHeight(10.f,10.f,3,NULL);
 }
 
-void HoeGraphScene::Render()
+void HoeGraphScene::Render(TRenderParameters * rp)
 {
 	ObjectController * obj;
 	GetStates()->SetupModel();

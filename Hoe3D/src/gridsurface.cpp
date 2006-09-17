@@ -806,7 +806,8 @@ void HOEAPI GridSurface::LoadDump(XHoeStreamRead * stream)
 	{
 		TGridData & d = m_grids[i];
 		// textures
-		stream->Read(&d, 6); // trosku prasarnicka, proste se nacte tex informace 
+		size_t sss = 6;
+		stream->Read(&d, sss); // trosku prasarnicka, proste se nacte tex informace 
 		
 		d.type = (TGridData::Type)le_byte(stream->Read<byte>());
 		switch (d.type)

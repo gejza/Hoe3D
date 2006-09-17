@@ -98,7 +98,7 @@ Strategy::StgObject * StrategyView::SelObject(float mx, float my)
 	assert(m_scene->GetScenePhysics());
 	register XHoeObject * obj = m_scene->GetScenePhysics()->Ray(dir,orig);
 	if (obj)
-		return reinterpret_cast<Strategy::StgObject *>(obj);
+		return dynamic_cast<Strategy::StgObject *>(obj);
 	else
 		return NULL;
 }

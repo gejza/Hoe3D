@@ -7,6 +7,7 @@
 #include "config.h"
 #include "camera.h"
 #include "hoe_time.h"
+#include "sound.h"
 
 using namespace HoeMath;
 
@@ -96,6 +97,13 @@ void HoeCamera::Set(float * p,float * l)
 	//this->pos.part = (HoeMapPart *)part;
 	this->pos.xyz.Set(p);
 	look.Set(l);
+
+	// set sound
+	GetSound()->GetListener()->SetPosition(p[0],p[1],p[2],DS3D_DEFERRED);
+	HoeMath::VECTOR3 f(l[0],0,l[2]);
+	f.Normalize();
+	GetSound()->GetListener()->SetOrientation(f.x,f.y,f.z,0,1,0,DS3D_DEFERRED);
+	GetSound()->GetListener()->CommitDeferredSettings();
 	Update();
 }
 

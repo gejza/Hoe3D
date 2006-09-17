@@ -5,12 +5,6 @@
    @version $Revision: 1.10 $
    @brief   Hlavni soubor se zvukem.
 */
-/*
-	$Id: sound.h,v 1.10 2005/04/05 01:19:13 gejza Exp $
-	$Author: gejza $
-	$Date: 2005/04/05 01:19:13 $
-	$Revision: 1.10 $
-*/ 
 
 #ifndef _HOE_SOUND_
 #define _HOE_SOUND_
@@ -38,6 +32,13 @@ class HoeSoundBuffer
 	: public HoeDSBuffer
 #endif 
 {
+public:
+	/**
+	 * Provizorni nacteni ze souboru
+	 * @todo predelat nacitani z file systemu 
+	 */
+	bool LoadFromFile(const char * filename);
+
 };
 
 /**

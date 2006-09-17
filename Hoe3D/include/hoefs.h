@@ -21,7 +21,7 @@ class HoeFileReader;
 class XHoeStreamWrite
 {
 public:
-	virtual bool Write(const void * buff,size_t size) = 0;
+	virtual bool Write(const void * buff, const size_t size) = 0;
 	template<class T> bool Write(T &t)
 	{
 		return Write(&t, sizeof(T));
@@ -37,7 +37,7 @@ public:
 class XHoeStreamRead
 {
 public:
-	virtual bool Read(void * buff,size_t size) = 0;
+	virtual size_t Read(void * buff, const size_t size) = 0;
 	virtual bool Skip(size_t size) = 0;
 	template<class T> T Read()
 	{
@@ -81,9 +81,9 @@ public:
 	/// preskoceni aktualni pozice, pokud je soubor otevren pro zapis zapise same 0
 	virtual bool Skip(size_t ptr) = 0;
 	/// cteni ze souboru
-	virtual bool Read(void * buff,size_t size) = 0;
+	virtual size_t Read(void * buff, const size_t size) = 0;
 	/// zapis do souboru
-	virtual bool Write(const void * buff,size_t size) = 0;
+	virtual bool Write(const void * buff, const size_t size) = 0;
 	/// nastaveni pozice podle chunku (pokud existuje)
 	virtual HoeFileReader FindChunk(uint id) = 0;
 	/// ziskani informaci o souboru
@@ -113,14 +113,13 @@ public:
 		return m_file == NULL;
 	}
 	XHoeFile * GetFile() { return m_file;}
-	bool Read(void * buff,size_t size)
+	size_t Read(void * buff,const size_t size)
 	{
-		if (!m_file) return false;
+		if (!m_file) return 0;
 		m_file->Seek(m_pos);
-		if (!m_file->Read(buff,size))
-			return false;
-		m_pos += size;
-		return true;
+		size_t r = m_file->Read(buff,size);
+		m_pos += r;
+		return r;
 	}
 	template<class T> T Read()
 	{
@@ -160,7 +159,7 @@ public:
 		return m_file == NULL;
 	}
 	XHoeFile * GetFile() { return m_file;}
-	bool Write(const void * buff,size_t size)
+	bool Write(const void * buff, const size_t size)
 	{
 		if (!m_file) return false;
 		if (!m_file->Write(buff,size))

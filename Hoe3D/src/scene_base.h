@@ -2,6 +2,11 @@
 #ifndef _HOE_BASE_SCENE_H_
 #define _HOE_BASE_SCENE_H_
 
+struct TRenderParameters
+{
+
+};
+
 class HoeBaseScene : public IHoeScene
 {
 	// settings
@@ -22,7 +27,7 @@ public:
 
 	virtual void Process(const double dtime);
 	virtual void Preprocess() {};
-	virtual void Render();
+	virtual void Render(TRenderParameters * rp);
 	virtual void Paint2D();
 
 	virtual void Delete();

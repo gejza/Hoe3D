@@ -58,11 +58,15 @@ void ObjectController::Render(const HoeScene * scene)
 				{
 					const THoeSub_Model & sm = *reinterpret_cast<const THoeSub_Model*>(p.ptr);
 					HoeMath::MATRIX a,b;
-					a.Scale(sm.s_x,sm.s_y,sm.s_z);
 					if (sm.rotate)
 					{
-						b.RotationY(SysFloatTime());
+						b.Scale(sm.s_x,sm.s_y,sm.s_z);
+						a.RotationY(SysFloatTime());
 						a.Multiply(b);
+					}
+					else
+					{
+						a.Scale(sm.s_x,sm.s_y,sm.s_z);
 					}
 					b.Translate(sm.t_x,sm.t_y,sm.t_z);
 					a.Multiply(b);

@@ -32,7 +32,7 @@ public:
 	virtual IHoeCamera * HOEAPI GetCamera();
 
 	virtual void Process(const double dtime);
-	virtual void Render();
+	virtual void Render(TRenderParameters * rp);
 
 };
 
@@ -43,7 +43,7 @@ protected:
 	TSceneGroup * NewGroup();
 public:
 	HoeGraphScene();
-	virtual void Render();
+	virtual void Render(TRenderParameters * rp);
 	/** Metoda pro ziskani jmena objektu. */
 	virtual const char * GetName() { return "GraphScene";}
 	virtual IHoeScenePhysics * HOEAPI GetScenePhysics() { return this; }

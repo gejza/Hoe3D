@@ -105,23 +105,19 @@ bool HoeFile::Opended()
 	return isopen;
 }
 
-bool HoeFile::Read(void * buff,size_t size)
+size_t HoeFile::Read(void * buff, const size_t size)
 {
 	if (!Opended())
-		return false;
+		return 0;
 
 #ifdef _WIN32
 	dword dwRead;
 	ReadFile(file,buff,size,&dwRead,NULL);
-	if (dwRead != size)
-		return false;
+	return (size_t)dwRead;
 #else
-	if (fread(buff,1,size,file) != size) {
-		return false;
-	}
+	return fread(buff,1,size,file);
 #endif
-	
-	return true;
+
 }
 
 bool HoeFile::Write(const void * buff,size_t size)

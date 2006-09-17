@@ -100,6 +100,7 @@ protected:
 	IHoeObjectController * controler;
 public:
 	XHoeObject() { controler = NULL; }
+	virtual ~XHoeObject() {}
 	inline IHoeObjectController * GetCtrl() { assert(controler); return controler; }
 	inline void SetCtrl(IHoeObjectController * ctrl) { controler = ctrl; };
 
@@ -120,9 +121,6 @@ public:
 
 	/** zobrazeni */
 	inline void Show(bool show);
-
-	/** autoupdate */
-	virtual void Update(const double dtime) {};
 
 };
 

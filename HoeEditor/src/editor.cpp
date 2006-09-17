@@ -117,6 +117,8 @@ void HoeEditor::BaseEditor::SetTool(EditorTool *tool)
 		m_tool = tool;
 	//else
 	//	m_tool = new ToolSelect();
+	if (!m_tool)
+		OnDefaultTool();
 }
 
 /////////////////////////////////////
