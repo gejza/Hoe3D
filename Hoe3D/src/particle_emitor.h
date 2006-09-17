@@ -25,12 +25,15 @@ protected:
 	HoeTexture * m_tex;
 	PtrSet<Particle> m_parts;
 	uint m_part_count;
+	bool m_generate;
 public:
 	ParticleEmitor();
 	virtual ~ParticleEmitor();
 	bool Create(uint num_part);
 	void Update(float time);
 	void Render();
+	virtual void Start();
+	virtual void Stop();
 };
 
 #endif // _PARTICLE_EMITOR_H_

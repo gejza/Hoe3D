@@ -27,6 +27,7 @@ static dword palete[] = { 0xff8080, 0xffb080, 0xffff80, 0xb0ff80,
 ParticleEmitor::ParticleEmitor() : m_stream(true)
 {
 	if (!Create(50)) assert(!"failed");
+	m_generate = 0;
 }
 
 ParticleEmitor::~ParticleEmitor()
@@ -79,6 +80,16 @@ void ParticleEmitor::Update(float time)
 {
 }
 
+void ParticleEmitor::Start()
+{
+	m_generate = true;
+}
+
+void ParticleEmitor::Stop()
+{
+	m_generate = false;
+}
+
 const float halfsize = 1.7f;
 
 void ParticleEmitor::Render()
@@ -105,7 +116,7 @@ void ParticleEmitor::Render()
 		p.pos+= p.posi / 200.f;
 		p.posi+=p.posg;
 		p.life -= p.fade;
-		if (p.life < 0.f)
+		if (p.life < 0.f && m_generate)
 		{
 			p.life = 1.f;
 			p.fade = float(rand()%100)/1000.0f+0.003f;// Rychlost stárnutí
