@@ -77,7 +77,7 @@ bool FigureEdit::OnSave(const wxString fname)
 	fclose(f);
 }
 
-HoeGame::BaseGui * FigureEdit::CreateGUI(const char * type)
+HoeGame::Gui::Base * FigureEdit::CreateGUI(const char * type)
 {
 	wxString t = type;
 	BaseItem * bi = NULL;

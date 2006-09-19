@@ -60,7 +60,7 @@ public:
 			Resize(m_size + (m_size/5>=1 ? m_size/5:1));
 		m_ptr[m_count] = c;m_count++;
 	}
-	C Get(uint n)
+	C & Get(uint n)
 	{
 		assert(n < m_count);
 		return m_ptr[n];

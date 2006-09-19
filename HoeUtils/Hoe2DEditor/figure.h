@@ -45,7 +45,7 @@ public:
 	virtual void HOEAPI _Paint(IHoe2D * );
 	void AddItem(BaseItem * item, const wxString name);
 	virtual bool OnSave(const wxString fname);
-	virtual HoeGame::BaseGui * CreateGUI(const char * type);
+	virtual HoeGame::Gui::Base * CreateGUI(const char * type);
 };
 
 #endif // _HOE_2D_EDITOR_FIGURE_H_

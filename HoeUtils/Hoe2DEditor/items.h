@@ -10,7 +10,7 @@
 #define _HOE_2D_EDITOR_ITEMS_H_
 
 
-class BaseItem : public wxTreeItemData, public HoeEditor::PropObject, public HoeGame::BaseGui
+class BaseItem : public wxTreeItemData, public HoeEditor::PropObject, public HoeGame::Gui::Base
 {
 	friend class FigureEdit;
 protected:
@@ -24,19 +24,20 @@ public:
 	virtual void Resize(const float left, const float top, const float right, const float bottom);
 	virtual void Save(FILE * f) {}
 	virtual void Set(const char * prop, const char *value);
-	virtual HoeGame::GuiItem * GetGui() = 0;
+	virtual HoeGame::Gui::Item * GetGui() = 0;
 	virtual const wxRect GetwxRect();
 };
 
-#define BASE_CONNECT_DEFINE virtual HoeGame::GuiItem * GetGui() { return &m_base; } \
-	virtual void Draw(IHoe2D * h2d) { m_base.Draw(h2d); }
+#define BASE_CONNECT_DEFINE virtual HoeGame::Gui::Item * GetGui() { return &m_base; } \
+	virtual void Draw(IHoe2D * h2d) { m_base.Draw(h2d); } \
+	virtual HoeGame::Gui::EType GetType() { return m_base.GetType(); }
 
 class StaticItem : public BaseItem
 {
 protected:
 	wxString m_strpic;
 	bool m_alpha;
-	HoeGame::StaticPicture m_base;
+	HoeGame::Gui::StaticPicture m_base;
 public:
 	StaticItem();
 	virtual void Select(HoeEditor::PropertyGrid *prop);
@@ -53,7 +54,7 @@ protected:
 	dword m_color;
 	float m_alpha;
 	bool m_full;
-	HoeGame::StaticPicture m_base;
+	HoeGame::Gui::StaticPicture m_base;
 public:
 	ColorRectItem();
 	virtual void Select(HoeEditor::PropertyGrid *prop);
@@ -67,7 +68,7 @@ public:
 class FontItem : public BaseItem
 {
 protected:
-	HoeGame::Font m_base;
+	HoeGame::Gui::Font m_base;
 	wxString m_font;
 	wxString m_string;
 public:
@@ -84,7 +85,7 @@ class ButtonItem : public BaseItem
 {
 protected:
 	wxString m_strpic;
-	HoeGame::Button m_base;
+	HoeGame::Gui::Button m_base;
 public:
 	ButtonItem();
 	virtual void Select(HoeEditor::PropertyGrid *prop);
@@ -98,7 +99,7 @@ public:
 class InfoItem : public BaseItem
 {
 protected:
-	HoeGame::InfoPanel m_base;
+	HoeGame::Gui::InfoPanel m_base;
 public:
 	InfoItem();
 	virtual void Select(HoeEditor::PropertyGrid *prop);
@@ -113,7 +114,7 @@ class DigiCounterItem : public BaseItem
 {
 protected:
 	wxString m_strpic;
-	HoeGame::DigiCounter m_base;
+	HoeGame::Gui::DigiCounter m_base;
 	int m_value;
 public:
 	DigiCounterItem();

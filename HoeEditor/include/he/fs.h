@@ -33,9 +33,9 @@ public:
 	/// preskoceni aktualni pozice, pokud je soubor otevren pro zapis zapise same 0
 	virtual bool Skip(size_t ptr);
 	/// cteni ze souboru
-	virtual bool Read(void * buff,size_t size);
+	virtual size_t Read(void * buff,const size_t size);
 	/// zapis do souboru
-	virtual bool Write(const void * buff,size_t size);
+	virtual bool Write(const void * buff,const size_t size);
 	/// nastaveni pozice podle chunku (pokud existuje)
 	virtual HoeFileReader FindChunk(uint id);
 	/// ziskani informaci o souboru

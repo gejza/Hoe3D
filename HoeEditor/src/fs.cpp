@@ -64,12 +64,12 @@ bool HoeEditor::EditorFile::Skip(size_t size)
 	return true;
 }
 
-bool HoeEditor::EditorFile::Read(void * buff,size_t size)
+size_t HoeEditor::EditorFile::Read(void * buff, const size_t size)
 {
-	return (file.Read(buff, size) == size);
+	return file.Read(buff, size);
 }
 
-bool HoeEditor::EditorFile::Write(const void * buff,size_t size)
+bool HoeEditor::EditorFile::Write(const void * buff, const size_t size)
 {
 	return (file.Write(buff, size) == size);
 }
