@@ -35,7 +35,7 @@ public:
 
 	virtual void UpdateConsole();
 
-	virtual int ShowMsg(const char *) {}
+	virtual int ShowMsg(const char * caption, const char *text) {}
 };
 
 END_HOEGAME

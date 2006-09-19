@@ -149,8 +149,9 @@ void ParticleEmitor::Render()
 #endif
 
 	Ref::DrawStdObject(&m_stream,&m_index);
+#ifdef _HOE_D3D_
     D3DDevice()->SetRenderState(D3DRS_ZWRITEENABLE, TRUE); 
-
+#endif
 }
 
 

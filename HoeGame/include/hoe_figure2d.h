@@ -13,6 +13,7 @@
 #include "hoe_game.h"
 #include "hoe_fs.h"
 #include "hoe_utils.h"
+#include "hoe_gui.h"
 
 BEGIN_HOEGAME
 
@@ -27,12 +28,6 @@ class FigureFile : public TextFile
  * pres nastavitelne parametry se budou moci pozmenovat infa
  * proste takovy 2d engine, s pojmenovanymi oblastmi
  */
-namespace Gui {
-class Base;
-class Item;
-enum EType;
-};
-
 class Hoe2DFigureBase : public XHoe2DCallback
 {
 public:

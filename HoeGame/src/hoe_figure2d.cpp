@@ -2,6 +2,7 @@
 #include "StdAfx.h"
 #include "../include/hoe_figure2d.h"
 #include "../include/hoe_gui.h"
+#include "../include/hoe_app.h"
 #include <locale.h>
 
 
@@ -136,7 +137,7 @@ Gui::Item * Hoe2DFigure::ReqItem(const char * name, Gui::EType type)
 	{
 		char err[1024];
 		sprintf(err,"Missing 2D object '%s'", name);
-		MessageBox(NULL,err,"2DFigure Error",0);
+		HoeApp::GetApp<HoeApp>()->ShowMsg("2DFigure Error",err);
 		exit(1);
 	}
 	return i;

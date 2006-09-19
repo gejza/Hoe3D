@@ -16,6 +16,7 @@ extern "C" {
 #include "../include/hoe_resource_mgr.h"
 #include "../include/hoe_lang.h"
 #include "../include/hoe_fs.h"
+#include "../include/hoe_app.h"
 
 BEGIN_HOEGAME
 
@@ -591,7 +592,7 @@ int LuaScript::error(lua_State * L)
 		strcat(buff,mbuff);
 	}
 	GetInstance()->con->Con_Print(buff);
-	MessageBox(NULL, buff, "Script error", 0);
+	HoeApp::GetApp<HoeApp>()->ShowMsg("Script error", buff);
 	return 0;
 }
 

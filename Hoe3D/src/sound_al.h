@@ -67,16 +67,21 @@ public:
 	HoeALBuffer(ALuint b);
 
 	/**
-	 * Provizorni nacteni ze souboru
-	 * @todo predelat nacitani z file systemu 
-	 */
-	bool LoadFromFile(const char * filename);
-
-	/**
 	 * Funkce pro pristup k bufferu
 	 * @return ALuint buffer
 	 */
 	ALuint & GetBuffer() { return buffer; }
+
+        /** Vytvoreni bufferu
+        * @param channels Pocet kanalu
+        * @param freq Samplu za sekundu
+        * @param byts Pocet bitu
+        * @param samples Pocet samplu
+        */
+        bool Create(int channels, int freq, int byts, long samples);
+        byte * Lock();
+        void Unlock();
+
 };
 
 /**

@@ -12,10 +12,11 @@ protected:
 	static HoeBaseApp * this_;
 public:
     HoeBaseApp();
+    virtual ~HoeBaseApp() {}
 	template<class C> static C * GetApp()
 	{
 		assert(this_);
-		return (C*)(this_);
+		return dynamic_cast<C*>(this_);
 	}
 };
 

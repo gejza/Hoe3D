@@ -92,7 +92,23 @@ HoeALBuffer::HoeALBuffer(ALuint b)
 	buffer = b;
 }
 
-bool HoeALBuffer::LoadFromFile(const char * filename)
+bool HoeALBuffer::Create(int channels, int freq, int byts, long samples)
+{
+  return false;
+
+}
+
+byte * HoeALBuffer::Lock()
+{
+        return (byte*)NULL;
+}
+
+void HoeALBuffer::Unlock()
+{
+}
+
+
+/*bool HoeALBuffer::LoadFromFile(const char * filename)
 {
 	ALint	error;
 	ALsizei size,freq;
@@ -101,7 +117,7 @@ bool HoeALBuffer::LoadFromFile(const char * filename)
 	ALboolean loop;
 
 	// Load ding.wav
-	/*alutLoadWAVFile((ALbyte *)filename,&format,&data,&size,&freq,&loop);
+	alutLoadWAVFile((ALbyte *)filename,&format,&data,&size,&freq,&loop);
 	if ((error = alGetError()) != AL_NO_ERROR)
 	{
 		return false;
@@ -120,9 +136,9 @@ bool HoeALBuffer::LoadFromFile(const char * filename)
 	{
 		return false;
 	}
-	return true;*/
+	return true;
 	return false;
-}
+}*/
 
 /////////////////////////////////////////////////////////////
 

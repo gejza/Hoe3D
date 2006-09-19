@@ -99,11 +99,13 @@ void HoeCamera::Set(float * p,float * l)
 	look.Set(l);
 
 	// set sound
+	#ifdef _HOE_DS8_
 	GetSound()->GetListener()->SetPosition(p[0],p[1],p[2],DS3D_DEFERRED);
 	HoeMath::VECTOR3 f(l[0],0,l[2]);
 	f.Normalize();
 	GetSound()->GetListener()->SetOrientation(f.x,f.y,f.z,0,1,0,DS3D_DEFERRED);
 	GetSound()->GetListener()->CommitDeferredSettings();
+#endif // _HOE_DS8_
 	Update();
 }
 

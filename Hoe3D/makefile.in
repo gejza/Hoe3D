@@ -13,7 +13,7 @@ LINK_LIBRARIES = -lGL -ljpeg -lpng -lopenal -lXxf86vm -lXxf86dga -lfreetype -lfl
 OBJ_FILES = $(TMP_DIR)/ref_opengl.o $(TMP_DIR)/ref_opengl_ext.o $(TMP_DIR)/ref.o $(TMP_DIR)/camera.o $(TMP_DIR)/ref_base.o $(TMP_DIR)/config.o \
 $(TMP_DIR)/filesystem.o \
 $(TMP_DIR)/hoe2d.o $(TMP_DIR)/hoe.o $(TMP_DIR)/hoefile.o $(TMP_DIR)/hoe_font.o \
-$(TMP_DIR)/hoe_format.o $(TMP_DIR)/hoe_index.o $(TMP_DIR)/hoe_info.o \
+$(TMP_DIR)/hoe_format.o $(TMP_DIR)/hoe_stream.o $(TMP_DIR)/hoe_index.o $(TMP_DIR)/hoe_info.o \
 $(TMP_DIR)/hoe_input.o $(TMP_DIR)/hoe_input_xwin.o $(TMP_DIR)/hoe_main.o \
 $(TMP_DIR)/hoe_material.o $(TMP_DIR)/hoe_model.o \
 $(TMP_DIR)/hoe_picture.o $(TMP_DIR)/hoe_stream.o $(TMP_DIR)/hoe_texture.o \
@@ -27,7 +27,8 @@ $(TMP_DIR)/icreate_parser.o $(TMP_DIR)/material_parser.o  $(TMP_DIR)/freetype.o 
 $(TMP_DIR)/resmgr.o \
 $(TMP_DIR)/scene_base.o $(TMP_DIR)/heightmap.o $(TMP_DIR)/scene_part.o $(TMP_DIR)/scene_env.o $(TMP_DIR)/light.o $(TMP_DIR)/texture_convpng.o \
 $(TMP_DIR)/model_generator.o $(TMP_DIR)/render_target.o $(TMP_DIR)/shader_vertex.o \
-$(TMP_DIR)/gridsurface.o $(TMP_DIR)/ref_utils.o
+$(TMP_DIR)/gridsurface.o $(TMP_DIR)/ref_utils.o $(TMP_DIR)/particle_emitor.o 
+
 
 all:	BUILD 
 
