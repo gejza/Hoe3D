@@ -1,5 +1,5 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Developer Studio generated include file.
+// Microsoft Visual C++ generated include file.
 // Used by HoeMax.rc
 //
 #define IDS_LIBDESCRIPTION              1
@@ -18,6 +18,9 @@
 #define IDC_TEXUV                       1006
 #define IDC_TREEC                       1009
 #define IDC_GROUPED                     1011
+#define IDC_FRAMEFROM                   1013
+#define IDC_FRAMETO                     1014
+#define IDC_SPIN2                       1015
 #define IDC_COLOR                       1456
 #define IDC_EDIT                        1490
 #define IDC_SPIN                        1496
@@ -28,7 +31,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        101
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1012
+#define _APS_NEXT_CONTROL_VALUE         1016
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
