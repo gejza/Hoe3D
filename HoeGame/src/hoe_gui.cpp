@@ -99,7 +99,7 @@ void StaticPicture::Set(const char * prop, const char *value)
 		// load
 		char buff[256];
 		sprintf(buff,"picture %s", value);
-		m_pic = (IHoePicture*)HoeEngine::GetInstance()->Create(buff);
+		m_pic = (IHoePicture*)GetHoeEngine()->Create(buff);
 	}
 	else 
 		Item::Set(prop, value);
@@ -167,8 +167,10 @@ InfoPanel::~InfoPanel()
 
 void InfoPanel::Draw(IHoe2D * hoe2d)
 {
+	if (!m_font)
+		return;
 	hoe2d->SetRect(800,600);
-	float t = HoeEngine::GetInstance()->SysFloatTime();
+	float t = GetHoeEngine()->SysFloatTime();
 
 	stepsize = m_font->GetTextHeight();
 	startheight = m_rect.bottom - stepsize;
@@ -188,7 +190,7 @@ void InfoPanel::Draw(IHoe2D * hoe2d)
 			}
 			alpha = (unsigned long)(tt * float(0x80));
 			if (alpha > 0xff) alpha = 0xff;
-
+			
 			m_font->DrawText(m_rect.left,m_infos[i].y,((alpha & 0xff) << 24) | 0x00ffffff,m_infos[i].info);
 		}
 	}
@@ -236,7 +238,7 @@ void InfoPanel::Add(const char * str)
 
 	strcpy(m_infos[a].info,str);
 	m_infos[a].y = startheight;
-	m_infos[a].totime = HoeEngine::GetInstance()->SysFloatTime() + 5.f;
+	m_infos[a].totime = GetHoeEngine()->SysFloatTime() + 5.f;
 	m_infos[a].visible = true;
 
 	//qsort(m_infos,MAX_INFOS,sizeof(Info),Info::comp);
@@ -265,7 +267,8 @@ void InfoPanel::Set(const char *prop, const char *value)
 {
 	if (strcmp(prop,"font")==0)
 	{
-		m_font = (IHoeFont*)HoeEngine::GetInstance()->Create(value);
+		assert(GetHoeEngine());
+		m_font = (IHoeFont*)GetHoeEngine()->Create(value);
 	}
 	else
 		Item::Set(prop,value);
@@ -330,7 +333,7 @@ void Font::Set(const char *prop, const char *value)
 {
 	if (strcmp(prop,"font")==0)
 	{
-		m_font = (IHoeFont*)HoeEngine::GetInstance()->Create(value);
+		m_font = (IHoeFont*)GetHoeEngine()->Create(value);
 	}
 	else
 		Item::Set(prop,value);

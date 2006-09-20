@@ -28,7 +28,7 @@ HoeApp::~HoeApp()
 		m_engine.Destroy();
 
 		if (m_lastError)
-			ShowMsg(m_lastError);
+			ShowMsg("Error:", m_lastError);
 }
 
 #ifdef _WIN32
@@ -70,12 +70,12 @@ bool HoeApp::Init(const char * title)
 	}
 	his.forcewnd = false;
 
-	if (!m_engine.GetInstance()->Init(&his))
+	if (!HoeGame::GetHoeEngine()->Init(&his))
 		return false;
 
 	m_con->SetCallback(NULL);
 
-	if (!GetMsg(m_engine.GetInstance()))
+	if (!GetMsg(HoeGame::GetHoeEngine()))
 		exit(0);
 
 	return true;
@@ -128,9 +128,10 @@ bool HoeApp::LoadEngine()
 
 bool HoeApp::Frame(float time)
 {
-	m_engine.GetInstance()->Process(time);
+	assert(HoeGame::GetHoeEngine());
+	HoeGame::GetHoeEngine()->Process(time);
 	OnUpdate(time);
-	return m_engine.GetInstance()->Frame();
+	return HoeGame::GetHoeEngine()->Frame();
 }
 
 void HoeApp::OnUpdate(float time)
@@ -146,7 +147,7 @@ void HoeApp::Run()
 {
 	if (!m_engine.IsLoaded())
 	{
-		while (GetMsg(m_engine.GetInstance()));
+		while (GetMsg(GetHoeEngine()));
 		return;
 	}
 	float t=GetEngine()->SysFloatTime();
@@ -154,7 +155,7 @@ void HoeApp::Run()
 	{
 		float nt = GetEngine()->SysFloatTime();
 
-		if (!GetMsg(m_engine.GetInstance()))
+		if (!GetMsg(GetHoeEngine()))
 			break;
 
 		this->Frame((nt-t) < 1.f ? (nt-t):1.f);
@@ -166,7 +167,7 @@ void HoeApp::Run()
 void HoeApp::OnSize(int width, int height)
 {
    if (this->m_engine.IsLoaded())
-	 this->m_engine.GetInstance()->Resize( width, height);
+	 GetHoeEngine()->Resize( width, height);
 }
 
 void HoeApp::OnPaint()

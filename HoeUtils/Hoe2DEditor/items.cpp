@@ -151,7 +151,7 @@ void StaticItem::OnChangeProp(int id, const HoeEditor::PropItem &pi)
 		wxString str;
 		m_strpic = pi.GetString();
 		str = wxString::Format("picture %s", (const char *)m_strpic.c_str());
-		m_base.SetPicture((IHoePicture*)HoeEditor::EngineView::Get()->GetEngine()->Create(str.c_str()));
+		m_base.SetPicture((IHoePicture*)HoeGame::GetHoeEngine()->Create(str.c_str()));
 		}
 		break;
 	case 3:
@@ -195,7 +195,7 @@ void StaticItem::Set(const char * prop, const char *value)
 		if (m_strpic == "")
 			return;
 		str = wxString::Format("picture %s", value);
-		m_base.SetPicture((IHoePicture*)HoeEditor::EngineView::Get()->GetEngine()->Create(str.c_str()));
+		m_base.SetPicture((IHoePicture*)HoeGame::GetHoeEngine()->Create(str.c_str()));
 	}
 	else
 		BaseItem::Set(prop, value);
@@ -230,7 +230,7 @@ void ButtonItem::OnChangeProp(int id, const HoeEditor::PropItem &pi)
 		wxString str;
 		m_strpic = pi.GetString();
 		str = wxString::Format("picture %s", (const char *)m_strpic.c_str());
-		m_base.SetPicture((IHoePicture*)HoeEditor::EngineView::Get()->GetEngine()->Create(str.c_str()));
+		m_base.SetPicture((IHoePicture*)HoeGame::GetHoeEngine()->Create(str.c_str()));
 		}
 		break;
 	default:
@@ -253,15 +253,10 @@ void ButtonItem::Set(const char * prop, const char *value)
 	wxString p = prop;
 	if (p == "picture")
 	{
-		wxString str;
 		m_strpic = value;
-		if (m_strpic == "")
-			return;
-		str = wxString::Format("picture %s", value);
-		m_base.SetPicture((IHoePicture*)HoeEditor::EngineView::Get()->GetEngine()->Create(str.c_str()));
 	}
-	else
-		BaseItem::Set(prop, value);
+	
+	BaseItem::Set(prop, value);
 }
 
 ////////////////////////////////////////////////
@@ -339,6 +334,7 @@ void InfoItem::Set(const char * prop, const char *value)
 	}
 	else
 		BaseItem::Set(prop, value);*/
+	BaseItem::Set(prop, value);
 }
 
 ////////////////////////////////////////////////
@@ -373,7 +369,7 @@ void DigiCounterItem::OnChangeProp(int id, const HoeEditor::PropItem &pi)
 		wxString str;
 		m_strpic = pi.GetString();
 		str = wxString::Format("picture %s", (const char *)m_strpic.c_str());
-		m_base.SetPicture((IHoePicture*)HoeEditor::EngineView::Get()->GetEngine()->Create(str.c_str()));
+		m_base.SetPicture((IHoePicture*)HoeGame::GetHoeEngine()->Create(str.c_str()));
 		}
 		break;
 	case 5:
@@ -404,7 +400,7 @@ void DigiCounterItem::Set(const char * prop, const char *value)
 		if (m_strpic == "")
 			return;
 		str = wxString::Format("picture %s", value);
-		m_base.SetPicture((IHoePicture*)HoeEditor::EngineView::Get()->GetEngine()->Create(str.c_str()));
+		m_base.SetPicture((IHoePicture*)HoeGame::GetHoeEngine()->Create(str.c_str()));
 	}
 	else
 		BaseItem::Set(prop, value);
@@ -459,7 +455,7 @@ void FontItem::Set(const char * prop, const char *value)
 	if (p == "font")
 	{
 		m_font = value;
-		m_base.SetFont((IHoeFont*)HoeEditor::EngineView::Get()->GetEngine()->Create(m_font.c_str()));
+		m_base.SetFont((IHoeFont*)HoeGame::GetHoeEngine()->Create(m_font.c_str()));
 	}
 	else if (p == "text")
 	{

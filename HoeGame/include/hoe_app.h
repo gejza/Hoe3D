@@ -72,7 +72,8 @@ public:
 
 	static IHoe3DEngine * GetEngine()
 	{
-		return GET_THIS(HoeApp)->m_engine.GetInstance();
+		assert(HoeGame::GetHoeEngine());
+		return HoeGame::GetHoeEngine();
 	}
 
 	static FileSystem * GetFS()

@@ -92,6 +92,7 @@ Hoe2DEdit::~Hoe2DEdit()
 {
 	assert(s_actinstance == this);
 	s_actinstance = NULL;
+
 }
 #include "resource/new.xpm"
 bool Hoe2DEdit::Create(const wxString & title)
@@ -140,6 +141,9 @@ int w = newt.GetWidth(),
 
 	wxMenu * menuTools = new wxMenu;
 	menuTools->Append(ID_SHOWRES, _("&Resource Manager..."), _("Resource Manager"));
+#ifndef HOE_STATIC
+	menuTools->Append(HoeEditor::ID_ENGINE, _("&Load Engine...\tF10"), _("Load engine from library"));
+#endif
 
 	wxMenu * menuInsert = new wxMenu;
 	menuInsert->Append(ID_STATICITEM, _("Picture Item"),_("New picture item."));
@@ -193,7 +197,12 @@ int w = newt.GetWidth(),
 
 bool Hoe2DEdit::OnPostInit()
 {
-	LoadEngine("../../bin/Hoe3Dd_D3D9.dll");
+	wxString eng = 	wxConfigBase::Get()->Read(wxT("/engine"),wxT(""));
+	if (eng != "")
+	{
+		LoadEngine(eng);
+	}
+	m_res.LoadMainDir(wxConfigBase::Get()->Read(wxT("/ResourceDir"),wxT("")));
 	return false;
 }
 
@@ -220,7 +229,7 @@ void Hoe2DEdit::OnNewFile(wxCommandEvent &)
 	CloseFile();
 
 	m_figure = new FigureEdit(m_tc);
-	m_figure->Create(m_engview->GetEngine());
+	m_figure->Create(HoeGame::GetHoeEngine());
 
 	UpdateControls();
 }
@@ -245,7 +254,7 @@ void Hoe2DEdit::OnOpenFile(wxCommandEvent &)
 	{
 		CloseFile();
 		m_figure = new FigureEdit(m_tc);
-		m_figure->Create(m_engview->GetEngine());
+		m_figure->Create(HoeGame::GetHoeEngine());
 		m_figure->SetFilePath(dlg.GetPath());
 		m_figure->Load(dlg.GetPath().c_str());
 		SetTitle(dlg.GetFilename());

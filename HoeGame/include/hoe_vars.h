@@ -41,6 +41,7 @@ public:
 	LUA_FUNCTION(l_getvar);
 
 	static int c_printvar(int argc, const char * argv[], void * param);
+	static int c_printallvars(int argc, const char * argv[], void * param);
 	static int c_setvar(int argc, const char * argv[], void * param);
 };
 

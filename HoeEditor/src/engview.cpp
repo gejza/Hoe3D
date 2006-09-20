@@ -4,6 +4,7 @@
 #include "../include/he/editor.h"
 #include "../include/he/engview.h"
 #include "../../HoeGame/include/hoe_utils.h"
+#include "../../HoeGame/include/hoe_engine.h"
 
 namespace HoeEditor {
 
@@ -32,7 +33,6 @@ EngineView::EngineView()
 {
 	assert(m_shared == NULL);
 	m_shared = this;
-	m_engine = NULL;
 #ifndef HOE_STATIC_ENGINE
 	m_dllpath[0] = '\0';
 #endif
@@ -94,9 +94,9 @@ bool EngineView::InitUntry(XHoeFS * hfs)
 	}
 
 	wxLogMessage("* Load Engine from %s *",m_dllpath);
-	this->m_engine = GetEngineInterface(HOESDK_VERSION,App::Get()->GetConsole(),hfs,NULL,0,HOEF_NOINPUT);
+	HoeGame::g_hoeengine = GetEngineInterface(HOESDK_VERSION,App::Get()->GetConsole(),hfs,NULL,0,HOEF_NOINPUT);
 #endif
-	if (m_engine == NULL)
+	if (HoeGame::g_hoeengine == NULL)
 		return false; 
 
 	{
@@ -126,13 +126,13 @@ bool EngineView::InitUntry(XHoeFS * hfs)
 
 	wxLogMessage("* Init Engine with %dx%dx%d *",his.width,his.height,his.depth);
 
-	if (!this->m_engine->Init(&his))
+	if (!HoeGame::g_hoeengine->Init(&his))
 		return false;
 	}
 	m_loaded = true;
 
 	// arial
-	HoeGetRef(m_engine)->SetBackgroundColor(0xff000000);
+	HoeGetRef(HoeGame::g_hoeengine)->SetBackgroundColor(0xff000000);
 	
 	return true;
 }
@@ -147,15 +147,15 @@ void EngineView::Frame(float dtime)
 
 	BEGIN_TRY
 
-	assert(m_engine);
-	this->m_engine->Process(dtime);
-	this->m_engine->Frame();
+	assert(HoeGame::GetHoeEngine());
+	HoeGame::GetHoeEngine()->Process(dtime);
+	HoeGame::GetHoeEngine()->Frame();
 
 	// update fps
 	// info
 
 	//float fps = HoeGetInfo(m_engine)->GetFPS();
-	str.Printf("FPS: %f", HoeGetInfo(m_engine)->GetFPS());
+	str.Printf("FPS: %f", HoeGetInfo(HoeGame::GetHoeEngine())->GetFPS());
 	App::Get()->GetEditor()->SetStatusText(str, 1);
 
 	END_TRY(exit(0));
@@ -167,10 +167,10 @@ void EngineView::Unload()
 	if (!this->IsLoaded())
 		return;
 	
-	assert(m_engine);
+	assert(HoeGame::GetHoeEngine());
 
-	this->m_engine->Destroy();
-	m_engine = NULL;
+	HoeGame::GetHoeEngine()->Destroy();
+	HoeGame::g_hoeengine = NULL;
 #ifndef HOE_STATIC_ENGINE
 	m_lib.Unload();
 #endif
@@ -202,12 +202,12 @@ void EngineView::OnSize( wxSizeEvent& event)
 	SetClientSize(x,y);*/
 	if (m_loaded)
 	{
-		assert(m_engine);
+		assert(HoeGame::GetHoeEngine());
 		int x = 0;
 		int y = 0;
 		GetClientSize( &x, &y );
 
-		m_engine->Resize(x,y);
+		HoeGame::GetHoeEngine()->Resize(x,y);
 		Frame(0);
 	}
 	else

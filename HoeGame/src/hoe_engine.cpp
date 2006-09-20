@@ -4,11 +4,10 @@
 
 BEGIN_HOEGAME
 
-IHoe3DEngine * HoeEngine::m_engine = NULL;
+IHoe3DEngine * g_hoeengine = NULL;
 
 HoeEngine::HoeEngine()
 {
-	m_engine = NULL;
 	m_lib = NULL;
 	m_loaded = false;
 }
@@ -66,9 +65,9 @@ bool HoeEngine::Load(const char * dllname, Console * con, XHoeFS * fs)
 	}
 #endif
 
-	this->m_engine = GetEngineInterface(HOESDK_VERSION,con,fs, NULL,0,0);
+	g_hoeengine = GetEngineInterface(HOESDK_VERSION,con,fs, NULL,0,0);
 
-	if (m_engine)
+	if (g_hoeengine)
 	{
 		m_loaded = true;
 		return true;
@@ -92,10 +91,10 @@ bool HoeEngine::LoadStatic(Console * con)
 
 void HoeEngine::Destroy()
 {
-	if (m_engine)
-		m_engine->Destroy();
+	if (g_hoeengine)
+		g_hoeengine->Destroy();
 
-	m_engine = NULL;
+	g_hoeengine = NULL;
 	m_loaded = false;
 }
 

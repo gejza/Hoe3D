@@ -9,6 +9,7 @@
 //#include "id.h"
 #include "../include/he/resources.h"
 #include "../include/he/engview.h"
+#include "../../HoeGame/include/hoe_engine.h"
 
 namespace HoeEditor {
 
@@ -45,8 +46,8 @@ reply:
 		if(m_res[i].id == findid)
 		{
 			IHoeResource * res = NULL;
-			if (EngineView::Get() && EngineView::Get()->GetEngine())
-				res = (IHoeResource*)EngineView::Get()->GetEngine()->Create(m_res[i].cmd.c_str());
+			if (HoeGame::GetHoeEngine())
+				res = (IHoeResource*)HoeGame::GetHoeEngine()->Create(m_res[i].cmd.c_str());
 			if (res)
 				return res;
 			else
@@ -122,6 +123,11 @@ bool Resources::ShowDlg()
 			std::string predpath = HoeUtils::fullpath(m_mainDir.c_str(),"files.txt");
 			this->SaveConf(predpath.c_str());
 		}
+
+		// ulozit do konfigu
+		wxConfigBase *pConfig = wxConfigBase::Get();
+		if ( pConfig )
+			pConfig->Write(_T("/ResourceDir"), m_mainDir);
 
 		return true;
 	}
@@ -402,6 +408,18 @@ void SettingsDialog::OnBrowse(wxCommandEvent& event)
     }
 
 	//m_tooltip.ShowHelp(m_becherdir);
+}
+
+bool Resources::LoadMainDir(const wxString dir)
+{
+	SetMainDir(dir);
+	// zjistovani zda obahuje script
+	std::string predpath = HoeUtils::fullpath(dir.c_str(),"files.txt");
+	if (HoeUtils::is_file(predpath.c_str()))
+	{
+		return this->LoadConf(predpath.c_str());
+	}
+	return false;
 }
 
 void SettingsDialog::OnAdd(wxCommandEvent& event)

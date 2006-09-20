@@ -17,7 +17,6 @@ protected:
 	wxDynamicLibrary m_lib;
 	char m_dllpath[512];
 #endif
-	IHoe3DEngine * m_engine;
 	bool m_loaded;
 	wxMouseEvent m_lastmouseevent;
 	wxTimer m_infotimer;
@@ -27,7 +26,6 @@ public:
 	void Unload();
 	EngineView();
 	virtual ~EngineView();
-	IHoe3DEngine * GetEngine() { return m_engine; } 
 #ifdef HOE_STATIC_ENGINE
 	bool InitStatic(XHoeFS * hfs);
 #else

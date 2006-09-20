@@ -116,9 +116,9 @@ int HoeWin32::GetMsg(IHoe3DEngine * eng)
 	return 1;
 }
 
-int HoeWin32::ShowMsg(const char * msg)
+int HoeWin32::ShowMsg(const char * cap, const char * msg)
 {
-	MessageBox(NULL,msg,"Error:", MB_OK);
+	MessageBox(NULL,msg,cap, MB_OK);
 	return 0;
 }
 

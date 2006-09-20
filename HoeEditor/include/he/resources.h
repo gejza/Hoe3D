@@ -66,6 +66,7 @@ public:
 	~Resources() { }
 	wxString GetMainDir() const { return m_mainDir; }
 	void SetMainDir(wxString dir) { m_mainDir = dir; }
+	bool LoadMainDir(wxString dir);
 	virtual uint GetFilesCount() const { return m_files.GetCount(); } 
 	wxString GetFilePath(int index) const { return m_files.Item(index).path; }
 	virtual void ClearAll() { m_files.Clear();m_res.Clear(); }

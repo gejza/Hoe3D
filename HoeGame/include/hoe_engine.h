@@ -21,6 +21,13 @@
 
 BEGIN_HOEGAME
 
+extern IHoe3DEngine * g_hoeengine; /** < Ukazatel na engine */
+
+inline IHoe3DEngine *GetHoeEngine()
+{
+	return g_hoeengine;
+}
+
 /**
   @brief	Pomocná třída pro nahrávání Hoe enginu. 
  */
@@ -28,7 +35,6 @@ BEGIN_HOEGAME
 class HoeEngine
 {
 protected:
-	static IHoe3DEngine * m_engine; /** < Ukazatel na engine */
 	HOE_LIBRARY m_lib; /** < Handle library */
 	bool m_loaded;
 public:
@@ -36,15 +42,6 @@ public:
 	HoeEngine();
 	/** Destruktor */
 	~HoeEngine();
-
-	/**
-	 * Metoda pro přístup k enginu.
-	 */
-	static IHoe3DEngine * GetInstance()
-	{
-		assert(m_engine);
-		return m_engine;
-	}
 
 	/**
 	 * Nahráni enginu.
@@ -59,7 +56,7 @@ public:
 	 */
 	bool LoadStatic(Console * con);
 
-	bool IsLoaded() { return m_loaded; }
+	static bool IsLoaded() { return GetHoeEngine() != NULL; }
 	/**
 	 * pokud je engine nahrán zavolá iHoe3Dengine->Destroy()
 	 */

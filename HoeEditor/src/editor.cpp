@@ -89,9 +89,8 @@ void HoeEditor::BaseEditor::LoadEngine(wxString path)
 		if (GetEngineView()->Init(GetFS()))
 		{
 			wxConfigBase *pConfig = wxConfigBase::Get();
-			if ( pConfig == NULL )
-				return;
-			pConfig->Write(_T("/engine"), path);
+			if ( pConfig )
+				pConfig->Write(_T("/engine"), path);
 			UpdateControls();
 		}
 	}

@@ -258,6 +258,31 @@ int CVar::c_printvar(int argc, const char * argv[], void * param)
 	return 0;
 }
 
+int CVar::c_printallvars(int argc, const char * argv[], void * param)
+{
+	FILE * f = NULL;
+	if (argc>=2)
+	{
+		f = fopen(argv[1], "wt");
+	}
+	for (THoeVar * v = staticVars;v;v=v->next)
+	{
+		CVar *var = reinterpret_cast<CVar*>(v);
+		if (f)
+		{
+			fprintf(f, "%s=%s\n", var->GetName(), var->GetStringValue());
+		}
+		else
+			BaseConsole::Printf("%s=%s", var->GetName(), var->GetStringValue());
+	}
+	if (f)
+	{
+		BaseConsole::Printf("Print vars to file %s.", argv[1]);
+		fclose(f);
+	}
+	return 0;
+}
+
 int CVar::c_setvar(int argc, const char * argv[], void * param)
 {
 	if (argc == 3)
