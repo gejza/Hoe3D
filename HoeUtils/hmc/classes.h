@@ -77,21 +77,14 @@ struct TNamespace;
 
 class CModel : public ModelShader
 {
-public:
-	struct Link
-	{
-		std::string name;
-		union {
-			CStream * stream;
-			CIndex * index;
-			CMaterial * material;
-		};
-	};
 private:
 	std::string name;
-	std::vector<Link> lStreams;
-	std::vector<Link> lIndices;
-	std::vector<Link> lMaterials;
+	std::vector<std::string> lnStreams;
+	std::vector<CStream*> lStreams;
+	std::vector<std::string> lnIndices;
+	std::vector<CIndex*> lIndices;
+	std::vector<std::string> lnMaterials;
+	std::vector<CMaterial*> lMaterials;
 public:
 	virtual int Export(HoeUtils::Stream * stream);
 
@@ -205,7 +198,7 @@ struct TNamespace
 	CMaterial::List materials;
 
 public:
-	CStream * FindStream(std::string name);
+	std::vector<CStream *> FindStream(std::string name);
 	CIndex * FindIndex(std::string name);
 	CMaterial * FindMaterial(std::string name);
 };

@@ -73,7 +73,7 @@ public:
 	virtual const char * GetNextLine() = 0; 
 protected:
 	ScriptParser m_parser;
-
+	p_value m_val;
 
 	virtual bool ScanMaterial();
 	bool ScanInputList(ModelShader * shader);
@@ -89,7 +89,7 @@ protected:
 	const char * ScanLine();
 	virtual bool ScanModel(void);
 	bool ScanStream();
-	bool ScanName(std::string & name);
+	bool ScanName(std::string & name, int *index);
 	// 1 = ok
 	// 0 = nic
 	// -1 = chyba

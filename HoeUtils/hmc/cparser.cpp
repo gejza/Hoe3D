@@ -55,9 +55,12 @@ bool CParser::ScanStream()
 {
 	std::string name;
 	_FVF fvf;
+	int index;
 
-	if (!ScanName(name))
+	if (!ScanName(name, &index))
 		return false;
+
+	printf("Scaning stream %s ..", name.c_str());
 
 	if (!ScanFVF(fvf))
 		return false;
@@ -91,6 +94,8 @@ bool CParser::ScanStream()
 
 	stream->EndData();
 
+	printf("  OK\n");
+
 	return true;
 }
 
@@ -98,7 +103,7 @@ bool CParser::ScanMaterial()
 {
 	std::string name;
 
-	if (!ScanName(name))
+	if (!ScanName(name,NULL))
 		return false;
 
 	if (lexln(NULL) != P_NL)
@@ -197,23 +202,46 @@ bool CParser::ScanColor(CColor * c)
 		return false;
 }
 
-bool CParser::ScanName(std::string &name)
+bool CParser::ScanName(std::string &name, int *index)
 {
 	p_value val;
-	if (lexln(&val) != V_NAME)
-		return false;;
+	int t= lexln(&val);
+	if (index)
+		*index = 0;
+	if (t== V_NAME)
+	{
+		name = val.str;
+		return true;
+	}
+	if (t==V_NAME_INDEX)
+	{
+		if (!(val.str[0] == '_' || (val.str[0] >= 'a' && val.str[0] <= 'z') 
+			|| (val.str[0] >= 'A' && val.str[0] <= 'Z')))
+			return false;
+		char * p = val.str;
+		while (*p && *p != '(') p++;
+		if (*p == '(')
+		{
+			if (index == NULL)
+				return false;
+			if (sscanf(p,"(%d)", index) != 1)
+				return false;
 
-	name = val.str;
+		}
+		*p = 0;
+		name = val.str;
+	}
+
 	return true;
 }
 
 bool CParser::ScanFVF(_FVF &fvf)
 {
 	
-	p_value val;
+	//p_value val;
 
 	// zkontrolovat zda nasleduje [
-	if (lexln(&val) != P_STT || val.c != '[')
+	if (lexln(&m_val) != P_STT || m_val.c != '[')
 		return false;
 
 	while (1)
@@ -233,11 +261,11 @@ bool CParser::ScanFVF(_FVF &fvf)
 			return false;
 		}
 
-		int v = lexln(&val);
+		int v = lexln(&m_val);
 		if (v == P_PIPE)
 			continue;
 
-		if (v == P_END && val.c == ']')
+		if (v == P_END && m_val.c == ']')
 			return true;
 		else
 			return false;
@@ -300,7 +328,7 @@ int CParser::ScanVertex(VERTEX &vert)
 bool CParser::ScanModel(void)
 {
 	std::string name;
-	if (!ScanName(name))
+	if (!ScanName(name,NULL))
 		return false;
 
 	ModelShader * shader = CreateModelShader(name);
@@ -364,7 +392,7 @@ void CBaseStream::EndData()
 bool CParser::ScanIndex()
 {
 	std::string name;
-	if (!ScanName(name))
+	if (!ScanName(name,NULL))
 		return false;
 
 	if (lexln(NULL) != P_NL)

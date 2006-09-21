@@ -163,65 +163,61 @@ CModel::CModel(const std::string &name_)
 	name = name_;
 }
 
-void CModel::AddDefStream(const char * name)
+void CModel::AddDefStream(const char *name)
 {
-	//
-	Link link;
-	//memset(&link,0,sizeof(Link));
-	link.name = name;
-	lStreams.push_back(link);
+	lnStreams.push_back(name);
 }
 
-void CModel::AddDefIndex(const char * name)
+void CModel::AddDefIndex(const char *name)
 {
-	//
-	Link link;
-	//memset(&link,0,sizeof(Link));
-	link.name = name;
-	lIndices.push_back(link);
+	lnIndices.push_back(name);
+
 }
 
-void CModel::AddDefMaterial(const char * name)
+void CModel::AddDefMaterial(const char *name)
 {
-	Link link;
-	//memset(&link,0,sizeof(Link));
-	link.name = name;
-	lMaterials.push_back(link);
+	lnMaterials.push_back(name);
 }
 
 bool CModel::Compile(TNamespace * names)
 {
-	int i;
+	size_t i;
 
-	for (i=0;i < lStreams.size();i++)
+	for (i=0;i < lnStreams.size();i++)
 	{
-		lStreams[i].stream = names->FindStream(lStreams[i].name);
-		if (lStreams[i].stream == NULL)
-			HoeUtils::fthrow("could not find stream '%s'",lStreams[i].name.c_str());
-
+		std::vector<CStream*> s = names->FindStream(lnStreams[i]);
+		if (s.empty())
+			HoeUtils::fthrow("could not find stream '%s'",lnStreams[i].c_str());
+		for (size_t j=0;j < s.size();j++)
+			lStreams.push_back(s[j]);
 	}
-	for (i=0;i < lIndices.size();i++)
+	for (i=0;i < lnIndices.size();i++)
 	{
-		lIndices[i].index = names->FindIndex(lIndices[i].name); 
-		if (lIndices[i].index == NULL)
-			HoeUtils::fthrow("could not find index '%s'",lIndices[i].name.c_str());
+		std::string n = lnIndices[i];
+		CIndex * i = names->FindIndex(n); 
+		if (i == NULL)
+			HoeUtils::fthrow("could not find index '%s'",n.c_str());
+		lIndices.push_back(i);
 	}
-	for (i=0;i < lMaterials.size();i++)
+	for (i=0;i < lnMaterials.size();i++)
 	{
-		lMaterials[i].material = names->FindMaterial(lMaterials[i].name); 
-		if (lMaterials[i].material == NULL)
-			HoeUtils::fthrow("could not find materiak '%s'",lMaterials[i].name.c_str());
+		CMaterial * m = names->FindMaterial(lnMaterials[i]); 
+		if (m == NULL)
+			HoeUtils::fthrow("could not find material '%s'",lnMaterials[i].c_str());
+		lMaterials.push_back(m);
 
 	}
 	return true;
 }
 
-CStream * TNamespace::FindStream(std::string name)
+std::vector<CStream *> TNamespace::FindStream(std::string name)
 {
+	// tady 
+	std::vector<CStream *> s;
 	for (int i=0;i < streams.size();i++)
 		if (streams[i]->GetName() == name)
-			return streams[i];
-	return NULL;
+			s.push_back(streams[i]);
+	return s;
 }
 
 CIndex * TNamespace::FindIndex(std::string name)
@@ -263,19 +259,19 @@ int CModel::Export(HoeUtils::Stream * stream)
     
 	for (i=0;i < lStreams.size();i++)
 	{
-		ins = lStreams[i].stream->GetID();
+		ins = lStreams[i]->GetID();
 		stream->Write(&ins,sizeof(unsigned long));
 		
 	}
 	for (i=0;i < lIndices.size();i++)
 	{
-		ins = lIndices[i].index->GetID();
+		ins = lIndices[i]->GetID();
 		stream->Write(&ins,sizeof(unsigned long));
 	}
 
 	for (i=0;i < lMaterials.size();i++)
 	{
-		ins = lMaterials[i].material->GetID();
+		ins = lMaterials[i]->GetID();
 		stream->Write(&ins,sizeof(unsigned long));
 	}
 	

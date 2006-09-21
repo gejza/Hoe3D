@@ -12,7 +12,7 @@ class HoeScene;
 class ObjectController : public IHoeObjectController
 {
 	MapOrientation pos;
-
+	float m_frame;
 	dword flags;
 public:
 	XHoeObject * object;
@@ -52,6 +52,8 @@ public:
 
 	virtual void HOEAPI SetFlags(unsigned long flags);
 	virtual void HOEAPI UnsetFlags(unsigned long flags);
+
+	virtual void HOEAPI SetAnimationTime(float t) { m_frame = t; }
 };
 
 #endif // _OBJECT_CONTROLLER_H_

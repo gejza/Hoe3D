@@ -20,6 +20,8 @@ extern "C" {
 #define V_NAME			16
 #define V_STRING		17
 #define V_BOOL			18
+#define V_NAME_INDEX	19
+
 
 #define C_STREAM		100
 #define C_INDEX			101
@@ -60,7 +62,7 @@ struct p_value
 		int i;
 		unsigned long hex;
 		unsigned char byte;
-		const char * str;
+		char * str;
 		char c;
 	};
 };

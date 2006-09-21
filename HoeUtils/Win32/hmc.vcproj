@@ -136,8 +136,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="HoeUtils.lib"
 				OutputFile="..\bin\$(ProjectName).exe"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="..\..\bin"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -194,18 +196,6 @@
 			>
 		</File>
 		<File
-			RelativePath="..\hmc\export.cpp"
-			>
-			<FileConfiguration
-				Name="Debug|Win32"
-				ExcludedFromBuild="true"
-				>
-				<Tool
-					Name="VCCLCompilerTool"
-				/>
-			</FileConfiguration>
-		</File>
-		<File
 			RelativePath="..\hmc\fvf.cpp"
 			>
 		</File>
@@ -250,7 +240,7 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Performing Custom Build Step $(InputFileName)"
-					CommandLine="flex -o$(InputDir)parser.c $(InputPath)"
+					CommandLine="flex -o$(InputDir)parser.c $(InputPath)&#x0D;&#x0A;"
 					Outputs="$(InputDir)parser.c"
 				/>
 			</FileConfiguration>
@@ -259,7 +249,7 @@
 				>
 				<Tool
 					Name="VCCustomBuildTool"
-					CommandLine="flex -o$(InputDir)parser.c $(InputPath)"
+					CommandLine="flex -o$(InputDir)parser.c $(InputPath)&#x0D;&#x0A;"
 					Outputs="$(InputDir)parser.c"
 				/>
 			</FileConfiguration>

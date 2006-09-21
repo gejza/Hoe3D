@@ -34,7 +34,7 @@ bool ModelApp::LoadScene()
 {
 
 	GetFS()->AddResourceFile("../data/jackolan.hm");
-	GetFS()->AddResourceFile("../data/angel.hm");
+	GetFS()->AddResourceFile("../data/angel_anim.hm");
 	GetFS()->AddResourceFile("../data/bump.hx");
 	//GetEngine()->AddResource("../data/konvice.hm");
 	//HoeGetRef(GetEngine())->SetBackgroundColor(0xfff00a79);
@@ -87,7 +87,8 @@ bool ModelApp::LoadScene()
 	if (!mod1)
 		return false;*/
 	//IHoeModel * mod2 = (IHoeModel*)GetEngine()->Create("model angel file:'angel.txt' -dump");
-	IHoeModel * mod2 = (IHoeModel*)GetEngine()->Create("generate model box 40");
+	IHoeModel * mod2 = (IHoeModel*)GetEngine()->Create("model angel");
+	//IHoeModel * mod2 = (IHoeModel*)GetEngine()->Create("generate model box 40");
 	if (!mod2)
 		return false;
 
@@ -98,7 +99,7 @@ bool ModelApp::LoadScene()
 	{
 		CreateObj(mod, sinf(a) * leng, cosf(a) * leng);
 	}*/
-	CreateObj(mod2, 0, 0);
+	m_model = CreateObj(mod2, 0, 0);
 	/*CreateObj(mod1, 30, -10);
 	CreateObj(mod1, -30, -10);
 	CreateObj(mod1, 0, -10);
@@ -187,9 +188,14 @@ void ModelApp::OnUpdate(float timeframe)
 		m_l[i].SetPosition(a.x*l, a.y*l, a.z*l);
 	}*/
 
+	static float at = 0.f;
+	if (at > 1.f)
+		at -= 1.f;
+	m_model->SetAnimationTime(at);
+	at += timeframe * 2.f;
 }
 
-bool ModelApp::CreateObj(IHoeModel *m, float x, float y)
+Model * ModelApp::CreateObj(IHoeModel *m, float x, float y)
 {
 	Model * obj = new Model;
 	GetEngine()->GetActiveScene()->RegisterObject(obj);
@@ -197,5 +203,5 @@ bool ModelApp::CreateObj(IHoeModel *m, float x, float y)
 	//obj->SetOrientation(0,1,0,0.3f);
 	obj->SetPosition(x,0.f,y);
 	obj->Show(true);
-	return true;
+	return obj;
 }

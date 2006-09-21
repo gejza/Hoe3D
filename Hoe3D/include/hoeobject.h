@@ -89,6 +89,8 @@ public:
 	/** odlinkovani podobjektu */
 	virtual void HOEAPI Unlink(THoeSubObject * obj) = 0;
 	
+	/** zobrazeni casu animace */
+	virtual void HOEAPI SetAnimationTime(float t) = 0;
 };
 
 /**
@@ -122,6 +124,7 @@ public:
 	/** zobrazeni */
 	inline void Show(bool show);
 
+	inline void SetAnimationTime(float t);
 };
 
 /////////// HoeObject ///////////
@@ -158,6 +161,10 @@ void XHoeObject::Show(bool show)
 		GetCtrl()->UnsetFlags(HOF_SHOW);
 }
 
+void XHoeObject::SetAnimationTime(float t)
+{
+	GetCtrl()->SetAnimationTime(t);
+}
 
 #endif // _HOE_OBJECT_INTERFACE_H_
 

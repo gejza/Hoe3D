@@ -34,8 +34,8 @@ num		{num1}|{num2}
 {string}	if (lval) lval->str = hu_GetString(yytext); return V_STRING;
 
 [;,]		if (lval) lval->c = yytext[0]; return P_SEP;
-[{(\[]		if (lval) lval->c = yytext[0]; return P_STT;
-[}\])]		if (lval) lval->c = yytext[0]; return P_END;
+[{\(\[]		if (lval) lval->c = yytext[0]; return P_STT;
+[}\]\)]		if (lval) lval->c = yytext[0]; return P_END;
 [|]			return P_PIPE;
 
 [=]			return P_EQ;
@@ -79,6 +79,7 @@ allrender	if (lval) lval->str = yytext; return MS_ALLRENDER;
 point		if (lval) lval->str = yytext; return MS_POINT;
 
 
+{name}\({dig}\)	if (lval) lval->str = yytext; return V_NAME_INDEX;
 {name}		if (lval) lval->str = yytext; return V_NAME;
 .			if (lval) lval->str = yytext; return P_ERROR;
 

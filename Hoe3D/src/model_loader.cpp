@@ -81,7 +81,7 @@ HoeModel * ModelLoader::LoadModel()
 	hms_info info;
 	m_reader.Read(&info, sizeof(hms_info));
 
-	HoeModel * model = new HoeModel(info.num_streams);
+	HoeModel * model = new HoeModel(info.num_streams, info.num_indices, info.num_materials);
 
 	m_reader.Read(&ins,4);
 

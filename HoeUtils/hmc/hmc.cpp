@@ -39,6 +39,7 @@ int HMC::GetActLine()
 CBaseStream * HMC::CreateStream(const std::string &name, _FVF &fvf)
 {
 	CStream * stream = new CStream(name,fvf);
+	// tady vcetne indexu
 	global.streams.push_back(stream);
 	return stream;
 }

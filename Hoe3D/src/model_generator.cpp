@@ -34,7 +34,7 @@ ModelGenerator::ModelGenerator(HoeLog *log, int flags)
 HoeModel * ModelGenerator::GenBox(float size)
 {
 	int i;
-	HoeModel * mod = new HoeModel(1);
+	HoeModel * mod = new HoeModel(1,1,1);
 	HoeStream * stream = new HoeStream();
 	HoeIndex * index = new HoeIndex();
 	// 8 vertexu a 
@@ -80,7 +80,7 @@ HoeModel * ModelGenerator::GenBox(float size)
 
 HoeModel * ModelGenerator::GenSphere(float size, int res)
 {
-	HoeModel * mod = new HoeModel(1);
+	HoeModel * mod = new HoeModel(1,1,1);
 	HoeStream * stream = new HoeStream();
 	HoeIndex * index = new HoeIndex();
 	// 8 vertexu a 

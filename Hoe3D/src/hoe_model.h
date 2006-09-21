@@ -33,7 +33,7 @@ protected:
 	void AddDefIndex(HoeIndex * index);
 	void AddDefMaterial(HoeMaterial * mat);
 public:	
-	HoeModel(int numr);
+	HoeModel(int nums, int numi, int numm);
 	~HoeModel();
 
 	// info functions
@@ -41,7 +41,7 @@ public:
 	uint GetNumIndex() const { return m_num_index; }
 	uint GetNumMats() const { return m_num_mat; }
 
-	void Render(const HoeScene * scene) const ;
+	void Render(const HoeScene * scene, float f) const ;
 	const HoeMath::BoundingBox & GetBound() const { return m_box; }
 
 	virtual bool HOEAPI GetParameter(const char * name, THoeParameter * parameter);
