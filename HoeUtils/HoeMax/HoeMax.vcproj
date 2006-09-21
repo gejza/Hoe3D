@@ -182,11 +182,11 @@
 			>
 		</File>
 		<File
-			RelativePath="..\HoeMax\export.cpp"
+			RelativePath=".\ExportFile.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\HoeMax\HoeExport.cpp"
+			RelativePath=".\ExportFile.h"
 			>
 		</File>
 		<File
@@ -210,6 +210,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\MeshBuffer.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\MeshBuffer.h"
+			>
+		</File>
+		<File
 			RelativePath="..\HoeMax\resource.h"
 			>
 		</File>
@@ -219,6 +227,14 @@
 		</File>
 		<File
 			RelativePath="..\HoeMax\ResourcesDialog.h"
+			>
+		</File>
+		<File
+			RelativePath=".\Utils.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\Utils.h"
 			>
 		</File>
 	</Files>

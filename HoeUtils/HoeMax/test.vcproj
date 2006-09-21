@@ -23,7 +23,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -98,7 +98,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="0"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -325,7 +325,23 @@
 	</References>
 	<Files>
 		<File
+			RelativePath=".\ExportFile.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\ExportFile.h"
+			>
+		</File>
+		<File
 			RelativePath=".\test.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\Utils.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\Utils.h"
 			>
 		</File>
 	</Files>

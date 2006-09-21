@@ -13,7 +13,10 @@
 
 #include "HoeMax.h"
 #include "ResourcesDialog.h"
+#include "Utils.h"
+#include "MeshBuffer.h"
 
+using namespace Utils;
 
 static HoeMaxClassDesc HoeMaxDesc;
 ClassDesc2* GetHoeMaxDesc() { return &HoeMaxDesc; }
@@ -81,7 +84,7 @@ const TCHAR *HoeMax::OtherMessage2()
 unsigned int HoeMax::Version()
 {				
 	//TODO: Return Version number * 100 (i.e. v3.01 = 301)
-	return 100;
+	return 200;
 }
 
 void HoeMax::ShowAbout(HWND hWnd)
@@ -115,7 +118,6 @@ int	HoeMax::DoExport(const TCHAR *name,ExpInterface *ei,Interface *i, BOOL suppr
 	ip = i;
 	rsc = new Resources;
 
-
 	PreProcess(ip->GetRootNode());
 
 	if(!suppressPrompts)
@@ -128,8 +130,8 @@ int	HoeMax::DoExport(const TCHAR *name,ExpInterface *ei,Interface *i, BOOL suppr
 	}
 
 	// Open the stream
-	pStream = _tfopen(name,_T("wt"));
-	if (!pStream) {
+	if (!m_file.Open(name)) 
+	{
 		return 0;
 	}
 	
@@ -181,7 +183,7 @@ int	HoeMax::DoExport(const TCHAR *name,ExpInterface *ei,Interface *i, BOOL suppr
 	ip->ProgressEnd();
 
 	// Close the stream
-	fclose(pStream);
+	m_file.Close();
 
 	delete rsc;
 
@@ -288,64 +290,67 @@ void HoeMax::PreProcess(INode* node)
 	}
 }
 
+/****************************************************************************
 
-// This method is the main object exporter.
-// It is called once of every node in the scene. The objects are
-// exported as they are encoutered.
+  Global output [Scene info]
+  
+****************************************************************************/
 
-// Before recursing into the children of a node, we will export it.
-// The benefit of this is that a nodes parent is always before the
-// children in the resulting file. This is desired since a child's
-// transformation matrix is optionally relative to the parent.
-
-BOOL HoeMax::nodeEnum(INode* node, int indentLevel) 
+// Dump some global animation information.
+void HoeMax::ExportGlobalInfo()
 {
-	// Stop recursing if the user pressed Cancel 
-	if (ip->GetCancel())
-		return FALSE;
+	struct tm *newtime;
+	time_t aclock;
 
-	if(exportSelected && node->Selected() == FALSE)
-		return TREE_CONTINUE;
+	time( &aclock );
+	newtime = localtime(&aclock);
 
-	//nCurNode++;
-	//char progressmsg[512];
-	//sprintf(progressmsg,"Export node '%s' (%d/%d)",node->GetName(),nCurNode,nTotalNodeCount);
-	//ip->ProgressStart(progressmsg, TRUE, fn, NULL);
+	TSTR today = _tasctime(newtime);	// The date string has a \n appended.
+	today.remove(today.length()-1);		// Remove the \n
 
-	
-	// The ObjectState is a 'thing' that flows down the pipeline containing
-	// all information about the object. By calling EvalWorldState() we tell
-	// max to eveluate the object at end of the pipeline.
-	ObjectState os = node->EvalWorldState(0); 
-
-	// The obj member of ObjectState is the actual object we will export.
-	/*if (os.obj && os.obj->SuperClassID() == GEOMOBJECT_CLASS_ID) 
-	{
-		ExportStream(node,GetStaticFrame()); //ExportGeomObject(node); 
-	}*/
-	
-	// For each child of this node, we recurse into ourselves 
-	// until no more children are found.
-	for (int c = 0; c < node->NumberOfChildren(); c++) {
-		if (!nodeEnum(node->GetChildNode(c),0))
-			return FALSE;
-	}
-	
-	return TRUE;
+	// Start with a file identifier and format version
+	m_file.Printf( "// %s\t%.2f\n", this->LongDesc(), this->Version()*0.01f);
+	m_file.Printf( "// %s\t%s\n", this->AuthorName(), this->CopyrightMessage());
+	m_file.Printf( "// \"%s\" - %s\n", Utils::FixupName(ip->GetCurFileName()), (TCHAR*)today);
+	m_file.Printf( "\n");
 }
 
-void HoeMax::Printf(const char * szFormat,...)
+void HoeMax::ExportMesh(MeshItem *mesh)
 {
-	static char szBuff[1024];
+	char progressmsg[512];
+	sprintf(progressmsg,"Export node '%s' (%d/%d)",mesh->node->GetName(),nCurNode,nTotalNodeCount);
+	ip->ProgressStart(progressmsg, TRUE, fn, NULL);
+	nCurNode++;
 
-	va_list args;
+	MeshBuffer buffer(true, false, true);
+	buffer.Export(FixupName(mesh->node->GetName()),mesh->node, 0, 0, &m_file);
+}
 
-	va_start(args, szFormat);
-	_vsntprintf( szBuff, 1024, szFormat, args );
-	va_end(args);
 
-	fputs(szBuff,pStream);
-} 
+void HoeMax::DumpMaterial(Mtl* mtl)
+{
+
+	TimeValue t = 0;//GetStaticFrame();
+	
+	if (!mtl) return;
+
+	TSTR className;
+	mtl->GetClassName(className);
+	m_file.Printf("// Mat: %s\n",FixupName(className));
+
+	m_file.Printf("Material %s\n",FixupName(mtl->GetName()));
+
+	// We know the Standard material, so we can get some extra info
+	//if (mtl->ClassID() == Class_ID(DMTL_CLASS_ID, 0)) {
+	//	StdMat* std = (StdMat*)mtl;
+
+		m_file.Printf("\tDiffuse = %s\n", Format(mtl->GetDiffuse(t)));
+		m_file.Printf("\tAmbient = %s\n", Format(mtl->GetAmbient(t)));
+		m_file.Printf("\tSpecular = %s\n", Format(mtl->GetSpecular(t)));
+
+
+	m_file.Printf("~Material\n\n");
+}
 
 void HoeMax::Progress(int p)
 { 

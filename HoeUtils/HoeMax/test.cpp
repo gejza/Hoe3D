@@ -2,10 +2,12 @@
 //
 
 #include <stdio.h>
+#include "ExportFile.h"
 
 int main(int argc, const char * argv[])
 {
-	printf("aa %d\n", sizeof(long));
+	ModelExportFile f;
+	f.Load(L"test.txt");
 	return 0;
 }
 

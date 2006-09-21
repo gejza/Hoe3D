@@ -4,13 +4,6 @@
 #include "HoeExport.h"
 
 
-
-MeshBuffer::MeshBuffer()
-{
-	bExportTV = true;
-	bExportC = true;;
-}
-
 int MeshBuffer::GetFace(int index,int start)
 {
 	for (int i=start;i < faces.size();i++)
@@ -151,24 +144,7 @@ bool MeshBuffer::Export(const char * name,HoeMax * he)
 
 				}
 
-				if (bExportC)
-				{
-					int ic = faces[bod/3].cvert[bod%3];
-					DWORD c = 0xff000000;
-					c |= (0xff&DWORD(pCVert[ic].x * 0xff)) << 16;
-					c |= (0xff&DWORD(pCVert[ic].y * 0xff)) << 8;
-					c |= (0xff&DWORD(pCVert[ic].z * 0xff));
-					he->Printf("; 0x%x",c);
-				}
-				if (bExportTV) 
-				{
-					int it = faces[bod/3].tvert[bod%3];
-					he->Printf(";\t ");
-					he->Printf(FloatToStr(pTVert[it].x));
-					he->Printf(", ");
-					he->Printf(FloatToStr(pTVert[it].y));
-				}
-				he->Printf("\n");
+
 				// priradit k face index..
 				mesh[bod/3][bod%3] = index;
 				for (bi = b+1;bi < body.size();bi++) // jizda po zbytku
@@ -187,17 +163,9 @@ bool MeshBuffer::Export(const char * name,HoeMax * he)
 	}
 	he->Printf("~Stream // %d,%d,%d\n",pVert.size(),index,faces.size()*3);
 
-	he->Printf("\nIndex i_%s\n",name);
-	// Export the indices
-	for (i=0;i < faces.size();i++)
-	{
-		he->Printf("\t%d, %d, %d\n",mesh[i][0],mesh[i][1],mesh[i][2]);
-	}
-	he->Printf("~Index\n\n");
-	
+
 	return true;
 }
-
 
 const char * FloatToStr(const float f)
 {
