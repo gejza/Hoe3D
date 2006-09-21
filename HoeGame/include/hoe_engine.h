@@ -63,6 +63,19 @@ public:
 	void Destroy();
 };
 
+class HoeEngineInfo
+{
+	HOE_LIBRARY m_lib; /** < Handle library */
+protected:
+	IHoeEngineInfo * m_info;
+public:
+	HoeEngineInfo();
+	virtual ~HoeEngineInfo();
+	bool Load(const char * dllname);
+	void Unload();
+	IHoeEngineInfo * GetInfo() { return m_info; }
+};
+
 END_HOEGAME
 
 #endif // _HOE_ENGINE_H_

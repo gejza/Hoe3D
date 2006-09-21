@@ -40,7 +40,20 @@ DLL_EXPORT IHoe3DEngine * HOEAPI CreateHoeEngine(int sdk_ver, XHoeConsole * con,
 	return ret;
 }
 
+DLL_EXPORT IHoeEngineInfo * HOEAPI GetEngineInfo(int sdk_ver)
+{
+	if (sdk_ver != HOESDK_VERSION)
+	{
+		return NULL;
+	}
+	static IHoeEngineInfo info;
+	return &info;
+}
 
+DLL_EXPORT int HOEAPI GetSDKVersion()
+{
+	return HOESDK_VERSION;
+}
 
 #if defined (_WIN32) && !defined (HOE_STATIC_ENGINE) 
 

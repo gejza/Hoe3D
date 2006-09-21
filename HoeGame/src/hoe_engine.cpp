@@ -40,7 +40,7 @@ bool HoeEngine::Load(const char * dllname, Console * con, XHoeFS * fs)
 		return false;
 	}
 
-	GetEngineInterface = (HOE_FUNCCREATE)GetProcAddress(m_lib,HOE_FUNCCREATENAME);
+	GetEngineInterface = (HOE_FUNCCREATE)GetProcAddress(m_lib,"_CreateHoeEngine@24");
 	if (!GetEngineInterface)
 	{
 		con->Printf("Nelze ziskat export knihovny.");
@@ -96,6 +96,52 @@ void HoeEngine::Destroy()
 
 	g_hoeengine = NULL;
 	m_loaded = false;
+	// unload
+}
+
+//////////////////////////////////////////////
+HoeEngineInfo::HoeEngineInfo()
+{
+	m_lib = 0;
+	m_info = NULL;
+}
+
+HoeEngineInfo::~HoeEngineInfo()
+{
+	Unload();
+}
+
+bool HoeEngineInfo::Load(const char * dllname)
+{
+	HOE_FUNCINFO func;
+	Unload();
+	m_lib = LoadLibrary(dllname);
+	if (!m_lib)
+	{
+		return false;
+	}
+
+	func = (HOE_FUNCINFO)GetProcAddress(m_lib,"_GetEngineInfo@4");
+	if (func == NULL)
+	{
+		Unload();
+		return false;
+	}
+	m_info = func(HOESDK_VERSION);
+	if (m_info == NULL)
+	{
+		Unload();
+		return false;
+	}
+	return true;
+}
+
+void HoeEngineInfo::Unload()
+{
+	if (m_lib)
+		FreeLibrary(m_lib);
+	m_lib = NULL;
+	m_info = NULL;
 }
 
 END_HOEGAME

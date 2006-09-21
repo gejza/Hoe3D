@@ -134,16 +134,19 @@ public:
 #define HOEF_NOINPUT	0x01
 #define HOEF_NOSOUND	0x02
 
-#ifdef _WIN32
-#define HOE_FUNCCREATENAME "_CreateHoeEngine@24"
-#else
-#define HOE_FUNCCREATENAME "CreateHoeEngine"
-#endif
+class IHoeEngineInfo
+{
+public:
+};
 
 typedef IHoe3DEngine * (HOEAPI *HOE_FUNCCREATE)(int sdk_ver, XHoeConsole * con, XHoeFS * fs, void * p_memBase,int n_memSize, int flags);
+typedef IHoeEngineInfo * (HOEAPI *HOE_FUNCINFO)(int sdk_ver);
+typedef int (HOEAPI *HOE_FUNCGETSDKVER)();
 
 #ifdef HOE_STATIC_ENGINE
 IHoe3DEngine * HOEAPI CreateHoeEngine(int sdk_ver, XHoeConsole * con, XHoeFS * fs, void * p_memBase,int n_memSize, int flags);
+IHoeEngineInfo * HOEAPI GetEngineInfo(int sdk_ver);
+int HOAPI GetSDKVersion();
 #endif
 
 inline IHoeMaterialSystem * HoeGetMaterialSystem(IHoe3DEngine * eng)
