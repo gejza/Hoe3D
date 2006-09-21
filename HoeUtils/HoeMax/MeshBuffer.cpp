@@ -42,6 +42,10 @@ bool MeshBuffer::ComputeMeshIndex(INode * node, TimeValue t)
 
 	// zkontrolovat
 	//if (mesh->getN mesh->getNumVerts()
+	if (m_exptv && !mesh->tvFace)
+		m_exptv = false;
+	if (m_expc && !mesh->vcFace)
+		m_expc = false;
 
 	m_stream.clear();
 	m_index.clear();
@@ -86,10 +90,10 @@ bool MeshBuffer::ComputeMeshIndex(INode * node, TimeValue t)
 TriObject* MeshBuffer::GetTriObjectFromNode(INode * node, TimeValue t, int& deleteIt)
 {
 	deleteIt = FALSE;
-	Object *obj = node->EvalWorldState(t).obj;
+	Object *obj = node->EvalWorldState(t * GetTicksPerFrame()).obj;
 	if (obj->CanConvertToType(Class_ID(TRIOBJ_CLASS_ID, 0))) 
 	{ 
-		TriObject *tri = (TriObject *) obj->ConvertToType(t, 
+		TriObject *tri = (TriObject *) obj->ConvertToType(t * GetTicksPerFrame(), 
 			Class_ID(TRIOBJ_CLASS_ID, 0));
 		// Note that the TriObject should only be deleted
 		// if the pointer to it is not equal to the object
@@ -118,7 +122,7 @@ bool MeshBuffer::ExportIndex(ModelExportFile *file)
 bool MeshBuffer::ExportStream(INode * node, TimeValue t, ModelExportFile * file)
 {
 	// export streamu
-	Matrix3 tm = node->GetObjTMAfterWSM(t);
+	Matrix3 tm = node->GetObjTMAfterWSM(t * GetTicksPerFrame());
 	BOOL needDel;
 	TriObject* tri = GetTriObjectFromNode(node, t, needDel);
 	if (!tri) 
@@ -147,19 +151,19 @@ bool MeshBuffer::ExportStream(INode * node, TimeValue t, ModelExportFile * file)
 		file->Printf("\t");
 		file->Printf("%f", pos.x);
 		file->Printf(", ");
-		file->Printf("%f", pos.y);
-		file->Printf(", ");
 		file->Printf("%f", pos.z);
+		file->Printf(", ");
+		file->Printf("%f", pos.y);
 		// normala
 		if (m_expn)
 		{
-			Point3 n = tm * GetVertexNormal(mesh->getRVert(v.posIndex), v.smoothGroup);
+			Point3 n = GetVertexNormal(mesh->getRVert(v.posIndex), v.smoothGroup);
 			file->Printf(";\t");
 			file->Printf("%f", n.x);
 			file->Printf(", ");
-			file->Printf("%f", n.y);
-			file->Printf(", ");
 			file->Printf("%f", n.z);
+			file->Printf(", ");
+			file->Printf("%f", n.y);
 		}
 		if (m_expc)
 		{
@@ -182,7 +186,7 @@ bool MeshBuffer::ExportStream(INode * node, TimeValue t, ModelExportFile * file)
 	}
 	// konec
 
-	file->Printf("~Stream // %d,%d,%d\n",
+	file->Printf("~Stream // %d,%d,%d\n\n",
 		(int)mesh->getNumVerts(),
 		(int)m_stream.size(),(int)m_index.size());
 
@@ -245,7 +249,7 @@ bool MeshBuffer::Export(const char * name, INode * node, TimeValue from, TimeVal
 		return false;
 
 	// export streamu
-	for (TimeValue t = from;t <= to;t++)
+	for (TimeValue t = m_from;t <= m_to;t++)
 	{
 		if (!ExportStream(node, t, file))
 			return false;

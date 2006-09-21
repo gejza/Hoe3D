@@ -323,7 +323,7 @@ void HoeMax::ExportMesh(MeshItem *mesh)
 	nCurNode++;
 
 	MeshBuffer buffer(true, false, true);
-	buffer.Export(FixupName(mesh->node->GetName()),mesh->node, 0, 0, &m_file);
+	buffer.Export(FixupName(mesh->node->GetName()),mesh->node, 0, 29, &m_file);
 }
 
 
