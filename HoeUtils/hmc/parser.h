@@ -55,6 +55,8 @@ extern "C" {
 #define MS_ALLRENDER	10007
 #define MS_POINT		10008
 
+#define FNC_AUTOTRACKING 100001
+
 struct p_value
 {
 	union {

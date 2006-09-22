@@ -21,7 +21,8 @@
 #define IDC_FRAMEFROM                   1013
 #define IDC_FRAMETO                     1014
 #define IDC_PATCHFILE                   1016
-#define IDC_BUTTON1                     1017
+#define IDC_CHECK1                      1018
+#define IDC_LOCAL                       1018
 #define IDC_COLOR                       1456
 #define IDC_EDIT                        1490
 #define IDC_SPIN                        1496
@@ -32,7 +33,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        101
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1018
+#define _APS_NEXT_CONTROL_VALUE         1019
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

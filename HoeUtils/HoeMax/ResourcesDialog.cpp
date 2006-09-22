@@ -25,13 +25,11 @@ BOOL CALLBACK Resources::HoeMaxOptionsDlgProc(HWND hWnd,UINT message,WPARAM wPar
 		case WM_COMMAND:
 			switch (LOWORD(wParam)) {
 			case IDOK: {
-				/*imp->bExportN = IsDlgButtonChecked(hWnd, IDC_NORMALS) == true;
-				imp->bExportC = IsDlgButtonChecked(hWnd, IDC_VCOLORS) == true;
-				imp->bExportTV = IsDlgButtonChecked(hWnd, IDC_TEXUV) == true;
+				for (int i=0;i<imp->meshList.size();i++)
+					imp->meshList.at(i)->check();
 
-				len = SendDlgItemMessage(hWnd, IDC_MODELNAME, WM_GETTEXTLENGTH, 0, 0);
-                SendDlgItemMessage(hWnd, IDC_MODELNAME, WM_GETTEXT, len+1, (LPARAM)imp->modelName);
-				imp->modelName[len] = '\0';*/
+				imp->m_exportlocal = (IsDlgButtonChecked(hWnd, IDC_LOCAL) == BST_CHECKED);
+
 				// get dlgs
 				char buff[100];
 				int i;
@@ -71,12 +69,13 @@ int Resources::OnInit(HWND hWnd)
 	TreeItem * item = NULL;
 	for (i=0;i <mtlList.Count();i++)
 	{
-		item = AddItem(NULL,item,mtlList.GetMtl(i)->GetName());
+		item = AddItem(NULL,item,mtlList.GetMtl(i)->GetName(), true);
 	}
 
 	for (i=0;i <meshList.size();i++)
 	{
 		item = AddMeshItem(meshList.at(i),item);
+		item->SetChecked(true);
 		//item->SetChecked(true);
 	}
 
@@ -86,14 +85,14 @@ int Resources::OnInit(HWND hWnd)
 		//item->SetChecked(true);
 	}
 
-      SetDlgItemText(hWnd, IDC_FRAMEFROM, "0");
-      SetDlgItemText(hWnd, IDC_FRAMETO, "0");
+    SetDlgItemText(hWnd, IDC_FRAMEFROM, "0");
+    SetDlgItemText(hWnd, IDC_FRAMETO, "0");
 
 
 	return TRUE;
 }
 
-TreeItem * Resources::AddItem(TreeItem * parent,TreeItem * after,const char * caption)
+TreeItem * Resources::AddItem(TreeItem * parent,TreeItem * after,const char * caption, bool checked)
 {
 	TVITEM tvi; 
     TVINSERTSTRUCT tvins;
@@ -104,7 +103,7 @@ TreeItem * Resources::AddItem(TreeItem * parent,TreeItem * after,const char * ca
     tvi.cchTextMax = lstrlen(caption);
 	tvi.lParam = (LPARAM) item;
     tvi.stateMask = TVIS_STATEIMAGEMASK;
-    tvi.state = INDEXTOSTATEIMAGEMASK(2);
+    tvi.state = 0xffffffff;//INDEXTOSTATEIMAGEMASK(2);
 
     //Since state images are one-based, 1 in this macro turns the check off, and 
     //2 turns it on.
@@ -156,30 +155,37 @@ void Resources::AddHelper(INode * node)
 
 TreeItem * Resources::AddMeshItem(MeshItem *mesh, TreeItem * after)
 {
-	TreeItem * item = AddItem(NULL,after,mesh->node->GetName());
+	TreeItem * item = AddItem(NULL,after,mesh->node->GetName(), true);
 	item->type = TreeItem::eMesh;
 	item->mesh = mesh;
 	mesh->item = item;
 
-	TreeItem * stream = AddItem(item,NULL,"Stream");
+	TreeItem * stream = AddItem(item,NULL,"Stream", true);
 	TreeItem * it;
-	it = AddItem(stream,NULL,"Normals");
-	it = AddItem(stream,it,"Textures ");
-	it = AddItem(stream,it,"Vertex Colors");
+	it = AddItem(stream,NULL,"Normals", true);
+	it = AddItem(stream,it,"Textures ", true);
+	it = AddItem(stream,it,"Vertex Colors", true);
 
-	AddItem(item,stream,"Index");
+	AddItem(item,stream,"Index", true);
 
 	return item;	
 }
 
 TreeItem * Resources::AddHelperItem(HelperItem *helper, TreeItem * after)
 {
-	TreeItem * item = AddItem(NULL,after,helper->node->GetName());
+	TreeItem * item = AddItem(NULL,after,helper->node->GetName(), true);
 	item->type = TreeItem::eHelper;
 	item->helper = helper;
 	helper->item = item;
 
 	return item;	
+}
+
+///////////////////////
+void MeshItem::check()
+{
+	// check
+	exp = this->item->IsChecked();
 }
 
 TreeItem::TreeItem(HWND tree)

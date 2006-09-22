@@ -22,6 +22,9 @@ public:
 	virtual void PrintInfo(void);
 	virtual unsigned long ExportHeader(HoeUtils::Stream * stream);
 	virtual unsigned long ExportData(HoeUtils::Stream * stream);
+
+	void Autotracking();
+	void Move(float x, float y, float z);
 };
 
 class CIndex : public CBaseIndex

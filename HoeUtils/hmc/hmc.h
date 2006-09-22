@@ -27,6 +27,8 @@ public:
 	virtual bool Finish(void);
 	virtual bool Link(const char * fileout);
 	virtual bool Link(HoeUtils::Stream * stream);
+
+	virtual void Autotracking(const char * name);
 };
 
 

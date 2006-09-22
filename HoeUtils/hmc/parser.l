@@ -56,6 +56,7 @@ Material	if (lval) lval->str = yytext; return C_MATERIAL;
 ~Model		if (lval) lval->str = yytext; return E_MODEL;
 ~Material	if (lval) lval->str = yytext; return E_MATERIAL;
 
+Autotracking\({name}\) if (lval) lval->str = yytext; return FNC_AUTOTRACKING;
 
 Ambient		return M_AMBIENT;
 Diffuse		return M_DIFFUSE;

@@ -30,7 +30,7 @@ extern HINSTANCE hInstance;
 
 class Resources;
 class MeshBuffer;
-class MeshItem;
+struct MeshItem;
 
 class HoeMax : public SceneExport 
 {

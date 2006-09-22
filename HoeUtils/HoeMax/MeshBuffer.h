@@ -30,13 +30,13 @@ protected:
 	DWORD AddVertex(const MeshVertex & vert);
 	bool ComputeMeshIndex(INode * node, TimeValue t);
 	bool ExportIndex(ModelExportFile * file);
-	bool ExportStream(INode * node, TimeValue t, ModelExportFile * file);
+	bool ExportStream(INode * node, TimeValue t, bool local, ModelExportFile * file);
 	TriObject* GetTriObjectFromNode(INode * node, TimeValue t, int& deleteIt);
 	BOOL	TMNegParity(Matrix3& m);
 	Point3 GetVertexNormal(RVertex& rv, DWORD smGroup);
 public:
 	MeshBuffer(bool normals, bool colors, bool tv);
-	bool Export(const char * name, INode * node, TimeValue from, TimeValue to, ModelExportFile * file);
+	bool Export(const char * name, INode * node, TimeValue from, TimeValue to, bool local, ModelExportFile * file);
 };
 
 #endif // _HOE_EXPORT_MESH_

@@ -43,6 +43,50 @@ unsigned long CStream::ExportData(HoeUtils::Stream * stream)
 	return data.GetSize();
 }
 
+void CStream::Autotracking()
+{
+	double px = 0;
+	double py = 0;
+	double pz = 0;
+	if (fvf.GetString().c_str()[0] != 'p')
+	{
+		printf("Failed tracking to FVF=%s\n", fvf.GetString().c_str());
+		return;
+	}
+	for (int i=0; i < data.GetNum();i++)
+	{
+		// scan indexu
+		float * v = (float *)data.Get(i);
+		px += v[0];
+		py += v[1];
+		pz += v[2];
+	}
+	px = px / data.GetNum();
+	py = py / data.GetNum();
+	pz = pz / data.GetNum();
+	printf("Move to tracking point (%f,%f,%f)\n", (float)px, (float) py, (float)pz);
+	Move((float)-px, 0.f, (float)-pz);
+}
+
+void CStream::Move(float x, float y, float z)
+{
+	if (fvf.GetString().c_str()[0] != 'p')
+	{
+		printf("Failed move to FVF=%s\n", fvf.GetString().c_str());
+		return;
+	}
+	for (int i=0; i < data.GetNum();i++)
+	{
+		// scan indexu
+		float * v = (float *)data.Get(i);
+		v[0] += x;
+		v[1] += y;
+		v[2] += z;
+	}
+}
+
+/////////////////////////////////////////////////////////////////
+
 CIndex::CIndex(const std::string &name_) : data(2)
 {
 	name = name_;

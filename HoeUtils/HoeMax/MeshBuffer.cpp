@@ -119,10 +119,14 @@ bool MeshBuffer::ExportIndex(ModelExportFile *file)
 	return true;
 }
 
-bool MeshBuffer::ExportStream(INode * node, TimeValue t, ModelExportFile * file)
+bool MeshBuffer::ExportStream(INode * node, TimeValue t, bool local, ModelExportFile * file)
 {
 	// export streamu
 	Matrix3 tm = node->GetObjTMAfterWSM(t * GetTicksPerFrame());
+	if (local)
+	{
+		tm.NoTrans();
+	}
 	BOOL needDel;
 	TriObject* tri = GetTriObjectFromNode(node, t, needDel);
 	if (!tri) 
@@ -239,7 +243,7 @@ BOOL MeshBuffer::TMNegParity(Matrix3& m)
 	return (DotProd(CrossProd(m.GetRow(0),m.GetRow(1)),m.GetRow(2))<0.0)?1:0;
 }
 
-bool MeshBuffer::Export(const char * name, INode * node, TimeValue from, TimeValue to, ModelExportFile * file)
+bool MeshBuffer::Export(const char * name, INode * node, TimeValue from, TimeValue to, bool local, ModelExportFile * file)
 {
 	// vypocitat index
 	m_name = name;
@@ -251,7 +255,7 @@ bool MeshBuffer::Export(const char * name, INode * node, TimeValue from, TimeVal
 	// export streamu
 	for (TimeValue t = m_from;t <= m_to;t++)
 	{
-		if (!ExportStream(node, t, file))
+		if (!ExportStream(node, t, local, file))
 			return false;
 	}
 

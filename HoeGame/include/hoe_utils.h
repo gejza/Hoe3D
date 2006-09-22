@@ -65,6 +65,10 @@ public:
 		assert(n < m_count);
 		return m_ptr[n];
 	}
+	C & operator [] (const int index)
+	{
+		return Get(index);
+	}
 	/** Odebrani vsech stejnych objektu */
 	void Remove(C c)
 	{

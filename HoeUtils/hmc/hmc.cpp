@@ -169,3 +169,13 @@ bool HMC::Link(const char * fileout)
 	return Link(&file);
 }
 
+void HMC::Autotracking(const char * name)
+{
+	printf("Autotracking %s\n", name);
+	std::vector<CStream*> s = global.FindStream(name);
+	for (int i=0;i < s.size();i++)
+	{
+		s[i]->Autotracking();
+	}
+}
+

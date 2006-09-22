@@ -40,9 +40,11 @@ void ObjectController::Render(const HoeScene * scene)
 	{
 		HoeMath::MATRIX t;
 		t.Scale(m_scale);
-		m.Multiply(t);
+		t.Multiply(m);
+		Ref::SetMatrix(t);
 	}
-	Ref::SetMatrix(m);
+	else
+		Ref::SetMatrix(m);
 
 	if (model)
         model->Render(scene, m_frame);

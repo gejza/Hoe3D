@@ -97,6 +97,9 @@ protected:
 	int ScanVertex(VERTEX &vert);
 	bool ScanFVF(_FVF & fvf);
 	bool ScanColor(CColor * c);
+
+	// functions
+	virtual void Autotracking(const char * name) {};
 };
 
 #endif // _CLASS_PARSER_H_

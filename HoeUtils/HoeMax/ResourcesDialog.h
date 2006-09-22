@@ -16,15 +16,14 @@ public:
 
 class TreeItem;
 
-class MeshItem
+struct MeshItem
 {
-	
-public:
-
 	typedef std::vector<MeshItem*> List;
 
 	TreeItem * item;
 	INode* node;
+	bool exp;
+	void check();
 };
 
 class HelperItem
@@ -77,11 +76,12 @@ protected:
 	HelperItem::List helperList;
 
 	TimeValue m_from, m_to;
+	bool m_exportlocal;
 
 	static BOOL CALLBACK HoeMaxOptionsDlgProc(HWND hWnd,UINT message,WPARAM wParam,LPARAM lParam);
 	int OnInit(HWND hWnd);
 
-	TreeItem * AddItem(TreeItem * parent,TreeItem * after,const char * caption);
+	TreeItem * AddItem(TreeItem * parent,TreeItem * after,const char * caption, bool checked);
 public:
 	MeshItem * GetNextMesh();
 	HelperItem * GetNextHelper();
@@ -97,6 +97,7 @@ public:
 
 	TimeValue GetFrom() { return m_from; }
 	TimeValue GetTo() { return m_to; }
+	bool ExportLocal() { return m_exportlocal; }
 };
 
 #endif // _RESOURCES_DIALOG_H_

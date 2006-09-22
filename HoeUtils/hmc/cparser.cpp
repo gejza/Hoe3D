@@ -10,10 +10,10 @@ void CParser::Error(CPError * err)
 
 bool CParser::Parse()
 {
-
+	p_value val;
 	while (ScanLine() != NULL)
 	{
-		switch (lexln(NULL))
+		switch (lexln(&val))
 		{
 		case P_NL:
 			break;
@@ -32,6 +32,18 @@ bool CParser::Parse()
 		case C_MODEL:
 			if (!ScanModel())
 				return false;
+			break;
+		case FNC_AUTOTRACKING:
+			{
+				char streamname[1024];
+				sscanf(val.str, "Autotracking(%s)", streamname);
+				// odebrat nakonci '('
+				char * p = streamname;
+				while (*p) p++;
+				if (p > streamname) p--;
+				if (*p == ')') *p = 0;
+				Autotracking(streamname);
+			}
 			break;
 		default:
 			return false;
