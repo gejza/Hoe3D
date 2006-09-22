@@ -43,8 +43,14 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HoeUtils", "HoeUtils\lib\hoeUtils.vcproj", "{6E9AB2F5-272E-4EA7-891F-419B70AFB16C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "htex", "HoeUtils\Win32\htex.vcproj", "{8C255344-C393-479E-97E3-3C611F2E1BDE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6E9AB2F5-272E-4EA7-891F-419B70AFB16C} = {6E9AB2F5-272E-4EA7-891F-419B70AFB16C}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hmc", "HoeUtils\Win32\hmc.vcproj", "{19EBEC4A-0F95-43FF-B4AD-1B39BF9A5750}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6E9AB2F5-272E-4EA7-891F-419B70AFB16C} = {6E9AB2F5-272E-4EA7-891F-419B70AFB16C}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Level", "HoeTutorials\Level\Level.vcproj", "{0FD2E386-3DF1-4D4D-B412-648ED821FC09}"
 	ProjectSection(ProjectDependencies) = postProject

@@ -138,6 +138,7 @@
 				Name="VCLinkerTool"
 				OutputFile="..\bin\$(ProjectName).exe"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="..\..\bin"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"

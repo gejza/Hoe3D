@@ -170,7 +170,7 @@ int	HoeMax::DoExport(const TCHAR *name,ExpInterface *ei,Interface *i, BOOL suppr
 	
 	while ((mesh = rsc->GetNextMesh()) != NULL)
 	{
-		ExportMesh(mesh);
+		ExportMesh(mesh, rsc);
 	}
 
 	/*while ((helper = rsc->GetNextHelper()) != NULL)
@@ -315,7 +315,7 @@ void HoeMax::ExportGlobalInfo()
 	m_file.Printf( "\n");
 }
 
-void HoeMax::ExportMesh(MeshItem *mesh)
+void HoeMax::ExportMesh(MeshItem *mesh, Resources * res)
 {
 	char progressmsg[512];
 	sprintf(progressmsg,"Export node '%s' (%d/%d)",mesh->node->GetName(),nCurNode,nTotalNodeCount);
@@ -323,7 +323,7 @@ void HoeMax::ExportMesh(MeshItem *mesh)
 	nCurNode++;
 
 	MeshBuffer buffer(true, false, true);
-	buffer.Export(FixupName(mesh->node->GetName()),mesh->node, 0, 29, &m_file);
+	buffer.Export(FixupName(mesh->node->GetName()),mesh->node, res->GetFrom(), res->GetTo(), &m_file);
 }
 
 

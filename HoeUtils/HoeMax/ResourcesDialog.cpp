@@ -32,10 +32,22 @@ BOOL CALLBACK Resources::HoeMaxOptionsDlgProc(HWND hWnd,UINT message,WPARAM wPar
 				len = SendDlgItemMessage(hWnd, IDC_MODELNAME, WM_GETTEXTLENGTH, 0, 0);
                 SendDlgItemMessage(hWnd, IDC_MODELNAME, WM_GETTEXT, len+1, (LPARAM)imp->modelName);
 				imp->modelName[len] = '\0';*/
+				// get dlgs
+				char buff[100];
+				int i;
+				GetDlgItemText(hWnd, IDC_FRAMEFROM, buff, 100);
+				sscanf(buff, "%d", &i);
+				imp->m_from = i;
+				GetDlgItemText(hWnd, IDC_FRAMETO, buff, 100);
+				sscanf(buff, "%d", &i);
+				imp->m_to = i;
 				EndDialog(hWnd, 1);
 				return TRUE;
 			}
 			break;
+			case IDCANCEL:
+				EndDialog(hWnd, 0);
+				return TRUE;
 			default:
 				return FALSE;
 		}
@@ -73,6 +85,10 @@ int Resources::OnInit(HWND hWnd)
 		item = AddHelperItem(helperList.at(i),item);
 		//item->SetChecked(true);
 	}
+
+      SetDlgItemText(hWnd, IDC_FRAMEFROM, "0");
+      SetDlgItemText(hWnd, IDC_FRAMETO, "0");
+
 
 	return TRUE;
 }

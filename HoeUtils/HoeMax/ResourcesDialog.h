@@ -76,6 +76,8 @@ protected:
 	MeshItem::List meshList;
 	HelperItem::List helperList;
 
+	TimeValue m_from, m_to;
+
 	static BOOL CALLBACK HoeMaxOptionsDlgProc(HWND hWnd,UINT message,WPARAM wParam,LPARAM lParam);
 	int OnInit(HWND hWnd);
 
@@ -93,7 +95,8 @@ public:
 	void AddMtl(Mtl* mtl);
 	bool Show();
 
-
+	TimeValue GetFrom() { return m_from; }
+	TimeValue GetTo() { return m_to; }
 };
 
 #endif // _RESOURCES_DIALOG_H_

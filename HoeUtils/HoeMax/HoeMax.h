@@ -20,6 +20,7 @@ HISTORY:
 #include "iparamb2.h"
 #include "iparamm2.h"
 #include "ExportFile.h"
+#include "ResourcesDialog.h"
 
 extern TCHAR *GetString(int id);
 
@@ -60,7 +61,7 @@ public:
 	~HoeMax();	
 
 	bool ComputeMesh(INode * node, TimeValue t, MeshBuffer & mesh);
-	void ExportMesh(MeshItem * mesh);
+	void ExportMesh(MeshItem * mesh, Resources * res);
 
 	int				ExtCount();					// Number of extensions supported
 	const TCHAR *	Ext(int n);					// Extension #n (i.e. "3DS")
