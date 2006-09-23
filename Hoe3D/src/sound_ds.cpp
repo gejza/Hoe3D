@@ -84,7 +84,7 @@ bool HoeDSBuffer::Create(int channels, int freq, int byts, long samples)
   memset(&dsbdesc, 0, sizeof(DSBUFFERDESC)); 
   dsbdesc.dwSize = sizeof(DSBUFFERDESC); 
   dsbdesc.dwFlags = 
-    DSBCAPS_CTRL3D | DSBCAPS_CTRLVOLUME; 
+    DSBCAPS_CTRL3D/* | DSBCAPS_CTRLVOLUME*/; 
   dsbdesc.dwBufferBytes = samples * 2; 
   dsbdesc.lpwfxFormat = &wfx; 
  
@@ -126,14 +126,15 @@ void HoeDSBuffer::Unlock()
       0);         // No wraparound size.
 
 m_buffer->SetCurrentPosition(0);
+m_3d->SetMaxDistance(100.f, DS3D_IMMEDIATE);
+m_3d->SetPosition(0,0.f,0,DS3D_IMMEDIATE);
 HRESULT hr = m_buffer->Play(
     0,  // Unused.
     0,  // Priority for voice management.
     DSBPLAY_LOOPING); // Flags.
+	
 assert(SUCCEEDED(hr));
 
-m_3d->SetMaxDistance(1000.f, DS3D_IMMEDIATE);
-m_3d->SetPosition(0,100.f,0,DS3D_IMMEDIATE);
 }
 
 //////////////////////////////////////

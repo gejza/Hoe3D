@@ -93,7 +93,7 @@ public:
 	virtual bool HOEAPI Init(THoeInitSettings *) = 0;
 
 	/** Funkce co vytvari interface tridy */
-	virtual IHoeResource * HOEAPI Create(const char *) = 0;
+	virtual IHoeInterface * HOEAPI Create(const char *) = 0;
 
 	/** Funkce pro pristup k systemum hoe */
 	virtual IHoeSystem * HOEAPI GetSystem(HOESYSTEMS sys) = 0;

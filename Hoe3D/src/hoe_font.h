@@ -31,7 +31,7 @@ public:
     //dword   m_dwTexWidth;                 // Texture dimensions
     //dword   m_dwTexHeight;
 
-	HoeFontCoord m_fTexCoords[128-32];
+	HoeFontCoord m_fTexCoords[256];
 	class HoeTexture * m_tex;
 
 	void CreateTexture();

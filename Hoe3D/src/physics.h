@@ -4,6 +4,10 @@
 
 class ObjectInspector;
 
+// nejak naznacene kolize
+// na to musi byt seznam polygonalnich veci
+// v podstate zatim nijak nepropojene
+
 class Physics : public IHoePhysics
 {
 	ObjectInspector * m_oi;

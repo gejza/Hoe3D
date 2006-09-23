@@ -67,6 +67,12 @@ void Console::SetFileLogging(const char * flog)
 	if (log)
         fclose(log);
 	log = fopen(flog,"wt");
+	// ulozit UTF-8
+	if (log)
+	{
+		byte utf[] = { 0xef, 0xbb, 0xbf };
+		fwrite(utf, 1, 3, log);
+	}
 }
 
 void Console::Con_Print(const char * str)

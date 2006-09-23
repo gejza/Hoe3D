@@ -21,6 +21,7 @@ namespace shared {
 	InfoSystem * info = NULL;
 	HoeInput * input = NULL;
 	CmdExec * exec = NULL;
+	CodePage * codepage = NULL;
 }
 
 

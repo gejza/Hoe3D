@@ -32,6 +32,11 @@ struct THoeSub_Particle : public THoeSubObject
 	float t_x, t_y, t_z;
 };
 
+struct THoeSub_Sound : public THoeSubObject
+{
+	IHoeParticleEmitor * emitor;
+	float t_x, t_y, t_z;
+};
 
 // flags
 // zobrazi objekt

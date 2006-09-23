@@ -322,11 +322,24 @@ void LuaScript::func(const char * name)
 	f.Run(0);
 }
 
+///////////////////////////////////////////////
+
 bool LuaFile::Open(const char * filename)
 {
 	m_act = m_bufflength = 0;
+	m_utf = false;
 	m_f = fopen(filename,"r");
-	return (m_f != NULL);
+	if (!m_f)
+		return false;
+	// jde o UTF-8 ?
+	m_bufflength = fread(m_buff, 1, 3, m_f);
+	if (m_bufflength == 3 && m_buff[0] == 0xef && m_buff[1] == 0xbb && m_buff[2] == 0xbf)
+	{
+		m_utf = true;
+		m_act = m_bufflength = 0;
+	}
+
+	return true;
 }
 
 void LuaFile::Close()
@@ -355,6 +368,8 @@ int LuaFile::GetNextChar()
 			return -1;
 	}
 }
+
+/////////////////////////////////////////////////////////
 
 LuaPreprocess::LuaPreprocess(lua_State*L)
 {
@@ -494,6 +509,8 @@ bool LuaPreprocess::LoadFile(const char *filename)
 		return false;
 	}
 
+	// zjisteni zda jde o UTF-8
+	
  // if (lf.f == NULL) return errfile(L, fnameindex);  /* unable to open file */
  // c = ungetc(getc(lf.f), lf.f);
  // if (!(isspace(c) || isprint(c)) && lf.f != stdin) {  /* binary file? */
@@ -701,7 +718,7 @@ int LuaScript::loadlang(lua_State * L)
 		return 0;
 	}
 
-	if (!GetInstance()->lang->Load(par.GetString(-1),GetInstance()->con))
+	if (!GetInstance()->lang->Load(par.GetString(-1)))
 	{
 		GetInstance()->con->Printf("WARNING: Load lang file '%s' failed.",par.GetString(-1));
 	}

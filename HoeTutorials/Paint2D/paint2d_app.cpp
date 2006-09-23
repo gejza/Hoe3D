@@ -1,7 +1,10 @@
-
+﻿
 #include "paint2d_app.h"
+#include <hoe_lang.h>
 
 const char * g_TutorialName = "paint2d";
+
+HoeGame::Lang g_lang;
 
 int _hoemain(HOE_INSTANCE instance, HoeGame::Console * con)
 {
@@ -38,7 +41,8 @@ void Paint2DApp::_Paint(IHoe2D *h)
 	//h->BltFast(200,400,150,300,pic[3]);
 	h->SetRect(200,480);
 	h->SetRect(0,0);
-	f->DrawText(100,100,0xffff0000,"Hoe Tutorial Paint 2D!");
+	//f->DrawText(100,100,0xffff0000,"Hoe Tutorial Paint 2D!");
+	f->DrawText(100,100,0xffff0000,g_lang.Get(2));
 	h->SetRect(400,300);
 	f2->DrawText(50,250,0xff00ff00,"Mixle v Pixle");
 
@@ -46,6 +50,9 @@ void Paint2DApp::_Paint(IHoe2D *h)
 
 bool Paint2DApp::LoadScene()
 {
+	g_lang.Load("czech.lng");
+	GetEngine()->exec(g_lang.Get(1));
+	HoeGame::BaseConsole::Printf("test: %s",g_lang.Get(2));
 	GetFS()->AddResourceFile("../data/tex.hx");
 
 	pic[0] = (IHoePicture *)GetEngine()->Create("picture samo");

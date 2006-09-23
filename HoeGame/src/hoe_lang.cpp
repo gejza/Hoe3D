@@ -30,18 +30,18 @@ void Lang::Reset()
 
 }
 
-bool Lang::Load(const char * filename, BaseConsole * con)
+bool Lang::Load(const char * filename)
 {
 	FILE * f = fopen(filename,"rt");
 	if (!f)
 	{
-		if (con) con->Printf("Failed open lang file: %s",filename);
+		BaseConsole::Printf("Failed open lang file: %s",filename);
 		return false;
 	}
 	if (!lang_load(f))
 	{
 		fclose(f);
-		if (con) con->Printf("Failed read lang file: %s",filename);
+		BaseConsole::Printf("Failed read lang file: %s",filename);
 		return false;
 	}
 
@@ -72,7 +72,7 @@ bool Lang::Load(const char * filename, BaseConsole * con)
 
 	fclose(f);
 
-	if (con) con->Printf("Add %d strings from file %s",nadd,filename);
+	BaseConsole::Printf("Add %d strings from file %s",nadd,filename);
 	return true;
 }
 
@@ -85,25 +85,7 @@ void Lang::Add(int id, const char * s1, int n1)
 {
 	int i;
 	// convert from utf-8
-	char s2[1000];
-	int n2 = 0;
-	while (n1 > 0)
-	{
-		if (s1[0] >= 0)
-		{
-			s2[n2++] = s1[0];
-			n1--;
-			s1++;
-		}
-		else
-		{
-			s2[n2++] = '_';
-			n1-=2;
-			s1+=2;
-		}
-	}
-
-	while ((num_chars + n2 + 1) > dim)
+	while ((num_chars + n1 + 1) > dim)
 	{
 		dim += 3000;
 		strings = (char*)realloc(strings,dim);
@@ -114,8 +96,8 @@ void Lang::Add(int id, const char * s1, int n1)
 		}
 	}
 
-	memcpy(strings + num_chars,s2,n2);
-	*(strings + num_chars + n2) = '\0';
+	memcpy(strings + num_chars,s1,n1);
+	*(strings + num_chars + n1) = '\0';
 
 	// kontrola id
 	i = GetPosByID(id);
@@ -125,7 +107,7 @@ void Lang::Add(int id, const char * s1, int n1)
 	iters[i].id = id;
 	iters[i].string = num_chars;
 
-	num_chars += (n2 + 1);
+	num_chars += (n1 + 1);
 	num_i++;
 }
 

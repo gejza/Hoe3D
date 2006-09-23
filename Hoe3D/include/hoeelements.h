@@ -66,11 +66,19 @@ public:
 	virtual void Stop() = 0;
 };
 
-class IHoeLight
+class IHoeLight : public IHoeElement
 {
 public:
 	virtual void HOEAPI SetPosition(const float x, const float y, const float z) = 0;
 	virtual void HOEAPI SetColor(const float r, const float g, const float b) = 0;
+};
+
+class IHoeSoundPlayer : public IHoeElement
+{
+public:
+	virtual void SetSound(IHoeSound * sound) = 0;
+	virtual void Play() = 0;
+	virtual void Stop() = 0;
 };
 
 #endif // _HOE_ELEMENTS_INTERFACE_H_

@@ -80,7 +80,7 @@ void HoeFreeTypeFont::SetHeight(long height)
 }
 
 
-bool HoeFreeTypeFont::GetChar(int c, FreeChar * out)
+bool HoeFreeTypeFont::GetChar(wchar_t c, FreeChar * out)
 {
 	FT_Error e;
 	if(e = FT_Load_Glyph(face, FT_Get_Char_Index(face, c), FT_LOAD_DEFAULT))

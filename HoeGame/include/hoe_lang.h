@@ -26,7 +26,7 @@ public:
 	Lang();
 	~Lang();
 	void Reset();
-	bool Load(const char * filename, BaseConsole * con);
+	bool Load(const char * filename);
 	const char * Get(int id);
 	const char * GetString(int id);
 	void Add(int id, const char * str);

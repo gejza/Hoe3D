@@ -57,7 +57,7 @@ public:
 	~HoeFreeTypeFont();
 	bool Load(const char * filename);
 	void SetHeight(long height);
-	bool GetChar(int c, FreeChar * out);
+	bool GetChar(wchar_t c, FreeChar * out);
 };
 
 #endif // _HOE_FREE_TYPE_H_

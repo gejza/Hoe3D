@@ -10,6 +10,7 @@
 #include "texture_system.h"
 #include "hoe_font.h"
 #include "freetype.h"
+#include "unicode.h"
 #include "hoe2d.h"
 
 HoeFont::HoeFont(const char* strFontName, uint dwHeight, dword dwFlags)
@@ -26,9 +27,6 @@ HoeFont::~HoeFont()
 {
 
 }
-
-#define MIN_C (32)
-#define MAX_C (127) 
 
 static void PrintCharA8L8(uint texX, uint texY, HoeFreeTypeFont::FreeChar * data,HoeTexture::LOCKRECT *lr)
 {
@@ -119,10 +117,10 @@ bool HoeFont::Init()
 
 	memset(this->m_fTexCoords,0,sizeof(m_fTexCoords));
 
-	for( int c = MIN_C; c < MAX_C; c++ )
+	for( int c = 0; c < GetCodePage()->GetNumChars(); c++ )
 	{
 		HoeFreeTypeFont::FreeChar data;
-		if (!ffont.GetChar(c,&data))
+		if (!ffont.GetChar(GetCodePage()->GetChar(c),&data))
 			continue;
 		
 		// jestli se nevejde nacnout novou radku
@@ -152,19 +150,19 @@ bool HoeFont::Init()
 				PrintCharA8R8G8B8(texX,texY,&data,&lr);
 
 			// zapsat tex souradnice
-			this->m_fTexCoords[c - MIN_C].x1 = texX / 256.f;
-			this->m_fTexCoords[c - MIN_C].x2 = (texX + data.width) / 256.f;
-			this->m_fTexCoords[c - MIN_C].y1 = texY / 256.f;
-			this->m_fTexCoords[c - MIN_C].y2 = (texY + data.height) / 256.f;
+			this->m_fTexCoords[c].x1 = texX / 256.f;
+			this->m_fTexCoords[c].x2 = (texX + data.width) / 256.f;
+			this->m_fTexCoords[c].y1 = texY / 256.f;
+			this->m_fTexCoords[c].y2 = (texY + data.height) / 256.f;
 
 			texX += data.width + 2;
 			if (data.height > maxY)
 				maxY = data.height;
 		}
 
-		this->m_fTexCoords[c - MIN_C].prex = (float)data.left;
-		this->m_fTexCoords[c - MIN_C].postx = (float)data.movex;
-		this->m_fTexCoords[c - MIN_C].top = (float)data.top;
+		this->m_fTexCoords[c].prex = (float)data.left;
+		this->m_fTexCoords[c].postx = (float)data.movex;
+		this->m_fTexCoords[c].top = (float)data.top;
 	}
 
     m_tex->Unlock();
@@ -210,39 +208,6 @@ struct FONTBACK_VERTEX
 bool HoeFont::DrawText( float sx, float sy, dword dwColor, 
                       const char* strText, dword dwFlags )
 {
-	// pain back
-	/*if (dwFlags & HOEFONT_BACK)
-	{
-		GetHoeStates()->SetupFontBack();
-		float tx,ty;
-		this->GetTextSize(strText,tx,ty);
-		tx += sx; ty += sy;
-#ifdef _HOE_OPENGL_
-		glColor4f(0,0,0,1);
-		glBegin(GL_QUADS);// Zaèátek kreslení obdélníkù
-			glVertex2f( sx-0.5f,sy-0.5f );// Levý horní bod
-			glVertex2f( tx+0.5f,sy-0.5f);// Pravý horní bod
-			glVertex2f( tx+0.5f,ty+0.5f );// Pravý dolní bod
-			glVertex2f( sx-0.5f,ty+0.5f);// Levý dolní bod
-			/*glVertex2f( sx,sy );// Levý horní bod
-			glVertex2f( tx,sy);// Pravý horní bod
-			glVertex2f( tx,ty );// Pravý dolní bod
-			glVertex2f( sx,ty);// Levý dolní bod*/
-		/*glEnd();// Konec kreslení obdélníkù
-#endif // _HOE_OPENGL_
-#ifdef _HOE_D3D_
-		FONTBACK_VERTEX pvb[] = 
-		{
-			{ sx-0.5f,sy-0.5f , 0.f, 0xff000000 }, 
-			{ tx+0.5f,sy-0.5f , 0.f, 0xff000000 }, 
-			{ tx+0.5f,ty+0.5f , 0.f, 0xff000000 },
-			{ sx-0.5f,ty+0.5f , 0.f, 0xff000000 }
-		};
-		D3DDevice()->SetFVF(FONTBACK_VERTEX_FVF);
-		D3DDevice()->DrawPrimitiveUP(D3DPT_TRIANGLEFAN,2,pvb,sizeof(FONTBACK_VERTEX));
-#endif
-	}*/
-	
 	this->m_tex->Set();
 	GetStates()->SetupFont();
 
@@ -252,22 +217,21 @@ bool HoeFont::DrawText( float sx, float sy, dword dwColor,
 
 	while( *strText )
     {
-        char c = *strText++;
+        int c = GetCodePage()->UTFtoIndex(strText);
 
-        if( (c-32) < 0 || (c-32) >= 128-32 )
-            continue;
+		// gen text
 
-		sx += m_fTexCoords[c-32].prex;
+		sx += m_fTexCoords[c].prex;
 
-        float tx1 = m_fTexCoords[c-32].x1;
-        float ty1 = m_fTexCoords[c-32].y1;
-        float tx2 = m_fTexCoords[c-32].x2;
-        float ty2 = m_fTexCoords[c-32].y2;
+        float tx1 = m_fTexCoords[c].x1;
+        float ty1 = m_fTexCoords[c].y1;
+        float tx2 = m_fTexCoords[c].x2;
+        float ty2 = m_fTexCoords[c].y2;
 
         float w = (tx2-tx1) *  256;
         float h = (ty2-ty1) *  256;
 
-		float top = m_fTexCoords[c-32].top - 12;
+		float top = m_fTexCoords[c].top - 12;
 
         if( w > 0 && h > 0 )
         {
@@ -307,19 +271,20 @@ void HoeFont::GetTextSize(const char *text,THoeFontSize * size)
 	if (*text == '\0')
 		return;
 
-	float ty1 = this->m_fTexCoords['X'-32].y1;
-	float ty2 = this->m_fTexCoords['X'-32].y2;
+	int index = GetCodePage()->GetIndex('X');
+	float ty1 = this->m_fTexCoords[index].y1;
+	float ty2 = this->m_fTexCoords[index].y2;
 
 	//y = (ty2-ty1) * 256;
 
 	while (*text)
 	{
-		char c = *text++;
+		index = GetCodePage()->UTFtoIndex(text);
 
-		size->width += m_fTexCoords[c-32].prex;
+		size->width += m_fTexCoords[index].prex;
 
-		float tx1 = this->m_fTexCoords[c-32].x1;
-        float tx2 = this->m_fTexCoords[c-32].x2;
+		float tx1 = this->m_fTexCoords[index].x1;
+        float tx2 = this->m_fTexCoords[index].x2;
 
         float w = (tx2-tx1) *  256;
  
@@ -330,8 +295,9 @@ void HoeFont::GetTextSize(const char *text,THoeFontSize * size)
 
 float HoeFont::GetTextHeight()
 {
-	float ty1 = this->m_fTexCoords['X'-32].y1;
-	float ty2 = this->m_fTexCoords['X'-32].y2;
+	int index = GetCodePage()->GetIndex('X');
+	float ty1 = this->m_fTexCoords[index].y1;
+	float ty2 = this->m_fTexCoords[index].y2;
 
 	return (ty2-ty1) * 255;
 }

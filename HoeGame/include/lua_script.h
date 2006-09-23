@@ -69,9 +69,10 @@ public:
 class LuaFile
 {
 	FILE * m_f;
-	char m_buff[1000];
+	byte m_buff[1000];
 	size_t m_bufflength;
 	size_t m_act;
+	bool m_utf;
 public:
 	bool Open(const char * filename);
 	void Close();

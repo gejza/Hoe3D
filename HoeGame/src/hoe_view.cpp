@@ -19,27 +19,32 @@ bool View::Init(IHoeScene * scene)
 	return true;
 }
 
+//////////////////////////////////////////////////////
+StrategyView::StrategyView()
+{
+	m_tracked = false;
+}
 
 void StrategyView::SetTargetPosition(float x, float y)
 {
 	m_target[0] = x;
 	m_target[1] = 0;
 	m_target[2] = y;
-
+	m_tracked = false;
 	Update();
 }
 
 void StrategyView::SetAngle(float a)
 {
 	angle = a;
-
+	m_tracked = false;
 	Update();
 }
 
 void StrategyView::SetDistance(float dist)
 {
 	m_mapDist = dist;
-
+	m_tracked = false;
 	Update();
 }
 
@@ -57,18 +62,21 @@ void StrategyView::Update()
 
 void StrategyView::Rotate(float a)
 {
+	m_tracked = false;
 	angle += a;
 	Update();
 }
 
 void StrategyView::Zoom(float d)
 {
+	m_tracked = false;
 	m_mapDist += d;
 	Update();
 }
 
 void StrategyView::Move(float straight, float side)
 {
+	m_tracked = false;
 	m_target[0] += side * cosf(-angle) - straight * sinf(-angle);
 	m_target[2] += side * sinf(-angle) + straight * cosf(-angle);
 	Update();
@@ -101,6 +109,37 @@ Strategy::StgObject * StrategyView::SelObject(float mx, float my)
 		return dynamic_cast<Strategy::StgObject *>(obj);
 	else
 		return NULL;
+}
+
+void StrategyView::Update(const float dtime)
+{
+	if (m_tracked)
+	{
+		// update
+		float mx = m_track_x - m_target[0];
+		float my = m_track_y - m_target[2];
+		if (dtime * m_track_speed > 1.f)
+		{
+			m_target[0] = m_track_x;
+			m_target[2] = m_track_y;
+		}
+		else
+		{
+			m_target[0] += mx * dtime * m_track_speed;
+			m_target[2] += my * dtime * m_track_speed;
+		}
+		//if (abs(mx) < 0.1f && abs(my) < 0.1f)
+		//	m_tracked = false;
+		Update();
+	}
+}
+
+void StrategyView::SetTrack(float x, float y, float speed)
+{
+	m_tracked = true;
+	m_track_x = x;
+	m_track_y = y;
+	m_track_speed = speed;
 }
 
 /////////////////////////////////////////////////////////////////////////////

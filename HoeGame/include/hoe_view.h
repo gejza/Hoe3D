@@ -26,7 +26,12 @@ class StrategyView : public View
 	float m_mapDist;
 	float m_target[3];
 	float angle;
+	bool m_tracked;
+	float m_track_x;
+	float m_track_y;
+	float m_track_speed;
 public:
+	StrategyView();
 	void SetTargetPosition(float x, float y);	
 	void GetTargetPosition(float *x, float *y) { *x=m_target[0];*y=m_target[2];}
 	void SetAngle(float a);
@@ -39,6 +44,8 @@ public:
 	bool GetPick(float mx, float my, float *sx, float *sy);
 	float GetAngle() { return angle; }
 	Strategy::StgObject * SelObject(float mx, float my);
+	void Update(const float dtime);
+	void SetTrack(float x, float y, float speed);
 };
 
 class ModelView : public View

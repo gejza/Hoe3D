@@ -1256,6 +1256,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\unicode.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\unicode.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\utils.cpp"
 				>
 			</File>

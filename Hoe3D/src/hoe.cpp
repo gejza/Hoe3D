@@ -30,6 +30,7 @@
 #include "hoe.h"
 #include "scene.h"
 #include "hoe_picture.h"
+#include "unicode.h"
 
 // libgw32c.a libz.a  procinfo.lib jpeg_d.lib  flexlib.lib 
 #pragma comment (lib,"libjpeg.lib")
@@ -42,6 +43,7 @@ Hoe3D::Hoe3D(int flags) : m_rt(HoeRenderTarget::eMain)
 	m_active = NULL;
 	// 
 	new CmdExec();
+	new CodePage();
 
 	// config create
 	new Config();
@@ -111,6 +113,7 @@ Hoe3D::~Hoe3D()
 	delete GetRef();
 	delete GetConfig();
 	delete GetExec();
+	delete GetCodePage();
 }
 
 bool Hoe3D::Init(THoeInitSettings * his)

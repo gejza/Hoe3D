@@ -7,7 +7,9 @@
 #define HOE_T_PICTURE	0x102
 #define HOE_T_FONT		0x103
 #define HOE_T_SOUND		0x104
-#define HOE_T_PARTICLE  0x105
+#define HOE_T_SOUND3D	0x105
+#define HOE_T_SOUNDPLAY	0x106
+#define HOE_T_PARTICLE  0x107
 
 #define HOE_T_NAME		0x201
 #define HOE_T_STRING	0x202

@@ -92,6 +92,8 @@ void HoeCamera::Setup2DMatrices(const float w,const float h)
 #endif
 }
 
+const float scale = 0.1f;
+
 void HoeCamera::Set(float * p,float * l)
 {
 	//this->pos.part = (HoeMapPart *)part;
@@ -100,10 +102,15 @@ void HoeCamera::Set(float * p,float * l)
 
 	// set sound
 	#ifdef _HOE_DS8_
-	GetSound()->GetListener()->SetPosition(p[0],p[1],p[2],DS3D_DEFERRED);
-	HoeMath::VECTOR3 f(l[0],0,l[2]);
+	D3DVECTOR pos;
+	GetSound()->GetListener()->SetPosition(p[0]*scale,p[1]*scale,p[2]*scale,DS3D_DEFERRED);
+	HoeMath::VECTOR3 f(l[0],l[1],l[2]);
 	f.Normalize();
-	GetSound()->GetListener()->SetOrientation(f.x,f.y,f.z,0,1,0,DS3D_DEFERRED);
+	HoeMath::VECTOR3 f2(l[2],l[1],-l[0]);
+	f2.Normalize();
+	HoeMath::VECTOR3 top;
+	HoeMath::HoeCross(f, f2, top);
+	GetSound()->GetListener()->SetOrientation(f.x,f.y,f.z,top.x,top.y,top.z,DS3D_DEFERRED);
 	GetSound()->GetListener()->CommitDeferredSettings();
 #endif // _HOE_DS8_
 	Update();

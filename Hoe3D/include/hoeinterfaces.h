@@ -12,7 +12,7 @@
 
 #include "hoetypes.h"
 
-#define HOE_INTERFACE_VER  88
+#define HOE_INTERFACE_VER  89
 
 /**
  * @brief Zakladni interface
@@ -22,6 +22,7 @@ class IHoeInterface
 public:
 	/** Metoda pro ziskani jmena objektu. */
 	virtual const char * GetName() { return "unknown";}
+	virtual void Release() {};
 };
 
 // console
