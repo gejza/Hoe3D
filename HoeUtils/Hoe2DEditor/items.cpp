@@ -429,10 +429,10 @@ void FontItem::OnChangeProp(int id, const HoeEditor::PropItem &pi)
 	switch (id)
 	{
 	case 5:
-		Set("font", pi.GetString().c_str());
+		Set("font", pi.GetString().mb_str(wxConvUTF8));
 		break;
 	case 6:
-		Set("text", pi.GetString().c_str());
+		Set("text", pi.GetString().mb_str(wxConvUTF8));
 		break;
 	default:
 		BaseItem::OnChangeProp(id,pi);

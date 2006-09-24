@@ -72,6 +72,7 @@ wchar_t CodePage::UTFtoUnicode(const char *&p)
 		return ch;
 	}	
 	assert("char is not in UTF-8");
+	p++;
 	return 'X';
 }
 

@@ -339,7 +339,7 @@ int CVar::l_getvar(lua_State * L)
 		}
 		else
 		{
-			lp.Error("Var %s not exist.", lp.GetString(-2));
+			lp.Error("Var %s not exist.", lp.GetString(-1));
 		}
 	}
 	return 0;
