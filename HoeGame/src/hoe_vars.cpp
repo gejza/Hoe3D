@@ -334,8 +334,9 @@ int CVar::l_getvar(lua_State * L)
 				lp.PushNum(v->GetInt());
 				return 1;
 			}
+			lp.SaveString(v->GetStringValue());
 			/** @todo Dodelat vars */
-			assert(!"neni implementovano pro jine hodnoty nez int.");/*!!!*/
+			//assert(!"neni implementovano pro jine hodnoty nez int a string.");/*!!!*/
 		}
 		else
 		{

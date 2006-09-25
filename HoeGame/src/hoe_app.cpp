@@ -153,15 +153,21 @@ void HoeApp::Run()
 	float t=GetEngine()->SysFloatTime();
 	while (1)
 	{
-		float nt = GetEngine()->SysFloatTime();
-
-		if (!GetMsg(GetHoeEngine()))
+		if (!Frame())
 			break;
-
-		this->Frame((nt-t) < 1.f ? (nt-t):1.f);
-		t = nt;
 	}
+}
 
+bool HoeApp::Frame()
+{
+	static float t=GetEngine()->SysFloatTime();
+	float nt = GetEngine()->SysFloatTime();
+	if (!GetMsg(GetHoeEngine()))
+		return false;
+
+	Frame((nt-t) < 1.f ? (nt-t):1.f);
+	t = nt;
+	return true;
 }
 
 void HoeApp::OnSize(int width, int height)

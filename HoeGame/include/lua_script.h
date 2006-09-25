@@ -134,7 +134,6 @@ class LuaScript
 	static LuaScript * _this;
 protected:
 	lua_State* m_L;
-	BaseConsole * con;
 	IHoe3DEngine * engine;
 	ResourceMgr * resources;
 	FileSystem * filesystem;
@@ -144,11 +143,12 @@ public:
 	bool Connect(IHoe3DEngine * eng);
 	bool Connect(Lang * l);
 	bool Connect(FileSystem * fs);
-	LuaScript(BaseConsole * c);
+	LuaScript();
+	~LuaScript();
 	static LuaScript * GetInstance() { return _this; }
 	lua_State * GetLua() { return m_L; }
 	bool Init();
-	bool Load(const char * fn, LuaPreprocess::IDConst * csts = NULL);
+	bool Load(const char * fn, LuaPreprocess::IDConst * csts = NULL, bool run = true);
 	void Close();
 	void AddFunc(const char * funcname, int (*)(lua_State*));
 	void func(const char * name);

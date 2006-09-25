@@ -568,9 +568,9 @@ void HOEAPI GridSurface::Create(float sizeX, float sizeY, int resX,int resY)
 	m_width = (size_t)resX;
 	m_height = (size_t)resY;
 	m_grids = new TGridData[m_width*m_height];
+	memset(m_grids, 0, sizeof(TGridData)*m_width*m_height);
 	for (size_t i=0;i < m_width * m_height;i++)
 	{
-		memset(&(m_grids[i]), 0, sizeof(TGridDesc));
 		m_grids[i].tex1 = 0;
 		m_grids[i].tex2 = 1;
 		m_grids[i].x2 = rand() % 8;

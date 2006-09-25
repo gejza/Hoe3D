@@ -18,11 +18,6 @@ Hoe2DFigureBase::~Hoe2DFigureBase()
 {
 }
 
-void HOEAPI Hoe2DFigureBase::_Paint(IHoe2D *)
-{
-}
-
-
 bool Hoe2DFigureBase::Load(const char * fname)
 {
 	setlocale(LC_NUMERIC, "C");
@@ -114,7 +109,10 @@ void Hoe2DFigure::Draw(IHoe2D *hoe2d)
 {
 	hoe2d->SetRect(800,600);
 	for (uint i=0;i<m_list.Count();i++)
-		m_list.Get(i)->Draw(hoe2d);
+	{
+		if (m_list.Get(i)->GetShow())
+			m_list.Get(i)->Draw(hoe2d);
+	}
 }
 
 Gui::Item * Hoe2DFigure::GetItem(const char * name, Gui::EType type)

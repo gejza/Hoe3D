@@ -11,14 +11,19 @@ HoeTexture::HoeTexture()
 	this->m_texture = 0;
 }
 
+HoeTexture::~HoeTexture()
+{
+	SAFE_RELEASE(m_texture);
+}
+
 bool HoeTexture::Create(uint w,uint h,HOEFORMAT f)
 {
 	width = w;
 	height = h;
 	format = f;
 #ifdef _HOE_D3D_
-
 	HRESULT hRes;
+	SAFE_RELEASE(m_texture);
 	hRes = D3DDevice()->CreateTexture(w,h,1,0,HoeFormatX(f),D3DPOOL_MANAGED,&m_texture RESERVE_PAR);
 	checkres(hRes,"CreateTexture");
 #endif
@@ -34,6 +39,10 @@ bool HoeTexture::Create(uint w,uint h,HOEFORMAT f, SysTexture tex)
 	width = w;
 	height = h;
 	format = f;
+#ifdef _HOE_D3D_
+	SAFE_RELEASE(m_texture);
+	tex->AddRef();
+#endif
 	m_texture = tex;
 	return true;
 }

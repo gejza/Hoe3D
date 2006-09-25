@@ -26,6 +26,7 @@ protected:
 #endif
 public:
 	HoeTexture();
+	~HoeTexture();
 	/** Create texture */
 	bool Create(uint w,uint h,HOEFORMAT f);
 	bool Create(uint w,uint h,HOEFORMAT f, SysTexture tex);

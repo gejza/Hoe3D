@@ -27,7 +27,7 @@ enum {
 	ID_FONTITEM,
 	ID_LASTITEM,
 	ID_SHOWRES,
-
+	ID_BACKGROUND,
 };
 
 BEGIN_EVENT_TABLE(Hoe2DEdit, HoeEditor::BaseEditor)
@@ -138,6 +138,7 @@ int w = newt.GetWidth(),
 
     wxMenu * menuView = new wxMenu;
 	menuView->AppendCheckItem(HoeEditor::ID_VIEWFULLSCREEN, _("F&ull Screen\tF12"), _("Switch to fullscreen."));
+	menuView->AppendCheckItem(ID_BACKGROUND, _("Change Background Image..."), _("Load background image."));
 
 	wxMenu * menuTools = new wxMenu;
 	menuTools->Append(ID_SHOWRES, _("&Resource Manager..."), _("Resource Manager"));

@@ -140,7 +140,7 @@ namespace icreate {
 			return NULL;
 		}
 
-		f = new HoeFont(fontname,height,0);
+		f = new HoeFont(fontname,height,1.f, 0);
 		if (!f->Init())
 			return NULL;
 		return f;

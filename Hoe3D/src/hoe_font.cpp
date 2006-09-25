@@ -13,12 +13,13 @@
 #include "unicode.h"
 #include "hoe2d.h"
 
-HoeFont::HoeFont(const char* strFontName, uint dwHeight, dword dwFlags)
+HoeFont::HoeFont(const char* strFontName, uint dwHeight, float scalpha, dword dwFlags)
 {
     strcpy( m_strFontName, strFontName );
     m_dwFontHeight         = dwHeight;
     m_dwFontFlags          = dwFlags;
     m_dwSpacing            = 0;
+	m_scalpha = scalpha;
 
     m_tex = NULL;
 }
@@ -28,7 +29,7 @@ HoeFont::~HoeFont()
 
 }
 
-static void PrintCharA8L8(uint texX, uint texY, HoeFreeTypeFont::FreeChar * data,HoeTexture::LOCKRECT *lr)
+static void PrintCharA8L8(uint texX, uint texY, HoeFreeTypeFont::FreeChar * data,float sc_alpha, HoeTexture::LOCKRECT *lr)
 {
     uint x, y;
 
@@ -41,8 +42,9 @@ static void PrintCharA8L8(uint texX, uint texY, HoeFreeTypeFont::FreeChar * data
 			byte bAlpha = (byte)data->buffer[(y * data->pitch) + x];
 			if (bAlpha > 0)
 			{
-				//*pDst32++ = (dword) (0xffffff00 | (bAlpha));
-				*pDst32++ = (word) ((bAlpha << 8) | (bAlpha));
+				float af = bAlpha * sc_alpha;
+				byte a = af > 1.f ? 0xff:(byte)af;
+				*pDst32++ = (word) ((a << 8) | (bAlpha));
 			}
 			else
 			{
@@ -53,7 +55,7 @@ static void PrintCharA8L8(uint texX, uint texY, HoeFreeTypeFont::FreeChar * data
 
 }
 
-static void PrintCharA8R8G8B8(uint texX, uint texY, HoeFreeTypeFont::FreeChar * data,HoeTexture::LOCKRECT *lr)
+static void PrintCharA8R8G8B8(uint texX, uint texY, HoeFreeTypeFont::FreeChar * data,float sc_alpha, HoeTexture::LOCKRECT *lr)
 {
     uint x, y;
 
@@ -66,8 +68,9 @@ static void PrintCharA8R8G8B8(uint texX, uint texY, HoeFreeTypeFont::FreeChar * 
 			byte bAlpha = (byte)data->buffer[(y * data->pitch) + x];
 			if (bAlpha > 0)
 			{
-				//*pDst32++ = (dword) (0xffffff00 | (bAlpha));
-				*pDst32++ = (dword) ((bAlpha << 24) | (bAlpha << 16) | (bAlpha << 8) | bAlpha);
+				float af = bAlpha * sc_alpha;
+				byte a = af > 1.f ? 0xff:(byte)af;
+				*pDst32++ = (dword) ((a << 24) | (bAlpha << 16) | (bAlpha << 8) | bAlpha);
 			}
 			else
 			{
@@ -87,7 +90,8 @@ bool HoeFont::Init()
 
 	bool lformat = true;
 
-	this->m_tex = new HoeTexture;
+	if (!m_tex)
+		m_tex = new HoeTexture;
 
 	dword width=256,height=256;
 	HOEFORMAT format = HOE_L8A8;
@@ -145,9 +149,9 @@ bool HoeFont::Init()
 		{
 			// prepsat obraz znaku
 			if (lformat)
-				PrintCharA8L8(texX,texY,&data,&lr);
+				PrintCharA8L8(texX,texY,&data,m_scalpha,&lr);
 			else
-				PrintCharA8R8G8B8(texX,texY,&data,&lr);
+				PrintCharA8R8G8B8(texX,texY,&data,m_scalpha,&lr);
 
 			// zapsat tex souradnice
 			this->m_fTexCoords[c].x1 = texX / 256.f;

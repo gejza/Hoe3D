@@ -271,19 +271,24 @@ bool LuaFunc::Run(int nres)
 //////////////////////////////////////////////////////
 
 
-LuaScript::LuaScript(BaseConsole * c)
+LuaScript::LuaScript()
 {
 	assert(_this == NULL);
 	_this = this;
-	con = c;
 	engine = NULL;
 	resources = NULL;
 	lang = NULL;
 }
 
+LuaScript::~LuaScript()
+{
+	assert(_this == this);
+	_this = NULL;
+}
+
 bool LuaScript::Init()
 {
-	con->Con_Print("Lua init.."); 
+	BaseConsole::Printf("Lua init.."); 
 	/* initialize Lua */
 	m_L = lua_open();
 	//lua_atpanic(L, print);
@@ -301,9 +306,9 @@ bool LuaScript::Init()
 	lua_register(m_L,"sleep",LuaScript::sleep);
 	lua_atpanic(m_L,LuaScript::error);
 
-	con->Con_Print("$Lua: " LUA_VERSION " " LUA_COPYRIGHT " $");
-	con->Con_Print("$Authors: " LUA_AUTHORS " $");
-    con->Con_Print("$URL: www.lua.org $");
+	BaseConsole::Printf("$Lua: " LUA_VERSION " " LUA_COPYRIGHT " $");
+	BaseConsole::Printf("$Authors: " LUA_AUTHORS " $");
+    BaseConsole::Printf("$URL: www.lua.org $");
 	//con->Printf("Stack: %dKb", lua_getgcthreshold (m_L));
 
 	return true;
@@ -537,18 +542,19 @@ bool LuaPreprocess::LoadFile(const char *filename)
  
 }
 
-bool LuaScript::Load(const char * fn, LuaPreprocess::IDConst * csts)
+bool LuaScript::Load(const char * fn, LuaPreprocess::IDConst * csts, bool run)
 {
 	LuaPreprocess lp(m_L);
 	lp.SetConstans(csts);
 	
 	if (!lp.LoadFile(fn))
 	{
-		con->Printf("Lua error: %s", lp.GetLastError());
+		BaseConsole::Printf("Lua error: %s", lp.GetLastError());
 		return false;
 	}
 
-	lua_pcall(m_L,0,0,0);
+	if (run)
+		lua_pcall(m_L,0,0,0);
 
 	return true;
 }
@@ -608,7 +614,7 @@ int LuaScript::error(lua_State * L)
 			sprintf(mbuff,"%s:%p",lua_typename(L,lua_type(L,i)),lua_topointer(L,i));
 		strcat(buff,mbuff);
 	}
-	GetInstance()->con->Con_Print(buff);
+	BaseConsole::Printf(buff);
 	HoeApp::GetApp<HoeApp>()->ShowMsg("Script error", buff);
 	return 0;
 }
@@ -632,7 +638,7 @@ int LuaScript::print(lua_State * L)
 			sprintf(mbuff,"%s:%p",lua_typename(L,lua_type(L,i)),lua_topointer(L,i));
 		strcat(buff,mbuff);
 	}
-	GetInstance()->con->Con_Print(buff);
+	BaseConsole::Printf(buff);
 	return 0;
 }
 
@@ -654,14 +660,14 @@ int LuaScript::loadfile(lua_State * L)
         lua_error(L);
 		*/
 
-		GetInstance()->con->Con_Print("Lua error: Bad param in function LoadFile");
+		BaseConsole::Printf("Lua error: Bad param in function LoadFile");
 		return 0;
 	}
 
 	fname = lua_tostring(L,-1);
 
 	if (!GetInstance()->filesystem->AddResourceFile(fname))
-		GetInstance()->con->Printf("WARNING: file '%s' not exist.",fname);
+		BaseConsole::Printf("WARNING: file '%s' not exist.",fname);
 
 	return 0;
 }
@@ -679,7 +685,7 @@ int LuaScript::hoe(lua_State * L)
         lua_error(L);
 		*/
 
-		GetInstance()->con->Con_Print("Lua error: Bad param in function Exec");
+		BaseConsole::Printf("Lua error: Bad param in function Exec");
 		return 0;
 	}
 
@@ -696,13 +702,13 @@ int LuaScript::loadresource(lua_State * L)
 
 	if (!par.CheckPar(2,"sn"))
 	{
-		GetInstance()->con->Con_Print("Lua error: Bad param in function AddResource");
+		BaseConsole::Printf("Lua error: Bad param in function AddResource");
 		return 0;
 	}
 
 	if (!GetInstance()->resources->AddResource(par.GetNum(-2), par.GetString(-1)))
 	{
-		GetInstance()->con->Printf("WARNING: cmd '%s' failed.",lua_tostring(L,-1));
+		BaseConsole::Printf("WARNING: cmd '%s' failed.",lua_tostring(L,-1));
 	}
 
 	return 0;
@@ -714,13 +720,13 @@ int LuaScript::loadlang(lua_State * L)
 
 	if (!par.CheckPar(1,"s"))
 	{
-		GetInstance()->con->Con_Print("Lua error: Bad param in function LoadLang");
+		BaseConsole::Printf("Lua error: Bad param in function LoadLang");
 		return 0;
 	}
 
 	if (!GetInstance()->lang->Load(par.GetString(-1)))
 	{
-		GetInstance()->con->Printf("WARNING: Load lang file '%s' failed.",par.GetString(-1));
+		BaseConsole::Printf("WARNING: Load lang file '%s' failed.",par.GetString(-1));
 	}
 
 	return 0;
@@ -732,7 +738,7 @@ int LuaScript::addlang(lua_State * L)
 
 	if (!par.CheckPar(2,"sn"))
 	{
-		GetInstance()->con->Con_Print("Lua error: Bad param in function AddLang");
+		BaseConsole::Printf("Lua error: Bad param in function AddLang");
 		return 0;
 	}
 
@@ -747,7 +753,7 @@ int LuaScript::getlang(lua_State * L)
 
 	if (!par.CheckPar(1,"n"))
 	{
-		GetInstance()->con->Con_Print("Lua error: Bad param in function GetLang");
+		BaseConsole::Printf("Lua error: Bad param in function GetLang");
 		return 0;
 	}
 

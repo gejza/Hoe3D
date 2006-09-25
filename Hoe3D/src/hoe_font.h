@@ -27,6 +27,7 @@ public:
     dword   m_dwFontHeight;
     dword   m_dwFontFlags;
 	dword	m_dwSpacing;
+	float m_scalpha;
 
     //dword   m_dwTexWidth;                 // Texture dimensions
     //dword   m_dwTexHeight;
@@ -37,7 +38,7 @@ public:
 	void CreateTexture();
 
 public:
-	HoeFont(const char* strFontName, uint dwHeight, dword dwFlags=0L);
+	HoeFont(const char* strFontName, uint dwHeight, float scaplha, dword dwFlags=0L);
 	~HoeFont();
 
 	// Initializing and destroying device-dependent objects

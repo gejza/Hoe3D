@@ -28,7 +28,7 @@ class FigureFile : public TextFile
  * pres nastavitelne parametry se budou moci pozmenovat infa
  * proste takovy 2d engine, s pojmenovanymi oblastmi
  */
-class Hoe2DFigureBase : public XHoe2DCallback
+class Hoe2DFigureBase
 {
 public:
 	/** Kontruktor */
@@ -36,7 +36,6 @@ public:
 	/** Destruktor */
 	~Hoe2DFigureBase();
 
-	virtual void HOEAPI _Paint(IHoe2D *);
 	bool Load(const char * fname);
 	virtual Gui::Base * CreateGUI(const char * type) = 0;
 };

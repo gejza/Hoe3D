@@ -111,6 +111,8 @@ void StaticPicture::Draw(IHoe2D * h2d)
 		h2d->Blt(&m_rect, m_pic);
 }
 
+/////////////////////////////////////////
+
 void ColorRect::Set(const char * prop, const char *value)
 {
 
@@ -323,10 +325,35 @@ void DigiCounter::Draw(IHoe2D * d2)
 }
 
 //////////////////////////////////////////////////////
+Font::~Font()
+{
+	if (m_text)
+	{
+		delete [] m_text;
+		m_text = NULL;
+	}
+}
+
 void Font::Draw(IHoe2D *hoe2d)
 {
-	if (m_font && m_ptr)
-		m_font->DrawText(m_rect.left, m_rect.top, 0xffffffff, m_ptr);
+	if (m_font && m_text)
+		m_font->DrawText(m_rect.left, m_rect.top, 0xffffffff, m_text);
+}
+
+void Font::SetText(const char * ptr)
+{
+	if (m_text)
+	{
+		delete [] m_text;
+		m_text = NULL;
+	}
+	size_t l = strlen(ptr);
+	if (l > 0)
+	{
+		char * p = new char[l+1];
+		memcpy(p, ptr, l+1);
+		m_text = p;
+	}
 }
 
 void Font::Set(const char *prop, const char *value)

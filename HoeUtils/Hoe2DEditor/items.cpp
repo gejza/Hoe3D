@@ -460,7 +460,7 @@ void FontItem::Set(const char * prop, const char *value)
 	else if (p == "text")
 	{
 		this->m_string = value;
-		m_base.SetPtr(m_string.c_str());
+		m_base.SetText(m_string.c_str());
 	}
 	else
 		BaseItem::Set(prop, value);

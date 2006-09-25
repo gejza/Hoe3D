@@ -66,6 +66,7 @@ public:
 	virtual void Set(const char * prop, const char *value);
 	virtual void Draw(IHoe2D * h2d);
 	void SetPicture(IHoePicture * pic) { m_pic = pic; }
+	IHoePicture * GetPicture() { return m_pic; }
 };
 
 class ColorRect : public Item
@@ -142,14 +143,15 @@ class Font : public Item
 {
 protected:
 	IHoeFont * m_font;
-	const char * m_ptr;
+	const char * m_text;
 public:
-	Font() { m_font = NULL;m_ptr = NULL; }
+	Font() { m_font = NULL;m_text = NULL; }
+	~Font();
 	virtual EType GetType() { return EText; }
 	virtual void Draw(IHoe2D * hoe2d);
 	virtual void Set(const char * prop, const char *value);
 	void SetFont(IHoeFont * font) { m_font = font; }
-	void SetPtr(const char * ptr) { m_ptr = ptr; }
+	void SetText(const char * ptr);
 };
 
 } // namespace Gui

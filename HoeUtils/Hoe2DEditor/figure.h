@@ -29,7 +29,8 @@ text
 
 */
 
-class FigureEdit : public HoeGame::Hoe2DFigureBase, public HoeEditor::EditorFileObject
+class FigureEdit : public HoeGame::Hoe2DFigureBase, public HoeEditor::EditorFileObject,
+	public XHoe2DCallback
 {
 protected:
 	IHoeScene * m_scene;

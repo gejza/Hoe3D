@@ -47,7 +47,7 @@ bool InfoSystem::Init()
 
 bool InfoSystem::LoadFont(const char * fontname, int height)
 {
-	font = new HoeFont(fontname,height);
+	font = new HoeFont(fontname,height, 3.f);
 	if (!font->Init())
 	{
 		delete font;

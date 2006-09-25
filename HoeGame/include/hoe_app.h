@@ -49,6 +49,7 @@ protected:
 
 	virtual bool LoadEngine();
 	virtual bool Frame(float time);
+	virtual bool Frame();
 public:
 	/** 
 	 * Kontruktor
