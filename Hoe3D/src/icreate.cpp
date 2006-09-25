@@ -106,6 +106,8 @@ namespace icreate {
 
 	static IHoePicture * CreatePicture()
 	{
+		HoeLog * log = NULL;
+		int flags = 0;
 		char picturename[256];
 		if (HOE_T_IS_STRING(parse())) {
 			get_string(picturename);
@@ -115,7 +117,11 @@ namespace icreate {
 			return NULL;
 		}
 
-		return Get2D()->CreatePicture(picturename);
+		get_param(log, flags);
+
+		IHoePicture * pic = Get2D()->CreatePicture(picturename, log);
+		if (log) delete log;
+		return pic;
 	}
 
 	static IHoeFont * CreateFont()

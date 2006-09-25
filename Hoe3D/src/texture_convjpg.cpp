@@ -74,7 +74,20 @@ bool TextureConverterJPG::Get(byte * p,dword pitch)
 {
 	jpeg_decompress_struct * cinfo = (jpeg_decompress_struct *)jpginfo;
 
-	HFConvert conv(m_width, HOE_R8G8B8, m_format);
+	HOEFORMAT from = HOE_R8G8B8;
+	switch (cinfo->output_components)
+	{
+	case 1:
+		from = HOE_L8;
+		break;
+	case 3:
+		from = HOE_R8G8B8;
+		break;
+	default:
+		Con_Print("Error: JPEG format is not in 1 or 3 color components.");
+		return false;
+	};
+	HFConvert conv(m_width, from, m_format);
 	while (cinfo->output_scanline < m_height) {
 		byte * pd = conv.GetPointer(p + (pitch * cinfo->output_scanline));
 		jpeg_read_scanlines(cinfo, &pd, 1);

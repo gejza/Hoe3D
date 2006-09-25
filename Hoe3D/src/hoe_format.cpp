@@ -243,29 +243,47 @@ byte * HFConvert::GetPointer(byte *origin)
 
 void HFConvert::Make()
 {
-	if (m_from == HOE_R8G8B8 && m_to == HOE_B8G8R8X8)
+	for (int n=m_num-1;n >=0;n--)
 	{
-		for (int n=m_num-1;n >=0;n--)
+		// pocet bodu
+		byte a,r,g,b;
+		if (m_from == HOE_R8G8B8)
 		{
-			// nacist 
-			byte r = *(m_origin+(n*3)+0);
-			byte g = *(m_origin+(n*3)+1);
-			byte b = *(m_origin+(n*3)+2);
+			a = 0xff;
+			r = *(m_origin+(n*3)+0);
+			g = *(m_origin+(n*3)+1);
+			b = *(m_origin+(n*3)+2);
+		}
+		else if (m_from == HOE_L8)
+		{
+			a = r = g = b = *(m_origin+n);
+		}
+		else
+		{
+			Con_Print("Convert from format %d not implemented.", m_from);
+			return;
+		}
+
+		// konvert na
+		if (m_to == HOE_B8G8R8X8)
+		{
 			*(m_origin+(n*4)+0) = b;
 			*(m_origin+(n*4)+1) = g;
 			*(m_origin+(n*4)+2) = r;
 			*(m_origin+(n*4)+3) = 0xff;
 		}
-	}
-	if (m_from == HOE_R8G8B8A8 && m_to == HOE_B8G8R8A8)
-	{
-		for (int n=m_num-1;n >=0;n--)
+		else if (m_to == HOE_B8G8R8A8)
 		{
 			// nacist 
-			byte r = *(m_origin+(n*4)+0);
-			byte b = *(m_origin+(n*4)+2);
 			*(m_origin+(n*4)+0) = b;
+			*(m_origin+(n*4)+1) = g;
 			*(m_origin+(n*4)+2) = r;
+			*(m_origin+(n*4)+3) = a;
+		}
+		else
+		{
+			Con_Print("Convert to format %d not implemented.", m_from);
+			return;
 		}
 	}
 }

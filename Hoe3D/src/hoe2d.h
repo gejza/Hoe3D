@@ -5,6 +5,8 @@
 #include "../include/hoeinterfaces.h"
 #include "freetype.h"
 
+class HoeLog;
+
 class Hoe2D : public IHoe2D
 {
 	bool in_progress;
@@ -19,7 +21,7 @@ public:
 	void Begin();
 	void End();
 
-	IHoePicture * CreatePicture(const char *);
+	IHoePicture * CreatePicture(const char *, HoeLog * log);
 
 	HoeFreeType * GetFreeType() { return &freetype; }
 	// user func

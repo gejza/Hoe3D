@@ -25,8 +25,9 @@ TextureSystem::~TextureSystem()
 	UNSET_SHARED_PTR(ts);
 }
 
-HoeTexture * TextureSystem::GetTexture(const char * name)
+HoeTexture * TextureSystem::GetTexture(const char * name, HoeLog * log)
 {
+	m_log = log;
 	LOG(m_log)->Log("Load texture %s",name);
 
 	TextureLoader loader(m_log);
@@ -76,6 +77,7 @@ HoeTexture * TextureSystem::GetTexture(const char * name)
 	}
 	else
 	  Con_Print("texture %s not load.",name);
+	m_log = NULL;
 	return tex;
 }
 

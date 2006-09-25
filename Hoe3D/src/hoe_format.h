@@ -22,6 +22,7 @@ enum HOEFORMAT
     HOE_A8                   = 28,
     HOE_A8R3G3B2             = 29,
     HOE_X4R4G4B4             = 30,
+	HOE_L8					 = 50,
 	HOE_A8L8				 = 51,
 	HOE_R8G8B8A8			 = 52,
 	HOE_B8G8R8X8			 = 53,

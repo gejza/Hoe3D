@@ -60,10 +60,10 @@ void Hoe2D::End()
 	in_progress = false;
 }
 
-IHoePicture * Hoe2D::CreatePicture(const char * name)
+IHoePicture * Hoe2D::CreatePicture(const char * name, HoeLog * log)
 {
 	HoePicture * ret = new HoePicture;
-	ret->SetSource(GetTextureSystem()->GetTexture(name));
+	ret->SetSource(GetTextureSystem()->GetTexture(name, log));
 	return ret;
 }
 

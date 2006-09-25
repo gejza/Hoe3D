@@ -13,7 +13,7 @@ public:
 
 	TextureSystem();
 	~TextureSystem();
-	HoeTexture * GetTexture(const char * name);
+	HoeTexture * GetTexture(const char * name, HoeLog * log = NULL);
 	void SetTexture(int, const HoeTexture * t);
 /*
 bool Init();

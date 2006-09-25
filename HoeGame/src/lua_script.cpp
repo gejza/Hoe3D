@@ -278,10 +278,13 @@ LuaScript::LuaScript()
 	engine = NULL;
 	resources = NULL;
 	lang = NULL;
+	m_L = NULL;
 }
 
 LuaScript::~LuaScript()
 {
+	if (m_L)
+		lua_close(m_L);
 	assert(_this == this);
 	_this = NULL;
 }

@@ -141,11 +141,22 @@ public:
 
 class Font : public Item
 {
+public:
+	enum Align
+	{
+		ALeft,
+		ARight,
+		ACenter,
+		ABottom,
+		ATop,
+	};
 protected:
 	IHoeFont * m_font;
 	const char * m_text;
+	Align m_ax;
+	Align m_ay;
 public:
-	Font() { m_font = NULL;m_text = NULL; }
+	Font();
 	~Font();
 	virtual EType GetType() { return EText; }
 	virtual void Draw(IHoe2D * hoe2d);

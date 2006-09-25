@@ -325,6 +325,14 @@ void DigiCounter::Draw(IHoe2D * d2)
 }
 
 //////////////////////////////////////////////////////
+Font::Font()
+{ 
+	m_font = NULL;
+	m_text = NULL; 
+	m_ax = ALeft;
+	m_ay = ATop;
+}
+
 Font::~Font()
 {
 	if (m_text)
@@ -337,7 +345,30 @@ Font::~Font()
 void Font::Draw(IHoe2D *hoe2d)
 {
 	if (m_font && m_text)
-		m_font->DrawText(m_rect.left, m_rect.top, 0xffffffff, m_text);
+	{
+		float x = m_rect.left;
+		float y = m_rect.top;
+		if (m_ax != ALeft)
+		{
+			// sirka
+			THoeFontSize size;
+			m_font->GetTextSize(m_text, &size);
+			if (m_ax == ACenter)
+				x += (m_rect.right - m_rect.left - size.width) * 0.5f; 
+			else
+				x = m_rect.right - size.width;
+		}
+		if (m_ay != ATop)
+		{
+			// sirka
+			float height = m_font->GetTextHeight();
+			if (m_ay == ACenter)
+				y += (m_rect.bottom - m_rect.top - height) * 0.5f; 
+			else
+				y = m_rect.bottom - height;
+		}
+		m_font->DrawText(x, y, 0xffffffff, m_text);
+	}
 }
 
 void Font::SetText(const char * ptr)
@@ -361,6 +392,30 @@ void Font::Set(const char *prop, const char *value)
 	if (strcmp(prop,"font")==0)
 	{
 		m_font = (IHoeFont*)GetHoeEngine()->Create(value);
+	}
+	else if (strcmp(prop, "align_horizontal")==0)
+	{
+		switch (value[0])
+		{
+		case 'l':
+			m_ax = ALeft; break;
+		case 'c':
+			m_ax = ACenter; break;
+		case 'r':
+			m_ax = ARight; break;
+		};
+	}
+	else if (strcmp(prop, "align_vertical")==0)
+	{
+		switch (value[0])
+		{
+		case 't':
+			m_ay = ATop; break;
+		case 'c':
+			m_ay = ACenter; break;
+		case 'b':
+			m_ay = ABottom; break;
+		};
 	}
 	else
 		Item::Set(prop,value);
