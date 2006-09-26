@@ -23,22 +23,24 @@
   @brief	Uloziste zvuku 
  */
 
-class HoeSoundBuffer
+class HoeSoundBuffer : public IHoeSound 
 #ifdef _HOE_OPENAL_
-	: public HoeALBuffer
+	, public HoeALBuffer
 #endif
 
 #ifdef _HOE_DS8_
-	: public HoeDSBuffer
+	, public HoeDSBuffer
 #endif 
 {
+	bool m_ctrl3D;
 public:
+	HoeSoundBuffer(bool ctrl3D);
 	/**
 	 * Provizorni nacteni ze souboru
 	 * @todo predelat nacitani z file systemu 
 	 */
 	bool LoadFromFile(const char * filename);
-
+	virtual void Play() {};
 };
 
 /**
@@ -60,16 +62,15 @@ class HoeSoundPlayer
 /**
   @brief	Zvuk, obsahuje jeden Player a nekolik Bufferu 
  */
-class HoeSound : public IHoeSound
+class HoeSound : public HoeSoundBuffer
 {
 	HoeSoundPlayer player; /**< player */
-	HoeSoundBuffer buffer; /**< @todo znicit */
 public:
+	HoeSound() : HoeSoundBuffer(false) {}
 	/**
 	 * Prehraje aktualni buffer
 	 */
-	void Play();
-
+	virtual void Play();
 	friend class SoundSystem;
 };
 
@@ -102,8 +103,10 @@ public:
 	/**
 	 * Vytvoreni zvuku
 	 * @param name Jmeno zvuku, ktery se hleda ve File systemu
+	 * @param ctrl3d Zvuk se prehrava ve 3d
 	 */
-	HoeSound * GetSound(const char * name);
+	HoeSoundBuffer * GetSound(const char * name, bool ctrl3d);
+
 };
 
 #endif // _HOE_SOUND_

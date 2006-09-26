@@ -34,30 +34,43 @@ SoundSystem::~SoundSystem()
 	shared::sound = NULL;
 }
 
-HoeSound * SoundSystem::GetSound(const char * name)
+HoeSoundBuffer * SoundSystem::GetSound(const char * name, bool ctrl3d)
 {
-	HoeSound * sound = new HoeSound;
-	sound->buffer.LoadFromFile(name);
-
-	return sound;
+	if (ctrl3d)
+	{
+		HoeSoundBuffer * sound = new HoeSoundBuffer(true);
+		sound->LoadFromFile(name);
+		return sound;
+	}
+	else
+	{
+		HoeSound * sound = new HoeSound;
+		sound->LoadFromFile(name);
+		return sound;
+	}
 }
 
 HoeSoundBuffer * SoundSystem::GetBuffer(const char * name)
 {
-	HoeSoundBuffer * sb = new HoeSoundBuffer;
+	HoeSoundBuffer * sb = new HoeSoundBuffer(true);
 	sb->LoadFromFile(name);
 
 	return sb;
 }
 
 ////////////////////////////////////////
+HoeSoundBuffer::HoeSoundBuffer(bool ctrl3D) 
+{
+	m_ctrl3D = ctrl3D;
+}
+
+////////////////////////////////////////
 
 void HoeSound::Play()
 {
-	player.Play(&buffer);
+	player.Play(this);
 }
 
-//////////// sound buffer
 static size_t read_func(void *ptr, size_t size, size_t nmemb, void *datasource)
 {
 	return reinterpret_cast<XHoeFile*>(datasource)->Read(ptr, size*nmemb) / size;
@@ -111,13 +124,13 @@ bool HoeSoundBuffer::LoadFromFile(const char *filename)
     Con_Print("Decoded length: %ld samples",
 	    samples);
     Con_Print("Encoded by: %s",ov_comment(&vf,-1)->vendor);
-	Create(1,vi->rate, 2, samples);
+	Create(vi->channels,vi->rate, 2, samples, m_ctrl3D);
 
 
 	byte * l = Lock();
 
 	int cs;
-	size_t bys = 2*samples;
+	size_t bys = 2*samples*vi->channels;
 	while (bys>0)
 	{
 		long r = ov_read(&vf,(char*)l,bys,0,2,1,&cs); 

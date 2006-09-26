@@ -152,7 +152,7 @@ namespace icreate {
 		return f;
 	}
 
-	static IHoeSound * CreateSound()
+	static IHoeSound * CreateSound(bool is3d)
 	{
 		char soundname[256];
 		if (HOE_T_IS_STRING(parse())) {
@@ -163,7 +163,7 @@ namespace icreate {
 			return NULL;
 		}
 
-		return GetSound()->GetSound(soundname);
+		return GetSound()->GetSound(soundname, is3d);
 	}
 	static IHoeParticleEmitor * CreateParticle()
 	{
@@ -228,7 +228,10 @@ IHoeResource * HOEAPI Hoe3D::Create(const char * str)
 		ret = icreate::CreateFont();
 		break;
 	case HOE_T_SOUND:
-		ret = icreate::CreateSound();
+		ret = icreate::CreateSound(false);
+		break;
+	case HOE_T_SOUND3D:
+		ret = icreate::CreateSound(true);
 		break;
 	case HOE_T_PARTICLE:
 		ret = icreate::CreateParticle();

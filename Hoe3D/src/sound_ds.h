@@ -42,9 +42,11 @@ public:
 	* @param byts Pocet bitu
 	* @param samples Pocet samplu
 	*/
-	bool Create(int channels, int freq, int byts, long samples);
+	bool Create(int channels, int freq, int byts, long samples, bool ctrl3D);
 	byte * Lock();
 	void Unlock();
+	IDirectSoundBuffer8 * GetHandle() { return m_buffer; }
+	IDirectSound3DBuffer8 * GetHandle3D() { return m_3d; }
 };
 
 /**

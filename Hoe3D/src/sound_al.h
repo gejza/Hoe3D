@@ -78,7 +78,7 @@ public:
         * @param byts Pocet bitu
         * @param samples Pocet samplu
         */
-        bool Create(int channels, int freq, int byts, long samples);
+        bool Create(int channels, int freq, int byts, long samples, bool ctrl3D);
         byte * Lock();
         void Unlock();
 

@@ -62,7 +62,7 @@ HoeDSBuffer::HoeDSBuffer()
 	m_buffer = NULL;
 }
 
-bool HoeDSBuffer::Create(int channels, int freq, int byts, long samples)
+bool HoeDSBuffer::Create(int channels, int freq, int byts, long samples, bool ctrl3D)
 {
 	WAVEFORMATEX wfx; 
   DSBUFFERDESC dsbdesc; 
@@ -75,7 +75,7 @@ bool HoeDSBuffer::Create(int channels, int freq, int byts, long samples)
   wfx.wFormatTag = WAVE_FORMAT_PCM; 
   wfx.nChannels = channels; 
   wfx.nSamplesPerSec = freq; 
-  wfx.nBlockAlign = 2; 
+  wfx.nBlockAlign = byts*channels; 
   wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign; 
   wfx.wBitsPerSample = byts*8; 
  
@@ -83,18 +83,21 @@ bool HoeDSBuffer::Create(int channels, int freq, int byts, long samples)
  
   memset(&dsbdesc, 0, sizeof(DSBUFFERDESC)); 
   dsbdesc.dwSize = sizeof(DSBUFFERDESC); 
-  dsbdesc.dwFlags = 
-    DSBCAPS_CTRL3D/* | DSBCAPS_CTRLVOLUME*/; 
-  dsbdesc.dwBufferBytes = samples * 2; 
+  dsbdesc.dwFlags = ctrl3D ? DSBCAPS_CTRL3D:DSBCAPS_CTRLVOLUME; 
+  dsbdesc.dwBufferBytes = channels * samples * byts; 
   dsbdesc.lpwfxFormat = &wfx; 
  
   // Create buffer. 
  
   hr = GetSound()->GetHandle()->CreateSoundBuffer(&dsbdesc, &pDsb, NULL); 
+  checkres(hr, "CreateSoundBuffer");
   if (SUCCEEDED(hr)) 
   { 
      hr = pDsb->QueryInterface(IID_IDirectSoundBuffer8, (LPVOID*) &m_buffer);
-     hr = pDsb->QueryInterface(IID_IDirectSound3DBuffer8, (LPVOID*) &m_3d);
+	 if (ctrl3D)
+		 hr = pDsb->QueryInterface(IID_IDirectSound3DBuffer8, (LPVOID*) &m_3d);
+	 else
+		 m_3d = NULL;
      pDsb->Release();
 	  //m_buffer = pDsb;
   } 
@@ -126,14 +129,17 @@ void HoeDSBuffer::Unlock()
       0);         // No wraparound size.
 
 m_buffer->SetCurrentPosition(0);
-m_3d->SetMaxDistance(100.f, DS3D_IMMEDIATE);
-m_3d->SetPosition(0,0.f,0,DS3D_IMMEDIATE);
+if (m_3d)
+{
+	m_3d->SetMaxDistance(100.f, DS3D_IMMEDIATE);
+	m_3d->SetPosition(0,0.f,0,DS3D_IMMEDIATE);
 HRESULT hr = m_buffer->Play(
-    0,  // Unused.
-    0,  // Priority for voice management.
-    DSBPLAY_LOOPING); // Flags.
+	0,  // Unused.
+	0,  // Priority for voice management.
+	DSBPLAY_LOOPING); // Flags.
 	
-assert(SUCCEEDED(hr));
+	assert(SUCCEEDED(hr));
+}
 
 }
 
@@ -145,6 +151,10 @@ HoeDSPlayer::HoeDSPlayer()
 
 void HoeDSPlayer::Play(HoeDSBuffer * buff)
 {
+HRESULT hr = buff->GetHandle()->Play(
+	0,  // Unused.
+	0,  // Priority for voice management.
+	DSBPLAY_LOOPING); // Flags.
 }
 
 #endif // _HOE_DS8_
