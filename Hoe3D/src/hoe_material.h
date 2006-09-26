@@ -22,12 +22,13 @@ struct HoeMaterialColor
 		return *((_D3DCOLORVALUE *)this);
 	}
 #endif
-	const HoeMaterialColor & operator = (dword & c)
+	const HoeMaterialColor & operator = (dword c)
 	{
 		b = float(c & 0xff) * (1/255.f);c = c >> 8;
 		g = float(c & 0xff) * (1/255.f);c = c >> 8;
 		r = float(c & 0xff) * (1/255.f);c = c >> 8;
 		a = float(c & 0xff) * (1/255.f);c = c >> 8;
+		return *this;
 	}
 };
 
@@ -50,7 +51,7 @@ public:
 	static const int Specular = 0x04;
 
 	HoeMaterial();
-	void Setup();
+	void Setup(dword overcolor);
 	const char * GetName();
 	bool LoadFromFile(const char *path);
 	void SetTexture(HoeTexture * t) { m_tex = t; }

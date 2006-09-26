@@ -61,14 +61,14 @@ bool HoeModel::GetParameter(const char * name, THoeParameter * par)
 	return false;
 }
 
-void HoeModel::Render(const HoeScene * scene, float f) const
+void HoeModel::Render(const HoeScene * scene, float f, dword color) const
 {
 	if (m_num_stream == m_num_index)
 	{
 		// pozmenovaci funkce na render
 		for (uint i=0;i<m_num_stream;i++)
 		{
-			if (i < m_num_mat) m_mat[i]->Setup();
+			if (i < m_num_mat) m_mat[i]->Setup(color);
 			//m_shader.Setup(scene);
 			Ref::DrawStdObject(m_stream[i],m_index[i]);
 		}
@@ -77,7 +77,7 @@ void HoeModel::Render(const HoeScene * scene, float f) const
 	{
 		// vykresleni aktualniho streamu
 		if (m_num_mat > 0)
-			m_mat[0]->Setup();
+			m_mat[0]->Setup(color);
 		// prepocitat frame na snimek
 		uint frame = f * (m_num_stream-1);
 		Ref::DrawStdObject(m_stream[frame%m_num_stream],m_index[0]);

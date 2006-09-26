@@ -63,7 +63,7 @@ void HoePolygon::Render()
 	m_stream.Set(0);
 	if (mat)
 	{
-		mat->Setup();
+		mat->Setup(0xffffffff);
 		Ref::DrawFanObject(0, nump);
 	}
 }

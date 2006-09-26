@@ -13,6 +13,7 @@ class ObjectController : public IHoeObjectController
 {
 	MapOrientation pos;
 	float m_frame;
+	dword m_overcolor;
 	dword flags;
 public:
 	XHoeObject * object;

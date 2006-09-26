@@ -6,6 +6,7 @@
 #include "config.h"
 #include "states.h"
 #include "light_system.h"
+#include "hoe_material.h"
 
 //////////////////////////////////////////////////////
 
@@ -177,6 +178,14 @@ void HoeStates::SetupMap()
    	D3DDevice()->SetRenderState( D3DRS_ZENABLE, TRUE ); 
 	//D3DDevice()->SetTextureStageState(0,D3DTSS_COLOROP,D3DTOP_MODULATE);
 	D3DDevice()->SetTexture(0,NULL);
+	D3DMaterial mat;
+	memset(&mat,0,sizeof(mat));
+	HoeMaterialColor c; 
+	c = (dword)0xffffffff;
+	mat.Ambient = c;
+	mat.Diffuse = c;
+	mat.Specular = c;
+	D3DDevice()->SetMaterial( &mat );
 #endif // _HOE_D3D9_
 #ifdef _HOE_OPENGL_
 

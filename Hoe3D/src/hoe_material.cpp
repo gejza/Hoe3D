@@ -34,11 +34,24 @@ HoeMaterial::HoeMaterial()
 inline dword F2DW( float f ) { return *((dword*)&f); }
 
 
-void HoeMaterial::Setup()
+void HoeMaterial::Setup(dword overcolor)
 {
 	// material
+	
+
 #ifdef _HOE_D3D_
-	D3DDevice()->SetMaterial( &m_mtrl );
+	if (overcolor != 0xffffffff)
+	{
+		D3DMaterial mat = m_mtrl;
+		HoeMaterialColor c; 
+		c = overcolor;
+		mat.Ambient = c;
+		mat.Diffuse = c;
+		mat.Specular = c;
+		D3DDevice()->SetMaterial( &mat );
+	}
+	else
+		D3DDevice()->SetMaterial( &m_mtrl );
 #endif
 #ifdef _HOE_OPENGL_
 	glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,m_ambient);

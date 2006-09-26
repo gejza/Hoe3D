@@ -102,10 +102,11 @@ void TGridSurfaceType::Setup()
 		}
 		else
 		{
+
 			D3DDevice()->SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_DISABLE); 
 		}
 		//D3DDevice()->SetTextureStageState(1, D3DTSS_TEXCOORDINDEX, 0);
-#if 0
+#if 1
 		D3DDevice()->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
 		D3DDevice()->SetSamplerState(1, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
 		D3DDevice()->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
@@ -501,9 +502,6 @@ void GridSurface::Render()
 		Ref::SetMatrix(m_worldpos);
 		GetStates()->SetupMap();
 		// nastavit matros
-		HoeMaterial mat;
-		mat.SetColor(HoeMaterial::Diffuse, HoeMaterialColor(1,1,1,1));
-		mat.Setup();
 		// enable textures
 		GetStates()->EnableTexture();
 

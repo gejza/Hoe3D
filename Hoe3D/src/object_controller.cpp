@@ -18,6 +18,7 @@ ObjectController::ObjectController() : m_scale(1,1,1)
 	object = NULL;
 	flags = 0;
 	m_frame = 0.f;
+	m_overcolor = 0xffff0000;
 }
 
 bool ObjectController::Create(XHoeObject * obj)
@@ -47,7 +48,7 @@ void ObjectController::Render(const HoeScene * scene)
 		Ref::SetMatrix(m);
 
 	if (model)
-        model->Render(scene, m_frame);
+        model->Render(scene, m_frame, m_overcolor);
 
 	// info
 	if (m_adv.Count() > 0)
@@ -76,7 +77,7 @@ void ObjectController::Render(const HoeScene * scene)
 					a.Multiply(m);
 					Ref::SetMatrix(a);
 					if (sm.model)
-						dynamic_cast<HoeModel*>(sm.model)->Render(scene, m_frame);
+						dynamic_cast<HoeModel*>(sm.model)->Render(scene, m_frame, m_overcolor);
 				}
 				break;
 			case THoeSubObject::Particle:
