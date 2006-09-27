@@ -33,6 +33,8 @@ public:
 	bool IsNum(int pos) const;
 	bool IsNil(int pos) const;
 	bool IsTable(int pos) const;
+    //bruca - neexistuje lua_ispointer()
+    bool IsPointer(int pos) const;
 	void Error(const char * szFormat, ...);
 	void PushNum(int num);
 	void PushPointer(void * p);

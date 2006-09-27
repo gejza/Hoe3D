@@ -62,7 +62,9 @@ enum EVarFlags
 	TVAR_STR				= 4,	// variable is a string
 	TVAR_SSTR				= 5,	// variable is a static string
 	TVAR_TYPE				= 0xff, // all types
-	TVAR_MODIFIED			= BIT(9)
+	TVAR_MODIFIED			= BIT(9),
+
+    TVAR_SAVE               = BIT(10)
 };
 
 struct THoeVar

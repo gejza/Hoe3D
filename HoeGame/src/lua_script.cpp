@@ -143,6 +143,12 @@ bool LuaParam::IsString(int pos) const
 	return lua_isstring(m_L,pos) != 0;
 }
 
+//bruca - neexistuje lua_ispointer()
+bool LuaParam::IsPointer(int pos) const{
+    //return lua_ispointer(m_L, pos) != 0;
+    return lua_istable(m_L, pos) != 0;
+}
+
 bool LuaParam::IsNum(int pos) const
 {
 	return lua_isnumber(m_L,pos) != 0;
@@ -304,7 +310,8 @@ bool LuaScript::Init()
 	//lua_strlibopen(m_L);
 	//lua_mathlibopen(m_L);
 	//lua_dblibopen(m_L); 
-	
+	//luaL_openlibs(m_L);
+
 	lua_register(m_L,"print",LuaScript::print);
 	lua_register(m_L,"sleep",LuaScript::sleep);
 	lua_atpanic(m_L,LuaScript::error);
