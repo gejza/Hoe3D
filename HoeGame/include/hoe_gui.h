@@ -127,6 +127,15 @@ public:
 	bool Click(const float x, const float y);
 };
 
+class ButtonUsr : public Button
+{
+protected:
+	IHoePicture * m_pic_active;
+public:
+	virtual void Set(const char * prop, const char *value);
+	virtual void Draw(IHoe2D * h2d);
+};
+
 class DigiCounter : public StaticPicture
 {
 protected:

@@ -184,7 +184,7 @@ bool MeshBuffer::ExportStream(INode * node, TimeValue t, bool local, ModelExport
 			file->Printf(";\t ");
 			file->Printf("%f", tx.x);
 			file->Printf(", ");
-			file->Printf("%f", tx.y);
+			file->Printf("%f", (1.f-tx.y));
 		}
 		file->Printf("\n");
 	}

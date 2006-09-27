@@ -94,6 +94,8 @@ Gui::Base * Hoe2DFigure::CreateGUI(const char *type)
 		g = new ColorRect;
 	else if (IS("button"))
 		g = new Button;
+	else if (IS("buttonusr"))
+		g = new ButtonUsr;
 	else if (IS("digicounter"))
 		g = new DigiCounter;
 	else if (IS("infopanel"))

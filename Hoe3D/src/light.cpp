@@ -25,7 +25,10 @@ HoeLight::HoeLight(bool direct)
 	light.Diffuse.a = 1.0f;
 	light.Attenuation0 = 1.f;
 
-	light.Direction = HoeMath::VECTOR3(0,-1,0);
+	float t = SysFloatTime();
+	HoeMath::VECTOR3 vec(sinf(t),-1,cosf(t));
+	vec.Normalize();
+	light.Direction = vec;
 	light.Range = 50;
 
 #endif
@@ -36,6 +39,11 @@ HoeLight::HoeLight(bool direct)
 void HoeLight::Set(int slot)
 {
 #ifdef _HOE_D3D_
+	float t = SysFloatTime();
+	HoeMath::VECTOR3 vec(sinf(t),-1,cosf(t));
+	vec.Normalize();
+	light.Direction = vec;
+
 	D3DDevice()->SetLight( slot, &light );
 	D3DDevice()->LightEnable( slot, TRUE);
 	D3DDevice()->SetRenderState( D3DRS_AMBIENT, 0x00000000 );

@@ -460,6 +460,29 @@ bool Button::Click(const float x, const float y)
 	return false;
 }
 
+////////////////////////////////////
+void ButtonUsr::Set(const char * prop, const char *value)
+{
+	if (strcmp(prop,"picture_act") == 0)
+	{
+		// load
+		char buff[256];
+		sprintf(buff,"picture %s", value);
+		m_pic_active = (IHoePicture*)GetHoeEngine()->Create(buff);
+	}
+	else 
+		Button::Set(prop, value);
+}
+
+void ButtonUsr::Draw(IHoe2D * h2d)
+{
+	if (m_show)
+	{
+		if (m_pic && m_pic_active)
+			h2d->BltFast(m_rect.left, m_rect.right, m_rect.top, m_rect.bottom, m_active ? m_pic_active:m_pic);
+	}
+}
+
 } // namespace Gui
 END_HOEGAME
 

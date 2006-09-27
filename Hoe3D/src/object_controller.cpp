@@ -18,7 +18,7 @@ ObjectController::ObjectController() : m_scale(1,1,1)
 	object = NULL;
 	flags = 0;
 	m_frame = 0.f;
-	m_overcolor = 0xffff0000;
+	m_overcolor = 0xffffffff;
 }
 
 bool ObjectController::Create(XHoeObject * obj)
