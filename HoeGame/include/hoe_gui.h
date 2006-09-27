@@ -5,6 +5,18 @@
 #include "hoe_game.h"
 
 BEGIN_HOEGAME
+
+namespace Gui {
+	class Base;
+}
+
+
+class Hoe2DControl
+{
+public:
+	typedef void (Hoe2DControl::*FUNC)(Gui::Base * sender);
+};
+
 namespace Gui {
 
 enum EType
@@ -121,16 +133,25 @@ protected:
 	bool m_active;
 	IHoeFont * m_fonttt;
 	const char * m_tt;
+	Hoe2DControl * m_ctrl;
+	Hoe2DControl::FUNC m_func;
+	int m_id;
 public:
 	Button();
 	virtual EType GetType() { return EButton; }
 	virtual void Draw(IHoe2D * h2d);
 	virtual void Draw2(IHoe2D * h2d);
-	virtual void OnClick() {};
+	virtual void OnClick();
 	bool Move(const float x, const float y);
 	bool Click(const float x, const float y);
 	void SetToolTipFont(IHoeFont * fnt);
 	void SetToolTip(const char * tt);
+	void SetID(int id) { m_id = id; }
+	int GetID() { return m_id; }
+	void SetHandler(Hoe2DControl * ctrl, Hoe2DControl::FUNC func)
+	{
+		m_ctrl = ctrl; m_func = func;
+	}
 };
 
 class ButtonUsr : public Button

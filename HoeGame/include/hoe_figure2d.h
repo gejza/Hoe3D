@@ -28,13 +28,13 @@ class FigureFile : public TextFile
  * pres nastavitelne parametry se budou moci pozmenovat infa
  * proste takovy 2d engine, s pojmenovanymi oblastmi
  */
-class Hoe2DFigureBase
+class Hoe2DFigureBase : public Hoe2DControl
 {
 public:
 	/** Kontruktor */
 	Hoe2DFigureBase();
 	/** Destruktor */
-	~Hoe2DFigureBase();
+	virtual ~Hoe2DFigureBase();
 
 	bool Load(const char * fname);
 	virtual Gui::Base * CreateGUI(const char * type) = 0;
@@ -51,6 +51,7 @@ public:
 	Gui::Item * GetItem(const char * name, Gui::EType type);
 	Gui::Item * ReqItem(const char * name, Gui::EType type);
 	bool Move(const float x, const float y);
+	bool Click(const float x, const float y);
 };
 
 END_HOEGAME

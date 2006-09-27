@@ -427,6 +427,8 @@ Button::Button()
 	m_active = false;
 	m_fonttt = NULL;
 	m_tt = NULL;
+	m_ctrl = NULL;
+	m_func = NULL;
 }
 
 void Button::Draw(IHoe2D * h2d)
@@ -465,12 +467,18 @@ bool Button::Move(const float x, const float y)
 
 bool Button::Click(const float x, const float y)
 {
-	if (m_show && m_rect.left >= x && m_rect.right <= x && m_rect.top >= y && m_rect.bottom <= y)
+	if (m_show && m_rect.left <= x && m_rect.right >= x && m_rect.top <= y && m_rect.bottom >= y)
 	{
 		OnClick();
 		return true;
 	}
 	return false;
+}
+
+void Button::OnClick()
+{
+	if (m_ctrl && m_func)
+		(m_ctrl->*m_func)(this);
 }
 
 void Button::SetToolTipFont(IHoeFont * fnt)
