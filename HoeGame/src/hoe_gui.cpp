@@ -425,6 +425,8 @@ void Font::Set(const char *prop, const char *value)
 Button::Button()
 {
 	m_active = false;
+	m_fonttt = NULL;
+	m_tt = NULL;
 }
 
 void Button::Draw(IHoe2D * h2d)
@@ -435,7 +437,18 @@ void Button::Draw(IHoe2D * h2d)
 		float widthr = (m_rect.right-m_rect.left) * 0.1f;
 		float heightr = (m_rect.bottom-m_rect.top) * 0.1f;
 		if (m_pic)
+		{
 			h2d->BltFast(m_rect.left+widthr, m_rect.right-widthr, m_rect.top+heightr, m_rect.bottom-heightr, m_pic);
+		}
+	}
+}
+
+void Button::Draw2(IHoe2D * h2d)
+{
+	if (m_show && m_pic && m_fonttt && m_tt && m_active)
+	{
+		m_fonttt->DrawText( m_rect.right, m_rect.bottom, 0xffffffff, 
+              m_tt );
 	}
 }
 
@@ -458,6 +471,15 @@ bool Button::Click(const float x, const float y)
 		return true;
 	}
 	return false;
+}
+
+void Button::SetToolTipFont(IHoeFont * fnt)
+{
+	m_fonttt = fnt;
+}
+void Button::SetToolTip(const char * tt)
+{
+	m_tt = tt;
 }
 
 ////////////////////////////////////

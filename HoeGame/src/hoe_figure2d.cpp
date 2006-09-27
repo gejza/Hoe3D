@@ -115,6 +115,11 @@ void Hoe2DFigure::Draw(IHoe2D *hoe2d)
 		if (m_list.Get(i)->GetShow())
 			m_list.Get(i)->Draw(hoe2d);
 	}
+	for (uint i=0;i<m_list.Count();i++)
+	{
+		if (m_list.Get(i)->GetShow())
+			m_list.Get(i)->Draw2(hoe2d);
+	}
 }
 
 Gui::Item * Hoe2DFigure::GetItem(const char * name, Gui::EType type)

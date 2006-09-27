@@ -35,6 +35,7 @@ public:
 	Item();
 	virtual void Set(const char * prop, const char * value);
 	virtual void Draw(IHoe2D * h2d) = 0;
+	virtual void Draw2(IHoe2D * h2d) {};
 	void SetRect(const THoeRect * rect);
 	void SetRect(const char * value);
 	const THoeRect & GetRect() const { return m_rect; }
@@ -118,13 +119,18 @@ class Button : public StaticPicture
 {
 protected:
 	bool m_active;
+	IHoeFont * m_fonttt;
+	const char * m_tt;
 public:
 	Button();
 	virtual EType GetType() { return EButton; }
 	virtual void Draw(IHoe2D * h2d);
+	virtual void Draw2(IHoe2D * h2d);
 	virtual void OnClick() {};
 	bool Move(const float x, const float y);
 	bool Click(const float x, const float y);
+	void SetToolTipFont(IHoeFont * fnt);
+	void SetToolTip(const char * tt);
 };
 
 class ButtonUsr : public Button
