@@ -130,7 +130,7 @@ void ParticleEmitor::Render()
 	GetStates()->EnableTexture();
 	GetTextureSystem()->SetTexture(0,m_tex);
 #ifdef _HOE_D3D_
-	D3DDevice()->SetRenderState( D3DRS_LIGHTING, FALSE );
+	//D3DDevice()->SetRenderState( D3DRS_LIGHTING, FALSE );
 
     D3DDevice()->SetRenderState( D3DRS_SRCBLEND,  D3DBLEND_SRCALPHA );
     D3DDevice()->SetRenderState( D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA );

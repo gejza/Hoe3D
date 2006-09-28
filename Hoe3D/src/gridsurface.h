@@ -213,6 +213,8 @@ public:
 	virtual void HOEAPI GetGridDesc(int x, int y, TGridDesc * desc);
 	/** @see IHoeEnv::GridSurface::SetGridModel */
 	virtual void HOEAPI SetGridModel(int x, int y, float height, int modelid);
+	/** @see IHoeEnv::GridSurface::GetGridModel */
+	virtual int HOEAPI GetGridModel(int x, int y);
 	/** @see IHoeEnv::GridSurface::SetGridPlane */
 	virtual void HOEAPI SetGridPlane(int x, int y, float height, float lt = 0.f, float rt = 0.f, float lb = 0.f, float rb = 0.f);
 	/** @see IHoeEnv::GridSurface::SetGridHeightmap */
@@ -221,7 +223,9 @@ public:
 	// hejbani
 	virtual void HOEAPI MoveHeight(float x, float y, float moveheight, float radius);
 
+	// funkce pro fyziku
 	bool GetHeight(const float x, const float y, float * height);
+	bool GetCamber(const float x1,const float x2,const float y1,const float y2, float & min,float &max);
 
 	//virtual void HOEAPI ShowBrush(bool show);
 	//virtual void HOEAPI SetBrush(float x, float y, float radius, dword color);

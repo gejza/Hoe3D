@@ -55,6 +55,7 @@ public:
 	virtual void HOEAPI UnsetFlags(unsigned long flags);
 
 	virtual void HOEAPI SetAnimationTime(float t) { m_frame = t; }
+	virtual void HOEAPI SetOverColor(dword color) { m_overcolor = color; }
 };
 
 #endif // _OBJECT_CONTROLLER_H_

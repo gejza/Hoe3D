@@ -33,9 +33,11 @@ class HoeDSBuffer
 	DWORD  dwLength;
 public:
 	/** Kontruktor 
-	 * @todo Dodelat destruktor 
 	 */
 	HoeDSBuffer();
+	/** Destruktor 
+	 */
+	~HoeDSBuffer();
 	/** Vytvoreni bufferu
 	* @param channels Pocet kanalu
 	* @param freq Samplu za sekundu
@@ -56,7 +58,7 @@ public:
 class HoeDSPlayer
 {
 protected:
-
+	HoeDSBuffer * m_buff;
 public:
 	/** Kontruktor 
 	 * @todo Dodelat destruktor 
@@ -66,8 +68,10 @@ public:
 	/**
 	 * Play
 	 * @param buff Buffer kterej se ma prehrat
+	 * @param loop Prehravat dokola
 	 */
-	void Play(HoeDSBuffer * buff);
+	void Play(HoeDSBuffer * buff, bool loop);
+	void Stop();
 };
 
 /**

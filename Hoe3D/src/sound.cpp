@@ -66,9 +66,14 @@ HoeSoundBuffer::HoeSoundBuffer(bool ctrl3D)
 
 ////////////////////////////////////////
 
-void HoeSound::Play()
+void HoeSound::Play(bool loop)
 {
-	player.Play(this);
+	player.Play(this, loop);
+}
+
+void HoeSound::Stop()
+{
+	player.Stop();
 }
 
 static size_t read_func(void *ptr, size_t size, size_t nmemb, void *datasource)

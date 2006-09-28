@@ -144,6 +144,7 @@ namespace IHoeEnv
 		*/
 		virtual void HOEAPI SetGridPlane(int x, int y, float height, float lt = 0.f, float rt = 0.f, float lb = 0.f, float rb = 0.f) = 0;
 		virtual void HOEAPI SetGridModel(int x, int y, float height, int modelid) = 0;
+		virtual int HOEAPI GetGridModel(int x, int y) = 0;
 		virtual void HOEAPI SetGridHeightmap(int x, int y, float height, int resx, int resy, float * h) = 0;
 
 		// funkce na editovani

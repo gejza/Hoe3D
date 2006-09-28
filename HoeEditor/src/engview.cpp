@@ -183,7 +183,7 @@ void EngineView::OnPaint(wxPaintEvent& event)
  	wxPaintDC dc(this);
 	if (IsLoaded())
 	{
-		this->Frame(0);
+		//this->Frame(0);
 	}
 	else
 	{

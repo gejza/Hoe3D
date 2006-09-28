@@ -609,17 +609,18 @@ void HOEAPI GridSurface::GetGridDesc(int x, int y, IHoeEnv::GridSurface::TGridDe
 void HOEAPI GridSurface::SetGridModel(int x, int y, float height, int modelid)
 {
 	// prenastaveni v gridu na model, pokud height mapa tak odstranit
-	if (m_grids[m_width*y+x].type == TGridData::eModel)
-	{
-		m_grids[m_width*y+x].modelid = (m_grids[m_width*y+x].modelid + 1) % 12;
-	}
-	else
-	{
-		m_grids[m_width*y+x].type = TGridData::eModel;
-		m_grids[m_width*y+x].base_height = height;
-		m_grids[m_width*y+x].modelid = 0;
-	}
+	m_grids[m_width*y+x].type = TGridData::eModel;
+	m_grids[m_width*y+x].base_height = height;
+	m_grids[m_width*y+x].modelid = modelid;
 	Opt_ProcessPlanes(x-1,x+1,y-1,y+1);
+}
+
+int HOEAPI GridSurface::GetGridModel(int x, int y)
+{
+	// prenastaveni v gridu na model, pokud height mapa tak odstranit
+	if (m_grids[m_width*y+x].type == TGridData::eModel)
+		return m_grids[m_width*y+x].modelid;
+	return -1;
 }
 
 void HOEAPI GridSurface::SetGridPlane(int x, int y, float height,float lt, float rt, float lb, float rb)
@@ -747,6 +748,41 @@ bool GridSurface::GetHeight(const float x, const float y, float * height)
 	default:
 		return false;
 	};
+}
+
+///////////////////
+bool GridSurface::GetCamber(const float x1,const float x2,const float y1,const float y2, float & min,float &max)
+{
+	if (!m_grids)
+		return false;
+	const float distX = m_sizeX / m_width;
+	const float distY = m_sizeY / m_height;
+	// od do
+	const uint fx = (uint)((x1+(m_sizeX*0.5f))/(distX));
+	const uint fy = (uint)((y1+(m_sizeY*0.5f))/(distY));
+	const uint tx = (uint)((x2+(m_sizeX*0.5f))/(distX));
+	const uint ty = (uint)((y2+(m_sizeY*0.5f))/(distY));
+	if (fx < 0 || tx >= m_width || fy < 0 || ty >= m_height)
+		return false;
+	if (fx > tx || fy > ty)
+		return false;
+	min = 10000.f;
+	max = -10000.f;
+	for (int x=fx;x <= tx;x++)
+		for (int y=fy;y <= ty;y++)
+		{
+			const TGridData & g = m_grids[m_width*y+x];
+			if (g.type != TGridData::ePlane)
+				return false;
+			for (int j=0;j < 4;j++)
+			{
+				if (g.plane_heights[j] < min)
+					min = g.plane_heights[j];
+				if (g.plane_heights[j] > max)
+					max = g.plane_heights[j];
+			}
+		}
+	return true;
 }
 
 void HOEAPI GridSurface::Dump(XHoeStreamWrite * stream)

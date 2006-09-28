@@ -65,7 +65,8 @@ public:
 class IHoeSound : public IHoeResource
 {
 public:
-	virtual void Play() = 0;
+	virtual void HOEAPI Play(bool loop) = 0;
+	virtual void HOEAPI Stop() = 0;
 };
 
 class IHoeParticle : public IHoeResource

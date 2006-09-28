@@ -272,17 +272,20 @@ float HoeGraphScene::GetHeight(float x,float y)
 
 bool HoeGraphScene::GetCamber(const float x1,const float x2,const float y1,const float y2, float & min,float &max)
 {
-	/*float distX, distY;
-	int gridX1, gridY1, gridX2, gridY2;
-
-	distX=m_terrain.getDistX();
-	distY=m_terrain.getDistY();
-
-	gridX1=x1/distX;	gridY1=y1/distY;
-	gridX2=x2/distX;	gridY2=y2/distY;
-
-*/		
-
+	// v terenu se musi najit ctverce, a z nech vypocitat
+	TSceneGroup * g = m_root;
+	while (g)
+	{
+		switch (g->type)
+		{
+		case TSceneGroup::eGridSurface:
+			// tady camber
+			if (g->value.grid->GetCamber(x1,x2,y1,y2, min,max))
+				return true;
+			break;
+		};
+		g = g->next;
+	}
 	return false;
 }
 

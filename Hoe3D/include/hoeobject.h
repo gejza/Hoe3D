@@ -96,6 +96,8 @@ public:
 	
 	/** zobrazeni casu animace */
 	virtual void HOEAPI SetAnimationTime(float t) = 0;
+
+	virtual void HOEAPI SetOverColor(dword color) = 0;
 };
 
 /**

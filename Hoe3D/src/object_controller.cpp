@@ -94,22 +94,6 @@ void ObjectController::Render(const HoeScene * scene)
 			};
 		}
 	}
-	/*if (m_infocount > 0 && m_info)
-	for (uint ii=0; ii < m_infocount;ii++)
-	{
-		if (m_info[ii])
-		{
-			HoeMath::MATRIX mt;
-			mt.Translate(m_info[ii]->position[0],m_info[ii]->position[1],m_info[ii]->position[2]);
-			HoeMath::MATRIX ms;
-			ms.Scale(m_info[ii]->scale[0],m_info[ii]->scale[1],m_info[ii]->scale[2]);
-			ms.Multiply(m);
-			ms.Multiply(mt);
-			Ref::SetMatrix(ms);
-			assert(m_info[ii]->model);
-			reinterpret_cast<HoeModel*>(m_info[ii]->model)->Render();
-		}
-	}*/
 }
 
 void ObjectController::Unregister()

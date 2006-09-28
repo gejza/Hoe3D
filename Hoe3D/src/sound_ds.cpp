@@ -62,6 +62,12 @@ HoeDSBuffer::HoeDSBuffer()
 	m_buffer = NULL;
 }
 
+HoeDSBuffer::~HoeDSBuffer()
+{
+	SAFE_RELEASE(m_buffer);
+	SAFE_RELEASE(m_3d);
+}
+
 bool HoeDSBuffer::Create(int channels, int freq, int byts, long samples, bool ctrl3D)
 {
 	WAVEFORMATEX wfx; 
@@ -149,12 +155,20 @@ HoeDSPlayer::HoeDSPlayer()
 {
 }
 
-void HoeDSPlayer::Play(HoeDSBuffer * buff)
+void HoeDSPlayer::Play(HoeDSBuffer * buff, bool loop)
 {
-HRESULT hr = buff->GetHandle()->Play(
-	0,  // Unused.
-	0,  // Priority for voice management.
-	DSBPLAY_LOOPING); // Flags.
+	m_buff = buff;
+	if (!buff)
+		return;
+	HRESULT hr = buff->GetHandle()->Play(0,0,loop ? DSBPLAY_LOOPING:0); // Flags.
+	checkres(hr,"IDirectSoundBuffer8::Play");
+}
+
+void HoeDSPlayer::Stop()
+{
+	if (!m_buff)
+		return;
+	m_buff->GetHandle()->Stop();
 }
 
 #endif // _HOE_DS8_

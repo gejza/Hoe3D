@@ -49,6 +49,7 @@ void HoeMaterial::Setup(dword overcolor)
 		mat.Diffuse = c;
 		mat.Specular = c;
 		D3DDevice()->SetMaterial( &mat );
+		// zapnout svetlo
 	}
 	else
 		D3DDevice()->SetMaterial( &m_mtrl );

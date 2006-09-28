@@ -40,7 +40,9 @@ public:
 	 * @todo predelat nacitani z file systemu 
 	 */
 	bool LoadFromFile(const char * filename);
-	virtual void Play() {};
+	virtual void HOEAPI Play(bool loop) {};
+	virtual void HOEAPI Stop() {};
+	virtual void HOEAPI Delete() { delete this; }
 };
 
 /**
@@ -70,8 +72,11 @@ public:
 	/**
 	 * Prehraje aktualni buffer
 	 */
-	virtual void Play();
+	virtual void HOEAPI Play(bool loop);
+	virtual void HOEAPI Stop();
+	virtual void HOEAPI Delete() { delete this; }
 	friend class SoundSystem;
+
 };
 
 /**
