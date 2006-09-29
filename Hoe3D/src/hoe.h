@@ -14,6 +14,7 @@ public:
 	~Hoe3D();
 	bool HOEAPI Init(THoeInitSettings *);
 	IHoeResource * HOEAPI Create(const char *);
+	virtual IHoePicture * HOEAPI CreatePicture(int width, int height, dword * data);
 	IHoeSystem * HOEAPI GetSystem(HOESYSTEMS sys);
 
 	virtual int HOEAPI exec(const char *);

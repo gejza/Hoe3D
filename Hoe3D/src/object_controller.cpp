@@ -98,7 +98,10 @@ void ObjectController::Render(const HoeScene * scene)
 
 void ObjectController::Unregister()
 {
+	// dfdsf
 	object = NULL;
+	m_adv.Delete();
+	delete this;
 }
 
 void ObjectController::SetModel(IHoeModel * model_)

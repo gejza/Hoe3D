@@ -17,7 +17,7 @@
 #include "hoetypes.h"
 #include "hoeinterfaces.h"
 
-#define HOESDK_VERSION  (135 + HOE_INTERFACE_VER)
+#define HOESDK_VERSION  (136 + HOE_INTERFACE_VER)
 
 class IHoeInterface;
 class XHoeFS;
@@ -96,6 +96,8 @@ public:
 
 	/** Funkce co vytvari interface tridy */
 	virtual IHoeInterface * HOEAPI Create(const char *) = 0;
+
+	virtual IHoePicture * HOEAPI CreatePicture(int width, int height, dword * data) = 0;
 
 	/** Funkce pro pristup k systemum hoe */
 	virtual IHoeSystem * HOEAPI GetSystem(HOESYSTEMS sys) = 0;

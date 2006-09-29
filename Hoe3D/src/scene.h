@@ -22,7 +22,7 @@ public:
 	HoeScene();
 
 	virtual int HOEAPI RegisterObject(XHoeObject *, unsigned long flags = 0);
-	virtual void HOEAPI UnregisterObject(int);
+	virtual void HOEAPI UnregisterObject(XHoeObject *);
 
 	/** @see IHoeScene::CreateLight() */
 	virtual IHoeLight * HOEAPI CreateLight(bool direct);

@@ -180,6 +180,8 @@ public:
 	virtual void HOEAPI Set2DCallback(XHoe2DCallback * cb) = 0;
 	/** Zaregistruje objekt */
 	virtual int HOEAPI RegisterObject(XHoeObject *, unsigned long flags = 0) = 0;
+	/** Zaregistruje objekt */
+	virtual void HOEAPI UnregisterObject(XHoeObject *) = 0;
 	/** Vytvori particle emitor */
 	virtual IHoeParticleEmitor * HOEAPI CreateParticleEmitor() = 0;
 	/** Vytvori svetlo */

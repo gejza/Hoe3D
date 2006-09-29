@@ -81,6 +81,29 @@ HoeTexture * TextureSystem::GetTexture(const char * name, HoeLog * log)
 	return tex;
 }
 
+HoeTexture * TextureSystem::CreateTexture(dword width, dword height, dword * data)
+{
+	HoeTexture * tex = new HoeTexture();
+	if (!tex->Create(width,height,HOE_B8G8R8X8))
+		return NULL;
+	HoeTexture::LOCKRECT lr;
+	if (tex->Lock(&lr))
+	{
+		lr.data;
+		lr.pitch;
+		for (int y=0;y < height;y++)
+		{
+			dword * p = (dword*)(lr.data+(lr.pitch*y));
+			for (int x=0;x < width;x++)
+			{
+				p[x] = *data++;
+			}
+		}
+		tex->Unlock();
+	}
+	return tex;
+}
+
 void TextureSystem::SetTexture(int stage,const HoeTexture * t)
 {
 #ifdef _HOE_D3D_

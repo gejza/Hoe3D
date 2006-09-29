@@ -19,6 +19,7 @@
 #include "states.h"
 #include "hoe_time.h"
 #include "hoe2d.h"
+#include "hoe_picture.h"
 #include "hoe_font.h"
 #include "particle_emitor.h"
 #include "hoe.h"
@@ -266,4 +267,14 @@ IHoeResource * HOEAPI Hoe3D::Create(const char * str)
 
 	return ret;
 } 
+
+IHoePicture * Hoe3D::CreatePicture(int width, int height, dword * data)
+{
+	// create texture
+	HoePicture * pic = Get2D()->CreatePicture(NULL, NULL);
+	// vytvorit texturu
+	HoeTexture * tex = GetTextureSystem()->CreateTexture(width, height, data);
+	pic->SetSource(tex);
+	return pic;
+}
 

@@ -25,9 +25,10 @@ int HoeScene::RegisterObject(XHoeObject * obj, unsigned long flags)
 	return m_objects.RegisterObject(obj,flags);
 }
 
-void HoeScene::UnregisterObject(int id)
+void HoeScene::UnregisterObject(XHoeObject * obj)
 {
-	m_objects.UnregisterObject(id);
+	m_objects.UnregisterObject(obj);
+	
 }
 
 IHoeLight * HoeScene::CreateLight(bool direct)

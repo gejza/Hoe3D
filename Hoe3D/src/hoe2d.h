@@ -6,6 +6,7 @@
 #include "freetype.h"
 
 class HoeLog;
+class HoePicture;
 
 class Hoe2D : public IHoe2D
 {
@@ -21,7 +22,7 @@ public:
 	void Begin();
 	void End();
 
-	IHoePicture * CreatePicture(const char *, HoeLog * log);
+	HoePicture * CreatePicture(const char *, HoeLog * log);
 
 	HoeFreeType * GetFreeType() { return &freetype; }
 	// user func

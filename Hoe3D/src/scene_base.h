@@ -16,6 +16,7 @@ public:
 
 	virtual void HOEAPI Set2DCallback(XHoe2DCallback *);
 	virtual int HOEAPI RegisterObject(XHoeObject *, unsigned long flags = 0);
+	virtual void HOEAPI UnregisterObject(XHoeObject *);
 	/** @see IHoeScene::CreateParticleEmitor() */
 	virtual IHoeParticleEmitor * HOEAPI CreateParticleEmitor();
 	/** @see IHoeScene::CreateLight() */

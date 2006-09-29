@@ -9,6 +9,7 @@ namespace Strategy {
 
 class StgObject : public BaseObject
 {
+	IHoeScene * m_scene;
 public:
 	StgObject(IHoeScene * scn);
 	virtual ~StgObject();

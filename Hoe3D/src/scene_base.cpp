@@ -21,6 +21,10 @@ int HoeBaseScene::RegisterObject(XHoeObject * obj, unsigned long flags)
 	return -1;
 }
 
+void HoeBaseScene::UnregisterObject(XHoeObject * obj)
+{
+}
+
 IHoeLight * HoeBaseScene::CreateLight(bool direct)
 {
 	return NULL;

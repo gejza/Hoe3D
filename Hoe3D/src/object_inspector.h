@@ -4,18 +4,15 @@
 
 #include "object_controller.h"
 
-#define MAX_OBJ 1000
-
 class ObjectInspector
 {
-	ObjectController m_objects[MAX_OBJ];
-	uint m_numobject;
+	PtrSet<ObjectController*> m_obj;
 	uint m_find;
 	dword m_findflag;
 public:
 	ObjectInspector();
 	int RegisterObject(XHoeObject *, dword flags);
-	void UnregisterObject(int);
+	void UnregisterObject(XHoeObject *);
 
 	void SetStreaming(dword flag);
 	ObjectController * Object();

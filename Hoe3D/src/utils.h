@@ -166,6 +166,10 @@ public:
 		assert(n < m_count);
 		return m_ptr[n];
 	}
+	C & operator [] (const int index)
+	{
+		return Get(index);
+	}
 	/** Odebrani vsech stejnych objektu */
 	void Remove(C c)
 	{
@@ -182,7 +186,27 @@ public:
 				i++;
 		}
 	}
+	/** Odebrani vsech stejnych objektu */
+	template <class D> C Remove(D d)
+	{
+		assert(m_ptr);
+		for (uint i=0;i < m_count;)
+		{
+			if (*m_ptr[i] == d)
+			{
+				C ret = m_ptr[i];
+				if (i < (m_count-1))
+					m_ptr[i] = m_ptr[m_count-1];
+				m_count--;
+				return ret;
+			}
+			else
+				i++;
+		}
+		return NULL;
+	}
 	uint Count() { return m_count; }
+	void Delete() { m_count = 0; }
 }; 
 
 #include "cmdexec.h"

@@ -9,11 +9,12 @@ namespace Strategy {
 StgObject::StgObject(IHoeScene * scn)
 {
 	scn->RegisterObject(this);
+	m_scene = scn;
 }
 
 StgObject::~StgObject()
 {
-	GetCtrl()->Unregister();
+	m_scene->UnregisterObject(this);
 }
 
 

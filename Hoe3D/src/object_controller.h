@@ -28,6 +28,11 @@ public:
 
 	ObjectController();
 	bool IsValid() { return (object != NULL); }
+	bool operator == (const XHoeObject * obj) const
+	{
+		return object == obj;
+	}
+
 	bool Create(XHoeObject * obj);
 	void Render(const HoeScene * scene);
 	//inline bool IsShow() { return flags & 0x1; }

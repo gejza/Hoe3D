@@ -3,30 +3,27 @@
 #include "../include/hoeinterfaces.h"
 #include "object_inspector.h"
 
+// textury, mazani
+
 ObjectInspector::ObjectInspector()
 {
-	m_numobject = 0;
 	m_find = 0;
 }
 
 int ObjectInspector::RegisterObject(XHoeObject * obj, dword flags)
 {
-	assert(m_numobject < MAX_OBJ);
-	for (uint i = 0;i < m_numobject;i++)
-		if (!m_objects[i].IsValid())
-		{
-			m_objects[i].Create(obj);
-			return i;
-		}
-
-	m_objects[m_numobject++].Create(obj);
-	obj->GetCtrl()->SetFlags(flags);
-	return (m_numobject - 1);
+	ObjectController * c = new ObjectController;
+	c->Create(obj);
+	c->SetFlags(flags);
+	m_obj.Add(c);
+	return 0;
 }
 
-void ObjectInspector::UnregisterObject(int id)
+void ObjectInspector::UnregisterObject(XHoeObject * obj)
 {
-	m_objects[id].Unregister();
+	ObjectController * c = m_obj.Remove(obj);
+	if (c)
+		c->Unregister();
 }
 
 void ObjectInspector::SetStreaming(dword flag)
@@ -37,10 +34,10 @@ void ObjectInspector::SetStreaming(dword flag)
 
 ObjectController * ObjectInspector::Object()
 {
-	for(;m_find < m_numobject;m_find++)
+	for(;m_find < m_obj.Count();m_find++)
 	{
-		if (m_objects[m_find].IsValid() && (m_objects[m_find].GetFlags() & m_findflag))
-			return &m_objects[m_find++];
+		if (m_obj[m_find]->GetFlags() & m_findflag)
+			return m_obj[m_find++];
 	}
 	return NULL;
 }

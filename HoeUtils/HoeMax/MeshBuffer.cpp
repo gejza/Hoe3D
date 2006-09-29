@@ -162,6 +162,17 @@ bool MeshBuffer::ExportStream(INode * node, TimeValue t, bool local, ModelExport
 		if (m_expn)
 		{
 			Point3 n = GetVertexNormal(mesh->getRVert(v.posIndex), v.smoothGroup);
+			Matrix3 im = tm;
+			im.Invert();
+			Point3 a1 = im.GetRow(0);
+			Point3 a2 = im.GetRow(1);
+			Point3 a3 = im.GetRow(2);
+			Matrix3 nn;
+			nn.Zero();
+			nn.SetRow(0, Point3(a1.x, a2.x, a3.x));
+			nn.SetRow(1, Point3(a1.y, a2.y, a3.y));
+			nn.SetRow(2, Point3(a1.z, a2.z, a3.z));
+			n = nn * n;
 			file->Printf(";\t");
 			file->Printf("%f", n.x);
 			file->Printf(", ");

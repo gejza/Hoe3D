@@ -79,9 +79,6 @@ public:
 
 	virtual void HOEAPI GetScale(float *x, float *y, float *z) = 0;
 
-	/** odregistrovani objektu */
-	virtual void HOEAPI Unregister() = 0;
-
 	/** nastaveni priznaku */
 	virtual void HOEAPI SetFlags(unsigned long  flags) = 0;
 
