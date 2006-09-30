@@ -54,6 +54,10 @@ public:
 		m_count = 0;m_size = 0; m_ptr = NULL;
 		Resize(initnum);
 	}
+	~PtrSet()
+	{
+		if (m_ptr) free(m_ptr);
+	}
 	void Add(C c)
 	{
 		if (m_size == m_count)
@@ -77,15 +81,20 @@ public:
 		{
 			if (m_ptr[i] == c)
 			{
-				if (i < (m_count-1))
-					m_ptr[i] = m_ptr[m_count-1];
-				m_count--;
+				RemoveIndex(i);
 			}
 			else
 				i++;
 		}
 	}
+	void RemoveIndex(int index)
+	{
+		if (index < (m_count-1))
+			m_ptr[index] = m_ptr[m_count-1];
+		m_count--;
+	}
 	uint Count() { return m_count; }
+	void SetCount(int count) { m_count=count; }
 };
 
 template <class C> class PtrList : public PtrSet<C>

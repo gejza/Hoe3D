@@ -62,7 +62,7 @@ bool RefD3D9::Init(THoeInitSettings * his)
 		d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 		d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
 		d3dpp.EnableAutoDepthStencil = TRUE;
-		d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
+		d3dpp.AutoDepthStencilFormat = D3DFMT_D24X8;
 	}
 	else
 	{
@@ -70,7 +70,7 @@ bool RefD3D9::Init(THoeInitSettings * his)
 		d3dpp.SwapEffect = D3DSWAPEFFECT_FLIP;
 		d3dpp.BackBufferFormat = D3DFMT_X8R8G8B8;
 		d3dpp.EnableAutoDepthStencil = TRUE;
-		d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
+		d3dpp.AutoDepthStencilFormat = D3DFMT_D24X8;
 		d3dpp.BackBufferWidth = m_Width;
 		d3dpp.BackBufferHeight = m_Height;
 		d3dpp.BackBufferCount = 1;

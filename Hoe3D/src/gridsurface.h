@@ -226,6 +226,7 @@ public:
 	// funkce pro fyziku
 	bool GetHeight(const float x, const float y, float * height);
 	bool GetCamber(const float x1,const float x2,const float y1,const float y2, float & min,float &max);
+	virtual float HOEAPI GetAvgHeight(const uint x, const uint y, float *min, float *max);
 
 	//virtual void HOEAPI ShowBrush(bool show);
 	//virtual void HOEAPI SetBrush(float x, float y, float radius, dword color);

@@ -121,7 +121,7 @@ void HoeMaterial::Setup(dword overcolor)
 	D3DDevice()->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
 	D3DDevice()->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
     D3DDevice()->SetRenderState(D3DRS_ALPHAREF, (DWORD)0x000000b0);
-    D3DDevice()->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE); 
+    D3DDevice()->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE); 
     D3DDevice()->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATEREQUAL);
 #endif
 #ifdef _HOE_OPENGL_

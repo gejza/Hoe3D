@@ -699,6 +699,25 @@ void HOEAPI GridSurface::ShowWireframe(bool show)
 	m_wire = show;
 }
 
+float HOEAPI GridSurface::GetAvgHeight(const uint sx, const uint sy, float *min, float *max)
+{
+	if (sx < 0 || sx >= m_sizeX || sy < 0 || sy >= m_sizeY)
+		return 0.f;
+	const TGridData & g = m_grids[m_width*sy+sx];
+	if (g.type == TGridData::ePlane)
+	{
+		if (min) *min = g.plane_heights[0];
+		if (max) *max = g.plane_heights[0];
+		for (int i=1;i < 4;i++)
+		{
+			if (min && *min > g.plane_heights[i]) *min = g.plane_heights[i];
+			if (max && *max < g.plane_heights[i]) *max = g.plane_heights[i];
+		}
+		return (g.plane_heights[0]+g.plane_heights[1]+g.plane_heights[2]+g.plane_heights[3])/4.f;
+	}
+	return 0.f;
+}
+
 bool GridSurface::GetHeight(const float x, const float y, float * height)
 {
 	if (!m_grids)
