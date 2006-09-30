@@ -129,6 +129,7 @@ public:
 	}
     bool Skip(size_t size)
 	{
+		m_file->Skip(size);
 		m_pos += size;return true;
 	}
 	bool IsValid() { return (m_file && m_file->IsOpen()); }
