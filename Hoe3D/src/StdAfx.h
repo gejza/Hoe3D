@@ -41,7 +41,9 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#include "../include/hoetypes.h"
+#include <hoe_types.h>
+#include <hoe_math.h>
+#include <hoe_structures.h>
 
 // Memory managment
 //#include "mem_system.h"

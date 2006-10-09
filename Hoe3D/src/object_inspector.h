@@ -6,7 +6,7 @@
 
 class ObjectInspector
 {
-	PtrSet<ObjectController*> m_obj;
+	HoeCore::Set<ObjectController*> m_obj;
 	uint m_find;
 	dword m_findflag;
 public:

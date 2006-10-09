@@ -10,13 +10,13 @@
 #define _HOE_GRIDSURFACE_H_
 
 #include "../include/hoeinterfaces.h"
-#include "hoe3d_math.h"
+#include <hoe_math.h>
 #include "hoe_index.h"
 #include "hoe_stream.h"
 #include "hoe_material.h"
 #include "filesystem.h"
 #include "camera.h"
-#include "structures.h"
+//#include "structures.h"
 #include "heightmap.h"
 
 struct TGridData : public IHoeEnv::GridSurface::TGridDesc

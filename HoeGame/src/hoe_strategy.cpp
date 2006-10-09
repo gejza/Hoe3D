@@ -6,15 +6,12 @@
 BEGIN_HOEGAME
 namespace Strategy {
 
-StgObject::StgObject(IHoeScene * scn)
+StgObject::StgObject(IHoeScene * scn) : BaseObject(scn)
 {
-	scn->RegisterObject(this);
-	m_scene = scn;
 }
 
 StgObject::~StgObject()
 {
-	m_scene->UnregisterObject(this);
 }
 
 

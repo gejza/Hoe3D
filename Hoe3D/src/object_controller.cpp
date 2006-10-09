@@ -1,5 +1,5 @@
 
-#include "system.h"
+#include "StdAfx.h"
 #include "utils.h"
 #include "ref.h"
 #include "hoe_model.h"
@@ -10,7 +10,7 @@
 #include "hoe_time.h"
 
 #include "hoe.h"
-#include "hoe3d_math.h"
+#include <hoe_math.h>
 #include "particle_emitor.h"
 
 ObjectController::ObjectController() : m_scale(1,1,1)
@@ -61,19 +61,7 @@ void ObjectController::Render(const HoeScene * scene)
 			case THoeSubObject::Object:
 				{
 					const THoeSub_Model & sm = *reinterpret_cast<const THoeSub_Model*>(p.ptr);
-					HoeMath::MATRIX a,b;
-					if (sm.rotate)
-					{
-						b.Scale(sm.s_x,sm.s_y,sm.s_z);
-						a.RotationY(SysFloatTime());
-						a.Multiply(b);
-					}
-					else
-					{
-						a.Scale(sm.s_x,sm.s_y,sm.s_z);
-					}
-					b.Translate(sm.t_x,sm.t_y,sm.t_z);
-					a.Multiply(b);
+					HoeMath::MATRIX a = sm.pos;
 					a.Multiply(m);
 					Ref::SetMatrix(a);
 					if (sm.model)
@@ -84,7 +72,7 @@ void ObjectController::Render(const HoeScene * scene)
 				{
 					const THoeSub_Particle & sm = *reinterpret_cast<const THoeSub_Particle*>(p.ptr);
 					HoeMath::MATRIX a;
-					a.Translate(sm.t_x,sm.t_y,sm.t_z);
+					a.Translate(sm.pos);
 					a.Multiply(m);
 					Ref::SetMatrix(a);
 					if (sm.emitor)
@@ -121,9 +109,9 @@ bool ObjectController::LoadModel(const char * cmd)
 	return false;
 }
 
-void HOEAPI ObjectController::SetPosition(const float x, const float y, const float z)
+void HOEAPI ObjectController::SetPosition(const HoeMath::VECTOR3 &p)
 {
-	pos.xyz.Set(x,y,z);
+	pos.xyz = p;
 }
 
 void HOEAPI ObjectController::SetOrientation(const float x, const float y, const float z, const float angle)
@@ -133,11 +121,9 @@ void HOEAPI ObjectController::SetOrientation(const float x, const float y, const
 	pos.rot.Create(vect,angle);
 }
 
-void ObjectController::GetPosition(float *x, float *y, float *z)
+const HoeMath::VECTOR3 & ObjectController::GetPosition() const
 {
-	if (x) *x = pos.xyz.x; 
-	if (y) *y = pos.xyz.y; 
-	if (z) *z = pos.xyz.z; 
+	return pos.xyz; 
 }
 
 void ObjectController::GetOrientation(float *x, float *y, float *z, float *angle)
@@ -148,16 +134,14 @@ void ObjectController::GetOrientation(float *x, float *y, float *z, float *angle
 	if (angle) *angle = pos.rot.w; 
 }
 
-void ObjectController::SetScale(const float x, const float y, const float z)
+void ObjectController::SetScale(const HoeMath::VECTOR3 &scale)
 {
-	m_scale.Set(x,y,z);
+	m_scale = scale;
 }
 
-void ObjectController::GetScale(float *x, float *y, float *z)
+const HoeMath::VECTOR3 & ObjectController::GetScale() const
 {
-	if (x) *x = m_scale.x;
-	if (y) *y = m_scale.y;
-	if (z) *z = m_scale.z;
+	return m_scale;
 }
 
 void ObjectController::Link(THoeSubObject::Type type, THoeSubObject * obj)

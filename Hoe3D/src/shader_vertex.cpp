@@ -1,5 +1,5 @@
 
-#include "system.h"
+#include "StdAfx.h"
 #include "utils.h"
 #include "shared.h"
 #include "ref.h"
@@ -315,7 +315,7 @@ void HoeVertexShader::Setup(const HoeScene * scene) const
 	scene->GetCamera()->GetViewProjMatrix(&m);
 	HoeMath::MATRIX w;
 #ifdef _HOE_D3D9_
-	D3DDevice()->GetTransform(D3DTS_WORLD, w);
+	D3DDevice()->GetTransform(D3DTS_WORLD, (D3DMATRIX*)&w);
 #endif
 #ifdef _HOE_OPENGL_
 	// consts

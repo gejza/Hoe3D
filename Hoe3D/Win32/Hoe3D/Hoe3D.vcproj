@@ -58,11 +58,12 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=""
+				AdditionalIncludeDirectories="../../../HoeCore/include/"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_D3D9_"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
+				PrecompiledHeaderThrough="../../src/StdAfx.h"
 				PrecompiledHeaderFile=".\DebugD3D9/Hoe3D.pch"
 				AssemblerListingLocation=".\DebugD3D9/"
 				ObjectFile=".\DebugD3D9/"
@@ -162,7 +163,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories=""
+				AdditionalIncludeDirectories="../../../HoeCore/include/"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_D3D9_"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -266,7 +267,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\...\..\Common\include;..\..\...\..\Common\dx9_include"
+				AdditionalIncludeDirectories="../../../HoeCore/include/"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_OPENGL_"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -371,7 +372,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories=""
+				AdditionalIncludeDirectories="../../../HoeCore/include/"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_OPENGL_"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -475,7 +476,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=""
+				AdditionalIncludeDirectories="../../../HoeCore/include/"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_D3D8_"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -579,7 +580,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=""
+				AdditionalIncludeDirectories="../../../HoeCore/include/"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_D3D9_;HOE_STATIC_ENGINE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -664,7 +665,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories=""
+				AdditionalIncludeDirectories="../../../HoeCore/include/"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_D3D8_"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -768,7 +769,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=""
+				AdditionalIncludeDirectories="../../../HoeCore/include/"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_OPENGL_;HOE_STATIC_ENGINE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -1502,7 +1503,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\system.h"
+				RelativePath="..\..\src\StdAfx.h"
 				>
 			</File>
 		</Filter>
@@ -2212,10 +2213,26 @@
 			<File
 				RelativePath="..\..\src\icreate_parser.c"
 				>
+				<FileConfiguration
+					Name="DebugD3D9|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\src\material_parser.c"
 				>
+				<FileConfiguration
+					Name="DebugD3D9|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter

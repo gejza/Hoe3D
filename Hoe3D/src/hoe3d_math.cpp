@@ -1,5 +1,5 @@
 
-#include "system.h"
-#include "hoe3d_math.h"
+#include "StdAfx.h"
+#include <hoe_math.h>
 
 

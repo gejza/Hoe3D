@@ -1,6 +1,6 @@
 
-#include "system.h"
-#include "hoe3d_math.h"
+#include "StdAfx.h"
+#include <hoe_math.h>
 #include "map_utils.h"
 
 void MapOrientation::Reset()

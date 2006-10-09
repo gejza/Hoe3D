@@ -6,7 +6,7 @@
    @brief   Definice tridy Ref.
 */
 
-#include "system.h"
+#include "StdAfx.h"
 #include "shared.h"
 #include "ref.h"
 

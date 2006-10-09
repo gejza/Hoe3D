@@ -1,5 +1,5 @@
 
-#include "system.h"
+#include "StdAfx.h"
 #include "utils.h"
 #include "shared.h"
 #include "ref.h"
@@ -193,7 +193,7 @@ IHoeMaterial * HoeGraphScene::GetMaterial(const char * name)
 
 //////////////////////////////////////////////////////////
 
-XHoeObject * HoeGraphScene::Ray(float * vPickRayDir, float * vPickRayOrig)
+XHoeObject * HoeGraphScene::Ray(const HoeMath::VECTOR3 & vPickRayDir, const HoeMath::VECTOR3 & vPickRayOrig)
 {
 	// predpocitat d atd..
 	XHoeObject * act = NULL;
@@ -201,7 +201,7 @@ XHoeObject * HoeGraphScene::Ray(float * vPickRayDir, float * vPickRayOrig)
 	ObjectController * obj;
 	HoeMath::VECTOR3 d(vPickRayDir);
 	d.Normalize();
-	const float o = -d.x*vPickRayOrig[0] -d.y*vPickRayOrig[1] -d.z*vPickRayOrig[2];
+	const float o = -d.x*vPickRayOrig.x -d.y*vPickRayOrig.y -d.z*vPickRayOrig.z;
 	// projit vsechny objekty
 	m_objects.SetStreaming(HOF_SHOW);
 	while ((obj = m_objects.Object()) != NULL)
@@ -221,17 +221,17 @@ XHoeObject * HoeGraphScene::Ray(float * vPickRayDir, float * vPickRayOrig)
 			continue;
 
 		// pocitat x,y,z a odstranovat pokud nespnuji
-		register const float x = d.x * t + vPickRayOrig[0] - obj->GetVectorPosition().x;
+		register const float x = d.x * t + vPickRayOrig.x - obj->GetVectorPosition().x;
 		l = x * x;
 		if (bb * bb < l)
 			continue;
 
-		register const float y = d.y * t + vPickRayOrig[1] - obj->GetVectorPosition().y;
+		register const float y = d.y * t + vPickRayOrig.y - obj->GetVectorPosition().y;
 		l += y * y;
 		if (bb * bb < l)
 			continue;
 
-		register const float z = d.z * t + vPickRayOrig[2] - obj->GetVectorPosition().z;
+		register const float z = d.z * t + vPickRayOrig.z - obj->GetVectorPosition().z;
 		l += z * z;
 		if (bb * bb < l)
 			continue;

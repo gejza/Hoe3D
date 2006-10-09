@@ -5,6 +5,7 @@
 #include "../include/hoeobject.h"
 #include "utils.h"
 #include "map_utils.h"
+#include <hoe_structures.h>
 
 class HoeModel;
 class HoeScene;
@@ -24,7 +25,7 @@ public:
 		THoeSubObject::Type type;
 		THoeSubObject * ptr;
 	};
-	PtrSet<TSubObjectPtr> m_adv; // seznam dalsich podobjektu a efektu
+	HoeCore::Set<TSubObjectPtr> m_adv; // seznam dalsich podobjektu a efektu
 
 	ObjectController();
 	bool IsValid() { return (object != NULL); }
@@ -45,12 +46,12 @@ public:
 	virtual bool HOEAPI LoadModel(const char * cmd);
 	virtual void HOEAPI Unregister();
 
-	virtual void HOEAPI SetPosition(const float x, const float y, const float z);
+	virtual void HOEAPI SetPosition(const HoeMath::VECTOR3 &pos);
 	virtual void HOEAPI SetOrientation(const float x, const float y, const float z, const float angle);
-	virtual void HOEAPI GetPosition(float *x, float *y, float *z);
+	virtual const HoeMath::VECTOR3 & HOEAPI GetPosition() const;
 	virtual void HOEAPI GetOrientation(float *x, float *y, float *z, float *angle);
-	virtual void HOEAPI SetScale(const float x, const float y, const float z);
-	virtual void HOEAPI GetScale(float *x, float *y, float *z);
+	virtual void HOEAPI SetScale(const HoeMath::VECTOR3 &scale);
+	virtual const HoeMath::VECTOR3 & HOEAPI GetScale() const;
 	/** @see IHoeObjectController::LinkSubObject */
 	virtual void HOEAPI Link(THoeSubObject::Type type, THoeSubObject * obj);
 	/** @see IHoeObjectController::UnlinkSubObject */

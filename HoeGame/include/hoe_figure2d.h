@@ -9,6 +9,7 @@
 #ifndef _HOE_FIGURE_2D_H_
 #define _HOE_FIGURE_2D_H_
 
+#include <hoe_structures.h>
 #include <hoe3d.h>
 #include "hoe_game.h"
 #include "hoe_fs.h"
@@ -44,7 +45,7 @@ class Hoe2DFigure : public Hoe2DFigureBase
 {
 protected:
 	// seznam vykresleni
-	PtrList<Gui::Item*> m_list;
+	HoeCore::List<Gui::Item*> m_list;
 public:
 	virtual Gui::Base * CreateGUI(const char * type);
 	virtual void Draw(IHoe2D * hoe2d);

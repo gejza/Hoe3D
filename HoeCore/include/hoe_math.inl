@@ -392,6 +392,12 @@ HOE_INLINE void MATRIX::Multiply(const MATRIX &m)
 	Multiply(a,m);
 }
 
+HOE_INLINE void MATRIX::MultiplyLeft(const MATRIX &m)
+{
+	MATRIX a = *this;
+	Multiply(m,a);
+}
+
 HOE_INLINE void BoundingBox::Set(const VECTOR3 & v)
 {
 	min = max = v;

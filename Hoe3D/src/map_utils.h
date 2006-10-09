@@ -2,7 +2,7 @@
 #ifndef _HOE_OBJECT_H_
 #define _HOE_OBJECT_H_
 
-#include "hoe3d_math.h"
+#include <hoe_math.h>
 
 class HoeMapPart;
 

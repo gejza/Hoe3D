@@ -12,7 +12,7 @@
 	$Revision: 1.6 $
 */ 
 
-#include "system.h"
+#include "StdAfx.h"
 #include "shared.h"
 #include "utils.h"
 #include "sound.h"

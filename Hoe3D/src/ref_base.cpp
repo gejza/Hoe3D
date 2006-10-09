@@ -6,7 +6,7 @@
    @brief   Definice tridy RefBase.
 */
 
-#include "system.h"
+#include "StdAfx.h"
 #include "shared.h"
 #include "utils.h"
 #include "ref_base.h"

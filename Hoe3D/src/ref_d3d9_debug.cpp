@@ -1,5 +1,5 @@
 
-#include "system.h"
+#include "StdAfx.h"
 #include "shared.h"
 #include "utils.h"
 #include "ref_d3d9.h"

@@ -1,10 +1,10 @@
 
-#include "system.h"
+#include "StdAfx.h"
 #include "shared.h"
 #include "utils.h"
 #include "../include/hoeinterfaces.h"
 #include "resmgr.h"
-#include "hoe3d_math.h"
+#include <hoe_math.h>
 #include "hmap_file.h"
 #include "hoe_map_part.h"
 #include "camera.h"

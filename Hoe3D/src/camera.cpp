@@ -1,9 +1,9 @@
 
-#include "system.h"
+#include "StdAfx.h"
 #include "shared.h"
 #include "utils.h"
 #include "ref.h"
-#include "hoe3d_math.h"
+#include <hoe_math.h>
 #include "config.h"
 #include "camera.h"
 #include "hoe_time.h"
@@ -55,8 +55,8 @@ void HoeCamera::SetView(uint w,uint h)
 void HoeCamera::SetupMatrices()
 {
 #ifdef _HOE_D3D_
-	D3DDevice()->SetTransform( D3DTS_VIEW, matView );
-	D3DDevice()->SetTransform( D3DTS_PROJECTION, matProj );
+	D3DDevice()->SetTransform( D3DTS_VIEW, (const D3DMATRIX*)&matView );
+	D3DDevice()->SetTransform( D3DTS_PROJECTION, (const D3DMATRIX*)&matProj );
 #endif
 #ifdef _HOE_OPENGL_
 	glMatrixMode(GL_PROJECTION);// Zvolí projekèní matici
@@ -79,9 +79,9 @@ void HoeCamera::Setup2DMatrices(const float w,const float h)
 
 	matView.Identity();
 
-	D3DDevice()->SetTransform( D3DTS_WORLD, matWorld );
-	D3DDevice()->SetTransform( D3DTS_VIEW, matView );
-	D3DDevice()->SetTransform( D3DTS_PROJECTION, matView );
+	D3DDevice()->SetTransform( D3DTS_WORLD, (const D3DMATRIX*)&matWorld );
+	D3DDevice()->SetTransform( D3DTS_VIEW, (const D3DMATRIX*)&matView );
+	D3DDevice()->SetTransform( D3DTS_PROJECTION, (const D3DMATRIX*)&matView );
 #endif
 #ifdef _HOE_OPENGL_
 	glMatrixMode(GL_PROJECTION);// Zvolí projekèní matici
@@ -94,19 +94,18 @@ void HoeCamera::Setup2DMatrices(const float w,const float h)
 
 const float scale = 0.1f;
 
-void HoeCamera::Set(float * p,float * l)
+void HoeCamera::Set(const HoeMath::VECTOR3 & p, const HoeMath::VECTOR3 & l)
 {
 	//this->pos.part = (HoeMapPart *)part;
-	this->pos.xyz.Set(p);
-	look.Set(l);
+	this->pos.xyz = p;
+	look = l;
 
 	// set sound
 	#ifdef _HOE_DS8_
-	D3DVECTOR pos;
-	GetSound()->GetListener()->SetPosition(p[0]*scale,p[1]*scale,p[2]*scale,DS3D_DEFERRED);
-	HoeMath::VECTOR3 f(l[0],l[1],l[2]);
+	GetSound()->GetListener()->SetPosition(p.x*scale,p.y*scale,p.z*scale,DS3D_DEFERRED);
+	HoeMath::VECTOR3 f = l;
 	f.Normalize();
-	HoeMath::VECTOR3 f2(l[2],l[1],-l[0]);
+	HoeMath::VECTOR3 f2 = l;
 	f2.Normalize();
 	HoeMath::VECTOR3 top;
 	HoeMath::HoeCross(f, f2, top);
@@ -181,7 +180,7 @@ bool HoeCamera::BoundInFlustrum(const VECTOR3 & center, const HoeMath::BoundingB
 	return true;
 }
 
-void HoeCamera::Pick(const float x, const float y, float * vPickRayDir, float * vPickRayOrig)
+void HoeCamera::Pick(const float x, const float y, HoeMath::VECTOR3 * vPickRayDir, HoeMath::VECTOR3 * vPickRayOrig)
 {
 	static MATRIX m;
         
@@ -195,12 +194,12 @@ void HoeCamera::Pick(const float x, const float y, float * vPickRayDir, float * 
     m.Inverse(matView);
 
         // Transform the screen space pick ray into 3D space
-    vPickRayDir[0]  = v.x*m._11 + v.y*m._21 + v.z*m._31;
-    vPickRayDir[1]  = v.x*m._12 + v.y*m._22 + v.z*m._32;
-    vPickRayDir[2]  = v.x*m._13 + v.y*m._23 + v.z*m._33;
-    vPickRayOrig[0] = m._41;
-    vPickRayOrig[1] = m._42;
-    vPickRayOrig[2] = m._43;
+    vPickRayDir->x  = v.x*m._11 + v.y*m._21 + v.z*m._31;
+    vPickRayDir->y  = v.x*m._12 + v.y*m._22 + v.z*m._32;
+    vPickRayDir->z  = v.x*m._13 + v.y*m._23 + v.z*m._33;
+    vPickRayOrig->x = m._41;
+    vPickRayOrig->y = m._42;
+    vPickRayOrig->z = m._43;
 }
 
 

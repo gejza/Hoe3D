@@ -2,7 +2,7 @@
 /*
  * Configure Class
  */
-#include "system.h"
+#include "StdAfx.h"
 #include "ref.h"
 #include "shared.h"
 #include "utils.h"

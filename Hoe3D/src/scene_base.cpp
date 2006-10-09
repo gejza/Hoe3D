@@ -1,5 +1,5 @@
 
-#include "system.h"
+#include "StdAfx.h"
 #include "shared.h"
 #include "hoe2d.h"
 #include "../include/hoeinterfaces.h"

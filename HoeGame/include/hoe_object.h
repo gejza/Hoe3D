@@ -8,6 +8,18 @@ BEGIN_HOEGAME
 
 class BaseObject : public XHoeObject
 {
+protected:
+	IHoeScene * m_scene;
+public:
+	BaseObject(IHoeScene * scn)
+	{
+		scn->RegisterObject(this);
+		m_scene = scn;
+	}
+	virtual ~BaseObject()
+	{
+		m_scene->UnregisterObject(this);
+	}
 };
 
 END_HOEGAME

@@ -1,13 +1,13 @@
 
 
-#include "system.h"
+#include "StdAfx.h"
 #include "ref.h"
 #include "shared.h"
 #include "utils.h"
 #include "../include/hoeinterfaces.h"
 #include "hoe_stream.h"
 #include "hoe_index.h"
-#include "hoe3d_math.h"
+#include <hoe_math.h>
 #include "particle_emitor.h"
 #include "texture_system.h"
 #include "states.h"

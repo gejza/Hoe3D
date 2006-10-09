@@ -1,9 +1,9 @@
 
-#include "system.h"
+#include "StdAfx.h"
 #include "ref.h"
 #include "utils.h"
 #include "filesystem.h"
-#include "hoe3d_math.h"
+#include <hoe_math.h>
 #include "camera.h"
 #include "texture_system.h"
 #include "hoe_stream.h"

@@ -4,11 +4,13 @@
 
 #include <math.h>
 
+#ifdef __cplusplus
+
 #ifndef HOE_INLINE
 #define HOE_INLINE inline
 #endif // HOE_INLINE
 
-#include "hoe3d_math_def.h"
+#include "hoe_math_def.h"
 
 namespace HoeMath {
 
@@ -55,8 +57,10 @@ HOE_INLINE bool HoeEdgePlanesCollision(VECTOR3 &center,
 // matematik func
 #define _hoe_cot cot
 
-#include "hoe3d_math.inl"
+#include "hoe_math.inl"
 
 } // namespace HoeMath
+
+#endif // __cplusplus
 
 #endif // _HOE_MATH_H_

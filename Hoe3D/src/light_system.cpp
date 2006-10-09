@@ -1,10 +1,10 @@
 
 
-#include "system.h"
+#include "StdAfx.h"
 #include "shared.h"
 #include "utils.h"
 #include "ref.h"
-#include "hoe3d_math.h"
+#include <hoe_math.h>
 #include "light_system.h"
 #include "hoe_time.h"
 #include "config.h"

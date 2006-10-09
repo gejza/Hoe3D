@@ -1,5 +1,5 @@
 
-#include "system.h"
+#include "StdAfx.h"
 #include "../include/hoeinterfaces.h"
 #include "object_inspector.h"
 

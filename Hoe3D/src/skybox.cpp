@@ -1,12 +1,12 @@
 
-#include "system.h"
+#include "StdAfx.h"
 #include "utils.h"
 #include "ref.h"
 #include "../include/hoeinterfaces.h"
 #include "shared.h"
 #include "resmgr.h"
 #include "hoe_format.h"
-#include "hoe3d_math.h"
+#include <hoe_math.h>
 #include "hmap_file.h"
 #include "hoe_texture.h"
 #include "texture_system.h"

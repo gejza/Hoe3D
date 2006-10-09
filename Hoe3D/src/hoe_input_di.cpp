@@ -1,5 +1,5 @@
 
-#include "system.h"
+#include "StdAfx.h"
 #include "utils.h"
 #include "hoe_input.h"
 #include "hoe_input_di.h"

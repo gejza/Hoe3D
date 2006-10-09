@@ -1,5 +1,5 @@
 
-#include "system.h"
+#include "StdAfx.h"
 #include "shared.h"
 #include "config.h"
 #include "hoe_time.h"

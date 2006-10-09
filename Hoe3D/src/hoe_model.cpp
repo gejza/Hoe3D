@@ -1,5 +1,5 @@
 
-#include "system.h"
+#include "StdAfx.h"
 #include "utils.h"
 #include "ref.h"
 #include "texture_system.h"
@@ -7,7 +7,7 @@
 #include "hoe_index.h"
 #include "hoe_material.h"
 #include "hoe_model.h"
-#include "hoe3d_math.h"
+#include <hoe_math.h>
 #include "shared.h"
 #include "states.h"
 #include "hoe_time.h"

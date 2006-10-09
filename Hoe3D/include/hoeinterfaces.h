@@ -10,9 +10,9 @@
 #ifndef _HOE_INTERFACES_
 #define _HOE_INTERFACES_
 
-#include "hoetypes.h"
+#include "hoe_types.h"
 
-#define HOE_INTERFACE_VER  94
+#define HOE_INTERFACE_VER  95
 
 /**
  * @brief Zakladni interface

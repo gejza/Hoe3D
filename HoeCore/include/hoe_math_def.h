@@ -409,6 +409,7 @@ public:
 
 	HOE_INLINE void Multiply( const MATRIX &a,const MATRIX &b);
 	HOE_INLINE void Multiply( const MATRIX &m);
+	HOE_INLINE void MultiplyLeft( const MATRIX &m);
 
 	void ConPrint();
 };

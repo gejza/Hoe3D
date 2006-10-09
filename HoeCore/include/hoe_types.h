@@ -68,6 +68,8 @@ typedef unsigned char byte;
 #define hiword(a) (((a)&0xffff0000)>>16)
 #define loword(a) ((a)&0xffff)
 
+#ifdef __cplusplus
+
 struct THoeRect
 {
 	float left; 
@@ -93,6 +95,8 @@ struct THoeParameter
 		THoeRect rect;
 	};
 };
+
+#endif
 
 typedef void * HOE_HANDLE;
 

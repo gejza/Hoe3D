@@ -1,7 +1,7 @@
 
 // ciste opengl zdrojak
 
-#include "system.h"
+#include "StdAfx.h"
 #include "utils.h"
 #include "ref_opengl.h"
 #include "glext.h"

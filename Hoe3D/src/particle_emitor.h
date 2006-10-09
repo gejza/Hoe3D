@@ -2,6 +2,7 @@
 #ifndef _PARTICLE_EMITOR_H_
 #define _PARTICLE_EMITOR_H_
 
+#include <hoe_structures.h>
 #include "hoe_index.h"
 #include "hoe_stream.h"
 
@@ -23,7 +24,7 @@ protected:
 	HoeStream m_stream;
 	HoeIndex m_index;
 	HoeTexture * m_tex;
-	PtrSet<Particle> m_parts;
+	HoeCore::Set<Particle> m_parts;
 	uint m_part_count;
 	bool m_generate;
 public:

@@ -3,7 +3,7 @@
 #define _HOE_CAMERA_H_
 
 #include "../include/hoeinterfaces.h"
-#include "hoe3d_math.h"
+#include <hoe_math.h>
 #include "map_utils.h"
 
 
@@ -41,9 +41,10 @@ public:
 	void SetupMatrices();
 	static void Setup2DMatrices(const float w,const float h);
 
-	void HOEAPI Set(float * pos,float * look);
+	void HOEAPI Set(const HoeMath::VECTOR3 & pos,
+		const HoeMath::VECTOR3 & look);
 	
-	void HOEAPI Pick(const float x, const float y, float * vPickRayDir, float * vPickRayOrig);
+	void HOEAPI Pick(const float x, const float y, HoeMath::VECTOR3 * vPickRayDir, HoeMath::VECTOR3 * vPickRayOrig);
 
 	static inline void sGetSize(int *w, int *h)
 	{

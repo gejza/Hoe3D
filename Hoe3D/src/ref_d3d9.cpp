@@ -5,11 +5,11 @@
    @brief   Hlavni soubor implementace Direct3D9.
 */
 
-#include "system.h"
+#include "StdAfx.h"
 #include "shared.h"
 #include "utils.h"
 #include "ref_d3d9.h"
-#include "hoe3d_math.h"
+#include <hoe_math.h>
 #include "../include/hoe3d.h"
 #include "config.h"
 #include "hoe_stream.h"

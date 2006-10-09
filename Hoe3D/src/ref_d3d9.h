@@ -40,6 +40,11 @@ typedef D3DLIGHT9 D3DLight;
 
 struct THoeInitSettings;
 
+inline const D3DVECTOR & VECToD3D(const HoeMath::VECTOR3 &v)
+{
+	return *((D3DVECTOR*)&v);
+}
+
 /**
 * @brief Trida s implementaci zakladnich vlastnosti <b>D3D9</b>
 */

@@ -14,7 +14,7 @@
 #ifndef _HOE_3D_
 #define _HOE_3D_
 
-#include "hoetypes.h"
+#include "hoe_types.h"
 #include "hoeinterfaces.h"
 
 #define HOESDK_VERSION  (136 + HOE_INTERFACE_VER)

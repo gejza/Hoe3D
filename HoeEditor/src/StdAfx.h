@@ -58,6 +58,9 @@ extern "C" {
 #include <string.h>
 #include <string>
 
+#include <hoe_types.h>
+#include <hoe_math.h>
+
 #include <hoe3d.h>
 
 #include <hoe_resource_mgr.h>

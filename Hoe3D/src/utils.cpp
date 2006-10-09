@@ -1,9 +1,9 @@
 
-#include "system.h"
+#include "StdAfx.h"
 #include "ref.h"
 #include "utils.h"
 #include "../include/hoeinterfaces.h"
-#include "hoe3d_math.h"
+#include <hoe_math.h>
 
 #ifdef _HOE_D3D9_
 #include <dxerr9.h>

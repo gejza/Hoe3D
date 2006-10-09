@@ -58,7 +58,7 @@ public:
 
 	// physicks
 	//iHoeMap * HOEAPI LoadMap(const char * name, XMapLoaderCallback *);
-	virtual XHoeObject * HOEAPI Ray(float * vPickRayDir, float * vPickRayOrig);
+	virtual XHoeObject * HOEAPI Ray(const HoeMath::VECTOR3 & vPickRayDir, const HoeMath::VECTOR3 & vPickRayOrig);
 	virtual float HOEAPI GetHeight(float x,float y);
 	virtual bool HOEAPI GetCamber(const float x1,const float x2,const float y1,const float y2, float & min,float &max);
 

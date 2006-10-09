@@ -1,6 +1,6 @@
 
 
-#include "system.h"
+#include "StdAfx.h"
 #include "shared.h"
 #include "utils.h"
 #include "ref.h"
@@ -13,7 +13,7 @@
 #include "camera.h"
 #include "hoe_model.h"
 #include "hoe_stream.h"
-#include "hoe3d_math.h"
+#include <hoe_math.h>
 #include "sound.h"
 #include "camera.h"
 #include "states.h"
