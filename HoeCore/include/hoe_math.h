@@ -6,10 +6,7 @@
 
 #ifdef __cplusplus
 
-#ifndef HOE_INLINE
-#define HOE_INLINE inline
-#endif // HOE_INLINE
-
+#include "hoe_types.h"
 #include "hoe_math_def.h"
 
 namespace HoeMath {
@@ -47,6 +44,8 @@ HOE_INLINE bool HoeInsidePolygon(LINE2D *,int num_lines,const float x,const floa
 HOE_INLINE bool HoePointInBox(VECTOR3 &p,float minx,float miny, float minz, float maxx, float maxy, float maxz);
 HOE_INLINE void HoePlaneNormal(const VECTOR3 &a, const VECTOR3 &b, const VECTOR3 &c,VECTOR3 &normal);
 HOE_INLINE float HoePlaneDistance(VECTOR3 &normal, VECTOR3 &point);
+HOE_INLINE float HoeDistance(VECTOR2 &a, VECTOR2 &b);
+HOE_INLINE float HoeDistance(VECTOR3 &a, VECTOR3 &b);
 HOE_INLINE int HoeClassifySphere(VECTOR3 &pos, 
 				   VECTOR3 &normal, VECTOR3 &a, float radius, float &distance);
 HOE_INLINE bool HoeInsidePolygon(const VECTOR3 &intersection, const VECTOR3 &a,const VECTOR3 &b,const VECTOR3 &c);

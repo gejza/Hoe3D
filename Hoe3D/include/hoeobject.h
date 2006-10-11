@@ -2,6 +2,8 @@
 #ifndef _HOE_OBJECT_INTERFACE_H_
 #define _HOE_OBJECT_INTERFACE_H_
 
+#include <hoe_types.h>
+
 /*
 * OBJECT
 *

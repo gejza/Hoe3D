@@ -60,7 +60,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="../../../Bin/$(ProjectName)_d.lib"
+				OutputFile="../../Bin/$(ProjectName)_d.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -121,7 +121,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="../../../Bin/$(ProjectName).lib"
+				OutputFile="../../Bin/$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -160,11 +160,23 @@
 			</File>
 		</Filter>
 		<File
+			RelativePath="..\src\hoe_core.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\include\hoe_core.h"
+			>
+		</File>
+		<File
 			RelativePath="..\include\hoe_structures.h"
 			>
 		</File>
 		<File
 			RelativePath="..\include\hoe_types.h"
+			>
+		</File>
+		<File
+			RelativePath="..\src\StdAfx.h"
 			>
 		</File>
 	</Files>

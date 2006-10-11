@@ -514,6 +514,20 @@ HOE_INLINE float HoePlaneDistance(VECTOR3 &normal, VECTOR3 &point)
 	return  - ((normal.x * point.x) + (normal.y * point.y) + (normal.z * point.z));
 }
 
+HOE_INLINE float HoeDistance(VECTOR2 &a, VECTOR3 &b)
+{	
+	const register float x = a.x-b.x;
+	const register float y = a.y-b.y;
+	return  sqrtf(x*x+y*y);
+}
+HOE_INLINE float HoeDistance(VECTOR3 &a, VECTOR3 &b)
+{	
+	const register float x = a.x-b.x;
+	const register float y = a.y-b.y;
+	const register float z = a.z-b.z;
+	return  sqrtf(x*x+y*y+z*z);
+}
+
 HOE_INLINE int HoeClassifySphere(VECTOR3 &pos, 
 				   VECTOR3 &normal, VECTOR3 &a, float radius, float &distance)
 {

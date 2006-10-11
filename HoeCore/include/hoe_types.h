@@ -2,6 +2,8 @@
 #ifndef _HOE_TYPES_H_
 #define _HOE_TYPES_H_
 
+#define hoe_assert assert
+
 #ifndef HOEAPI
 #ifdef _WIN32
 #define HOEAPI  __stdcall
@@ -97,6 +99,10 @@ struct THoeParameter
 };
 
 #endif
+
+#ifndef HOE_INLINE
+#define HOE_INLINE inline
+#endif // HOE_INLINE
 
 typedef void * HOE_HANDLE;
 

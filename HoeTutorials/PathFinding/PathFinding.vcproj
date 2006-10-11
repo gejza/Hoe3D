@@ -39,8 +39,9 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\HoeGame\include;..\..\Hoe3D\include"
+				AdditionalIncludeDirectories="..\..\HoeGame\include;..\..\Hoe3D\include;..\..\HoeCore\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
+				GeneratePreprocessedFile="1"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -118,7 +119,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\HoeGame"
+				AdditionalIncludeDirectories="..\..\HoeGame\include;..\..\Hoe3D\include;..\..\HoeCore\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
@@ -178,6 +179,14 @@
 		<File
 			RelativePath=".\pathfinding.cpp"
 			>
+			<FileConfiguration
+				Name="Debug|Win32"
+				>
+				<Tool
+					Name="VCCLCompilerTool"
+					GeneratePreprocessedFile="0"
+				/>
+			</FileConfiguration>
 		</File>
 		<File
 			RelativePath=".\pathfinding.h"
@@ -186,6 +195,14 @@
 		<File
 			RelativePath="..\Common\tutorial.cpp"
 			>
+			<FileConfiguration
+				Name="Debug|Win32"
+				>
+				<Tool
+					Name="VCCLCompilerTool"
+					GeneratePreprocessedFile="0"
+				/>
+			</FileConfiguration>
 		</File>
 		<File
 			RelativePath="..\Common\tutorial.h"
