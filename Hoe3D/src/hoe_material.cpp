@@ -87,7 +87,7 @@ void HoeMaterial::Setup(dword overcolor)
 		D3DDevice()->SetTextureStageState( tex, D3DTSS_COLOROP,   D3DTOP_BUMPENVMAPLUMINANCE );		
 		D3DDevice()->SetTextureStageState( tex, D3DTSS_COLORARG1, D3DTA_TEXTURE );
 		D3DDevice()->SetTextureStageState( tex, D3DTSS_COLORARG2, D3DTA_CURRENT );
-		// Set the bump mapping matrix.
+		// Set the bump mapping Matrix.
 		//
 		// Note  These calls rely on the following inline shortcut function:
 		D3DDevice()->SetTextureStageState( 1, D3DTSS_BUMPENVMAT00, F2DW(1.0f) );

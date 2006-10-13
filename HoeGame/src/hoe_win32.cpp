@@ -138,7 +138,7 @@ void HoeWin32::PaintConsole(Console * con)
 
 		 /* if (Becher::GetState() != Becher::sInit)
 		 {
-			 ValidateRect(hwnd,NULL);
+			 ValidateRECT(hwnd,NULL);
 			 break;
 		 }*/
 			  int numlines = (m_cyClient-5) / m_cyChar;

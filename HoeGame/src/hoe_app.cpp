@@ -63,10 +63,10 @@ bool HoeApp::Init(const char * title)
 		his.height = m_height.GetInt();
 	} else 
 	{
-		RECT rect;
-		GetClientRect(m_hWnd, &rect);
-		his.width = rect.right - rect.left;
-		his.height = rect.bottom - rect.top;
+		RECT Rect;
+		GetClientRect(m_hWnd, &Rect);
+		his.width = Rect.right - Rect.left;
+		his.height = Rect.bottom - Rect.top;
 	}
 	his.forcewnd = false;
 

@@ -146,6 +146,18 @@ void Hoe2D::PaintLine(float x1,float y1,float x2,float y2,unsigned long c)
 	//glEnable(GL_TEXTURE_2D);// Zapne mapování textur
 
 #endif // _HOE_OPENGL_
+#ifdef _HOE_D3D_
+	D3DDevice()->SetTextureStageState( 0, D3DTSS_COLOROP,   D3DTOP_SELECTARG1 );
+    D3DDevice()->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_DIFFUSE );
+	D3DDevice()->SetTextureStageState( 0, D3DTSS_ALPHAOP,   D3DTOP_DISABLE );
+	HOE2D_VERTEXC pv[] = 
+	{
+		{ x1 , y1 , 0.0f , c },
+		{ x2 , y2 , 0.0f , c },
+	};
+	D3DDevice()->SetFVF(D3DFVF_XYZ|D3DFVF_DIFFUSE);
+	D3DDevice()->DrawPrimitiveUP(D3DPT_LINELIST,1,pv,sizeof(HOE2D_VERTEXC));
+#endif // _HOE_D3D9_
 }
 
 void Hoe2D::BltFast(const float l,const float r,const float t,const float b,IHoePicture * pic)

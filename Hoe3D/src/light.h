@@ -14,18 +14,18 @@ class HoeLight : public IHoeLight
 	D3DLight light;
 #endif
 #ifdef _HOE_OPENGL_
-	HoeMath::VECTOR4 pos;
-	HoeMath::VECTOR4 color;
+	HoeMath::Vector4 pos;
+	HoeMath::Vector4 color;
 #endif
 	DebugObject obj;
-	bool m_direct;
+	bool m_diRECT;
 public:
-	HoeLight(bool direct);
+	HoeLight(bool diRECT);
 	void Set(int slot);
-	virtual void HOEAPI SetPosition(const HoeMath::VECTOR3 &pos);
+	virtual void HOEAPI SetPosition(const HoeMath::Vector3 &pos);
 	virtual void HOEAPI SetColor(const float r, const float g, const float b);
-	const HoeMath::VECTOR4 GetPosition() const;
-	const HoeMath::VECTOR4 GetColor() const;
+	const HoeMath::Vector4 GetPosition() const;
+	const HoeMath::Vector4 GetColor() const;
 	// 
 	HoeLight * next;
 };

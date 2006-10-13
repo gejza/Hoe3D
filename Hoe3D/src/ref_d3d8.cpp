@@ -2,7 +2,7 @@
    @file    ref_d3d8.cpp
    @date    Mar 2006
    @version 1.0
-   @brief   Hlavni soubor implementace Direct3D8.
+   @brief   Hlavni soubor implementace DIRECT3D8.
 */
 
 #include "StdAfx.h"
@@ -23,7 +23,7 @@ IDirect3DDevice8 * RefD3D8::m_Dev = NULL;
 
 RefD3D8::RefD3D8()
 {
-	Con_Print("------ Direct X 8.1 ------");
+	Con_Print("------ DirectX 8.1 ------");
 	m_pD3D = Direct3DCreate8(D3D_SDK_VERSION);
 
 	m_Adapter = D3DADAPTER_DEFAULT;

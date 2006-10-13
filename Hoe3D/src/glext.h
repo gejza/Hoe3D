@@ -2052,7 +2052,7 @@ extern "C" {
 #ifndef GL_NV_texture_compression_vtc
 #endif
 
-#ifndef GL_NV_texture_rectangle
+#ifndef GL_NV_texture_RECTangle
 #define GL_TEXTURE_RECTANGLE_NV           0x84F5
 #define GL_TEXTURE_BINDING_RECTANGLE_NV   0x84F6
 #define GL_PROXY_TEXTURE_RECTANGLE_NV     0x84F7
@@ -5076,8 +5076,8 @@ typedef void (APIENTRYP PFNGLGETCOMBINERSTAGEPARAMETERFVNVPROC) (GLenum stage, G
 #define GL_NV_texture_compression_vtc 1
 #endif
 
-#ifndef GL_NV_texture_rectangle
-#define GL_NV_texture_rectangle 1
+#ifndef GL_NV_texture_RECTangle
+#define GL_NV_texture_RECTangle 1
 #endif
 
 #ifndef GL_NV_texture_shader
@@ -5183,7 +5183,7 @@ typedef void (APIENTRYP PFNGLPROGRAMPARAMETER4FVNVPROC) (GLenum target, GLuint i
 typedef void (APIENTRYP PFNGLPROGRAMPARAMETERS4DVNVPROC) (GLenum target, GLuint index, GLuint count, const GLdouble *v);
 typedef void (APIENTRYP PFNGLPROGRAMPARAMETERS4FVNVPROC) (GLenum target, GLuint index, GLuint count, const GLfloat *v);
 typedef void (APIENTRYP PFNGLREQUESTRESIDENTPROGRAMSNVPROC) (GLsizei n, const GLuint *programs);
-typedef void (APIENTRYP PFNGLTRACKMATRIXNVPROC) (GLenum target, GLuint address, GLenum matrix, GLenum transform);
+typedef void (APIENTRYP PFNGLTRACKMATRIXNVPROC) (GLenum target, GLuint address, GLenum Matrix, GLenum transform);
 typedef void (APIENTRYP PFNGLVERTEXATTRIBPOINTERNVPROC) (GLuint index, GLint fsize, GLenum type, GLsizei stride, const GLvoid *pointer);
 typedef void (APIENTRYP PFNGLVERTEXATTRIB1DNVPROC) (GLuint index, GLdouble x);
 typedef void (APIENTRYP PFNGLVERTEXATTRIB1DVNVPROC) (GLuint index, const GLdouble *v);

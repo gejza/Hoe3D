@@ -9,9 +9,9 @@ void MapOrientation::Reset()
 	rot.Set(1,0,0,0);
 }
 
-void MapOrientation::GetMatrix(HoeMath::MATRIX *m)
+void MapOrientation::GetMatrix(HoeMath::Matrix *m)
 {
-	HoeMath::MATRIX t,r;
+	HoeMath::Matrix t,r;
 	t.Translate(xyz);
 	rot.GetMatrix(&r);
 	m->Multiply(r,t);

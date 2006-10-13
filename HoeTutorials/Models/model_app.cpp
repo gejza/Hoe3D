@@ -164,7 +164,7 @@ void ModelApp::OnUpdate(float timeframe)
 			a.RotZ(-45.f);
 			a.RotY(roty+90.f);
 		}
-		m_l[i].light->SetPosition(HoeMath::VECTOR3(a.x*l, a.y*l, a.z*l));
+		m_l[i].light->SetPosition(HoeMath::Vector3(a.x*l, a.y*l, a.z*l));
 		m_l[i].SetPosition(a.x*l, a.y*l, a.z*l);
 	}
 

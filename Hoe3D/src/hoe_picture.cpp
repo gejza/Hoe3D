@@ -61,7 +61,7 @@ unsigned int HoePicture::GetHeight() const
 	return m_tex->GetHeight();
 }
 
-/*int HoePicture::GetNumRect()
+/*int HoePicture::GetNumRECT()
 {
 	return sx * sy;
 }

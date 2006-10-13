@@ -183,7 +183,7 @@ void HoeInputDI::Process(float time)
 					POINT point;
 					GetCursorPos(&point);
 					ScreenToClient(m_hwnd,&point);
-					m_mouse->_MouseMove((float)point.x, (float)point.y);
+					MoveAbsolut((float)point.x, (float)point.y);
 				}
 				else
 				{

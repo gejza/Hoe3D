@@ -16,7 +16,7 @@ class BaseItem;
 static
 { 
  name = ""
- rect = (10 10 100 20)
+ Rect = (10 10 100 20)
 
 }
 radio

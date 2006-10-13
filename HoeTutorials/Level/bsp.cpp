@@ -15,7 +15,7 @@ bool LoadBsp(IHoeSceneEnv * env, const char * fname)
 	//read in header
 	f.Read(&header, sizeof(BSP_HEADER));
 
-	//check header data is correct
+	//check header data is corRECT
 	if(	header.string[0]!='I' || header.string[1]!='B' ||
 		header.string[2]!='S' || header.string[3]!='P' /*||
 		header.version  !=0x2E*/ )
@@ -24,7 +24,7 @@ bool LoadBsp(IHoeSceneEnv * env, const char * fname)
 	}
 
 	// textury
-	int numTextures=header.directoryEntries[bspTextures].length/sizeof(BSP_LOAD_TEXTURE);
+	int numTextures=header.diRECToryEntries[bspTextures].length/sizeof(BSP_LOAD_TEXTURE);
 
 	//Create space for this many BSP_LOAD_TEXTUREs
 	BSP_LOAD_TEXTURE * loadTextures=new BSP_LOAD_TEXTURE[numTextures];
@@ -34,8 +34,8 @@ bool LoadBsp(IHoeSceneEnv * env, const char * fname)
 	}
 
 	//Load textures
-	f.Seek(header.directoryEntries[bspTextures].offset);
-	f.Read(loadTextures, header.directoryEntries[bspTextures].length);
+	f.Seek(header.diRECToryEntries[bspTextures].offset);
+	f.Read(loadTextures, header.diRECToryEntries[bspTextures].length);
 
 	IHoeMaterial ** mats = new IHoeMaterial*[numTextures];
 	// prehrani do wall
@@ -54,23 +54,23 @@ bool LoadBsp(IHoeSceneEnv * env, const char * fname)
 	delete [] loadTextures;
 
 	//calculate number of vertices
-	int numVertices=header.directoryEntries[bspVertices].length/sizeof(BSP_LOAD_VERTEX);
+	int numVertices=header.diRECToryEntries[bspVertices].length/sizeof(BSP_LOAD_VERTEX);
 	BSP_LOAD_VERTEX * loadVertices=new BSP_LOAD_VERTEX[numVertices];
 
-	f.Seek(header.directoryEntries[bspVertices].offset);
-	f.Read(loadVertices, header.directoryEntries[bspVertices].length);
+	f.Seek(header.diRECToryEntries[bspVertices].offset);
+	f.Read(loadVertices, header.diRECToryEntries[bspVertices].length);
 
 	//calculate number of load faces
-	int numFaces=header.directoryEntries[bspFaces].length/sizeof(BSP_LOAD_FACE);
+	int numFaces=header.diRECToryEntries[bspFaces].length/sizeof(BSP_LOAD_FACE);
 
 	//Create space for this many BSP_LOAD_FACES
 	BSP_LOAD_FACE * loadFaces=new BSP_LOAD_FACE[numFaces];
 
 	//go to faces in file
-	f.Seek(header.directoryEntries[bspFaces].offset);
+	f.Seek(header.diRECToryEntries[bspFaces].offset);
 
 	//read in the faces
-	f.Read(loadFaces, header.directoryEntries[bspFaces].length);
+	f.Read(loadFaces, header.diRECToryEntries[bspFaces].length);
 
 	float * v = new float[numVertices*5];
 	for (int i=0;i < numVertices;i++)

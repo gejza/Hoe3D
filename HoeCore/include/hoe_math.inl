@@ -11,11 +11,11 @@ HOE_INLINE float Abs(float f)
 		return -f;
 }
 
-// matrix & vector
+// Matrix & vector
 
 //////// vector ////////////////////////////////////////
 
-HOE_INLINE void VECTOR3::RotateY(float angle)
+HOE_INLINE void Vector3::RotateY(float angle)
 {
 	const register float s = sinf(angle);
 	const register float c = cosf(angle);
@@ -24,17 +24,17 @@ HOE_INLINE void VECTOR3::RotateY(float angle)
 	x = tx;
 }
 
-HOE_INLINE double VECTOR3::Magnitude(void) const
+HOE_INLINE double Vector3::Magnitude(void) const
 {
 	return sqrt( (x * x) + (y * y) + (z * z) );
 }
 
-HOE_INLINE float VECTOR3::Magnitudef(void) const
+HOE_INLINE float Vector3::Magnitudef(void) const
 {
 	return sqrtf( (x * x) + (y * y) + (z * z) );
 }
 
-HOE_INLINE const VECTOR3 & VECTOR3::Normalize(void)
+HOE_INLINE const Vector3 & Vector3::Normalize(void)
 {
 	float magnitude = (float)Magnitude();			
 
@@ -45,28 +45,28 @@ HOE_INLINE const VECTOR3 & VECTOR3::Normalize(void)
 	return *this;
 }
 
-HOE_INLINE void VECTOR3::Multiply(const VECTOR3 &v,const MATRIX &m)
+HOE_INLINE void Vector3::Multiply(const Vector3 &v,const Matrix &m)
 {
 	x = v.x * m._11 + v.y * m._21 + v.z * m._31 + m._41;
 	y = v.x * m._12 + v.y * m._22 + v.z * m._32 + m._42;
 	z = v.x * m._13 + v.y * m._23 + v.z * m._33 + m._43;
 }
 
-HOE_INLINE const VECTOR3 &  VECTOR3::Multiply(const MATRIX &m)
+HOE_INLINE const Vector3 &  Vector3::Multiply(const Matrix &m)
 {
-	VECTOR3 v = *this;
+	Vector3 v = *this;
 	Multiply(v,m);
 	return *this;
 }
 
-HOE_INLINE void VECTOR3::Max(const VECTOR3 & v)
+HOE_INLINE void Vector3::Max(const Vector3 & v)
 {
 	if (v.x > x) x = v.x;
 	if (v.y > y) y = v.y;
 	if (v.z > z) z = v.z;
 }
 
-HOE_INLINE void VECTOR3::Min(const VECTOR3 & v)
+HOE_INLINE void Vector3::Min(const Vector3 & v)
 {
 	if (v.x < x) x = v.x;
 	if (v.y < y) y = v.y;
@@ -75,12 +75,12 @@ HOE_INLINE void VECTOR3::Min(const VECTOR3 & v)
 
 //////// quaternions ///////////////////////////////////
 
-HOE_INLINE double QUAT::Magnitude(void) const
+HOE_INLINE double Quat::Magnitude(void) const
 {
 	return sqrt( w*w + x*x + y*y + z*z);
 }
 
-HOE_INLINE void QUAT::Normalize(void)
+HOE_INLINE void Quat::Normalize(void)
 {
 	float mag = (float)Magnitude();
 	w = w / mag;
@@ -89,7 +89,7 @@ HOE_INLINE void QUAT::Normalize(void)
 	z = z / mag;
 }
 
-HOE_INLINE void QUAT::GetMatrix(MATRIX * m) const 
+HOE_INLINE void Quat::GetMatrix(Matrix * m) const 
 {
 	m->_11  = 1 - 2 * ( y*y + z*z );
     m->_12  =     2 * ( x*y - z*w );
@@ -104,8 +104,8 @@ HOE_INLINE void QUAT::GetMatrix(MATRIX * m) const
 	m->_44 = 1.f;
 }
 
-//////// matrix ////////////////////////////////////////
-HOE_INLINE void MATRIX::Identity(void)
+//////// Matrix ////////////////////////////////////////
+HOE_INLINE void Matrix::Identity(void)
 {
     _11 = _22 = _33 = _44 = 1.0f;
     _12 = _13 = _14 = _41 = 0.0f;
@@ -113,7 +113,7 @@ HOE_INLINE void MATRIX::Identity(void)
     _31 = _32 = _34 = _43 = 0.0f;
 }
 
-HOE_INLINE void MATRIX::RotationX(const float angle)
+HOE_INLINE void Matrix::RotationX(const float angle)
 {
 	_12 = _13 = _14 = 0.0f;   
 	_21 = _24 = 0.0f;	
@@ -125,7 +125,7 @@ HOE_INLINE void MATRIX::RotationX(const float angle)
 }
 
 
-HOE_INLINE void MATRIX::RotationY(const float angle)
+HOE_INLINE void Matrix::RotationY(const float angle)
 {
     
     _12 = _14 = 0.0f;	
@@ -138,7 +138,7 @@ HOE_INLINE void MATRIX::RotationY(const float angle)
 
 }
 
-HOE_INLINE void MATRIX::RotationZ(const float angle)
+HOE_INLINE void Matrix::RotationZ(const float angle)
 {
     
     _13 = _14 = 0.0f;
@@ -151,7 +151,7 @@ HOE_INLINE void MATRIX::RotationZ(const float angle)
 
 }
 
-HOE_INLINE void MATRIX::Scale(const float s)
+HOE_INLINE void Matrix::Scale(const float s)
 {
     _12 = _13 = _14 = _41 = 0.0f;
     _21 = _23 = _24 = _42 = 0.0f;
@@ -161,7 +161,7 @@ HOE_INLINE void MATRIX::Scale(const float s)
 
 }
 
-HOE_INLINE void MATRIX::Scale(const float sx,const float sy,const float sz)
+HOE_INLINE void Matrix::Scale(const float sx,const float sy,const float sz)
 {
     _12 = _13 = _14 = _41 = 0.0f;
     _21 = _23 = _24 = _42 = 0.0f;
@@ -173,7 +173,7 @@ HOE_INLINE void MATRIX::Scale(const float sx,const float sy,const float sz)
 
 }
 
-HOE_INLINE void MATRIX::Scale(const VECTOR3 &s)
+HOE_INLINE void Matrix::Scale(const Vector3 &s)
 {
     _12 = _13 = _14 = _41 = 0.0f;
     _21 = _23 = _24 = _42 = 0.0f;
@@ -185,7 +185,7 @@ HOE_INLINE void MATRIX::Scale(const VECTOR3 &s)
 
 }
 
-HOE_INLINE void MATRIX::Translate(const float x,const float y,const float z)
+HOE_INLINE void Matrix::Translate(const float x,const float y,const float z)
 {
     _11 = _22 = _33 = _44 = 1.0f;
     _12 = _13 = _14 = 0.0f;
@@ -197,7 +197,7 @@ HOE_INLINE void MATRIX::Translate(const float x,const float y,const float z)
 
 }
 
-HOE_INLINE void MATRIX::Translate(const VECTOR3 &v)
+HOE_INLINE void Matrix::Translate(const Vector3 &v)
 {
     _11 = _22 = _33 = _44 = 1.0f;
     _12 = _13 = _14 = 0.0f;
@@ -208,7 +208,7 @@ HOE_INLINE void MATRIX::Translate(const VECTOR3 &v)
 	_43 = v.z;
 }
 
-HOE_INLINE void MATRIX::Adjung(const MATRIX &m)
+HOE_INLINE void Matrix::Adjung(const Matrix &m)
 {
 	_11 = m._22 * m._33 * m._44 + m._23 * m._34 * m._42 + m._32 * m._43 * m._24 - m._24 * m._33 * m._42 - m._23 * m._32 * m._44 - m._22 * m._34 * m._43;
 	_12 = - m._12 * m._33 * m._44 - m._13 * m._34 * m._42 - m._32 * m._43 * m._14 + m._14 * m._33 * m._42 + m._13 * m._32 * m._44 + m._12 * m._34 * m._43;
@@ -229,7 +229,7 @@ HOE_INLINE void MATRIX::Adjung(const MATRIX &m)
 
 }
 
-HOE_INLINE void MATRIX::Transpoze(const MATRIX &m)
+HOE_INLINE void Matrix::Transpoze(const Matrix &m)
 {
 	_11 = m._11;_12 = m._21; _13 = m._31; _14 = m._41;
 	_21 = m._12;_22 = m._22; _23 = m._32; _24 = m._42;
@@ -237,13 +237,13 @@ HOE_INLINE void MATRIX::Transpoze(const MATRIX &m)
 	_41 = m._14;_42 = m._24; _43 = m._34; _44 = m._44;
 }
 
-HOE_INLINE void MATRIX::Transpoze()
+HOE_INLINE void Matrix::Transpoze()
 {
-	MATRIX m = *this;
+	Matrix m = *this;
 	Transpoze(m);
 }
 
-HOE_INLINE float MATRIX::Inverse( const MATRIX &m)
+HOE_INLINE float Matrix::Inverse( const Matrix &m)
 {
 	Adjung(m);
 
@@ -272,10 +272,10 @@ HOE_INLINE float MATRIX::Inverse( const MATRIX &m)
 	return det;
 }
 
-HOE_INLINE void MATRIX::Camera(const VECTOR3 &pos,const VECTOR3 &look)
+HOE_INLINE void Matrix::Camera(const Vector3 &pos,const Vector3 &look)
 {
 
-	VECTOR3 pos2(-pos.x,-pos.y,-pos.z);
+	Vector3 pos2(-pos.x,-pos.y,-pos.z);
 
 	_14 = 0;
 	_24 = 0;
@@ -301,7 +301,7 @@ HOE_INLINE void MATRIX::Camera(const VECTOR3 &pos,const VECTOR3 &look)
 
 }
 
-HOE_INLINE void MATRIX::Perspective(const float w,const float h,const float zn,const float zf)
+HOE_INLINE void Matrix::Perspective(const float w,const float h,const float zn,const float zf)
 {
 	_11 = 2*zn/w;
 	_12 = _13 = _14 = 0;
@@ -315,7 +315,7 @@ HOE_INLINE void MATRIX::Perspective(const float w,const float h,const float zn,c
 
 }
 
-HOE_INLINE void MATRIX::PerspectiveFov(const float fovX,const float a,const float zn,const float zf)
+HOE_INLINE void Matrix::PerspectiveFov(const float fovX,const float a,const float zn,const float zf)
 {
 	const float w = 1/tanf(fovX/2);
 	const float h = w/a;
@@ -331,7 +331,7 @@ HOE_INLINE void MATRIX::PerspectiveFov(const float fovX,const float a,const floa
 
 }
 
-HOE_INLINE void MATRIX::Ortho(const float w,const float h,const float zn,const float zf)
+HOE_INLINE void Matrix::Ortho(const float w,const float h,const float zn,const float zf)
 {
 	_11 = 2/w;
 	_12 = _13 = _14 = 0;
@@ -345,7 +345,7 @@ HOE_INLINE void MATRIX::Ortho(const float w,const float h,const float zn,const f
 
 }
 
-HOE_INLINE void MATRIX::Ortho(const float l,const float r,const float b,const float t,const float zn,const float zf)
+HOE_INLINE void Matrix::Ortho(const float l,const float r,const float b,const float t,const float zn,const float zf)
 {
 	_11 = 2/(r-l);
 	_12 = _13 = _14 = 0;
@@ -361,7 +361,7 @@ HOE_INLINE void MATRIX::Ortho(const float l,const float r,const float b,const fl
 
 }
 
-HOE_INLINE void MATRIX::Multiply(const MATRIX &a,const MATRIX &b)
+HOE_INLINE void Matrix::Multiply(const Matrix &a,const Matrix &b)
 {
 
 	_11 = b._11 * a._11 + b._21 * a._12 + b._31 * a._13 + b._41 * a._14;
@@ -386,25 +386,25 @@ HOE_INLINE void MATRIX::Multiply(const MATRIX &a,const MATRIX &b)
 
 }
 
-HOE_INLINE void MATRIX::Multiply(const MATRIX &m)
+HOE_INLINE void Matrix::Multiply(const Matrix &m)
 {
-	MATRIX a = *this;
+	Matrix a = *this;
 	Multiply(a,m);
 }
 
-HOE_INLINE void MATRIX::MultiplyLeft(const MATRIX &m)
+HOE_INLINE void Matrix::MultiplyLeft(const Matrix &m)
 {
-	MATRIX a = *this;
+	Matrix a = *this;
 	Multiply(m,a);
 }
 
-HOE_INLINE void BoundingBox::Set(const VECTOR3 & v)
+HOE_INLINE void BoundingBox3::Set(const Vector3 & v)
 {
 	min = max = v;
 	ball = (float)v.Magnitude();
 }
 
-HOE_INLINE void BoundingBox::Add(const VECTOR3 & v)
+HOE_INLINE void BoundingBox3::Add(const Vector3 & v)
 {
 	min.Min(v);
 	max.Max(v);
@@ -412,12 +412,12 @@ HOE_INLINE void BoundingBox::Add(const VECTOR3 & v)
 	if (m > ball)
 		ball = m;
 }	
-HOE_INLINE void BoundingBox::Set(const BoundingBox & b)
+HOE_INLINE void BoundingBox3::Set(const BoundingBox3 & b)
 {
 	*this = b;
 }
 
-HOE_INLINE void BoundingBox::Add(const BoundingBox & b)
+HOE_INLINE void BoundingBox3::Add(const BoundingBox3 & b)
 {
 	min.Min(b.min);
 	max.Max(b.max);
@@ -425,29 +425,29 @@ HOE_INLINE void BoundingBox::Add(const BoundingBox & b)
 		ball = b.ball;
 }
 
-HOE_INLINE void BoundingBox::Compute(const VECTOR3 *first, dword numvert, uint stride)
+HOE_INLINE void BoundingBox3::Compute(const Vector3 *first, dword numvert, uint stride)
 {
 	assert(first && numvert > 0 && "bad parameters BoundingBox::Compute");
 	Set(*first);
 	for (dword i=1; i < numvert;i++)
 	{
-		register const VECTOR3 * v = (const VECTOR3 *)(((const byte*)first)+stride*i);
+		register const Vector3 * v = (const Vector3 *)(((const byte*)first)+stride*i);
 		Add(*v);
 	}
 }
 
 //////// func //////////////////////////////////////////
 
-HOE_INLINE MATRIX* HoeMatrixLookAtLH_(MATRIX &out,const VECTOR3 &eye,const VECTOR3 &at,const VECTOR3 &up)
+HOE_INLINE Matrix* HoeMatrixLookAtLH_(Matrix &out,const Vector3 &eye,const Vector3 &at,const Vector3 &up)
 {
-/*	VECTOR3 zaxis = at - eye;
+/*	Vector3 zaxis = at - eye;
 	HoeNormal(zaxis);
 
-	VECTOR3 xaxis;
+	Vector3 xaxis;
 	HoeCross(up, zaxis, zaxis);
 	HoeNormal(xaxis);
 
-	VECTOR3 yaxis;
+	Vector3 yaxis;
 	HoeCross(zaxis, xaxis, yaxis);
 
  xaxis.x           yaxis.x           zaxis.x          0
@@ -456,12 +456,12 @@ HOE_INLINE MATRIX* HoeMatrixLookAtLH_(MATRIX &out,const VECTOR3 &eye,const VECTO
 -dot(xaxis, eye)  -dot(yaxis, eye)  -dot(zaxis, eye)  1*/
 }
 
-HOE_INLINE float HoeDot(const VECTOR3 &vec1,const VECTOR3 &vec2)
+HOE_INLINE float HoeDot(const Vector3 &vec1,const Vector3 &vec2)
 {
 	return vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z;
 }
 
-HOE_INLINE void HoeCross(const VECTOR3 &vec1, const VECTOR3 &vec2,VECTOR3 &cross)
+HOE_INLINE void HoeCross(const Vector3 &vec1, const Vector3 &vec2,Vector3 &cross)
 {
 
 	// The X value for the vector is:  (V1.y * V2.z) - (V1.z * V2.y)													// Get the X value
@@ -475,7 +475,7 @@ HOE_INLINE void HoeCross(const VECTOR3 &vec1, const VECTOR3 &vec2,VECTOR3 &cross
 
 }
 
-HOE_INLINE double HoeAngleBetweenVectors(const VECTOR3 &v1, const VECTOR3 &v2)
+HOE_INLINE double HoeAngleBetweenVectors(const Vector3 &v1, const Vector3 &v2)
 {							
 	// Get the dot product of the vectors
 	float dotProduct = HoeDot(v1, v2);				
@@ -489,38 +489,38 @@ HOE_INLINE double HoeAngleBetweenVectors(const VECTOR3 &v1, const VECTOR3 &v2)
 
 // colision
 
-HOE_INLINE bool HoePointInBox(VECTOR3 &p,float minx,float miny, float minz, float maxx, float maxy, float maxz)
+HOE_INLINE bool HoePointInBox(Vector3 &p,float minx,float miny, float minz, float maxx, float maxy, float maxz)
 {
 	return !(p.x < minx || p.x > maxx || p.y < miny || p.y > maxy || p.z < minz || p.z > maxz);
 }
 
-HOE_INLINE bool HoeSphereInBox(VECTOR3 &p,float radius,float minx,float miny, float minz, float maxx, float maxy, float maxz)
+HOE_INLINE bool HoeSphereInBox(Vector3 &p,float radius,float minx,float miny, float minz, float maxx, float maxy, float maxz)
 {
 	return !((p.x+radius) < minx || (p.x-radius) > maxx || (p.y+radius) < miny || (p.y-radius) > maxy || (p.z+radius) < minz || (p.z-radius) > maxz);
 }
 
-HOE_INLINE void HoePlaneNormal(const VECTOR3 &a,const VECTOR3 &b, const VECTOR3 &c,VECTOR3 &normal)
+HOE_INLINE void HoePlaneNormal(const Vector3 &a,const Vector3 &b, const Vector3 &c,Vector3 &normal)
 {
 	HoeCross(b-a,c-a,normal);
 
 	normal.Normalize();
 }
 
-HOE_INLINE float HoePlaneDistance(VECTOR3 &normal, VECTOR3 &point)
+HOE_INLINE float HoePlaneDistance(Vector3 &normal, Vector3 &point)
 {	
-	// Use the plane equation to find the distance (Ax + By + Cz + D = 0)  We want to find D.
+	// Use the Plane equation to find the distance (Ax + By + Cz + D = 0)  We want to find D.
 	// So, we come up with D = -(Ax + By + Cz)
 														
 	return  - ((normal.x * point.x) + (normal.y * point.y) + (normal.z * point.z));
 }
 
-HOE_INLINE float HoeDistance(VECTOR2 &a, VECTOR3 &b)
+HOE_INLINE float HoeDistance(Vector2 &a, Vector3 &b)
 {	
 	const register float x = a.x-b.x;
 	const register float y = a.y-b.y;
 	return  sqrtf(x*x+y*y);
 }
-HOE_INLINE float HoeDistance(VECTOR3 &a, VECTOR3 &b)
+HOE_INLINE float HoeDistance(Vector3 &a, Vector3 &b)
 {	
 	const register float x = a.x-b.x;
 	const register float y = a.y-b.y;
@@ -528,11 +528,11 @@ HOE_INLINE float HoeDistance(VECTOR3 &a, VECTOR3 &b)
 	return  sqrtf(x*x+y*y+z*z);
 }
 
-HOE_INLINE int HoeClassifySphere(VECTOR3 &pos, 
-				   VECTOR3 &normal, VECTOR3 &a, float radius, float &distance)
+HOE_INLINE int HoeClassifySphere(Vector3 &pos, 
+				   Vector3 &normal, Vector3 &a, float radius, float &distance)
 {
 	// Here we use the famous distance formula to find the distance the center point
-	// of the sphere is from the triangle's plane.  
+	// of the sphere is from the triangle's Plane.  
 	distance = (normal.x * pos.x + normal.y * pos.y
 		+ normal.z * pos.z + HoePlaneDistance(normal, a));
 
@@ -544,7 +544,7 @@ HOE_INLINE int HoeClassifySphere(VECTOR3 &pos,
 	return P_BEHIND;
 }
 
-bool HoeInsidePolygon(LINE2D * lines,int num_lines,const float x,const float y,int i1,int i2)
+bool HoeInsidePolygon(Line2 * lines,int num_lines,const float x,const float y,int i1,int i2)
 {
 	for (int i=0;i < num_lines;i++)
 	{
@@ -557,7 +557,7 @@ bool HoeInsidePolygon(LINE2D * lines,int num_lines,const float x,const float y,i
 }
 
 
-HOE_INLINE bool HoeInsidePolygon(const VECTOR3 &intersection, const VECTOR3 &a,const VECTOR3 &b,const VECTOR3 &c)
+HOE_INLINE bool HoeInsidePolygon(const Vector3 &intersection, const Vector3 &a,const Vector3 &b,const Vector3 &c)
 {
 	register double angle = 0.0;					
 	
@@ -569,9 +569,9 @@ HOE_INLINE bool HoeInsidePolygon(const VECTOR3 &intersection, const VECTOR3 &a,c
 		
 }
 
-HOE_INLINE void HoeGetCollisionOffset(VECTOR3 &normal, float radius, float distance,VECTOR3 &offset)
+HOE_INLINE void HoeGetCollisionOffset(Vector3 &normal, float radius, float distance,Vector3 &offset)
 {
-	offset = VECTOR3(0, 0, 0);
+	offset = Vector3(0, 0, 0);
 
 	if(distance > 0)
 	{
@@ -585,8 +585,8 @@ HOE_INLINE void HoeGetCollisionOffset(VECTOR3 &normal, float radius, float dista
 	}
 }
 
-HOE_INLINE bool HoeEdgePlanesCollision(VECTOR3 &center, 
-						 VECTOR3 &a,VECTOR3 &b,VECTOR3 &c, VECTOR3 &normal, float radius)
+HOE_INLINE bool HoeEdgePlanesCollision(Vector3 &center, 
+						 Vector3 &a,Vector3 &b,Vector3 &c, Vector3 &normal, float radius)
 {
 	// Create some variables to hold each edge planes classification with the sphere
 	int edge1 = 0, edge2 = 0, edge3 = 0;
@@ -595,15 +595,15 @@ HOE_INLINE bool HoeEdgePlanesCollision(VECTOR3 &center,
 	//////////////// Calculate Edge 1 ////////////////
 
 	// Get a vector from the edge of the triangle
-	VECTOR3 vector = b - a;
-	VECTOR3 edgenormal;
+	Vector3 vector = b - a;
+	Vector3 edgenormal;
 	// Get the vector perpendicular from the normal of the triangle and this edge vector
 	HoeCross(vector, normal,edgenormal);
 
 	// Before we can call this new vector a normal, we need to normalize it
 	edgenormal.Normalize();
 
-	// Find the classification of the sphere and the first plane
+	// Find the classification of the sphere and the first Plane
 	edge1 = HoeClassifySphere(center, edgenormal, a, radius, distance1);
 	if (edge1 == P_BEHIND)
 		return false;
@@ -618,7 +618,7 @@ HOE_INLINE bool HoeEdgePlanesCollision(VECTOR3 &center,
 	// Before we can call this new vector a normal, we need to normalize it
 	edgenormal.Normalize();
 
-	// Find the classification of the sphere and the first plane
+	// Find the classification of the sphere and the first Plane
 	edge2 = HoeClassifySphere(center, edgenormal, a, radius, distance2);
 	if (edge2 == P_BEHIND)
 		return false;
@@ -633,7 +633,7 @@ HOE_INLINE bool HoeEdgePlanesCollision(VECTOR3 &center,
 	// Before we can call this new vector a normal, we need to normalize it
 	edgenormal.Normalize();
 
-	// Find the classification of the sphere and the first plane
+	// Find the classification of the sphere and the first Plane
 	edge3 = HoeClassifySphere(center, edgenormal, a, radius, distance3);
 	if (edge2 == P_BEHIND)
 		return false;

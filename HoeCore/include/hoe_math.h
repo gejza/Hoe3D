@@ -14,7 +14,7 @@ namespace HoeMath {
 
 #define TOL 0.1f
 
-#define VEC3(array)  ((HoeMath::VECTOR3*)array)
+#define VEC3(array)  ((HoeMath::Vector3*)array)
 
 #define HOE_PI	3.1415926535897932
 #define HOE_2PI (2*HOE_PI)
@@ -35,23 +35,23 @@ namespace HoeMath {
 #define MATCH_FACTOR 0.9
 
 /** Funkce pro vypocet vektoroveho souctu */
-HOE_INLINE float HoeDot(const VECTOR3 &vec1,const VECTOR3 &vec2);
-HOE_INLINE void HoeCross(const VECTOR3 &vec1, const VECTOR3 &vec2,VECTOR3 &cross);
-HOE_INLINE double HoeAngleBetweenVectors(const VECTOR3 &v1, const VECTOR3 &v2);
+HOE_INLINE float HoeDot(const Vector3 &vec1,const Vector3 &vec2);
+HOE_INLINE void HoeCross(const Vector3 &vec1, const Vector3 &vec2,Vector3 &cross);
+HOE_INLINE double HoeAngleBetweenVectors(const Vector3 &v1, const Vector3 &v2);
 
-HOE_INLINE bool HoeInsidePolygon(LINE2D *,int num_lines,const float x,const float y,int i1,int i2);
+HOE_INLINE bool HoeInsidePolygon(Line2 *,int num_lines,const float x,const float y,int i1,int i2);
 
-HOE_INLINE bool HoePointInBox(VECTOR3 &p,float minx,float miny, float minz, float maxx, float maxy, float maxz);
-HOE_INLINE void HoePlaneNormal(const VECTOR3 &a, const VECTOR3 &b, const VECTOR3 &c,VECTOR3 &normal);
-HOE_INLINE float HoePlaneDistance(VECTOR3 &normal, VECTOR3 &point);
-HOE_INLINE float HoeDistance(VECTOR2 &a, VECTOR2 &b);
-HOE_INLINE float HoeDistance(VECTOR3 &a, VECTOR3 &b);
-HOE_INLINE int HoeClassifySphere(VECTOR3 &pos, 
-				   VECTOR3 &normal, VECTOR3 &a, float radius, float &distance);
-HOE_INLINE bool HoeInsidePolygon(const VECTOR3 &intersection, const VECTOR3 &a,const VECTOR3 &b,const VECTOR3 &c);
-HOE_INLINE void HoeGetCollisionOffset(VECTOR3 &normal, float radius, float distance,VECTOR3 &offset);
-HOE_INLINE bool HoeEdgePlanesCollision(VECTOR3 &center, 
-						 VECTOR3 &a,VECTOR3 &b,VECTOR3 &c, VECTOR3 &normal, float radius);
+HOE_INLINE bool HoePointInBox(Vector3 &p,float minx,float miny, float minz, float maxx, float maxy, float maxz);
+HOE_INLINE void HoePlaneNormal(const Vector3 &a, const Vector3 &b, const Vector3 &c,Vector3 &normal);
+HOE_INLINE float HoePlaneDistance(Vector3 &normal, Vector3 &point);
+HOE_INLINE float HoeDistance(Vector2 &a, Vector2 &b);
+HOE_INLINE float HoeDistance(Vector3 &a, Vector3 &b);
+HOE_INLINE int HoeClassifySphere(Vector3 &pos, 
+				   Vector3 &normal, Vector3 &a, float radius, float &distance);
+HOE_INLINE bool HoeInsidePolygon(const Vector3 &intersection, const Vector3 &a,const Vector3 &b,const Vector3 &c);
+HOE_INLINE void HoeGetCollisionOffset(Vector3 &normal, float radius, float distance,Vector3 &offset);
+HOE_INLINE bool HoeEdgePlanesCollision(Vector3 &center, 
+						 Vector3 &a,Vector3 &b,Vector3 &c, Vector3 &normal, float radius);
 ////////////
 // matematik func
 #define _hoe_cot cot

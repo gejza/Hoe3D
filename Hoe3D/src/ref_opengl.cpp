@@ -30,7 +30,7 @@ bool RefOpenGL::Init(THoeInitSettings * his)
 	GLuint PixelFormat;
 	dword dwExStyle;
 	dword dwStyle;			
-	RECT WindowRect;
+	Rect WindowRECT;
 
 	if (!his->forcewnd)
 	{
@@ -63,7 +63,7 @@ bool RefOpenGL::Init(THoeInitSettings * his)
 			dwStyle=WS_OVERLAPPEDWINDOW;
 		}
 
-		AdjustWindowRectEx(&WindowRect, dwStyle, FALSE, dwExStyle);	
+		AdjustWindowRECTEx(&WindowRECT, dwStyle, FALSE, dwExStyle);	
 
 		if (SetWindowLong(m_hWnd,GWL_EXSTYLE,dwExStyle) == 0)
 		{
@@ -222,12 +222,12 @@ bool RefOpenGL::Init(THoeInitSettings * his)
 			XFree(modes);
 	    
 			/* create a fullscreen window */
-			attr.override_redirect = True;
+			attr.override_rediRECT = True;
 			attr.event_mask = ExposureMask | KeyPressMask | ButtonPressMask |
 				StructureNotifyMask;
 			his->win = XCreateWindow(his->dpy, RootWindow(his->dpy, vi->screen),
 				0, 0, dpyWidth, dpyHeight, 0, vi->depth, InputOutput, vi->visual,
-				CWBorderPixel | CWColormap | CWEventMask | CWOverrideRedirect,
+				CWBorderPixel | CWColormap | CWEventMask | CWOverrideRediRECT,
 				&attr);
 			/*XWarpPointer(his->dpy, None, his->win, 0, 0, 0, 0, 0, 0);
 			XMapRaised(his->dpy, his->win);

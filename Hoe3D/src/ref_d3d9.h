@@ -3,7 +3,7 @@
    @file    ref_d3d9.h
    @date    Mar 2006
    @version 1.0
-   @brief   Hlavni soubor deklarace Direct3D9.
+   @brief   Hlavni soubor deklarace DIRECT3D9.
 */
 
 #ifndef _HOE_D3D9_
@@ -40,7 +40,7 @@ typedef D3DLIGHT9 D3DLight;
 
 struct THoeInitSettings;
 
-inline const D3DVECTOR & VECToD3D(const HoeMath::VECTOR3 &v)
+inline const D3DVECTOR & VECToD3D(const HoeMath::Vector3 &v)
 {
 	return *((D3DVECTOR*)&v);
 }
@@ -53,7 +53,7 @@ class RefD3D9 : public RefBase
 protected:
 	HWND m_hWnd;  ///< Handle na okno
 	uint m_Adapter; ///< Cislo adapteru
-	IDirect3D9 * m_pD3D; ///< Ukazatel na Direct3D 
+	IDirect3D9 * m_pD3D; ///< Ukazatel na DIRECT3D 
 	static IDirect3DDevice9 * m_Dev; ///< Device
 	D3DFORMAT m_AdapterFormat; ///< Format backbufferu
 	D3DCAPS9 m_Caps; ///< caps
@@ -67,13 +67,13 @@ public:
 	*/
 	virtual ~RefD3D9() {}
 	/**
-	* Inicializace DirectD3
+	* Inicializace DIRECTD3
 	* @param his vyplnena struktura THoeInitSettings
 	* @return Pokud se zdari inicializace, vraci true, jinak false.
 	*/
 	bool Init(THoeInitSettings * his);
 	/**
-	* Vraci pointer na device viz Direct3D help.
+	* Vraci pointer na device viz DIRECT3D help.
 	* @return Pointer na device.
 	*/
 	static HOE_INLINE IDirect3DDevice9 * Device() 
@@ -82,11 +82,11 @@ public:
 		return m_Dev; 
 	}
 	/**
-	* Zacatek sceny. viz Direct3D help.
+	* Zacatek sceny. viz DIRECT3D help.
 	*/
 	bool Begin();
 	/**
-	* Konec vykreslovani sceny. viz Direct3D help.
+	* Konec vykreslovani sceny. viz DIRECT3D help.
 	*/
 	void End();
 	/**
@@ -146,7 +146,7 @@ public:
 	* Nastaveni modelove matice.
 	* @param m Matice
 	*/
-	static HOE_INLINE void SetMatrix(const HoeMath::MATRIX & m);
+	static HOE_INLINE void SetMatrix(const HoeMath::Matrix & m);
 
 	/**
 	* Zjisti zda zarizeni podporuje format textury
@@ -163,13 +163,13 @@ public:
 	}
 
 	/**
-	* Zruseni Direct3D
+	* Zruseni DIRECT3D
 	*/
 	void Destroy();
 };
 
 /**
-* Globalni funkce pro ziskani Direct3DDevice
+* Globalni funkce pro ziskani DIRECT3DDevice
 */
 HOE_INLINE IDirect3DDevice9 * D3DDevice();
 

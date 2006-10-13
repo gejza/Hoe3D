@@ -166,7 +166,7 @@ void StaticItem::Save(FILE * f)
 {
 	fprintf(f, "static\n{\n");
 	fprintf(f, "\tname = \"%s\"\n", m_owner->GetTreeCtrl()->GetItemText(m_id).c_str());
-	fprintf(f,"\trect = %f %f %f %f\n", m_base.GetRect().left, m_base.GetRect().top, m_base.GetRect().right, m_base.GetRect().bottom);
+	fprintf(f,"\tRECT = %f %f %f %f\n", m_base.GetRect().left, m_base.GetRect().top, m_base.GetRect().right, m_base.GetRect().bottom);
 	fprintf(f,"\talpha = %s\n", m_alpha ? "true":"false");
 	fprintf(f,"\tpicture = \"%s\"\n", (const char*)m_strpic.c_str());
 	fprintf(f,"}\n");
@@ -181,7 +181,7 @@ void StaticItem::Save(FILE * f)
 		h2d->BltFast(m_left,m_right,m_top,m_bottom,m_pic);
 	}
 	else
-		h2d->PaintRect(m_left,m_right,m_top,m_bottom,0xffffffff,false);
+		h2d->PaintRECT(m_left,m_right,m_top,m_bottom,0xffffffff,false);
 	//
 }*/
 
@@ -242,7 +242,7 @@ void ButtonItem::Save(FILE * f)
 {
 	fprintf(f, "button\n{\n");
 	fprintf(f, "\tname = \"%s\"\n", m_owner->GetTreeCtrl()->GetItemText(m_id).c_str());
-	fprintf(f,"\trect = %f %f %f %f\n", m_base.GetRect().left, m_base.GetRect().top, m_base.GetRect().right, m_base.GetRect().bottom);
+	fprintf(f,"\tRECT = %f %f %f %f\n", m_base.GetRect().left, m_base.GetRect().top, m_base.GetRect().right, m_base.GetRect().bottom);
 	//fprintf(f,"\talpha = %s\n", m_alpha ? "true":"false");
 	fprintf(f,"\tpicture = \"%s\"\n", (const char*)m_strpic.c_str());
 	fprintf(f,"}\n");
@@ -314,7 +314,7 @@ void InfoItem::Save(FILE * f)
 {
 	/*fprintf(f, "static\n{\n");
 	fprintf(f, "\tname = \"%s\"\n", m_owner->GetTreeCtrl()->GetItemText(m_id).c_str());
-	fprintf(f,"\trect = %f %f %f %f\n", m_left, m_top, m_right, m_bottom);
+	fprintf(f,"\tRECT = %f %f %f %f\n", m_left, m_top, m_right, m_bottom);
 	fprintf(f,"\talpha = %s\n", m_alpha ? "true":"false");
 	fprintf(f,"\tpicture = \"%s\"\n", (const char*)m_strpic.c_str());
 	fprintf(f,"}\n");*/
@@ -384,7 +384,7 @@ void DigiCounterItem::Save(FILE * f)
 {
 	fprintf(f, "digicounter\n{\n");
 	fprintf(f, "\tname = \"%s\"\n", m_owner->GetTreeCtrl()->GetItemText(m_id).c_str());
-	fprintf(f,"\trect = %f %f %f %f\n", m_base.GetRect().left, m_base.GetRect().top, m_base.GetRect().right, m_base.GetRect().bottom);
+	fprintf(f,"\tRECT = %f %f %f %f\n", m_base.GetRect().left, m_base.GetRect().top, m_base.GetRect().right, m_base.GetRect().bottom);
 	//fprintf(f,"\talpha = %s\n", m_alpha ? "true":"false");
 	fprintf(f,"\tpicture = \"%s\"\n", (const char*)m_strpic.c_str());
 	fprintf(f,"}\n");

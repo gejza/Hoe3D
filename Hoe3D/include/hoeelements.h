@@ -9,10 +9,10 @@ class IHoeElement : public IHoeInterface
 class IHoeCamera : public IHoeElement
 {
 public:
-	virtual void HOEAPI Set(const HoeMath::VECTOR3 & pos,
-		const HoeMath::VECTOR3 & look) = 0;
+	virtual void HOEAPI Set(const HoeMath::Vector3 & pos,
+		const HoeMath::Vector3 & look) = 0;
 	virtual void HOEAPI Pick(const float x, const float y, 
-		HoeMath::VECTOR3 * vPickRayDir, HoeMath::VECTOR3 * vPickRayOrig) = 0;
+		HoeMath::Vector3 * vPickRayDir, HoeMath::Vector3 * vPickRayOrig) = 0;
 	virtual void HOEAPI GetSize(int *w, int *h) const = 0;
 };
 
@@ -71,7 +71,7 @@ public:
 class IHoeLight : public IHoeElement
 {
 public:
-	virtual void HOEAPI SetPosition(const HoeMath::VECTOR3 & pos) = 0;
+	virtual void HOEAPI SetPosition(const HoeMath::Vector3 & pos) = 0;
 	virtual void HOEAPI SetColor(const float r, const float g, const float b) = 0;
 };
 

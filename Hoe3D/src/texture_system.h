@@ -25,7 +25,7 @@ void DeleteAll();
 void PrintList();
 
 Texture CreateTexture(int w,int h,HOEFORMAT f,int l,DWORD flags);
-BYTE * LockTexture(Texture tex,int lev,const RECT *,int * pitch,DWORD flags);
+BYTE * LockTexture(Texture tex,int lev,const Rect *,int * pitch,DWORD flags);
 void UnlockTexture(Texture tex);
 
 Texture CreateTexture(int w,int h,HOEFORMAT f,void * data);

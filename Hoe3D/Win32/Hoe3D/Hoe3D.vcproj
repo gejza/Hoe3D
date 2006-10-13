@@ -87,11 +87,11 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="winmm.lib libpngd.lib zlibd.lib libvorbis_d.lib libogg_d.lib libvorbisfile_d.lib"
+				AdditionalDependencies="winmm.lib libpngd.lib zlibd.lib libvorbis_d.lib libogg_d.lib libvorbisfile_d.lib HoeCore_d.lib"
 				OutputFile="../../../Bin/Hoe3Dd_D3D9.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories=""
+				AdditionalLibraryDirectories="../../../bin"
 				IgnoreDefaultLibraryNames="MSVCRTD.lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\DebugD3D9/Hoe3D.pdb"
@@ -192,11 +192,11 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="winmm.lib libpng.lib zlib.lib libvorbis.lib libogg.lib libvorbisfile.lib"
+				AdditionalDependencies="winmm.lib libpng.lib zlib.lib libvorbis.lib libogg.lib libvorbisfile.lib HoeCore.lib"
 				OutputFile="../../../Bin/Hoe3D_D3D9.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories=""
+				AdditionalLibraryDirectories="../../../bin"
 				IgnoreDefaultLibraryNames="libcmtd.lib"
 				ProgramDatabaseFile=".\Release/Hoe3D.pdb"
 				ImportLibrary=".\Release/Hoe3D.lib"
@@ -295,11 +295,11 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="winmm.lib libpngd.lib zlibd.lib  libvorbis_d.lib libogg_d.lib libvorbisfile_d.lib"
+				AdditionalDependencies="winmm.lib libpngd.lib zlibd.lib  libvorbis_d.lib libogg_d.lib libvorbisfile_d.lib HoeCore_d.lib"
 				OutputFile="../../../Bin/Hoe3Dd_GL.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories=""
+				AdditionalLibraryDirectories="../../../bin"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\DebugGL/Hoe3D_gl.pdb"
@@ -401,11 +401,11 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="winmm.lib libpng.lib zlib.lib libvorbis.lib libogg.lib libvorbisfile.lib"
+				AdditionalDependencies="winmm.lib libpng.lib zlib.lib libvorbis.lib libogg.lib libvorbisfile.lib HoeCore.lib"
 				OutputFile="../../../Bin/Hoe3D_GL.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories=""
+				AdditionalLibraryDirectories="../../../bin"
 				IgnoreDefaultLibraryNames="libc.lib;libcmtd.lib"
 				ProgramDatabaseFile=".\ReleaseGL/Hoe3D.pdb"
 				ImportLibrary=".\ReleaseGL/Hoe3D.lib"
@@ -504,11 +504,11 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="winmm.lib libpngd.lib zlibd.lib libvorbis_d.lib libogg_d.lib libvorbisfile_d.lib"
+				AdditionalDependencies="winmm.lib libpngd.lib zlibd.lib libvorbis_d.lib libogg_d.lib libvorbisfile_d.lib HoeCore_d.lib"
 				OutputFile="../../../Bin/Hoe3Dd_D3D8.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories=""
+				AdditionalLibraryDirectories="../../../bin"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\DebugD3D8/Hoe3D.pdb"
@@ -694,11 +694,11 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="winmm.lib libpng.lib zlib.lib libvorbis.lib libogg.lib libvorbisfile.lib"
+				AdditionalDependencies="winmm.lib libpng.lib zlib.lib libvorbis.lib libogg.lib libvorbisfile.lib HoeCore.lib"
 				OutputFile="../../../Bin/Hoe3D_D3D8.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories=""
+				AdditionalLibraryDirectories="../../../bin"
 				IgnoreDefaultLibraryNames="libcmtd.lib"
 				ProgramDatabaseFile=".\Release/Hoe3D.pdb"
 				ImportLibrary=".\Release/Hoe3D.lib"
@@ -1958,22 +1958,6 @@
 		<Filter
 			Name="Physics"
 			>
-			<File
-				RelativePath="..\..\src\hoe3d_math.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\hoe3d_math.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\hoe3d_math.inl"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\hoe3d_math_def.h"
-				>
-			</File>
 			<File
 				RelativePath="..\..\src\map_utils.h"
 				>

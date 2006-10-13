@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="../../bin/HoeGame_d.lib User32.lib Gdi32.lib"
+				AdditionalDependencies="../../bin/HoeGame_d.lib ../../bin/HoeCore_d.lib User32.lib Gdi32.lib"
 				OutputFile="../bin/PathFinding.exe"
 				LinkIncremental="2"
 				IgnoreDefaultLibraryNames="libcmt.lib"
@@ -138,7 +138,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="..\..\HoeGame\HoeGame.lib"
+				AdditionalDependencies="..\..\HoeGame\HoeGame.lib ../../bin/HoeCore.lib"
 				OutputFile="../bin/Paint2D.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"

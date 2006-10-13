@@ -493,9 +493,9 @@ void HoeEditor::PropertyGrid::AppendSize(int id, const char *label, int width, i
 	SetProp( pgid, id, flags, help);
 }
 
-void HoeEditor::PropertyGrid::AppendRect(int id, const char *label, const wxRect & rect, unsigned long flags, const char *help, void * data)
+void HoeEditor::PropertyGrid::AppendRect(int id, const char *label, const wxRect & Rect, unsigned long flags, const char *help, void * data)
 {
-	wxPGId pgid = Append(wxRectProperty(label, label, rect));
+	wxPGId pgid = Append(wxRectProperty(label, label, Rect));
 	SetProp( pgid, id, flags, help);
 }
 

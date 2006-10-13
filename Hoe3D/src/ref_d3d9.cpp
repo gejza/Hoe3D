@@ -2,7 +2,7 @@
    @file    ref_d3d9.cpp
    @date    Mar 2006
    @version 1.0
-   @brief   Hlavni soubor implementace Direct3D9.
+   @brief   Hlavni soubor implementace DIRECT3D9.
 */
 
 #include "StdAfx.h"

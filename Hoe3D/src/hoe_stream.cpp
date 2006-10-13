@@ -10,7 +10,7 @@ HoeStream::HoeStream(bool dynamic, bool soft)
 {
 	m_size = 0;
 	m_numvert = 0;
-	m_dynamic = dynamic; /*!!!*/ // musi byt podporavanej hw (v pripade directx)
+	m_dynamic = dynamic; /*!!!*/ // musi byt podporavanej hw (v pripade diRECTx)
 	m_pVertices = NULL;
 	m_soft = soft;
 	m_vb = 0;
@@ -77,7 +77,7 @@ byte * HoeStream::Lock()
 void HoeStream::Unlock()
 {
 	if (!m_dynamic)
-		m_box.Compute((const HoeMath::VECTOR3 *)m_pVertices,m_numvert,m_size/m_numvert);
+		m_box.Compute((const HoeMath::Vector3 *)m_pVertices,m_numvert,m_size/m_numvert);
 	if (m_soft)
 		return;
 #ifdef _HOE_D3D_
@@ -209,7 +209,7 @@ void HoeStream::Dump(HoeLog *log)
 		return;
 	}
 	log->Log("Memory address %p -> %p", m_pVertices, m_pVertices+m_size);
-	m_box.Compute((const HoeMath::VECTOR3 *)m_pVertices,m_numvert,m_size/m_numvert);
+	m_box.Compute((const HoeMath::Vector3 *)m_pVertices,m_numvert,m_size/m_numvert);
 
 	size_t stride = m_size / m_numvert;
 

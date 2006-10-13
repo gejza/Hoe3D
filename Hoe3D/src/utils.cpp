@@ -4,6 +4,7 @@
 #include "utils.h"
 #include "../include/hoeinterfaces.h"
 #include <hoe_math.h>
+#include <hoe_log.h>
 
 #ifdef _HOE_D3D9_
 #include <dxerr9.h>
@@ -49,7 +50,7 @@ void Con_Print(int dlevel, const char * szFormat,...)
 
 void Con_Print(HoeLog * log, const char * szFormat,...)
 {
-	if (_Con)
+	if (log)
 	{
 		static char szBuff[1024];
 
@@ -63,7 +64,7 @@ void Con_Print(HoeLog * log, const char * szFormat,...)
 	}
 }
 
-void Con_Print(HoeMath::MATRIX &m)
+void Con_Print(HoeMath::Matrix &m)
 {
 	Con_Print("%f %f %f %f", m._11,m._12,m._13,m._14);
 	Con_Print("%f %f %f %f", m._21,m._22,m._23,m._24);
@@ -103,30 +104,6 @@ void QuitGame(bool hard, int code)
 	}
 }
 
-void HoeLog::Log(const char * szFormat,...)
-{
-}
-
-HoeLogConsole::HoeLogConsole(const char * name)
-{
-	strcpy(m_name,name);
-}
-
-void HoeLogConsole::Log(const char * szFormat,...)
-{
-	static char szBuff[1024];
-	int lnsize;
-	sprintf(szBuff,"%s: ",m_name);
-	lnsize = strlen(szBuff);
-
-	va_list args;
-
-	va_start(args, szFormat);
-	vsnprintf( szBuff + lnsize, 1024 - lnsize, szFormat, args );
-	va_end(args);
-
-	_Con->Con_Print(szBuff);
-}
 
 //////////////////////////////
 #ifdef _HOE_D3D_

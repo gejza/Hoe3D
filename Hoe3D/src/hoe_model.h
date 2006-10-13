@@ -24,7 +24,7 @@ public:
 	uint m_num_mat;
 
 
-	HoeMath::BoundingBox m_box;
+	HoeMath::BoundingBox3 m_box;
 	//HoeVertexShader m_shader;
 	// atd..
 	// type, params, co delat kdyz projde (dalsi uroven)
@@ -42,7 +42,7 @@ public:
 	uint GetNumMats() const { return m_num_mat; }
 
 	void Render(const HoeScene * scene, float f, dword color) const ;
-	const HoeMath::BoundingBox & GetBound() const { return m_box; }
+	const HoeMath::BoundingBox3 & GetBound() const { return m_box; }
 
 	virtual bool HOEAPI GetParameter(const char * name, THoeParameter * parameter);
 

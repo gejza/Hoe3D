@@ -9,7 +9,7 @@ class HoeInputXWin : public HoeInput
 {
   	HOE_DISPLAY * m_disp;
 	HOE_WINDOW m_win;
-	bool m_directMouse;
+	bool m_diRECTMouse;
 	bool m_xwinMouse;
 	int m_mouse_accel_numerator;
 	int m_mouse_accel_denominator;

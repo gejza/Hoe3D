@@ -84,7 +84,7 @@ bool LuaParam::CheckPar(int num, const char * par, const char * func)
 {
 	if (!CheckPar(num, par))
 	{
-		Error("incorrect argument to function `%s'", func);
+		Error("incorRECT argument to function `%s'", func);
 		return false;
 	}
 	return true;
@@ -666,7 +666,7 @@ int LuaScript::loadfile(lua_State * L)
 	if (!par.CheckPar(1,"s"))
 	{
 		/*
-		lua_pushstring(L, "incorrect argument to function `average'");
+		lua_pushstring(L, "incorRECT argument to function `average'");
         lua_error(L);
 		*/
 
@@ -691,7 +691,7 @@ int LuaScript::hoe(lua_State * L)
 	if (!par.CheckPar(1,"s"))
 	{
 		/*
-		lua_pushstring(L, "incorrect argument to function `average'");
+		lua_pushstring(L, "incorRECT argument to function `average'");
         lua_error(L);
 		*/
 

@@ -17,8 +17,8 @@ uint HoeCamera::m_height = 0;
 HoeCamera::HoeCamera()
 {
 	//pos.part = NULL;
-	pos.xyz = VECTOR3(0,0,-100);
-	look = VECTOR3(0,0,1);
+	pos.xyz = Vector3(0,0,-100);
+	look = Vector3(0,0,1);
 	matProj.PerspectiveFov(HOE_PIF/4.0f, 1.0f, 1.f, 10000.0f );
 
 	//SetPerspective(GetConfig()->GetCameraFov(),GetConfig()->GetCameraZn(),GetConfig()->GetCameraZf());
@@ -60,7 +60,7 @@ void HoeCamera::SetupMatrices()
 #endif
 #ifdef _HOE_OPENGL_
 	glMatrixMode(GL_PROJECTION);// Zvolí projekèní matici
-	glLoadMatrixf(matViewProj);
+	glLoadMatrixf((const GLfloat *)matViewProj.m);
 	
 	glMatrixMode(GL_MODELVIEW);// Zvolí matici modelview
 	glLoadIdentity();
@@ -71,11 +71,11 @@ void HoeCamera::SetupMatrices()
 
 void HoeCamera::Setup2DMatrices(const float w,const float h)
 {
-	MATRIX matWorld;
+	Matrix matWorld;
 	matWorld.Ortho( 0,(w > 0) ? w:m_width,(h > 0) ? h:m_height,0,-1,1); 
 
 #ifdef _HOE_D3D_
-	MATRIX matView;
+	Matrix matView;
 
 	matView.Identity();
 
@@ -94,7 +94,7 @@ void HoeCamera::Setup2DMatrices(const float w,const float h)
 
 const float scale = 0.1f;
 
-void HoeCamera::Set(const HoeMath::VECTOR3 & p, const HoeMath::VECTOR3 & l)
+void HoeCamera::Set(const HoeMath::Vector3 & p, const HoeMath::Vector3 & l)
 {
 	//this->pos.part = (HoeMapPart *)part;
 	this->pos.xyz = p;
@@ -103,11 +103,11 @@ void HoeCamera::Set(const HoeMath::VECTOR3 & p, const HoeMath::VECTOR3 & l)
 	// set sound
 	#ifdef _HOE_DS8_
 	GetSound()->GetListener()->SetPosition(p.x*scale,p.y*scale,p.z*scale,DS3D_DEFERRED);
-	HoeMath::VECTOR3 f = l;
+	HoeMath::Vector3 f = l;
 	f.Normalize();
-	HoeMath::VECTOR3 f2 = l;
+	HoeMath::Vector3 f2 = l;
 	f2.Normalize();
-	HoeMath::VECTOR3 top;
+	HoeMath::Vector3 top;
 	HoeMath::HoeCross(f, f2, top);
 	GetSound()->GetListener()->SetOrientation(f.x,f.y,f.z,top.x,top.y,top.z,DS3D_DEFERRED);
 	GetSound()->GetListener()->CommitDeferredSettings();
@@ -154,13 +154,13 @@ void HoeCamera::GetSize(int *w, int *h) const
 	*h = (int)m_height;
 }
 
-void HoeCamera::GetViewProjMatrix(HoeMath::MATRIX * m) const
+void HoeCamera::GetViewProjMatrix(HoeMath::Matrix * m) const
 {
 	m->Multiply(matView,matProj);
 
 }
 
-bool HoeCamera::PointInFlustrum(const VECTOR3 & point) const
+bool HoeCamera::PointInFlustrum(const Vector3 & point) const
 {
 	for(int i = 0; i < 6; i++ )
 	{
@@ -170,7 +170,7 @@ bool HoeCamera::PointInFlustrum(const VECTOR3 & point) const
 	return true;
 }
 
-bool HoeCamera::BoundInFlustrum(const VECTOR3 & center, const HoeMath::BoundingBox & box) const
+bool HoeCamera::BoundInFlustrum(const Vector3 & center, const HoeMath::BoundingBox3 & box) const
 {
 	for(int i = 0; i < 6; i++ )
 	{
@@ -180,17 +180,17 @@ bool HoeCamera::BoundInFlustrum(const VECTOR3 & center, const HoeMath::BoundingB
 	return true;
 }
 
-void HoeCamera::Pick(const float x, const float y, HoeMath::VECTOR3 * vPickRayDir, HoeMath::VECTOR3 * vPickRayOrig)
+void HoeCamera::Pick(const float x, const float y, HoeMath::Vector3 * vPickRayDir, HoeMath::Vector3 * vPickRayOrig)
 {
-	static MATRIX m;
+	static Matrix m;
         
 	// Compute the vector of the pick ray in screen space
-    static VECTOR3 v;
+    static Vector3 v;
     v.x =  ( ( ( 2.0f * x ) / m_width  ) - 1 ) / matProj._11;
     v.y = -( ( ( 2.0f * y ) / m_height ) - 1 ) / matProj._22;
     v.z =  1.0f;
 
-        // Get the inverse view matrix
+        // Get the inverse view Matrix
     m.Inverse(matView);
 
         // Transform the screen space pick ray into 3D space

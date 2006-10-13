@@ -154,12 +154,12 @@ class GridSurface : public IHoeEnv::GridSurface
 {
 	static const int MaxTextureSlots = 32;
 
-	HoeMath::MATRIX m_worldpos; ///< pozice stredu surface
+	HoeMath::Matrix m_worldpos; ///< pozice stredu surface
 
 	TGridData * m_grids; ///< ukazatel na pole gridu
 	uint m_width, m_height; ///< velikost mrize
 	float m_sizeX, m_sizeY; ///< realna velikost mrize
-	HoeMath::VECTOR3 * m_normals; ///< predpocitane normaly
+	HoeMath::Vector3 * m_normals; ///< predpocitane normaly
 
 	TGridTexture m_textures[MaxTextureSlots]; ///< sloty na textury povrchu
 	TGridModel m_models[MaxTextureSlots];///< sloty na modely
@@ -174,9 +174,9 @@ class GridSurface : public IHoeEnv::GridSurface
 	*/
 	TGridSurfaceTreeItem * CreateQuadTree(dword * gr, uint ngr, uint minx, uint maxx, uint miny, uint maxy);
 	/** Nahrani roviny */
-	bool PlaneToMulti(float vx, float vy, const HoeMath::MATRIX & matrix, const TGridData & grid, int x, int y);
+	bool PlaneToMulti(float vx, float vy, const HoeMath::Matrix & Matrix, const TGridData & grid, int x, int y);
 	/** Nahrani modelu */
-	bool ModelToMulti(const HoeMath::MATRIX & matrix, const TGridData & grid);
+	bool ModelToMulti(const HoeMath::Matrix & Matrix, const TGridData & grid);
 	/** Upravit roviny podle pripadnych modelu (nebo rovin). */
 	void Opt_ProcessPlanes(uint fromx, uint tox, uint fromy, uint toy);
 	/** Funkce ktera vraci vypoctenou vysku rohoveho bodu (zadava se spodni hranice)
@@ -184,7 +184,7 @@ class GridSurface : public IHoeEnv::GridSurface
 	float Opt_GetHeight(uint x, uint y);
 	/** Funkce prepocita normaly */
 	void BuildNormals();
-	const HoeMath::VECTOR3 GetNormal(int x, int y, int roh);
+	const HoeMath::Vector3 GetNormal(int x, int y, int roh);
 public:
 	/** Konstruktor */
 	GridSurface();

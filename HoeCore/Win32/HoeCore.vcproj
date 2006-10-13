@@ -40,10 +40,10 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_LIB;_CRT_SECURE_NO_DEPRECATE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -103,8 +103,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
-				RuntimeLibrary="2"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_LIB;_CRT_SECURE_NO_DEPRECATE"
+				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -147,6 +147,10 @@
 			Name="Math"
 			>
 			<File
+				RelativePath="..\src\hoe_math.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\include\hoe_math.h"
 				>
 			</File>
@@ -165,6 +169,14 @@
 		</File>
 		<File
 			RelativePath="..\include\hoe_core.h"
+			>
+		</File>
+		<File
+			RelativePath="..\src\hoe_log.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\include\hoe_log.h"
 			>
 		</File>
 		<File

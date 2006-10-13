@@ -9,15 +9,15 @@ class HoeMapPart;
 struct MapPosition
 {
 	//HoeMapPart * part;
-	HoeMath::VECTOR3 xyz;
+	HoeMath::Vector3 xyz;
 };
 
 struct MapOrientation : public MapPosition
 {
-	HoeMath::QUAT rot;
+	HoeMath::Quat rot;
 
 	// pridat orientaci
-	void GetMatrix(HoeMath::MATRIX *m);
+	void GetMatrix(HoeMath::Matrix *m);
 	void Reset();
 };
 

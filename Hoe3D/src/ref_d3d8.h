@@ -3,7 +3,7 @@
    @file    ref_d3d8.h
    @date    Mar 2006
    @version 1.0
-   @brief   Hlavni soubor definice Direct3D8.
+   @brief   Hlavni soubor definice DIRECT3D8.
 */
 
 #ifndef _HOE_D3D8_
@@ -37,6 +37,10 @@ typedef D3DLIGHT8 D3DLight;
 
 struct THoeInitSettings;
 
+inline const D3DVECTOR & VECToD3D(const HoeMath::Vector3 &v)
+{
+	return *((D3DVECTOR*)&v);
+}
 /**
 * @brief Trida s implementaci zakladnich vlastnosti <b>D3D8</b>
 */
@@ -45,7 +49,7 @@ class RefD3D8 : public RefBase
 protected:
 	HWND m_hWnd;  ///< Handle na okno
 	uint m_Adapter; ///< Cislo adapteru
-	IDirect3D8 * m_pD3D; ///< Ukazatel na Direct3D
+	IDirect3D8 * m_pD3D; ///< Ukazatel na DIRECT3D
 	static IDirect3DDevice8 * m_Dev; ///< Device
 	D3DFORMAT m_AdapterFormat; ///< Format backbufferu
 	D3DCAPS8 m_Caps; ///< caps
@@ -60,7 +64,7 @@ public:
 	*/
 	virtual ~RefD3D8() {}
 	/**
-	* Inicializace DirectD3
+	* Inicializace Direct3D
 	* @param his vyplnena struktura THoeInitSettings
 	* @return Pokud se zdari inicializace, vraci true, jinak false.
 	*/
@@ -75,11 +79,11 @@ public:
 		return m_Dev; 
 	}
 	/**
-	* Zacatek sceny. viz Direct3D help.
+	* Zacatek sceny. viz DIRECT3D help.
 	*/
 	bool Begin();
 	/**
-	* Konec vykreslovani sceny. viz Direct3D help.
+	* Konec vykreslovani sceny. viz DIRECT3D help.
 	*/
 	void End();
 	/**
@@ -133,7 +137,7 @@ public:
 	* Nastaveni aktualni modelove matice.
 	* @param m Matice
 	*/
-	static HOE_INLINE void SetMatrix(const HoeMath::MATRIX & m);
+	static HOE_INLINE void SetMatrix(const HoeMath::Matrix & m);
 	/**
 	* Zjisti zda zarizeni podporuje format textury
 	* @param TextureFormat format textury
@@ -148,7 +152,7 @@ public:
 		return (word)(0xffff&m_Caps.VertexShaderVersion);
 	}
 	/**
-	* Zruseni Direct3D
+	* Zruseni DIRECT3D
 	*/
 	void Destroy();
 };

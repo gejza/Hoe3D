@@ -13,6 +13,7 @@
 #include "model_loader.h"
 #include <hoe_math.h>
 #include "shared.h"
+#include <hoe_log.h>
 
 
 ModelLoader::ModelLoader(HoeLog * log, int flags)

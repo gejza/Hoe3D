@@ -15,7 +15,7 @@ HOE_INLINE IDirect3DDevice9 * D3DDevice()
 	return RefD3D9::Device();
 }
 
-HOE_INLINE void RefD3D9::SetMatrix(const HoeMath::MATRIX & m)
+HOE_INLINE void RefD3D9::SetMatrix(const HoeMath::Matrix & m)
 {
 	D3DDevice()->SetTransform( D3DTS_WORLD, reinterpret_cast<const D3DMATRIX*>(&m) );
 }

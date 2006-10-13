@@ -7,12 +7,13 @@
 #include "hoe_index.h"
 #include "hoe_stream.h"
 #include "model_generator.h"
+#include <hoe_log.h>
 
 struct BoxVertex
 {
-	HoeMath::VECTOR3 pos;
-	HoeMath::VECTOR3 n;
-	HoeMath::VECTOR2 tex;
+	HoeMath::Vector3 pos;
+	HoeMath::Vector3 n;
+	HoeMath::Vector2 tex;
 };
 
 ModelGenerator::ModelGenerator(HoeLog *log, int flags)

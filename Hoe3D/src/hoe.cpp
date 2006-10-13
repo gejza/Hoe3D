@@ -138,10 +138,10 @@ bool Hoe3D::Init(THoeInitSettings * his)
 	}
 	else
 	{
-		RECT rect;
-		GetClientRect(his->win,&rect);
-		width = rect.right - rect.left;
-		height = rect.bottom - rect.top;
+		RECT Rect;
+		GetClientRect(his->win,&Rect);
+		width = Rect.right - Rect.left;
+		height = Rect.bottom - Rect.top;
 	}
 #endif
 #ifdef _LINUX
@@ -249,7 +249,7 @@ bool Hoe3D::Frame()
 		HoePicture pic;
 		pic.SetSource(rt->GetTexture());
 		const float w=2,h=2;
-		Get2D()->SetRect(w,h);
+		Get2D()->SetRECT(w,h);
 		for (float i=0;i<w;i++)
 			for (float j=0;j < h;j++)
 				Get2D()->BltFast(i,i+1,j,j+1,&pic);

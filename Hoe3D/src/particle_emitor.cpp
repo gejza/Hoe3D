@@ -15,9 +15,9 @@
 
 struct PartsVertex
 {
-	HoeMath::VECTOR3 pos;
+	HoeMath::Vector3 pos;
 	dword color;
-	HoeMath::VECTOR2 tex;
+	HoeMath::Vector2 tex;
 };
 
 static dword palete[] = { 0xff8080, 0xffb080, 0xffff80, 0xb0ff80,
@@ -101,10 +101,10 @@ void ParticleEmitor::Render()
 	{
 		Particle & p = m_parts.Get(i);
 		const float hh = halfsize / (1.f-(p.life*0.8f));
-		v[0].pos = p.pos + HoeMath::VECTOR3(hh,hh,0);
-		v[1].pos = p.pos + HoeMath::VECTOR3(-hh,hh,0);
-		v[2].pos = p.pos + HoeMath::VECTOR3(hh,-hh,0);
-		v[3].pos = p.pos + HoeMath::VECTOR3(-hh,-hh,0);
+		v[0].pos = p.pos + HoeMath::Vector3(hh,hh,0);
+		v[1].pos = p.pos + HoeMath::Vector3(-hh,hh,0);
+		v[2].pos = p.pos + HoeMath::Vector3(hh,-hh,0);
+		v[3].pos = p.pos + HoeMath::Vector3(-hh,-hh,0);
 		v[0].color = v[1].color = v[2].color = v[3].color = byte(p.life * 0xff) << 24 | p.color;
 		v[0].tex.x = 1.f; v[0].tex.y = 1.f;
 		v[1].tex.x = 0.f; v[1].tex.y = 1.f;

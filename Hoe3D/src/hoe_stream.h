@@ -16,7 +16,7 @@ class HoeStream
 	bool m_soft; ///< softwarovy stream
 	SysVertexBuffer m_vb; ///< hardware vertex buffer
 	byte * m_pVertices; ///< ukazatel na zamcene vertexy
-	HoeMath::BoundingBox m_box; ///< bounding box
+	HoeMath::BoundingBox3 m_box; ///< bounding box
 public:
 	/**
 	* Konstruktor
@@ -63,7 +63,7 @@ public:
 	/**
 	* Bounding box
 	*/
-	const HoeMath::BoundingBox * GetBounding() { return &m_box;}
+	const HoeMath::BoundingBox3 * GetBounding() { return &m_box;}
 	/**
 	* Geter zda je buffer dynamicky
 	*/

@@ -20,7 +20,7 @@ public:
 	/** @see IHoeScene::CreateParticleEmitor() */
 	virtual IHoeParticleEmitor * HOEAPI CreateParticleEmitor();
 	/** @see IHoeScene::CreateLight() */
-	virtual IHoeLight * HOEAPI CreateLight(bool direct);
+	virtual IHoeLight * HOEAPI CreateLight(bool diRECT);
 
 	virtual IHoeScenePhysics * HOEAPI GetScenePhysics();
 	virtual IHoeSceneEnv * HOEAPI GetSceneEnv();

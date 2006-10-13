@@ -24,6 +24,7 @@
 #include "particle_emitor.h"
 #include "hoe.h"
 #include "hoe_tokens.h"
+#include <hoe_log.h>
 #pragma hdrstop
 
 extern "C" {

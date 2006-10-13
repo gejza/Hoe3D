@@ -252,7 +252,7 @@ int iniparser_find_entry(dictionary * ini, char * entry) ;
 
   This is the parser for ini files. This function is called, providing
   the name of the file to be read. It returns a dictionary object that
-  should not be accessed directly, but through accessor functions
+  should not be accessed diRECTly, but through accessor functions
   instead.
 
   The returned dictionary must be freed using iniparser_freedict().

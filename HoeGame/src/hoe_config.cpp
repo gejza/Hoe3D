@@ -67,7 +67,7 @@ int Config::Load(const char * filename)
 				}
 				if (!cont)
 					break;
-				/* pokud neprectena tak to ma projit do dalsiho*/
+				/* pokud nepRECTena tak to ma projit do dalsiho*/
 			}
 		case 4:
 			{

@@ -98,7 +98,7 @@ const char g_vs11_char[] = "!!ARBvp1.0\n\
 ATTRIB iPos = vertex.position;\n\
 ATTRIB iNormal = vertex.normal;\n\
 \n\
-#PARAM mvp[4] = { state.matrix.mvp };\n\
+#PARAM mvp[4] = { state.Matrix.mvp };\n\
 PARAM mvp[4] = { program.local[0..3] };\n\
 PARAM light[17] = { program.local[10..26] };\n\
 PARAM color[17] = { program.local[40..56] };\n\
@@ -311,9 +311,9 @@ void HoeVertexShader::Setup(const HoeScene * scene) const
 {
 	if (m_shader)
 	{
-	HoeMath::MATRIX m;
+	HoeMath::Matrix m;
 	scene->GetCamera()->GetViewProjMatrix(&m);
-	HoeMath::MATRIX w;
+	HoeMath::Matrix w;
 #ifdef _HOE_D3D9_
 	D3DDevice()->GetTransform(D3DTS_WORLD, (D3DMATRIX*)&w);
 #endif
@@ -323,13 +323,13 @@ void HoeVertexShader::Setup(const HoeScene * scene) const
 	glGetFloatv(GL_MODELVIEW_MATRIX,(GLfloat*)w.m);
 #endif
 
-	//HoeMath::VECTOR3 vv(0,0,0);
+	//HoeMath::Vector3 vv(0,0,0);
 	//vv.Multiply(w);
 	w.Multiply(m);
 	w.Transpoze();
 //	Con_Print(w);
 /*
-direct x:
+diRECT x:
 2.402153 0.000000 -0.241019 169.857834
 0.038399 2.383378 0.382707 171.245438
 0.098568 -0.159334 0.982394 344.738098
@@ -343,11 +343,11 @@ ogl:
 */
 //	exit(1);
 
-	HoeMath::VECTOR4 zero(0,0,0,0);
+	HoeMath::Vector4 zero(0,0,0,0);
 #ifdef _HOE_D3D9_
 	HRESULT hRes = D3DDevice()->SetVertexShader( m_shader);
 	assert(hRes == S_OK);
-	D3DDevice()->SetVertexShaderConstantF(  0, (float*)w.m, 4 );		// c0-c3 contains composite transform matrix
+	D3DDevice()->SetVertexShaderConstantF(  0, (float*)w.m, 4 );		// c0-c3 contains composite transform Matrix
 	D3DDevice()->SetVertexShaderConstantF(  5, zero.m, 1 );	// c5   0,0,0,0
 
 	for(uint i=0; i<17 && i < scene->GetLS()->GetNumActiveLights(); i++)

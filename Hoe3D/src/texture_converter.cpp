@@ -34,13 +34,13 @@ TextureConverter::~TextureConverter()
 			if (FAILED(m_ref->Device()->CreateTexture(loader.GetHeader().width,loader.GetHeader().height,1,0,
 				D3DFMT_X8R8G8B8,D3DPOOL_MANAGED,&tex->tex,NULL)))
 				exit(0);
-			D3DLOCKED_RECT rect;
-			tex->tex->LockRect(0,&rect,NULL,0);
+			D3DLOCKED_RECT Rect;
+			tex->tex->LockRECT(0,&Rect,NULL,0);
 			if (loader.GetHeader().format == HOE_X8R8G8B8)
-				memcpy(rect.pBits,buff,size);
+				memcpy(Rect.pBits,buff,size);
 			if (loader.GetHeader().format == HOE_B8G8R8)
-				TextureConverter::Convert(buff,size,loader.GetHeader().format,(byte*)rect.pBits,loader.GetHeader().width*loader.GetHeader().height * 4,HOE_X8R8G8B8);  
-			tex->tex->UnlockRect(0);
+				TextureConverter::Convert(buff,size,loader.GetHeader().format,(byte*)Rect.pBits,loader.GetHeader().width*loader.GetHeader().height * 4,HOE_X8R8G8B8);  
+			tex->tex->UnlockRECT(0);
 #endif // _HOE_D3D9_
 		}
 

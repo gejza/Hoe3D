@@ -25,7 +25,7 @@ void HoeBaseScene::UnregisterObject(XHoeObject * obj)
 {
 }
 
-IHoeLight * HoeBaseScene::CreateLight(bool direct)
+IHoeLight * HoeBaseScene::CreateLight(bool diRECT)
 {
 	return NULL;
 }

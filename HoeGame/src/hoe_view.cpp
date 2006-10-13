@@ -84,7 +84,7 @@ void StrategyView::Move(float straight, float side)
 
 bool StrategyView::GetPick(float mx, float my, float *sx, float *sy)
 {
-	HoeMath::VECTOR3 dir,orig;
+	HoeMath::Vector3 dir,orig;
 	GetCamera()->Pick(mx,my,&dir,&orig);
 	const float t = - orig.y / dir.y;
 	if (t > 0)
@@ -99,7 +99,7 @@ bool StrategyView::GetPick(float mx, float my, float *sx, float *sy)
 
 Strategy::StgObject * StrategyView::SelObject(float mx, float my)
 {
-	HoeMath::VECTOR3 dir,orig;
+	HoeMath::Vector3 dir,orig;
 	GetCamera()->Pick(mx,my,&dir,&orig);
 	assert(m_scene->GetScenePhysics());
 	register XHoeObject * obj = m_scene->GetScenePhysics()->Ray(dir,orig);

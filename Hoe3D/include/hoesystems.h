@@ -59,7 +59,7 @@ public:
 
 	virtual void BltFast(const float l,const float r,const float t,const float b,IHoePicture *) = 0;
 	virtual void Blt(const THoeRect * dest,IHoePicture *) = 0;
-	virtual void Blt(const THoeRect * dest,IHoePicture *,const THoeRect * src) = 0;
+	virtual void Blt(const THoeRect* dest,IHoePicture *,const THoeRect * src) = 0;
 	// dve moznosti alfy
 	// jedna je referencni (jako co je pruhledny a co ne)
 	// u te referencni je to podle hodnoty alfa v obraze

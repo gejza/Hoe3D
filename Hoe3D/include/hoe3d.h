@@ -151,7 +151,7 @@ typedef int (HOEAPI *HOE_FUNCGETSDKVER)();
 #ifdef HOE_STATIC_ENGINE
 IHoe3DEngine * HOEAPI CreateHoeEngine(int sdk_ver, XHoeConsole * con, XHoeFS * fs, void * p_memBase,int n_memSize, int flags);
 IHoeEngineInfo * HOEAPI GetEngineInfo(int sdk_ver);
-int HOAPI GetSDKVersion();
+//int HOAPI GetSDKVersion();
 #endif
 
 inline IHoeMaterialSystem * HoeGetMaterialSystem(IHoe3DEngine * eng)

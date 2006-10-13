@@ -33,10 +33,6 @@ class HoeLog;
 
 void Con_Print(const char *,...);
 void Con_Print(HoeLog * log, const char * szFormat,...);
-namespace HoeMath {
-	class MATRIX;
-};
-void Con_Print(HoeMath::MATRIX &m);
 
 #ifdef _WIN32
 void d3derr(const char * file, dword line, const char * fnc, const char *ffnc, HRESULT hRes);
@@ -80,31 +76,8 @@ int string_ex(const char * ex,const char * str);
  */
 void QuitGame(bool hard, int code);
 
-////////////////////////////////
-// Log class
-
-class HoeLog
-{
-public:
-	virtual void Log(const char *,...);
-	virtual void Delete() = 0;
-};
-
-class HoeLogConsole : public HoeLog
-{
-	char m_name[256];
-public:
-	HoeLogConsole(const char * name);
-	virtual void Log(const char *,...);
-	virtual void Delete() { delete this; }
-};
-
-// use LOG(log)->Log("text");
-#define LOG(x) if (x) (x)
-
-
-
 #include "cmdexec.h"
+#include <hoe_log.h>
 
 #endif //_HOE_UTIL_H
 

@@ -38,7 +38,7 @@ static Cursor CreateNullCursor(Display *display, Window root)
   cursormask = XCreatePixmap(display, root, 1, 1, 1/*depth*/);
   xgc.function = GXclear;
   gc =  XCreateGC(display, cursormask, GCFunction, &xgc);
-  XFillRectangle(display, cursormask, gc, 0, 0, 1, 1);
+  XFillRECTangle(display, cursormask, gc, 0, 0, 1, 1);
   dummycolour.pixel = 0;
   dummycolour.red = 0;
   dummycolour.flags = 04;
@@ -56,7 +56,7 @@ HoeInputXWin::HoeInputXWin()
 {
   	/*m_keyb = NULL;
   	m_mouse = NULL;*/
-	m_directMouse = false;
+	m_diRECTMouse = false;
 	m_xwinMouse = false;
   	Con_Print("XWindow Input system Created");
 
@@ -94,11 +94,11 @@ bool HoeInputXWin::InstallMouse(MouseType mt)
 			Con_Print("Init XF86DGA %d.%d", MajorVersion, MinorVersion);
 			XF86DGADirectVideo(m_disp, DefaultScreen(m_disp), XF86DGADirectMouse);
 			XWarpPointer(m_disp, None, m_win, 0, 0, 0, 0, 0, 0);
-			m_directMouse = true;
+			m_diRECTMouse = true;
 		}
 #endif
 
-		if (!m_directMouse)
+		if (!m_diRECTMouse)
 		{
 		  // inviso cursor
 			  XWarpPointer(m_disp, None, m_win,
@@ -122,12 +122,12 @@ bool HoeInputXWin::InstallMouse(MouseType mt)
 
 void HoeInputXWin::UninstallMouse()
 {
-	if (m_directMouse)
+	if (m_diRECTMouse)
 	{
 		XF86DGADirectVideo(m_disp, DefaultScreen(m_disp), 0);
-		m_directMouse = false;
+		m_diRECTMouse = false;
 	}
-	if (m_xwinMouse || m_directMouse)
+	if (m_xwinMouse || m_diRECTMouse)
 	{
 
 	  XChangePointerControl(m_disp, true, true, m_mouse_accel_numerator,m_mouse_accel_denominator, m_mouse_threshold);
@@ -333,8 +333,10 @@ bool HoeInputXWin::XProc(XEvent * event)
 			if (m_absolutMouse)
 			{
 				mx = event->xmotion.x; my = event->xmotion.y;
+				MoveAbsolut(mx,my);
+				break;
 			}
-			else if (m_directMouse)
+			else if (m_diRECTMouse)
 			{
 				mx = event->xmotion.x_root; my = event->xmotion.y_root;
 			}

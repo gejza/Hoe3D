@@ -138,8 +138,7 @@ LRESULT CALLBACK HoeInputWin::WndProc(HWND hwnd, UINT message, WPARAM wParam, LP
 
 			if (point.x != m_lastp.x || point.y != m_lastp.y)
 			{
-				if (m_mouse)
-                    m_mouse->_MouseMove((float)point.x, (float)point.y);
+				MoveAbsolut((float)point.x, (float)point.y);
 				m_lastp = point;
 			}
 		}

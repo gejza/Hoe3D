@@ -394,7 +394,7 @@ wxPanel* SettingsDialog::CreateResourcesPage(wxWindow* parent)
 
 void SettingsDialog::OnBrowse(wxCommandEvent& event)
 {
-    wxDirDialog dialog(this, _("Choose directory"), m_becherdir->GetValue(),wxDD_DEFAULT_STYLE);
+    wxDirDialog dialog(this, _("Choose diRECTory"), m_becherdir->GetValue(),wxDD_DEFAULT_STYLE);
 
     if (dialog.ShowModal() == wxID_OK)
     {

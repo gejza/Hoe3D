@@ -48,7 +48,7 @@ public:
 	virtual void Set(const char * prop, const char * value);
 	virtual void Draw(IHoe2D * h2d) = 0;
 	virtual void Draw2(IHoe2D * h2d) {};
-	void SetRect(const THoeRect * rect);
+	void SetRect(const THoeRect * Rect);
 	void SetRect(const char * value);
 	const THoeRect & GetRect() const { return m_rect; }
 	const char * GetName() const { return m_name; }

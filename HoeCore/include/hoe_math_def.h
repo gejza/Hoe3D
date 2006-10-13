@@ -8,10 +8,10 @@
 
 namespace HoeMath {
 
-struct RECT;
-class MATRIX;
+struct Rect;
+class Matrix;
 
-struct VECTOR2
+struct Vector2
 {
 	union {
 		struct {
@@ -20,27 +20,62 @@ struct VECTOR2
 		};
 		float m[2];
 	};
-	VECTOR2() { };
-	VECTOR2(float X,float Y)
+	Vector2() { };
+	Vector2(float X,float Y)
 	{
 		x = X;y = Y;
 	}
-	VECTOR2(float * v)
+	Vector2(float * v)
 	{
 		x = v[0];y = v[1];
 	}
-	const VECTOR2 operator + ( const VECTOR2& v ) const
+	const Vector2 operator + ( const Vector2& v ) const
 	{
-		return VECTOR2(x + v.x, y + v.y);
+		return Vector2(x + v.x, y + v.y);
 	}
-	const VECTOR2& operator = ( const VECTOR2& v )
+	const Vector2& operator = ( const Vector2& v )
 	{
 		x = v.x;y = v.y;
 		return *this;
 	}
 };
 
-struct VECTOR3
+template<class TYPE> struct Vector2Ex
+{
+	union {
+		struct {
+			TYPE x;
+			TYPE y;
+		};
+		TYPE m[2];
+	};
+	Vector2Ex() { };
+	Vector2Ex(TYPE X,TYPE Y)
+	{
+		x = X;y = Y;
+	}
+	Vector2Ex(TYPE * v)
+	{
+		x = v[0];y = v[1];
+	}
+	const Vector2Ex operator + ( const Vector2Ex& v ) const
+	{
+		return Vector2Ex(x + v.x, y + v.y);
+	}
+	const Vector2Ex& operator = ( const Vector2Ex& v )
+	{
+		x = v.x;y = v.y;
+		return *this;
+	}
+	bool operator == ( const Vector2Ex& v ) const
+	{
+		return (x == v.x && y == v.y);
+	}
+};
+
+typedef Vector2Ex<int> Vector2Int;
+
+struct Vector3
 {
 	union {
 		struct {
@@ -51,12 +86,12 @@ struct VECTOR3
 		float m[3];
 	};
 
-	VECTOR3() { };
-	VECTOR3(float X,float Y,float Z)
+	Vector3() { };
+	Vector3(float X,float Y,float Z)
 	{
 		x = X;y = Y;z = Z;
 	}
-	VECTOR3(float * v)
+	Vector3(float * v)
 	{
 		x = v[0];y = v[1]; z = v[2];
 	}
@@ -73,61 +108,61 @@ struct VECTOR3
 		x = X;y = Y;z = Z;
 	}
 
-	VECTOR3& operator = ( const VECTOR3& v )
+	Vector3& operator = ( const Vector3& v )
 	{
 		x = v.x;y = v.y;z = v.z;
 		return *this;
 	}
-	VECTOR3& operator += ( const VECTOR3& v )
+	Vector3& operator += ( const Vector3& v )
 	{
 		x += v.x;y += v.y;z += v.z;
 		return *this;
 	}
-	VECTOR3& operator -= ( const VECTOR3& v )
+	Vector3& operator -= ( const Vector3& v )
 	{
 		x -= v.x;y -= v.y;z -= v.z;
 		return *this;
 	}
-	VECTOR3 operator - ( const VECTOR3& v ) const
+	Vector3 operator - ( const Vector3& v ) const
 	{
-		return VECTOR3(x - v.x, y - v.y, z - v.z);
+		return Vector3(x - v.x, y - v.y, z - v.z);
 	}
-	VECTOR3 operator + ( const VECTOR3& v ) const
+	Vector3 operator + ( const Vector3& v ) const
 	{
-		return VECTOR3(x + v.x, y + v.y, z + v.z);
+		return Vector3(x + v.x, y + v.y, z + v.z);
 	}
-	VECTOR3 operator * ( const float f ) const
+	Vector3 operator * ( const float f ) const
 	{
-		return VECTOR3(x * f, y * f, z * f);
+		return Vector3(x * f, y * f, z * f);
 	}
-	VECTOR3 operator / ( const float f ) const
+	Vector3 operator / ( const float f ) const
 	{
-		return VECTOR3(x / f, y / f, z / f);
+		return Vector3(x / f, y / f, z / f);
 	}
-	bool operator < ( const VECTOR3 & v)
+	bool operator < ( const Vector3 & v)
 	{
 		return (x < v.x && y < v.y && z < v.z);
 	}
-	bool operator > ( const VECTOR3 & v)
+	bool operator > ( const Vector3 & v)
 	{
 		return (x > v.x && y > v.y && z > v.z);
 	}
-	bool operator == (const VECTOR3 & v)
+	bool operator == (const Vector3 & v)
 	{
 		return ((x == v.x) && (y == v.y) && (z == v.z));
 	}
 
 	HOE_INLINE double Magnitude(void) const;
 	HOE_INLINE float Magnitudef(void) const;
-	HOE_INLINE const VECTOR3 & Normalize(void);
-	HOE_INLINE void Multiply(const VECTOR3 &,const MATRIX &);
-	HOE_INLINE const VECTOR3 & Multiply(const MATRIX &);
+	HOE_INLINE const Vector3 & Normalize(void);
+	HOE_INLINE void Multiply(const Vector3 &,const Matrix &);
+	HOE_INLINE const Vector3 & Multiply(const Matrix &);
 	/** Funkce slozi vektor z nejvetsich slozek */
-	HOE_INLINE void Max(const VECTOR3 & v);
+	HOE_INLINE void Max(const Vector3 & v);
 	/** Funkce slozi vektor z nejvetsich slozek */
-	HOE_INLINE void Min(const VECTOR3 & v);
+	HOE_INLINE void Min(const Vector3 & v);
 
-	VECTOR3 &operator *= (const MATRIX &m)
+	Vector3 &operator *= (const Matrix &m)
 	{
 		Multiply(m);
 		return *this;
@@ -140,7 +175,7 @@ struct VECTOR3
 #endif
 };
 
-struct VECTOR4
+struct Vector4
 {
 	union {
 		struct {
@@ -152,17 +187,17 @@ struct VECTOR4
 		float m[4];
 	};
 
-	VECTOR4() { };
-	VECTOR4(const float X,const float Y,const float Z,const float W)
+	Vector4() { };
+	Vector4(const float X,const float Y,const float Z,const float W)
 	{
 		x = X;y = Y;z = Z;w = W;
 	}
-	VECTOR4(const float * v)
+	Vector4(const float * v)
 	{
 		x = v[0];y = v[1]; z = v[2];w = v[3];
 	}
 #ifdef D3DVECTOR_DEFINED
-	VECTOR4(const D3DVECTOR & v)
+	Vector4(const D3DVECTOR & v)
 	{
 		x = v.x;y = v.y; z = v.z; w = 0.f;
 	}
@@ -170,7 +205,7 @@ struct VECTOR4
 };
 
 
-struct QUAT
+struct Quat
 {
 	float x;
 	float y;
@@ -181,7 +216,7 @@ struct QUAT
 		x = X;y = Y;z = Z;w = W;
 	}
 
-	void Create(const VECTOR3 &v, const float angle)
+	void Create(const Vector3 &v, const float angle)
 	{
 		const float a = sinf(angle * 0.5f);
 		x = a * v.x;
@@ -199,21 +234,21 @@ struct QUAT
 	}
 	HOE_INLINE double Magnitude(void) const;
 	HOE_INLINE void Normalize(void);
-	HOE_INLINE void GetMatrix(MATRIX * m) const;
+	HOE_INLINE void GetMatrix(Matrix * m) const;
 };
 
-struct RECT
+struct Rect
 {
 	float left;
 	float top;
 	float right;
 	float bottom;
-	bool IsVectorInXY(VECTOR3 &v)
+	bool IsVectorInXY(Vector3 &v)
 	{
 		return (v.x > left && v.x < right && v.y > top && v.y < bottom);
 	}
 
-	bool IsVectorOnXY(VECTOR3 &v)
+	bool IsVectorOnXY(Vector3 &v)
 	{
 		// return (v.x+TOL >= left && v.x-TOL <= right && v.y+TOL >= top && v.y-TOL <= bottom);
 		return (v.x >= left && v.x <= right && v.y >= top && v.y <= bottom);
@@ -222,7 +257,7 @@ struct RECT
 	{
 		return (x >= left && x <= right && y >= top && y <= bottom);
 	}
-	bool IsIn(const RECT &in,RECT & out)
+	bool IsIn(const Rect &in,Rect & out)
 	{
 		if (right < in.left || left > in.right || top > in.bottom || bottom < in.top)
 			return false;
@@ -243,7 +278,7 @@ struct RECT
 		if (y < top) top = y;
 		if (y > bottom) bottom = y;
 	}
-	void More(RECT &r)
+	void More(Rect &r)
 	{
 		if (r.left < left) left = r.left;
 		if (r.right > right) right = r.right;
@@ -266,7 +301,7 @@ struct RECT
 	}
 };
 
-struct PLANE
+struct Plane
 {
 	float a;
 	float b;
@@ -284,24 +319,24 @@ struct PLANE
 		c /= magnitude;
 		d /= magnitude; 
 	}
-	float Func(const VECTOR3 & p) const
+	float Func(const Vector3 & p) const
 	{
 		return a * p.x + b * p.y + c * p.z + d;
 	}
 };
 
-struct TRIANGLE
+struct Triangle
 {
-	VECTOR3 a;
-	VECTOR3 b;
-	VECTOR3 c;
-	void SignXY(RECT &rect)
+	Vector3 a;
+	Vector3 b;
+	Vector3 c;
+	void SignXY(Rect &rect)
 	{
 		rect.More(a.x,a.y);
 		rect.More(b.x,b.y);
 		rect.More(c.x,c.y);
 	}
-	int NumVectorsXY(RECT &rect)
+	int NumVectorsXY(Rect &rect)
 	{
 		int n=0;
 		if (rect.IsVectorOnXY(a)) n++;
@@ -311,7 +346,7 @@ struct TRIANGLE
 	}
 };
 
-struct LINE2D
+struct Line2
 {
 #if 1
 	double a;
@@ -328,7 +363,7 @@ struct LINE2D
 		b = x1 - x2;
 		c = -a*x1 - b*y1;
 	}
-	void SetXY(VECTOR3 &v1,VECTOR3 &v2)
+	void SetXY(Vector2 &v1,Vector2 &v2)
 	{
 		a = v2.y - v1.y;
 		b = v1.x - v2.x;
@@ -338,7 +373,7 @@ struct LINE2D
 	{
 		return a * x + b * y + c;
 	}
-	bool Intersection(LINE2D &line, float& x, float& y)
+	bool Intersection(Line2 &line, float& x, float& y)
 	{
 		//if(*this == primka)// Pøímky jsou splývající - nekoneènì mnoho spoleèných bodù
 		//	return false;// Spíše by se mìlo vrátit true a nìjaký bod... záleží na použití
@@ -357,7 +392,30 @@ struct LINE2D
 
 };
 
-class MATRIX
+template<class TYPE> struct VLineT
+{
+	TYPE a;
+	TYPE b;
+	bool IfCanConnect(TYPE &next)
+	{
+		if(a == next)
+		{
+			next = b;
+			return true;
+		}
+		if(b == next)
+		{
+			next = a;
+			return true;
+		}
+		return false;
+	}
+};
+
+typedef VLineT<Vector2Int> VLine2Int;
+typedef VLineT<Vector2> VLine2;
+
+class Matrix
 {
 public:
     union {
@@ -393,38 +451,40 @@ public:
 	HOE_INLINE void RotationZ(const float angle);
 	HOE_INLINE void Scale(const float s);
 	HOE_INLINE void Scale(const float sx,const float sy,const float sz);
-	HOE_INLINE void Scale(const VECTOR3 &s);
+	HOE_INLINE void Scale(const Vector3 &s);
 	HOE_INLINE void Translate(const float x,const float y,const float z);
-	HOE_INLINE void Translate(const VECTOR3 &v);
-	HOE_INLINE float Inverse(const MATRIX &m);
-	HOE_INLINE void Adjung(const MATRIX &m);
-	HOE_INLINE void Transpoze(const MATRIX &m);
+	HOE_INLINE void Translate(const Vector3 &v);
+	HOE_INLINE float Inverse(const Matrix &m);
+	HOE_INLINE void Adjung(const Matrix &m);
+	HOE_INLINE void Transpoze(const Matrix &m);
 	HOE_INLINE void Transpoze();
 
-	HOE_INLINE void Camera(const VECTOR3 &pos,const VECTOR3 &look);
+	HOE_INLINE void Camera(const Vector3 &pos,const Vector3 &look);
 	HOE_INLINE void Ortho(const float w,const float h,const float zn,const float zf);
 	HOE_INLINE void Ortho(const float l,const float r,const float b,const float t,const float zn,const float zf);
 	HOE_INLINE void Perspective(const float w,const float h,const float zn,const float zf);
 	HOE_INLINE void PerspectiveFov(const float fovX,const float a,const float zn,const float zf);
 
-	HOE_INLINE void Multiply( const MATRIX &a,const MATRIX &b);
-	HOE_INLINE void Multiply( const MATRIX &m);
-	HOE_INLINE void MultiplyLeft( const MATRIX &m);
+	HOE_INLINE void Multiply( const Matrix &a,const Matrix &b);
+	HOE_INLINE void Multiply( const Matrix &m);
+	HOE_INLINE void MultiplyLeft( const Matrix &m);
 
 	void ConPrint();
 };
 
-struct BoundingBox
+struct BoundingBox3
 {
-	VECTOR3 min;
-	VECTOR3 max;
+	Vector3 min;
+	Vector3 max;
 	float ball;
-	HOE_INLINE void Set(const VECTOR3 & v);
-	HOE_INLINE void Add(const VECTOR3 & v);	
-	HOE_INLINE void Set(const BoundingBox & b);
-	HOE_INLINE void Add(const BoundingBox & b);
-	HOE_INLINE void Compute(const VECTOR3 *first, dword numvert, uint stride);
+	HOE_INLINE void Set(const Vector3 & v);
+	HOE_INLINE void Add(const Vector3 & v);	
+	HOE_INLINE void Set(const BoundingBox3 & b);
+	HOE_INLINE void Add(const BoundingBox3 & b);
+	HOE_INLINE void Compute(const Vector3 *first, dword numvert, uint stride);
 };
+
+
 
 };
 

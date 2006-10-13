@@ -184,7 +184,7 @@ HOEFORMAT HoeFormatX(D3DFORMAT format)
 
 
 /** Funkce ktera prevadi HOEFORMAT (tak jak je to na disku), 
- * na D3DFORMAT (tak jak to chape direct x) */
+ * na D3DFORMAT (tak jak to chape diRECT x) */
 D3DFORMAT HoeFormatX(HOEFORMAT format)
 {
 	switch (format)

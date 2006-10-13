@@ -31,9 +31,9 @@ void HoeScene::UnregisterObject(XHoeObject * obj)
 	
 }
 
-IHoeLight * HoeScene::CreateLight(bool direct)
+IHoeLight * HoeScene::CreateLight(bool diRECT)
 {
-	HoeLight * l = new HoeLight(direct);
+	HoeLight * l = new HoeLight(diRECT);
 	m_lights.AddLight(l);
 	return l;
 }
@@ -104,7 +104,7 @@ void HoeGraphScene::Render(TRenderParameters * rp)
 	cam.SetupMatrices();
 	m_lights.Setup();
 
-	HoeMath::MATRIX m;
+	HoeMath::Matrix m;
 	m.Identity();
 	Ref::SetMatrix(m);
 	TSceneGroup * g = m_root;
@@ -193,13 +193,13 @@ IHoeMaterial * HoeGraphScene::GetMaterial(const char * name)
 
 //////////////////////////////////////////////////////////
 
-XHoeObject * HoeGraphScene::Ray(const HoeMath::VECTOR3 & vPickRayDir, const HoeMath::VECTOR3 & vPickRayOrig)
+XHoeObject * HoeGraphScene::Ray(const HoeMath::Vector3 & vPickRayDir, const HoeMath::Vector3 & vPickRayOrig)
 {
 	// predpocitat d atd..
 	XHoeObject * act = NULL;
 	float actlength = 9999999.f;
 	ObjectController * obj;
-	HoeMath::VECTOR3 d(vPickRayDir);
+	HoeMath::Vector3 d(vPickRayDir);
 	d.Normalize();
 	const float o = -d.x*vPickRayOrig.x -d.y*vPickRayOrig.y -d.z*vPickRayOrig.z;
 	// projit vsechny objekty

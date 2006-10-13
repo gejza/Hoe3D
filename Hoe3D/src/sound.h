@@ -11,13 +11,13 @@
 
 #include "../include/hoeinterfaces.h"
 
-#if defined (_USE_D3D9_) || defined (_USE_D3D8_) 
+//#if defined (_USE_D3D9_) || defined (_USE_D3D8_) 
 #include "sound_ds.h"
-#endif
+//#endif
 
-#ifdef _USE_OPENGL_
-#include "sound_al.h"
-#endif 
+//#ifdef _USE_OPENGL_
+//#include "sound_al.h"
+//#endif 
 
 /**
   @brief	Uloziste zvuku 

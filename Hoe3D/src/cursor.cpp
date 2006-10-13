@@ -110,7 +110,7 @@ HRESULT D3DUtil_SetDeviceCursor( LPDIRECT3DDEVICE9 pd3dDevice, HCURSOR hCursor,
 
     // Transfer cursor image into the surface
     D3DLOCKED_RECT lr;
-    pCursorSurface->LockRect( &lr, NULL, 0 );
+    pCursorSurface->LockRECT( &lr, NULL, 0 );
     pBitmap = (DWORD*)lr.pBits;
     for( y = 0; y < dwHeightDest; y++ )
     {
@@ -153,7 +153,7 @@ HRESULT D3DUtil_SetDeviceCursor( LPDIRECT3DDEVICE9 pd3dDevice, HCURSOR hCursor,
             }
         }
     }
-    pCursorSurface->UnlockRect();
+    pCursorSurface->UnlockRECT();
 
     // Set the device cursor
     if( FAILED( hr = pd3dDevice->SetCursorProperties( iconinfo.xHotspot, 

@@ -49,7 +49,7 @@ XHoeObject * Physics::RayTrace(const float * orig,const float * dir,unsigned lon
 			continue;
 
 		// compute leng
-		HoeMath::VECTOR3 p = (*VEC3(orig)) + ((*VEC3(dir)) * tt);
+		HoeMath::Vector3 p = (*VEC3(orig)) + ((*VEC3(dir)) * tt);
 		if (max < HoeMath::HoeMagnitude(p - (*VEC3(pos))))
 			continue;
 

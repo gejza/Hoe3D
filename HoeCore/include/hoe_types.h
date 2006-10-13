@@ -94,7 +94,7 @@ struct THoeParameter
 {
 	union {
 		THoeBox box;
-		THoeRect rect;
+		THoeRect Rect;
 	};
 };
 
@@ -105,5 +105,9 @@ struct THoeParameter
 #endif // HOE_INLINE
 
 typedef void * HOE_HANDLE;
+
+// sdilena funkce pro psani do konzole
+void Con_Print(const char *,...);
+
 
 #endif // _HOE_TYPES_H_

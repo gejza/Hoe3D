@@ -13,7 +13,9 @@ HoeTexture::HoeTexture()
 
 HoeTexture::~HoeTexture()
 {
+#ifdef _HOE_D3D_
 	SAFE_RELEASE(m_texture);
+#endif
 }
 
 bool HoeTexture::Create(uint w,uint h,HOEFORMAT f)
@@ -82,13 +84,13 @@ bool HoeTexture::BindData(byte * pix)
 bool HoeTexture::Lock(LOCKRECT * lr)
 {
 #ifdef _HOE_D3D_
-	D3DLOCKED_RECT rect;
-	if (FAILED(m_texture->LockRect(0,&rect,NULL,0)))
+	D3DLOCKED_RECT Rect;
+	if (FAILED(m_texture->LockRect(0,&Rect,NULL,0)))
 	{
 		return false;
 	}
-	lr->data = (byte*)rect.pBits;
-	lr->pitch = rect.Pitch;
+	lr->data = (byte*)Rect.pBits;
+	lr->pitch = Rect.Pitch;
 #endif
 #ifdef _HOE_OPENGL_
 	lr->pitch = width * HoeFormatSize(format) / 8;

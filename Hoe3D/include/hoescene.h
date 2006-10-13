@@ -114,7 +114,7 @@ namespace IHoeEnv
 		*/
 		virtual void HOEAPI SetGridDesc(int x, int y, TGridDesc * desc) = 0;
 		/**
-		* Precte parametry jedne mrize
+		* PRECTe parametry jedne mrize
 		* @param x X-ova souradnice policka
 		* @param y Y-ova souradnice policka
 		* @param desc ukazatel na strukturu GridDesc
@@ -158,7 +158,7 @@ public:
 	virtual float HOEAPI GetHeight(float x,float y) = 0;
 	virtual bool HOEAPI GetCamber(const float x1,const float x2,const float y1,const float y2, float & min,float &max) = 0;
 	/** Ray tracer */
-	virtual XHoeObject * HOEAPI Ray(const HoeMath::VECTOR3 & vPickRayDir, const HoeMath::VECTOR3 & vPickRayOrig) = 0;
+	virtual XHoeObject * HOEAPI Ray(const HoeMath::Vector3 & vPickRayDir, const HoeMath::Vector3 & vPickRayOrig) = 0;
 
 };
 
@@ -185,7 +185,7 @@ public:
 	/** Vytvori particle emitor */
 	virtual IHoeParticleEmitor * HOEAPI CreateParticleEmitor() = 0;
 	/** Vytvori svetlo */
-	virtual IHoeLight * HOEAPI CreateLight(bool direct) = 0;
+	virtual IHoeLight * HOEAPI CreateLight(bool diRECT) = 0;
 	/** Fyzika */
 	virtual IHoeScenePhysics * HOEAPI GetScenePhysics() = 0;
 

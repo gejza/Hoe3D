@@ -12,10 +12,10 @@ struct Particle
 {
 	float life;
 	float fade;
-	HoeMath::VECTOR3 pos;
+	HoeMath::Vector3 pos;
 	dword color;
-	HoeMath::VECTOR3 posi;
-	HoeMath::VECTOR3 posg;
+	HoeMath::Vector3 posi;
+	HoeMath::Vector3 posg;
 };
 
 class ParticleEmitor : public IHoeParticleEmitor

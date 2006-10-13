@@ -60,7 +60,7 @@ public:
 	void AppendFloat(int id, const char * label, float def, unsigned long flags = 0, const char * help = NULL);
 	void AppendColor(int id, const char * label, unsigned long color, unsigned long flags = 0, const char * help = NULL, void * data = NULL);
 	void AppendSize(int id, const char * label, int width, int height, unsigned long flags = 0, const char * help = NULL, void * data = NULL);
-	void AppendRect(int id, const char * label, const wxRect & rect, unsigned long flags = 0, const char * help = NULL, void * data = NULL);
+	void AppendRect(int id, const char * label, const wxRect & Rect, unsigned long flags = 0, const char * help = NULL, void * data = NULL);
 	void AppendPoint(int id, const char * label, const float x, const float y, unsigned long flags = 0, const char * help = NULL, void * data = NULL);
 	void AppendPoint3D(int id, const char * label, const float x, const float y, const float z, unsigned long flags = 0, const char * help = NULL, void * data = NULL);
 	void AppendList(int id, const char * label, const char *list[], long values[] = NULL, long value = 0, unsigned long flags = 0, const char * help = NULL, void * data = NULL); 

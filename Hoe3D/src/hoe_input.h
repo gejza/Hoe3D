@@ -13,12 +13,15 @@ protected:
 	XHoeMouse * m_mouse;
 	bool m_absolutMouse;
 	MouseType m_mousetype;
+	float m_winwidth;
+	float m_winheight;
 public:
 	HoeInput();
 	~HoeInput();
 	virtual bool Init(THoeInitSettings *) = 0;
 	virtual XHoeKeyboard * HOEAPI RegisterKeyboard(XHoeKeyboard * keyb);
 	virtual XHoeMouse * HOEAPI RegisterMouse(MouseType mt, XHoeMouse * mouse);
+	virtual void HOEAPI SetWindowRect(float width, float height);
 	virtual const char * HOEAPI GetKeyName(int key);
 
 	virtual bool UseKeyb();
@@ -26,6 +29,8 @@ public:
 	virtual void UninstallMouse();
 
 	virtual void Process(float time);
+
+	void MoveAbsolut(float x, float y);
 
 	virtual void Destroy();
 

@@ -68,7 +68,7 @@ public:
 	*/
 	virtual ~RefOpenGL() {}
 	/**
-	* Inicializace DirectD3
+	* Inicializace DIRECTD3
 	* @param his vyplnena struktura THoeInitSettings
 	* @return Pokud se zdari inicializace, vraci true, jinak false.
 	*/
@@ -143,7 +143,7 @@ public:
 	* Nastaveni aktualni modelove matice.
 	* @param m Matice
 	*/
-	static HOE_INLINE void SetMatrix(const HoeMath::MATRIX & m);
+	static HOE_INLINE void SetMatrix(const HoeMath::Matrix & m);
 	/**
 	* Test na pritomnost rozsireni
 	* @param ext_name Jmeno extension

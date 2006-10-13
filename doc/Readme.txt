@@ -2,8 +2,8 @@ Hoe Engine
 --------------------------
 
 _HOE_OPENGL_ - OpenGL
-_HOE_D3D9_   - Direct3D9
-_HOE_D3D8_   - Direct3D8
+_HOE_D3D9_   - DIRECT3D9
+_HOE_D3D8_   - DIRECT3D8
 
 _WIN32	     - System na windowsech
 _LINUX	     - LINUX
@@ -34,7 +34,7 @@ states.h states.cpp states_d3d9.cpp states_opengl.cpp
 
 ref
 --------------------------
-- OpenGL nebo Direct3D funkce...
+- OpenGL nebo DIRECT3D funkce...
 - chybi podpora vic adapteru - doplnit
 
 math
@@ -85,7 +85,7 @@ base tools (multiplatform)
    world
    
 shadery
-problem univerzalnosti mezi direct a opengl
+problem univerzalnosti mezi diRECT a opengl
 extension
 
 nez bude hotovo musi se osefovat model shader

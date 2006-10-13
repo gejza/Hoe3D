@@ -148,7 +148,7 @@ int w = newt.GetWidth(),
 
 	wxMenu * menuInsert = new wxMenu;
 	menuInsert->Append(ID_STATICITEM, _("Picture Item"),_("New picture item."));
-	menuInsert->Append(ID_COLORRECT, _("Color rect Item"),_("New color rect item."));
+	menuInsert->Append(ID_COLORRECT, _("Color Rect Item"),_("New color Rect item."));
 	menuInsert->Append(ID_INFOITEM, _("Info Item"),_("New info item."));
 	menuInsert->Append(ID_BUTTONITEM, _("Button Item"),_("New button item."));
 	menuInsert->Append(ID_DIGICOUNTERITEM, _("Digi counter Item"),_("New digi counter item."));
