@@ -86,6 +86,36 @@ void CStream::Move(float x, float y, float z)
 }
 
 /////////////////////////////////////////////////////////////////
+CPoint::CPoint(const std::string &name_)
+{
+	name = name_;
+	x=y=z=0.f;
+}
+
+// vypise info na stdout
+void CPoint::PrintInfo(void)
+{
+	printf("Point \"%s\" x=%f y=%f z=%f\n",name.c_str(),x,y,z);
+}
+
+unsigned long CPoint::ExportHeader(HoeUtils::Stream * stream)
+{
+	hfm_point head;
+	memset(head.name,0,sizeof(head.name));
+	strncpy(head.name, name.c_str(), sizeof(head.name)-1);
+	head.x = x;
+	head.y = y;
+	head.z = z;
+	stream->Write(&head,sizeof(head));
+	return sizeof(head);
+}
+
+unsigned long CPoint::ExportData(HoeUtils::Stream * stream)
+{
+	return 0;
+}
+
+/////////////////////////////////////////////////
 
 CIndex::CIndex(const std::string &name_) : data(2)
 {
@@ -223,6 +253,11 @@ void CModel::AddDefMaterial(const char *name)
 	lnMaterials.push_back(name);
 }
 
+void CModel::AddDefHelper(const char *name)
+{
+	lnHelpers.push_back(name);
+}
+
 bool CModel::Compile(TNamespace * names)
 {
 	size_t i;
@@ -251,6 +286,15 @@ bool CModel::Compile(TNamespace * names)
 		lMaterials.push_back(m);
 
 	}
+	for (i=0;i < lnHelpers.size();i++)
+	{
+		CBaseHelper * m = names->FindHelper(lnHelpers[i]); 
+		if (m == NULL)
+			HoeUtils::fthrow("could not find helper '%s'",lnHelpers[i].c_str());
+		lHelpers.push_back(m);
+
+	}	// helpers
+
 	return true;
 }
 
@@ -277,6 +321,14 @@ CMaterial * TNamespace::FindMaterial(std::string name)
 	for (int i=0;i < materials.size();i++)
 		if (materials[i]->GetName() == name)
 			return materials[i];
+	return NULL;
+}
+
+CBaseHelper * TNamespace::FindHelper(std::string name)
+{
+	for (int i=0;i < helpers.size();i++)
+		if (helpers[i]->GetName() == name)
+			return helpers[i];
 	return NULL;
 }
 
@@ -319,6 +371,12 @@ int CModel::Export(HoeUtils::Stream * stream)
 		stream->Write(&ins,sizeof(unsigned long));
 	}
 	
+	for (i=0;i < lHelpers.size();i++)
+	{
+		ins = lHelpers[i]->GetID();
+		stream->Write(&ins,sizeof(unsigned long));
+	}
+
 	ins = 0;
 	stream->Write(&ins,sizeof(unsigned long));
 
@@ -345,3 +403,7 @@ unsigned long CMaterial::GetID()
 	return HMS_GENID(HMS_MATERIAL,id.GetID());
 }
 
+unsigned long CPoint::GetID()
+{
+	return HMS_GENID(HMS_POINT,id.GetID());
+}

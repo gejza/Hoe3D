@@ -51,6 +51,13 @@ CBaseIndex * HMC::CreateIndex(const std::string &name)
 	return index;
 }
 
+CBasePoint * HMC::CreatePoint(const std::string &name)
+{
+	CPoint * point = new CPoint(name);
+	global.helpers.push_back(point);
+	return point;
+}
+
 CBaseMaterial * HMC::CreateMaterial(const std::string &name)
 {
 	CMaterial * mat = new CMaterial(name);
@@ -74,6 +81,8 @@ bool HMC::Finish(void)
 		global.indices[i]->PrintInfo();
 	for (i=0;i < global.materials.size();i++)
 		global.materials[i]->PrintInfo();
+	for (i=0;i < global.helpers.size();i++)
+		global.helpers[i]->PrintInfo();
 
 	for (i=0;i < global.models.size();i++)
 		if (global.models[i]->Compile(&global) == false)
@@ -86,7 +95,10 @@ bool HMC::Link(HoeUtils::Stream * stream)
 {
 	hfres_header header = { IDRESHEADER, IDMDLHEADER, IDMDLVER, 0, 0 };
 	header.numres = (unsigned int)global.models.size();
-	header.numchunks = (unsigned int)global.streams.size() + (unsigned int)global.indices.size() + (unsigned int)global.materials.size();
+	header.numchunks = (unsigned int)global.streams.size() 
+		+ (unsigned int)global.indices.size() 
+		+ (unsigned int)global.materials.size()
+		+ (unsigned int)global.helpers.size();
 	stream->Write(&header,sizeof(header));
 
 	if (header.numres <= 0)
@@ -148,7 +160,16 @@ bool HMC::Link(HoeUtils::Stream * stream)
 		chunk->size = mat->ExportHeader(stream);
 		chunk->size += mat->ExportData(stream);
 	}
-
+	// export helpers
+	for (ii=0;ii < global.helpers.size();ii++)
+	{
+		CBaseHelper * hlp = global.helpers[ii];
+		hfres_chunk * chunk = &chunks[is++];
+		chunk->filepos = stream->GetPos();
+		chunk->chunkID = hlp->GetID();
+		chunk->size = hlp->ExportHeader(stream);
+		chunk->size += hlp->ExportData(stream);
+	}
 	stream->SetPos(namespos);
 	stream->Write(names,header.numres * sizeof(hfres_name));
 

@@ -10,6 +10,17 @@ class CBaseObject
 {
 };
 
+class CBaseHelper
+{
+public:
+	virtual unsigned long GetID() = 0;
+	virtual std::string & GetName() = 0;
+	virtual void PrintInfo(void) = 0;
+	virtual unsigned long ExportHeader(HoeUtils::Stream * stream) = 0;
+	virtual unsigned long ExportData(HoeUtils::Stream * stream) = 0;
+
+};
+
 class CBaseStream : public CBaseObject
 {
 public:
@@ -23,6 +34,13 @@ class CBaseIndex : public CBaseObject
 public:
 	virtual void AddIndex(unsigned short ind);
 	virtual void EndData();
+};
+
+class CBasePoint : public CBaseHelper
+{
+public:
+	virtual void SetPoint(float x, float y, float z);
+	virtual void EndData() {};
 };
 
 struct CColor;
@@ -80,15 +98,18 @@ protected:
 	bool ScanIndexList(ModelShader * shader);
 	bool ScanStreamList(ModelShader * shader);
 	bool ScanMaterialList(ModelShader * shader);
+	bool ScanHelperList(ModelShader * shader);
 	virtual ModelShader * CreateModelShader(const std::string &name) = 0;
 	bool ScanParameters(InsParam * par);
 	virtual CBaseIndex * CreateIndex(const std::string &name) = 0;
+	virtual CBasePoint * CreatePoint(const std::string &name) = 0;
 	virtual bool ScanIndex();
 	virtual CBaseStream * CreateStream(const std::string &name, _FVF & fvf) = 0;
 	virtual CBaseMaterial * CreateMaterial(const std::string &name) = 0;
 	const char * ScanLine();
 	virtual bool ScanModel(void);
 	bool ScanStream();
+	bool ScanPoint();
 	bool ScanName(std::string & name, int *index);
 	// 1 = ok
 	// 0 = nic

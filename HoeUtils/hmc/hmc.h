@@ -24,6 +24,7 @@ public:
 	virtual CBaseIndex * CreateIndex(const std::string &name);
 	virtual ModelShader * CreateModelShader(const std::string &name);
 	virtual CBaseMaterial * CreateMaterial(const std::string &name);
+	virtual CBasePoint * CreatePoint(const std::string &name);
 	virtual bool Finish(void);
 	virtual bool Link(const char * fileout);
 	virtual bool Link(HoeUtils::Stream * stream);

@@ -17,6 +17,7 @@ public:
 	virtual void AddDefIndex(const char * name);
 	virtual void AddDefStream(const char * name);
 	virtual void AddDefMaterial(const char * name);
+	virtual void AddDefHelper(const char * name) = 0;
 };
 
 #endif // _MODEL_SHADER_H_

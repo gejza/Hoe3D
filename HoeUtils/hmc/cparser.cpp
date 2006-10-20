@@ -33,6 +33,10 @@ bool CParser::Parse()
 			if (!ScanModel())
 				return false;
 			break;
+		case C_POINT:
+			if (!ScanPoint())
+				return false;
+			break;
 		case FNC_AUTOTRACKING:
 			{
 				char streamname[1024];
@@ -374,6 +378,10 @@ bool CParser::ScanModel(void)
 			if (!ScanMaterialList(shader))
 				return false;
 			break;
+		case MS_HELPERS:
+			if (!ScanHelperList(shader))
+				return false;
+			break;
 		case MS_STDRENDER:
 			{
 				InsParam param;
@@ -460,6 +468,75 @@ bool CParser::ScanIndex()
 
 }
 
+bool CParser::ScanPoint()
+{
+	std::string name;
+	if (!ScanName(name,NULL))
+		return false;
+
+	if (lexln(NULL) != P_NL)
+		return false;
+
+	CBasePoint * point = CreatePoint(name);
+	if (point == NULL)
+		return false;
+
+	p_value val;
+
+	float pp[3];
+	int np = 0;
+	while (1)
+	{
+		int h;
+
+		if (ScanLine() == NULL)
+			return false;
+
+		switch (h = lexln(&val))
+		{
+		case E_POINT:
+			point->EndData();
+			return true;
+		case V_INT:
+			pp[np++] = (float)val.i; break;
+		case V_HEX:
+			pp[np++] = (float)val.hex; break;
+		case V_FLOAT:
+			pp[np++] = (float)val.f; break;
+		case P_NL:
+			break;
+		default:
+			return false;
+		}
+
+		while ((h = lexln(&val)) == P_SEP && np < 3)
+		{
+			switch (lexln(&val))
+			{
+			case V_INT:
+				pp[np++] = (float)val.i; break;
+			case V_HEX:
+				pp[np++] = (float)val.hex; break;
+			case V_FLOAT:
+				pp[np++] = (float)val.f; break;
+			default:
+				return false;
+			}
+
+		}
+
+		if (np==3)
+		{
+			point->SetPoint(pp[0],pp[1],pp[2]);
+			np = 0;
+		}
+
+		if (h != P_NL)
+			return false;
+	}
+
+}
+
 void CBaseIndex::EndData()
 {
 
@@ -468,6 +545,10 @@ void CBaseIndex::EndData()
 void CBaseIndex::AddIndex(unsigned short ind)
 {
 
+}
+
+void CBasePoint::SetPoint(float x, float y, float z)
+{
 }
 
 void CBaseMaterial::SetColor(Par p, CColor * c)
@@ -571,6 +652,30 @@ bool CParser::ScanMaterialList(ModelShader *shader)
 			return false;
 
 		shader->AddDefMaterial(val.str);
+
+		int v = lexln(&val);
+		if (v == P_SEP)
+			continue;
+
+		if (v == P_NL)
+			return true;
+		else
+			return false;
+	}
+}
+
+bool CParser::ScanHelperList(ModelShader *shader)
+{
+
+	p_value val;
+
+	while (1)
+	{
+		// load value
+		if (lexln(&val) != V_NAME)
+			return false;
+
+		shader->AddDefHelper(val.str);
 
 		int v = lexln(&val);
 		if (v == P_SEP)

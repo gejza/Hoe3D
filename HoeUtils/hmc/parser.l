@@ -50,11 +50,13 @@ Stream		if (lval) lval->str = yytext; return C_STREAM;
 Index		if (lval) lval->str = yytext; return C_INDEX;
 Model		if (lval) lval->str = yytext; return C_MODEL;
 Material	if (lval) lval->str = yytext; return C_MATERIAL;
+Point		if (lval) lval->str = yytext; return C_POINT;
 
 ~Stream		if (lval) lval->str = yytext; return E_STREAM;
 ~Index		if (lval) lval->str = yytext; return E_INDEX;
 ~Model		if (lval) lval->str = yytext; return E_MODEL;
 ~Material	if (lval) lval->str = yytext; return E_MATERIAL;
+~Point		if (lval) lval->str = yytext; return E_POINT;
 
 Autotracking\({name}\) if (lval) lval->str = yytext; return FNC_AUTOTRACKING;
 
@@ -72,6 +74,7 @@ tex2		return F_TEX2;
 streams		if (lval) lval->str = yytext; return MS_STREAMS;
 indices		if (lval) lval->str = yytext; return MS_INDICES;
 materials	if (lval) lval->str = yytext; return MS_MATERIALS;
+helpers		if (lval) lval->str = yytext; return MS_HELPERS;
 input		if (lval) lval->str = yytext; return MS_INPUT;
 fp[0-9]		if (lval) lval->i = yytext[2] - '0'; return MS_FPARAM;
 ip[0-9]		if (lval) lval->i = yytext[2] - '0'; return MS_IPARAM;

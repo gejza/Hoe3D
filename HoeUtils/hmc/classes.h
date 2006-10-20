@@ -76,6 +76,25 @@ public:
 
 };
 
+class CPoint : public CBasePoint
+{
+	std::string name;
+	float x,y,z;
+
+	HoeUtils::IDGEN id;
+public:
+	unsigned long GetID();
+	CPoint(const std::string &name_);
+
+	std::string & GetName() { return name; }
+	virtual void SetPoint(float _x, float _y, float _z) { x=_x;y=_y;z=_z; }
+
+	// vypise info na stdout
+	virtual void PrintInfo(void);
+	virtual unsigned long ExportHeader(HoeUtils::Stream * stream);
+	virtual unsigned long ExportData(HoeUtils::Stream * stream);
+};
+
 struct TNamespace;
 
 class CModel : public ModelShader
@@ -88,6 +107,8 @@ private:
 	std::vector<CIndex*> lIndices;
 	std::vector<std::string> lnMaterials;
 	std::vector<CMaterial*> lMaterials;
+	std::vector<std::string> lnHelpers;
+	std::vector<CBaseHelper*> lHelpers;
 public:
 	virtual int Export(HoeUtils::Stream * stream);
 
@@ -96,6 +117,7 @@ public:
 	virtual void AddDefStream(const char * name);
 	virtual void AddDefIndex(const char * name);
 	virtual void AddDefMaterial(const char * name);
+	virtual void AddDefHelper(const char * name);
 
 	bool Compile(TNamespace * names);
 
@@ -199,11 +221,12 @@ struct TNamespace
 	CIndex::List indices;
 	CModel::List models;
 	CMaterial::List materials;
-
+	std::vector<CBaseHelper*> helpers;
 public:
 	std::vector<CStream *> FindStream(std::string name);
 	CIndex * FindIndex(std::string name);
 	CMaterial * FindMaterial(std::string name);
+	CBaseHelper* FindHelper(std::string name);
 };
 
 #endif // _CLASSES_H_
