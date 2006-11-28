@@ -188,6 +188,50 @@ public:
 	}
 };
 
+/** 
+ * Implementace haldy
+ * prvky musi mit zabudovany operator <>
+ */
+template<class C> class Heap : public SetBase<C>
+{
+public:
+    void Insert(C c)
+    {
+        if (this->m_size == this->m_count)
+            Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
+        int i=this->m_count++;
+        this->m_ptr[i] = c;
+        while (i > 0 && (this->m_ptr[(i-1)/2] > this->m_ptr[i]))
+        {
+            this->m_ptr[i] = this->m_ptr[(i-1)/2];
+            i = (i-1)/2;
+            this->m_ptr[i] = c;
+        }
+    }
+    const C & GetHeap() const
+    {
+        return this->m_ptr[0];
+    }
+    void RemoveHeap()
+    {
+        this->m_ptr[0] = this->m_ptr[this->m_count-1];
+        int j,i; this->m_count--;
+        i=0;
+        while ((2*i+1) <= ((int)this->m_count-1))
+        {
+            j=i;
+            if (2*i+1<=this->m_count-1 && this->m_ptr[j]>this->m_ptr[2*i+1])
+                j=2*i+1;
+            if (2*i+2<=this->m_count-1 && this->m_ptr[j]>this->m_ptr[2*i+2])
+                j=2*i+2;
+            if (i==j)
+                break;
+            C x = this->m_ptr[i]; this->m_ptr[i]=this->m_ptr[j];this->m_ptr[j]=x;
+            i=j;
+        }
+    }
+};
+
 } // namespace HoeCore
 
 namespace HoeMath {
