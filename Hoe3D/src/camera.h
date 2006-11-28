@@ -64,6 +64,9 @@ public:
 	bool PointInFlustrum(const HoeMath::Vector3 & point) const;
 
 	bool BoundInFlustrum(const HoeMath::Vector3 & center, const HoeMath::BoundingBox3 & box) const;
+
+	const HoeMath::Vector3 & GetLook() const { return look; }
+
 };
 
 #endif // _HOE_CAMERA_H_

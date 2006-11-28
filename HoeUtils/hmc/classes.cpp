@@ -1,46 +1,66 @@
 
 #include "StdAfx.h"
 #include "classes.h"
-#include "parser.h"
 #include "../../Hoe3D/include/hfmt/hmodel_file.h"
 #include "../../Hoe3D/src/model_shader.h"
 
 using namespace HoeUtils;
 using namespace std;
 
-CStream::CStream(const std::string &name_, _FVF & fvf_) : data(fvf_.GetSize())
+CStream::CStream(_FVF & fvf_) : m_data(fvf_.GetSize()), m_vert(fvf_)
 {
-	name = name_;
-	fvf = fvf_;
 }
 
 void CStream::AddVertex(VERTEX & vert)
 {
-	data.AddData(vert.GetData());
+	m_data.AddData(vert.GetData());
 }
 
-// vypise informace o objektu na stdout
-void CStream::PrintInfo(void)
+void CStream::AddNumber(int num)
 {
-	printf("Stream \"%s\" pocet vertexu: %d(%d) o fvf=%s(%d)\n",name.c_str(),data.GetNum(),data.GetMax(),fvf.GetString().c_str(),fvf.GetSize());
+	m_vert.AddNum(num);
+	if (m_vert.IsFull())
+	{
+		AddVertex(m_vert);
+		m_vert.Reset();
+	}
+}
+
+void CStream::AddFloat(float num)
+{
+	m_vert.AddFloat(num);
+	if (m_vert.IsFull())
+	{
+		AddVertex(m_vert);
+		m_vert.Reset();
+	}
+}
+void CStream::AddUnsigned(unsigned long num)
+{
+	m_vert.AddUnsigned (num);
+	if (m_vert.IsFull())
+	{
+		AddVertex(m_vert);
+		m_vert.Reset();
+	}
 }
 
 unsigned long CStream::ExportHeader(HoeUtils::Stream * stream)
 {
 	hfm_stream head;
-	head.size_fvf = (unsigned long)fvf.GetString().size();
-	head.numvert = data.GetNum();
-	head.size = data.GetSize();
+	head.size_fvf = (unsigned long)m_vert.GetString().size();
+	head.numvert = m_data.GetNum();
+	head.size = m_data.GetSize();
 	stream->Write(&head,sizeof(hfm_stream));
-	stream->Write(fvf.GetString().c_str(),head.size_fvf);
+	stream->Write(m_vert.GetString().c_str(),head.size_fvf);
 
 	return (sizeof(hfm_stream) + head.size_fvf);
 }
 
 unsigned long CStream::ExportData(HoeUtils::Stream * stream)
 {
-	stream->Write(data.GetData(),data.GetSize());
-	return data.GetSize();
+	stream->Write(m_data.GetData(),m_data.GetSize());
+	return m_data.GetSize();
 }
 
 void CStream::Autotracking()
@@ -48,37 +68,37 @@ void CStream::Autotracking()
 	double px = 0;
 	double py = 0;
 	double pz = 0;
-	if (fvf.GetString().c_str()[0] != 'p')
+	if (m_vert.GetString().c_str()[0] != 'p')
 	{
-		printf("Failed tracking to FVF=%s\n", fvf.GetString().c_str());
+		printf("Failed tracking to FVF=%s\n", m_vert.GetString().c_str());
 		return;
 	}
-	for (int i=0; i < data.GetNum();i++)
+	for (int i=0; i < m_data.GetNum();i++)
 	{
 		// scan indexu
-		float * v = (float *)data.Get(i);
+		float * v = (float *)m_data.Get(i);
 		px += v[0];
 		py += v[1];
 		pz += v[2];
 	}
-	px = px / data.GetNum();
-	py = py / data.GetNum();
-	pz = pz / data.GetNum();
+	px = px / m_data.GetNum();
+	py = py / m_data.GetNum();
+	pz = pz / m_data.GetNum();
 	printf("Move to tracking point (%f,%f,%f)\n", (float)px, (float) py, (float)pz);
 	Move((float)-px, 0.f, (float)-pz);
 }
 
 void CStream::Move(float x, float y, float z)
 {
-	if (fvf.GetString().c_str()[0] != 'p')
+	if (m_vert.GetString().c_str()[0] != 'p')
 	{
-		printf("Failed move to FVF=%s\n", fvf.GetString().c_str());
+		printf("Failed move to FVF=%s\n", m_vert.GetString().c_str());
 		return;
 	}
-	for (int i=0; i < data.GetNum();i++)
+	for (int i=0; i < m_data.GetNum();i++)
 	{
 		// scan indexu
-		float * v = (float *)data.Get(i);
+		float * v = (float *)m_data.Get(i);
 		v[0] += x;
 		v[1] += y;
 		v[2] += z;
@@ -86,23 +106,16 @@ void CStream::Move(float x, float y, float z)
 }
 
 /////////////////////////////////////////////////////////////////
-CPoint::CPoint(const std::string &name_)
+CPoint::CPoint()
 {
-	name = name_;
 	x=y=z=0.f;
-}
-
-// vypise info na stdout
-void CPoint::PrintInfo(void)
-{
-	printf("Point \"%s\" x=%f y=%f z=%f\n",name.c_str(),x,y,z);
 }
 
 unsigned long CPoint::ExportHeader(HoeUtils::Stream * stream)
 {
 	hfm_point head;
 	memset(head.name,0,sizeof(head.name));
-	strncpy(head.name, name.c_str(), sizeof(head.name)-1);
+	//strncpy(head.name, name.c_str(), sizeof(head.name)-1);
 	head.x = x;
 	head.y = y;
 	head.z = z;
@@ -117,26 +130,19 @@ unsigned long CPoint::ExportData(HoeUtils::Stream * stream)
 
 /////////////////////////////////////////////////
 
-CIndex::CIndex(const std::string &name_) : data(2)
+CIndex::CIndex() : m_data(2)
 {
-	name = name_;
 }
 
 void CIndex::AddIndex(unsigned short ind)
 {
-	data.AddData(&ind);
-}
-
-// vypise info na stdout
-void CIndex::PrintInfo(void)
-{
-	printf("Index \"%s\" pocet indexu: %d(%d)\n",name.c_str(),data.GetNum(),data.GetMax());
+	m_data.AddData(&ind);
 }
 
 unsigned long CIndex::ExportHeader(HoeUtils::Stream * stream)
 {
 	hfm_index head;
-	head.numinx = data.GetNum();
+	head.numinx = m_data.GetNum();
 	head.type = TRIANGLELIST;
 	stream->Write(&head,sizeof(head));
 	return sizeof(head);
@@ -144,13 +150,12 @@ unsigned long CIndex::ExportHeader(HoeUtils::Stream * stream)
 
 unsigned long CIndex::ExportData(HoeUtils::Stream * stream)
 {
-	stream->Write(data.GetData(),data.GetSize());
-	return data.GetSize();
+	stream->Write(m_data.GetData(),m_data.GetSize());
+	return m_data.GetSize();
 }
 
-CMaterial::CMaterial(const std::string &name_)
+CMaterial::CMaterial()
 {
-	name = name_;
 	hastexture = false;
 	hasamb = false;
 	hasdiff = false;
@@ -199,11 +204,6 @@ void CMaterial::SetTexture(const char * tex)
 	hastexture = true;
 }
 
-void CMaterial::PrintInfo(void)
-{
-	printf("Material \"%s\" tex: %s\n",name.c_str(),texture.c_str());
-}
-
 unsigned long CMaterial::ExportHeader(HoeUtils::Stream * stream)
 {
 	hfm_material head;
@@ -232,31 +232,37 @@ unsigned long CMaterial::ExportData(HoeUtils::Stream * stream)
 	return texture.length();
 }
 
-CModel::CModel(const std::string &name_)
+CModel::CModel()
 {
-	name = name_;
 }
 
 void CModel::AddDefStream(const char *name)
 {
-	lnStreams.push_back(name);
+	//lnStreams.push_back(name);
 }
 
 void CModel::AddDefIndex(const char *name)
 {
-	lnIndices.push_back(name);
+	//lnIndices.push_back(name);
 
 }
 
 void CModel::AddDefMaterial(const char *name)
 {
-	lnMaterials.push_back(name);
+	//lnMaterials.push_back(name);
 }
 
 void CModel::AddDefHelper(const char *name)
 {
-	lnHelpers.push_back(name);
+	//lnHelpers.push_back(name);
 }
+
+int CModel::Export(HoeUtils::Stream *stream)
+{
+	return 0;
+}
+
+#if 0
 
 bool CModel::Compile(TNamespace * names)
 {
@@ -407,3 +413,5 @@ unsigned long CPoint::GetID()
 {
 	return HMS_GENID(HMS_POINT,id.GetID());
 }
+
+#endif

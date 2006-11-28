@@ -36,8 +36,8 @@ bool ModelApp::LoadScene()
 	GetFS()->AddResourceFile("../data/jackolan.hm");
 	GetFS()->AddResourceFile("../data/angel_anim.hm");
 	GetFS()->AddResourceFile("../data/tupoun.hm");
+	GetFS()->AddResourceFile("../data/baba.hm");
 	GetFS()->AddResourceFile("../data/tupoun.hx");
-	GetFS()->AddResourceFile("../data/bump.hx");
 	//GetEngine()->AddResource("../data/konvice.hm");
 	//HoeGetRef(GetEngine())->SetBackgroundColor(0xfff00a79);
 	HoeGetRef(GetEngine())->SetBackgroundColor(0xff000000);

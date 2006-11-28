@@ -76,7 +76,7 @@ void ObjectController::Render(const HoeScene * scene)
 					a.Multiply(m);
 					Ref::SetMatrix(a);
 					if (sm.emitor)
-						dynamic_cast<ParticleEmitor*>(sm.emitor)->Render();
+						dynamic_cast<ParticleEmitor*>(sm.emitor)->Render(scene->GetCamera());
 				}
 				break;
 			};

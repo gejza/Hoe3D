@@ -293,8 +293,6 @@ int unpackargv(char * a,char *argv[])
 
 int next_max(int max,int)
 {
-	if (max < 1000)
-        return max + 100;
 	if (max < 10000)
 		return max + 1000;
 	return (max + (max / 10));

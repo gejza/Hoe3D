@@ -25,6 +25,7 @@ struct hms_info
 #define HMS_STREAM 1
 #define HMS_INDEX 2
 #define HMS_MATERIAL 3
+#define HMS_POINT 4
 
 
 #define HMS_GENID(type,pos) ((type << 24) | pos)

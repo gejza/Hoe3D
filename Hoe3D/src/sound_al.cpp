@@ -92,7 +92,7 @@ HoeALBuffer::HoeALBuffer(ALuint b)
 	buffer = b;
 }
 
-bool HoeALBuffer::Create(int channels, int freq, int byts, long samples)
+bool HoeALBuffer::Create(int channels, int freq, int byts, long samples, bool ctrl3D)
 {
   return false;
 
@@ -153,7 +153,7 @@ HoeALPlayer::HoeALPlayer()
 	}
 }
 
-void HoeALPlayer::Play(HoeALBuffer * buff)
+void HoeALPlayer::Play(HoeALBuffer * buff, bool loop)
 {
 	ALuint i;
 	alSourceUnqueueBuffers(source, 1, &i);

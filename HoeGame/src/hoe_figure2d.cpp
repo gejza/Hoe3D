@@ -148,15 +148,13 @@ Gui::Item * Hoe2DFigure::ReqItem(const char * name, Gui::EType type)
 	return i;
 }
 
-bool Hoe2DFigure::Move(const float x, const float y)
+void Hoe2DFigure::Move(const float x, const float y, bool & act)
 {
 	for (int i=m_list.Count()-1;i>=0;i--)
 	{
-		if (m_list.Get(i)->GetType() == Gui::EButton
-			&& dynamic_cast<Gui::Button*>(m_list.Get(i))->Move(x,y))
-			return true;
+		if (m_list.Get(i)->GetType() == Gui::EButton)
+			dynamic_cast<Gui::Button*>(m_list.Get(i))->Move(x,y, act);
 	}
-	return false;
 }
 
 bool Hoe2DFigure::Click(const float x, const float y)

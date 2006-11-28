@@ -77,7 +77,7 @@ void InfoSystem::ComputeStatistic()
 	for (int i=0;i < ntms;i++)
 	{
 		if (tms[i] != NULL)
-			tms[i]->Compute(stime_total);
+			tms[i]->ComputeFrame(stime_total);
 	}
 
 	s_engine.Compute(stime_total,fps.maxtime);

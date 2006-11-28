@@ -25,6 +25,7 @@ public:
 	const char * GetString(int pos) const;
 	int GetNum(int pos) const;
 	double GetDouble(int pos) const;
+	float GetFloat(int pos) const;
 	void * GetPointer(int pos) const;
 	bool CheckPar(int num, const char * par) const;
 	bool CheckPar(int num, const char * par, const char * func);

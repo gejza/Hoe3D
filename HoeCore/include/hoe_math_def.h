@@ -38,9 +38,16 @@ struct Vector2
 		x = v.x;y = v.y;
 		return *this;
 	}
+	HOE_INLINE void Set(float X,float Y)
+	{
+		x = X;y = Y;
+	}
+	HOE_INLINE double Magnitude(void) const;
+	HOE_INLINE float MagnitudeF(void) const;
+
 };
 
-template<class TYPE> struct Vector2Ex
+template<class TYPE> struct Vector2T
 {
 	union {
 		struct {
@@ -49,31 +56,31 @@ template<class TYPE> struct Vector2Ex
 		};
 		TYPE m[2];
 	};
-	Vector2Ex() { };
-	Vector2Ex(TYPE X,TYPE Y)
+	Vector2T() { };
+	Vector2T(TYPE X,TYPE Y)
 	{
 		x = X;y = Y;
 	}
-	Vector2Ex(TYPE * v)
+	Vector2T(TYPE * v)
 	{
 		x = v[0];y = v[1];
 	}
-	const Vector2Ex operator + ( const Vector2Ex& v ) const
+	const Vector2T operator + ( const Vector2T& v ) const
 	{
 		return Vector2Ex(x + v.x, y + v.y);
 	}
-	const Vector2Ex& operator = ( const Vector2Ex& v )
+	const Vector2T& operator = ( const Vector2T& v )
 	{
 		x = v.x;y = v.y;
 		return *this;
 	}
-	bool operator == ( const Vector2Ex& v ) const
+	bool operator == ( const Vector2T& v ) const
 	{
 		return (x == v.x && y == v.y);
 	}
 };
 
-typedef Vector2Ex<int> Vector2Int;
+typedef Vector2T<int> Vector2Int;
 
 struct Vector3
 {
@@ -153,7 +160,7 @@ struct Vector3
 	}
 
 	HOE_INLINE double Magnitude(void) const;
-	HOE_INLINE float Magnitudef(void) const;
+	HOE_INLINE float MagnitudeF(void) const;
 	HOE_INLINE const Vector3 & Normalize(void);
 	HOE_INLINE void Multiply(const Vector3 &,const Matrix &);
 	HOE_INLINE const Vector3 & Multiply(const Matrix &);
@@ -363,7 +370,7 @@ struct Line2
 		b = x1 - x2;
 		c = -a*x1 - b*y1;
 	}
-	void SetXY(Vector2 &v1,Vector2 &v2)
+	void SetXY(const Vector2 &v1,const Vector2 &v2)
 	{
 		a = v2.y - v1.y;
 		b = v1.x - v2.x;

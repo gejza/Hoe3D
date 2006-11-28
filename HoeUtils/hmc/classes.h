@@ -2,54 +2,47 @@
 #ifndef _CLASSES_H_
 #define _CLASSES_H_
 
-#include "cparser.h"
+#include "fvf.h"
 
-class CStream : public CBaseStream
+class CObject
 {
-	_FVF fvf;
-	HoeUtils::DataBuffer data;
 	std::string name;
-
 	HoeUtils::IDGEN id;
 public:
 	unsigned long GetID();
-	CStream(const std::string &name_, _FVF & fvf_);
-	std::string & GetName() { return name; }
-	virtual void AddVertex(VERTEX & vert);
+	virtual void PrintInfo(void) {}
+	
+};
 
-	typedef std::vector<CStream*> List; 
+class CStream : public CObject, public HoeSL::Parser::StreamParser
+{
+	HoeUtils::DataBuffer m_data;
+	VERTEX m_vert;
+public:
+	CStream(_FVF & fvf_);
+	void AddVertex(VERTEX & vert);
+	virtual void AddNumber(int num);
+	virtual void AddUnsigned(unsigned long num);
+	virtual void AddFloat(float num);
 	// vypise informace o objektu na stdout
-	virtual void PrintInfo(void);
 	virtual unsigned long ExportHeader(HoeUtils::Stream * stream);
 	virtual unsigned long ExportData(HoeUtils::Stream * stream);
-
 	void Autotracking();
 	void Move(float x, float y, float z);
 };
 
-class CIndex : public CBaseIndex
+class CIndex : public CObject, public HoeSL::Parser::IndexParser
 {
-	std::string name;
-	HoeUtils::DataBuffer data;
-
-	HoeUtils::IDGEN id;
+	HoeUtils::DataBuffer m_data;
 public:
-	unsigned long GetID();
-	CIndex(const std::string &name_);
-
-	std::string & GetName() { return name; }
+	CIndex();
 	virtual void AddIndex(unsigned short ind);
-
-	typedef std::vector<CIndex*> List;
-	// vypise info na stdout
-	virtual void PrintInfo(void);
 	virtual unsigned long ExportHeader(HoeUtils::Stream * stream);
 	virtual unsigned long ExportData(HoeUtils::Stream * stream);
 };
 
-class CMaterial : public CBaseMaterial
+class CMaterial : public CObject, public HoeSL::Parser::MaterialParser
 {
-	std::string name;
 	std::string texture;
 	CColor ambient;
 	CColor diffuse;
@@ -59,48 +52,31 @@ class CMaterial : public CBaseMaterial
 	bool hasdiff:1;
 	bool hasspec:1;
 	int alphatest;
-	HoeUtils::IDGEN id;
-
 public:
-	CMaterial(const std::string &name_);
-	unsigned long GetID();
-	typedef std::vector<CMaterial*> List;
-	std::string & GetName() { return name; }
+	CMaterial();
 	virtual void SetColor(Par p, CColor * c);
 	virtual void SetTexture(const char * texture);
 	virtual void SetPar(Par p, int val);
-	virtual void PrintInfo(void);
 	virtual unsigned long ExportHeader(HoeUtils::Stream * stream);
 	virtual unsigned long ExportData(HoeUtils::Stream * stream);
-
-
 };
 
-class CPoint : public CBasePoint
+class CPoint : public CObject
 {
-	std::string name;
 	float x,y,z;
-
-	HoeUtils::IDGEN id;
 public:
-	unsigned long GetID();
-	CPoint(const std::string &name_);
+	CPoint();
 
-	std::string & GetName() { return name; }
 	virtual void SetPoint(float _x, float _y, float _z) { x=_x;y=_y;z=_z; }
 
-	// vypise info na stdout
-	virtual void PrintInfo(void);
 	virtual unsigned long ExportHeader(HoeUtils::Stream * stream);
 	virtual unsigned long ExportData(HoeUtils::Stream * stream);
 };
 
-struct TNamespace;
-
-class CModel : public ModelShader
+class CModel : public CObject, public HoeSL::Parser::ModelParser
 {
 private:
-	std::string name;
+	/*std::string name;
 	std::vector<std::string> lnStreams;
 	std::vector<CStream*> lStreams;
 	std::vector<std::string> lnIndices;
@@ -108,23 +84,23 @@ private:
 	std::vector<std::string> lnMaterials;
 	std::vector<CMaterial*> lMaterials;
 	std::vector<std::string> lnHelpers;
-	std::vector<CBaseHelper*> lHelpers;
+	std::vector<CBaseHelper*> lHelpers;*/
 public:
 	virtual int Export(HoeUtils::Stream * stream);
 
-	CModel(const std::string &name_);
-	std::string & GetName() { return name; }
+	CModel();
 	virtual void AddDefStream(const char * name);
 	virtual void AddDefIndex(const char * name);
 	virtual void AddDefMaterial(const char * name);
 	virtual void AddDefHelper(const char * name);
-
-	bool Compile(TNamespace * names);
-
-	typedef std::vector<CModel*> List;
 };
 
+#if 0
+
 /*
+
+// nejdriv se to nacte do objektu, a pak hodi na disk
+
 
 #include "../../src/hmodel_file.h"
 
@@ -228,6 +204,8 @@ public:
 	CMaterial * FindMaterial(std::string name);
 	CBaseHelper* FindHelper(std::string name);
 };
+
+#endif
 
 #endif // _CLASSES_H_
 

@@ -79,7 +79,7 @@ void HoeModel::Render(const HoeScene * scene, float f, dword color) const
 		if (m_num_mat > 0)
 			m_mat[0]->Setup(color);
 		// prepocitat frame na snimek
-		uint frame = f * (m_num_stream-1);
+		uint frame = (uint)(f * (m_num_stream-1));
 		Ref::DrawStdObject(m_stream[frame%m_num_stream],m_index[0]);
 	}
 }

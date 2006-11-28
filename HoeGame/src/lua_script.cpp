@@ -95,6 +95,11 @@ int LuaParam::GetNum(int pos) const
 	return (int)lua_tonumber(m_L, pos);
 }
 
+float LuaParam::GetFloat(int pos) const
+{
+	return (float)lua_tonumber(m_L, pos);
+}
+
 double LuaParam::GetDouble(int pos) const
 {
 	return lua_tonumber(m_L, pos);

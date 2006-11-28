@@ -26,7 +26,6 @@ void Item::Set(const char * prop, const char * value)
 		m_name = strdup(value);
 	else if (strcmp(prop,"show")==0)
 		m_show = value[0] == 't' || value[0] == 'y';
-
 }
 
 void Item::SetRect(const THoeRect * rect)
@@ -454,15 +453,12 @@ void Button::Draw2(IHoe2D * h2d)
 	}
 }
 
-bool Button::Move(const float x, const float y)
+void Button::Move(const float x, const float y, bool & act)
 {
-	if (m_show && m_rect.left <= x && m_rect.right >= x && m_rect.top <= y && m_rect.bottom >= y)
-	{
-		m_active = true;
-		return true;
-	}
-	m_active = false;
-	return false;
+	if (!act && m_show && m_rect.left <= x && m_rect.right >= x && m_rect.top <= y && m_rect.bottom >= y)
+		m_active = act = true;
+	else
+		m_active = act = false;
 }
 
 bool Button::Click(const float x, const float y)

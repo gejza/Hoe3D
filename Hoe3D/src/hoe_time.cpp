@@ -33,7 +33,7 @@ bool time_initQPC()
 float SysFloatTime()
 {
 #ifdef _WIN32
-	static bool b = time_initQPC();
+	static bool b = false;//time_initQPC();
 
 	if (g_useQPC)
 	{
@@ -63,22 +63,6 @@ TimeMeter::TimeMeter(const char * _name, bool autoregister)
 	if (autoregister)
 		::GetInfo()->RegisterTimeMeter(this);
 
-	start = max = total = avarage = percent = pubmax = 0.f;
-	num = 0;
-}
-
-void TimeMeter::Begin()
-{
-	start = SysFloatTime();
-}
-
-void TimeMeter::End()
-{
-	const float last = SysFloatTime() - start;
-	total += last;
-	if (last > max)
-		max = last;
-	num++;
 }
 
 void TimeMeter::GetInfo(char * buff)

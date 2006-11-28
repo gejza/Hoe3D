@@ -232,16 +232,31 @@ public:
     }
 };
 
+
+///////////////////////////////////////////////////
+// GRAF
+struct TGraphEdge;
+
+struct TGraphVertex
+{
+	TGraphEdge * e1;
+	TGraphEdge * e2;
+	TGraphEdge * e3;
+	Set<TGraphEdge *> ee;
+};
+
+
 } // namespace HoeCore
 
 namespace HoeMath {
 
-template<class TYPE> struct PolygonT
+struct TGraphEdge
 {
-	HoeCore::List<TYPE> points;
+	TGraphVertex * v1;
+	TGraphVertex * v2;
 };
 
-typedef PolygonT<Vector2> Polygon2;
+} // namespace HoeCore
 
 }
 

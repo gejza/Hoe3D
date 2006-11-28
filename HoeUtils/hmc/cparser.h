@@ -48,12 +48,7 @@ struct CColor;
 class CBaseMaterial : public CBaseObject
 {
 public:
-	enum Par {
-		MAmbient = 1,
-		MDiffuse,
-		MSpecular,
-		MAlphaTest,
-	};
+
 	virtual void SetColor(Par p, CColor * c);
 	virtual void SetTexture(const char * texture);
 	virtual void SetPar(Par p, int val);
@@ -68,13 +63,7 @@ struct CPError
 
 };
 
-struct CColor
-{
-	float red;
-	float green;
-	float blue;
-	float alpha;
-};
+
 
 class ScriptParser
 {

@@ -1,8 +1,4 @@
  
-/*#ifndef __STDC__
-#define __STDC__ 0
-#endif*/
-
 #include "StdAfx.h"
 #include "hmc.h"
 
@@ -12,29 +8,174 @@
 #include "../../Hoe3D/include/hfmt/hmodel_file.h"
 #include "../../Hoe3D/include/hfmt/hres_file.h"
 
-bool VertexTest();
-bool HoeUtilsTest(); // utils.cpp
+int yyparse(void);
 
 
-
-bool HMC::Open(const char * name)
+int HMC::Compile(const char *fname)
 {
-	line = 0;
-	return file.Open(name);
+	FILE * f = fopen(fname,"rt");
+	if (!f)
+		return 2;
+	HoeSL::Parser::parser_scan(f,this);
+	printf("ret = %d\n", yyparse());
+
+	// compile
+	fclose(f);
+
+	return 0;
 }
 
-const char * HMC::GetNextLine()
+int cmp_symbolptr(const void * a, const void * b)
 {
-	line++;
-	if (file.ReadLine(line_buffer, sizeof(line_buffer)) == -1)
+	if (reinterpret_cast<const HoeRes::SymbolPointer*>(a)->hash < reinterpret_cast<const HoeRes::SymbolPointer*>(b)->hash)
+		return -1;
+	if (reinterpret_cast<const HoeRes::SymbolPointer*>(a)->hash > reinterpret_cast<const HoeRes::SymbolPointer*>(b)->hash)
+		return 1;
+	return 0;
+}
+
+int HMC::Link(const char * fileout)
+{
+	HoeUtils::File file;
+	if (file.Open(fileout,HoeUtils::File::mWrite) == false)
+		return false;
+
+	// zapsani hlavicek
+	int nobj = (int)m_obj.size();
+
+	HoeRes::Head head = { IDHRESHEADER, IDHRESVER, nobj, 'L' };
+	file.Write(&head, sizeof(HoeRes::Head));
+	if (nobj==0)
+		return 0;
+	
+	HoeRes::SymbolPointer * symbols = new HoeRes::SymbolPointer[nobj];
+	memset(symbols, 0, sizeof(HoeRes::SymbolPointer) * nobj);
+	unsigned long symb_pos = file.GetPos();
+	file.Write(symbols, sizeof(HoeRes::SymbolPointer) * nobj);
+	// ulozeni jmen
+	for (int i=0;i < nobj;i++)
+	{
+		std::string n = m_obj[i].name;
+		n += "@obj";
+		symbols[i].hash = HoeCore::HashString(n.c_str());
+		symbols[i].pos = file.GetPos();
+		unsigned long sn = n.size();
+		file.Write(&sn, sizeof(sn));
+		file.Write(n.c_str(), sn);
+	}
+	// ulozeni objektu
+	for (int i=0;i < nobj;i++)
+	{
+		//symbols[i].
+	}	
+
+	qsort(symbols, nobj, sizeof(HoeRes::SymbolPointer), cmp_symbolptr);
+	file.SetPos(symb_pos);
+	// jeste by chteli seradit....
+	file.Write(symbols, sizeof(HoeRes::SymbolPointer) * nobj);
+
+	return 0;
+}
+
+HMC::Object * HMC::GetObject(const char * name)
+{
+	for (size_t i=0;i < m_obj.size();i++)
+	{
+		if (m_obj[i].name == name)
+			return &m_obj.at(i);
+	}
+	HMC::Object obj;
+	obj.name = name;
+	obj.pointer = NULL;
+	m_obj.push_back(obj);
+	return &m_obj.at(m_obj.size()-1);
+}
+
+HoeSL::Parser::StreamParser * HMC::BeginStream(const char * name, const char * fvf, bool define)
+{
+	// vytvorit novou stream
+	Object * obj = GetObject(name);
+	if (!define)
+	{
+		// zkontrolovat jestli se jedna o stejny typ
 		return NULL;
-	return line_buffer;
+	}
+	if (obj->pointer)
+	{
+		char err[2048];
+		sprintf(err, "Object '%s' already defined.",name);
+		Error(err);
+		return NULL;
+	}
+	CStream * stream = new CStream(_FVF(fvf));
+	obj->pointer = stream;
+	return stream;
 }
 
-int HMC::GetActLine()
+HoeSL::Parser::IndexParser * HMC::BeginIndex(const char * name, bool define)
 {
-	return line;
+	// vytvorit novou stream
+	Object * obj = GetObject(name);
+	if (!define)
+	{
+		// zkontrolovat jestli se jedna o stejny typ
+		return NULL;
+	}
+	if (obj->pointer)
+	{
+		char err[2048];
+		sprintf(err, "Object '%s' already defined.",name);
+		Error(err);
+		return NULL;
+	}
+	CIndex * index = new CIndex();
+	obj->pointer = index;
+	return index;
 }
+
+HoeSL::Parser::MaterialParser * HMC::BeginMaterial(const char * name, bool define)
+{
+	// vytvorit novou stream
+	Object * obj = GetObject(name);
+	if (!define)
+	{
+		// zkontrolovat jestli se jedna o stejny typ
+		return NULL;
+	}
+	if (obj->pointer)
+	{
+		char err[2048];
+		sprintf(err, "Object '%s' already defined.",name);
+		Error(err);
+		return NULL;
+	}
+	CMaterial * mat = new CMaterial();
+	obj->pointer = mat;
+	return mat;
+}
+
+HoeSL::Parser::ModelParser * HMC::BeginModel(const char * name, bool define)
+{
+	// vytvorit novou stream
+	Object * obj = GetObject(name);
+	if (!define)
+	{
+		// zkontrolovat jestli se jedna o stejny typ
+		return NULL;
+	}
+	if (obj->pointer)
+	{
+		char err[2048];
+		sprintf(err, "Object '%s' already defined.",name);
+		Error(err);
+		return NULL;
+	}
+	CModel * model = new CModel();
+	obj->pointer = model;
+	return model;
+}
+
+#if 0
 
 CBaseStream * HMC::CreateStream(const std::string &name, _FVF &fvf)
 {
@@ -181,14 +322,7 @@ bool HMC::Link(HoeUtils::Stream * stream)
 	return true;
 }
 
-bool HMC::Link(const char * fileout)
-{
-	HoeUtils::File file;
-	if (file.Open(fileout,HoeUtils::File::mWrite) == false)
-		return false;
 
-	return Link(&file);
-}
 
 void HMC::Autotracking(const char * name)
 {
@@ -200,3 +334,4 @@ void HMC::Autotracking(const char * name)
 	}
 }
 
+#endif

@@ -5,13 +5,20 @@
 #include "../Common/tutorial.h"
 #include <hoe_core.h>
 #include <hoe_input.h>
+#include <hoe_ai.h>
+#include <hoe_path.h>
+
+using namespace HoeMath;
+using namespace HoeCore;
 
 class PathFindApp : public HoeTutorial , public XHoe2DCallback, HoeGame::MouseStdInput,
 	HoeGame::KeyboardStdInput
 {
-	HoeCore::ByteTileMap m_terrain;
-	HoeMath::Polygon2 * m_poly;
-	HoeCore::Set<HoeMath::VLine2Int> m_lines;
+	IHoeFont * font;
+	HoeGame::AI::MapFindPath m_map;
+	Vector2 m_from;
+	Vector2 m_to;
+	//HoeGame::AI::Path m_path;
 	void Preprocess();
 public:
 	PathFindApp(HOE_INSTANCE instance, HoeGame::Console * con);
@@ -20,6 +27,7 @@ public:
 	virtual void HOEAPI _Paint(IHoe2D *);
 	void OnMouseMove(float X, float Y);
 	virtual void OnRightButtonUp();
+	virtual void OnLeftButtonUp();
 	virtual void OnKeyDown(int key);
 };
 

@@ -48,6 +48,12 @@ struct hfm_color
 	float a,r,g,b;
 };
 
+struct hfm_point
+{
+	char name[256];
+	float x,y,z;
+};
+
 // 
 
 #define HMAT_AMBIENT	0x01

@@ -12,7 +12,7 @@
 #include "hoe_game.h"
 #include "hoe_gui.h"
 
-#define MAX_NUM_LINES 30
+const int MAX_NUM_LINES = 30;
 
 BEGIN_HOEGAME
 

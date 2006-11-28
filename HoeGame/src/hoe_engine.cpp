@@ -2,6 +2,7 @@
 #include "StdAfx.h"
 #include "../include/hoe_engine.h"
 
+
 BEGIN_HOEGAME
 
 IHoe3DEngine * g_hoeengine = NULL;
@@ -146,3 +147,9 @@ void HoeEngineInfo::Unload()
 
 END_HOEGAME
 
+float SysFloatTime()
+{
+	if (HoeGame::g_hoeengine)
+		return HoeGame::g_hoeengine->SysFloatTime();
+	return 0.f;
+}

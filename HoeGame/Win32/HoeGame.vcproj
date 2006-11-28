@@ -13,7 +13,7 @@
 	</Platforms>
 	<ToolFiles>
 		<ToolFile
-			RelativePath="..\..\..\Common\tools.rules"
+			RelativePath="..\..\..\Common\bin\tools.rules"
 		/>
 	</ToolFiles>
 	<Configurations>
@@ -30,16 +30,19 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
-				Name="HTML help"
+				Name="NASM"
+			/>
+			<Tool
+				Name="Bison"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
 			/>
 			<Tool
-				Name="Flex"
+				Name="HTML help"
 			/>
 			<Tool
-				Name="NASM"
+				Name="Flex"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -113,16 +116,19 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
-				Name="HTML help"
+				Name="NASM"
+			/>
+			<Tool
+				Name="Bison"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
 			/>
 			<Tool
-				Name="Flex"
+				Name="HTML help"
 			/>
 			<Tool
-				Name="NASM"
+				Name="Flex"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -912,6 +918,26 @@
 			</File>
 			<File
 				RelativePath="..\src\lang_parser.c"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="AI"
+			>
+			<File
+				RelativePath="..\src\hoe_ai.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\include\hoe_ai.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\hoe_path.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\include\hoe_path.h"
 				>
 			</File>
 		</Filter>

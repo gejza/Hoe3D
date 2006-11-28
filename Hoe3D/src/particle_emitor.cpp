@@ -12,6 +12,7 @@
 #include "texture_system.h"
 #include "states.h"
 #include "hoe_time.h"
+#include "camera.h"
 
 struct PartsVertex
 {
@@ -92,8 +93,16 @@ void ParticleEmitor::Stop()
 
 const float halfsize = 1.7f;
 
-void ParticleEmitor::Render()
+void ParticleEmitor::Render(const HoeCamera * cam)
 {
+	HoeMath::Vector3 look = cam->GetLook();
+	look = look * -1.f;
+	look.Normalize();
+	// vytvorit 4 vektory
+	const HoeMath::Vector3 a(look.z,look.y,-look.x);
+	const HoeMath::Vector3 b = HoeMath::HoeCross(look, a);
+	const HoeMath::Vector3 d = a * -1.f;
+	const HoeMath::Vector3 c = b * -1.f;
 
 	// update particles
 	PartsVertex * v = (PartsVertex*)m_stream.Lock();
@@ -101,10 +110,12 @@ void ParticleEmitor::Render()
 	{
 		Particle & p = m_parts.Get(i);
 		const float hh = halfsize / (1.f-(p.life*0.8f));
-		v[0].pos = p.pos + HoeMath::Vector3(hh,hh,0);
-		v[1].pos = p.pos + HoeMath::Vector3(-hh,hh,0);
-		v[2].pos = p.pos + HoeMath::Vector3(hh,-hh,0);
-		v[3].pos = p.pos + HoeMath::Vector3(-hh,-hh,0);
+		// renderovani podle kamery
+		
+		v[0].pos = p.pos + (a * hh);
+		v[1].pos = p.pos + (b * hh);
+		v[2].pos = p.pos + (c * hh);
+		v[3].pos = p.pos + (d * hh);
 		v[0].color = v[1].color = v[2].color = v[3].color = byte(p.life * 0xff) << 24 | p.color;
 		v[0].tex.x = 1.f; v[0].tex.y = 1.f;
 		v[1].tex.x = 0.f; v[1].tex.y = 1.f;

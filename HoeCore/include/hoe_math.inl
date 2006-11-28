@@ -15,6 +15,20 @@ HOE_INLINE float Abs(float f)
 
 //////// vector ////////////////////////////////////////
 
+//// 2
+HOE_INLINE double Vector2::Magnitude(void) const
+{
+	return sqrt( (x * x) + (y * y));
+}
+
+HOE_INLINE float Vector2::MagnitudeF(void) const
+{
+	return sqrtf( (x * x) + (y * y));
+}
+
+
+//// 3
+
 HOE_INLINE void Vector3::RotateY(float angle)
 {
 	const register float s = sinf(angle);
@@ -29,7 +43,7 @@ HOE_INLINE double Vector3::Magnitude(void) const
 	return sqrt( (x * x) + (y * y) + (z * z) );
 }
 
-HOE_INLINE float Vector3::Magnitudef(void) const
+HOE_INLINE float Vector3::MagnitudeF(void) const
 {
 	return sqrtf( (x * x) + (y * y) + (z * z) );
 }
@@ -408,7 +422,7 @@ HOE_INLINE void BoundingBox3::Add(const Vector3 & v)
 {
 	min.Min(v);
 	max.Max(v);
-	register float m = v.Magnitudef();
+	register float m = v.MagnitudeF();
 	if (m > ball)
 		ball = m;
 }	
@@ -461,6 +475,11 @@ HOE_INLINE float HoeDot(const Vector3 &vec1,const Vector3 &vec2)
 	return vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z;
 }
 
+HOE_INLINE float HoeDot(const Vector2 &vec1,const Vector2 &vec2)
+{
+	return vec1.x * vec2.x + vec1.y * vec2.y;
+}
+
 HOE_INLINE void HoeCross(const Vector3 &vec1, const Vector3 &vec2,Vector3 &cross)
 {
 
@@ -472,16 +491,29 @@ HOE_INLINE void HoeCross(const Vector3 &vec1, const Vector3 &vec2,Vector3 &cross
 														
 	// The Z value for the vector is:  (V1.x * V2.y) - (V1.y * V2.x)
 	cross.z = ((vec1.x * vec2.y) - (vec1.y * vec2.x));
-
 }
 
-HOE_INLINE double HoeAngleBetweenVectors(const Vector3 &v1, const Vector3 &v2)
+HOE_INLINE const Vector3 HoeCross(const Vector3 &vec1, const Vector3 &vec2)
+{
+	Vector3 cross;
+	// The X value for the vector is:  (V1.y * V2.z) - (V1.z * V2.y)													// Get the X value
+	cross.x = ((vec1.y * vec2.z) - (vec1.z * vec2.y));
+														
+	// The Y value for the vector is:  (V1.z * V2.x) - (V1.x * V2.z)
+	cross.y = ((vec1.z * vec2.x) - (vec1.x * vec2.z));
+														
+	// The Z value for the vector is:  (V1.x * V2.y) - (V1.y * V2.x)
+	cross.z = ((vec1.x * vec2.y) - (vec1.y * vec2.x));
+	return cross;
+}
+
+HOE_INLINE float HoeAngleBetweenVectorsF(const Vector2 &v1, const Vector2 &v2)
 {							
 	// Get the dot product of the vectors
 	float dotProduct = HoeDot(v1, v2);				
 
 	// Get the product of both of the vectors magnitudes
-	double vectorsMagnitude = v1.Magnitude() * v2.Magnitude();
+	float vectorsMagnitude = v1.MagnitudeF() * v2.MagnitudeF();
 
 	// Return the arc cosine of the (dotProduct / vectorsMagnitude) which is the angle in RADIANS.
 	return( acos( dotProduct / vectorsMagnitude ) );

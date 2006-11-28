@@ -60,6 +60,11 @@ _FVF::_FVF()
 
 }
 
+_FVF::_FVF(const char * _fvf)
+{
+	fvf = _fvf;
+	lock_fvf = true;
+}
 
 void _FVF::ResetFVF()
 {

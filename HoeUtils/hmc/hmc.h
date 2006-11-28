@@ -2,36 +2,31 @@
 #ifndef _HMC_H_
 #define _HMC_H_
 
-//#include "base_obj.h"
-#include "cparser.h"
 #include "classes.h"
 
-class HMC : public CParser
+class HMC : public PrintParser 
 {
 protected:
-	TNamespace global; 
+	struct Object
+	{
+		std::string name;
+		CObject * pointer;
+	};
+	std::vector<Object> m_obj;
 
-	int line;
-	char line_buffer[512];
-	HoeUtils::FileRText file;
-
-	virtual const char * GetNextLine();
 public:
-	int GetActLine();
-	bool Open(const char * name);
+	int Compile(const char * filein);
+	int Link(const char * fileout);
+	
+	Object * GetObject(const char * name);
 
-	virtual CBaseStream * CreateStream(const std::string &name, _FVF & fvf);
-	virtual CBaseIndex * CreateIndex(const std::string &name);
-	virtual ModelShader * CreateModelShader(const std::string &name);
-	virtual CBaseMaterial * CreateMaterial(const std::string &name);
-	virtual CBasePoint * CreatePoint(const std::string &name);
-	virtual bool Finish(void);
-	virtual bool Link(const char * fileout);
-	virtual bool Link(HoeUtils::Stream * stream);
+	// compile stream
+	virtual HoeSL::Parser::StreamParser * BeginStream(const char * name, const char * fvf, bool define);
+	virtual HoeSL::Parser::IndexParser * BeginIndex(const char * name, bool define);
+	virtual HoeSL::Parser::MaterialParser * BeginMaterial(const char * name, bool define);
+	virtual HoeSL::Parser::ModelParser * BeginModel(const char * name, bool define);
 
-	virtual void Autotracking(const char * name);
 };
-
 
 #endif // _HMC_H_
 

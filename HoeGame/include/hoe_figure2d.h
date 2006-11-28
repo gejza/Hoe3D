@@ -51,7 +51,7 @@ public:
 	virtual void Draw(IHoe2D * hoe2d);
 	Gui::Item * GetItem(const char * name, Gui::EType type);
 	Gui::Item * ReqItem(const char * name, Gui::EType type);
-	bool Move(const float x, const float y);
+	void Move(const float x, const float y, bool & act);
 	bool Click(const float x, const float y);
 };
 

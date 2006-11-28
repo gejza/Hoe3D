@@ -32,11 +32,24 @@ DWORD MeshBuffer::AddVertex(const MeshVertex & vert)
 bool MeshBuffer::ComputeMeshIndex(INode * node, TimeValue t)
 {
 	BOOL needDel;
+	Matrix3 tm = node->GetObjTMAfterWSM(t);
+	BOOL negScale = TMNegParity(tm);
+	int vx1, vx2, vx3;
 	TriObject* tri = GetTriObjectFromNode(node, t, needDel);
 	if (!tri) {
 		return false;
 	}
 	
+	if (negScale) 
+	{
+		vx1 = 0;vx2 = 1;vx3 = 2;
+	}
+	else 
+	{
+		vx1 = 2;vx2 = 1;vx3 = 0;
+	}
+
+
 	Mesh* mesh = &tri->GetMesh();
 	mesh->buildNormals();
 
@@ -49,10 +62,6 @@ bool MeshBuffer::ComputeMeshIndex(INode * node, TimeValue t)
 
 	m_stream.clear();
 	m_index.clear();
-	int vx1, vx2, vx3;
-		vx1 = 2;
-		vx2 = 1;
-		vx3 = 0;
 
 	// jizda po facech
 	MeshVertex a,b,c;
@@ -173,6 +182,7 @@ bool MeshBuffer::ExportStream(INode * node, TimeValue t, bool local, ModelExport
 			nn.SetRow(1, Point3(a1.y, a2.y, a3.y));
 			nn.SetRow(2, Point3(a1.z, a2.z, a3.z));
 			n = nn * n;
+			n = n.Normalize();
 			file->Printf(";\t");
 			file->Printf("%f", n.x);
 			file->Printf(", ");

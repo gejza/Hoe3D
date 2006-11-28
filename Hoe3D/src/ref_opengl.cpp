@@ -30,7 +30,7 @@ bool RefOpenGL::Init(THoeInitSettings * his)
 	GLuint PixelFormat;
 	dword dwExStyle;
 	dword dwStyle;			
-	Rect WindowRECT;
+	RECT WindowRect;
 
 	if (!his->forcewnd)
 	{
@@ -63,7 +63,7 @@ bool RefOpenGL::Init(THoeInitSettings * his)
 			dwStyle=WS_OVERLAPPEDWINDOW;
 		}
 
-		AdjustWindowRECTEx(&WindowRECT, dwStyle, FALSE, dwExStyle);	
+		AdjustWindowRectEx(&WindowRect, dwStyle, FALSE, dwExStyle);	
 
 		if (SetWindowLong(m_hWnd,GWL_EXSTYLE,dwExStyle) == 0)
 		{

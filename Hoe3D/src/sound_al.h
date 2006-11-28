@@ -72,15 +72,15 @@ public:
 	 */
 	ALuint & GetBuffer() { return buffer; }
 
-        /** Vytvoreni bufferu
-        * @param channels Pocet kanalu
-        * @param freq Samplu za sekundu
-        * @param byts Pocet bitu
-        * @param samples Pocet samplu
-        */
-        bool Create(int channels, int freq, int byts, long samples, bool ctrl3D);
-        byte * Lock();
-        void Unlock();
+    /** Vytvoreni bufferu
+    * @param channels Pocet kanalu
+    * @param freq Samplu za sekundu
+    * @param byts Pocet bitu
+    * @param samples Pocet samplu
+    */
+    bool Create(int channels, int freq, int byts, long samples, bool ctrl3D);
+    byte * Lock();
+    void Unlock();
 
 };
 
@@ -103,7 +103,8 @@ public:
 	 * Play
 	 * @param buff Buffer kterej se ma prehrat
 	 */
-	void Play(HoeALBuffer * buff);
+	void Play(HoeALBuffer * buff, bool loop);
+	void Stop() {};
 };
 
 #endif // _HOE_SOUND_AL_H_

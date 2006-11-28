@@ -29,6 +29,7 @@ public:
 
 	_FVF();
 	_FVF(const _FVF &);
+	_FVF(const char * fvf);
 	void AddType(char t);
 	void Lock(); 
 	int GetSize();
@@ -54,6 +55,7 @@ public:
 	bool AddUnsigned(unsigned long);
 	bool AddNum(int);
 	bool IsEmpty() { return data == p_d;};
+	bool IsFull() { return *p_f == '\0'; }
 	void Reset();
 
 

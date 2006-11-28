@@ -142,7 +142,7 @@ public:
 	virtual void Draw(IHoe2D * h2d);
 	virtual void Draw2(IHoe2D * h2d);
 	virtual void OnClick();
-	bool Move(const float x, const float y);
+	void Move(const float x, const float y, bool & act);
 	bool Click(const float x, const float y);
 	void SetToolTipFont(IHoeFont * fnt);
 	void SetToolTip(const char * tt);

@@ -91,10 +91,10 @@ HoeTexture * TextureSystem::CreateTexture(dword width, dword height, dword * dat
 	{
 		lr.data;
 		lr.pitch;
-		for (int y=0;y < height;y++)
+		for (dword y=0;y < height;y++)
 		{
 			dword * p = (dword*)(lr.data+(lr.pitch*y));
-			for (int x=0;x < width;x++)
+			for (dword x=0;x < width;x++)
 			{
 				p[x] = *data++;
 			}

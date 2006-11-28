@@ -162,6 +162,10 @@
 				RelativePath="..\include\hoe_math_def.h"
 				>
 			</File>
+			<File
+				RelativePath="..\include\hoe_math_ext.h"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath="..\src\hoe_core.cpp"

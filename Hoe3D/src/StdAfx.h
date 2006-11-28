@@ -42,8 +42,7 @@
 #include <assert.h>
 
 #include <hoe_types.h>
-#include <hoe_math.h>
-#include <hoe_structures.h>
+#include <hoe_math_ext.h>
 
 // Memory managment
 //#include "mem_system.h"

@@ -787,8 +787,8 @@ bool GridSurface::GetCamber(const float x1,const float x2,const float y1,const f
 		return false;
 	min = 10000.f;
 	max = -10000.f;
-	for (int x=fx;x <= tx;x++)
-		for (int y=fy;y <= ty;y++)
+	for (uint x=fx;x <= tx;x++)
+		for (uint y=fy;y <= ty;y++)
 		{
 			const TGridData & g = m_grids[m_width*y+x];
 			if (g.type != TGridData::ePlane)
@@ -945,7 +945,7 @@ void GridSurface::Opt_ProcessPlanes(uint fromx, uint tox, uint fromy, uint toy)
 }
 
 
-const HoeMath::Vector3 GridSurface::GetNormal(int x, int y, int roh)
+const HoeMath::Vector3 GridSurface::GetNormal(uint x, uint y, int roh)
 {
 	// nejdriv zjistit grid
 	if (x < 0 || y < 0 || x>=m_width || y >= m_height)
@@ -985,9 +985,9 @@ void GridSurface::BuildNormals()
 {
 	SAFE_DELETE_ARRAY(m_normals);
 	m_normals = new HoeMath::Vector3[(m_width+1)*(m_height+1)];
-	for (int x=0;x <= m_width;x++)
+	for (uint x=0;x <= m_width;x++)
 	{
-		for (int y=0;y <= m_height;y++)
+		for (uint y=0;y <= m_height;y++)
 		{
 			int index = NORMAL_INDEX(x,y);
 			m_normals[index].Set(0,0,0);

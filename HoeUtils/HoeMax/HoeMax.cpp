@@ -42,25 +42,25 @@ int HoeMax::ExtCount()
 const TCHAR *HoeMax::Ext(int n)
 {		
 	//TODO: Return the 'i-th' file name extension (i.e. "3DS").
-	return _T("TXT");
+	return _T("htxt");
 }
 
 const TCHAR *HoeMax::LongDesc()
 {
 	//TODO: Return long ASCII description (i.e. "Targa 2.0 Image File")
-	return _T("Hoe text model file");
+	return _T("Hoe Text Model File");
 }
 	
 const TCHAR *HoeMax::ShortDesc() 
 {			
 	//TODO: Return short ASCII description (i.e. "Targa")
-	return _T("Hoe model");
+	return _T("Hoe Model");
 }
 
 const TCHAR *HoeMax::AuthorName()
 {			
 	//TODO: Return ASCII Author name
-	return _T("Gejza'x");
+	return _T("Heimdall");
 }
 
 const TCHAR *HoeMax::CopyrightMessage() 
@@ -174,11 +174,10 @@ int	HoeMax::DoExport(const TCHAR *name,ExpInterface *ei,Interface *i, BOOL suppr
 			ExportMesh(mesh, rsc);
 	}
 
-	/*while ((helper = rsc->GetNextHelper()) != NULL)
+	while ((helper = rsc->GetNextHelper()) != NULL)
 	{
-		//ExportMesh(mesh);
-		helper->node->
-	}	*/
+		ExportHelper(helper, rsc);
+	}	
 
 	// We're done. Finish the progress bar.
 	ip->ProgressEnd();
@@ -327,6 +326,22 @@ void HoeMax::ExportMesh(MeshItem *mesh, Resources * res)
 	buffer.Export(FixupName(mesh->node->GetName()),mesh->node, res->GetFrom(), res->GetTo(), res->ExportLocal(), &m_file);
 }
 
+void HoeMax::ExportHelper(HelperItem *helper, Resources * res)
+{
+	char progressmsg[512];
+	sprintf(progressmsg,"Export node '%s' (%d/%d)",helper->node->GetName(),nCurNode,nTotalNodeCount);
+	ip->ProgressStart(progressmsg, TRUE, fn, NULL);
+	nCurNode++;
+
+	// export helper
+	m_file.Printf("Point %s\n", FixupName(helper->node->GetName()));
+	// vypsani souradnic
+	Matrix3 tm = helper->node->GetObjTMAfterWSM(0);
+	Point3 pos(0,0,0);
+	pos = tm.GetTrans();
+	m_file.Printf("\t%f, %f, %f\n", pos.x,pos.z,pos.y);
+	m_file.Printf("~Point\n\n");
+}
 
 void HoeMax::DumpMaterial(Mtl* mtl)
 {

@@ -8,13 +8,14 @@
 #ifdef _WIN32
 #define HOEAPI  __stdcall
 #define CONEXEC __stdcall
+#define FCALL   __fastcall
 #else
 #define HOEAPI
 #define CONEXEC
 #endif
 #endif
 
-#ifdef _WIN32
+#ifdef _WINDEF_
 typedef HWND HOE_WINDOW;
 typedef HINSTANCE HOE_INSTANCE;
 typedef void * HOE_DISPLAY;
@@ -105,6 +106,15 @@ struct THoeParameter
 #endif // HOE_INLINE
 
 typedef void * HOE_HANDLE;
+
+#ifdef __cplusplus
+
+template<class TYPE> HOE_INLINE void ConstPointerAdd(TYPE &p, uint stride)
+{
+	p = reinterpret_cast<TYPE>(reinterpret_cast<const byte*>(p)+stride);
+}
+
+#endif // __cplusplus
 
 // sdilena funkce pro psani do konzole
 void Con_Print(const char *,...);

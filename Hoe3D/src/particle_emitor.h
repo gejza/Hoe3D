@@ -18,6 +18,8 @@ struct Particle
 	HoeMath::Vector3 posg;
 };
 
+class HoeCamera;
+
 class ParticleEmitor : public IHoeParticleEmitor
 {
 protected:
@@ -32,7 +34,7 @@ public:
 	virtual ~ParticleEmitor();
 	bool Create(uint num_part);
 	void Update(float time);
-	void Render();
+	void Render(const HoeCamera * cam);
 	virtual void Start();
 	virtual void Stop();
 };

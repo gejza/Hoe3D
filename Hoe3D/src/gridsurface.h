@@ -184,7 +184,7 @@ class GridSurface : public IHoeEnv::GridSurface
 	float Opt_GetHeight(uint x, uint y);
 	/** Funkce prepocita normaly */
 	void BuildNormals();
-	const HoeMath::Vector3 GetNormal(int x, int y, int roh);
+	const HoeMath::Vector3 GetNormal(uint x, uint y, int roh);
 public:
 	/** Konstruktor */
 	GridSurface();
