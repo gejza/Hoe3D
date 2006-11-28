@@ -12,6 +12,9 @@
 
 #include <assert.h>
 #include <stdio.h>
+#include <string.h>
+#include <stdarg.h>
+#include <malloc.h>
 
 #endif // _STDAFX_H_
 

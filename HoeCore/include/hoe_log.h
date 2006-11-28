@@ -37,3 +37,4 @@ public:
 #define LOG(x) if (x) (x)
 
 #endif // _HOE_LOG_H_
+

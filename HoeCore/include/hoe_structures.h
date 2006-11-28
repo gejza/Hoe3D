@@ -24,6 +24,7 @@ public:
 	PTR * GetLast() { return _first[_num-1]; }
 };*/
 
+
 template<class C> class SetBase
 {
 protected:
@@ -33,47 +34,47 @@ protected:
 	void Resize(uint num)
 	{
 		if (!num) return;
-		m_ptr = (C*)realloc(m_ptr, num * sizeof(C));
-		hoe_assert(m_ptr); /*!!!*/
-		m_size = num;
+		this->m_ptr = (C*)realloc(this->m_ptr, num * sizeof(C));
+		hoe_assert(this->m_ptr); // todo
+		this->m_size = num;
 	}
 public:
 	SetBase()
 	{
-		m_count = 0;m_size = 0; m_ptr = NULL;
+		this->m_count = 0;m_size = 0; this->m_ptr = NULL;
 	}
 	SetBase(uint initnum)
 	{
-		m_count = 0;m_size = 0; m_ptr = NULL;
+		this->m_count = 0;m_size = 0; this->m_ptr = NULL;
 		Resize(initnum);
 	}
 	SetBase(const SetBase & base)
 	{
-		m_count = 0;m_size = 0; m_ptr = NULL;
+		this->m_count = 0;m_size = 0; this->m_ptr = NULL;
 		Copy(base);
 	}
 	~SetBase()
 	{
-		if (m_ptr) free(m_ptr);
+		if (this->m_ptr) free(this->m_ptr);
 	}
-	uint Count() { return m_count; }
-	void Delete() { m_count = 0; }
-	void SetCount(int count) { m_count=count; } 
+	uint Count() { return this->m_count; }
+	void Delete() { this->m_count = 0; }
+	void SetCount(int count) { this->m_count=count; } 
 	C & Get(uint n)
 	{
-		assert(n < m_count);
-		return m_ptr[n];
+		assert(n < this->m_count);
+		return this->m_ptr[n];
 	}
 	C & operator [] (const int index)
 	{
 		return Get(index);
 	}
-	bool IsEmpty() { return m_count == 0; }
+	bool IsEmpty() { return this->m_count == 0; }
 	void Copy(const SetBase & base)
 	{
-		if (base.m_count > m_count)
+		if (base.m_count > this->m_count)
 			Resize(base.m_count);
-		memcpy(m_ptr, base.m_ptr, base.m_count * sizeof(C));
+		memcpy(this->m_ptr, base.m_ptr, base.m_count * sizeof(C));
 	}
 	const SetBase & operator = (const SetBase & base)
 	{
@@ -83,53 +84,54 @@ public:
 
 };
 
+
 /**
 * Trida udrzujici mnozinu objektu
 */
-template<class C> class Set : public SetBase<C>
+template<class CC> class Set : public SetBase<CC>
 {
 public:
-	void Add(C c)
+	void Add(CC c)
 	{
-		if (m_size == m_count)
-			Resize(m_size + (m_size/5>=1 ? m_size/5:1));
-		m_ptr[m_count] = c;m_count++;
+		if (this->m_size == this->m_count)
+			Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
+		this->m_ptr[this->m_count] = c;this->m_count++;
 	}
-	C & Add()
+	CC & Add()
 	{
-		if (m_size == m_count)
-			Resize(m_size + (m_size/5>=1 ? m_size/5:1));
-		m_count++;
-		return m_ptr[m_count-1];
+		if (this->m_size == this->m_count)
+			Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
+		this->m_count++;
+		return this->m_ptr[this->m_count-1];
 	}
 	/** Odebrani vsech stejnych objektu */
-	void Remove(C c)
+	void Remove(CC c)
 	{
-		assert(m_ptr);
-		for (uint i=0;i < m_count;)
+		assert(this->m_ptr);
+		for (uint i=0;i < this->m_count;)
 		{
-			if (m_ptr[i] == c)
+			if (this->m_ptr[i] == c)
 			{
-				if (i < (m_count-1))
-					m_ptr[i] = m_ptr[m_count-1];
-				m_count--;
+				if (i < (this->m_count-1))
+					this->m_ptr[i] = this->m_ptr[this->m_count-1];
+				this->m_count--;
 			}
 			else
 				i++;
 		}
 	}
 	/** Odebrani vsech stejnych objektu */
-	template <class D> C Remove(D d)
+	template <class D> CC Remove(D d)
 	{
-		assert(m_ptr);
-		for (uint i=0;i < m_count;)
+		assert(this->m_ptr);
+		for (uint i=0;i < this->m_count;)
 		{
-			if (*m_ptr[i] == d)
+			if (*this->m_ptr[i] == d)
 			{
-				C ret = m_ptr[i];
-				if (i < (m_count-1))
-					m_ptr[i] = m_ptr[m_count-1];
-				m_count--;
+				CC ret = this->m_ptr[i];
+				if (i < (this->m_count-1))
+					this->m_ptr[i] = this->m_ptr[this->m_count-1];
+				this->m_count--;
 				return ret;
 			}
 			else
@@ -139,9 +141,9 @@ public:
 	}
 	void RemoveIndex(uint index)
 	{
-		if (index < (m_count-1))
-			m_ptr[index] = m_ptr[m_count-1];
-		m_count--;
+		if (index < (this->m_count-1))
+			this->m_ptr[index] = this->m_ptr[this->m_count-1];
+		this->m_count--;
 	}
 }; 
 
@@ -150,16 +152,16 @@ template<class C> class List : public SetBase<C>
 public:
 	void Add(C c)
 	{
-		if (m_size == m_count)
-			Resize(m_size + (m_size/5>=1 ? m_size/5:1));
-		m_ptr[m_count] = c;m_count++;
+		if (this->m_size == this->m_count)
+			Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
+		this->m_ptr[this->m_count] = c;this->m_count++;
 	}
 	C & Add()
 	{
-		if (m_size == m_count)
-			Resize(m_size + (m_size/5>=1 ? m_size/5:1));
-		m_count++;
-		return m_ptr[m_count-1];
+		if (this->m_size == this->m_count)
+			Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
+		this->m_count++;
+		return this->m_ptr[this->m_count-1];
 	}
 };
 
@@ -168,21 +170,21 @@ template<class C> class Stack : public SetBase<C>
 public:
 	void Push(const C &c)
 	{
-		if (m_size == m_count)
-			Resize(m_size + (m_size/5>=1 ? m_size/5:1));
-		m_ptr[m_count] = c;m_count++;
+		if (this->m_size == this->m_count)
+			Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
+		this->m_ptr[this->m_count] = c;this->m_count++;
 	}
 	C & Push()
 	{
-		if (m_size == m_count)
-			Resize(m_size + (m_size/5>=1 ? m_size/5:1));
-		m_count++;
-		return m_ptr[m_count-1];
+		if (this->m_size == this->m_count)
+			Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
+		this->m_count++;
+		return this->m_ptr[this->m_count-1];
 	}
 	const C & Pop()
 	{
-		m_count--;
-		return m_ptr[m_count];
+		this->m_count--;
+		return this->m_ptr[this->m_count];
 	}
 };
 

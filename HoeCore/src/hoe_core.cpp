@@ -56,12 +56,14 @@ bool HoeCore::ByteTileMap::Find(byte b, uint * x, uint * y)
 	return false;
 }
 
+// hack
+struct Pnt
+{
+	uint x,y;
+};
+
 void HoeCore::ByteTileMap::Pisek(uint x, uint y, byte obl, byte vypln)
 {
-	struct Pnt
-	{
-		uint x,y;
-	};
 	hoe_assert(m_map);
 	// s rekurzi jde rychle do prdele zasobnik
 

@@ -5,7 +5,8 @@ TMP_DIR = ./tmp
 OUTPUT_BINARY = $(OUTPUT_DIR)/Hoe3D.so
 
 GCC=g++
-C_FLAGS= -mmmx -msse -march=pentium3 -D_LINUX -D_USE_OPENGL_ -ggdb3 -I/usr/include/freetype2
+C_FLAGS= -mmmx -msse -march=pentium3 -D_LINUX -D_USE_OPENGL_ -ggdb3 -I/usr/include/freetype2 -I../HoeCore/include
+
 LINK=g++
 L_FLAGS= -shared -fPIC -L/usr/X11R6/lib
 LINK_LIBRARIES = -lGL -ljpeg -lpng -lopenal -lXxf86vm -lXxf86dga -lfreetype -lfl
