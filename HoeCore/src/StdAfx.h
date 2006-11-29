@@ -15,6 +15,7 @@
 #include <string.h>
 #include <stdarg.h>
 #include <malloc.h>
+#include <stdlib.h>
 
 #endif // _STDAFX_H_
 

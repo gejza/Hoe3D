@@ -12,6 +12,7 @@
 #else
 #define HOEAPI
 #define CONEXEC
+#define FCALL
 #endif
 #endif
 

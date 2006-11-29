@@ -246,10 +246,6 @@ struct TGraphVertex
 };
 
 
-} // namespace HoeCore
-
-namespace HoeMath {
-
 struct TGraphEdge
 {
 	TGraphVertex * v1;
@@ -258,6 +254,5 @@ struct TGraphEdge
 
 } // namespace HoeCore
 
-}
 
 #endif // _HOE_STRUCTURES_H_
