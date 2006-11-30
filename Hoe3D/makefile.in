@@ -17,7 +17,7 @@ $(TMP_DIR)/hoe2d.o $(TMP_DIR)/hoe.o $(TMP_DIR)/hoefile.o $(TMP_DIR)/hoe_font.o \
 $(TMP_DIR)/hoe_format.o $(TMP_DIR)/hoe_stream.o $(TMP_DIR)/hoe_index.o $(TMP_DIR)/hoe_info.o \
 $(TMP_DIR)/hoe_input.o $(TMP_DIR)/hoe_input_xwin.o $(TMP_DIR)/hoe_main.o \
 $(TMP_DIR)/hoe_material.o $(TMP_DIR)/hoe_model.o \
-$(TMP_DIR)/hoe_picture.o $(TMP_DIR)/hoe_stream.o $(TMP_DIR)/hoe_texture.o \
+$(TMP_DIR)/hoe_picture.o $(TMP_DIR)/hoe_texture.o \
 $(TMP_DIR)/hoe_time.o $(TMP_DIR)/icreate.o $(TMP_DIR)/iget.o $(TMP_DIR)/light_system.o \
 $(TMP_DIR)/material_system.o $(TMP_DIR)/model_loader.o \
 $(TMP_DIR)/object_inspector.o $(TMP_DIR)/object_controller.o $(TMP_DIR)/physics.o \

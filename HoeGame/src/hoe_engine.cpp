@@ -114,6 +114,7 @@ HoeEngineInfo::~HoeEngineInfo()
 
 bool HoeEngineInfo::Load(const char * dllname)
 {
+#ifdef _WIN32
 	HOE_FUNCINFO func;
 	Unload();
 	m_lib = LoadLibrary(dllname);
@@ -134,13 +135,16 @@ bool HoeEngineInfo::Load(const char * dllname)
 		Unload();
 		return false;
 	}
+#endif
 	return true;
 }
 
 void HoeEngineInfo::Unload()
 {
-	if (m_lib)
+#ifdef _WIN32
+    if (m_lib)
 		FreeLibrary(m_lib);
+#endif
 	m_lib = NULL;
 	m_info = NULL;
 }
@@ -153,3 +157,5 @@ float SysFloatTime()
 		return HoeGame::g_hoeengine->SysFloatTime();
 	return 0.f;
 }
+
+

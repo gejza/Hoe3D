@@ -17,8 +17,20 @@ seznam               Closed
 
 const char * g_TutorialName = "pathfind";
 
-const uint g_width = 40;
-const uint g_height = 30;
+const uint g_width = 400;
+const uint g_height = 300;
+
+struct TGraphPoint
+{
+    float g;
+    float f;
+    bool inopen;
+    bool inclosed;
+    int prevx,prevy;
+    bool ispath;
+};
+    
+TGraphPoint tile[g_width][g_height];
 
 int _hoemain(HOE_INSTANCE instance, HoeGame::Console * con)
 {
@@ -57,19 +69,23 @@ void PathFindApp::_Paint(IHoe2D *h)
 {
 	h->SetRect((float)g_width,(float)g_height);
 
-	// vykreslit start
-	h->PaintRect(m_from.x-0.5f,m_from.x+0.5f,m_from.y-0.5f,m_from.y+0.5f, 0xffff0000, true);
-	h->PaintRect(m_to.x-0.5f,m_to.x+0.5f,m_to.y-0.5f,m_to.y+0.5f, 0xff00ff00, true);
-
 	const dword colors[] = { 0xff000000, 0xffff0000,0xff00ff00,0xff0000ff,0xffffffff };
 	for (int y=0;y<g_height;y++)
 		for (int x=0;x < g_width;x++)
 		{
 			register word c = m_map.Get(x,y);
-			if (!(0xff&c))
-				h->PaintRect(x,x+1,y,y+1, colors[((c>>8)-1)%4], true);
+			if (!c)
+				h->PaintRect(x,x+1,y,y+1, 0xff000000, true);
+            else if (tile[x][y].ispath)
+                h->PaintRect(x,x+1,y,y+1, 0xffffffff, true);
 		}
-	h->SetRect(g_width*20.f,g_height*14.f);
+
+    
+	// vykreslit start
+	h->PaintRect(m_from.x-0.5f,m_from.x+0.5f,m_from.y-0.5f,m_from.y+0.5f, 0xffff0000, true);
+	h->PaintRect(m_to.x-0.5f,m_to.x+0.5f,m_to.y-0.5f,m_to.y+0.5f, 0xff00ff00, true);
+
+    // zobrazit cestu
 }
 
 bool PathFindApp::LoadScene()
@@ -97,6 +113,7 @@ bool PathFindApp::LoadScene()
 
 	m_from.Set(0,0);
 	m_to.Set(g_width, g_height);
+    memset(tile, 0, sizeof(tile));
 
 	return true;
 }
@@ -124,80 +141,83 @@ void PathFindApp::OnRightButtonUp()
 	m_map.FloodFill(GetMouseX(),GetMouseY(), 0);
 }
 
-void PathFindApp::Preprocess()
+
+struct PGraphPoint
 {
-	m_map.FloodFillPotencial();
-	// ted najit vsechny oblasti
-	// nejdrive okoli
-	for (uint x=0;x < g_width;x++)
-	{
-		if (m_map.Get(x,0)==0)
-			m_map.FloodFill(x,0,0x0100);
-		if (m_map.Get(x,g_height-1)==0)
-			m_map.FloodFill(x,g_height-1,0x0100);
+    int x,y;
+    bool operator < (const PGraphPoint & n) const
+    {
+        return tile[x][y].f < tile[n.x][n.y].f;
+    }
+    bool operator > (const PGraphPoint & n) const
+    {
+        return tile[x][y].f > tile[n.x][n.y].f;
+    }
+};
 
-	}
-	for (uint y=0;y < g_height;y++)
-	{
-		if (m_map.Get(0,y)==0)
-			m_map.FloodFill(0,y,0x0100);
-		if (m_map.Get(g_width-1,y)==0)
-			m_map.FloodFill(g_width-1,y,0x0100);
-	}
-	word c = 0x0200;
-	for (uint y=0;y < g_height;y++)
-		for (uint x=0;x < g_width;x++)
-		{
-		 	if (m_map.Get(x,y)==0)
-			{
-				m_map.FloodFill(x,y,c);	
-				c += 0x0100;
-			}
-		}
-	for (uint y=0;y<g_height;y++)
-		for (uint x=0;x < g_width;x++)
-		{
-			if ((m_map.Get(x,y) & 0xff) == 0)
-				continue;
-			// nejaky bod, a udelat cestu
-			uint px = x;
-			uint py = y;
-			while ((m_map.Get(px,py)&0xff) > 1)
-			{
-				if ((m_map.Get(px-1,py)&0xff) < (m_map.Get(px,py)&0xff))
-					px--;
-				else if ((m_map.Get(px,py-1)&0xff) < (m_map.Get(px,py)&0xff))
-					py--;
-				else if ((m_map.Get(px+1,py)&0xff) < (m_map.Get(px,py)&0xff))
-					px++;
-				else if ((m_map.Get(px,py+1)&0xff) < (m_map.Get(px,py)&0xff))
-					py++;
-				else
-					hoe_assert(!"error in map");
-			}
-			// uz je to na kraji, staci jen zjisti na kterem
-			if (px ==0 || py==0 || px==g_width-1 || py==g_height-1)
-			{
-				m_map.Set(x,y, 0x0100 | m_map.Get(x,y));
-			}
-			else
-			{
-				word c=0;
-				if ((m_map.Get(px-1,py)&0xff) == 0)
-					c=m_map.Get(px-1,py);
-				else if ((m_map.Get(px,py-1)&0xff) == 0)
-					c=m_map.Get(px,py-1);
-				else if ((m_map.Get(px+1,py)&0xff) == 0)
-					c=m_map.Get(px+1,py);
-				else if ((m_map.Get(px,py+1)&0xff) == 0)
-					c=m_map.Get(px,py+1);
-				else
-					hoe_assert(!"error in map");
-				m_map.Set(x,y,(c&0xff00)|(m_map.Get(x,y)&0xff));
-			}
-		}
-	// najit pak uzke prulezy (kolem 1)
-
+void PathFindApp::Process()
+{
+    float start = SysFloatTime();
+    int numtest = 0;
+    HoeCore::Heap<PGraphPoint> open;
+    memset(tile,0,sizeof(tile));
+    // hledat z from na to
+    PGraphPoint p = {0,0};
+    tile[0][0].inopen = true;
+    open.Insert(p);
+    while (open.Count() > 0)
+    {
+        numtest++;
+        const PGraphPoint n = open.GetHeap();
+        open.RemoveHeap();
+        tile[n.x][n.y].inopen = false;
+   
+        if (n.x==g_width-1 && n.y==g_height-1)
+        {
+            printf("Cesta existuje! (%d) %f\n",numtest,SysFloatTime()-start);
+            // projet vsechny a nastavit jim is path
+            int x=n.x;
+            int y=n.y;
+            while (x!=0||y!=0)
+            {
+                TGraphPoint & pp = tile[x][y];
+                pp.ispath = true;
+                x = pp.prevx;y = pp.prevy;
+            }
+            return;
+        }
+        for (int px=-1;px < 2;px++)
+            for (int py=-1;py < 2;py++)
+            {
+                if (px == 0 && py == 0)
+                    continue;
+                int nx = n.x+px;
+                int ny = n.y+py;
+                if (nx < 0 || nx >= g_width || ny < 0 || ny >= g_height)
+                    continue;
+                if (m_map.Get(nx,ny)==0)
+                    continue;
+                
+                float g = tile[n.x][n.y].g + ((n.x==nx||n.y==ny)?1:1.41f); // g = n.g + w(n,nn)
+                if ((tile[nx][ny].inclosed || tile[nx][ny].inopen) && tile[nx][ny].g <= g)
+                    continue;
+                tile[nx][ny].prevx = n.x;
+                tile[nx][ny].prevy = n.y;
+                tile[nx][ny].g = g;
+                tile[nx][ny].f = g + ((g_width-nx+g_height-ny) / 5);
+                tile[nx][ny].inclosed = false;
+                if (!tile[nx][ny].inopen)
+                {
+                    tile[nx][ny].inopen = true;
+                    p.x = nx;
+                    p.y = ny;
+                    open.Insert(p);
+                }
+            }
+        tile[n.x][n.y].inclosed = true;
+    }
+    // cesta neexistuje
+    printf("Cesta neexistuje\n");
 }
 
 void PathFindApp::OnKeyDown(int key)
@@ -213,15 +233,7 @@ void PathFindApp::OnKeyDown(int key)
 			}
 		break;
 	case HK_SPACE:
-		Preprocess();
-		/*if (m_poly.Count() > 0)
-		{
-			HoeCore::TimeMeter tm;
-			tm.Begin();
-			m_path.Find(m_from, m_to, m_poly[0]);
-			tm.End();
-			int a=0;
-		}*/
+		Process();
 		break;
 	};
 }

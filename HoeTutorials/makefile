@@ -3,12 +3,12 @@ TMP_DIR = ./tmp
 
 CC=gcc
 GCC=g++
-C_FLAGS= -D_LINUX -ggdb3 -I../Hoe3D/include -I../HoeGame/include
+C_FLAGS= -D_LINUX -ggdb3 -I../HoeCore/include -I../Hoe3D/include -I../HoeGame/include
 LINK=g++
 L_FLAGS= -L/usr/X11R6/lib -L../bin
-LINK_LIBRARIES = Common/tutorial.cpp -lHoeGame -llua -ldl -lX11 -lfl
+LINK_LIBRARIES = Common/tutorial.cpp -lHoeCore -lHoeGame -llua5.1 -ldl -lX11 -lfl
 
-all: bFirstApp bModels bPaint2D bInput bTerrain bLevel
+all: bFirstApp bModels bPaint2D bInput bTerrain bLevel bPathFinding
 
 bFirstApp:
 	$(GCC) $(C_FLAGS) $(L_FLAGS) -o $(OUTPUT_DIR)/First FirstApp/first_app.cpp $(LINK_LIBRARIES)  	
@@ -22,3 +22,5 @@ bTerrain:
 	$(GCC) $(C_FLAGS) $(L_FLAGS) -o $(OUTPUT_DIR)/Terrain Terrain/terrain.cpp $(LINK_LIBRARIES)
 bLevel:
 	$(GCC) $(C_FLAGS) $(L_FLAGS) -o $(OUTPUT_DIR)/Level Level/level.cpp Level/bsp.cpp $(LINK_LIBRARIES)
+bPathFinding:
+	$(GCC) $(C_FLAGS) $(L_FLAGS) -o $(OUTPUT_DIR)/PathFinding PathFinding/pathfinding.cpp $(LINK_LIBRARIES)

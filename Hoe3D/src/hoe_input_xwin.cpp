@@ -38,7 +38,7 @@ static Cursor CreateNullCursor(Display *display, Window root)
   cursormask = XCreatePixmap(display, root, 1, 1, 1/*depth*/);
   xgc.function = GXclear;
   gc =  XCreateGC(display, cursormask, GCFunction, &xgc);
-  XFillRECTangle(display, cursormask, gc, 0, 0, 1, 1);
+  XFillRectangle(display, cursormask, gc, 0, 0, 1, 1);
   dummycolour.pixel = 0;
   dummycolour.red = 0;
   dummycolour.flags = 04;
@@ -289,43 +289,41 @@ bool HoeInputXWin::XProc(XEvent * event)
 			m_keyb->_KeyUp(key);
 		break;
 	case ButtonPress:
-		/*if (m_clbm)
-		{
-			int w,h;
-			float x,y;
-
-		switch (event->xbutton.button)
-		{
-		case 1:
-			x = (float)event->xbutton.x;
-			y = (float)event->xbutton.y;
-			this->GetVirtualPos(&x, &y);
-
-			m_clbm(LClick, x, y,0);
-			break;
-		case 3:
-			x = (float)event->xbutton.x;
-			y = (float)event->xbutton.y;
-			this->GetVirtualPos(&x, &y);
-
-			m_clbm(RClick, x, y,0);
-			break;
-		case 4:
-			m_clbm(MWheel, 0, 0,300);
-			break;
-		case 5:
-			m_clbm(MWheel, 0, 0,-300);
-			break;
-		default:
-			Con_Print("zmacknutej %d", event->xbutton.button);
-			break;
-		}
-		}*/		
-
-		break;
+        if (m_mouse)
+        {
+            switch (event->xkey.keycode)
+            {
+                case 1:
+                    m_mouse->_ButtonDown(HMB_LEFT);
+                    break;
+                case 2:
+                    m_mouse->_ButtonDown(HMB_MIDDLE);
+                    break;
+                case 3:
+                    m_mouse->_ButtonDown(HMB_RIGHT);
+                    break;
+      
+            };
+        }
+        break;
 	case ButtonRelease:
-		Con_Print("tlacitko nahore %d", event->xkey.keycode);
-		break;
+		//Con_Print("tlacitko nahore %d", event->xkey.keycode);
+		if (m_mouse)
+        {
+            switch (event->xkey.keycode)
+            {
+                case 1:
+                    m_mouse->_ButtonUp(HMB_LEFT);
+                    break;
+                case 2:
+                    m_mouse->_ButtonUp(HMB_MIDDLE);
+                    break;
+                case 3:
+                    m_mouse->_ButtonUp(HMB_RIGHT);
+                    break;
+             };
+        }
+        break;
 	case MotionNotify:
 		if (m_mouse)
 		{

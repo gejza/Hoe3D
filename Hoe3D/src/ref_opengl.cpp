@@ -222,12 +222,12 @@ bool RefOpenGL::Init(THoeInitSettings * his)
 			XFree(modes);
 	    
 			/* create a fullscreen window */
-			attr.override_rediRECT = True;
+			attr.override_redirect = True;
 			attr.event_mask = ExposureMask | KeyPressMask | ButtonPressMask |
 				StructureNotifyMask;
 			his->win = XCreateWindow(his->dpy, RootWindow(his->dpy, vi->screen),
 				0, 0, dpyWidth, dpyHeight, 0, vi->depth, InputOutput, vi->visual,
-				CWBorderPixel | CWColormap | CWEventMask | CWOverrideRediRECT,
+				CWBorderPixel | CWColormap | CWEventMask | CWOverrideRedirect,
 				&attr);
 			/*XWarpPointer(his->dpy, None, his->win, 0, 0, 0, 0, 0, 0);
 			XMapRaised(his->dpy, his->win);

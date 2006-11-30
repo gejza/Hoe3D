@@ -107,7 +107,7 @@ bool HoeApp::Init(const char * title)
 	his.height = m_height.GetInt();
 	his.forcewnd = false;
 	his.fullscreen = m_fullscreen.GetBool();
-	if (!m_engine.GetInstance()->Init(&his))
+	if (!HoeGame::GetHoeEngine()->Init(&his))
 		return false;
 	win = his.win;
     wmDelete = XInternAtom(dpy, "WM_DELETE_WINDOW", True);

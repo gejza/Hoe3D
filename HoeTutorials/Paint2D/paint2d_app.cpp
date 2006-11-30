@@ -1,4 +1,4 @@
-﻿
+
 #include "paint2d_app.h"
 #include <hoe_lang.h>
 

@@ -19,7 +19,7 @@ class PathFindApp : public HoeTutorial , public XHoe2DCallback, HoeGame::MouseSt
 	Vector2 m_from;
 	Vector2 m_to;
 	//HoeGame::AI::Path m_path;
-	void Preprocess();
+	void Process();
 public:
 	PathFindApp(HOE_INSTANCE instance, HoeGame::Console * con);
 	virtual const char * GetAppName() { return "PathFindApp"; }

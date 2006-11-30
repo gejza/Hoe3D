@@ -22,9 +22,8 @@ struct GLExt
 	bool ARB_vertex_program;
 };
 
-#define _GLEXT 1
-#if _GLEXT
 // multitexture
+#ifndef GL_ARB_multitexture
 extern PFNGLACTIVETEXTUREARBPROC glActiveTextureARB;
 extern PFNGLCLIENTACTIVETEXTUREARBPROC glClientActiveTextureARB;
 extern PFNGLMULTITEXCOORD1DARBPROC glMultiTexCoord1dARB;

@@ -34,7 +34,7 @@ bool ModelApp::LoadScene()
 {
 
 	GetFS()->AddResourceFile("../data/jackolan.hm");
-	GetFS()->AddResourceFile("../data/angel_anim.hm");
+	GetFS()->AddResourceFile("../data/angel.hm");
 	GetFS()->AddResourceFile("../data/tupoun.hm");
 	GetFS()->AddResourceFile("../data/baba.hm");
 	GetFS()->AddResourceFile("../data/tupoun.hx");
@@ -89,7 +89,7 @@ bool ModelApp::LoadScene()
 	if (!mod1)
 		return false;*/
 	//IHoeModel * mod2 = (IHoeModel*)GetEngine()->Create("model angel file:'angel.txt' -dump");
-	IHoeModel * mod2 = (IHoeModel*)GetEngine()->Create("model angel");
+	IHoeModel * mod2 = (IHoeModel*)GetEngine()->Create("model jackolan");
 	//IHoeModel * mod2 = (IHoeModel*)GetEngine()->Create("generate model box 40");
 	if (!mod2)
 		return false;

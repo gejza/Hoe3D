@@ -17,27 +17,39 @@ float SysFloatTime()
 	return ((ctime.tv_sec % 100000) + ctime.tv_usec * 0.000001f);
 }
 
-// umet u policek oznacovat open a closed
-// pak uz nebrani nic v ceste
+struct Tile
+{
+    bool in_open;
+    bool in_closed;
+    float g;
+    float f;
+};
+
+struct PTile
+{
+    Tile * tile;
+    inline bool operator < (const PTile & t)
+    {
+        return tile->f < t.tile->f;
+    }
+    inline bool operator > (const PTile & t)
+    {
+        return tile->f > t.tile->f;
+    }
+
+};
 
 int main()
 {
-    float start = SysFloatTime();
-    printf("Test Heap\n");
-    HoeCore::Heap<int> heap;
-    for (int i=0;i < 30000000;i++)
+    HoeCore::Heap<PTile> open;
+    PTile t;
+    open.Insert(t);
+    // pridat prvni
+    while (open.Count()>0)
     {
-        heap.Insert(rand());
+        //
     }
-    printf("V halde je nyni %d cisel.\n",heap.Count());
-    while (heap.Count() > 0)
-    {
-        if (heap.Count()%1000000==0)
-            printf("%d\n", heap.GetHeap());
-        heap.RemoveHeap();
-    }
-    printf("OK %f\n", (SysFloatTime()-start));
-    
     return 0;
 }
+
 
