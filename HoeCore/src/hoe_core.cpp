@@ -248,6 +248,47 @@ dword HoeCore::HashString(const char * str)
 	return hash;
 }
 
+// algorithm
+bool HoeCore::Algorythm::Dajkrs::Process(TGraphPoint * from, TGraphPoint * to)
+{
+	hoe_assert(from != NULL && to != NULL);
+	m_open.SetCount(0);
+	PGraphPoint p;
+	p.p = from;
+    p.p->inopen = true;
+    m_open.Insert(p);
+    while (m_open.Count() > 0)
+    {
+        const PGraphPoint n = m_open.GetHeap();
+        m_open.RemoveHeap();
+		n.p->inopen = false;
+		// ono by se to dalo udelat tak, ze kazdy ten point, bude ukazovat na point
+		// a dostane seznam sousedu
+        if (n.p == to)
+            return true;
+		hoe_assert(n.p->souseds != NULL);
+		for (TGraphPoint ** souseds = n.p->souseds; *souseds;souseds++)
+		{
+			register TGraphPoint * nn = *souseds;
+			float g = n.p->g + w(n.p, nn);
+            if ((nn->inclosed || nn->inopen) && nn->g <= g)
+                    continue;
+            nn->prev = n.p;
+			nn->g = g;
+			nn->f = g + Heuristic(nn,to);
+			nn->inclosed = false;
+			if (!nn->inopen)
+			{
+				nn->inopen = true;
+				p.p = nn;
+				m_open.Insert(p);
+            }
+		}
+		n.p->inclosed = true;
+    }
+	return false;
+}
+
 
 
 

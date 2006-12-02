@@ -81,7 +81,10 @@ public:
 		Copy(base);
 		return *this;
 	}
-
+	C * GetBasePointer(uint i=0)
+	{
+		return m_ptr+i;
+	}
 };
 
 
@@ -215,9 +218,10 @@ public:
     void RemoveHeap()
     {
         this->m_ptr[0] = this->m_ptr[this->m_count-1];
-        int j,i; this->m_count--;
+        uint j,i; this->m_count--;
         i=0;
-        while ((2*i+1) <= ((int)this->m_count-1))
+        // while ((2*i+1) <= this->m_count-1)
+        while ((2*i+2) <= this->m_count)
         {
             j=i;
             if (2*i+1<=this->m_count-1 && this->m_ptr[j]>this->m_ptr[2*i+1])

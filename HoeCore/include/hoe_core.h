@@ -95,6 +95,50 @@ HOE_INLINE float FCALL RandFloat(float max)
 	return (float)(((double)rand() / (double)RAND_MAX) * max);
 }
 
+// algoritmy
+namespace Algorythm {
+
+class Dajkrs
+{
+protected:
+	struct TGraphPoint
+	{
+		float g;
+		float f;
+		bool inopen;
+		bool inclosed;
+		TGraphPoint * prev;
+		TGraphPoint ** souseds;
+	};
+	class PGraphPoint
+	{
+	public:
+		TGraphPoint * p;
+		HOE_INLINE bool operator < (const PGraphPoint & n) const;
+		HOE_INLINE bool operator > (const PGraphPoint & n) const;
+	};
+private:
+    HoeCore::Heap<PGraphPoint> m_open;
+public:
+	bool Create(uint width, uint height);
+	bool Process(TGraphPoint * from, TGraphPoint * to);
+	virtual float FCALL w(const TGraphPoint * from, const TGraphPoint * to) = 0;
+	virtual float FCALL Heuristic(const TGraphPoint * from, const TGraphPoint * to) { return 0.f; }
+};
+
+bool Dajkrs::PGraphPoint::operator <(const HoeCore::Algorythm::Dajkrs::PGraphPoint &n) const
+{
+	return p->f < n.p->f;
+}
+
+bool Dajkrs::PGraphPoint::operator >(const HoeCore::Algorythm::Dajkrs::PGraphPoint &n) const
+{
+	return p->f > n.p->f;
+}
+
+
+}
+
 } // namespace HoeCore
 
 

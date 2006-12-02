@@ -17,21 +17,11 @@ seznam               Closed
 
 const char * g_TutorialName = "pathfind";
 
-const uint g_width = 400;
-const uint g_height = 300;
+const uint g_width = 40;
+const uint g_height = 30;
 
-struct TGraphPoint
-{
-    float g;
-    float f;
-    bool inopen;
-    bool inclosed;
-    int prevx,prevy;
-    bool ispath;
-};
-    
-TGraphPoint tile[g_width][g_height];
-
+bool g_cesta[g_width][g_height];
+   
 int _hoemain(HOE_INSTANCE instance, HoeGame::Console * con)
 {
 	PathFindApp app(instance,con);
@@ -76,7 +66,7 @@ void PathFindApp::_Paint(IHoe2D *h)
 			register word c = m_map.Get(x,y);
 			if (!c)
 				h->PaintRect(x,x+1,y,y+1, 0xff000000, true);
-            else if (tile[x][y].ispath)
+            else if (g_cesta[x][y])
                 h->PaintRect(x,x+1,y,y+1, 0xffffffff, true);
 		}
 
@@ -113,7 +103,7 @@ bool PathFindApp::LoadScene()
 
 	m_from.Set(0,0);
 	m_to.Set(g_width, g_height);
-    memset(tile, 0, sizeof(tile));
+	memset(g_cesta, 0, sizeof(g_cesta));
 
 	return true;
 }
@@ -141,83 +131,102 @@ void PathFindApp::OnRightButtonUp()
 	m_map.FloodFill(GetMouseX(),GetMouseY(), 0);
 }
 
-
-struct PGraphPoint
+class Land : private HoeCore::Algorythm::Dajkrs
 {
-    int x,y;
-    bool operator < (const PGraphPoint & n) const
-    {
-        return tile[x][y].f < tile[n.x][n.y].f;
-    }
-    bool operator > (const PGraphPoint & n) const
-    {
-        return tile[x][y].f > tile[n.x][n.y].f;
-    }
+	HoeCore::Algorythm::Dajkrs::TGraphPoint m_tile[g_width][g_height];
+	HoeCore::List<HoeCore::Algorythm::Dajkrs::TGraphPoint*> m_lists;
+	virtual float FCALL w(const TGraphPoint * from, const TGraphPoint * to);
+	virtual float FCALL Heuristic(const TGraphPoint * from, const TGraphPoint * to);
+public:
+	bool Preprocess(HoeGame::AI::MapFindPath & map);
+	bool Find(uint fx,uint fy, uint tx, uint ty);
 };
 
-void PathFindApp::Process()
+bool Land::Preprocess(HoeGame::AI::MapFindPath &map)
 {
-    float start = SysFloatTime();
-    int numtest = 0;
-    HoeCore::Heap<PGraphPoint> open;
-    memset(tile,0,sizeof(tile));
-    // hledat z from na to
-    PGraphPoint p = {0,0};
-    tile[0][0].inopen = true;
-    open.Insert(p);
-    while (open.Count() > 0)
-    {
-        numtest++;
-        const PGraphPoint n = open.GetHeap();
-        open.RemoveHeap();
-        tile[n.x][n.y].inopen = false;
-   
-        if (n.x==g_width-1 && n.y==g_height-1)
-        {
-            printf("Cesta existuje! (%d) %f\n",numtest,SysFloatTime()-start);
-            // projet vsechny a nastavit jim is path
-            int x=n.x;
-            int y=n.y;
-            while (x!=0||y!=0)
-            {
-                TGraphPoint & pp = tile[x][y];
-                pp.ispath = true;
-                x = pp.prevx;y = pp.prevy;
-            }
-            return;
-        }
-        for (int px=-1;px < 2;px++)
+	// nejdriv vytvorit, pak promazat
+	// vytvoreni sousedu
+	// hotovo
+	
+	// promaznout
+	memset(m_tile, 0, sizeof(m_tile));
+	m_lists.SetCount(0);
+	dword np = 0;
+	for (int x=0;x < g_width;x++)
+		for (int y=0;y < g_height;y++)
+		{
+            if (map.Get(x,y)==0)
+                    continue;
+			// vytvorit seznam sousedu
+			m_tile[x][y].souseds = (HoeCore::Algorythm::Dajkrs::TGraphPoint**)(m_lists.Count());
+			for (int px=-1;px < 2;px++)
             for (int py=-1;py < 2;py++)
             {
                 if (px == 0 && py == 0)
                     continue;
-                int nx = n.x+px;
-                int ny = n.y+py;
+                int nx = x+px;
+                int ny = y+py;
                 if (nx < 0 || nx >= g_width || ny < 0 || ny >= g_height)
                     continue;
-                if (m_map.Get(nx,ny)==0)
+                if (map.Get(nx,ny)==0)
                     continue;
-                
-                float g = tile[n.x][n.y].g + ((n.x==nx||n.y==ny)?1:1.41f); // g = n.g + w(n,nn)
-                if ((tile[nx][ny].inclosed || tile[nx][ny].inopen) && tile[nx][ny].g <= g)
-                    continue;
-                tile[nx][ny].prevx = n.x;
-                tile[nx][ny].prevy = n.y;
-                tile[nx][ny].g = g;
-                tile[nx][ny].f = g + ((g_width-nx+g_height-ny) / 5);
-                tile[nx][ny].inclosed = false;
-                if (!tile[nx][ny].inopen)
-                {
-                    tile[nx][ny].inopen = true;
-                    p.x = nx;
-                    p.y = ny;
-                    open.Insert(p);
-                }
-            }
-        tile[n.x][n.y].inclosed = true;
-    }
-    // cesta neexistuje
-    printf("Cesta neexistuje\n");
+				m_lists.Add(&(m_tile[nx][ny]));
+			}
+			m_lists.Add(NULL);
+
+		}
+
+	for (int x=0;x < g_width;x++)
+		for (int y=0;y < g_height;y++)
+		{
+			// priradit base
+			m_tile[x][y].souseds = m_lists.GetBasePointer((uint)m_tile[x][y].souseds);
+		}
+
+	return true;
+}
+
+bool Land::Find(uint fx, uint fy, uint tx, uint ty)
+{
+	memset(g_cesta, 0, sizeof(g_cesta));
+	if (!this->Process(&m_tile[fx][fy], &m_tile[tx][ty]))
+		return false;
+	HoeCore::Algorythm::Dajkrs::TGraphPoint * p = &m_tile[tx][ty];
+	do {
+		// pp
+		// zjistit pointer
+		dword a = ((dword)p-(dword)m_tile)/sizeof(HoeCore::Algorythm::Dajkrs::TGraphPoint);
+		g_cesta[a/g_height][a%g_height] = true;
+	} while (p=p->prev); // hack
+	return true;
+}
+
+float Land::w(const HoeCore::Algorythm::Dajkrs::TGraphPoint *from, const HoeCore::Algorythm::Dajkrs::TGraphPoint *to)
+{
+	dword a = ((dword)from-(dword)m_tile)/sizeof(HoeCore::Algorythm::Dajkrs::TGraphPoint);
+	dword b = ((dword)to-(dword)m_tile)/sizeof(HoeCore::Algorythm::Dajkrs::TGraphPoint);
+	if (a/g_height==b/g_height || a%g_height == b%g_height)
+		return 1;
+	return 1.4142135623730950488016887242097f;
+}
+
+float Land::Heuristic(const TGraphPoint * from, const TGraphPoint * to)
+{
+	dword a = ((dword)from-(dword)m_tile)/sizeof(HoeCore::Algorythm::Dajkrs::TGraphPoint);
+	dword b = ((dword)to-(dword)m_tile)/sizeof(HoeCore::Algorythm::Dajkrs::TGraphPoint);
+	return (HoeMath::Abs(a/g_height-b/g_height) + HoeMath::Abs(a%g_height-b%g_height)) / 5.f;
+}
+
+void PathFindApp::Process()
+{
+	Land land;
+	float start = SysFloatTime();
+	land.Preprocess(m_map);
+    int numtest = 0;
+	if (land.Find(0,0,g_width-1, g_height-1))
+		HoeGame::Console::Printf("Cesta existuje! (%d) %f",numtest,SysFloatTime()-start);
+	else
+		HoeGame::Console::Printf("Cesta neexistuje");
 }
 
 void PathFindApp::OnKeyDown(int key)
