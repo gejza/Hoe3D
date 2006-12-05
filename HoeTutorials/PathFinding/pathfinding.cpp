@@ -17,8 +17,8 @@ seznam               Closed
 
 const char * g_TutorialName = "pathfind";
 
-const uint g_width = 40;
-const uint g_height = 30;
+const uint g_width = 120;
+const uint g_height = 90;
 
 bool g_cesta[g_width][g_height];
    
@@ -131,101 +131,26 @@ void PathFindApp::OnRightButtonUp()
 	m_map.FloodFill(GetMouseX(),GetMouseY(), 0);
 }
 
-class Land : private HoeCore::Algorythm::Dajkrs
-{
-	HoeCore::Algorythm::Dajkrs::TGraphPoint m_tile[g_width][g_height];
-	HoeCore::List<HoeCore::Algorythm::Dajkrs::TGraphPoint*> m_lists;
-	virtual float FCALL w(const TGraphPoint * from, const TGraphPoint * to);
-	virtual float FCALL Heuristic(const TGraphPoint * from, const TGraphPoint * to);
-public:
-	bool Preprocess(HoeGame::AI::MapFindPath & map);
-	bool Find(uint fx,uint fy, uint tx, uint ty);
-};
-
-bool Land::Preprocess(HoeGame::AI::MapFindPath &map)
-{
-	// nejdriv vytvorit, pak promazat
-	// vytvoreni sousedu
-	// hotovo
-	
-	// promaznout
-	memset(m_tile, 0, sizeof(m_tile));
-	m_lists.SetCount(0);
-	dword np = 0;
-	for (int x=0;x < g_width;x++)
-		for (int y=0;y < g_height;y++)
-		{
-            if (map.Get(x,y)==0)
-                    continue;
-			// vytvorit seznam sousedu
-			m_tile[x][y].souseds = (HoeCore::Algorythm::Dajkrs::TGraphPoint**)(m_lists.Count());
-			for (int px=-1;px < 2;px++)
-            for (int py=-1;py < 2;py++)
-            {
-                if (px == 0 && py == 0)
-                    continue;
-                int nx = x+px;
-                int ny = y+py;
-                if (nx < 0 || nx >= g_width || ny < 0 || ny >= g_height)
-                    continue;
-                if (map.Get(nx,ny)==0)
-                    continue;
-				m_lists.Add(&(m_tile[nx][ny]));
-			}
-			m_lists.Add(NULL);
-
-		}
-
-	for (int x=0;x < g_width;x++)
-		for (int y=0;y < g_height;y++)
-		{
-			// priradit base
-			m_tile[x][y].souseds = m_lists.GetBasePointer((uint)m_tile[x][y].souseds);
-		}
-
-	return true;
-}
-
-bool Land::Find(uint fx, uint fy, uint tx, uint ty)
-{
-	memset(g_cesta, 0, sizeof(g_cesta));
-	if (!this->Process(&m_tile[fx][fy], &m_tile[tx][ty]))
-		return false;
-	HoeCore::Algorythm::Dajkrs::TGraphPoint * p = &m_tile[tx][ty];
-	do {
-		// pp
-		// zjistit pointer
-		dword a = ((dword)p-(dword)m_tile)/sizeof(HoeCore::Algorythm::Dajkrs::TGraphPoint);
-		g_cesta[a/g_height][a%g_height] = true;
-	} while (p=p->prev); // hack
-	return true;
-}
-
-float Land::w(const HoeCore::Algorythm::Dajkrs::TGraphPoint *from, const HoeCore::Algorythm::Dajkrs::TGraphPoint *to)
-{
-	dword a = ((dword)from-(dword)m_tile)/sizeof(HoeCore::Algorythm::Dajkrs::TGraphPoint);
-	dword b = ((dword)to-(dword)m_tile)/sizeof(HoeCore::Algorythm::Dajkrs::TGraphPoint);
-	if (a/g_height==b/g_height || a%g_height == b%g_height)
-		return 1;
-	return 1.4142135623730950488016887242097f;
-}
-
-float Land::Heuristic(const TGraphPoint * from, const TGraphPoint * to)
-{
-	dword a = ((dword)from-(dword)m_tile)/sizeof(HoeCore::Algorythm::Dajkrs::TGraphPoint);
-	dword b = ((dword)to-(dword)m_tile)/sizeof(HoeCore::Algorythm::Dajkrs::TGraphPoint);
-	return (HoeMath::Abs(a/g_height-b/g_height) + HoeMath::Abs(a%g_height-b%g_height)) / 5.f;
-}
-
 void PathFindApp::Process()
 {
-	Land land;
+    HoeGame::Land land;
 	float start = SysFloatTime();
+    land.Create(g_width, g_height);
 	land.Preprocess(m_map);
     int numtest = 0;
-	if (land.Find(0,0,g_width-1, g_height-1))
+    HoeGame::LandPath result;
+    memset(g_cesta, 0, sizeof(g_cesta));
+	if (land.Find(0,0,g_width-1, g_height-1, &result))
+    {
+        // prekopirovat na result
+        while (result.m_stack.Count() > 0)
+        {
+            HoeGame::LandPath::Point p = result.m_stack.Pop();
+            g_cesta[(int)p.pos.x][(int)p.pos.y] = true;
+        }
 		HoeGame::Console::Printf("Cesta existuje! (%d) %f",numtest,SysFloatTime()-start);
-	else
+    }
+    else
 		HoeGame::Console::Printf("Cesta neexistuje");
 }
 

@@ -33,6 +33,7 @@
 #endif
 
 #include <assert.h>
+#include <hoe_core.h>
 #include <hoe_types.h>
 #include <hoe_math.h>
 

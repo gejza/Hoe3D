@@ -5,8 +5,7 @@
 #include "../Common/tutorial.h"
 #include <hoe_core.h>
 #include <hoe_input.h>
-#include <hoe_ai.h>
-#include <hoe_path.h>
+#include <hoe_land.h>
 
 using namespace HoeMath;
 using namespace HoeCore;
@@ -15,7 +14,7 @@ class PathFindApp : public HoeTutorial , public XHoe2DCallback, HoeGame::MouseSt
 	HoeGame::KeyboardStdInput
 {
 	IHoeFont * font;
-	HoeGame::AI::MapFindPath m_map;
+    HoeCore::WordTileMap m_map;
 	Vector2 m_from;
 	Vector2 m_to;
 	//HoeGame::AI::Path m_path;
