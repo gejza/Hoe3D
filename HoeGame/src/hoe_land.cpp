@@ -12,6 +12,36 @@ void LandPath::Insert(float x, float y, bool virt)
     m_stack.Push(p);
 }
 
+/////////////////////////////////////////
+// Path
+/*bool TrollPath::GetNextPos(float l,float &px, float &py)
+{
+	float ux = x - px;
+	float uy = y - py;
+	float mag = sqrt(ux * ux + uy * uy);
+	ux /= mag;
+	uy /= mag;
+	if (l < mag)
+	{
+		px += ux * l;
+		py += uy * l;
+		return false;
+	}
+	px = x;
+	py = y;
+
+	// dalsi to
+	if (points.IsEmpty())
+		return true;
+	HoeGame::AI::PathPoint next = points.Pop();
+	x = next.to.x;
+	y = next.to.y;
+
+	return false;
+}
+*/
+
+
 /////////////////////////////////////////////////////
 
 Land::Land()
