@@ -2,13 +2,17 @@ AC_INIT(configure.in)
 AC_CONFIG_AUX_DIR(unix)
 AM_INIT_AUTOMAKE(Hoe, 1.0)
 
+sinclude(unix/macros/lua.m4)
+
 AC_PROG_CXX
 AM_PROG_CC_C_O
 AC_PROG_LIBTOOL
 AM_PROG_LEX
+CHECK_LUA()
 
-CXXFLAGS="$CXXFLAGS -mmmx -msse -march=pentium3 -D_LINUX -D_USE_OPENGL_ -ggdb3 -I/usr/include/freetype2 -I../HoeCore/include"
+CPPFLAGS="$CXXFLAGS -mmmx -msse -march=pentium3 -D_LINUX -D_USE_OPENGL_ -ggdb3 -I/usr/include/freetype2 -I../HoeCore/include"
 
 LDFLAGS="$LDFLAGS -L/usr/X11R6/lib -L../bin"
 
-AC_OUTPUT( Makefile Hoe3D/Makefile )
+AC_OUTPUT( Makefile HoeCore/Makefile Hoe3D/Makefile HoeGame/Makefile
+          HoeTutorials/Makefile )

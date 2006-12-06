@@ -48,7 +48,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE,LPSTR lpStr,int iCmdShow)
 
 int main(int argc,char * argv[])
 {
-	SetRootFromExe(argv[0]);
+    // SetRootFromExe(argv[0]);
 
 	Console con;
         con.SetFileLogging(GetLogname());

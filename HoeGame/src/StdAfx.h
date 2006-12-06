@@ -33,8 +33,9 @@
 #endif
 
 #include <assert.h>
+#ifdef __cplusplus 
 #include <hoe_core.h>
 #include <hoe_types.h>
 #include <hoe_math.h>
-
+#endif
 #endif // _STDAFX_H_

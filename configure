@@ -855,6 +855,8 @@ LIBTOOL
 LEX
 LEXLIB
 LEX_OUTPUT_ROOT
+LUA_LIBS
+LUA_CFLAGS
 LIBOBJS
 LTLIBOBJS'
 ac_subst_files=''
@@ -1464,6 +1466,7 @@ Optional Packages:
   --with-pic              try to use only PIC/non-PIC objects [default=use
                           both]
   --with-tags[=TAGS]      include additional configurations [automatic]
+  --with-lua=PATH         Path to the Lua 5.1 prefix
 
 Some influential environment variables:
   CXX         C++ compiler command
@@ -2350,6 +2353,9 @@ INSTALL_STRIP_PROGRAM="\${SHELL} \$(install_sh) -c -s"
 AMTAR=${AMTAR-"${am_missing_run}tar"}
 
 am__tar='${AMTAR} chof - "$$tardir"'; am__untar='${AMTAR} xf -'
+
+
+
 
 
 
@@ -4786,7 +4792,7 @@ ia64-*-hpux*)
   ;;
 *-*-irix6*)
   # Find out which ABI we are using.
-  echo '#line 4789 "configure"' > conftest.$ac_ext
+  echo '#line 4795 "configure"' > conftest.$ac_ext
   if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -7057,11 +7063,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7060: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7066: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:7064: \$? = $ac_status" >&5
+   echo "$as_me:7070: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -7325,11 +7331,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7328: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7334: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:7332: \$? = $ac_status" >&5
+   echo "$as_me:7338: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -7429,11 +7435,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7432: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7438: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:7436: \$? = $ac_status" >&5
+   echo "$as_me:7442: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -9753,7 +9759,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 9756 "configure"
+#line 9762 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -9853,7 +9859,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 9856 "configure"
+#line 9862 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -12195,11 +12201,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:12198: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:12204: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:12202: \$? = $ac_status" >&5
+   echo "$as_me:12208: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -12299,11 +12305,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:12302: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:12308: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:12306: \$? = $ac_status" >&5
+   echo "$as_me:12312: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -13860,11 +13866,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:13863: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:13869: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:13867: \$? = $ac_status" >&5
+   echo "$as_me:13873: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -13964,11 +13970,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:13967: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:13973: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:13971: \$? = $ac_status" >&5
+   echo "$as_me:13977: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -16157,11 +16163,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:16160: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:16166: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:16164: \$? = $ac_status" >&5
+   echo "$as_me:16170: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -16425,11 +16431,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:16428: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:16434: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:16432: \$? = $ac_status" >&5
+   echo "$as_me:16438: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -16529,11 +16535,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:16532: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:16538: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:16536: \$? = $ac_status" >&5
+   echo "$as_me:16542: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -19467,11 +19473,219 @@ if test "$LEX" = :; then
   LEX=${am_missing_run}flex
 fi
 
-CXXFLAGS="$CXXFLAGS -mmmx -msse -march=pentium3 -D_LINUX -D_USE_OPENGL_ -ggdb3 -I/usr/include/freetype2 -I../HoeCore/include"
+
+# Check whether --with-lua was given.
+if test "${with_lua+set}" = set; then
+  withval=$with_lua; lua_path="$withval"
+else
+  :
+fi
+
+
+if test -z $lua_path; then
+    test_paths="/usr/local /usr"
+else
+    test_paths="${lua_path}"
+fi
+
+for x in $test_paths ; do
+    { echo "$as_me:$LINENO: checking for lua.h in ${x}/include/lua5.1" >&5
+echo $ECHO_N "checking for lua.h in ${x}/include/lua5.1... $ECHO_C" >&6; }
+    if test -f ${x}/include/lua5.1/lua.h; then
+        { echo "$as_me:$LINENO: result: yes" >&5
+echo "${ECHO_T}yes" >&6; }
+        save_CFLAGS=$CFLAGS
+        save_LDFLAGS=$LDFLAGS
+        CFLAGS="$CFLAGS"
+        LDFLAGS="-L$x/lib $LDFLAGS"
+        { echo "$as_me:$LINENO: checking for luaL_newstate in -llua5.1" >&5
+echo $ECHO_N "checking for luaL_newstate in -llua5.1... $ECHO_C" >&6; }
+if test "${ac_cv_lib_lua5_1_luaL_newstate+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-llua5.1  $LIBS"
+cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char luaL_newstate ();
+int
+main ()
+{
+return luaL_newstate ();
+  ;
+  return 0;
+}
+_ACEOF
+rm -f conftest.$ac_objext conftest$ac_exeext
+if { (eval echo "$as_me:$LINENO: \"$ac_link\"") >&5
+  (eval $ac_link) 2>conftest.er1
+  ac_status=$?
+  grep -v '^ *+' conftest.er1 >conftest.err
+  rm -f conftest.er1
+  cat conftest.err >&5
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } &&
+	 { ac_try='test -z "$ac_c_werror_flag"			 || test ! -s conftest.err'
+  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+  (eval $ac_try) 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; } &&
+	 { ac_try='test -s conftest$ac_exeext'
+  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+  (eval $ac_try) 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; }; then
+  ac_cv_lib_lua5_1_luaL_newstate=yes
+else
+  echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+	ac_cv_lib_lua5_1_luaL_newstate=no
+fi
+
+rm -f conftest.err conftest.$ac_objext \
+      conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ echo "$as_me:$LINENO: result: $ac_cv_lib_lua5_1_luaL_newstate" >&5
+echo "${ECHO_T}$ac_cv_lib_lua5_1_luaL_newstate" >&6; }
+if test $ac_cv_lib_lua5_1_luaL_newstate = yes; then
+
+            LUA_LIBS="-L$x/lib -llua5.1"
+            LUA_CFLAGS="-I$x/include/lua5.1"
+
+fi
+
+        CFLAGS=$save_CFLAGS
+        LDFLAGS=$save_LDFLAGS
+        break
+    else
+        { echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6; }
+    fi
+    { echo "$as_me:$LINENO: checking for lua.h in ${x}/include" >&5
+echo $ECHO_N "checking for lua.h in ${x}/include... $ECHO_C" >&6; }
+    if test -f ${x}/include/lua.h; then
+        { echo "$as_me:$LINENO: result: yes" >&5
+echo "${ECHO_T}yes" >&6; }
+        save_CFLAGS=$CFLAGS
+        save_LDFLAGS=$LDFLAGS
+        CFLAGS="$CFLAGS"
+        LDFLAGS="-L$x/lib $LDFLAGS"
+        { echo "$as_me:$LINENO: checking for luaL_newstate in -llua" >&5
+echo $ECHO_N "checking for luaL_newstate in -llua... $ECHO_C" >&6; }
+if test "${ac_cv_lib_lua_luaL_newstate+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-llua  $LIBS"
+cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char luaL_newstate ();
+int
+main ()
+{
+return luaL_newstate ();
+  ;
+  return 0;
+}
+_ACEOF
+rm -f conftest.$ac_objext conftest$ac_exeext
+if { (eval echo "$as_me:$LINENO: \"$ac_link\"") >&5
+  (eval $ac_link) 2>conftest.er1
+  ac_status=$?
+  grep -v '^ *+' conftest.er1 >conftest.err
+  rm -f conftest.er1
+  cat conftest.err >&5
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } &&
+	 { ac_try='test -z "$ac_c_werror_flag"			 || test ! -s conftest.err'
+  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+  (eval $ac_try) 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; } &&
+	 { ac_try='test -s conftest$ac_exeext'
+  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+  (eval $ac_try) 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; }; then
+  ac_cv_lib_lua_luaL_newstate=yes
+else
+  echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+	ac_cv_lib_lua_luaL_newstate=no
+fi
+
+rm -f conftest.err conftest.$ac_objext \
+      conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ echo "$as_me:$LINENO: result: $ac_cv_lib_lua_luaL_newstate" >&5
+echo "${ECHO_T}$ac_cv_lib_lua_luaL_newstate" >&6; }
+if test $ac_cv_lib_lua_luaL_newstate = yes; then
+
+            LUA_LIBS="-L$x/lib -llua"
+            LUA_CFLAGS="-I$x/include"
+
+fi
+
+        CFLAGS=$save_CFLAGS
+        LDFLAGS=$save_LDFLAGS
+        break
+    else
+        { echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6; }
+    fi
+done
+
+
+
+
+if test -z "${LUA_LIBS}"; then
+  { echo "$as_me:$LINENO: *** Lua 5.1 library not found." >&5
+echo "$as_me: *** Lua 5.1 library not found." >&6;}
+  { { echo "$as_me:$LINENO: error: Lua 5.1 library is required" >&5
+echo "$as_me: error: Lua 5.1 library is required" >&2;}
+   { (exit 1); exit 1; }; }
+else
+  { echo "$as_me:$LINENO: using '${LUA_LIBS}' for Lua Library" >&5
+echo "$as_me: using '${LUA_LIBS}' for Lua Library" >&6;}
+
+fi
+
+
+CPPFLAGS="$CXXFLAGS -mmmx -msse -march=pentium3 -D_LINUX -D_USE_OPENGL_ -ggdb3 -I/usr/include/freetype2 -I../HoeCore/include"
 
 LDFLAGS="$LDFLAGS -L/usr/X11R6/lib -L../bin"
 
-ac_config_files="$ac_config_files Makefile Hoe3D/Makefile"
+ac_config_files="$ac_config_files Makefile HoeCore/Makefile Hoe3D/Makefile HoeGame/Makefile HoeTutorials/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -20061,7 +20275,10 @@ do
   case $ac_config_target in
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
+    "HoeCore/Makefile") CONFIG_FILES="$CONFIG_FILES HoeCore/Makefile" ;;
     "Hoe3D/Makefile") CONFIG_FILES="$CONFIG_FILES Hoe3D/Makefile" ;;
+    "HoeGame/Makefile") CONFIG_FILES="$CONFIG_FILES HoeGame/Makefile" ;;
+    "HoeTutorials/Makefile") CONFIG_FILES="$CONFIG_FILES HoeTutorials/Makefile" ;;
 
   *) { { echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5
 echo "$as_me: error: invalid argument: $ac_config_target" >&2;}
@@ -20267,11 +20484,13 @@ LIBTOOL!$LIBTOOL$ac_delim
 LEX!$LEX$ac_delim
 LEXLIB!$LEXLIB$ac_delim
 LEX_OUTPUT_ROOT!$LEX_OUTPUT_ROOT$ac_delim
+LUA_LIBS!$LUA_LIBS$ac_delim
+LUA_CFLAGS!$LUA_CFLAGS$ac_delim
 LIBOBJS!$LIBOBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `grep -c "$ac_delim\$" conf$$subs.sed` = 8; then
+  if test `grep -c "$ac_delim\$" conf$$subs.sed` = 10; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5
