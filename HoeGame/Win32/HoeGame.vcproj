@@ -932,14 +932,6 @@
 				RelativePath="..\include\hoe_ai.h"
 				>
 			</File>
-			<File
-				RelativePath="..\src\hoe_path.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\include\hoe_path.h"
-				>
-			</File>
 		</Filter>
 		<File
 			RelativePath="..\src\hoe_console.cpp"
@@ -969,6 +961,14 @@
 		</File>
 		<File
 			RelativePath="..\include\hoe_game.h"
+			>
+		</File>
+		<File
+			RelativePath="..\src\hoe_land.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\include\hoe_land.h"
 			>
 		</File>
 		<File

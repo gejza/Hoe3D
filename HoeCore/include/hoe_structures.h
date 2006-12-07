@@ -189,6 +189,10 @@ public:
 		this->m_count--;
 		return this->m_ptr[this->m_count];
 	}
+	const C & GetTop()
+	{
+		return this->m_ptr[this->m_count-1];
+	}
 };
 
 /** 

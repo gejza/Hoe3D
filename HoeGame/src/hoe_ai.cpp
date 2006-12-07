@@ -5,7 +5,7 @@
 BEGIN_HOEGAME
 namespace AI {
 
-void Path::Find(const HoeMath::Vector2 & s, const HoeMath::Vector2 & f, HoeMath::Polygon2 * p)
+/*void Path::Find(const HoeMath::Vector2 & s, const HoeMath::Vector2 & f, HoeMath::Polygon2 * p)
 {
 	// najit nejlevejsi bod
 	points.Delete();
@@ -20,7 +20,7 @@ void Path::Find(const HoeMath::Vector2 & s, const HoeMath::Vector2 & f, HoeMath:
 		tt = s;
 	}
 	points.Push(PathPoint(s,true));
-}
+}*/
 
 /////////////////////////////////////////////////////////
 HoeMath::Polygon2Ex * CreatePolygon(HoeCore::Set<HoeMath::VLine2Int> &lines)
