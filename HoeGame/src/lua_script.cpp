@@ -315,7 +315,7 @@ bool LuaScript::Init()
 	//lua_strlibopen(m_L);
 	//lua_mathlibopen(m_L);
 	//lua_dblibopen(m_L); 
-	//luaL_openlibs(m_L);
+	luaL_openlibs(m_L);
 
 	lua_register(m_L,"print",LuaScript::print);
 	lua_register(m_L,"sleep",LuaScript::sleep);
