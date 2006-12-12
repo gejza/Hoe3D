@@ -27,6 +27,7 @@ const char * HoeFormatString(HOEFORMAT format)
 	case HOE_R3G3B2: return "R3G3B2";
 	case HOE_A8: return "A8";
 	case HOE_A8L8: return "A8L8";
+    case HOE_B8G8R8X8: return "B8G8R8X8";
 	case HOE_JPEG: return "JPEG";
 	case HOE_PNG: return "PNG";
 	default:
@@ -215,6 +216,7 @@ GLint HoeFormatX(HOEFORMAT format)
 	switch (format)
 	{
 	case HOE_A8R8G8B8:
+    case HOE_B8G8R8X8: 
 	case HOE_R8G8B8A8: return GetRef()->ext.ARB_texture_compression ? GL_COMPRESSED_RGBA:GL_RGBA8;
 	case HOE_R8G8B8: return GetRef()->ext.ARB_texture_compression ? GL_COMPRESSED_RGB:GL_RGB8;
 	default:

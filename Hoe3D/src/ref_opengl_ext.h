@@ -23,7 +23,7 @@ struct GLExt
 };
 
 // multitexture
-#if defined(GL_ARB_multitexture) && !defined (GL_GLEXT_PROTOTYPES)
+#if defined(GL_ARB_multitexture) && !defined (GL_GLEXT_PROTOTYPES1)
 extern PFNGLACTIVETEXTUREARBPROC glActiveTextureARB;
 extern PFNGLCLIENTACTIVETEXTUREARBPROC glClientActiveTextureARB;
 extern PFNGLMULTITEXCOORD1DARBPROC glMultiTexCoord1dARB;

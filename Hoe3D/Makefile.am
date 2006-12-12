@@ -75,6 +75,7 @@ src/utils.cpp \
 src/icreate_parser.c \  
 src/material_parser.c
 
+___bin_Hoe3D_so_CPPFLAGS = -DGL_GLEXT_PROTOTYPES1
 ___bin_Hoe3D_so_LDFLAGS = -shared -fPIC -lGL -ljpeg -lpng -lopenal -lHoeCore -lXxf86vm -lXxf86dga -lfreetype -lvorbis -lvorbisfile  @LEXLIB@
 
 
