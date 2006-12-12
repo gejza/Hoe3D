@@ -57,11 +57,12 @@ Land::~Land()
 
 #define TILE(x,y) (m_tile[y*m_width+x]) 
 
-bool Land::Create(int width, int height)
+bool Land::Create(int width, int height, const THoeRect &rect)
 {
     m_tile = new GP[width*height];
     m_width = width;
     m_height = height;
+	m_rect = rect;
     return true;
 }
 
@@ -107,14 +108,33 @@ bool Land::Preprocess(HoeCore::WordTileMap &map)
 }
 
 
-bool Land::Find(uint fx, uint fy, uint tx, uint ty, LandPath * out)
+bool Land::Find(const HoeMath::Vector2 &from, const HoeMath::Vector2 &to, LandPath &out)
 {
+	const float dx = (m_rect.right - m_rect.left)/m_width;
+	const float dy = (m_rect.bottom - m_rect.top)/m_height;
+	// prepocitat na ctverce
+	// zjisti ctverec
+	int fx = (from.x - m_rect.left) / dx;
+	int fy = (from.y - m_rect.top) / dy;
+	int tx = (to.x - m_rect.left) / dx;
+	int ty = (to.y - m_rect.top) / dy;
+
 	//memset(g_cesta, 0, sizeof(g_cesta));
+	for (int i=0;i < m_width*m_height;i++)
+	{
+		const GP p = m_tile[i];
+		memset(&m_tile[i],0,sizeof(m_tile[i]));
+		m_tile[i].pos = p.pos;
+		m_tile[i].souseds = p.souseds;
+	}
+
 	if (!this->Process(&TILE(fx,fy), &TILE(tx,ty)))
 		return false;
 	GP * p = &TILE(tx,ty);
 	do {
-		out->Insert(hiword(p->pos),loword(p->pos),false);
+
+		out.Insert((hiword(p->pos)*dx)+m_rect.left,
+			(loword(p->pos)*dy)+m_rect.top,false);
 	} while (p=(GP*)p->prev); // hack
 	return true;
 }

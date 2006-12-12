@@ -126,14 +126,6 @@ bool HoeApp::LoadEngine()
 	return m_engine.Load(m_enginedll.GetString(), m_con, &m_fs);
 }
 
-bool HoeApp::Frame(float time)
-{
-	assert(HoeGame::GetHoeEngine());
-	HoeGame::GetHoeEngine()->Process(time);
-	OnUpdate(time);
-	return HoeGame::GetHoeEngine()->Frame();
-}
-
 void HoeApp::OnUpdate(float time)
 {
 }
@@ -162,12 +154,24 @@ bool HoeApp::Frame()
 {
 	static float t=GetEngine()->SysFloatTime();
 	float nt = GetEngine()->SysFloatTime();
+	static int num = 1;
 	if (!GetMsg(GetHoeEngine()))
 		return false;
 
-	Frame((nt-t) < 1.f ? (nt-t):1.f);
-	t = nt;
+
+	//Frame((nt-t) < 1.f ? (nt-t):1.f);
+	Frame((nt-t)/num); // todo
+	//t = nt;
+	num++;
 	return true;
+}
+
+bool HoeApp::Frame(float time)
+{
+	assert(HoeGame::GetHoeEngine());
+	HoeGame::GetHoeEngine()->Process(time);
+	OnUpdate(time);
+	return HoeGame::GetHoeEngine()->Frame();
 }
 
 void HoeApp::OnSize(int width, int height)

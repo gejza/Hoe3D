@@ -120,9 +120,9 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\HoeEditor\include;../../HoeGame/include;../../Hoe3D/include"
+				AdditionalIncludeDirectories="..\..\HoeCore\include;..\..\HoeEditor\include;../../HoeGame/include;../../Hoe3D/include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -139,8 +139,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="HoeCore.lib HoeUtils.lib HoeGame.lib HoeEditor.lib Lua5.1.lib libfl.a wxbase26.lib wxmsw26_core.lib wxmsw26_adv.lib wxmsw26_propgrid.lib wxbase26_xml.lib wxmsw26_stc.lib wxexpat.lib rpcrt4.lib comctl32.lib"
 				OutputFile="..\bin\$(ProjectName).exe"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="../../bin;../../../Common/lib/wx_lib"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"

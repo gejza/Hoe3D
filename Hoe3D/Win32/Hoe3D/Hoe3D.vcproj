@@ -30,13 +30,16 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
-				Name="HTML help"
-			/>
-			<Tool
 				Name="NASM"
 			/>
 			<Tool
+				Name="Bison"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="HTML help"
 			/>
 			<Tool
 				Name="Flex"
@@ -92,7 +95,7 @@
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="../../../bin"
-				IgnoreDefaultLibraryNames="MSVCRTD.lib"
+				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\DebugD3D9/Hoe3D.pdb"
 				ImportLibrary=".\DebugD3D9/Hoe3D.lib"
@@ -135,13 +138,16 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
-				Name="HTML help"
-			/>
-			<Tool
 				Name="NASM"
 			/>
 			<Tool
+				Name="Bison"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="HTML help"
 			/>
 			<Tool
 				Name="Flex"
@@ -239,13 +245,16 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
-				Name="HTML help"
-			/>
-			<Tool
 				Name="NASM"
 			/>
 			<Tool
+				Name="Bison"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="HTML help"
 			/>
 			<Tool
 				Name="Flex"
@@ -344,13 +353,16 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
-				Name="HTML help"
-			/>
-			<Tool
 				Name="NASM"
 			/>
 			<Tool
+				Name="Bison"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="HTML help"
 			/>
 			<Tool
 				Name="Flex"
@@ -448,13 +460,16 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
-				Name="HTML help"
-			/>
-			<Tool
 				Name="NASM"
 			/>
 			<Tool
+				Name="Bison"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="HTML help"
 			/>
 			<Tool
 				Name="Flex"
@@ -552,16 +567,19 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
-				Name="HTML help"
+				Name="NASM"
+			/>
+			<Tool
+				Name="Bison"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
 			/>
 			<Tool
-				Name="Flex"
+				Name="HTML help"
 			/>
 			<Tool
-				Name="NASM"
+				Name="Flex"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -637,13 +655,16 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
-				Name="HTML help"
-			/>
-			<Tool
 				Name="NASM"
 			/>
 			<Tool
+				Name="Bison"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="HTML help"
 			/>
 			<Tool
 				Name="Flex"
@@ -741,16 +762,19 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
-				Name="HTML help"
+				Name="NASM"
+			/>
+			<Tool
+				Name="Bison"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
 			/>
 			<Tool
-				Name="Flex"
+				Name="HTML help"
 			/>
 			<Tool
-				Name="NASM"
+				Name="Flex"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"

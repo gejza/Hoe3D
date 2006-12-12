@@ -29,15 +29,16 @@ class Land : private HoeCore::Algorythm::Dajkrs
     GP *m_tile;
     int m_width;
     int m_height;
+	THoeRect m_rect;
 	HoeCore::List<HoeCore::Algorythm::Dajkrs::TGraphPoint*> m_lists;
 	virtual float FCALL w(const TGraphPoint * from, const TGraphPoint * to);
 	virtual float FCALL Heuristic(const TGraphPoint * from, const TGraphPoint * to);
 public:
     Land();
     virtual ~Land();
-    bool Create(int width, int height);
+    bool Create(int width, int height, const THoeRect &rect);
 	bool Preprocess(HoeCore::WordTileMap & map);
-	bool Find(uint fx,uint fy, uint tx, uint ty, LandPath * out);
+	bool Find(const HoeMath::Vector2 &from, const HoeMath::Vector2 &to, LandPath &path);
 };
 
 

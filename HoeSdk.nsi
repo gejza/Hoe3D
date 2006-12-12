@@ -69,17 +69,40 @@ Section "Game files"
   ; Set output path to the installation directory.
   SetOutPath $INSTDIR
   
+ 
+  SetOutPath "$INSTDIR\Include"
+  File "Hoe3D\include\*"
+  File "HoeGame\include\*"
+  File "HoeCore\include\*"
+  SetOutPath "$INSTDIR\Include\he"
+  File "HoeEditor\include\he\*"
+  SetOutPath "$INSTDIR\Lib"
+  File "bin\HoeGame_d.lib"
+  File "bin\HoeGame.lib"
+  File "bin\HoeCore_d.lib"
+  File "bin\HoeCore.lib"
+  File "bin\HoeEditor_d.lib"
+  File "bin\HoeEditor.lib"
+  File "bin\HoeUtils_d.lib"
+  File "bin\HoeUtils.lib"
+  File "bin\HoeResource_d.lib"
+  File "bin\HoeResource.lib"
+  File "bin\Hoe3D_D3D9_d.lib"
+  File "bin\Hoe3D_GL_d.lib"
+  SetOutPath "$INSTDIR\Bin"
   ; exe files
   File "bin\Hoe3Dd_D3D9.dll"
-  
-  ;SetOutPath "$INSTDIR\data"
-  ;File "..\data\*"
-  ;SetOutPath "$INSTDIR\data\maps"
-  ;File "..\data\maps\*"
-  ;SetOutPath "$INSTDIR\resource"
-  ;File "..\resource\*"
-  
-  ; Write the installation path into the registry
+  File "bin\Hoe3D_D3D9.dll"
+  File "bin\Hoe3Dd_D3D8.dll"
+  File "bin\Hoe3D_D3D8.dll"
+  File "bin\Hoe3Dd_GL.dll"
+  File "bin\Hoe3D_GL.dll"
+  SetOutPath "$INSTDIR\Utils"
+  File "Hoeutils\bin\HoeMax.dle"
+  File "Hoeutils\bin\hmc.exe"
+  File "Hoeutils\bin\Hoe2DEditor.exe"
+
+   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\HoeSdk "Install_Dir" "$INSTDIR"
   
   ; Write the uninstall keys for Windows
