@@ -12,7 +12,7 @@ firstapp_LDADD = -lHoeCore -lHoeGame -lbassmod $(LUA_LIBS) -lXxf86vm -lXxf86dga
 
 paint2D_CPPFLAGS = -I../HoeCore/include -I../HoeGame/include -I../Hoe3D/include
 paint2D_SOURCES = \ 
-Paint2D/paint_app.cpp \
+Paint2D/paint2d_app.cpp \
 Common/tutorial.cpp
 paint2D_LDADD = -lHoeCore -lHoeGame -lbassmod $(LUA_LIBS) -lXxf86vm -lXxf86dga 
 

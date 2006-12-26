@@ -8,7 +8,7 @@ lib_LTLIBRARIES = ../bin/libHoeCore.la
 #src/lang_parser.cpp: src/lang_parser.l
 #	flex -o src/lang_parser.cpp src/lang_parser.l
 
-#___bin_libHoeCore_la_CPPFLAGS = -I../Hoe3D/include $(LUA_CFLAGS)
+___bin_libHoeCore_la_CPPFLAGS = -D_NOXLIB
 
 ___bin_libHoeCore_la_SOURCES = src/hoe_core.cpp \
 src/hoe_log.cpp \

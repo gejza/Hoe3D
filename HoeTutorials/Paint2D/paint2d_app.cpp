@@ -53,16 +53,16 @@ bool Paint2DApp::LoadScene()
 	g_lang.Load("czech.lng");
 	GetEngine()->exec(g_lang.Get(1));
 	HoeGame::BaseConsole::Printf("test: %s",g_lang.Get(2));
-	GetFS()->AddResourceFile("../data/tex.hx");
+	GetFS()->AddResourceFile("data/tex.hx");
 
 	pic[0] = (IHoePicture *)GetEngine()->Create("picture samo");
 	pic[1] = (IHoePicture *)GetEngine()->Create("picture earth");
 	//pic[2] = (IHoePicture *)GetEngine()->Create("picture OLDMETAL");
 	//pic[3] = (IHoePicture *)GetEngine()->Create("picture MetalGrate");
-	f = (IHoeFont *)GetEngine()->Create("font '../data/font.ttf' 24");
+	f = (IHoeFont *)GetEngine()->Create("font 'data/font.ttf' 24");
 	if (f == NULL)
 		return false;
-	f2 = (IHoeFont *)GetEngine()->Create("font '../data/Kidsn.ttf' 24");
+	f2 = (IHoeFont *)GetEngine()->Create("font 'data/Kidsn.ttf' 24");
 	if (f2 == NULL)
 		return false;
 

@@ -4,9 +4,9 @@ lib_LTLIBRARIES = ../bin/libHoeGame.la
 #bin_PROGRAMS = ../bin/Hoe3D.so
 
 src/config_parser.c: src/config_parser.l
-	flex -o src/config_parser.c src/config_parser.l
+	flex -o"src/config_parser.c" src/config_parser.l
 src/lang_parser.c: src/lang_parser.l
-	flex -o src/lang_parser.c src/lang_parser.l
+	flex -o"src/lang_parser.c" src/lang_parser.l
 
 ___bin_libHoeGame_la_CPPFLAGS = -I../Hoe3D/include $(LUA_CFLAGS)
 
@@ -36,5 +36,6 @@ src/hoe_view.cpp \
 src/lua_script.cpp \
 src/config_parser.c src/lang_parser.c
 
-#___bin_libHoeGame_la_LDFLAGS = -module
+___bin_libHoeGame_la_LDFLAGS = -module -lHoeCore
+
 

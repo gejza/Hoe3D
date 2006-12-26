@@ -151,15 +151,15 @@ void HoeEngineInfo::Unload()
 
 END_HOEGAME
 
-/*
+
 float SysFloatTime()
 {
-	//if (HoeGame::g_hoeengine)
-    //{
-    //    hoe_assert(HoeGame::g_hoeengine->SysFloatTime != NULL);
-	//	return HoeGame::g_hoeengine->SysFloatTime();
-    //}
+	if (HoeGame::g_hoeengine)
+    {
+        hoe_assert(HoeGame::g_hoeengine->SysFloatTime != NULL);
+	return HoeGame::g_hoeengine->SysFloatTime();
+	}
 	return 0.f;
 }
 
-*/
+
