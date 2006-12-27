@@ -42,6 +42,7 @@ class Console: public BaseConsole
 	HoeApp * app_callback;
 
 	void AddLine(const char *);
+	void PrintMessage(const char * str);
 public:
 	Console();
 	~Console();

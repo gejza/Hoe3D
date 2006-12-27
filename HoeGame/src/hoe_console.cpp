@@ -77,6 +77,28 @@ void Console::SetFileLogging(const char * flog)
 
 void Console::Con_Print(const char * str)
 {
+	// repeated
+	static dword lastid = 0;
+	static int num = 0;
+	dword id = HoeCore::HashString(str);
+	if (id != lastid)
+	{
+		if (num)
+		{
+			char repeat[1024];
+			sprintf(repeat, "Last message was repeated %d times.",num);
+			PrintMessage(repeat);
+		}
+		num=0;
+		lastid=id;
+		PrintMessage(str);
+	}
+	else
+		num++;
+}
+
+void Console::PrintMessage(const char * str)
+{
 	fprintf(stderr,"%s\n",str);
 	if (log)
 	{
