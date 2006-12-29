@@ -10,18 +10,20 @@ namespace Gui {
 	class Base;
 }
 
-
 class Hoe2DControl
 {
 public:
-	typedef void (Hoe2DControl::*FUNC)(Gui::Base * sender);
+	typedef void (Hoe2DControl::*FUNC_CMD)(Gui::Base * sender);
+	typedef const char * (Hoe2DControl::*FUNC_TEXTOVERLAP)(Gui::Base * sender, const char * text);
 };
+
+#define H2DC_TEXTOVERLAP(func) static_cast<HoeGame::Hoe2DControl::FUNC_TEXTOVERLAP>(&func)
 
 namespace Gui {
 
 enum EType
 {
-	ENone,
+	ENone=1000,
 	EStatic,
 	EColorRect,
 	EButton,
@@ -134,7 +136,7 @@ protected:
 	IHoeFont * m_fonttt;
 	const char * m_tt;
 	Hoe2DControl * m_ctrl;
-	Hoe2DControl::FUNC m_func;
+	Hoe2DControl::FUNC_CMD m_func;
 	int m_id;
 public:
 	Button();
@@ -148,9 +150,10 @@ public:
 	void SetToolTip(const char * tt);
 	void SetID(int id) { m_id = id; }
 	int GetID() { return m_id; }
-	void SetHandler(Hoe2DControl * ctrl, Hoe2DControl::FUNC func)
+	virtual void Set(const char * prop, const char *value);
+	void SetHandler(void * ctrl, Hoe2DControl::FUNC_CMD func)
 	{
-		m_ctrl = ctrl; m_func = func;
+		m_ctrl = (Hoe2DControl *)ctrl; m_func = func;
 	}
 };
 
@@ -191,6 +194,8 @@ protected:
 	const char * m_text;
 	Align m_ax;
 	Align m_ay;
+	Hoe2DControl * m_ctrl;
+	Hoe2DControl::FUNC_TEXTOVERLAP m_func;
 public:
 	Font();
 	~Font();
@@ -199,6 +204,10 @@ public:
 	virtual void Set(const char * prop, const char *value);
 	void SetFont(IHoeFont * font) { m_font = font; }
 	void SetText(const char * ptr);
+	void SetTextOverlaper(void * ctrl, Hoe2DControl::FUNC_TEXTOVERLAP func)
+	{
+		m_ctrl = (Hoe2DControl *)ctrl; m_func = func;
+	}
 };
 
 } // namespace Gui

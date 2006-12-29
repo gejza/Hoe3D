@@ -36,7 +36,7 @@ public:
 	Hoe2DFigureBase();
 	/** Destruktor */
 	virtual ~Hoe2DFigureBase();
-
+	/** Funkce ktera nacte ze souboru dalsi prvky */
 	bool Load(const char * fname);
 	virtual Gui::Base * CreateGUI(const char * type) = 0;
 };
@@ -47,12 +47,15 @@ protected:
 	// seznam vykresleni
 	HoeCore::List<Gui::Item*> m_list;
 public:
+	virtual ~Hoe2DFigure() { Clear(); }
+	void Clear();
 	virtual Gui::Base * CreateGUI(const char * type);
 	virtual void Draw(IHoe2D * hoe2d);
 	Gui::Item * GetItem(const char * name, Gui::EType type);
 	Gui::Item * ReqItem(const char * name, Gui::EType type);
 	void Move(const float x, const float y, bool & act);
 	bool Click(const float x, const float y);
+	const HoeCore::List<Gui::Item*> & GetItems() const { return m_list; }
 };
 
 END_HOEGAME

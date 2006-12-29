@@ -57,10 +57,10 @@ public:
 	{
 		if (this->m_ptr) free(this->m_ptr);
 	}
-	uint Count() { return this->m_count; }
+	uint Count() const { return this->m_count; }
 	void Delete() { this->m_count = 0; }
 	void SetCount(int count) { this->m_count=count; } 
-	C & Get(uint n)
+	C & Get(uint n) const
 	{
 		assert(n < this->m_count);
 		return this->m_ptr[n];

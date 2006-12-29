@@ -330,6 +330,8 @@ Font::Font()
 	m_text = NULL; 
 	m_ax = ALeft;
 	m_ay = ATop;
+	m_ctrl = NULL;
+	m_func = NULL;
 }
 
 Font::~Font()
@@ -343,7 +345,12 @@ Font::~Font()
 
 void Font::Draw(IHoe2D *hoe2d)
 {
-	if (m_font && m_text)
+	const char * text = m_text;
+	// text overlap
+	if (m_ctrl && m_func)
+		text = (m_ctrl->*m_func)(this, text);
+
+	if (m_font && text)
 	{
 		float x = m_rect.left;
 		float y = m_rect.top;
@@ -351,7 +358,7 @@ void Font::Draw(IHoe2D *hoe2d)
 		{
 			// sirka
 			THoeFontSize size;
-			m_font->GetTextSize(m_text, &size);
+			m_font->GetTextSize(text, &size);
 			if (m_ax == ACenter)
 				x += (m_rect.right - m_rect.left - size.width) * 0.5f; 
 			else
@@ -366,7 +373,7 @@ void Font::Draw(IHoe2D *hoe2d)
 			else
 				y = m_rect.bottom - height;
 		}
-		m_font->DrawText(x, y, 0xffffffff, m_text);
+		m_font->DrawText(x, y, 0xffffffff, text);
 	}
 }
 
@@ -416,6 +423,10 @@ void Font::Set(const char *prop, const char *value)
 			m_ay = ABottom; break;
 		};
 	}
+	else if (strcmp(prop, "text")==0)
+	{
+		SetText(value);
+	}
 	else
 		Item::Set(prop,value);
 }
@@ -448,8 +459,13 @@ void Button::Draw2(IHoe2D * h2d)
 {
 	if (m_show && m_pic && m_fonttt && m_tt && m_active)
 	{
-		m_fonttt->DrawText( m_rect.right, m_rect.bottom, 0xffffffff, 
+		// do leveho horniho nebo praveho dolniho
+		THoeFontSize size;
+		m_fonttt->GetTextSize(m_tt, &size);
+		m_fonttt->DrawText( m_rect.left-size.width, m_rect.top-20, 0xffffffff, 
               m_tt );
+		//m_fonttt->DrawText( m_rect.right, m_rect.bottom, 0xffffffff, 
+        //      m_tt );
 	}
 }
 
@@ -484,6 +500,17 @@ void Button::SetToolTipFont(IHoeFont * fnt)
 void Button::SetToolTip(const char * tt)
 {
 	m_tt = tt;
+}
+
+void Button::Set(const char * prop, const char *value)
+{
+	if (strcmp(prop,"tooltipfont") == 0)
+	{
+		// load
+		SetToolTipFont((IHoeFont*)GetHoeEngine()->Create(value));
+	}
+	else 
+		StaticPicture::Set(prop, value);
 }
 
 ////////////////////////////////////

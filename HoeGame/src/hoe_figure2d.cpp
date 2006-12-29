@@ -5,6 +5,11 @@
 #include "../include/hoe_app.h"
 #include <locale.h>
 
+void yyfigurerestart ( FILE *input_file );
+int yyfigurelex();
+extern char *yyfiguretext;
+extern int yyfigureleng;
+extern int yyfigurelineno;
 
 BEGIN_HOEGAME
 
@@ -22,66 +27,64 @@ bool Hoe2DFigureBase::Load(const char * fname)
 {
 	setlocale(LC_NUMERIC, "C");
 
-	FigureFile ff;
-	if (!ff.Open(fname))
+	FILE * f = fopen(fname, "rt");
+	if (!f)
 		return false;
 
-	try
-	{
+	yyfigurerestart(f);
 
-		char buff[2048];
-		while (ff.GetLine(buff, sizeof(buff)))
-		{
-			// vytvorit base
-			HoeGame::Gui::Base * gui = CreateGUI(buff);		
-			if (!gui)
-				throw "chyba";
-			if (!ff.GetLine(buff, sizeof(buff)) || strcmp(buff,"{") != 0)
-				throw "chyba";
-			while (1)
-			{
-				if (!ff.GetLine(buff, sizeof(buff)))
-					throw "chyba";
-				if (strcmp(buff,"}") == 0)
-					break;
-				char * p = buff;
-				while (*p == '\t' || *p == ' ') p++;
-				const char * stname = p;
-				while (*p > ' ' && *p != '=') p++;
-				if (*p == 0)
-					throw "chyba";
-				if (*p != '=')
-					*p++ = '\0';
-				while (*p != '=')
-				{
-					if (*p != ' ' && *p != '\t')
-						throw "chyba";
-					p++;
-				}
-				*p++ = '\0';
-				while (*p == ' ' || *p == '\t') p++;
-				if (*p == '\"')
-				{
-					p++;
-					const char *val = p;
-					while (*p) p++;
-					p--;
-					while (*p == ' ' || *p == '\t') p--;
-					if (*p != '\"')
-						throw "chyba";
-					*p = '\0';
-					gui->Set(stname, val);
-				}
-				else
-					gui->Set(stname,p);
-			}
-		}
-	} catch (...)
+	int type = 0;
+	char name[256];
+	try {
+	while ((type=yyfigurelex())==257)
 	{
+		// na zacatku musi byt jmeno vytvarene
+		HoeGame::Gui::Base * gui = CreateGUI(yyfiguretext);		
+		if (!gui)
+			throw "syntax error, name requied";
+		
+		if (yyfigurelex()!=258)
+			throw "syntax error, `{' requied";
+		
+		while ((type=yyfigurelex())!=260)
+		{
+			// read params
+			if (type != 257)
+				throw "syntax error, name requied";
+			strncpy(name, yyfiguretext, 255);
+			if (yyfigurelex()!=259 || yyfiguretext[0] != '=')
+				throw "syntax error, `=' requied";
+			// preskocit '=' a bile znaky
+			char * p = yyfiguretext+1;
+			char * e = yyfiguretext+yyfigureleng;
+			while (*p==' ' || *p=='\t') p++;
+			// pokud je to string, odstringovat
+			if (*p == '\'' || *p == '\"')
+			{
+				while (*e != *p) e--;
+				if (e==p)
+					throw "syntax error, unclosed `\"' or `''";
+				*e = '\0';
+				p++;
+			}
+			gui->Set(name,p);
+		}
+	}
+	} catch (const char * str)
+	{
+		fclose(f);
+		BaseConsole::Printf("%s(%d): error: %s", fname, yyfigurelineno, str);
 		return false;
 	}
-	
+
+	fclose(f);
+	if (type!=0)
+	{
+		BaseConsole::Printf("%s(%d): error: syntax error on end of file", fname, yyfigurelineno);
+		return false;
+	}
 	return true;
+
 }
 
 Gui::Base * Hoe2DFigure::CreateGUI(const char *type)
@@ -100,11 +103,21 @@ Gui::Base * Hoe2DFigure::CreateGUI(const char *type)
 		g = new DigiCounter;
 	else if (IS("infopanel"))
 		g = new InfoPanel;
-	else if (IS("font"))
+	else if (IS("text"))
 		g = new Font;
 
 	m_list.Add(g);
 	return g;
+}
+
+void Hoe2DFigure::Clear()
+{
+	for (uint i=0;i < m_list.Count();i++)
+	{
+		Gui::Item * item = m_list.Get(i);
+		delete item;
+	}
+	m_list.SetCount(0);
 }
 
 void Hoe2DFigure::Draw(IHoe2D *hoe2d)

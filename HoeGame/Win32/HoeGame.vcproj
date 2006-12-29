@@ -453,6 +453,10 @@
 			Name="2d"
 			>
 			<File
+				RelativePath="..\src\figurefile_parser.l"
+				>
+			</File>
+			<File
 				RelativePath="..\src\hoe_figure2d.cpp"
 				>
 				<FileConfiguration
@@ -914,6 +918,10 @@
 			>
 			<File
 				RelativePath="..\src\config_parser.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\figurefile_parser.yy.cpp"
 				>
 			</File>
 			<File
