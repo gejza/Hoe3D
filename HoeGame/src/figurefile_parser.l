@@ -6,8 +6,8 @@
 #ifdef yywrap
 #undef yywrap
 #else
-#define yyconfigwrap yywrap
-static int yywrap() { return 1; } 
+#define YY_SKIP_YYWRAP 1
+static int yyfigurewrap() { return 1; } 
 #endif
 #include "StdAfx.h"
 #include "../include/hoe_gui.h"

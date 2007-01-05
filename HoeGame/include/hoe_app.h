@@ -87,6 +87,7 @@ public:
 	void DestroyEngine();
 };
 
+
 END_HOEGAME
 
 #endif // _HOE_GAME_APP_H_
