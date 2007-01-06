@@ -43,9 +43,10 @@ bool Hoe2DFigureBase::Load(const char * fname)
 		if (!gui)
 			throw "syntax error, name requied";
 		
-		if (yyfigurelex()!=258)
+		if ((type=yyfigurelex())!=258) 
+		{
 			throw "syntax error, `{' requied";
-		
+		}
 		while ((type=yyfigurelex())!=260)
 		{
 			// read params

@@ -13,7 +13,7 @@ static int yyfigurewrap() { return 1; }
 #include "../include/hoe_gui.h"
 %}
 
-ws			[ \t]+
+ws			[ \t\r]+
 comment1	#.*
 comment2	\/\/.*
 comment3	\-\-.*

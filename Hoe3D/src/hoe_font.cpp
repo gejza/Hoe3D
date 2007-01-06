@@ -42,8 +42,13 @@ static void PrintCharA8L8(uint texX, uint texY, HoeFreeTypeFont::FreeChar * data
 			byte bAlpha = (byte)data->buffer[(y * data->pitch) + x];
 			if (bAlpha > 0)
 			{
-				float af = bAlpha * sc_alpha;
-				byte a = af > 1.f ? 0xff:(byte)af;
+				const float alfaf = ((float)bAlpha) * sc_alpha;
+				byte a;
+				//Con_Print("%d %f", alfaf, (int)bAlpha);
+				//if (alfaf > 1.f) 
+					a = 0xff;
+				//else a = (byte)alfaf;
+				//Con_Print("bt");
 				*pDst32++ = (word) ((a << 8) | (bAlpha));
 			}
 			else

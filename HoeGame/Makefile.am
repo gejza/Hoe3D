@@ -39,6 +39,6 @@ src/hoe_view.cpp \
 src/lua_script.cpp \
 src/config_parser.c src/lang_parser.c src/figurefile_parser.cpp
 
-___bin_libHoeGame_la_LDFLAGS = -module -lHoeCore
+___bin_libHoeGame_la_LDFLAGS = -static -lHoeCore
 
 

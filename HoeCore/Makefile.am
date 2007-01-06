@@ -14,3 +14,5 @@ ___bin_libHoeCore_la_SOURCES = src/hoe_core.cpp \
 src/hoe_log.cpp \
 src/hoe_math.cpp
 
+___bin_libHoeCore_la_LDFLAGS = -static
+
