@@ -87,7 +87,6 @@ public:
 	}
 };
 
-
 /**
 * Trida udrzujici mnozinu objektu
 */
@@ -149,6 +148,13 @@ public:
 		this->m_count--;
 	}
 }; 
+
+template<int NUM, class C> class ListSet
+{
+	SetBase<C> m_set[NUM];
+public:
+
+};
 
 template<class C> class List : public SetBase<C>
 {
