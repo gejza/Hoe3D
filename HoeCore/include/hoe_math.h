@@ -58,6 +58,9 @@ HOE_INLINE bool HoeEdgePlanesCollision(Vector3 &center,
 void MinMaxF(const float * src, uint count, uint stride, float * min, float * max);
 void MinMaxV2(const Vector2 * src, uint count, uint stride, Vector2 * min, Vector2 * max);
 void MinMaxV3(const Vector3 * src, uint count, uint stride, Vector3 * min, Vector3 * max);
+
+// zaokrouhlovaci funkce
+HOE_INLINE float UpperRound(float f);
 ////////////
 // matematik func
 #define _hoe_cot cot

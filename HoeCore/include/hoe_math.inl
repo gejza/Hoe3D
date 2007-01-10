@@ -11,6 +11,15 @@ HOE_INLINE float Abs(float f)
 		return -f;
 }
 
+HOE_INLINE float UpperRound(float f)
+{
+	int i = (int)f;
+	if (((float)i)==f)
+		return f;
+	else
+		return (float)(i+1);
+}
+
 // Matrix & vector
 
 //////// vector ////////////////////////////////////////
