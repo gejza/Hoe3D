@@ -103,6 +103,7 @@ class HFConvert
 	size_t m_num;
 	HOEFORMAT m_from;
 	HOEFORMAT m_to;
+    bool m_forward;
 	byte * m_origin;
 public:
 	HFConvert(size_t num, HOEFORMAT from, HOEFORMAT to);

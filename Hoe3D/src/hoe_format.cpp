@@ -232,6 +232,8 @@ HFConvert::HFConvert(size_t num, HOEFORMAT from, HOEFORMAT to)
 	m_num = num;
 	m_from = from;
 	m_to = to;
+    // sizes
+    m_forward = (HoeFormatSize(from)>=HoeFormatSize(to));
 }
 
 HFConvert::~HFConvert()
@@ -245,7 +247,21 @@ byte * HFConvert::GetPointer(byte *origin)
 
 void HFConvert::Make()
 {
-	for (int n=m_num-1;n >=0;n--)
+    // pokud z vetsiho na mensi tak klasika, jinak obracene
+    int n,ti,di;
+    if (m_forward)
+    {
+        n = 0;
+        ti = m_num;
+        di = 1;
+    }
+    else
+    {
+        n = m_num-1;
+        ti = -1;
+        di = -1;
+    }
+	for (;n!=ti;n+=di)
 	{
 		// pocet bodu
 		byte a,r,g,b;
@@ -267,24 +283,27 @@ void HFConvert::Make()
 		}
 
 		// konvert na
-		if (m_to == HOE_B8G8R8X8)
-		{
+        switch (m_to)
+        {
+        case HOE_B8G8R8X8:
 			*(m_origin+(n*4)+0) = b;
 			*(m_origin+(n*4)+1) = g;
 			*(m_origin+(n*4)+2) = r;
 			*(m_origin+(n*4)+3) = 0xff;
-		}
-		else if (m_to == HOE_B8G8R8A8)
-		{
-			// nacist 
+		    break;
+        case HOE_B8G8R8A8:
 			*(m_origin+(n*4)+0) = b;
 			*(m_origin+(n*4)+1) = g;
 			*(m_origin+(n*4)+2) = r;
 			*(m_origin+(n*4)+3) = a;
-		}
-		else
-		{
-			Con_Print("Convert to format %d not implemented.", m_from);
+            break;
+        case HOE_R8G8B8:
+            *(m_origin+(n*3)+0) = r;
+            *(m_origin+(n*3)+1) = g;
+            *(m_origin+(n*3)+2) = b;
+            break;
+        default:
+            Con_Print("Convert to format %d not implemented.", m_from);
 			return;
 		}
 	}

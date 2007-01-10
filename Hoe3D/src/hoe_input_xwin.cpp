@@ -144,6 +144,8 @@ void HoeInputXWin::UninstallMouse()
 	}
 }
 
+static int gs_keys[] = { HK_A, HK_B, HK_C, HK_D, HK_E, HK_F, HK_G, HK_H, HK_I, HK_J, HK_K, HK_L, HK_M, HK_N, HK_O, HK_P, HK_Q, HK_R, HK_S, HK_T, HK_U, HK_V, HK_W, HK_X, HK_Y, HK_Z };
+
 int HoeInputXWin::XKeyEventToHKey(XKeyEvent *ev)
 {
 	char buf[64];
@@ -151,7 +153,7 @@ int HoeInputXWin::XKeyEventToHKey(XKeyEvent *ev)
   	int XLookupRet;
 	XLookupRet = XLookupString(ev, buf, sizeof buf, &keysym, 0);
 
-	Con_Print("XLookupString ret: %d buf: %s keysym: %x", XLookupRet, buf, keysym);
+	//Con_Print("XLookupString ret: %d buf: %s keysym: %x", XLookupRet, buf, keysym);
 
 	switch (keysym)
 	{
@@ -207,7 +209,9 @@ int HoeInputXWin::XKeyEventToHKey(XKeyEvent *ev)
 		case XK_Control_R: return HK_RCONTROL;
 		case XK_Alt_L: return HK_LMENU;
 		//case XK_Meta_L: 
-		case XK_Alt_R: return HK_RMENU;  
+		case XK_Alt_R: return HK_RMENU;
+        case XK_grave: return HK_GRAVE;
+        case XK_minus: return HK_MINUS;
   		//case XK_Meta_R: *key = K_ALT;     break;
 /*
   case XK_KP_Begin: *key = K_KP_5;  break;
@@ -251,22 +255,14 @@ int HoeInputXWin::XKeyEventToHKey(XKeyEvent *ev)
       			// XK_* tests failed, but XLookupString got a buffer, so let's try it
     		 	 unsigned char key = *(unsigned char *)buf;
     	 		 if (key >= 'A' && key <= 'Z')
-   	  	   		key = key - 'A' + 'a';
+   	  	   		    return gs_keys[key - 'A'];
    	 	  // if ctrl is pressed, the keys are not between 'A' and 'Z', for instance ctrl-z == 26 ^Z ^C etc.
    	 	  // see https://zerowing.idsoftware.com/bugzilla/show_bug.cgi?id=19
-  			   	 else if (key >= 1 && key <= 26)
-   	  	  		key = key + 'a' - 1;
-    			switch (key)
-			{
-			case 'a': return HK_A;
-			case 'b': return HK_B;
-			case 'c': return HK_C;
-			case 'd': return HK_D;
-			case 's': return HK_S;
-			case 'w': return HK_W;
-			default: 
-				Con_Print("Warning: input char %c failed.", key);return 0;
-			}
+  			   	 else if (key >= 'a' && key <= 'z')
+                     return gs_keys[key - 'a'];
+                 else
+                     Con_Print("Warning: input char %c failed.", key);
+                 return 0;
 			}
 	}
 }

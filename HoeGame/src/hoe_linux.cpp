@@ -14,7 +14,27 @@ HoeLinux::~HoeLinux()
 
 int HoeLinux::GetMsg(IHoe3DEngine * engine)
 {
-	
+	// parse std input
+    fd_set rfds;
+    struct timeval tv;
+    int retval;
+    char str[1024];
+
+    /* Watch stdin (fd 0) to see when it has input. */
+    FD_ZERO(&rfds);
+    FD_SET(0, &rfds);
+    /* Wait up to five seconds. */
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+
+    retval = select(1, &rfds, NULL, NULL, &tv);
+    if (retval)
+    {
+        /* FD_ISSET(0, &rfds) will be true. */
+        gets(str);
+        engine->exec(str);
+    }
+    
 	XEvent event;
 	bool repeated;
         /* handle the events in the queue */
