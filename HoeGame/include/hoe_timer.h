@@ -44,23 +44,28 @@ public:
 	int GetSeconds() { return ((int)m_time) % 60; }
 };
 
-/*!!!*/
-// trida ktera spousti funkci 1x za urcity cas
+// casovy cyklovac
 class CVar;
 
 class CTimer
 {
-	float ztime; // cas k pripocteni
+	float m_t;
 	union {
-		float dtime;
-		const CVar * var;
+		float m_btime;
+		const CVar * m_vtime;
 	};
-	int flags;
+	bool m_isvtime;
+	bool m_isrun;
 public:
-	CTimer(const CVar & v);
+	CTimer();
+	void Start(const float btime, bool randomrandomstart = false);
+	void Start(const CVar & v, bool randomstart = false);
+	void Stop();
 	// funkce dostane cas a vrati pocet spusteni funkce
-	int Compute(const float t);
+	int Update(const float t);
 };
+
+
 
 END_HOEGAME
 

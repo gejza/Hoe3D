@@ -67,20 +67,57 @@ void Timer::Pause()
 	m_pause = true;
 }
 
-CTimer::CTimer(const CVar & v)
+CTimer::CTimer()
 {
-	var = &v;
-	ztime = 0;
+	m_t = m_btime = 0.f;
+	m_isvtime = false;
+	m_isrun = false;
 }
 
-int CTimer::Compute(const float t)
+void CTimer::Start(const float btime, bool randomrandomstart)
 {
-	ztime += t;
-	// odecist kolik jich prebyva
-	const float d = var->GetFloat();
-	int n = (int)(ztime / d);
-	ztime -= d * n;
-	return n;
+	m_btime = btime;
+	m_isvtime = false;
+	// nastaveni start hodnoty
+	m_t = randomrandomstart ? m_btime * HoeCore::RandFloat(0.6f,1.f): m_btime;
+	m_isrun = true;
+}
+
+void CTimer::Start(const CVar & v, bool randomstart)
+{
+	m_vtime = &v;
+	m_isvtime = true;
+	// nastaveni start hodnoty
+	if (randomstart)
+		m_t = m_vtime->GetFloat() * HoeCore::RandFloat(0.6f,1.f);
+	else
+		m_t = m_vtime->GetFloat();
+	m_isrun = true;
+}
+
+void CTimer::Stop()
+{
+	m_isrun = false;
+}
+
+int CTimer::Update(const float t)
+{
+	if (!m_isrun)
+		return 0;
+	m_t -= t;
+	if (m_t > 0.f) // jeste neni cas
+		return 0;
+	register float start;
+	if (m_isvtime)
+		start = m_vtime->GetFloat();
+	else
+		start = m_btime;
+
+	int passes = (int)(-m_t/start);
+	passes++;
+	m_t += start * passes;
+
+	return passes;
 }
 
 END_HOEGAME
