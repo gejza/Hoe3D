@@ -84,7 +84,7 @@ bool LuaParam::CheckPar(int num, const char * par, const char * func)
 {
 	if (!CheckPar(num, par))
 	{
-		Error("incorRECT argument to function `%s'", func);
+		Error("incorrect argument to function `%s'", func);
 		return false;
 	}
 	return true;
@@ -150,13 +150,12 @@ bool LuaParam::IsString(int pos) const
 
 //bruca - neexistuje lua_ispointer()
 bool LuaParam::IsPointer(int pos) const{
-    //return lua_ispointer(m_L, pos) != 0;
-    return lua_istable(m_L, pos) != 0;
+    return lua_islightuserdata(m_L, pos) != 0;
 }
 
 bool LuaParam::IsNum(int pos) const
 {
-	return lua_isnumber(m_L,pos) != 0;
+	return lua_type(m_L,pos) == LUA_TNUMBER;
 }
 
 bool LuaParam::IsNil(int pos) const
@@ -245,6 +244,36 @@ void * LuaParam::GetTablePointer(const char *par, int tab) const
 void LuaParam::Pop(int num)
 {
 	lua_pop(m_L, num);
+}
+
+bool LuaParam::ToString(char * buff, size_t lb, int par)
+{
+    if (lua_isstring(m_L,par))
+		snprintf(buff, lb, "%s",lua_tostring(m_L,par));
+	else if (lua_isnil(m_L,par))
+		snprintf(buff, lb, "%s","nil");
+	else if (lua_isboolean(m_L,par))
+		snprintf(buff, lb, "%s",lua_toboolean(m_L,par) ? "true" : "false");
+	else
+		snprintf(buff, lb, "%s:%p",lua_typename(m_L,lua_type(m_L,par)),lua_topointer(m_L,par));
+	return true;
+}
+
+bool LuaParam::ToString(char * buff, size_t lb, int from, int to)
+{
+	buff[0] = '\0';
+    int step = (from > to) ? -1: 1;
+    to += step; // posunuti na akci vcetne
+	for (int i=from; i!=to && lb; i+=step)
+	{
+        ToString(buff, lb, i);
+        while (*buff) 
+        {
+            lb--;
+            buff++;
+        }
+	}
+ 
 }
 
 void LuaParam::Error(const char * szFormat, ...)
@@ -671,7 +700,7 @@ int LuaScript::loadfile(lua_State * L)
 	if (!par.CheckPar(1,"s"))
 	{
 		/*
-		lua_pushstring(L, "incorRECT argument to function `average'");
+		lua_pushstring(L, "incorrect argument to function `average'");
         lua_error(L);
 		*/
 
@@ -696,7 +725,7 @@ int LuaScript::hoe(lua_State * L)
 	if (!par.CheckPar(1,"s"))
 	{
 		/*
-		lua_pushstring(L, "incorRECT argument to function `average'");
+		lua_pushstring(L, "incorrect argument to function `average'");
         lua_error(L);
 		*/
 

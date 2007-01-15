@@ -47,6 +47,9 @@ public:
 	void SetTablePointer(const char * par, void * data, int tab = -2);
 	void * GetTablePointer(const char * par, int table) const;
 
+    bool ToString(char * buff, size_t lb, int par);
+    bool ToString(char * buff, size_t lb, int from, int to);
+    
 	void Pop(int num);
 };
 
