@@ -273,7 +273,7 @@ bool LuaParam::ToString(char * buff, size_t lb, int from, int to)
             buff++;
         }
 	}
- 
+	return true;
 }
 
 void LuaParam::Error(const char * szFormat, ...)
