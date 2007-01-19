@@ -155,8 +155,9 @@ bool Hoe3D::Init(THoeInitSettings * his)
 
 	if (IsSoundLoaded())
 	{
-		if (!GetSound()->Init(his))
-			return false;
+		GetSound()->Init(his);
+		
+        // TODO: predelat kontrolu
 	}
 
 	if (GetInfo())
