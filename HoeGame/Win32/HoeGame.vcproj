@@ -663,6 +663,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\hoe_mem.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\include\hoe_mem.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\hoe_timer.cpp"
 				>
 				<FileConfiguration
