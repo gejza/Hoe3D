@@ -13,10 +13,7 @@ HoeUtils:
 Odladit na MacOS a 64bitu
 
 HoeCore
-	matematicka knihovna (inline funkce)
 	Matematicka knihovna vyuzivajici mmx a ssh2 instrukce
-	seznamy, spojove seznamy, defnice typu datovejch, mozna soubory?
-	proste takove rozhrani
 	
 
 

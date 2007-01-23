@@ -1,3 +1,8 @@
+20.1.2007
+HoeGame
+	Pridany objekt Mem, ktery uklada int nebo string, pod klicema a idckem
+	Vyuziti v Lua pro ukladani informaci k objektum
+--------------------------------------
 14.6.2006
 Hoe3D
 	Kontrola chyb v OpenGL a vycisteni od chyb.
