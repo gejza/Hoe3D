@@ -15,4 +15,4 @@ CPPFLAGS="$CXXFLAGS -mmmx -msse -march=pentium3 -D_LINUX -D_USE_OPENGL_ -ggdb3 -
 LDFLAGS="$LDFLAGS -L/usr/X11R6/lib -L../bin"
 
 AC_OUTPUT( Makefile HoeCore/Makefile Hoe3D/Makefile HoeGame/Makefile
-          HoeTutorials/Makefile )
+          HoeResource/Makefile HoeTutorials/Makefile )

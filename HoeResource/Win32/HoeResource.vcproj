@@ -174,11 +174,11 @@
 			Name="SL"
 			>
 			<File
-				RelativePath="..\src\sl_parser.l"
+				RelativePath="..\src\hsl_parser.l"
 				>
 			</File>
 			<File
-				RelativePath="..\src\sl_parser.y"
+				RelativePath="..\src\hsl_parser.y"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -201,15 +201,15 @@
 				Name="Generated"
 				>
 				<File
-					RelativePath="..\src\sl_parser.tab.cpp"
+					RelativePath="..\src\hsl_parser.tab.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\src\sl_parser.tab.hpp"
+					RelativePath="..\src\hsl_parser.tab.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\src\sl_parser.yy.cpp"
+					RelativePath="..\src\hsl_parser.yy.cpp"
 					>
 				</File>
 			</Filter>

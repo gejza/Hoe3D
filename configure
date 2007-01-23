@@ -19616,7 +19616,7 @@ CPPFLAGS="$CXXFLAGS -mmmx -msse -march=pentium3 -D_LINUX -D_USE_OPENGL_ -ggdb3 -
 
 LDFLAGS="$LDFLAGS -L/usr/X11R6/lib -L../bin"
 
-ac_config_files="$ac_config_files Makefile HoeCore/Makefile Hoe3D/Makefile HoeGame/Makefile HoeTutorials/Makefile"
+ac_config_files="$ac_config_files Makefile HoeCore/Makefile Hoe3D/Makefile HoeGame/Makefile HoeResource/Makefile HoeTutorials/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -20209,6 +20209,7 @@ do
     "HoeCore/Makefile") CONFIG_FILES="$CONFIG_FILES HoeCore/Makefile" ;;
     "Hoe3D/Makefile") CONFIG_FILES="$CONFIG_FILES Hoe3D/Makefile" ;;
     "HoeGame/Makefile") CONFIG_FILES="$CONFIG_FILES HoeGame/Makefile" ;;
+    "HoeResource/Makefile") CONFIG_FILES="$CONFIG_FILES HoeResource/Makefile" ;;
     "HoeTutorials/Makefile") CONFIG_FILES="$CONFIG_FILES HoeTutorials/Makefile" ;;
 
   *) { { echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5

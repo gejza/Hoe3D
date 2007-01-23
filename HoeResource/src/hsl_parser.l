@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../../HoeUtils/lib/hoeUtils.h"
-#include "sl_parser.tab.hpp"
+#include "hsl_parser.tab.hpp"
 #include "../include/hoe_sl_parser.h"
 
 static int yyline = 1;

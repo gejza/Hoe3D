@@ -1,3 +1,7 @@
+23.1.2007
+HoeResource
+	Makefile pro linux
+--------------------------------------
 20.1.2007
 HoeGame
 	Pridany objekt Mem, ktery uklada int nebo string, pod klicema a idckem
