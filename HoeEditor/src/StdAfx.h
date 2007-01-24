@@ -13,9 +13,9 @@
 
 #ifdef __WXGTK__
 extern "C" {
-#include <gtk/gtk.h>
-#include <gdk/gdk.h>
-#include <gdk/gdkx.h>
+//#include <gtk/gtk.h>
+//#include <gdk/gdk.h>
+//#include <gdk/gdkx.h>
 }
 #endif
 
