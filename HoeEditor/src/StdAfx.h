@@ -9,13 +9,14 @@
 // For compilers that support precompilation, includes "wx/wx.h".
 #ifdef _LINUX
 #define stricmp strcasecmp
+#include <X11/Xlib.h>
 #endif
 
 #ifdef __WXGTK__
 extern "C" {
 //#include <gtk/gtk.h>
-//#include <gdk/gdk.h>
-//#include <gdk/gdkx.h>
+#include <gdk/gdk.h>
+#include <gdk/gdkx.h>
 }
 #endif
 
@@ -24,8 +25,13 @@ extern "C" {
 #include <wx/log.h>
 #include <wx/config.h>
 #include <wx/treectrl.h>
+#include <wx/dcclient.h>
+#include <wx/dialog.h>
+#include <wx/toolbar.h>
+#include <wx/bookctrl.h>
+#include <wx/imaglist.h>
 #include <wx/propgrid/propgrid.h>
-#include "wx/calctrl.h"
+#include <wx/calctrl.h>
 // Main propertygrid header.
 #include <wx/propgrid/propgrid.h>
 // Needed for implementing custom properties.

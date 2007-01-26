@@ -68,9 +68,9 @@ void HoeEditor::BaseEditor::OnEngine(wxCommandEvent& event)
 {
 	if (GetEngineView()) {
 #ifdef _WIN32
-	wxFileDialog dialog(this,_("Choose a engine..."),_T(""), _T(""), _("Engine|*.dll"), wxOPEN | wxHIDE_READONLY | wxFILE_MUST_EXIST);
+	wxFileDialog dialog(this,_("Choose a engine..."),_T(""), _T(""), _("Engine|*.dll"), wxOPEN | wxFILE_MUST_EXIST);
 #else
-    wxFileDialog dialog(this,_("Choose a engine..."),_T(""), _T(""), _("Engine|*.so"), wxOPEN | wxHIDE_READONLY | wxFILE_MUST_EXIST);
+    wxFileDialog dialog(this,_("Choose a engine..."),_T(""), _T(""), _("Engine|*.so"), wxOPEN | wxFILE_MUST_EXIST);
 #endif
 	if (dialog.ShowModal() == wxID_OK)
 	{

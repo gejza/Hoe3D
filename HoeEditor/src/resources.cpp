@@ -300,7 +300,7 @@ SettingsDialog::SettingsDialog(wxWindow* win, Resources * pr)
 		m_becherdir->SetValue(pr->GetMainDir());
 		for (i=0;i < pr->GetFilesCount();i++)
 		{
-			m_listfiles->DoAppend(pr->GetFilePath(i));
+            m_listfiles->InsertItems(1, &pr->GetFilePath(i), INT_MAX);
 		}
 
 		for (i=0;i < pr->GetResources()->GetCount();i++)
@@ -425,7 +425,7 @@ bool Resources::LoadMainDir(const wxString dir)
 void SettingsDialog::OnAdd(wxCommandEvent& event)
 {
 	wxString files = _("Hoe Resource Files(*.hx;*.hm)|*.hx;*.hm|All files(*.*)|*.*");
-	wxFileDialog dialog(this,_("Add file..."),_T(""), _T(""), files, wxOPEN | wxHIDE_READONLY | wxFILE_MUST_EXIST | wxMULTIPLE);
+	wxFileDialog dialog(this,_("Add file..."),_T(""), _T(""), files, wxOPEN | wxFILE_MUST_EXIST | wxMULTIPLE);
 	if (dialog.ShowModal() == wxID_OK)
 	{
 		wxArrayString paths;
@@ -441,7 +441,7 @@ void SettingsDialog::OnAdd(wxCommandEvent& event)
 
 void SettingsDialog::AddFile(wxString file)
 {
-	m_listfiles->DoAppend(file);
+	m_listfiles->InsertItems(1, &file, INT_MAX);
 }
 
 void SettingsDialog::OnRemove(wxCommandEvent& event)

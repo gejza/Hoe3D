@@ -274,7 +274,7 @@ int HoeEditor::LogDialog::OpenLogFile(wxFile &file, wxString *pFilename)
 {
     // get the file name
     // -----------------
-	wxFileDialog dialog( this,_("Save log to file ..."),_T(""), _T("log.txt"), _("Txt Files (*.txt)|*.txt"), wxSAVE | wxHIDE_READONLY | wxOVERWRITE_PROMPT);
+	wxFileDialog dialog( this,_("Save log to file ..."),_T(""), _T("log.txt"), _("Txt Files (*.txt)|*.txt"), wxSAVE | wxOVERWRITE_PROMPT);
 	if (dialog.ShowModal() != wxID_OK)
 	{
 		return -1;
