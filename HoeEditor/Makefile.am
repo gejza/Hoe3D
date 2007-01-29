@@ -16,6 +16,7 @@ ___bin_libHoeEditor_la_CPPFLAGS = -I../Hoe3D/include -I../HoeGame/include $(WX_C
 ___bin_libHoeEditor_la_SOURCES = src/app.cpp \
 src/engview.cpp src/editor.cpp \
 src/base_console.cpp \
+src/undolist.cpp \
 src/properties.cpp src/utils.cpp \
 src/panels.cpp src/resources.cpp src/log.cpp src/fs.cpp
 

@@ -86,7 +86,12 @@ bool EngineView::InitUntry(XHoeFS * hfs)
 		return false;
 	}
 
-	GetEngineInterface = (HOE_FUNCCREATE)m_lib.GetSymbol("_CreateHoeEngine@24");
+#ifdef _LINUX
+    const char * engsym = "CreateHoeEngine";
+#else
+    const char * engsym = "_CreateHoeEngine@24"
+#endif
+	GetEngineInterface = (HOE_FUNCCREATE)m_lib.GetSymbol(engsym);
 	if (!GetEngineInterface)
 	{
 		wxLogMessage(_("Find symbol GetEngineInterface failed."));

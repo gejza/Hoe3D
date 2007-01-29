@@ -27816,7 +27816,7 @@ fi
   if test "$WX_CONFIG_PATH" != "no" ; then
     WX_VERSION=""
 
-    min_wx_version=2.6.0
+    min_wx_version=2.8.0
     if test -z "" ; then
       { echo "$as_me:$LINENO: checking for wxWidgets version >= $min_wx_version" >&5
 echo $ECHO_N "checking for wxWidgets version >= $min_wx_version... $ECHO_C" >&6; }
@@ -28003,7 +28003,7 @@ CPPFLAGS="$CXXFLAGS -mmmx -msse -march=pentium3 -D_LINUX -D_USE_OPENGL_ -ggdb3 -
 
 LDFLAGS="$LDFLAGS -L/usr/X11R6/lib -L../bin"
 
-ac_config_files="$ac_config_files Makefile HoeCore/Makefile Hoe3D/Makefile HoeGame/Makefile HoeResource/Makefile HoeEditor/Makefile HoeTutorials/Makefile"
+ac_config_files="$ac_config_files Makefile HoeCore/Makefile Hoe3D/Makefile HoeGame/Makefile HoeResource/Makefile HoeEditor/Makefile HoeUtils/Makefile HoeUtils/lib/Makefile HoeTutorials/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -28606,6 +28606,8 @@ do
     "HoeGame/Makefile") CONFIG_FILES="$CONFIG_FILES HoeGame/Makefile" ;;
     "HoeResource/Makefile") CONFIG_FILES="$CONFIG_FILES HoeResource/Makefile" ;;
     "HoeEditor/Makefile") CONFIG_FILES="$CONFIG_FILES HoeEditor/Makefile" ;;
+    "HoeUtils/Makefile") CONFIG_FILES="$CONFIG_FILES HoeUtils/Makefile" ;;
+    "HoeUtils/lib/Makefile") CONFIG_FILES="$CONFIG_FILES HoeUtils/lib/Makefile" ;;
     "HoeTutorials/Makefile") CONFIG_FILES="$CONFIG_FILES HoeTutorials/Makefile" ;;
 
   *) { { echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5

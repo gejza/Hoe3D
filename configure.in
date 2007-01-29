@@ -32,7 +32,7 @@ AM_PATH_XVID
 
 AM_OPTIONS_WXCONFIG
 
-AM_PATH_WXCONFIG(2.6.0, wxWin=1)
+AM_PATH_WXCONFIG(2.8.0, wxWin=1)
 if test "$wxWin" != 1; then
 AC_MSG_ERROR([
       wxWidgets must be installed on your system
@@ -54,4 +54,7 @@ CPPFLAGS="$CXXFLAGS -mmmx -msse -march=pentium3 -D_LINUX -D_USE_OPENGL_ -ggdb3 -
 LDFLAGS="$LDFLAGS -L/usr/X11R6/lib -L../bin"
 
 AC_OUTPUT( Makefile HoeCore/Makefile Hoe3D/Makefile HoeGame/Makefile
-          HoeResource/Makefile HoeEditor/Makefile HoeTutorials/Makefile )
+          HoeResource/Makefile HoeEditor/Makefile 
+          HoeUtils/Makefile
+          HoeUtils/lib/Makefile
+          HoeTutorials/Makefile )
