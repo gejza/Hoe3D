@@ -94,7 +94,7 @@ Hoe2DEdit::~Hoe2DEdit()
 	s_actinstance = NULL;
 
 }
-#include "resource/new.xpm"
+#include "../../HoeEditor/resources/new.xpm"
 bool Hoe2DEdit::Create(const wxString & title)
 {
 
@@ -250,7 +250,7 @@ void Hoe2DEdit::OnOpenFile(wxCommandEvent &)
 {
 	wxFileDialog dlg(this,_("Choose a figure file..."),
 		_T(""), _T(""), _("Figure file (*.*)|*.*"), 
-		wxOPEN | wxHIDE_READONLY | wxFILE_MUST_EXIST); 
+		wxOPEN | wxFILE_MUST_EXIST); 
 	if (dlg.ShowModal() == wxID_OK)
 	{
 		CloseFile();
@@ -272,7 +272,7 @@ void Hoe2DEdit::OnSaveFile(wxCommandEvent &e)
 	if (m_figure->GetFilePath().IsEmpty() || e.GetId() == HoeEditor::ID_SAVEAS)
 	{
 		wxFileDialog dlg( this, _("Save figure file..."),
-			_T(""), _T(""), _("Figure file (*.*)|*.*"), wxSAVE | wxHIDE_READONLY);
+			_T(""), _T(""), _("Figure file (*.*)|*.*"), wxSAVE);
 nq:
 		if (dlg.ShowModal() == wxID_OK)
 		{

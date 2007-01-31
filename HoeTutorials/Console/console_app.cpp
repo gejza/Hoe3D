@@ -1,5 +1,4 @@
 
-#include "StdAfx.h"
 #include "console_app.h"
 
 const char * g_TutorialName = "console";
@@ -40,7 +39,7 @@ bool ConApp::LoadScene()
 	if (!scene.Load(GetEngine()))
 		return false;
 
-	scene.Show(GetEngine()->GetActiveScene());
+	//scene.Show(GetEngine()->GetActiveScene());
 	
 	HoeGetInput(GetEngine())->RegisterKeyboard(&scene);
 
@@ -64,8 +63,8 @@ Scene::Scene(HoeGame::GuiConsole * c)
 void Scene::OnPaint()
 {
 	font->DrawText(100,100,0xff00ff00,"Press ~ to eject console.");
-	if (con && con->IsActive())
-		con->Draw(Get2D());
+	//if (con && con->IsActive())
+	//	con->Draw(Get2D());
 }
 
 bool Scene::Load(IHoe3DEngine * eng)

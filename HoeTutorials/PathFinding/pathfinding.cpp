@@ -135,12 +135,17 @@ void PathFindApp::Process()
 {
     HoeGame::Land land;
 	float start = SysFloatTime();
-    land.Create(g_width, g_height);
+    THoeRect rect;
+    rect.top = 0;
+    rect.bottom = g_height;
+    rect.left = 0;
+    rect.right = g_width;
+    land.Create(g_width, g_height, rect);
 	land.Preprocess(m_map);
     int numtest = 0;
     HoeGame::LandPath result;
     memset(g_cesta, 0, sizeof(g_cesta));
-	if (land.Find(0,0,g_width-1, g_height-1, &result))
+	if (land.Find(HoeMath::Vector2(0,0),HoeMath::Vector2(g_width-1, g_height-1), result))
     {
         // prekopirovat na result
         while (result.m_stack.Count() > 0)

@@ -11,9 +11,9 @@ BEGIN_HOEGAME
 class HoeLinux : public HoeBaseApp
 {
 protected:
-	Display * dpy;
+	HOE_DISPLAY * dpy;
 	int screen;
-	Window win;
+	HOE_WINDOW win;
 	IHoe3DEngine * m_enginstance;
 public:
 	HoeLinux();

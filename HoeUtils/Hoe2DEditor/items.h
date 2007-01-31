@@ -9,6 +9,7 @@
 #ifndef _HOE_2D_EDITOR_ITEMS_H_
 #define _HOE_2D_EDITOR_ITEMS_H_
 
+class FigureEdit;
 
 class BaseItem : public wxTreeItemData, public HoeEditor::PropObject, public HoeGame::Gui::Base
 {

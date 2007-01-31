@@ -1,5 +1,4 @@
 
-#include "StdAfx.h"
 #include "sound_app.h"
 
 const char * g_TutorialName = "sound";
@@ -44,7 +43,7 @@ bool SoundApp::LoadScene()
 
 	GetEngine()->GetActiveScene()->Set2DCallback(this);
 */
-	s->Play();
+	s->Play(true);
 	return true;
 
 }

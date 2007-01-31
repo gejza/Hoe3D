@@ -57,4 +57,12 @@ AC_OUTPUT( Makefile HoeCore/Makefile Hoe3D/Makefile HoeGame/Makefile
           HoeResource/Makefile HoeEditor/Makefile 
           HoeUtils/Makefile
           HoeUtils/lib/Makefile
-          HoeTutorials/Makefile )
+          HoeUtils/Hoe2DEditor/Makefile
+          HoeTutorials/Makefile
+          HoeTutorials/FirstApp/Makefile
+          HoeTutorials/Paint2D/Makefile
+          HoeTutorials/Console/Makefile
+          HoeTutorials/Models/Makefile
+          HoeTutorials/Input/Makefile
+          HoeTutorials/Sound/Makefile
+          HoeTutorials/PathFinding/Makefile )

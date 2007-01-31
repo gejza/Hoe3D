@@ -28003,7 +28003,7 @@ CPPFLAGS="$CXXFLAGS -mmmx -msse -march=pentium3 -D_LINUX -D_USE_OPENGL_ -ggdb3 -
 
 LDFLAGS="$LDFLAGS -L/usr/X11R6/lib -L../bin"
 
-ac_config_files="$ac_config_files Makefile HoeCore/Makefile Hoe3D/Makefile HoeGame/Makefile HoeResource/Makefile HoeEditor/Makefile HoeUtils/Makefile HoeUtils/lib/Makefile HoeTutorials/Makefile"
+ac_config_files="$ac_config_files Makefile HoeCore/Makefile Hoe3D/Makefile HoeGame/Makefile HoeResource/Makefile HoeEditor/Makefile HoeUtils/Makefile HoeUtils/lib/Makefile HoeUtils/Hoe2DEditor/Makefile HoeTutorials/Makefile HoeTutorials/FirstApp/Makefile HoeTutorials/Paint2D/Makefile HoeTutorials/Console/Makefile HoeTutorials/Models/Makefile HoeTutorials/Input/Makefile HoeTutorials/Sound/Makefile HoeTutorials/PathFinding/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -28608,7 +28608,15 @@ do
     "HoeEditor/Makefile") CONFIG_FILES="$CONFIG_FILES HoeEditor/Makefile" ;;
     "HoeUtils/Makefile") CONFIG_FILES="$CONFIG_FILES HoeUtils/Makefile" ;;
     "HoeUtils/lib/Makefile") CONFIG_FILES="$CONFIG_FILES HoeUtils/lib/Makefile" ;;
+    "HoeUtils/Hoe2DEditor/Makefile") CONFIG_FILES="$CONFIG_FILES HoeUtils/Hoe2DEditor/Makefile" ;;
     "HoeTutorials/Makefile") CONFIG_FILES="$CONFIG_FILES HoeTutorials/Makefile" ;;
+    "HoeTutorials/FirstApp/Makefile") CONFIG_FILES="$CONFIG_FILES HoeTutorials/FirstApp/Makefile" ;;
+    "HoeTutorials/Paint2D/Makefile") CONFIG_FILES="$CONFIG_FILES HoeTutorials/Paint2D/Makefile" ;;
+    "HoeTutorials/Console/Makefile") CONFIG_FILES="$CONFIG_FILES HoeTutorials/Console/Makefile" ;;
+    "HoeTutorials/Models/Makefile") CONFIG_FILES="$CONFIG_FILES HoeTutorials/Models/Makefile" ;;
+    "HoeTutorials/Input/Makefile") CONFIG_FILES="$CONFIG_FILES HoeTutorials/Input/Makefile" ;;
+    "HoeTutorials/Sound/Makefile") CONFIG_FILES="$CONFIG_FILES HoeTutorials/Sound/Makefile" ;;
+    "HoeTutorials/PathFinding/Makefile") CONFIG_FILES="$CONFIG_FILES HoeTutorials/PathFinding/Makefile" ;;
 
   *) { { echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5
 echo "$as_me: error: invalid argument: $ac_config_target" >&2;}

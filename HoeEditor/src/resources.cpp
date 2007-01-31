@@ -40,6 +40,7 @@ IHoeResource * Resources::MissingResource(int id)
 	{
 		findid.Printf("%d",id);
 	}
+    wxLogMessage("Loading resource %s from %d files.", findid.c_str(), m_res.GetCount());
 reply:
 	for (uint i=0;i < m_res.GetCount();i++)
 	{
@@ -300,7 +301,7 @@ SettingsDialog::SettingsDialog(wxWindow* win, Resources * pr)
 		m_becherdir->SetValue(pr->GetMainDir());
 		for (i=0;i < pr->GetFilesCount();i++)
 		{
-            m_listfiles->InsertItems(1, &pr->GetFilePath(i), INT_MAX);
+            m_listfiles->Append(pr->GetFilePath(i));
 		}
 
 		for (i=0;i < pr->GetResources()->GetCount();i++)
@@ -441,7 +442,7 @@ void SettingsDialog::OnAdd(wxCommandEvent& event)
 
 void SettingsDialog::AddFile(wxString file)
 {
-	m_listfiles->InsertItems(1, &file, INT_MAX);
+	m_listfiles->Append(file);
 }
 
 void SettingsDialog::OnRemove(wxCommandEvent& event)
