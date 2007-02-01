@@ -51,7 +51,7 @@ public:
 
 	bool Begin(PropObject * po);
 	void End();
-	void SetProp(wxPGId i, int id, unsigned long flags, const char * help);
+	void SetProp(wxPGId &i, int id, unsigned long flags, const char * help);
 
 	void AppendCategory(const char * label);
 	void AppendString(int id, const char * label, const char * str, unsigned long flags = 0, const char * help = NULL, void * data = NULL);

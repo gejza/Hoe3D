@@ -9,6 +9,11 @@
 #include <windows.h>
 #endif
 
+#ifdef _LINUX
+#define stricmp strcasecmp
+#include <X11/Xlib.h>
+#endif
+
 #include <vector>
 
 // wxwindows

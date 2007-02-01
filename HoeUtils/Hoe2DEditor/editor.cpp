@@ -46,8 +46,15 @@ END_EVENT_TABLE()
 HoeEditor::BaseEditor * Hoe2DEditApp::CreateEditor()
 {
     //wxImage::AddHandler(new wxPNGHandler);
+    SetVendorName(_T("Hoe"));
+    SetAppName(_T("Hoe2DEditor")); // not needed, it's the default value
 
+    wxConfigBase *pConfig = wxConfigBase::Get();
 
+    // uncomment this to force writing back of the defaults for all values
+    // if they're not present in the config - this can give the user an idea
+    // of all possible settings for this program
+    pConfig->SetRecordDefaults();
 
 	// load lang
 	m_locale.Init(wxLANGUAGE_CZECH);

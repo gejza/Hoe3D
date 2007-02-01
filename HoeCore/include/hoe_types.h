@@ -24,10 +24,10 @@ typedef void * HOE_DISPLAY;
 
 #ifdef _LINUX
 
-#if defined(_NOXLIB) || defined(__WXGTK__)
+#if defined(_NOXLIB)
 typedef int HOE_WINDOW;
 typedef int HOE_DISPLAY;
-struct XEvent;
+//typedef union _XEvent XEvent
 #else
 typedef Display HOE_DISPLAY;
 typedef Window HOE_WINDOW;

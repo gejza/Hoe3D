@@ -103,7 +103,8 @@ void HoeEditor::App::Process()
 	switch (m_state)
 	{
 	case 0:
-		m_editor->Refresh();
+        if (m_editor != NULL)
+            m_editor->Refresh();
 		m_state = 10;
 		break;
 /*	case 10:

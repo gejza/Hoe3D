@@ -413,6 +413,15 @@ bool HoeEditor::PropertyGrid::Create(wxWindow * parent)
         //wxPG_COMPACTOR |
         wxPGMAN_DEFAULT_STYLE
        );
+   
+    RegisterAdvancedPropertyClasses();
+    GetGrid()->SetVerticalSpacing( 2 );
+
+    // Register all editors (SpinCtrl etc.)
+    RegisterAdditionalEditors();
+
+    AddPage(wxT("Standard Items"));
+
 	return true;
 }
 
@@ -437,8 +446,9 @@ void HoeEditor::PropertyGrid::End()
 	Refresh();
 }
 
-void HoeEditor::PropertyGrid::SetProp(wxPGId i, int id, unsigned long flags, const char * help)
+void HoeEditor::PropertyGrid::SetProp(wxPGId &i, int id, unsigned long flags, const char * help)
 {
+    hoe_assert(i.IsOk());
 	if (help)
 		i.GetProperty().SetHelpString(help);
 
@@ -454,19 +464,19 @@ void HoeEditor::PropertyGrid::SetProp(wxPGId i, int id, unsigned long flags, con
 void HoeEditor::PropertyGrid::AppendLong(int id, const char * label, long def, unsigned long flags, const char * help)
 {
 	wxPGId pgid = Append(label, label, (int)def);
-	SetProp( pgid, id, flags, help);
+	this->SetProp( pgid, id, flags, help);
 }
 
 void HoeEditor::PropertyGrid::AppendBool(int id, const char * label, bool def, unsigned long flags, const char * help)
 {
 	wxPGId pgid = Append(label, label, (bool)def);
-	SetProp( pgid, id, flags, help);
+	this->SetProp( pgid, id, flags, help);
 }
 
 void HoeEditor::PropertyGrid::AppendFloat(int id, const char * label, float def, unsigned long flags, const char * help)
 {
 	wxPGId pgid = Append(label, label, (double)def);
-	SetProp( pgid, id, flags, help);
+	this->SetProp( pgid, id, flags, help);
 }
 
 void HoeEditor::PropertyGrid::AppendColor(int id, const char * label, unsigned long color, unsigned long flags, const char *help, void * data)
@@ -484,55 +494,55 @@ void HoeEditor::PropertyGrid::AppendCategory(const char * label)
 void HoeEditor::PropertyGrid::AppendString(int id, const char * label, const char * def, unsigned long flags, const char * help, void * data)
 {
 	wxPGId pgid = Append( wxStringProperty(label, label, def));
-	SetProp( pgid, id, flags, help);
+	this->SetProp( pgid, id, flags, help);
 }
 
 void HoeEditor::PropertyGrid::AppendSize(int id, const char *label, int width, int height, unsigned long flags, const char *help, void * data)
 {
 	wxPGId pgid = Append(wxSizeProperty(label, label, wxSize(width,height)));
-	SetProp( pgid, id, flags, help);
+	this->SetProp( pgid, id, flags, help);
 }
 
 void HoeEditor::PropertyGrid::AppendRect(int id, const char *label, const wxRect & Rect, unsigned long flags, const char *help, void * data)
 {
 	wxPGId pgid = Append(wxRectProperty(label, label, Rect));
-	SetProp( pgid, id, flags, help);
+	this->SetProp( pgid, id, flags, help);
 }
 
 void HoeEditor::PropertyGrid::AppendPoint(int id, const char * label, const float x, const float y, unsigned long flags, const char * help, void * data)
 {
 	wxPGId pgid = Append(wxPointProperty(label, label, wxRealPoint(x,y)));
-	SetProp( pgid, id, flags, help);
+	this->SetProp( pgid, id, flags, help);
 }
 
 void HoeEditor::PropertyGrid::AppendPoint3D(int id, const char * label, const float x, const float y, const float z, unsigned long flags, const char * help, void * data)
 {
 	wxPGId pgid = Append(wxPoint3DProperty(label, label, Point3D(x,y,z)));
-	SetProp( pgid, id, flags, help);
+	this->SetProp( pgid, id, flags, help);
 }
 
 void HoeEditor::PropertyGrid::AppendList(int id, const char * label, const char *list[], long values[], long value, unsigned long flags, const char * help, void * data)
 {
 	wxPGId pgid = Append(wxEnumProperty(label, label, list, values, value));
-	SetProp( pgid, id, flags, help);
+	this->SetProp( pgid, id, flags, help);
 }
 
 void HoeEditor::PropertyGrid::AppendAngle(int id, const char * label, float def, unsigned long flags, const char * help, void * data)
 {
 	wxPGId pgid = Append(label, label, int(def * (180.f / 3.141592654)));
-	SetProp( pgid, id, flags, help);
+	this->SetProp( pgid, id, flags, help);
 }
 
 void HoeEditor::PropertyGrid::AppendImageFile(int id, const char * label, const char * str, unsigned long flags, const char * help, void * data)
 {
 	wxPGId pgid = Append(wxImageFileProperty(label, label, str));
-	SetProp( pgid, id, flags, help);
+	this->SetProp( pgid, id, flags, help);
 }
 
 void HoeEditor::PropertyGrid::AppendFont(int id, const char * label, const wxFont & font, unsigned long flags, const char * help, void * data)
 {
 	wxPGId pgid = Append(wxFontProperty(label, label, font));
-	SetProp( pgid, id, flags, help);
+	this->SetProp( pgid, id, flags, help);
 }
 
 ///////////////////////////////
