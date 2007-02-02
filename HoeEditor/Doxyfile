@@ -3,7 +3,7 @@
 #---------------------------------------------------------------------------
 # Project related configuration options
 #---------------------------------------------------------------------------
-PROJECT_NAME           = HoeGame
+PROJECT_NAME           = HoeEditor
 PROJECT_NUMBER         = 1.0
 OUTPUT_DIRECTORY       = ../doc
 CREATE_SUBDIRS         = YES
@@ -142,7 +142,7 @@ IGNORE_PREFIX          =
 # configuration options related to the HTML output
 #---------------------------------------------------------------------------
 GENERATE_HTML          = YES
-HTML_OUTPUT            = HoeGame
+HTML_OUTPUT            = HoeEditor
 HTML_FILE_EXTENSION    = .html
 HTML_HEADER            = 
 HTML_FOOTER            = 
@@ -176,7 +176,7 @@ LATEX_HIDE_INDICES     = NO
 #---------------------------------------------------------------------------
 # configuration options related to the RTF output
 #---------------------------------------------------------------------------
-GENERATE_RTF           = YES
+GENERATE_RTF           = NO
 RTF_OUTPUT             = rtf
 COMPACT_RTF            = YES
 RTF_HYPERLINKS         = YES
@@ -200,7 +200,7 @@ XML_PROGRAMLISTING     = YES
 #---------------------------------------------------------------------------
 # configuration options for the AutoGen Definitions output
 #---------------------------------------------------------------------------
-GENERATE_AUTOGEN_DEF   = YES
+GENERATE_AUTOGEN_DEF   = NO
 #---------------------------------------------------------------------------
 # configuration options related to the Perl module output
 #---------------------------------------------------------------------------
