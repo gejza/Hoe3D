@@ -20,6 +20,6 @@ src/undolist.cpp \
 src/properties.cpp src/utils.cpp \
 src/panels.cpp src/resources.cpp src/log.cpp src/fs.cpp
 
-___bin_libHoeEditor_la_LDFLAGS = -static -lHoeCore $(WX_LIBS)
+___bin_libHoeEditor_la_LDFLAGS = -static -lHoeCore -lHoeGame $(WX_LIBS)
 
 

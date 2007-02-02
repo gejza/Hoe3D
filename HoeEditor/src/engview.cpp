@@ -240,22 +240,22 @@ void EngineView::OnSizing( wxSizeEvent& event)
 void EngineView::OnEnterWindow( wxMouseEvent& event )
 {
     SetFocus();
-	App::Get()->GetEditor()->MouseEnter(event.GetX(), event.GetY());
+	//App::Get()->GetEditor()->MouseEnter(event.GetX(), event.GetY());
     m_lastmouseevent = event;
 	event.Skip();
 }
 
 void EngineView::OnLeaveWindow( wxMouseEvent& event )
 {
-	App::Get()->GetEditor()->MouseLeave();
+	//App::Get()->GetEditor()->MouseLeave();
 	event.Skip();
 }
 
 
 void EngineView::OnMouseMove(wxMouseEvent& event)
 {
-	App::Get()->GetEditor()->MouseMove(event.GetX()-m_lastmouseevent.GetX(),event.GetY()-m_lastmouseevent.GetY(),
-			event.GetX(),event.GetY(), event);
+	//App::Get()->GetEditor()->MouseMove(event.GetX()-m_lastmouseevent.GetX(),event.GetY()-m_lastmouseevent.GetY(),
+	//		event.GetX(),event.GetY(), event);
 	/*if (m_active)
 	{
 	if (event.ControlDown())
@@ -290,11 +290,12 @@ void EngineView::OnMouseMove(wxMouseEvent& event)
 
 void EngineView::OnMouseUp(wxMouseEvent& event)
 {
-	if (event.LeftUp())
+	/*if (event.LeftUp())
 		App::Get()->GetEditor()->MouseLeftUp(event.GetX(),event.GetY(),event);
 	if (event.RightUp())
 		App::Get()->GetEditor()->MouseRightUp(event.GetX(),event.GetY(),event);
-	/*if (m_active)
+	*/
+    /*if (m_active)
 	{
 		float m[4] = {event.GetX()-m_lastmouseevent.GetX(),event.GetY()-m_lastmouseevent.GetY(),
 			event.GetX(),event.GetY()};
@@ -326,11 +327,11 @@ void EngineView::OnMouseUp(wxMouseEvent& event)
 
 void EngineView::OnMouseDown(wxMouseEvent& event)
 {
-	if (event.LeftDown())
+	/*if (event.LeftDown())
 		App::Get()->GetEditor()->MouseLeftDown(event.GetX(),event.GetY(),event);
 	if (event.RightDown())
 		App::Get()->GetEditor()->MouseRightDown(event.GetX(),event.GetY(),event);
-
+    */
 	/*if (m_active)
 	{
 		float m[4] = {event.GetX()-m_lastmouseevent.GetX(),event.GetY()-m_lastmouseevent.GetY(),
@@ -363,12 +364,12 @@ void EngineView::OnMouseDown(wxMouseEvent& event)
 
 void EngineView::OnMouseWheel(wxMouseEvent& event)
 {
-	App::Get()->GetEditor()->MouseWheel(event);
+	//App::Get()->GetEditor()->MouseWheel(event);
 }
 
 void EngineView::OnKeyDown(wxKeyEvent& event)
 {
-	App::Get()->GetEditor()->KeyDown(event);
+	//App::Get()->GetEditor()->KeyDown(event);
 
 /*
         case WXK_NUMPAD_DECIMAL: key = _T("NUMPAD_DECIMAL"); break;
@@ -399,7 +400,7 @@ void EngineView::OnKeyDown(wxKeyEvent& event)
 
 void EngineView::OnKeyUp(wxKeyEvent& event)
 {
-	App::Get()->GetEditor()->KeyUp(event);
+	//App::Get()->GetEditor()->KeyUp(event);
 	event.Skip();
 }
 
