@@ -12,13 +12,12 @@
 class FigureEdit;
 class BaseItem;
 
-class Hoe2DEdit : public HoeEditor::BaseEditor
+class Hoe2DEdit : public HoeEditor::BaseEditor, public HoeEditor::ToolEventHandler
 {
 	static Hoe2DEdit * s_actinstance;
 protected:
 	HoeEditor::PropertyGrid *m_prop;
 	HoeEditor::EngineView *m_engview;
-	HoeEditor::PanelMgr *m_leftpanel;
 	wxTreeCtrl * m_tc;
 	wxHelpController m_help;
 	HoeEditor::UndoList m_undo;
@@ -26,6 +25,8 @@ protected:
 	FigureEdit * m_figure;
 	HoeEditor::Resources m_res;
 	BaseItem * m_select;
+
+	wxAuiManager m_mgr;
 public:
 	Hoe2DEdit();
 	virtual ~Hoe2DEdit();
@@ -35,8 +36,6 @@ public:
 
 	virtual XHoeFS * GetFS() { return &m_res; }
 	HoeEditor::PropertyGrid * GetProp() { return m_prop; }
-	virtual HoeEditor::EngineView * GetEngineView() { return m_engview; }
-	virtual HoeEditor::PanelMgr * GetPanelMgr() { return m_leftpanel; }
 
 	void OnNewObject(wxCommandEvent &);
 	void OnResMgr(wxCommandEvent &);

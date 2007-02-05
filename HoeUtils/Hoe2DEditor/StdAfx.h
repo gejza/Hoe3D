@@ -31,8 +31,6 @@
 #include <wx/cshelp.h>
 #include <wx/dynlib.h>
 #include <wx/menu.h>
-#include <wx/propgrid/propgrid.h>
-#include <wx/propgrid/manager.h>
 #include <wx/bmpbuttn.h>
 #include <wx/file.h>
 #include <wx/config.h>
@@ -40,7 +38,6 @@
 #include <wx/splitter.h>
 #include <wx/filesys.h>
 #include <wx/fs_zip.h>
-#include <wx/html/helpctrl.h>
 #include <wx/spinctrl.h>
 #include <wx/msgdlg.h>
 #include <wx/bmpbuttn.h>
@@ -51,6 +48,11 @@
 #include <wx/log.h>
 #include <wx/treectrl.h>
 #include <wx/toolbar.h>
+#include <wx/propgrid/propgrid.h>
+#include <wx/propgrid/manager.h>
+#include <wx/html/helpctrl.h>
+#include <wx/aui/aui.h>
+
 
 #include <hoe_utils.h>
 #include "hoe_console.h"

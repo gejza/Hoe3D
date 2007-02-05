@@ -37,12 +37,10 @@ END_EVENT_TABLE()
 HoeEditor::BaseEditor::BaseEditor()
 {
 	m_menu = NULL;
-	m_tool = NULL;
 }
 
 HoeEditor::BaseEditor::~BaseEditor()
 {
-	SetTool(NULL);
 	App::Get()->StateToEnd();
 }
 
@@ -66,7 +64,7 @@ void HoeEditor::BaseEditor::OnQuit(wxCommandEvent& event)
 #ifndef HOE_STATIC_ENGINE
 void HoeEditor::BaseEditor::OnEngine(wxCommandEvent& event)
 {
-	if (GetEngineView()) {
+	if (EngineView::Get()) {
 #ifdef _WIN32
 	wxFileDialog dialog(this,_("Choose a engine..."),_T(""), _T(""), _("Engine|*.dll"), wxOPEN | wxFILE_MUST_EXIST);
 #else
@@ -83,10 +81,10 @@ void HoeEditor::BaseEditor::OnEngine(wxCommandEvent& event)
 
 void HoeEditor::BaseEditor::LoadEngine(wxString path)
 {
-	if (GetEngineView())
+	if (EngineView::Get())
 	{
-		GetEngineView()->SetEnginePath(path);
-		if (GetEngineView()->Init(GetFS()))
+		EngineView::Get()->SetEnginePath(path);
+		if (EngineView::Get()->Init(GetFS()))
 		{
 			wxConfigBase *pConfig = wxConfigBase::Get();
 			if ( pConfig )
@@ -99,8 +97,8 @@ void HoeEditor::BaseEditor::LoadEngine(wxString path)
 
 void HoeEditor::BaseEditor::ProcessFrame()
 {
-	if (GetEngineView())
-		GetEngineView()->Frame(0.1f);
+	if (EngineView::Get())
+		EngineView::Get()->Frame(0.1f);
 }
 
 void HoeEditor::BaseEditor::OnShowLog(wxCommandEvent& event)
@@ -108,7 +106,19 @@ void HoeEditor::BaseEditor::OnShowLog(wxCommandEvent& event)
 	App::Get()->GetLog()->ShowDialog();
 }
 
-void HoeEditor::BaseEditor::SetTool(EditorTool *tool)
+/////////////////////////////////////
+HoeEditor::ToolEventHandler::ToolEventHandler()
+{
+	m_tool = NULL;
+}
+
+HoeEditor::ToolEventHandler::~ToolEventHandler()
+{
+	if (m_tool)
+		m_tool->Exit();
+}
+
+void HoeEditor::ToolEventHandler::SetTool(EditorTool *tool)
 {
 	if (m_tool)
 		m_tool->Exit();
@@ -116,54 +126,53 @@ void HoeEditor::BaseEditor::SetTool(EditorTool *tool)
 		m_tool = tool;
 	//else
 	//	m_tool = new ToolSelect();
-	if (!m_tool)
-		OnDefaultTool();
+	//if (!m_tool)
+	//	OnDefaultTool();
 }
 
-/////////////////////////////////////
-void HoeEditor::BaseEditor::MouseEnter(int absX, int absY)
+void HoeEditor::ToolEventHandler::MouseEnter(int absX, int absY)
 {
 	if (m_tool)
 		m_tool->Enter(absX, absY);
 }
 
-void HoeEditor::BaseEditor::MouseLeave()
+void HoeEditor::ToolEventHandler::MouseLeave()
 {
 	if (m_tool)
 		m_tool->Leave();
 }
 
-void HoeEditor::BaseEditor::MouseMove(int relX, int relY, int absX, int absY, const wxMouseEvent & ev)
+void HoeEditor::ToolEventHandler::MouseMove(int relX, int relY, int absX, int absY, const wxMouseEvent & ev)
 {
 	if (m_tool)
 		m_tool->Move(relX, relY, absX, absY, ev);
 }
 
-void HoeEditor::BaseEditor::MouseLeftDown(const int x, const int y, wxMouseEvent & e)
+void HoeEditor::ToolEventHandler::MouseLeftDown(const int x, const int y, wxMouseEvent & e)
 {
 	if (m_tool)
 		m_tool->LeftDown(x,y,e);
 }
 
-void HoeEditor::BaseEditor::MouseLeftUp(const int x, const int y, wxMouseEvent & e)
+void HoeEditor::ToolEventHandler::MouseLeftUp(const int x, const int y, wxMouseEvent & e)
 {
 	if (m_tool)
 		m_tool->LeftUp(x,y,e);
 }
 
-void HoeEditor::BaseEditor::MouseRightDown(const int x, const int y, wxMouseEvent & e)
+void HoeEditor::ToolEventHandler::MouseRightDown(const int x, const int y, wxMouseEvent & e)
 {
 	if (m_tool)
 		m_tool->RightDown(x,y,e);
 }
 
-void HoeEditor::BaseEditor::MouseRightUp(const int x, const int y, wxMouseEvent & e)
+void HoeEditor::ToolEventHandler::MouseRightUp(const int x, const int y, wxMouseEvent & e)
 {
 	if (m_tool)
 		m_tool->RightUp(x,y,e);
 }
 
-void HoeEditor::BaseEditor::MouseWheel(wxMouseEvent & e)
+void HoeEditor::ToolEventHandler::MouseWheel(wxMouseEvent & e)
 {
 	//if (m_map)
 	//{

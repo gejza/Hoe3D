@@ -66,13 +66,13 @@ HoeEditor::BaseEditor * Hoe2DEditApp::CreateEditor()
 
 	Hoe2DEdit * e = new Hoe2DEdit();
 	e->Create("Hoe2D Editor");
- //   wxBitmap bitmap;
- //   if (bitmap.LoadFile(_T("splash.bmp"), wxBITMAP_TYPE_BMP))
-	//m_splash = new wxSplashScreen(bitmap,
- //           wxSPLASH_CENTRE_ON_PARENT/*|wxSPLASH_TIMEOUT*/,
- //           4000, e, wxID_ANY, wxDefaultPosition, wxDefaultSize,
- //           wxSIMPLE_BORDER|wxSTAY_ON_TOP|wxFRAME_NO_TASKBAR);
-	//else 
+    wxBitmap bitmap;
+    if (bitmap.LoadFile(_T("splash.bmp"), wxBITMAP_TYPE_BMP))
+	m_splash = new wxSplashScreen(bitmap,
+            wxSPLASH_CENTRE_ON_PARENT/*|wxSPLASH_TIMEOUT*/,
+            4000, e, wxID_ANY, wxDefaultPosition, wxDefaultSize,
+            wxSIMPLE_BORDER|wxSTAY_ON_TOP|wxFRAME_NO_TASKBAR);
+	else 
 		m_splash = NULL;
 	wxYield(); 
 	return e;
@@ -118,19 +118,8 @@ bool Hoe2DEdit::Create(const wxString & title)
 	}
 */
 	HoeEditor::BaseEditor::Create(title);
-
+    m_mgr.SetManagedWindow(this);
 	// tool bar
-	wxToolBar * tool = CreateToolBar();
-	wxBitmap newt(new_xpm);
-int w = newt.GetWidth(),
-        h = newt.GetHeight(); 
-	tool->SetToolBitmapSize(wxSize(w, h));
-
-	tool->AddTool(HoeEditor::ID_NEW,"nic",newt,"hokus pokus");
-	tool->AddSeparator();
-	tool->AddTool(ID_COLORRECT, "Color Rect", newt, "Color Rect");
-	tool->AddTool(ID_STATICITEM, "picture", newt, "Picture");
-	tool->Realize();
 
 	// vytvorit menu
     // file
@@ -174,31 +163,44 @@ int w = newt.GetWidth(),
 	wxStatusBar *statbar = CreateStatusBar();
 	statbar->SetFieldsCount(2);
 
-	wxSplitterWindow * split = new wxSplitterWindow(this,10, wxDefaultPosition, wxDefaultSize,0);
-	split->SetSashGravity(0);
-	
+	wxToolBar * tool = new wxToolBar(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
+                                   wxTB_FLAT | wxTB_NODIVIDER | wxTB_HORIZONTAL);
+	wxBitmap newt(new_xpm);
+int w = newt.GetWidth(),
+        h = newt.GetHeight(); 
+	tool->SetToolBitmapSize(wxSize(w, h));
+
+	tool->AddTool(HoeEditor::ID_NEW,"nic",newt,"hokus pokus");
+	tool->AddSeparator();
+	tool->AddTool(ID_COLORRECT, "Color Rect", newt, "Color Rect");
+	tool->AddTool(ID_STATICITEM, "picture", newt, "Picture");
+	tool->Realize();
+
 	// seradit do layoutu
 
-	m_leftpanel = new HoeEditor::PanelMgr();
-	m_leftpanel->Create(split, -1);
 	/*GetPanelMgr()->AddPanel(
 		new ToolObjects(GetPanelMgr()), _("Tools"), true, true);*/
 	/*GetPanelMgr()->AddPanel(
 		new TerrainObject(GetPanelMgr()), _("Terrain"), true, true);*/
 	// list view
-	m_tc = new wxTreeCtrl(GetPanelMgr(), ID_TREE);
+	m_tc = new wxTreeCtrl(this, ID_TREE);
 
-	GetPanelMgr()->AddPanel(
-		m_tc, _("List"), false, true);
 	m_prop = new HoeEditor::PropertyGrid();
-	m_prop->Create(GetPanelMgr());
-	GetPanelMgr()->AddPanel(
-		m_prop, _("Properties"), false, true);
+	m_prop->Create(this);
 
 	m_engview = new HoeEditor::EngineView();
-	m_engview->Create(split, -1, wxDefaultPosition, wxDefaultSize, wxWANTS_CHARS);
+	m_engview->Create(this, -1, wxDefaultPosition, wxDefaultSize, wxWANTS_CHARS);
 
-	split->SplitVertically(m_leftpanel, m_engview, 150);
+    m_mgr.AddPane(m_tc, wxLEFT, wxT("List"));
+    m_mgr.AddPane(m_prop, wxLEFT, wxT("Properties"));
+    m_mgr.AddPane(m_engview, wxAuiPaneInfo().CenterPane());
+
+    m_mgr.AddPane(tool, wxAuiPaneInfo().
+                  Name(wxT("tb")).Caption(wxT("Sample Vertical Toolbar")).
+                  ToolbarPane().Top().
+                  Gripper());
+
+	m_mgr.Update();
 
 	return true;
 }

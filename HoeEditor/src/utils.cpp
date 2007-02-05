@@ -13,7 +13,7 @@ wxString HoeEditor::FullPath(const wxString &dir, const wxString &relpath)
 
 void HoeEditor::EditorTool::RightDown(const int x, const int y, const wxMouseEvent &e)
 {
-	App::Get()->GetEditor()->SetTool(NULL);
+	//App::Get()->GetEditor()->SetTool(NULL);
 }
 
 HoeEditor::EditorDragTool::EditorDragTool()

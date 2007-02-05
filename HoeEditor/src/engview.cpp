@@ -8,6 +8,21 @@
 
 namespace HoeEditor {
 
+// event handler
+EngineEventHandler * EngineEventHandler::_this = NULL;
+
+EngineEventHandler::EngineEventHandler()
+{
+	assert(_this == NULL);
+	_this = this;
+}
+
+EngineEventHandler::~EngineEventHandler()
+{
+	assert(_this == this);
+	_this = NULL;
+}
+
 BEGIN_EVENT_TABLE(EngineView, wxWindow)
 	EVT_PAINT(EngineView::OnPaint)
 	EVT_MOTION(EngineView::OnMouseMove)
@@ -27,12 +42,12 @@ BEGIN_EVENT_TABLE(EngineView, wxWindow)
 	EVT_SIZING(EngineView::OnSizing)
 END_EVENT_TABLE()
 
-EngineView * EngineView::m_shared = NULL;
+EngineView * EngineView::g_shared = NULL;
 
 EngineView::EngineView()
 {
-	assert(m_shared == NULL);
-	m_shared = this;
+	assert(g_shared == NULL);
+	g_shared = this;
 #ifndef HOE_STATIC_ENGINE
 	m_dllpath[0] = '\0';
 #endif
@@ -42,8 +57,8 @@ EngineView::EngineView()
 
 EngineView::~EngineView()
 {
-	assert(m_shared == this);
-	m_shared = NULL;
+	assert(g_shared == this);
+	g_shared = NULL;
 }
 
 #ifndef HOE_STATIC_ENGINE
@@ -89,7 +104,7 @@ bool EngineView::InitUntry(XHoeFS * hfs)
 #ifdef _LINUX
     const char * engsym = "CreateHoeEngine";
 #else
-    const char * engsym = "_CreateHoeEngine@24"
+    const char * engsym = "_CreateHoeEngine@24";
 #endif
 	GetEngineInterface = (HOE_FUNCCREATE)m_lib.GetSymbol(engsym);
 	if (!GetEngineInterface)
@@ -240,22 +255,22 @@ void EngineView::OnSizing( wxSizeEvent& event)
 void EngineView::OnEnterWindow( wxMouseEvent& event )
 {
     SetFocus();
-	//App::Get()->GetEditor()->MouseEnter(event.GetX(), event.GetY());
+	EngineEventHandler::Get()->MouseEnter(event.GetX(), event.GetY());
     m_lastmouseevent = event;
 	event.Skip();
 }
 
 void EngineView::OnLeaveWindow( wxMouseEvent& event )
 {
-	//App::Get()->GetEditor()->MouseLeave();
+	EngineEventHandler::Get()->MouseLeave();
 	event.Skip();
 }
 
 
 void EngineView::OnMouseMove(wxMouseEvent& event)
 {
-	//App::Get()->GetEditor()->MouseMove(event.GetX()-m_lastmouseevent.GetX(),event.GetY()-m_lastmouseevent.GetY(),
-	//		event.GetX(),event.GetY(), event);
+	EngineEventHandler::Get()->MouseMove(event.GetX()-m_lastmouseevent.GetX(),event.GetY()-m_lastmouseevent.GetY(),
+			event.GetX(),event.GetY(), event);
 	/*if (m_active)
 	{
 	if (event.ControlDown())
@@ -290,11 +305,11 @@ void EngineView::OnMouseMove(wxMouseEvent& event)
 
 void EngineView::OnMouseUp(wxMouseEvent& event)
 {
-	/*if (event.LeftUp())
-		App::Get()->GetEditor()->MouseLeftUp(event.GetX(),event.GetY(),event);
+	if (event.LeftUp())
+		EngineEventHandler::Get()->MouseLeftUp(event.GetX(),event.GetY(),event);
 	if (event.RightUp())
-		App::Get()->GetEditor()->MouseRightUp(event.GetX(),event.GetY(),event);
-	*/
+		EngineEventHandler::Get()->MouseRightUp(event.GetX(),event.GetY(),event);
+	
     /*if (m_active)
 	{
 		float m[4] = {event.GetX()-m_lastmouseevent.GetX(),event.GetY()-m_lastmouseevent.GetY(),
@@ -327,11 +342,11 @@ void EngineView::OnMouseUp(wxMouseEvent& event)
 
 void EngineView::OnMouseDown(wxMouseEvent& event)
 {
-	/*if (event.LeftDown())
-		App::Get()->GetEditor()->MouseLeftDown(event.GetX(),event.GetY(),event);
+	if (event.LeftDown())
+		EngineEventHandler::Get()->MouseLeftDown(event.GetX(),event.GetY(),event);
 	if (event.RightDown())
-		App::Get()->GetEditor()->MouseRightDown(event.GetX(),event.GetY(),event);
-    */
+		EngineEventHandler::Get()->MouseRightDown(event.GetX(),event.GetY(),event);
+    
 	/*if (m_active)
 	{
 		float m[4] = {event.GetX()-m_lastmouseevent.GetX(),event.GetY()-m_lastmouseevent.GetY(),
@@ -364,12 +379,12 @@ void EngineView::OnMouseDown(wxMouseEvent& event)
 
 void EngineView::OnMouseWheel(wxMouseEvent& event)
 {
-	//App::Get()->GetEditor()->MouseWheel(event);
+	EngineEventHandler::Get()->MouseWheel(event);
 }
 
 void EngineView::OnKeyDown(wxKeyEvent& event)
 {
-	//App::Get()->GetEditor()->KeyDown(event);
+	EngineEventHandler::Get()->KeyDown(event);
 
 /*
         case WXK_NUMPAD_DECIMAL: key = _T("NUMPAD_DECIMAL"); break;
@@ -394,13 +409,13 @@ void EngineView::OnKeyDown(wxKeyEvent& event)
         } 
 */
 
-	//App::Get()->GetEditor()->SetTitle();
+	//EngineEventHandler::Get()->SetTitle();
 	event.Skip();
 }
 
 void EngineView::OnKeyUp(wxKeyEvent& event)
 {
-	//App::Get()->GetEditor()->KeyUp(event);
+	EngineEventHandler::Get()->KeyUp(event);
 	event.Skip();
 }
 

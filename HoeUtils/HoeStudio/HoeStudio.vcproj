@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="Hoe2DEditor"
-	ProjectGUID="{CE0E450D-E046-4ED8-9FB3-25EC58C2A821}"
-	RootNamespace="Hoe2DEditor"
+	Name="HoeStudio"
+	ProjectGUID="{CE0E450D-E046-4ED8-9FB3-25EC58C2A822}"
+	RootNamespace="HoeStudio"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -179,39 +179,11 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\editor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\editor.h"
-			>
-		</File>
-		<File
-			RelativePath=".\figure.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\figure.h"
-			>
-		</File>
-		<File
-			RelativePath=".\items.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\items.h"
+			RelativePath=".\main.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\StdAfx.h"
-			>
-		</File>
-		<File
-			RelativePath=".\tools.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\tools.h"
 			>
 		</File>
 	</Files>

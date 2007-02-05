@@ -10,6 +10,30 @@ class XHoeFS;
 
 namespace HoeEditor { 
 
+class EngineEventHandler
+{
+	static EngineEventHandler * _this;
+public:
+	EngineEventHandler();
+	virtual ~EngineEventHandler();
+	static inline EngineEventHandler * Get() 
+	{ 
+		if (_this) return _this; 
+		static EngineEventHandler empty;
+		return &empty;
+	}
+	virtual void KeyDown(wxKeyEvent& event) {};
+	virtual void KeyUp(wxKeyEvent& event) {};
+	virtual void MouseLeftDown(const int x, const int y, wxMouseEvent & e) {};
+	virtual void MouseLeftUp(const int x, const int y, wxMouseEvent & e) {};
+	virtual void MouseRightDown(const int x, const int y, wxMouseEvent & e) {};
+	virtual void MouseRightUp(const int x, const int y, wxMouseEvent & e) {};
+	virtual void MouseWheel(wxMouseEvent & e) {};
+	virtual void MouseMove(int relX, int relY, int absX, int absY, const wxMouseEvent & ev) {};
+	virtual void MouseEnter(int absX, int absY) {};
+	virtual void MouseLeave() {};
+};
+
 class EngineView : public wxPanel
 {
 protected:
@@ -20,7 +44,7 @@ protected:
 	bool m_loaded;
 	wxMouseEvent m_lastmouseevent;
 	wxTimer m_infotimer;
-	static EngineView * m_shared;
+	static EngineView * g_shared;
 	bool InitUntry(XHoeFS * hfs);
 public:
 	void Unload();
@@ -49,7 +73,7 @@ public:
 	void OnSetFocus(wxFocusEvent &event);
 	void OnKillFocus(wxFocusEvent &event);
 
-	static inline EngineView * Get() { return m_shared; }
+	static inline EngineView * Get() { return g_shared; }
 private:
 
     // any class wishing to process wxWindows events must use this macro

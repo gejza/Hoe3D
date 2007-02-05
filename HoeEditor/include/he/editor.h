@@ -5,8 +5,8 @@
 
 /*#include "treectrl.h"
 #include "properties.h"
-#include "panels.h"
-#include "engine_view.h"*/
+#include "panels.h"*/
+#include "engview.h"
 #include <wx/frame.h>
 
 class wxPanel;
@@ -34,14 +34,30 @@ enum {
 };
 
 class EngineView;
-class PanelMgr;
 class EditorTool;
+
+class ToolEventHandler : public EngineEventHandler
+{
+protected:
+	EditorTool * m_tool;
+public:
+	ToolEventHandler();
+	virtual ~ToolEventHandler();
+	virtual void MouseLeftDown(const int x, const int y, wxMouseEvent & e);
+	virtual void MouseLeftUp(const int x, const int y, wxMouseEvent & e);
+	virtual void MouseRightDown(const int x, const int y, wxMouseEvent & e);
+	virtual void MouseRightUp(const int x, const int y, wxMouseEvent & e);
+	virtual void MouseWheel(wxMouseEvent & e);
+	virtual void MouseMove(int relX, int relY, int absX, int absY, const wxMouseEvent & ev);
+	virtual void MouseEnter(int absX, int absY);
+	virtual void MouseLeave();
+
+	void SetTool(EditorTool * tool);
+};
 
 // Define a new frame type: this is going to be our main frame
 class BaseEditor: public wxFrame
 {
-private:
-	EditorTool * m_tool;
 protected:
 	wxMenuBar * m_menu;
 public:
@@ -58,8 +74,6 @@ public:
 	*/
 	virtual void UpdateControls() {}
 
-	virtual PanelMgr * GetPanelMgr() { return NULL; }
-	virtual EngineView * GetEngineView() { return NULL; }
 	virtual XHoeFS * GetFS() { return NULL; }
 
 #ifndef HOE_STATIC_ENGINE
@@ -74,19 +88,7 @@ public:
 	void OnQuit(wxCommandEvent& event);
 	void OnShowLog(wxCommandEvent& event);
 
-	void SetTool(EditorTool * tool);
 	virtual void OnDefaultTool() {}
-
-	virtual void KeyDown(wxKeyEvent& event) {};
-	virtual void KeyUp(wxKeyEvent& event) {};
-	virtual void MouseLeftDown(const int x, const int y, wxMouseEvent & e);
-	virtual void MouseLeftUp(const int x, const int y, wxMouseEvent & e);
-	virtual void MouseRightDown(const int x, const int y, wxMouseEvent & e);
-	virtual void MouseRightUp(const int x, const int y, wxMouseEvent & e);
-	virtual void MouseWheel(wxMouseEvent & e);
-	virtual void MouseMove(int relX, int relY, int absX, int absY, const wxMouseEvent & ev);
-	virtual void MouseEnter(int absX, int absY);
-	virtual void MouseLeave();
 
 	// any class wishing to process wxWindows events must use this macro
     DECLARE_EVENT_TABLE()
