@@ -18,7 +18,7 @@
 // ============================================================================
 // implementation
 // ============================================================================
-
+bool g_inited = false;
 // `Main program' equivalent: the program execution "starts" here
 bool HoeEditor::App::OnInit()
 {
@@ -95,11 +95,16 @@ bool HoeEditor::App::OnInit()
 	m_editor->Refresh();
 	m_editor->Update();
 
+    // process pro spusteni postinitu
+    g_inited = true;
 	return TRUE;
 }
 
 void HoeEditor::App::Process()
 {
+    if (!g_inited)
+        return;
+
 	switch (m_state)
 	{
 	case 0:
