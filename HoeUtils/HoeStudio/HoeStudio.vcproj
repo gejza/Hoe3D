@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\HoeCore\include;..\..\HoeEditor\include;../../HoeGame/include;../../Hoe3D/include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;WXUSINGDLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -61,11 +61,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="HoeCore_d.lib HoeUtils_d.lib HoeGame_d.lib HoeEditor_d.lib Lua5.1.lib libfl.a wxbase28d.lib wxmsw28d_core.lib wxmsw28d_aui.lib wxmsw28d_adv.lib wxmsw28d_propgrid.lib wxbase28d_xml.lib wxexpatd.lib rpcrt4.lib comctl32.lib"
+				AdditionalDependencies="HoeCore_d.lib HoeUtils_d.lib HoeGame_d.lib HoeEditor_wxdll_d.lib Lua5.1.lib libfl.a wxbase28d.lib wxmsw28d_core.lib wxmsw28d_aui.lib wxmsw28d_adv.lib wxmsw28d_propgrid.lib wxbase28d_xml.lib wxexpatd.lib rpcrt4.lib comctl32.lib"
 				OutputFile="..\bin\$(ProjectName)_d.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="../../bin;../../../Common/lib/wx_lib"
-				IgnoreDefaultLibraryNames="LIBCMTD.lib"
+				AdditionalLibraryDirectories="../../bin;../../../Common/lib/wx_dll"
+				IgnoreDefaultLibraryNames="libcmtd.lib libcmt.lib"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -121,7 +121,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\HoeCore\include;..\..\HoeEditor\include;../../HoeGame/include;../../Hoe3D/include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;WXUSINGDLL"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -139,10 +139,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="HoeCore.lib HoeUtils.lib HoeGame.lib HoeEditor.lib Lua5.1.lib libfl.a wxbase26.lib wxmsw26_core.lib wxmsw26_adv.lib wxmsw26_propgrid.lib wxbase26_xml.lib wxmsw26_stc.lib wxexpat.lib rpcrt4.lib comctl32.lib"
+				AdditionalDependencies="HoeCore.lib HoeUtils.lib HoeGame.lib HoeEditor_wxdll.lib Lua5.1.lib libfl.a wxbase28.lib wxmsw28_core.lib wxmsw28_adv.lib wxmsw28_aui.lib wxmsw28_propgrid.lib wxbase28_xml.lib wxmsw28_stc.lib wxexpat.lib rpcrt4.lib comctl32.lib"
 				OutputFile="..\bin\$(ProjectName).exe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="../../bin;../../../Common/lib/wx_lib"
+				AdditionalLibraryDirectories="../../bin;../../../Common/lib/wx_dll"
+				IgnoreDefaultLibraryNames="libcmtd.lib libcmt.lib"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"

@@ -63,6 +63,7 @@
 				Name="VCLinkerTool"
 				OutputFile="..\bin\$(ProjectName)_d.exe"
 				LinkIncremental="2"
+				IgnoreDefaultLibraryNames="libcmtd.lib libcmt.lib"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -117,7 +118,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\HoeEditor\include;../../HoeGame/include;../../Hoe3D/include"
+				AdditionalIncludeDirectories="..\..\HoeCore\include;..\..\HoeEditor\include;../../HoeGame/include;../../Hoe3D/include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -138,6 +139,7 @@
 				Name="VCLinkerTool"
 				OutputFile="..\bin\$(ProjectName).exe"
 				LinkIncremental="1"
+				IgnoreDefaultLibraryNames="libcmtd.lib libcmt.lib"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
