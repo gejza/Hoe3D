@@ -82,3 +82,5 @@ echo "Removing files that are not needed"
 rm -rf autom4* 1>/dev/null 2>&1 
 rm -rf ltmain.sh 1>/dev/null 2>&1 
 rm -rf *.m4 1>/dev/null 2>&1
+
+echo "Done."
