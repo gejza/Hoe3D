@@ -136,6 +136,10 @@ void ObjectController::GetOrientation(float *x, float *y, float *z, float *angle
 
 void ObjectController::SetScale(const HoeMath::Vector3 &scale)
 {
+	if (scale == HoeMath::Vector3(1.f, 1.f, 1.f))
+		UnsetFlags(HOF_SCALED);
+	else
+		SetFlags(HOF_SCALED);
 	m_scale = scale;
 }
 

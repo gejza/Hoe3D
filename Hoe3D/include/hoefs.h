@@ -132,6 +132,11 @@ public:
 		m_file->Skip(size);
 		m_pos += size;return true;
 	}
+    bool Seek(size_t pos)
+	{
+		m_file->Seek(pos);
+		m_pos = pos;return true;
+	}
 	bool IsValid() { return (m_file && m_file->IsOpen()); }
 	size_t GetReadSize() { return m_pos - m_startpos; }
 	void Reset() { m_pos = m_startpos; }

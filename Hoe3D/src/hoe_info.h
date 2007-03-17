@@ -81,6 +81,8 @@ class InfoSystem : public IHoeInfo
 
 	dword m_curtriangles; ///< pocitadlo trojuhelniku
 	dword m_stattriangles; ///< pocet trojuhelniku ve snimku
+	dword m_curobjects; ///< pocitadlo objektu
+	dword m_statobjects; ///< pocet objektu ve snimku
 public:
 	InfoSystem();
 	~InfoSystem();
@@ -98,6 +100,8 @@ public:
 
 	/** Pridani trojuhelniku do pocitadla trojuhelniku */
 	void AddStatTriangles(dword nt) { m_curtriangles += nt; }
+	/** Pridani trojuhelniku do pocitadla trojuhelniku */
+	void AddStatObjects(dword no) { m_curobjects += no; }
 
 	static int c_showfps(int argc, const char * argv[], void * param);
 	static int c_hidefps(int argc, const char * argv[], void * param);

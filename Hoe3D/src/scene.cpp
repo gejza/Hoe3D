@@ -13,6 +13,7 @@
 #include "hoe_model.h"
 #include "texture_system.h"
 #include "scene_env.h"
+#include "hoe_info.h"
 
 // 	m_2dcb = NULL;
 
@@ -57,6 +58,7 @@ void HoeScene::Render(TRenderParameters * rp)
 		}
 		else
 			obj->Render(this);
+		GetInfo()->AddStatObjects(1);
 	}
 
 }

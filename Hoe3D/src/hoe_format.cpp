@@ -23,6 +23,7 @@ const char * HoeFormatString(HOEFORMAT format)
 	case HOE_A8R3G3B2: return "A8R3G3B2";
 	case HOE_X4R4G4B4: return "X4R4G4B4";
 	case HOE_L16: return "L16";
+	case HOE_L8: return "L8";
 	case HOE_A4R4G4B4: return "A4R4G4B4";
 	case HOE_R3G3B2: return "R3G3B2";
 	case HOE_A8: return "A8";
@@ -65,6 +66,7 @@ int HoeFormatSize(HOEFORMAT format)
 		return 16;
 	case HOE_R3G3B2:
 	case HOE_A8:
+	case HOE_L8:
 		return 8;
 	default:
 		assert(!"unsupported format");

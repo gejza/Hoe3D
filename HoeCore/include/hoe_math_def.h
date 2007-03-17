@@ -146,15 +146,15 @@ struct Vector3
 	{
 		return Vector3(x / f, y / f, z / f);
 	}
-	bool operator < ( const Vector3 & v)
+	bool operator < ( const Vector3 & v) const
 	{
 		return (x < v.x && y < v.y && z < v.z);
 	}
-	bool operator > ( const Vector3 & v)
+	bool operator > ( const Vector3 & v) const
 	{
 		return (x > v.x && y > v.y && z > v.z);
 	}
-	bool operator == (const Vector3 & v)
+	bool operator == (const Vector3 & v) const
 	{
 		return ((x == v.x) && (y == v.y) && (z == v.z));
 	}

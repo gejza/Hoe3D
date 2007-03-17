@@ -138,7 +138,7 @@ bool HoeSoundBuffer::LoadFromFile(const char *filename)
 	size_t bys = 2*samples*vi->channels;
 	while (bys>0)
 	{
-		long r = 1;// ov_read(&vf,(char*)l,bys,0,2,1,&cs); 
+		long r = ov_read(&vf,(char*)l,bys,0,2,1,&cs); 
 		assert(r > 0);
 		bys-=r;
 		l+=r;

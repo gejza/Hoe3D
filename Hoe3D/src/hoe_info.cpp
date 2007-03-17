@@ -114,6 +114,7 @@ void InfoSystem::BeginFrame()
 	fps.numframes++;
 
 	m_curtriangles = 0;
+	m_curobjects = 0;
 
 	if (stime_total > fpstime)
 	{
@@ -130,6 +131,7 @@ void InfoSystem::EndFrame()
 {
 	times.end = SysFloatTime();
 	m_stattriangles = m_curtriangles;
+	m_statobjects = m_curobjects;
 }
 
 void InfoSystem::Publish()
@@ -142,7 +144,8 @@ void InfoSystem::Publish()
 		HoeCamera::Setup2DMatrices(0,0);
 		char buff[100];
 		float y = 15;
-		sprintf(buff,"FPS: %.3f (e: %.2f%% g:%.2f%% a:%.2f%%), tri: %d",fps.fps,s_engine.percent,s_gpu.percent,s_app.percent,m_stattriangles);
+		sprintf(buff,"FPS: %.3f (e: %.2f%% g:%.2f%% a:%.2f%%), tri: %d, o: %d",
+			fps.fps,s_engine.percent,s_gpu.percent,s_app.percent,m_stattriangles,m_statobjects);
 		font->DrawText(10,y,0xffffffff,buff,HOEFONT_BACK);
 		y += 2 + h;
 		sprintf(buff,"FPS: %.3f (e: %.2f%% g:%.2f%% a:%.2f%%)",fps.minfps,s_engine.maxpercent, s_gpu.maxpercent, s_app.maxpercent);
