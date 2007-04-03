@@ -6,6 +6,7 @@
 BEGIN_HOEGAME
 
 THoeVar * CVar::staticVars;
+char CVar::lastError[1024];
 
 CVar::CVar(const char *_name, bool _value, int _flags)
 {
@@ -46,6 +47,17 @@ CVar::CVar(const char *_name, const char *_value, int _flags)
 		flags = (_flags & ~0xff) | TVAR_STR;
 		Set(_value);
 	}
+		
+	Register();
+}
+
+CVar::CVar(const char * _name, const THoeVarIndex * _s, THoeVarValue * _val, size_t _size, int _flags)
+{
+	name = _name;
+	vars = _val;
+	size = _size;
+	index = _s;
+	flags = (_flags & ~0xff) | TVAR_STRUCT;
 		
 	Register();
 }
@@ -101,7 +113,7 @@ const char * CVar::GetStringValue()
 	};
 }
 
-void CVar::Set(const char * str)
+bool CVar::Set(const char * str)
 {
 	switch (flags & TVAR_TYPE)
 	{
@@ -132,9 +144,10 @@ void CVar::Set(const char * str)
 		assert(!"Unknown var type");
 	};
 	flags |= TVAR_MODIFIED;
+	return true;
 }
 
-void CVar::Set(float f)
+bool CVar::Set(float f)
 {
 	switch (flags & TVAR_TYPE)
 	{
@@ -162,9 +175,10 @@ void CVar::Set(float f)
 		assert(!"Unknown var type");
 	};
 	flags |= TVAR_MODIFIED;
+	return true;
 }
 
-void CVar::Set(int i)
+bool CVar::Set(int i)
 {
 	switch (flags & TVAR_TYPE)
 	{
@@ -192,9 +206,10 @@ void CVar::Set(int i)
 		assert(!"Unknown var type");
 	};
 	flags |= TVAR_MODIFIED;
+	return true;
 }
 
-void CVar::Set(bool b)
+bool CVar::Set(bool b)
 {
 	switch (flags & TVAR_TYPE)
 	{
@@ -220,6 +235,130 @@ void CVar::Set(bool b)
 		assert(!"Unknown var type");
 	};
 	flags |= TVAR_MODIFIED;
+	return true;
+}
+
+bool CVar::SetStructItem(const char * str, int pos, int flags)
+{
+	switch (flags & TVAR_TYPE)
+	{
+	case TVAR_BOOL:
+		switch (str[0])
+		{
+		case 'f':
+		case 'n':
+		case '0':
+			vars[pos].b = false;
+			break;
+		default:
+			vars[pos].b = true;
+			break;
+		}
+		break;
+	case TVAR_INTEGER:
+		vars[pos].i = atoi(str);
+		break;
+	case TVAR_FLOAT:
+		vars[pos].f = (float)atof(str);
+		break;
+	/*case TVAR_STR:
+	case TVAR_SSTR:
+		SetString(str);
+		break;*/
+	default:
+		assert(!"Unknown var type");
+	};
+	this->flags |= TVAR_MODIFIED;
+	return true;
+}
+
+bool CVar::SetStructItem(float f, int pos, int flags)
+{
+	switch (flags & TVAR_TYPE)
+	{
+	case TVAR_BOOL:
+		if (f==0.f)
+			vars[pos].b = false;
+		else
+			vars[pos].b = true;
+		break;
+	case TVAR_INTEGER:
+		vars[pos].i = (int)f;
+		break;
+	case TVAR_FLOAT:
+		vars[pos].f = f;
+		break;
+	/*case TVAR_STR:
+	case TVAR_SSTR:
+		{
+			char str[50];
+			sprintf(str, "%f", f);
+			SetString(str);
+		}
+		break;*/
+	default:
+		assert(!"Unknown var type");
+	};
+	this->flags |= TVAR_MODIFIED;
+	return true;
+}
+
+int GetBasePath(const char * path, char * name)
+{
+	int ret=0;
+	while (*path && *path!='[' && *path != '.')
+	{
+		*name = *path;
+		name++; path++; ret++;
+	}
+	*name = 0;
+	return ret;
+}
+
+static int Find(const char * p, const THoeVarIndex * ix)
+{
+	for (int i=0;ix[i].name;i++)
+	{
+		if (ix[i].name[0]=='*' || strcmp(p, ix[i].name)==0)
+			return i;
+	}
+	return -1;
+}
+
+bool CVar::ParseIndex(const char * idf, int &pos, int &flags, const THoeVarIndex *& ix) const
+{
+	pos = 0;
+	// spocitat data z indexu nebo vnoreneho indexu
+	ix = index;
+	char i_name[256];
+	while (ix)
+	{
+		if (*idf == '.') idf++;
+		idf += GetBasePath(idf, i_name);
+		// najit dalsi index
+		int i = Find(i_name, ix);
+		if (i==-1) 
+		{
+			sprintf(lastError, "Item %s not found.", i_name);
+			return false;
+		}
+		pos += ix[i].position;
+		if (*idf == ']') idf++;
+		// je konec?
+		if (*idf == 0)
+		{
+			flags = ix[i].flags;
+			ix = ix[i].index;
+			return true;
+		}
+		if (!ix[i].index)
+		{
+			sprintf(lastError, "Item %s is not struct.", i_name);
+			return false;
+		}
+		ix = ix[i].index;
+	}
+	return false;
 }
 
 void CVar::SetString(const char * str)
@@ -239,6 +378,106 @@ void CVar::SetString(const char * str)
 		strcpy(value.str, str);
 		flags = (flags & ~0xff) | TVAR_STR;
 	}
+}
+
+CVar * CVar::GetFullVar(const char * path, int &pos, int &flags, const THoeVarIndex *& index)
+{
+	char var_name[256];
+	path += GetBasePath(path, var_name);
+	CVar * v = GetVar(var_name);
+	if (!v)
+	{
+		sprintf(lastError, "Var `%s' not exist.", var_name);
+		return NULL;
+	}
+	// base bath
+	if (*path)
+	{
+		if (!v->ParseIndex(path, pos, flags, index))
+			return NULL;
+		return v;
+	}
+	pos = -1;
+	flags = v->flags;
+	return v;
+}
+
+bool CVar::SetVarValue(const char * path, const char * vs)
+{
+	int pos, flags;
+	const THoeVarIndex * index;
+	CVar * v = GetFullVar(path, pos, flags, index);
+	if (!v)
+		return false;
+	// set
+	// rozdilny set
+	// jestli je struktura, tak projit a nastavit vsechny
+	if ((flags & TVAR_TYPE) == TVAR_STRUCT)
+	{
+		if (vs == NULL)
+		{
+			sprintf(lastError, "Only string can set to structure var.");
+			return false;
+		}
+		// parse string
+		while (*vs)
+		{
+			char name[256];
+			char val[256];
+			// parse
+			while (*vs == ' ' || *vs == ';' || *vs == '\t') vs++;
+			if (!*vs)
+				break;
+			// parse name
+			int pi = 0;
+			while (vs[pi] && vs[pi] != '=') { name[pi]=vs[pi]; pi++; }
+			name[pi] = 0;
+			vs += pi;
+			if (*vs++ != '=')
+			{
+				sprintf(lastError, "Format error.");
+				return false;
+			}
+			pi = 0;
+			while (vs[pi] && vs[pi] != ';') { val[pi]=vs[pi]; pi++; }
+			val[pi] = 0;
+			vs += pi;
+			int i = Find(name, index);
+			if (i==-1)
+			{
+				sprintf(lastError, "Item %s not found.", name);
+				return false;
+			}
+			if (!v->SetStructItem(val, pos + index[i].position, index[i].flags))
+				return false;
+		}
+		return true;
+	}
+	if (pos >= 0)
+		return v->SetStructItem(vs, pos, flags);
+	else
+		return v->Set(vs);
+}
+
+bool CVar::SetVarValue(const char * path, float vf)
+{
+	int pos, flags;
+	const THoeVarIndex * index;
+	CVar * v = GetFullVar(path, pos, flags, index);
+	if (!v)
+		return false;
+	// set
+	// rozdilny set
+	// jestli je struktura, tak projit a nastavit vsechny
+	if ((flags & TVAR_TYPE) == TVAR_STRUCT)
+	{
+		sprintf(lastError, "Only string can set to structure var.");
+		return false;
+	}
+	if (pos >= 0)
+		return v->SetStructItem(vf, pos, flags);
+	else
+		return v->Set(vf);
 }
 
 int CVar::c_printvar(int argc, const char * argv[], void * param)
@@ -287,15 +526,8 @@ int CVar::c_setvar(int argc, const char * argv[], void * param)
 {
 	if (argc == 3)
 	{
-		CVar * v = CVar::GetVar(argv[1]);
-		if (v)
-		{
-			v->Set(argv[2]);
-		}
-		else
-		{
-			BaseConsole::Printf("unknown variable %s", argv[1]);
-		}
+		if (!CVar::SetVarValue(argv[1], argv[2]))
+			BaseConsole::Printf(CVar::GetLastError());
 	}
 	return 0;
 }
@@ -305,18 +537,13 @@ int CVar::l_setvar(lua_State * L)
 	HoeGame::LuaParam lp(L);
 	if (lp.CheckPar(2,"s*", "SetVar"))
 	{
-		CVar * v = CVar::GetVar(lp.GetString(-2));
-		if (v)
-		{
-			if (!lp.IsNum(-2))
-				v->Set(lp.GetString(-1));
-			else
-				v->Set((float)lp.GetNum(-1));		
-		}
+		bool ok;
+		if (!lp.IsNum(-2))
+			ok = CVar::SetVarValue(lp.GetString(-2) , lp.GetString(-1));
 		else
-		{
-			lp.Error("Var %s not exist.", lp.GetString(-2));
-		}
+			ok = CVar::SetVarValue(lp.GetString(-2), (float)lp.GetNum(-1));	
+		if (!ok)
+			lp.Error(CVar::GetLastError());
 	}
 	return 0;
 }
@@ -342,7 +569,7 @@ int CVar::l_getvar(lua_State * L)
 		}
 		else
 		{
-			lp.Error("Var %s not exist.", lp.GetString(-1));
+			lp.Error("Var `%s' not exist.", lp.GetString(-1));
 		}
 	}
 	return 0;

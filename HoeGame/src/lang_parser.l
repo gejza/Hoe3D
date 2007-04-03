@@ -2,12 +2,12 @@
 %option prefix="yylang"
 
 %{
-//#ifdef yywrap
-//#undef yywrap
-//#else
-//#define yyconfigwrap yywrap
-static int yywrap() { return 1; } 
-//#endif
+#ifdef yywrap
+#undef yywrap
+#else
+#define YY_SKIP_YYWRAP 1
+static int yylangwrap() { return 1; } 
+#endif
 #include "StdAfx.h"
 static int mylineno = 1;
 %}
@@ -52,7 +52,7 @@ int lang_parse(char *buffer)
 	if (token != 1)
 		goto error;
 		
-	id = atoi(yytext);
+	id = atoi((const char *)yytext);
 
 	token = yylex();
 	if (token != 2)
@@ -62,7 +62,7 @@ int lang_parse(char *buffer)
 	if (token != 3)
 		goto error;
 
-	strcpy(buffer, yytext+1);
+	strcpy(buffer, (const char *)yytext+1);
 	l = strlen(buffer) - 1;
 	if (buffer[l] != '\'' && buffer[l] != '\"')
 		goto error;

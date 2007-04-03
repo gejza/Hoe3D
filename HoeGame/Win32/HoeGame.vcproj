@@ -337,6 +337,14 @@
 			<File
 				RelativePath="..\src\lang_parser.l"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="Flex"
+						Lang="1"
+					/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
@@ -455,6 +463,14 @@
 			<File
 				RelativePath="..\src\figurefile_parser.l"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="Flex"
+						Lang="0"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\hoe_figure2d.cpp"
@@ -759,6 +775,14 @@
 			<File
 				RelativePath="..\src\config_parser.l"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="Flex"
+						Lang="1"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\hoe_config.cpp"
@@ -925,7 +949,7 @@
 			Name="Generated"
 			>
 			<File
-				RelativePath="..\src\config_parser.c"
+				RelativePath="..\src\config_parser.yy.c"
 				>
 			</File>
 			<File
@@ -933,7 +957,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\lang_parser.c"
+				RelativePath="..\src\lang_parser.yy.c"
 				>
 			</File>
 		</Filter>

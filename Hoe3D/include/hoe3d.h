@@ -62,22 +62,45 @@ enum EVarFlags
 	TVAR_FLOAT				= 3,	// variable is a float
 	TVAR_STR				= 4,	// variable is a string
 	TVAR_SSTR				= 5,	// variable is a static string
+	TVAR_STRUCT				= 6,	// variable is struct
+	TVAR_ARRAY				= 7,	// variable is array
 	TVAR_TYPE				= 0xff, // all types
 	TVAR_MODIFIED			= BIT(9),
+	TVAR_UNIVERSAL			= BIT(10),
 
-    TVAR_SAVE               = BIT(10)
+
+    TVAR_SAVE               = BIT(11),
 };
 
-struct THoeVar
+struct THoeVarIndex
 {
 	const char * name;
+	int position;
+	int flags;
+	THoeVarIndex * index;
+};
+
+struct THoeVarValue {
 	union {
 		bool b;
 		int i;
 		float f;
 		char * str;
 		const char * cstr;
-	} value;
+	};
+};
+
+struct THoeVar
+{
+	const char * name;
+	union {
+		THoeVarValue value;
+		struct {
+			THoeVarValue * vars;
+			int size;
+			const THoeVarIndex * index;
+		};
+	};
 	int flags;
 	THoeVar * next;
 };

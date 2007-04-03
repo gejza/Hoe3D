@@ -2,12 +2,12 @@
 %option prefix="yyconfig"
 
 %{
-//#ifdef yywrap
-//#undef yywrap
-//#else
-//#define yyconfigwrap yywrap
-static int yywrap() { return 1; } 
-//#endif
+#ifdef yywrap
+#undef yywrap
+#else
+#define YY_SKIP_YYWRAP 1
+static int yyconfigwrap() { return 1; } 
+#endif
 #include "StdAfx.h"
 %}
 
@@ -21,7 +21,7 @@ string2  '[^\n']+'
 alpha   [A-Za-z]
 dig     [-+]?[0-9]+
 digf	{dig}\.[0-9]+
-name    ({alpha}|_)({alpha}|{dig}|[_\-/$:@#%^&*])*
+name    ({alpha}|_)({alpha}|{dig}|[_\-/$:@#%^&*\.\[\]])*
   
 %%
 
@@ -50,7 +50,7 @@ int config_parse(char ** text)
 {
 	int ret;
 	ret = yylex();
-	*text = yytext;
+	*text = (char*)yytext;
 	while (**text == 10)
 		(*text)++;
 	return ret;

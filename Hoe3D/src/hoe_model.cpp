@@ -16,9 +16,15 @@ using namespace HoeMath;
 
 HoeModel::HoeModel(int nums, int numi, int numm)
 {
-	m_stream = new HoeStream*[nums];
-	m_index = new HoeIndex*[numi];
-	m_mat = new HoeMaterial*[numm];
+	m_stream = NULL;
+	m_index = NULL;
+	m_mat = NULL;
+	if (nums)
+		m_stream = new HoeStream*[nums];
+	if (numi)
+		m_index = new HoeIndex*[numi];
+	if (numm)
+		m_mat = new HoeMaterial*[numm];
 	m_num_stream = 0;
 	m_num_index = 0;
 	m_num_mat = 0;
@@ -26,8 +32,13 @@ HoeModel::HoeModel(int nums, int numi, int numm)
 	//m_shader.Load();
 }
 
+HoeModel::~HoeModel()
+{
+}
+
 void HoeModel::AddDefStream(HoeStream * stream)
 {
+	hoe_assert(m_stream && "Pointer to stream is NULL");
 	if (m_num_stream == 0)
 		m_box.Set(*stream->GetBounding());
 	else
@@ -37,11 +48,13 @@ void HoeModel::AddDefStream(HoeStream * stream)
 
 void HoeModel::AddDefIndex(HoeIndex * index)
 {
+	hoe_assert(m_index && "Pointer to index is NULL");
 	m_index[m_num_index++] = index;
 }
 
 void HoeModel::AddDefMaterial(HoeMaterial * mat)
 {
+	hoe_assert(m_mat && "Pointer to material is NULL");
 	m_mat[m_num_mat++] = mat;
 }
 

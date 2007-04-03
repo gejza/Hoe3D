@@ -258,6 +258,19 @@ IHoeResource * HOEAPI Hoe3D::Create(const char * str)
 			Con_Print("error parse create line '%s'",str);
 		};
 		break;
+	case HOE_T_DUMMY:
+		switch (parse())
+		{
+		case HOE_T_MODEL:
+			{
+			static HoeModel dummy(0,0,0);
+			ret = &dummy;
+			break;
+			}
+		default:
+			Con_Print("error parse create line '%s'",str);
+		};
+		break;
 	default:
 		Con_Print("error parse create line '%s'",str);
 	};

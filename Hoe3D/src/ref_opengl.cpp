@@ -9,11 +9,6 @@
 #include "hoe_index.h"
 #include "hoe_info.h"
 
-
-#pragma comment (lib,"opengl32.lib")
-#pragma comment (lib,"glu32.lib")
-
-
 RefOpenGL::RefOpenGL()
 {
 	Con_Print("------ OpenGL  ------");

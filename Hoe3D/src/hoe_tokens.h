@@ -3,6 +3,7 @@
 #define _HOE_TOKENS_H_
 
 #define HOE_T_GENERATE	0x001
+#define HOE_T_DUMMY		0x002
 #define HOE_T_MODEL		0x101
 #define HOE_T_PICTURE	0x102
 #define HOE_T_FONT		0x103

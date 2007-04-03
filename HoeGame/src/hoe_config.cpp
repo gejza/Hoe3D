@@ -4,10 +4,9 @@
 #include "../include/hoe_vars.h"
 #include "../include/hoe_console.h"
 
-extern "C"
-{
-	int config_load(FILE * f);
-	int config_parse(char ** text);
+extern "C" {
+int config_load(FILE * f);
+int config_parse(char ** text);
 }
 
 BEGIN_HOEGAME
@@ -314,14 +313,9 @@ int Config::Arg(int argc, char *argv[])
 ////////////////////////////////////////////////////////////
 void ConfigVars::Var(const char * varname, const char * value)
 {
-	CVar *v = CVar::GetVar(varname);
-	if (v)
+	if (!CVar::SetVarValue(varname, value))
 	{
-		v->Set(value);
-	}
-	else
-	{
-		BaseConsole::Printf("Warning: Unknown option %s", varname);
+		BaseConsole::Printf("Warning: %s", CVar::GetLastError());
 	}
 }
 

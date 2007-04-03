@@ -35,6 +35,7 @@ name    ({alpha}|\$)({alpha}|{dig}|[_\-/$:@#%^&*])*
 "soundplay"			return HOE_T_SOUNDPLAY;
 "particle"			return HOE_T_PARTICLE;
 "generate"			return HOE_T_GENERATE;
+"dummy"				return HOE_T_DUMMY;
 
 "box"				return HOE_T_BOX;
 "sphere"			return HOE_T_SPHERE;

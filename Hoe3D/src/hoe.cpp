@@ -33,9 +33,9 @@
 #include "unicode.h"
 
 // libgw32c.a libz.a  procinfo.lib jpeg_d.lib  flexlib.lib 
-#pragma comment (lib,"libjpeg.lib")
-#pragma comment (lib,"libfl.a")
-#pragma comment (lib,"freetype2110MT_D.lib")
+//#pragma comment (lib,"libjpeg.lib")
+//#pragma comment (lib,"libfl.a")
+//#pragma comment (lib,"freetype2110MT_D.lib")
 
 Hoe3D::Hoe3D(int flags) : m_rt(HoeRenderTarget::eMain)
 {	

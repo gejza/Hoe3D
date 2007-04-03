@@ -20,6 +20,7 @@ public:
 	{
 		m_scene->UnregisterObject(this);
 	}
+	inline IHoeScene * GetScene() { return m_scene; }
 };
 
 END_HOEGAME

@@ -4,10 +4,8 @@
 #include "../include/hoe_console.h"
 
 extern "C" {
-
 int lang_load(FILE * f);
 int lang_parse(char *buffer);
-
 }
 
 BEGIN_HOEGAME

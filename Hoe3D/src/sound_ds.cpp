@@ -7,8 +7,6 @@
 
 #ifdef _HOE_DS8_
 
-#pragma comment (lib,"dsound.lib")
-
 SoundSystemDS::SoundSystemDS()
 {
 	m_pDS = NULL;

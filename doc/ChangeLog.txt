@@ -1,3 +1,7 @@
+1.4.2007
+HoeGame
+	Strukturovane vars
+--------------------------------------
 23.1.2007
 HoeResource
 	Makefile pro linux

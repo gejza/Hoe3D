@@ -598,7 +598,7 @@ bool LuaScript::Load(const char * fn, LuaPreprocess::IDConst * csts, bool run)
 	}
 
 	if (run)
-		lua_pcall(m_L,0,0,0);
+		lua_call(m_L,0,0);
 
 	return true;
 }
@@ -646,6 +646,7 @@ int LuaScript::error(lua_State * L)
 	static char buff[512];
 	static char mbuff[256];
 	buff[0] = '\0';
+	// debug
 	for (i=1; i<=n; i++)
 	{
 		if (lua_isstring(L,i))
@@ -660,6 +661,9 @@ int LuaScript::error(lua_State * L)
 	}
 	BaseConsole::Printf(buff);
 	HoeApp::GetApp<HoeApp>()->ShowMsg("Script error", buff);
+  /*fprintf(stderr, "PANIC: unprotected error in call to Lua API (%s)\n",
+                   lua_tostring(L, -1));*/
+
 	return 0;
 }
 

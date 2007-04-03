@@ -16,8 +16,6 @@
 #include "hoe_index.h"
 #include "hoe_info.h"
 
-#pragma comment (lib,"d3d9.lib")
-
 // hoe
 IDirect3DDevice9 * RefD3D9::m_Dev = NULL;
 
