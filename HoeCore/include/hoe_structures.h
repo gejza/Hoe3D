@@ -266,6 +266,55 @@ struct TGraphEdge
 	TGraphVertex * v2;
 };
 
+// kruhovy seznam, list optimalizovany pro pridavani na konec omezenemu seznamu
+// vybirani po jedne
+template<class T, int size> 
+class CircleList
+{
+	T m_items[size];
+	int m_count;
+	int m_ptr;
+public:
+	CircleList();
+	int Count() const { return m_count; }
+	T & GetLine(int i);
+	const T & GetLine(int i) const ;
+	T & AddTail();
+};
+
+template<class T, int size> 
+inline CircleList<T,size>::CircleList()
+{
+	m_count = m_ptr = 0;
+}
+
+template<class T, int size>
+inline T & CircleList<T,size>::GetLine(int i)
+{
+	int nn = (m_ptr + size - i) % size; 
+	return m_items[nn];
+}
+
+template<class T, int size>
+inline const T & CircleList<T,size>::GetLine(int i) const
+{
+	int nn = (m_ptr + size - i) % size; 
+	return m_items[nn];
+}
+
+template<class T, int size>
+inline T & CircleList<T,size>::AddTail()
+{
+	m_ptr++;
+	if (m_ptr >= size)
+		m_ptr = 0;
+
+	if (m_count < size)
+		m_count++;
+
+	return m_items[m_ptr];
+}
+
 } // namespace HoeCore
 
 

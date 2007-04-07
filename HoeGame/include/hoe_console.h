@@ -12,8 +12,6 @@
 #include "hoe_game.h"
 #include "hoe_gui.h"
 
-const int MAX_NUM_LINES = 30;
-
 BEGIN_HOEGAME
 
 class HoeApp;
@@ -29,31 +27,62 @@ public:
 	static void Printfarg(const char *, va_list argptr);
 };
 
+class TextItem
+{
+	char * m_text;
+public:
+	TextItem()
+	{
+		m_text = NULL;
+	}
+	TextItem(const char * text)
+	{
+		m_text = NULL; SetText(text);
+	}
+	virtual ~TextItem()
+	{
+		SetText("");
+	}
+
+	const char * GetText() const { return m_text ? m_text : ""; }
+	void SetText(const char * text);
+};
+
+inline void TextItem::SetText(const char * text)
+{
+	if (m_text) { delete [] m_text; m_text = NULL; }
+	if (text && text[0])
+	{
+		size_t n = strlen(text) + 1;
+		m_text = new char[n];
+		memcpy(m_text, text, n);
+	}
+}
+
 /**
  * @brief Konzole
  */
 
 class Console: public BaseConsole
 {
-	int count;
-	int ptr;
-	char buff[MAX_NUM_LINES][512];
+protected:
+	HoeCore::CircleList<TextItem, 100> m_lines;
 	FILE * log;
 	HoeApp * app_callback;
 
-	void AddLine(const char *);
-	void PrintMessage(const char * str);
 public:
 	Console();
 	~Console();
 	void SetFileLogging(const char * flog);
 	virtual void HOEAPI Con_Print(const char *);
-	int GetCount() { return (count > MAX_NUM_LINES) ? MAX_NUM_LINES:count; }
-	char * GetLine(int n);
+	const HoeCore::CircleList<TextItem, 100> & GetLines() { return m_lines; }
 	void SetCallback(HoeApp * app) { app_callback = app; }
 };
 
-class GuiConsole : public Gui::TextDevice, public Console
+// chtelo by to novou konzoli, s historii a napovedou
+
+
+class GuiConsole : public Gui::TextDevice
 {
 public:
 	enum EState
@@ -73,11 +102,14 @@ protected:
 	float maxheight;
 	XHoeKeyboard * prev;
 	unsigned long m_fontcolor;
+	Console & m_console;
+	HoeCore::CircleList<TextItem, 20> m_history;
+	int m_histptr;
 
 	void Acquire();
 	void Unacquire();
 public:
-	GuiConsole();
+	GuiConsole(Console &);
 	virtual bool Load(IHoe3DEngine *);
 	void Draw(IHoe2D *);
 

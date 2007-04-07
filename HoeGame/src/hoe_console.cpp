@@ -50,8 +50,6 @@ void BaseConsole::Printf(const char * szFormat, ...)
 
 Console::Console()
 {
-	count = 0;
-	ptr = -1;
 	log = NULL;
 	app_callback = NULL;
 }
@@ -78,7 +76,7 @@ void Console::SetFileLogging(const char * flog)
 void Console::Con_Print(const char * str)
 {
 	// repeated
-	static dword lastid = 0;
+	/*static dword lastid = 0;
 	static int num = 0;
 	dword id = HoeCore::HashString(str);
 	if (id != lastid)
@@ -94,43 +92,25 @@ void Console::Con_Print(const char * str)
 		PrintMessage(str);
 	}
 	else
-		num++;
-}
+		num++;*/
 
-void Console::PrintMessage(const char * str)
-{
 	fprintf(stderr,"%s\n",str);
 	if (log)
 	{
         fprintf(log,"%s\n",str);
 		fflush(log);
 	}
-	AddLine(str);
-}
 
-char * Console::GetLine(int n)
-{
-	int nn = (ptr + MAX_NUM_LINES - n) % MAX_NUM_LINES; 
-	return buff[nn];
-}
-
-void Console::AddLine(const char * str)
-{
-	ptr++;
-	if (ptr >= MAX_NUM_LINES)
-		ptr = 0;
-
-	strncpy(buff[ptr],str,512);
-	
-	count++;
-
+	m_lines.AddTail().SetText(str);
 	if (app_callback)
 		app_callback->UpdateConsole();
+
 }
 
 ////////////////////////////////////////////////////////////////
 
-GuiConsole::GuiConsole()
+GuiConsole::GuiConsole(Console & con)
+: m_console(con)
 {
 	font = NULL;
 	cmdline[0] = '\0';
@@ -138,6 +118,7 @@ GuiConsole::GuiConsole()
 	maxheight = 240;
 	height = 0.f;
 	prev = NULL;
+	m_histptr = 0;
 }
 
 bool GuiConsole::Load(IHoe3DEngine *eng)
@@ -177,7 +158,7 @@ void GuiConsole::Draw(IHoe2D * h2d)
 	
 	while (y > -14)
 	{
-		const char * str = GetLine(n++);
+		const char * str = m_console.GetLines().GetLine(n++).GetText();
 		font->DrawText(5,y,m_fontcolor,str);
 		y -= 14;
 	}
@@ -189,11 +170,26 @@ bool GuiConsole::Key(int k)
 	switch (k)
 	{
 	case HK_RETURN:
-		Con_Print(cmdline);
+		m_console.Con_Print(cmdline);
 		Unacquire();
 		engine->exec(cmdline);
+		// history? yes
+		m_history.AddTail().SetText(cmdline);
+		m_histptr = -1;
 		cmdline[0] = 0; 
 		Acquire();
+		return false;
+	case HK_UP:
+		if (m_histptr < (m_history.Count()-1))
+		{
+			strcpy(cmdline, m_history.GetLine(++m_histptr).GetText());
+		}
+		return false;
+	case HK_DOWN:
+		if (m_histptr > 0)
+		{
+			strcpy(cmdline, m_history.GetLine(--m_histptr).GetText());
+		}
 		return false;
 	case HK_ESCAPE:
 	case HK_GRAVE:

@@ -142,8 +142,8 @@ void HoeWin32::PaintConsole(Console * con)
 			 break;
 		 }*/
 			  int numlines = (m_cyClient-5) / m_cyChar;
-				if (numlines > con->GetCount())
-					numlines = con->GetCount();
+				if (numlines > con->GetLines().Count())
+					numlines = con->GetLines().Count();
 
 				int y = ((numlines-1) * m_cyChar) + 5;
 				int n = 0;
@@ -154,7 +154,7 @@ void HoeWin32::PaintConsole(Console * con)
 			  
 				while (y > 0)
 				{
-					const char * str = con->GetLine(n++);
+					const char * str = con->GetLines().GetLine(n++).GetText();
 					TextOut (hdc, 5, y,	str,lstrlen (str)) ;
 					y -= m_cyChar;
 				}

@@ -1,3 +1,7 @@
+6.4.2007
+HoeGame
+	Historie v konzoli
+--------------------------------------
 1.4.2007
 HoeGame
 	Strukturovane vars

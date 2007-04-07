@@ -106,6 +106,8 @@ Gui::Base * Hoe2DFigure::CreateGUI(const char *type)
 		g = new InfoPanel;
 	else if (IS("text"))
 		g = new Font;
+	else
+		throw "syntax error, name requied";
 
 	m_list.Add(g);
 	return g;
