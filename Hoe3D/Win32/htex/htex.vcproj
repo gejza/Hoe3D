@@ -19,7 +19,6 @@
 			OutputDirectory="Debug"
 			IntermediateDirectory="Debug"
 			ConfigurationType="1"
-			InheritedPropertySheets="UpgradeFromVC71.vsprops"
 			CharacterSet="2"
 			>
 			<Tool
@@ -99,7 +98,6 @@
 			OutputDirectory="Release"
 			IntermediateDirectory="Release"
 			ConfigurationType="1"
-			InheritedPropertySheets="UpgradeFromVC71.vsprops"
 			CharacterSet="2"
 			>
 			<Tool
