@@ -10,6 +10,7 @@
 #define _HOE_GAME_H_
 
 #include <hoe3d.h>
+#include <hoe_structures.h>
 
 #ifdef _WIN32
 typedef HMODULE HOE_LIBRARY;
