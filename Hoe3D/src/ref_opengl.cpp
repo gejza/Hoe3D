@@ -413,7 +413,7 @@ void RefOpenGL::DrawStdObjectFT(HoeStream * stream, HoeIndex * index, dword star
 		checkgl("glLockArraysEXT");
 	}
 	word * w = ((word*)index->GetIndexBuffer())+start;
-	//glDrawElements(GL_TRIANGLES,num,GL_UNSIGNED_SHORT,(GLvoid*)w);
+	glDrawElements(GL_TRIANGLES,num,GL_UNSIGNED_SHORT,(GLvoid*)w);
 	checkgl("glDrawElements");
 	if (stream->IsDynamic() && GetRef()->ext.EXT_compiled_vertex_array)
 	{
