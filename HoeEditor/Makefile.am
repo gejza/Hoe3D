@@ -11,7 +11,7 @@ src/figurefile_parser.cpp: src/figurefile_parser.l
 	flex -o"src/figurefile_parser.cpp" src/figurefile_parser.l
 	
 
-___bin_libHoeEditor_la_CPPFLAGS = -I../Hoe3D/include -I../HoeGame/include $(WX_CPPFLAGS) $(GTK_CFLAGS) $(WX_CXXFLAGS_ONLY)
+___bin_libHoeEditor_la_CPPFLAGS = -I../Hoe3D/include -I../HoeGame/include $(WX_CPPFLAGS) $(GTK_CFLAGS) $(WX_CXXFLAGS_ONLY) $(WX_CFLAGS_ONLY)
 
 ___bin_libHoeEditor_la_SOURCES = src/app.cpp \
 src/engview.cpp src/editor.cpp \
