@@ -39,7 +39,7 @@ struct ModStr
 // vykresleni podle povrchu (kazdy povrch, svoje quadtree)
 // 
 
-inline bool Tol(float a, float b)
+inline bool Tolerantion(float a, float b)
 {
 	return abs(a-b) < 2.f;
 }
@@ -51,25 +51,30 @@ bool TGridModel::LoadModel(const char * name)
 		Con_Print("Loading gridsurface model %s",name);
 		ModelLoader ml(0, 0);
 		mod = ml.LoadModel(name, true);
+		if (!mod)
+		{
+			Con_Print("Failed load model %s",name);
+			return false;
+		}
 		// update radku atd
 		HoeStream & s = *mod->m_stream[0];
 		ModStr * m = (ModStr *)s.Lock();
 		for (uint i=0;i < s.GetNumVert();i++)
 		{
 			m[i].pos.y *= 1.8f;
-			if (Tol(m[i].pos.x, -10.f) && Tol(m[i].pos.z, -10.f))
+			if (Tolerantion(m[i].pos.x, -10.f) && Tolerantion(m[i].pos.z, -10.f))
 			{
 				m[i].pos.x = -10.f; m[i].pos.z = -10.f;this->coigns[0] = m[i].pos.y;
 			}
-			if (Tol(m[i].pos.x, 10.f) && Tol(m[i].pos.z, -10.f))
+			if (Tolerantion(m[i].pos.x, 10.f) && Tolerantion(m[i].pos.z, -10.f))
 			{
 				m[i].pos.x = 10.f; m[i].pos.z = -10.f;this->coigns[1] = m[i].pos.y;
 			}
-			if (Tol(m[i].pos.x, -10.f) && Tol(m[i].pos.z, 10.f))
+			if (Tolerantion(m[i].pos.x, -10.f) && Tolerantion(m[i].pos.z, 10.f))
 			{
 				m[i].pos.x = -10.f; m[i].pos.z = 10.f;this->coigns[2] = m[i].pos.y;
 			}
-			if (Tol(m[i].pos.x, 10.f) && Tol(m[i].pos.z, 10.f))
+			if (Tolerantion(m[i].pos.x, 10.f) && Tolerantion(m[i].pos.z, 10.f))
 			{
 				m[i].pos.x = 10.f; m[i].pos.z = 10.f;this->coigns[3] = m[i].pos.y;
 			}

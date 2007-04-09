@@ -308,7 +308,7 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="winmm.lib libpngd.lib freetype2110MT_D.lib libjpeg.lib zlibd.lib libvorbis_d.lib libogg_d.lib libvorbisfile_d.lib HoeCore_d.lib msvcrtd.lib oldnames.lib opengl32.lib glu32.lib"
+				AdditionalDependencies="winmm.lib libpngd.lib freetype2110MT_D.lib libjpeg.lib zlibd.lib libvorbis_d.lib libogg_d.lib libvorbisfile_d.lib HoeCore_d.lib msvcrtd.lib oldnames.lib opengl32.lib glu32.lib OpenAl32.lib"
 				OutputFile="../../../Bin/Hoe3Dd_GL.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
