@@ -54,7 +54,11 @@ public:
 
 class HoeALBuffer
 {
-	ALuint	buffer; /**< AL buffer */
+	ALuint	m_buffer; /**< AL buffer */
+	ALsizei m_size,m_freq; /**< velikost a frekvence */
+	ALenum	m_format; /**< format */
+	ALvoid	*m_data; /**< data pro inicializaci bufferu */
+
 public:
 	/** Kontruktor 
 	 * @todo Dodelat destruktor 
@@ -70,7 +74,7 @@ public:
 	 * Funkce pro pristup k bufferu
 	 * @return ALuint buffer
 	 */
-	ALuint & GetBuffer() { return buffer; }
+	ALuint & GetBuffer() { return m_buffer; }
 
     /** Vytvoreni bufferu
     * @param channels Pocet kanalu

@@ -80,31 +80,50 @@ HoeALBuffer::HoeALBuffer()
 {
 	ALint	error;
 	// Generate Buffers
-	alGenBuffers(1, &buffer);
+	alGenBuffers(1, &m_buffer);
 	if ((error = alGetError()) != AL_NO_ERROR)
 	{
 		Con_Print("alGenBuffers error: %d", error);
 	}
+	m_data = NULL;
 }
 
 HoeALBuffer::HoeALBuffer(ALuint b)
 {
-	buffer = b;
+	m_buffer = b;
+	m_data = NULL;
 }
 
 bool HoeALBuffer::Create(int channels, int freq, int byts, long samples, bool ctrl3D)
 {
-  return false;
+	// al
+	if (byts == 1 && channels == 1)
+		m_format = AL_FORMAT_MONO8;
+	else if  (byts == 2 && channels == 1)
+		m_format = AL_FORMAT_MONO16;
+	else if  (byts == 1 && channels == 2)
+		m_format = AL_FORMAT_STEREO8;
+	else if  (byts == 2 && channels == 2)
+		m_format = AL_FORMAT_STEREO16;
+	else
+		return false;
 
+	m_size = byts * samples * channels;
+	m_freq = freq;
+	return true;
 }
 
 byte * HoeALBuffer::Lock()
 {
-        return (byte*)NULL;
+	SAFE_DELETE_ARRAY(m_data);
+	m_data = new byte[m_size];
+    return (byte*)m_data;
 }
 
 void HoeALBuffer::Unlock()
 {
+	alBufferData(m_buffer, m_format, m_data, m_size, m_freq);
+	SAFE_DELETE_ARRAY(m_data);
 }
 
 
