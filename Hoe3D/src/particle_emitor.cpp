@@ -116,7 +116,10 @@ void ParticleEmitor::Render(const HoeCamera * cam)
 		v[1].pos = p.pos + (b * hh);
 		v[2].pos = p.pos + (c * hh);
 		v[3].pos = p.pos + (d * hh);
-		v[0].color = v[1].color = v[2].color = v[3].color = byte(p.life * 0xff) << 24 | p.color;
+		dword l = p.life * 0xff;
+		dword c = byte(l) << 24;
+		c = c | p.color;
+		v[0].color = v[1].color = v[2].color = v[3].color = c;
 		v[0].tex.x = 1.f; v[0].tex.y = 1.f;
 		v[1].tex.x = 0.f; v[1].tex.y = 1.f;
 		v[2].tex.x = 1.f; v[2].tex.y = 0.f;

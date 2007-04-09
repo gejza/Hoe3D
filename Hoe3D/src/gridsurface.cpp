@@ -39,10 +39,11 @@ struct ModStr
 // vykresleni podle povrchu (kazdy povrch, svoje quadtree)
 // 
 
-inline bool Tolerantion(float a, float b)
+/*static bool Tolerantion(float a, float b)
 {
 	return abs(a-b) < 2.f;
-}
+}*/
+#define Tolerantion(a,b) (fabs((a)-(b)) < 2.f)
 
 bool TGridModel::LoadModel(const char * name)
 {
@@ -59,10 +60,13 @@ bool TGridModel::LoadModel(const char * name)
 		// update radku atd
 		HoeStream & s = *mod->m_stream[0];
 		ModStr * m = (ModStr *)s.Lock();
+		hoe_assert(m != NULL);
 		for (uint i=0;i < s.GetNumVert();i++)
 		{
 			m[i].pos.y *= 1.8f;
-			if (Tolerantion(m[i].pos.x, -10.f) && Tolerantion(m[i].pos.z, -10.f))
+			float tx = m[i].pos.x;
+			float tz = m[i].pos.z;
+			if (Tolerantion(tx, -10.f) && Tolerantion(tz, -10.f))
 			{
 				m[i].pos.x = -10.f; m[i].pos.z = -10.f;this->coigns[0] = m[i].pos.y;
 			}
@@ -1103,5 +1107,6 @@ bool MultiStream::CreateMeshFromBuffer()
 	}
 	return true;
 }
+
 
 
