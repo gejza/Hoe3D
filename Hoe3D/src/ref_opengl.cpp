@@ -353,8 +353,22 @@ void RefOpenGL::Destroy()
 
 }
 
+/** check gl buffer */
+void checkglbuffer(HoeStream * stream, HoeIndex * index)
+{
+	// check for index
+	for (unsigned short i=0; i < index->GetNumIndices();i++)
+	{
+		GLvoid* d = (GLvoid*)index->GetIndexBuffer();
+		unsigned short *ud = (unsigned short*)d; 
+		if (ud[i] < 0 || ud[i] > stream->GetNumVert())
+			glerr(__FILE__, __LINE__, "check index data",__FUNCTION__, GL_INVALID_OPERATION);
+	}
+}
+
 void RefOpenGL::DrawStdObject(HoeStream * stream, HoeIndex * index)
 {
+	checkglbuffer(stream, index);
 	stream->Set(0);
 	if (stream->IsDynamic() && GetRef()->ext.EXT_compiled_vertex_array)
 	{

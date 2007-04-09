@@ -112,6 +112,11 @@ void HoeStream::Set(int n)
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB,m_vb);
 		checkgl("glBindBufferARB");
 	}
+	else
+	{
+		glBindBufferARB(GL_ARRAY_BUFFER_ARB,0);
+		checkgl("glBindBufferARB");
+	}
 	if (m_fvf.GetFVF() & FVF_XYZ)
 	{
 		glVertexPointer(3,GL_FLOAT,m_size / m_numvert,m_vb ? NULL:m_pVertices);
