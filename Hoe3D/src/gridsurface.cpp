@@ -136,9 +136,9 @@ void TGridSurfaceType::Setup()
 		glActiveTextureARB(GL_TEXTURE0_ARB);
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, tex1->GetTexture());
-		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+		/*glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
-		/*glActiveTextureARB(GL_TEXTURE1_ARB);
+		glActiveTextureARB(GL_TEXTURE1_ARB);
 		if (tex2)
 		{
 		glEnable(GL_TEXTURE_2D);
@@ -158,9 +158,11 @@ void TGridSurfaceType::Setup()
 
 		}
 		else
-			glDisable(GL_TEXTURE_2D);
+			glDisable(GL_TEXTURE_2D);*/
 
+		glDisable(GL_LIGHTING);
 		glDisable(GL_ALPHA_TEST);// Zapne alfa testing */
+		glDisable(GL_CULL_FACE);
 		checkgl("multitexture");
 #endif
 }
