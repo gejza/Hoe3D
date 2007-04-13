@@ -276,6 +276,11 @@ bool RefOpenGL::Init(THoeInitSettings * his)
 	glDepthFunc(GL_LESS);// Typ hloubkového testování
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);// Nejlepší perspektivní korekce
 
+    glGetIntegerv(GL_MAX_ELEMENTS_INDICES, &param.max_indices);
+    glGetIntegerv(GL_MAX_ELEMENTS_VERTICES, &param.max_vertices);
+    param.max_indices = 500;
+    Con_Print("GL: Max drawed vert = %d, indices = %d", param.max_vertices, param.max_indices);
+    
 	// extensions 
 	PrintGlExt();
 	LoadExtensions();
@@ -412,9 +417,16 @@ void RefOpenGL::DrawStdObjectFT(HoeStream * stream, HoeIndex * index, dword star
 		glLockArraysEXT(0, (GLsizei)stream->GetNumVert());
 		checkgl("glLockArraysEXT");
 	}
-	word * w = ((word*)index->GetIndexBuffer())+start;
-	glDrawElements(GL_TRIANGLES,num,GL_UNSIGNED_SHORT,(GLvoid*)w);
-	checkgl("glDrawElements");
+    // vypisovani po castech
+    while (num > 0)
+    {
+        const dword proc = GetRef()->param.max_indices;
+	    word * w = ((word*)index->GetIndexBuffer())+start;
+	    glDrawElements(GL_TRIANGLES,num > proc ? proc:num,GL_UNSIGNED_SHORT,(GLvoid*)w);
+	    checkgl("glDrawElements");
+        start += proc;
+        if (num > proc) num -= proc; else num = 0;
+    }
 	if (stream->IsDynamic() && GetRef()->ext.EXT_compiled_vertex_array)
 	{
 		glUnlockArraysEXT();

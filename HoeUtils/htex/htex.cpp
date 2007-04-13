@@ -1,7 +1,11 @@
 
 
 #include <stdio.h>
+#ifdef _WIN32
 #include <io.h>
+#else
+#include <sys/io.h>
+#endif
 #include <iostream>
 
 typedef unsigned char byte;
@@ -31,6 +35,8 @@ bool addtexture(HTexLinker * linker, const char *file)
 
 int add(HTexLinker * linker, const char *name)
 {
+    int nFiles = 0;
+#ifdef _WIN32
 	struct _finddata_t c_file;
 	long/*intptr_t*/ hFile;
 	if( (hFile = _findfirst( name, &c_file )) == -1L )
@@ -39,8 +45,6 @@ int add(HTexLinker * linker, const char *name)
 		return 0;
 	}
 	
-	int nFiles = 0;
-
 	do
 	{
 		if (c_file.attrib & _A_SUBDIR)
@@ -53,7 +57,12 @@ int add(HTexLinker * linker, const char *name)
 		
 		nFiles++;
 	} while ( _findnext( hFile, &c_file ) == 0 );
-
+#else
+    std::string fname = HoeUtils::GetFileDir(name) + name;
+    if (!addtexture(linker,fname.c_str()))
+            return -1;
+    nFiles++;
+#endif
 	return nFiles;
 }
 

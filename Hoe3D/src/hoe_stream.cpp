@@ -114,8 +114,11 @@ void HoeStream::Set(int n)
 	}
 	else
 	{
-		glBindBufferARB(GL_ARRAY_BUFFER_ARB,0);
-		checkgl("glBindBufferARB");
+        if (glBindBufferARB)
+        {
+		    glBindBufferARB(GL_ARRAY_BUFFER_ARB,0);
+		    checkgl("glBindBufferARB");
+        }
 	}
 	if (m_fvf.GetFVF() & FVF_XYZ)
 	{

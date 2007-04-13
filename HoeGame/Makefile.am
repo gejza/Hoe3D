@@ -1,6 +1,6 @@
 AUTOMAKE_OPTIONS = subdir-objects
 
-lib_LTLIBRARIES = ../bin/libHoeGame.la
+lib_LIBRARIES = ../bin/libHoeGame.a
 #bin_PROGRAMS = ../bin/Hoe3D.so
 
 src/config_parser.c: src/config_parser.l
@@ -11,9 +11,9 @@ src/figurefile_parser.cpp: src/figurefile_parser.l
 	flex -o"src/figurefile_parser.cpp" src/figurefile_parser.l
 	
 
-___bin_libHoeGame_la_CPPFLAGS = -I../Hoe3D/include $(LUA_CFLAGS)
+___bin_libHoeGame_a_CPPFLAGS = -I../Hoe3D/include $(LUA_CFLAGS)
 
-___bin_libHoeGame_la_SOURCES = src/hoe_app.cpp \
+___bin_libHoeGame_a_SOURCES = src/hoe_app.cpp \
 src/hoe_baseapp.cpp \
 src/hoe_benchmark.cpp \
 src/hoe_config.cpp \
@@ -40,6 +40,6 @@ src/lua_script.cpp \
 src/hoe_mem.cpp \
 src/config_parser.c src/lang_parser.c src/figurefile_parser.cpp
 
-___bin_libHoeGame_la_LDFLAGS = -static -lHoeCore
+___bin_libHoeGame_a_LDFLAGS = -static -lHoeCore
 
 

@@ -59,6 +59,11 @@ protected:
 	
 public:
 	GLExt ext;
+    struct Param
+    {
+        GLint max_indices;
+        GLint max_vertices;
+    } param;
 	/**
 	* Konstruktor
 	*/

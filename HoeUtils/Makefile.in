@@ -223,7 +223,7 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-SUBDIRS = lib Hoe2DEditor HoeStudio
+SUBDIRS = lib Hoe2DEditor HoeStudio htex
 all: all-recursive
 
 .SUFFIXES:

@@ -59,15 +59,17 @@ am__vpath_adj = case $$p in \
   esac;
 am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
 am__installdirs = "$(DESTDIR)$(libdir)"
-libLTLIBRARIES_INSTALL = $(INSTALL)
-LTLIBRARIES = $(lib_LTLIBRARIES)
-___bin_libHoeCore_la_LIBADD =
+libLIBRARIES_INSTALL = $(INSTALL_DATA)
+LIBRARIES = $(lib_LIBRARIES)
+ARFLAGS = cru
+___bin_libHoeCore_a_AR = $(AR) $(ARFLAGS)
+___bin_libHoeCore_a_LIBADD =
 am__dirstamp = $(am__leading_dot)dirstamp
-am____bin_libHoeCore_la_OBJECTS =  \
-	src/___bin_libHoeCore_la-hoe_core.lo \
-	src/___bin_libHoeCore_la-hoe_log.lo \
-	src/___bin_libHoeCore_la-hoe_math.lo
-___bin_libHoeCore_la_OBJECTS = $(am____bin_libHoeCore_la_OBJECTS)
+am____bin_libHoeCore_a_OBJECTS =  \
+	src/___bin_libHoeCore_a-hoe_core.$(OBJEXT) \
+	src/___bin_libHoeCore_a-hoe_log.$(OBJEXT) \
+	src/___bin_libHoeCore_a-hoe_math.$(OBJEXT)
+___bin_libHoeCore_a_OBJECTS = $(am____bin_libHoeCore_a_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir)
 depcomp = $(SHELL) $(top_srcdir)/unix/depcomp
 am__depfiles_maybe = depfiles
@@ -79,8 +81,8 @@ LTCXXCOMPILE = $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) \
 CXXLD = $(CXX)
 CXXLINK = $(LIBTOOL) --tag=CXX --mode=link $(CXXLD) $(AM_CXXFLAGS) \
 	$(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(___bin_libHoeCore_la_SOURCES)
-DIST_SOURCES = $(___bin_libHoeCore_la_SOURCES)
+SOURCES = $(___bin_libHoeCore_a_SOURCES)
+DIST_SOURCES = $(___bin_libHoeCore_a_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -245,19 +247,19 @@ sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 AUTOMAKE_OPTIONS = subdir-objects
-lib_LTLIBRARIES = ../bin/libHoeCore.la
+lib_LIBRARIES = ../bin/libHoeCore.a
 #bin_PROGRAMS = ../bin/Hoe3D.so
 
 #src/config_parser.cpp: src/config_parser.l
 #	flex -o src/config_parser.cpp src/config_parser.l
 #src/lang_parser.cpp: src/lang_parser.l
 #	flex -o src/lang_parser.cpp src/lang_parser.l
-___bin_libHoeCore_la_CPPFLAGS = -D_NOXLIB
-___bin_libHoeCore_la_SOURCES = src/hoe_core.cpp \
+___bin_libHoeCore_a_CPPFLAGS = -D_NOXLIB
+___bin_libHoeCore_a_SOURCES = src/hoe_core.cpp \
 src/hoe_log.cpp \
 src/hoe_math.cpp
 
-___bin_libHoeCore_la_LDFLAGS = -static
+___bin_libHoeCore_a_LDFLAGS = -static
 all: all-am
 
 .SUFFIXES:
@@ -291,66 +293,67 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
-install-libLTLIBRARIES: $(lib_LTLIBRARIES)
+install-libLIBRARIES: $(lib_LIBRARIES)
 	@$(NORMAL_INSTALL)
 	test -z "$(libdir)" || $(mkdir_p) "$(DESTDIR)$(libdir)"
-	@list='$(lib_LTLIBRARIES)'; for p in $$list; do \
+	@list='$(lib_LIBRARIES)'; for p in $$list; do \
 	  if test -f $$p; then \
 	    f=$(am__strip_dir) \
-	    echo " $(LIBTOOL) --mode=install $(libLTLIBRARIES_INSTALL) $(INSTALL_STRIP_FLAG) '$$p' '$(DESTDIR)$(libdir)/$$f'"; \
-	    $(LIBTOOL) --mode=install $(libLTLIBRARIES_INSTALL) $(INSTALL_STRIP_FLAG) "$$p" "$(DESTDIR)$(libdir)/$$f"; \
+	    echo " $(libLIBRARIES_INSTALL) '$$p' '$(DESTDIR)$(libdir)/$$f'"; \
+	    $(libLIBRARIES_INSTALL) "$$p" "$(DESTDIR)$(libdir)/$$f"; \
+	  else :; fi; \
+	done
+	@$(POST_INSTALL)
+	@list='$(lib_LIBRARIES)'; for p in $$list; do \
+	  if test -f $$p; then \
+	    p=$(am__strip_dir) \
+	    echo " $(RANLIB) '$(DESTDIR)$(libdir)/$$p'"; \
+	    $(RANLIB) "$(DESTDIR)$(libdir)/$$p"; \
 	  else :; fi; \
 	done
 
-uninstall-libLTLIBRARIES:
+uninstall-libLIBRARIES:
 	@$(NORMAL_UNINSTALL)
-	@set -x; list='$(lib_LTLIBRARIES)'; for p in $$list; do \
+	@list='$(lib_LIBRARIES)'; for p in $$list; do \
 	  p=$(am__strip_dir) \
-	  echo " $(LIBTOOL) --mode=uninstall rm -f '$(DESTDIR)$(libdir)/$$p'"; \
-	  $(LIBTOOL) --mode=uninstall rm -f "$(DESTDIR)$(libdir)/$$p"; \
+	  echo " rm -f '$(DESTDIR)$(libdir)/$$p'"; \
+	  rm -f "$(DESTDIR)$(libdir)/$$p"; \
 	done
 
-clean-libLTLIBRARIES:
-	-test -z "$(lib_LTLIBRARIES)" || rm -f $(lib_LTLIBRARIES)
-	@list='$(lib_LTLIBRARIES)'; for p in $$list; do \
-	  dir="`echo $$p | sed -e 's|/[^/]*$$||'`"; \
-	  test "$$dir" != "$$p" || dir=.; \
-	  echo "rm -f \"$${dir}/so_locations\""; \
-	  rm -f "$${dir}/so_locations"; \
-	done
+clean-libLIBRARIES:
+	-test -z "$(lib_LIBRARIES)" || rm -f $(lib_LIBRARIES)
 src/$(am__dirstamp):
 	@$(mkdir_p) src
 	@: > src/$(am__dirstamp)
 src/$(DEPDIR)/$(am__dirstamp):
 	@$(mkdir_p) src/$(DEPDIR)
 	@: > src/$(DEPDIR)/$(am__dirstamp)
-src/___bin_libHoeCore_la-hoe_core.lo: src/$(am__dirstamp) \
+src/___bin_libHoeCore_a-hoe_core.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/___bin_libHoeCore_la-hoe_log.lo: src/$(am__dirstamp) \
+src/___bin_libHoeCore_a-hoe_log.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/___bin_libHoeCore_la-hoe_math.lo: src/$(am__dirstamp) \
+src/___bin_libHoeCore_a-hoe_math.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 ../bin/$(am__dirstamp):
 	@$(mkdir_p) ../bin
 	@: > ../bin/$(am__dirstamp)
-../bin/libHoeCore.la: $(___bin_libHoeCore_la_OBJECTS) $(___bin_libHoeCore_la_DEPENDENCIES) ../bin/$(am__dirstamp)
-	$(CXXLINK) -rpath $(libdir) $(___bin_libHoeCore_la_LDFLAGS) $(___bin_libHoeCore_la_OBJECTS) $(___bin_libHoeCore_la_LIBADD) $(LIBS)
+../bin/libHoeCore.a: $(___bin_libHoeCore_a_OBJECTS) $(___bin_libHoeCore_a_DEPENDENCIES) ../bin/$(am__dirstamp)
+	-rm -f ../bin/libHoeCore.a
+	$(___bin_libHoeCore_a_AR) ../bin/libHoeCore.a $(___bin_libHoeCore_a_OBJECTS) $(___bin_libHoeCore_a_LIBADD)
+	$(RANLIB) ../bin/libHoeCore.a
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
-	-rm -f src/___bin_libHoeCore_la-hoe_core.$(OBJEXT)
-	-rm -f src/___bin_libHoeCore_la-hoe_core.lo
-	-rm -f src/___bin_libHoeCore_la-hoe_log.$(OBJEXT)
-	-rm -f src/___bin_libHoeCore_la-hoe_log.lo
-	-rm -f src/___bin_libHoeCore_la-hoe_math.$(OBJEXT)
-	-rm -f src/___bin_libHoeCore_la-hoe_math.lo
+	-rm -f src/___bin_libHoeCore_a-hoe_core.$(OBJEXT)
+	-rm -f src/___bin_libHoeCore_a-hoe_log.$(OBJEXT)
+	-rm -f src/___bin_libHoeCore_a-hoe_math.$(OBJEXT)
 
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/___bin_libHoeCore_la-hoe_core.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/___bin_libHoeCore_la-hoe_log.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/___bin_libHoeCore_la-hoe_math.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/___bin_libHoeCore_a-hoe_core.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/___bin_libHoeCore_a-hoe_log.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/___bin_libHoeCore_a-hoe_math.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`; \
@@ -376,34 +379,53 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LTCXXCOMPILE) -c -o $@ $<
 
-src/___bin_libHoeCore_la-hoe_core.lo: src/hoe_core.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_libHoeCore_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/___bin_libHoeCore_la-hoe_core.lo -MD -MP -MF "src/$(DEPDIR)/___bin_libHoeCore_la-hoe_core.Tpo" -c -o src/___bin_libHoeCore_la-hoe_core.lo `test -f 'src/hoe_core.cpp' || echo '$(srcdir)/'`src/hoe_core.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "src/$(DEPDIR)/___bin_libHoeCore_la-hoe_core.Tpo" "src/$(DEPDIR)/___bin_libHoeCore_la-hoe_core.Plo"; else rm -f "src/$(DEPDIR)/___bin_libHoeCore_la-hoe_core.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/hoe_core.cpp' object='src/___bin_libHoeCore_la-hoe_core.lo' libtool=yes @AMDEPBACKSLASH@
+src/___bin_libHoeCore_a-hoe_core.o: src/hoe_core.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_libHoeCore_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/___bin_libHoeCore_a-hoe_core.o -MD -MP -MF "src/$(DEPDIR)/___bin_libHoeCore_a-hoe_core.Tpo" -c -o src/___bin_libHoeCore_a-hoe_core.o `test -f 'src/hoe_core.cpp' || echo '$(srcdir)/'`src/hoe_core.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "src/$(DEPDIR)/___bin_libHoeCore_a-hoe_core.Tpo" "src/$(DEPDIR)/___bin_libHoeCore_a-hoe_core.Po"; else rm -f "src/$(DEPDIR)/___bin_libHoeCore_a-hoe_core.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/hoe_core.cpp' object='src/___bin_libHoeCore_a-hoe_core.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_libHoeCore_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/___bin_libHoeCore_la-hoe_core.lo `test -f 'src/hoe_core.cpp' || echo '$(srcdir)/'`src/hoe_core.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_libHoeCore_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/___bin_libHoeCore_a-hoe_core.o `test -f 'src/hoe_core.cpp' || echo '$(srcdir)/'`src/hoe_core.cpp
 
-src/___bin_libHoeCore_la-hoe_log.lo: src/hoe_log.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_libHoeCore_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/___bin_libHoeCore_la-hoe_log.lo -MD -MP -MF "src/$(DEPDIR)/___bin_libHoeCore_la-hoe_log.Tpo" -c -o src/___bin_libHoeCore_la-hoe_log.lo `test -f 'src/hoe_log.cpp' || echo '$(srcdir)/'`src/hoe_log.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "src/$(DEPDIR)/___bin_libHoeCore_la-hoe_log.Tpo" "src/$(DEPDIR)/___bin_libHoeCore_la-hoe_log.Plo"; else rm -f "src/$(DEPDIR)/___bin_libHoeCore_la-hoe_log.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/hoe_log.cpp' object='src/___bin_libHoeCore_la-hoe_log.lo' libtool=yes @AMDEPBACKSLASH@
+src/___bin_libHoeCore_a-hoe_core.obj: src/hoe_core.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_libHoeCore_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/___bin_libHoeCore_a-hoe_core.obj -MD -MP -MF "src/$(DEPDIR)/___bin_libHoeCore_a-hoe_core.Tpo" -c -o src/___bin_libHoeCore_a-hoe_core.obj `if test -f 'src/hoe_core.cpp'; then $(CYGPATH_W) 'src/hoe_core.cpp'; else $(CYGPATH_W) '$(srcdir)/src/hoe_core.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "src/$(DEPDIR)/___bin_libHoeCore_a-hoe_core.Tpo" "src/$(DEPDIR)/___bin_libHoeCore_a-hoe_core.Po"; else rm -f "src/$(DEPDIR)/___bin_libHoeCore_a-hoe_core.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/hoe_core.cpp' object='src/___bin_libHoeCore_a-hoe_core.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_libHoeCore_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/___bin_libHoeCore_la-hoe_log.lo `test -f 'src/hoe_log.cpp' || echo '$(srcdir)/'`src/hoe_log.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_libHoeCore_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/___bin_libHoeCore_a-hoe_core.obj `if test -f 'src/hoe_core.cpp'; then $(CYGPATH_W) 'src/hoe_core.cpp'; else $(CYGPATH_W) '$(srcdir)/src/hoe_core.cpp'; fi`
 
-src/___bin_libHoeCore_la-hoe_math.lo: src/hoe_math.cpp
-@am__fastdepCXX_TRUE@	if $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_libHoeCore_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/___bin_libHoeCore_la-hoe_math.lo -MD -MP -MF "src/$(DEPDIR)/___bin_libHoeCore_la-hoe_math.Tpo" -c -o src/___bin_libHoeCore_la-hoe_math.lo `test -f 'src/hoe_math.cpp' || echo '$(srcdir)/'`src/hoe_math.cpp; \
-@am__fastdepCXX_TRUE@	then mv -f "src/$(DEPDIR)/___bin_libHoeCore_la-hoe_math.Tpo" "src/$(DEPDIR)/___bin_libHoeCore_la-hoe_math.Plo"; else rm -f "src/$(DEPDIR)/___bin_libHoeCore_la-hoe_math.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/hoe_math.cpp' object='src/___bin_libHoeCore_la-hoe_math.lo' libtool=yes @AMDEPBACKSLASH@
+src/___bin_libHoeCore_a-hoe_log.o: src/hoe_log.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_libHoeCore_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/___bin_libHoeCore_a-hoe_log.o -MD -MP -MF "src/$(DEPDIR)/___bin_libHoeCore_a-hoe_log.Tpo" -c -o src/___bin_libHoeCore_a-hoe_log.o `test -f 'src/hoe_log.cpp' || echo '$(srcdir)/'`src/hoe_log.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "src/$(DEPDIR)/___bin_libHoeCore_a-hoe_log.Tpo" "src/$(DEPDIR)/___bin_libHoeCore_a-hoe_log.Po"; else rm -f "src/$(DEPDIR)/___bin_libHoeCore_a-hoe_log.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/hoe_log.cpp' object='src/___bin_libHoeCore_a-hoe_log.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_libHoeCore_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/___bin_libHoeCore_la-hoe_math.lo `test -f 'src/hoe_math.cpp' || echo '$(srcdir)/'`src/hoe_math.cpp
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_libHoeCore_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/___bin_libHoeCore_a-hoe_log.o `test -f 'src/hoe_log.cpp' || echo '$(srcdir)/'`src/hoe_log.cpp
+
+src/___bin_libHoeCore_a-hoe_log.obj: src/hoe_log.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_libHoeCore_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/___bin_libHoeCore_a-hoe_log.obj -MD -MP -MF "src/$(DEPDIR)/___bin_libHoeCore_a-hoe_log.Tpo" -c -o src/___bin_libHoeCore_a-hoe_log.obj `if test -f 'src/hoe_log.cpp'; then $(CYGPATH_W) 'src/hoe_log.cpp'; else $(CYGPATH_W) '$(srcdir)/src/hoe_log.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "src/$(DEPDIR)/___bin_libHoeCore_a-hoe_log.Tpo" "src/$(DEPDIR)/___bin_libHoeCore_a-hoe_log.Po"; else rm -f "src/$(DEPDIR)/___bin_libHoeCore_a-hoe_log.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/hoe_log.cpp' object='src/___bin_libHoeCore_a-hoe_log.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_libHoeCore_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/___bin_libHoeCore_a-hoe_log.obj `if test -f 'src/hoe_log.cpp'; then $(CYGPATH_W) 'src/hoe_log.cpp'; else $(CYGPATH_W) '$(srcdir)/src/hoe_log.cpp'; fi`
+
+src/___bin_libHoeCore_a-hoe_math.o: src/hoe_math.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_libHoeCore_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/___bin_libHoeCore_a-hoe_math.o -MD -MP -MF "src/$(DEPDIR)/___bin_libHoeCore_a-hoe_math.Tpo" -c -o src/___bin_libHoeCore_a-hoe_math.o `test -f 'src/hoe_math.cpp' || echo '$(srcdir)/'`src/hoe_math.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "src/$(DEPDIR)/___bin_libHoeCore_a-hoe_math.Tpo" "src/$(DEPDIR)/___bin_libHoeCore_a-hoe_math.Po"; else rm -f "src/$(DEPDIR)/___bin_libHoeCore_a-hoe_math.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/hoe_math.cpp' object='src/___bin_libHoeCore_a-hoe_math.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_libHoeCore_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/___bin_libHoeCore_a-hoe_math.o `test -f 'src/hoe_math.cpp' || echo '$(srcdir)/'`src/hoe_math.cpp
+
+src/___bin_libHoeCore_a-hoe_math.obj: src/hoe_math.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_libHoeCore_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/___bin_libHoeCore_a-hoe_math.obj -MD -MP -MF "src/$(DEPDIR)/___bin_libHoeCore_a-hoe_math.Tpo" -c -o src/___bin_libHoeCore_a-hoe_math.obj `if test -f 'src/hoe_math.cpp'; then $(CYGPATH_W) 'src/hoe_math.cpp'; else $(CYGPATH_W) '$(srcdir)/src/hoe_math.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "src/$(DEPDIR)/___bin_libHoeCore_a-hoe_math.Tpo" "src/$(DEPDIR)/___bin_libHoeCore_a-hoe_math.Po"; else rm -f "src/$(DEPDIR)/___bin_libHoeCore_a-hoe_math.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/hoe_math.cpp' object='src/___bin_libHoeCore_a-hoe_math.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_libHoeCore_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/___bin_libHoeCore_a-hoe_math.obj `if test -f 'src/hoe_math.cpp'; then $(CYGPATH_W) 'src/hoe_math.cpp'; else $(CYGPATH_W) '$(srcdir)/src/hoe_math.cpp'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
 
 clean-libtool:
 	-rm -rf .libs _libs
-	-rm -rf ../bin/.libs ../bin/_libs
-	-rm -rf src/.libs src/_libs
 
 distclean-libtool:
 	-rm -f libtool
@@ -486,7 +508,7 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile $(LTLIBRARIES)
+all-am: Makefile $(LIBRARIES)
 installdirs:
 	for dir in "$(DESTDIR)$(libdir)"; do \
 	  test -z "$$dir" || $(mkdir_p) "$$dir"; \
@@ -520,7 +542,7 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
+clean-am: clean-generic clean-libLIBRARIES clean-libtool \
 	mostlyclean-am
 
 distclean: distclean-am
@@ -541,7 +563,7 @@ info-am:
 
 install-data-am:
 
-install-exec-am: install-libLTLIBRARIES
+install-exec-am: install-libLIBRARIES
 
 install-info: install-info-am
 
@@ -567,20 +589,20 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-info-am uninstall-libLTLIBRARIES
+uninstall-am: uninstall-info-am uninstall-libLIBRARIES
 
 .PHONY: CTAGS GTAGS all all-am check check-am clean clean-generic \
-	clean-libLTLIBRARIES clean-libtool ctags distclean \
+	clean-libLIBRARIES clean-libtool ctags distclean \
 	distclean-compile distclean-generic distclean-libtool \
 	distclean-tags distdir dvi dvi-am html html-am info info-am \
 	install install-am install-data install-data-am install-exec \
 	install-exec-am install-info install-info-am \
-	install-libLTLIBRARIES install-man install-strip installcheck \
+	install-libLIBRARIES install-man install-strip installcheck \
 	installcheck-am installdirs maintainer-clean \
 	maintainer-clean-generic mostlyclean mostlyclean-compile \
 	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
 	tags uninstall uninstall-am uninstall-info-am \
-	uninstall-libLTLIBRARIES
+	uninstall-libLIBRARIES
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
