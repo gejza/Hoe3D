@@ -1,3 +1,15 @@
+22.4.2007
+HoeCore
+	Zavedeny objekt String a String_s
+	Zavedeny objekt Universal
+HoeGame:
+	Jednotny format textoveho souboru s objekty
+Hoe3D:
+	Model modifikator, pro upravu modelu
+	nahravani textur k modelum za behu
+	zmena texturovych souradnic na modelech
+	dalsi model pro generovani - rovina
+--------------------------------------
 6.4.2007
 HoeGame
 	Historie v konzoli

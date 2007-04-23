@@ -103,6 +103,30 @@ class FreeCameraViewCtrl : public FreeCameraView, public XHoeMouse, public XHoeK
 public:
 	virtual void HOEAPI _Wheel(long);
 	virtual void HOEAPI _MouseMove(float X, float Y);
+	virtual void HOEAPI _KeyDown(int);
+	bool KeyDown(int);
+};
+
+class StrightCameraView : public View
+{
+	float m_pos[3];
+	float m_zoom;
+protected:
+	void Update();
+public:
+	StrightCameraView();
+	void SetPosition(float x, float y, float z);
+	void SetZoom(float z);
+	void Zoom(float z);
+	void Move(float fw, float si);
+};
+
+class StrightCameraViewCtrl : public StrightCameraView, public XHoeMouse, public XHoeKeyboard
+{
+public:
+	virtual void HOEAPI _Wheel(long);
+	virtual void HOEAPI _MouseMove(float X, float Y);
+	virtual void HOEAPI _KeyDown(int);
 	bool KeyDown(int);
 };
 

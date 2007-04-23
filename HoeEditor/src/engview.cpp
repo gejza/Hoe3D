@@ -74,11 +74,11 @@ bool EngineView::InitStatic(XHoeFS * hfs)
 	wxLogMessage("* Load Engine *");
 	this->m_engine = CreateHoeEngine(HOESDK_VERSION, App::Get()->GetConsole(),hfs,NULL,0,HOEF_NOINPUT);
 #else
-bool EngineView::Init(XHoeFS * hfs)
+bool EngineView::Init(XHoeFS * hfs, int sdkver)
 {
 	bool ret;
 	BEGIN_TRY
-		ret = InitUntry(hfs);
+		ret = InitUntry(hfs, sdkver);
 	END_TRY(ret = false);
 #ifndef HOE_STATIC_ENGINE
 	if (!ret)
@@ -87,9 +87,14 @@ bool EngineView::Init(XHoeFS * hfs)
 	return ret;
 }
 
-bool EngineView::InitUntry(XHoeFS * hfs)
+bool EngineView::InitUntry(XHoeFS * hfs, int sdkver)
 {
 	Unload();
+	if (sdkver != HOESDK_VERSION)
+	{
+		wxLogMessage("Bad version for HoeEditor interface (req: %.2f editor: %.2f)",sdkver * 0.01f,HOESDK_VERSION * 0.01f);
+		return false;
+	}
 
 	assert(strlen(m_dllpath) > 0);
 	
@@ -165,7 +170,7 @@ void EngineView::Frame(float dtime)
 		return;
 
 
-	BEGIN_TRY
+	//BEGIN_TRY
 
 	assert(HoeGame::GetHoeEngine());
 	HoeGame::GetHoeEngine()->Process(dtime);
@@ -178,7 +183,7 @@ void EngineView::Frame(float dtime)
 	str.Printf("FPS: %f", HoeGetInfo(HoeGame::GetHoeEngine())->GetFPS());
 	App::Get()->GetEditor()->SetStatusText(str, 1);
 
-	END_TRY(exit(0));
+	//END_TRY(exit(0));
 }
 
 

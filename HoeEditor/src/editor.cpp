@@ -72,19 +72,19 @@ void HoeEditor::BaseEditor::OnEngine(wxCommandEvent& event)
 #endif
 	if (dialog.ShowModal() == wxID_OK)
 	{
-		LoadEngine(dialog.GetPath());
+		LoadEngine(dialog.GetPath(), HOESDK_VERSION);
 		// select item
 		//this->m_left->GetTree()->GetCtrl()->Reselect();
 	}
 	}
 }
 
-void HoeEditor::BaseEditor::LoadEngine(wxString path)
+void HoeEditor::BaseEditor::LoadEngine(wxString path, int sdkver)
 {
 	if (EngineView::Get())
 	{
 		EngineView::Get()->SetEnginePath(path);
-		if (EngineView::Get()->Init(GetFS()))
+		if (EngineView::Get()->Init(GetFS(), sdkver))
 		{
 			wxConfigBase *pConfig = wxConfigBase::Get();
 			if ( pConfig )

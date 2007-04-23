@@ -77,7 +77,7 @@ public:
 	virtual XHoeFS * GetFS() { return NULL; }
 
 #ifndef HOE_STATIC_ENGINE
-	void LoadEngine(wxString path);
+	void LoadEngine(wxString path, int sdkver);
 	void OnEngine(wxCommandEvent& event);
 #endif
 

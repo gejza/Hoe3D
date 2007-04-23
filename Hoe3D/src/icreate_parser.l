@@ -39,6 +39,7 @@ name    ({alpha}|\$)({alpha}|{dig}|[_\-/$:@#%^&*])*
 
 "box"				return HOE_T_BOX;
 "sphere"			return HOE_T_SPHERE;
+"plane"				return HOE_T_PLANE;
 
 "-dump"				return HOE_T_DUMP; /* do logu se vypisou vsechna data */
 "con:"				return HOE_T_CON;

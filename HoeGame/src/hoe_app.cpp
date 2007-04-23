@@ -33,7 +33,7 @@ HoeApp::~HoeApp()
 
 #ifdef _WIN32
 
-bool HoeApp::Init(const char * title)
+bool HoeApp::Init(const char * title, int sdkver)
 {
 	THoeInitSettings his;
 
@@ -48,7 +48,7 @@ bool HoeApp::Init(const char * title)
 	if (!GetMsg(NULL))
 		exit(0);
 
-	if (!LoadEngine())
+	if (!LoadEngine(sdkver))
 		return false;
 
 	if (!GetMsg(NULL))
@@ -120,10 +120,10 @@ bool HoeApp::Init(const char * title)
 
 #endif // _LINUX
 
-bool HoeApp::LoadEngine()
+bool HoeApp::LoadEngine(int sdkver)
 {
 	
-	return m_engine.Load(m_enginedll.GetString(), m_con, &m_fs);
+	return m_engine.Load(m_enginedll.GetString(), m_con, &m_fs, sdkver);
 }
 
 void HoeApp::OnUpdate(float time)

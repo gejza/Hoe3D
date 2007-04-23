@@ -283,26 +283,25 @@ void FreeCameraView::Move(float fw, float si)
 ////////////////////////////////////////////////////////////////////
 bool ModelViewCtrl::KeyDown(int key)
 {
-	/*switch (key)
+	switch (key)
 	{
 	case HK_W:
-		Move(5,0);
+		RotateArc(0.5f);
 		break;
 	case HK_S:
-		Move(-5,0);
+		RotateArc(-0.5f);
 		break;
 	case HK_A:
-		Move(0,-5);
+		Rotate(-0.5f);
 		break;
 	case HK_D:
-		Move(0,5);
+		Rotate(0.5f);
 		break;
 	default:
 		return false;
 	};
 
-	return true;*/
-	return false;
+	return true;
 }
 
 void ModelViewCtrl::_KeyDown(int key)
@@ -322,20 +321,35 @@ void ModelViewCtrl::_MouseMove(float X, float Y)
 ////////////////////////////////////////////////////////////////////
 bool FreeCameraViewCtrl::KeyDown(int key)
 {
+	const float moveDistance = 5;
+	const float rotateDistance = 0.1f;
 	switch (key)
 	{
 	case HK_W:
-		Move(5,0);
+		Move(moveDistance,0);
 		break;
 	case HK_S:
-		Move(-5,0);
+		Move(-moveDistance,0);
 		break;
 	case HK_A:
-		Move(0,-5);
+		Move(0,-moveDistance);
 		break;
 	case HK_D:
-		Move(0,5);
+		Move(0,moveDistance);
 		break;
+	case HK_UP:
+		RotateArc(rotateDistance);
+		break;
+	case HK_DOWN:
+		RotateArc(-rotateDistance);
+		break;
+	case HK_LEFT:
+		Rotate(-rotateDistance);
+		break;
+	case HK_RIGHT:
+		Rotate(rotateDistance);
+		break;
+
 	default:
 		return false;
 	};
@@ -351,6 +365,11 @@ void FreeCameraViewCtrl::_MouseMove(float X, float Y)
 {
 	Rotate(0.01f * X);
 	RotateArc(-0.01f * Y);
+}
+
+void FreeCameraViewCtrl::_KeyDown(int key)
+{
+	KeyDown(key);
 }
 
 /*bool View::Init()
@@ -476,5 +495,84 @@ void View::Cursor(bool show)
 //	else
 //		m_cur->ShowCursor(0);
 }*/
+
+////////////////////////////////////////////////////////////////////////////
+
+StrightCameraView::StrightCameraView()
+{
+	m_pos[0] = 0.f;m_pos[1] = 0.f;m_pos[2] = 0.f;
+	m_zoom = 1.f;
+}
+
+void StrightCameraView::Update()
+{
+	float l[3];
+	l[0] = 0;
+	l[1] = 0;
+	l[2] = m_zoom;
+
+	this->GetCamera()->Set(m_pos, l);
+}
+
+void StrightCameraView::SetPosition(float x, float y, float z)
+{
+	m_pos[0] = x; m_pos[1] = y; m_pos[2] = z;
+	Update();
+}
+
+/*void FreeCameraView::SetZoom(float z);
+void FreeCameraView::Zoom(float z);*/
+void StrightCameraView::Move(float fw, float si)
+{
+	m_pos[0] += si;
+	m_pos[1] += fw;
+	m_pos[2] += 0;
+
+	Update();
+}
+
+////////////////////////////////////////////////////////////////////
+bool StrightCameraViewCtrl::KeyDown(int key)
+{
+	const float moveDistance = 5;
+	switch (key)
+	{
+	case HK_UP:
+	case HK_W:
+		Move(moveDistance,0);
+		break;
+	case HK_DOWN:
+	case HK_S:
+		Move(-moveDistance,0);
+		break;
+	case HK_LEFT:
+	case HK_A:
+		Move(0,-moveDistance);
+		break;
+	case HK_RIGHT:
+	case HK_D:
+		Move(0,moveDistance);
+		break;
+	default:
+		return false;
+	};
+
+	return true;
+}
+
+void StrightCameraViewCtrl::_Wheel(long l)
+{
+}
+
+void StrightCameraViewCtrl::_MouseMove(float X, float Y)
+{
+	//Rotate(0.01f * X);
+	//RotateArc(-0.01f * Y);
+}
+
+void StrightCameraViewCtrl::_KeyDown(int key)
+{
+	KeyDown(key);
+}
 
 END_HOEGAME

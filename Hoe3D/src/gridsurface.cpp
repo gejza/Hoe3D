@@ -136,6 +136,7 @@ void TGridSurfaceType::Setup()
 		glActiveTextureARB(GL_TEXTURE0_ARB);
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, tex1->GetTexture());
+		//glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE);
 		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
 		glActiveTextureARB(GL_TEXTURE1_ARB);
@@ -156,11 +157,31 @@ void TGridSurfaceType::Setup()
 		// Bind the detail texture
 		glBindTexture(GL_TEXTURE_2D, tex2->GetTexture());
 
-		}
-		else
-			glDisable(GL_TEXTURE_2D);
+		glActiveTextureARB(GL_TEXTURE2_ARB);
+		glEnable(GL_TEXTURE_2D);
+		//glBindTexture(GL_TEXTURE_2D, tex2->GetTexture());
 
-		glDisable(GL_LIGHTING);
+		//glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+		//glTexEnvi(GL_TEXTURE_ENV,GL_COMBINE_RGB_ARB,	GL_MODULATE);
+		glTexEnvi(GL_TEXTURE_ENV,GL_SOURCE0_RGB_ARB, GL_PREVIOUS_ARB);
+		glTexEnvi(GL_TEXTURE_ENV,GL_OPERAND0_RGB_ARB, GL_ONE_MINUS_SRC_COLOR);
+		glTexEnvi(GL_TEXTURE_ENV,GL_OPERAND1_RGB_ARB, GL_SRC_COLOR);
+		glTexEnvi(GL_TEXTURE_ENV,GL_SOURCE1_RGB_ARB, GL_PRIMARY_COLOR_ARB);
+
+		//glTexEnvi(GL_TEXTURE_ENV,GL_SOURCE1_RGB_ARB, GL_SRC_COLOR);
+		//glTexEnvi(GL_TEXTURE_ENV,GL_OPERAND2_RGB_ARB, GL_SRC_ALPHA);
+
+ 		}
+		else
+		{
+			glDisable(GL_TEXTURE_2D);
+		glActiveTextureARB(GL_TEXTURE2_ARB);
+		glDisable(GL_TEXTURE_2D);
+
+		}
+
+		//glDisable(GL_LIGHTING);
 		glDisable(GL_ALPHA_TEST);// Zapne alfa testing */
 		glDisable(GL_CULL_FACE);
 		checkgl("multitexture");
@@ -534,8 +555,10 @@ void GridSurface::Render()
 		}
 #ifdef _HOE_OPENGL_
 		glDisable(GL_TEXTURE_2D);
+		glActiveTextureARB(GL_TEXTURE1_ARB);
+		glDisable(GL_TEXTURE_2D);
 		glActiveTextureARB(GL_TEXTURE0_ARB);
-		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE);
+		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 #endif
 		// wireframe
 		if (m_wire)

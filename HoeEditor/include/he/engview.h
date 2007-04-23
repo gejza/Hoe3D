@@ -45,16 +45,16 @@ protected:
 	wxMouseEvent m_lastmouseevent;
 	wxTimer m_infotimer;
 	static EngineView * g_shared;
-	bool InitUntry(XHoeFS * hfs);
+	bool InitUntry(XHoeFS * hfs, int sdkver);
 public:
 	void Unload();
 	EngineView();
 	virtual ~EngineView();
 #ifdef HOE_STATIC_ENGINE
-	bool InitStatic(XHoeFS * hfs);
+	bool InitStatic(XHoeFS * hfs, int sdkver);
 #else
 	void SetEnginePath(const char * path);
-	bool Init(XHoeFS * hfs);
+	bool Init(XHoeFS * hfs, int sdkver);
 #endif
 	void Frame(float dtime);
 	bool IsLoaded() { return m_loaded; }

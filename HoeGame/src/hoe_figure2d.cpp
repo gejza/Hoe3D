@@ -3,13 +3,7 @@
 #include "../include/hoe_figure2d.h"
 #include "../include/hoe_gui.h"
 #include "../include/hoe_app.h"
-#include <locale.h>
-
-void yyfigurerestart ( FILE *input_file );
-int yyfigurelex();
-extern char *yyfiguretext;
-extern int yyfigureleng;
-extern int yyfigurelineno;
+#include "../include/hoe_structfile.h"
 
 BEGIN_HOEGAME
 
@@ -25,67 +19,40 @@ Hoe2DFigureBase::~Hoe2DFigureBase()
 
 bool Hoe2DFigureBase::Load(const char * fname)
 {
-	setlocale(LC_NUMERIC, "C");
-
-	FILE * f = fopen(fname, "rt");
-	if (!f)
+	ObjectFileParser parser;
+	HoeCore::String_s<1024> err;
+	if (!parser.Open(fname))
 		return false;
-
-	yyfigurerestart(f);
-
-	int type = 0;
-	char name[256];
-	try {
-	while ((type=yyfigurelex())==257)
+	
+	while (parser.ParseObject())
 	{
-		// na zacatku musi byt jmeno vytvarene
-		HoeGame::Gui::Base * gui = CreateGUI(yyfiguretext);		
+		HoeGame::Gui::Base * gui = CreateGUI(parser.GetTypeObject());		
 		if (!gui)
-			throw "syntax error, name requied";
-		
-		if ((type=yyfigurelex())!=258) 
 		{
-			throw "syntax error, `{' requied";
+			err.printf("Object type %s is unknown.", parser.GetTypeObject());
+			goto loaderror;
 		}
-		while ((type=yyfigurelex())!=260)
+		const Property * p;
+		while (p = parser.GetNextProperty())
 		{
-			// read params
-			if (type != 257)
-				throw "syntax error, name requied";
-			strncpy(name, yyfiguretext, 255);
-			if (yyfigurelex()!=259 || yyfiguretext[0] != '=')
-				throw "syntax error, `=' requied";
-			// preskocit '=' a bile znaky
-			char * p = yyfiguretext+1;
-			char * e = yyfiguretext+yyfigureleng;
-			while (*p==' ' || *p=='\t') p++;
-			// pokud je to string, odstringovat
-			if (*p == '\'' || *p == '\"')
-			{
-				while (*e != *p) e--;
-				if (e==p)
-					throw "syntax error, unclosed `\"' or `''";
-				*e = '\0';
-				p++;
-			}
-			gui->Set(name,p);
+			gui->Set(p->GetName(), p->GetValue());
+		}
+		if (parser.GetLastError())
+		{
+			err = parser.GetLastError();
+			goto loaderror;
 		}
 	}
-	} catch (const char * str)
+	if (parser.GetLastError())
 	{
-		fclose(f);
-		BaseConsole::Printf("%s(%d): error: %s", fname, yyfigurelineno, str);
-		return false;
+		err = parser.GetLastError();
+		goto loaderror;
 	}
 
-	fclose(f);
-	if (type!=0)
-	{
-		BaseConsole::Printf("%s(%d): error: syntax error on end of file", fname, yyfigurelineno);
-		return false;
-	}
 	return true;
-
+loaderror:
+	BaseConsole::Printf("%s(%d): error: %s", fname, parser.GetLineNum(), (const char*)err);
+	return false;
 }
 
 Gui::Base * Hoe2DFigure::CreateGUI(const char *type)
@@ -107,7 +74,7 @@ Gui::Base * Hoe2DFigure::CreateGUI(const char *type)
 	else if (IS("text"))
 		g = new Font;
 	else
-		throw "syntax error, name requied";
+		return NULL;
 
 	m_list.Add(g);
 	return g;

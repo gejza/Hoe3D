@@ -1465,6 +1465,14 @@
 				RelativePath="..\..\src\icreate_parser.l"
 				>
 				<FileConfiguration
+					Name="DebugD3D9|Win32"
+					>
+					<Tool
+						Name="Flex"
+						Lang="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="ReleaseD3D9|Win32"
 					>
 					<Tool
@@ -2225,7 +2233,7 @@
 			Name="Generated"
 			>
 			<File
-				RelativePath="..\..\src\icreate_parser.c"
+				RelativePath="..\..\src\icreate_parser.yy.c"
 				>
 				<FileConfiguration
 					Name="DebugD3D9|Win32"

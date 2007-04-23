@@ -461,18 +461,6 @@
 			Name="2d"
 			>
 			<File
-				RelativePath="..\src\figurefile_parser.l"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="Flex"
-						Lang="0"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\src\hoe_figure2d.cpp"
 				>
 				<FileConfiguration
@@ -634,6 +622,18 @@
 			</File>
 			<File
 				RelativePath="..\include\hoe_resource_mgr.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\hoe_structfile.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\include\hoe_structfile.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\structfile_parser.l"
 				>
 			</File>
 		</Filter>
@@ -953,11 +953,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\figurefile_parser.yy.cpp"
+				RelativePath="..\src\lang_parser.yy.c"
 				>
 			</File>
 			<File
-				RelativePath="..\src\lang_parser.yy.c"
+				RelativePath="..\src\structfile_parser.yy.cpp"
 				>
 			</File>
 		</Filter>
@@ -970,6 +970,18 @@
 			</File>
 			<File
 				RelativePath="..\include\hoe_ai.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="adventure"
+			>
+			<File
+				RelativePath="..\src\hoe_adventure.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\include\hoe_adventure.h"
 				>
 			</File>
 		</Filter>

@@ -24,6 +24,7 @@
 
 #define HOE_T_BOX		0x601
 #define HOE_T_SPHERE	0x602
+#define HOE_T_PLANE		0x603
 
 #define HOE_T_IS_RESOURCE(token) ((token & 0xf00) == 0x100)
 #define HOE_T_IS_STRING(token) ((token & 0xf00) == 0x200)

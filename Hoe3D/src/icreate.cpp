@@ -202,6 +202,9 @@ namespace icreate {
 		HoeModel * ret = NULL;
 		switch (type)
 		{
+		case HOE_T_PLANE:
+			ret = mg.GenPlane(size);
+			break;
 		case HOE_T_BOX:
 			ret = mg.GenBox(size);
 			break;

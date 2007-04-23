@@ -29,10 +29,16 @@ HoeEngine::~HoeEngine()
 
 }
 
-bool HoeEngine::Load(const char * dllname, Console * con, XHoeFS * fs)
+bool HoeEngine::Load(const char * dllname, Console * con, XHoeFS * fs, int sdkver)
 {
 	HOE_FUNCCREATE GetEngineInterface;
 	
+	if (sdkver != HOESDK_VERSION)
+	{
+		con->Printf("Bad version for HoeGame interface (req: %.2f editor: %.2f)",sdkver * 0.01f,HOESDK_VERSION * 0.01f);
+		return false;
+	}
+
 #ifdef _WIN32
 	m_lib = LoadLibrary(dllname);
 	if (!m_lib)

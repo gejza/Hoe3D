@@ -6,7 +6,7 @@
 #include "ref_opengl.h"
 #include "glext.h"
 
-#ifndef GL_VERSION_1_3
+#if !defined(GL_VERSION_1_3) || defined(_WIN32)
 // multitexture
 PFNGLACTIVETEXTUREARBPROC glActiveTextureARB = NULL;
 PFNGLCLIENTACTIVETEXTUREARBPROC glClientActiveTextureARB = NULL;
@@ -157,7 +157,7 @@ void RefOpenGL::LoadExtensions()
 	{
 		glGetIntegerv(GL_MAX_TEXTURE_UNITS_ARB, &ext.MAX_TEXTURE_UNITS_ARB);
 		Con_Print("Use extension: GL_ARB_multitexture, %d texture units", ext.MAX_TEXTURE_UNITS_ARB);
-#ifndef GL_VERSION_1_3
+#if !defined(GL_VERSION_1_3) || defined(_WIN32)
 		glActiveTextureARB = (PFNGLACTIVETEXTUREARBPROC) GetProc("glActiveTextureARB");
 		glClientActiveTextureARB = (PFNGLCLIENTACTIVETEXTUREARBPROC) GetProc("glClientActiveTextureARB");
 		glMultiTexCoord1dARB = (PFNGLMULTITEXCOORD1DARBPROC) GetProc("glMultiTexCoord1dARB");

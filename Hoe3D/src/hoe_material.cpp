@@ -25,6 +25,7 @@ HoeMaterial::HoeMaterial()
 	m_tex = NULL;
 	m_bump = NULL;
 	m_lightreag = true;
+	m_overlap = false;
 #ifdef _HOE_D3D_
 	ZeroMemory( &m_mtrl, sizeof(m_mtrl) );
 #endif
@@ -38,6 +39,17 @@ void HoeMaterial::Setup(dword overcolor)
 {
 	// material
 #ifdef _HOE_D3D_
+	// overlap
+	if (m_overlap)
+	{
+		D3DDevice()->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT2);
+		D3DDevice()->SetTransform(D3DTS_TEXTURE0, (const D3DMATRIX*)&m_over);
+	}
+	else
+	{
+		D3DDevice()->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_DISABLE);
+	}
+
 	if (overcolor != 0xffffffff)
 	{
 		D3DMaterial mat = m_mtrl;
@@ -53,6 +65,17 @@ void HoeMaterial::Setup(dword overcolor)
 		D3DDevice()->SetMaterial( &m_mtrl );
 #endif
 #ifdef _HOE_OPENGL_
+	if (m_overlap)
+	{
+		glMatrixMode(GL_TEXTURE);
+		glLoadMatrixf((const GLfloat *)&m_over);
+	}
+	else
+	{
+		glMatrixMode(GL_TEXTURE);
+		glLoadIdentity();
+	}
+
 	glMaterialfv(GL_FRONT,GL_AMBIENT_AND_DIFFUSE,m_ambient);
 	glMaterialfv(GL_FRONT,GL_DIFFUSE,m_diffuse);
 	//glMaterialfv(GL_FRONT,GL_SPECULAR,m_specular);
@@ -137,7 +160,7 @@ void HoeMaterial::Setup(dword overcolor)
 
 void HoeMaterial::SetColor(int type, const HoeMaterialColor & color)
 {
-#ifdef _HOE_D3D9_
+#ifdef _HOE_D3D_
 	if (type & Ambient)
 		m_mtrl.Ambient = color;
 	if (type & Diffuse)

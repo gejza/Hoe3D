@@ -48,7 +48,7 @@ public:
 	 * @param dllname Jméno knihovny
 	 * @param con Konzole hry
 	 */
-	bool Load(const char * dllname, Console * con, XHoeFS * fs);
+	bool Load(const char * dllname, Console * con, XHoeFS * fs, int sdkver);
 
 	/**
 	 * Nahráni enginu staticke verze.

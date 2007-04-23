@@ -5,8 +5,18 @@
 #include "hoe_types.h"
 #include "hoe_math.h"
 #include "hoe_structures.h"
+#include "hoe_string.h"
+#include "hoe_universal.h"
 
 float SysFloatTime();
+
+//-----------------------------------------------------------------------------
+// Miscellaneous helper functions
+//-----------------------------------------------------------------------------
+#define SAFE_DELETE(p)       { if(p) { delete (p);     (p)=NULL; } }
+#define SAFE_DELETE_ARRAY(p) { if(p) { delete[] (p);   (p)=NULL; } }
+#define SAFE_RELEASE(p)      { if(p) { (p)->Release(); (p)=NULL; } }
+
 
 namespace HoeCore {
 

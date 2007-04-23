@@ -50,6 +50,17 @@ public:
 };
 
 /**
+ * @brief Model modifier. Objekt pro upravu modelu
+ */
+class IHoeModelModifier : public IHoeInterface
+{
+public:
+	// funkce pro upravu materialu
+	virtual void HOEAPI SetMaterialTexture(int n, const char * texturename) = 0;
+	virtual void HOEAPI SetTextureOverlap(int n, const THoeRect & rect) = 0;
+};
+
+/**
  * @brief 3D model
  * @code
  * "model <jmeno modelu> [con:<idtext>|file:<jmeno souboru>]"
@@ -59,6 +70,7 @@ class IHoeModel : public IHoeResource
 {
 public:
 	virtual bool HOEAPI GetParameter(const char * name, THoeParameter * parameter) = 0;
+	virtual IHoeModelModifier * HOEAPI GetModifier() = 0;
 };
 
 

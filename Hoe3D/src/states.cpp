@@ -168,12 +168,14 @@ void HoeStates::SetupModel()
 
 void HoeStates::SetupMap()
 {
-#ifdef _HOE_D3D9_
+#ifdef _HOE_D3D_
 	D3DDevice()->SetRenderState( D3DRS_ALPHABLENDENABLE ,FALSE);
 	D3DDevice()->SetRenderState( D3DRS_ALPHATESTENABLE ,FALSE);
 
+#ifdef _HOE_D3D9_
 	D3DDevice()->SetSamplerState(0,D3DSAMP_MAGFILTER,D3DTEXF_LINEAR);
 	D3DDevice()->SetSamplerState(0,D3DSAMP_MINFILTER,D3DTEXF_LINEAR);
+#endif
 	//D3DDevice()->SetRenderState( D3DRS_CULLMODE,   D3DCULL_NONE );
    	D3DDevice()->SetRenderState( D3DRS_ZENABLE, TRUE ); 
 	//D3DDevice()->SetTextureStageState(0,D3DTSS_COLOROP,D3DTOP_MODULATE);

@@ -267,19 +267,24 @@ void HFConvert::Make()
 	{
 		// pocet bodu
 		byte a,r,g,b;
-		if (m_from == HOE_R8G8B8)
+		switch (m_from)
 		{
+		case HOE_R8G8B8:
 			a = 0xff;
 			r = *(m_origin+(n*3)+0);
 			g = *(m_origin+(n*3)+1);
 			b = *(m_origin+(n*3)+2);
-		}
-		else if (m_from == HOE_L8)
-		{
+			break;
+		case HOE_L8:
 			a = r = g = b = *(m_origin+n);
-		}
-		else
-		{
+			break;
+		case HOE_R8G8B8A8:
+			r = *(m_origin+(n*4)+0);
+			g = *(m_origin+(n*4)+1);
+			b = *(m_origin+(n*4)+2);
+			a = *(m_origin+(n*4)+3);
+			break;
+		default:
 			Con_Print("Convert from format %d not implemented.", m_from);
 			return;
 		}

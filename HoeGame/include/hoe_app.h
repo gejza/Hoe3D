@@ -47,7 +47,7 @@ protected:
 
 	const char * m_lastError;
 
-	virtual bool LoadEngine();
+	virtual bool LoadEngine(int sdkver);
 	virtual bool Frame(float time);
 	virtual bool Frame();
 public:
@@ -59,7 +59,7 @@ public:
 	/** Destruktor */
 	virtual ~HoeApp();
 
-	virtual bool Init(const char * title);
+	virtual bool Init(const char * title, int sdkver);
 	virtual void Run();
 	virtual void OnSize(int width, int height);
 	virtual void OnPaint();

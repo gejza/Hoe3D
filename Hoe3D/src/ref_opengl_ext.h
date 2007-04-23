@@ -23,7 +23,7 @@ struct GLExt
 };
 
 // multitexture
-#ifndef GL_VERSION_1_3
+#if !defined(GL_VERSION_1_3) || defined(_WIN32)
 extern PFNGLACTIVETEXTUREARBPROC glActiveTextureARB;
 extern PFNGLCLIENTACTIVETEXTUREARBPROC glClientActiveTextureARB;
 extern PFNGLMULTITEXCOORD1DARBPROC glMultiTexCoord1dARB;

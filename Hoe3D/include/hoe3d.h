@@ -180,28 +180,24 @@ IHoeEngineInfo * HOEAPI GetEngineInfo(int sdk_ver);
 inline IHoeMaterialSystem * HoeGetMaterialSystem(IHoe3DEngine * eng)
 {
 	IHoeMaterialSystem * ms = reinterpret_cast<IHoeMaterialSystem *>(eng->GetSystem(HOE_SYS_MATERIAL));
-	assert(ms);
 	return ms;
 }
 
 inline IHoeInfo * HoeGetInfo(IHoe3DEngine * eng)
 {
 	IHoeInfo * info = reinterpret_cast<IHoeInfo *>(eng->GetSystem(HOE_SYS_INFO));
-	assert(info);
 	return info;
 }
 
 inline IHoeInput * HoeGetInput(IHoe3DEngine * eng)
 {
 	IHoeInput * input = reinterpret_cast<IHoeInput *>(eng->GetSystem(HOE_SYS_INPUT));
-	assert(input);
 	return input;
 }
 
 inline IHoeRef * HoeGetRef(IHoe3DEngine * eng)
 {
 	IHoeRef * ref = reinterpret_cast<IHoeRef *>(eng->GetSystem(HOE_SYS_REF));
-	assert(ref);
 	return ref;
 }
 

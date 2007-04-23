@@ -184,11 +184,27 @@
 			>
 		</File>
 		<File
+			RelativePath="..\src\hoe_string.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\include\hoe_string.h"
+			>
+		</File>
+		<File
 			RelativePath="..\include\hoe_structures.h"
 			>
 		</File>
 		<File
 			RelativePath="..\include\hoe_types.h"
+			>
+		</File>
+		<File
+			RelativePath="..\src\hoe_universal.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\include\hoe_universal.h"
 			>
 		</File>
 		<File

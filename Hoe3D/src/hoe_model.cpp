@@ -7,6 +7,7 @@
 #include "hoe_index.h"
 #include "hoe_material.h"
 #include "hoe_model.h"
+#include "model_generator.h"
 #include <hoe_math.h>
 #include "shared.h"
 #include "states.h"
@@ -95,5 +96,10 @@ void HoeModel::Render(const HoeScene * scene, float f, dword color) const
 		uint frame = (uint)(f * (m_num_stream-1));
 		Ref::DrawStdObject(m_stream[frame%m_num_stream],m_index[0]);
 	}
+}
+
+IHoeModelModifier * HOEAPI HoeModel::GetModifier()
+{
+	return new ModelModifier(this);
 }
 

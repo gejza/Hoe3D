@@ -46,6 +46,11 @@ class HoeMaterial
 	HoeMaterialColor m_specular;
 #endif
 public:
+	//TODO:
+	HoeMath::Matrix m_over;
+	bool m_overlap;
+
+
 	static const int Ambient = 0x01;
 	static const int Diffuse = 0x02;
 	static const int Specular = 0x04;

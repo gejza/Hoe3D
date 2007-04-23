@@ -7,13 +7,6 @@
 #define HOE_INLINE inline
 
 //-----------------------------------------------------------------------------
-// Miscellaneous helper functions
-//-----------------------------------------------------------------------------
-#define SAFE_DELETE(p)       { if(p) { delete (p);     (p)=NULL; } }
-#define SAFE_DELETE_ARRAY(p) { if(p) { delete[] (p);   (p)=NULL; } }
-#define SAFE_RELEASE(p)      { if(p) { (p)->Release(); (p)=NULL; } }
-
-//-----------------------------------------------------------------------------
 // Debug printing support & ERRORS HTHROW
 //-----------------------------------------------------------------------------
 

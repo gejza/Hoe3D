@@ -45,10 +45,11 @@ public:
 	const HoeMath::BoundingBox3 & GetBound() const { return m_box; }
 
 	virtual bool HOEAPI GetParameter(const char * name, THoeParameter * parameter);
+	virtual IHoeModelModifier * HOEAPI GetModifier();
 
 	friend class ModelLoader;
 	friend class ModelGenerator;
+	friend class ModelModifier;
 };
-
 
 #endif // _HOE_MODEL_

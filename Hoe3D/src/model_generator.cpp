@@ -7,6 +7,7 @@
 #include "hoe_index.h"
 #include "hoe_stream.h"
 #include "model_generator.h"
+#include "texture_system.h"
 #include <hoe_log.h>
 
 struct BoxVertex
@@ -79,6 +80,49 @@ HoeModel * ModelGenerator::GenBox(float size)
 	return mod;
 }
 
+HoeModel * ModelGenerator::GenPlane(float size)
+{
+	int i;
+	HoeModel * mod = new HoeModel(1,1,1);
+	HoeStream * stream = new HoeStream();
+	HoeIndex * index = new HoeIndex();
+	// 8 vertexu a 
+	LOG(m_log)->Log("Generating plane of size %f", size);
+	stream->Create(4, "pn2", sizeof(BoxVertex) * 4);
+	byte * l = stream->Lock();
+	BoxVertex * bv = reinterpret_cast<BoxVertex*>(l);
+	bv[0].pos.Set(-size,size,0);
+	bv[0].n.Set(0,0,-1.f);
+	bv[0].tex.Set(0,0);
+	bv[1].pos.Set(size,size,0);
+	bv[1].n.Set(0,0,-1.f);
+	bv[1].tex.Set(1.f,0);
+	bv[2].pos.Set(-size,-size,0);
+	bv[2].n.Set(0,0,-1.f);
+	bv[2].tex.Set(0,1.f);
+	bv[3].pos.Set(size,-size,0);
+	bv[3].n.Set(0,0,-1.f);
+	bv[3].tex.Set(1.f,1.f);
+	if (m_log && m_flags)
+		stream->Dump(m_log);
+	stream->Unlock();
+	mod->AddDefStream(stream);
+	
+	index->Create(6);
+	word * w = index->Lock();
+	SIDE(0,1,2,3);w+=6;
+	if (m_log && m_flags)
+		index->Dump(m_log);
+	index->Unlock();
+	mod->AddDefIndex(index);
+
+	HoeMaterial * mat = new HoeMaterial();
+	mat->SetColor(HoeMaterial::Diffuse, HoeMaterialColor(1,1,1,1));
+	//mat->SetLightReag(false);
+	mod->AddDefMaterial(mat);
+	return mod;
+}
+
 HoeModel * ModelGenerator::GenSphere(float size, int res)
 {
 	HoeModel * mod = new HoeModel(1,1,1);
@@ -118,3 +162,37 @@ HoeModel * ModelGenerator::GenSphere(float size, int res)
 	mod->AddDefMaterial(mat);
 	return mod;
 }
+
+////////////////////////////////////////////////
+// modifier
+ModelModifier::ModelModifier(HoeModel * model)
+{
+	m_model = model;
+}
+
+void ModelModifier::SetMaterialTexture(int n, const char * texturename)
+{
+	// prirazeni textury k modelu
+	if (m_model->m_num_mat > n)
+	{
+		HoeMaterial * m = m_model->m_mat[n];
+		m->SetTexture(GetTextureSystem()->GetTexture(texturename));
+	}
+}
+
+void ModelModifier::SetTextureOverlap(int n, const THoeRect & rect)
+{
+	// nastaveni v materialu
+	if (m_model->m_num_mat > n)
+	{
+		HoeMaterial * m = m_model->m_mat[n];
+		m->m_overlap = true;
+		m->m_over.Identity();
+		m->m_over._11 = rect.right - rect.left;
+		m->m_over._31 = rect.left; 
+		m->m_over._22 = rect.bottom - rect.top;
+		m->m_over._32 = rect.top;
+		//m->SetTexture(GetTextureSystem()->GetTexture(texturename));
+	}
+}
+
