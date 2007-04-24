@@ -7,8 +7,8 @@ src/config_parser.c: src/config_parser.l
 	flex -o"src/config_parser.c" src/config_parser.l
 src/lang_parser.c: src/lang_parser.l
 	flex -o"src/lang_parser.c" src/lang_parser.l
-src/figurefile_parser.cpp: src/figurefile_parser.l
-	flex -o"src/figurefile_parser.cpp" src/figurefile_parser.l
+src/structfile_parser.cpp: src/structfile_parser.l
+	flex -o"src/structfile_parser.cpp" src/structfile_parser.l
 	
 
 ___bin_libHoeGame_a_CPPFLAGS = -I../Hoe3D/include $(LUA_CFLAGS)
@@ -30,6 +30,7 @@ src/hoe_linux.cpp \
 src/hoe_music.cpp \
 src/hoe_resource_mgr.cpp \
 src/hoe_scene.cpp \
+src/hoe_adventure.cpp \
 src/hoe_strategy.cpp \
 src/hoe_stratmap.cpp \
 src/hoe_timer.cpp \
@@ -38,7 +39,7 @@ src/hoe_vars.cpp \
 src/hoe_view.cpp \
 src/lua_script.cpp \
 src/hoe_mem.cpp \
-src/config_parser.c src/lang_parser.c src/figurefile_parser.cpp
+src/config_parser.c src/lang_parser.c src/structfile_parser.cpp
 
 ___bin_libHoeGame_a_LDFLAGS = -static -lHoeCore
 

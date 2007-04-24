@@ -12,7 +12,9 @@ ___bin_libHoeCore_a_CPPFLAGS = -D_NOXLIB
 
 ___bin_libHoeCore_a_SOURCES = src/hoe_core.cpp \
 src/hoe_log.cpp \
-src/hoe_math.cpp
+src/hoe_math.cpp \
+src/hoe_string.cpp \
+src/hoe_universal.cpp
 
 ___bin_libHoeCore_a_LDFLAGS = -static
 

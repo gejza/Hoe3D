@@ -84,7 +84,7 @@ bool HoeApp::Init(const char * title, int sdkver)
 #endif // _WIN32
 #ifdef _LINUX
 
-bool HoeApp::Init(const char * title)
+bool HoeApp::Init(const char * title, int sdkver)
 {
     Atom wmDelete;
 
@@ -95,7 +95,7 @@ bool HoeApp::Init(const char * title)
 	}
 	screen = DefaultScreen(dpy);
 	
-        if (!LoadEngine())
+        if (!LoadEngine(sdkver))
                 return false;
 
 	THoeInitSettings his;

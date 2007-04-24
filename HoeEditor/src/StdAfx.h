@@ -65,6 +65,7 @@ extern "C" {
 #include <string>
 
 #include <hoe_types.h>
+#include <hoe_core.h>
 #include <hoe_math.h>
 
 #include <hoe3d.h>
