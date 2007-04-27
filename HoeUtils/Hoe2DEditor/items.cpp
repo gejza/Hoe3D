@@ -31,7 +31,7 @@ const wxRect BaseItem::GetwxRect()
 	return wxRect(rect.left, rect.top, rect.right-rect.left+1,rect.bottom-rect.top+1);
 }
 
-void BaseItem::Set(const char * prop, const char *value)
+void BaseItem::Set(const char * prop, )
 {
 	wxString p = prop;
 	if (p == "name")

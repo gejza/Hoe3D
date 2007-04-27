@@ -53,6 +53,7 @@
 #include <wx/html/helpctrl.h>
 #include <wx/aui/aui.h>
 
+#include <hoe_core.h>
 
 #include <hoe_utils.h>
 #include "hoe_console.h"
