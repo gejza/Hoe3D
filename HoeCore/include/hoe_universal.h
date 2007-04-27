@@ -59,6 +59,8 @@ public:
 	const Universal & operator = (int value) { Set(value); return *this; }
 	const Universal & operator = (bool value) { Set(value); return *this; }
 	const Universal & operator = (const Universal & value) { Set(value); return *this; }
+
+    operator const char * () const { return GetStringValue(); }
 protected:
 	void Reset();
 	void Clear();
