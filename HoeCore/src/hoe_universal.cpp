@@ -10,6 +10,12 @@ Universal::Universal()
 	Reset();
 }
 
+Universal::Universal(const char * value)
+{
+	Reset();
+	Set(value);
+}
+
 Universal::~Universal()
 {
 	Clear();
@@ -33,7 +39,6 @@ const char * Universal::GetTypeName(Universal::Type t)
 	case TypeFloat: return "real";
 	case TypeBool: return "boolean";
 	case TypeFloatVector: return "real vector";
-	case TypeDecimalVector: return "decimal vector";
 	default:
 		return "unknown";
 	};
@@ -50,7 +55,6 @@ const char * Universal::GetStringValue() const
 	case TypeFloat: return "real";
 	case TypeBool: return "boolean";
 	case TypeFloatVector: return "real vector";
-	case TypeDecimalVector: return "decimal vector";
 	default:
 		return "unknown";
 	};
@@ -159,9 +163,60 @@ bool Universal::GetBool() const
 	case TypeFloat: return value.f != 0.f;
 	case TypeBool: return value.b;
 	case TypeFloatVector: return size > 0;
-	case TypeDecimalVector: return size > 0;
 	};
 	return false;
+}
+
+unsigned long Universal::GetUnsigned() const
+{
+	switch (GetType())
+	{
+	case TypeString:
+		{
+			register unsigned long ret = 0;
+			register const char * str = GetStringValue();
+			if (str[0] == '0' && str[1] == 'x')
+				sscanf(str+2, "%x", &ret);
+			else
+				sscanf(str, "%d", &ret);
+			return ret;
+		}
+	case TypeDecimal: return (unsigned long)value.l;
+	case TypeUnsigned: return value.ul;
+	case TypeFloat: return (unsigned long)value.f;
+	case TypeBool: return (unsigned long)value.b;
+	case TypeFloatVector: return (unsigned long)vec_GetFloat(0);
+	};
+	return 0;
+}
+
+float Universal::GetFloat() const
+{
+	switch (GetType())
+	{
+	case TypeString:
+		{
+			register const char * str = GetStringValue();
+			if (str[0] == '0' && str[1] == 'x')
+			{
+				register float ret = 0;
+				sscanf(str+2, "%x", &ret);
+				return (float)ret;
+			}
+			else
+			{
+				register float ret = 0.f;
+				sscanf(str, "%f", &ret);
+				return ret;
+			}
+		}
+	case TypeDecimal: return (float)value.l;
+	case TypeUnsigned: return (float)value.ul;
+	case TypeFloat: return value.f;
+	case TypeBool: return value.b ? 1.f:0.f;
+	case TypeFloatVector: return vec_GetFloat(0);
+	};
+	return 0;
 }
 
 float Universal::vec_GetFloat(size_t index) const
@@ -172,6 +227,8 @@ float Universal::vec_GetFloat(size_t index) const
 		return value.f;
 	return 0.f;
 }
+
+
 
 } // namespace HoeCore
 

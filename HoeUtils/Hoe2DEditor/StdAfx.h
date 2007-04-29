@@ -72,6 +72,7 @@
 #include "lua_script.h"
 #include "hoe_timer.h"
 #include "hoe_vars.h" 
+#include "hoe_structfile.h"
 
 #include <he/app.h>
 #include <he/editor.h>

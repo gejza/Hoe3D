@@ -101,6 +101,10 @@ public:
 */
 class ObjectFileWriter
 {
+protected:
+	FILE * m_file;
+	int m_level;
+	void WriteLevel();
 public:
 	/** 
 	* Konstruktor
@@ -118,6 +122,34 @@ public:
 	* zavreni souboru
 	*/
 	void Close();
+	/**
+	* Novy objekt
+	*/
+	void BeginObject(const char * objname);
+	/**
+	* Ukonceni objektu
+	*/
+	void EndObject();
+	/**
+	* Ulozeni stringu do souboru
+	*/
+	void AddString(const char * name, const char * str);
+	/**
+	* Ulozeni floatu
+	*/
+	void AddFloat(const char * name, float f);
+	/**
+	* Ulozeni booleanu
+	*/
+	void AddBool(const char * name, bool b);
+	/**
+	* Ulozeni hodnoty ve formatu hex
+	*/
+	void AddHex(const char * name, unsigned long dw);
+	/**
+	* Ulozeni vektoru do souboru
+	*/
+	void AddVector(const char * name, int s, ...);
 };
 
 END_HOEGAME

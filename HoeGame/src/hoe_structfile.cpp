@@ -164,6 +164,115 @@ bool ObjectFileParser::ScanVector()
 	}
 }
 
+///////////////////////////////////////////////////////
+// Writer
+ObjectFileWriter::ObjectFileWriter()
+{
+	m_file = NULL;
+}
+
+ObjectFileWriter::~ObjectFileWriter()
+{
+	Close();
+}
+
+
+bool ObjectFileWriter::Open(const char * fname)
+{
+	setlocale(LC_NUMERIC, "C");
+
+	m_file = fopen(fname , "wt");
+	if (!m_file)
+		return false;
+
+	m_level = 0;
+	return true;
+}
+
+void ObjectFileWriter::Close()
+{
+	if (m_file)
+		fclose(m_file);
+	m_file = NULL;
+}
+
+void ObjectFileWriter::BeginObject(const char * objname)
+{
+	WriteLevel();
+	fprintf(m_file, "%s\n", objname);
+	WriteLevel();
+	fprintf(m_file, "{\n");
+	m_level++;
+}
+
+void ObjectFileWriter::EndObject()
+{
+	if (m_level > 0)
+		m_level--;
+	WriteLevel();
+	fprintf(m_file, "}\n");
+}
+
+void ObjectFileWriter::AddString(const char * name, const char * str)
+{
+	WriteLevel();
+	fprintf(m_file, "%s = \"%s\"\n", name, str);
+}
+
+void ObjectFileWriter::AddFloat(const char * name, float f)
+{
+	WriteLevel();
+	fprintf(m_file, "%s = %f\n", name, f);
+}
+
+void ObjectFileWriter::AddBool(const char * name, bool b)
+{
+	WriteLevel();
+	if (b)
+		fprintf(m_file, "%s = true", name);
+	else
+		fprintf(m_file, "%s = false\n", name);
+}
+
+void ObjectFileWriter::AddHex(const char * name, unsigned long dw)
+{
+	WriteLevel();
+	fprintf(m_file, "%s = %x\n", name, dw);
+}
+
+void ObjectFileWriter::AddVector(const char * name, int num, ...)
+{
+	WriteLevel();
+	fprintf(m_file, "%s = (",name);
+
+	va_list args;
+
+	va_start(args, name);
+	bool comma = false;
+	while (num > 0)
+	{
+		register float f = va_arg( args, float);
+		if (comma)
+			fprintf(m_file, ", %f", f);
+		else
+		{
+			fprintf(m_file, "%f", f);
+			comma = true;
+		}
+		num--;
+	}
+	va_end(args);
+	fprintf(m_file, ")\n");
+
+}
+
+void ObjectFileWriter::WriteLevel()
+{
+	for (int l=0;l < m_level;l += 10)
+		fwrite("\t\t\t\t\t\t\t\t\t\t", 1, 
+			(m_level-l) > 10 ? 10:(m_level-l), m_file);
+}
+
 END_HOEGAME
 
 

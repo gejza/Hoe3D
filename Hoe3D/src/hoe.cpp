@@ -325,7 +325,7 @@ IHoeScene * Hoe3D::CreateScene(HOE_TYPE_SCENE type)
 void Hoe3D::SetActiveScene(IHoeScene * scene)
 {
 	if (scene)
-        m_active = dynamic_cast<HoeScene*>(scene);
+        m_active = dynamic_cast<HoeBaseScene*>(scene);
 	else
 		m_active = NULL;
 }

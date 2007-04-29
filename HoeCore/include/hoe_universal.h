@@ -18,9 +18,9 @@ public:
 		TypeFloat,
 		TypeBool,
 		TypeFloatVector,
-		TypeDecimalVector,
 	};
 	Universal();
+	Universal(const char *);
 	virtual ~Universal();
 
 	// common functions

@@ -23,7 +23,7 @@ public:
 	virtual void Select(HoeEditor::PropertyGrid *prop) {}
 	virtual void OnChangeProp(int id, const HoeEditor::PropItem & pi);
 	virtual void Resize(const float left, const float top, const float right, const float bottom);
-	virtual void Save(FILE * f) {}
+	virtual void Save(HoeGame::ObjectFileWriter & f) {}
 	virtual void Set(const char * prop, const HoeCore::Universal&);
 	virtual HoeGame::Gui::Item * GetGui() = 0;
 	virtual const wxRect GetwxRect();
@@ -43,7 +43,7 @@ public:
 	StaticItem();
 	virtual void Select(HoeEditor::PropertyGrid *prop);
 	virtual void OnChangeProp(int id, const HoeEditor::PropItem & pi);
-	virtual void Save(FILE * f);
+	virtual void Save(HoeGame::ObjectFileWriter & f);
 	virtual void Set(const char * prop, const HoeCore::Universal&);
 
 	BASE_CONNECT_DEFINE
@@ -60,7 +60,7 @@ public:
 	ColorRectItem();
 	virtual void Select(HoeEditor::PropertyGrid *prop);
 	virtual void OnChangeProp(int id, const HoeEditor::PropItem & pi);
-	virtual void Save(FILE * f);
+	virtual void Save(HoeGame::ObjectFileWriter & f);
 	virtual void Set(const char * prop, const HoeCore::Universal&);
 
 	BASE_CONNECT_DEFINE
@@ -76,7 +76,7 @@ public:
 	FontItem();
 	virtual void Select(HoeEditor::PropertyGrid *prop);
 	virtual void OnChangeProp(int id, const HoeEditor::PropItem & pi);
-	virtual void Save(FILE * f);
+	virtual void Save(HoeGame::ObjectFileWriter & f);
 	virtual void Set(const char * prop, const HoeCore::Universal&);
 
 	BASE_CONNECT_DEFINE
@@ -91,7 +91,7 @@ public:
 	ButtonItem();
 	virtual void Select(HoeEditor::PropertyGrid *prop);
 	virtual void OnChangeProp(int id, const HoeEditor::PropItem & pi);
-	virtual void Save(FILE * f);
+	virtual void Save(HoeGame::ObjectFileWriter & f);
 	virtual void Set(const char * prop, const HoeCore::Universal&);
 
 	BASE_CONNECT_DEFINE
@@ -105,7 +105,7 @@ public:
 	InfoItem();
 	virtual void Select(HoeEditor::PropertyGrid *prop);
 	virtual void OnChangeProp(int id, const HoeEditor::PropItem & pi);
-	virtual void Save(FILE * f);
+	virtual void Save(HoeGame::ObjectFileWriter & f);
 	virtual void Set(const char * prop, const HoeCore::Universal&);
 
 	BASE_CONNECT_DEFINE
@@ -121,7 +121,7 @@ public:
 	DigiCounterItem();
 	virtual void Select(HoeEditor::PropertyGrid *prop);
 	virtual void OnChangeProp(int id, const HoeEditor::PropItem & pi);
-	virtual void Save(FILE * f);
+	virtual void Save(HoeGame::ObjectFileWriter & f);
 	virtual void Set(const char * prop, const HoeCore::Universal&);
 
 	BASE_CONNECT_DEFINE

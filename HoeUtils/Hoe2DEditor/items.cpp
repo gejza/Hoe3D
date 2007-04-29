@@ -31,11 +31,11 @@ const wxRect BaseItem::GetwxRect()
 	return wxRect(rect.left, rect.top, rect.right-rect.left+1,rect.bottom-rect.top+1);
 }
 
-void BaseItem::Set(const char * prop, )
+void BaseItem::Set(const char * prop, const HoeCore::Universal &value)
 {
 	wxString p = prop;
 	if (p == "name")
-		m_owner->GetTreeCtrl()->SetItemText(m_id, value);
+		m_owner->GetTreeCtrl()->SetItemText(m_id, (const char*)value);
 	else 
 		GetGui()->Set(prop, value);
 }
@@ -97,26 +97,27 @@ void ColorRectItem::OnChangeProp(int id, const HoeEditor::PropItem &pi)
 	}
 }
 
-void ColorRectItem::Save(FILE * f)
+void ColorRectItem::Save(HoeGame::ObjectFileWriter & f)
 {
-	fprintf(f, "colorrect\n{\n");
-	fprintf(f, "\tname = \"%s\"\n", m_owner->GetTreeCtrl()->GetItemText(m_id).c_str());
-	fprintf(f,"\trect = %f %f %f %f\n", m_base.GetRect().left, m_base.GetRect().top, m_base.GetRect().right, m_base.GetRect().bottom);
-	fprintf(f,"\tfull = %s\n", m_full ? "true":"false");
-	fprintf(f,"\talpha = %f\n", m_alpha);
-	fprintf(f,"\tcolor = %x\n", m_color & 0xffffff);
-	fprintf(f,"}\n");
+	f.BeginObject("colorrect");
+	f.AddString("name", m_owner->GetTreeCtrl()->GetItemText(m_id).c_str());
+	f.AddVector("rect", 4,
+		m_base.GetRect().left, m_base.GetRect().top, m_base.GetRect().right, m_base.GetRect().bottom);
+	f.AddBool("full", m_full);
+	f.AddFloat("alpha", m_alpha);
+	f.AddHex("color", m_color & 0xffffff);
+	f.EndObject();
 }
 
-void ColorRectItem::Set(const char * prop, const char *value)
+void ColorRectItem::Set(const char * prop, const HoeCore::Universal &value)
 {
 	wxString p = prop;
 	if (p == "full")
-		m_full = value[0] == 't';
+		m_full = value.GetBool();
 	else if (p == "alpha")
-		sscanf(value,"%f",&m_alpha);
+		m_alpha = value.GetFloat();
 	else if (p == "color")
-		sscanf(value,"%x",&m_color);
+		m_color = value.GetUnsigned();
 	else
 		BaseItem::Set(prop, value);
 }
@@ -162,14 +163,15 @@ void StaticItem::OnChangeProp(int id, const HoeEditor::PropItem &pi)
 	}
 }
 
-void StaticItem::Save(FILE * f)
+void StaticItem::Save(HoeGame::ObjectFileWriter & f)
 {
-	fprintf(f, "static\n{\n");
-	fprintf(f, "\tname = \"%s\"\n", m_owner->GetTreeCtrl()->GetItemText(m_id).c_str());
-	fprintf(f,"\tRECT = %f %f %f %f\n", m_base.GetRect().left, m_base.GetRect().top, m_base.GetRect().right, m_base.GetRect().bottom);
-	fprintf(f,"\talpha = %s\n", m_alpha ? "true":"false");
-	fprintf(f,"\tpicture = \"%s\"\n", (const char*)m_strpic.c_str());
-	fprintf(f,"}\n");
+	f.BeginObject("static");
+	f.AddString("name", m_owner->GetTreeCtrl()->GetItemText(m_id).c_str());
+	f.AddVector("rect", 4,
+		m_base.GetRect().left, m_base.GetRect().top, m_base.GetRect().right, m_base.GetRect().bottom);
+	f.AddBool("alpha", m_alpha);
+	f.AddString("picture", (const char*)m_strpic.c_str());
+	f.EndObject();
 }
 
 // 	hud = (IHoePicture * )eng->Create("picture hud");
@@ -185,7 +187,7 @@ void StaticItem::Save(FILE * f)
 	//
 }*/
 
-void StaticItem::Set(const char * prop, const char *value)
+void StaticItem::Set(const char * prop, const HoeCore::Universal &value)
 {
 	wxString p = prop;
 	if (p == "picture")
@@ -194,7 +196,7 @@ void StaticItem::Set(const char * prop, const char *value)
 		m_strpic = value;
 		if (m_strpic == "")
 			return;
-		str = wxString::Format("picture %s", value);
+		str = wxString::Format("picture %s", (const char *)value);
 		m_base.SetPicture((IHoePicture*)HoeGame::GetHoeEngine()->Create(str.c_str()));
 	}
 	else
@@ -238,17 +240,18 @@ void ButtonItem::OnChangeProp(int id, const HoeEditor::PropItem &pi)
 	};
 }
 
-void ButtonItem::Save(FILE * f)
+void ButtonItem::Save(HoeGame::ObjectFileWriter & f)
 {
-	fprintf(f, "button\n{\n");
-	fprintf(f, "\tname = \"%s\"\n", m_owner->GetTreeCtrl()->GetItemText(m_id).c_str());
-	fprintf(f,"\tRECT = %f %f %f %f\n", m_base.GetRect().left, m_base.GetRect().top, m_base.GetRect().right, m_base.GetRect().bottom);
+	f.BeginObject("button");
+	f.AddString("name", m_owner->GetTreeCtrl()->GetItemText(m_id).c_str());
+	f.AddVector("rect", 4,
+		m_base.GetRect().left, m_base.GetRect().top, m_base.GetRect().right, m_base.GetRect().bottom);
 	//fprintf(f,"\talpha = %s\n", m_alpha ? "true":"false");
-	fprintf(f,"\tpicture = \"%s\"\n", (const char*)m_strpic.c_str());
-	fprintf(f,"}\n");
+	f.AddString("picture", (const char*)m_strpic.c_str());
+	f.EndObject();
 }
 
-void ButtonItem::Set(const char * prop, const char *value)
+void ButtonItem::Set(const char * prop, const HoeCore::Universal &value)
 {
 	wxString p = prop;
 	if (p == "picture")
@@ -310,7 +313,7 @@ void InfoItem::OnChangeProp(int id, const HoeEditor::PropItem &pi)
 	}*/
 }
 
-void InfoItem::Save(FILE * f)
+void InfoItem::Save(HoeGame::ObjectFileWriter & f)
 {
 	/*fprintf(f, "static\n{\n");
 	fprintf(f, "\tname = \"%s\"\n", m_owner->GetTreeCtrl()->GetItemText(m_id).c_str());
@@ -320,7 +323,7 @@ void InfoItem::Save(FILE * f)
 	fprintf(f,"}\n");*/
 }
 
-void InfoItem::Set(const char * prop, const char *value)
+void InfoItem::Set(const char * prop, const HoeCore::Universal &value)
 {
 	/*wxString p = prop;
 	if (p == "picture")
@@ -380,17 +383,19 @@ void DigiCounterItem::OnChangeProp(int id, const HoeEditor::PropItem &pi)
 	};
 }
 
-void DigiCounterItem::Save(FILE * f)
+void DigiCounterItem::Save(HoeGame::ObjectFileWriter & f)
 {
-	fprintf(f, "digicounter\n{\n");
-	fprintf(f, "\tname = \"%s\"\n", m_owner->GetTreeCtrl()->GetItemText(m_id).c_str());
-	fprintf(f,"\tRECT = %f %f %f %f\n", m_base.GetRect().left, m_base.GetRect().top, m_base.GetRect().right, m_base.GetRect().bottom);
+	f.BeginObject("digicounter");
+	f.AddString("name", m_owner->GetTreeCtrl()->GetItemText(m_id).c_str());
+	f.AddVector("rect", 4,
+		m_base.GetRect().left, m_base.GetRect().top, 
+		m_base.GetRect().right, m_base.GetRect().bottom);
 	//fprintf(f,"\talpha = %s\n", m_alpha ? "true":"false");
-	fprintf(f,"\tpicture = \"%s\"\n", (const char*)m_strpic.c_str());
-	fprintf(f,"}\n");
+	f.AddString("picture", (const char*)m_strpic.c_str());
+	f.EndObject();
 }
 
-void DigiCounterItem::Set(const char * prop, const char *value)
+void DigiCounterItem::Set(const char * prop, const HoeCore::Universal &value)
 {
 	wxString p = prop;
 	if (p == "picture")
@@ -399,7 +404,7 @@ void DigiCounterItem::Set(const char * prop, const char *value)
 		m_strpic = value;
 		if (m_strpic == "")
 			return;
-		str = wxString::Format("picture %s", value);
+		str = wxString::Format("picture %s", (const char*)value);
 		m_base.SetPicture((IHoePicture*)HoeGame::GetHoeEngine()->Create(str.c_str()));
 	}
 	else
@@ -429,27 +434,28 @@ void FontItem::OnChangeProp(int id, const HoeEditor::PropItem &pi)
 	switch (id)
 	{
 	case 5:
-		Set("font", pi.GetString().mb_str(wxConvUTF8));
+		Set("font", HoeCore::Universal((const char*)pi.GetString().mb_str(wxConvUTF8)));
 		break;
 	case 6:
-		Set("text", pi.GetString().mb_str(wxConvUTF8));
+		Set("text", HoeCore::Universal((const char*)pi.GetString().mb_str(wxConvUTF8)));
 		break;
 	default:
 		BaseItem::OnChangeProp(id,pi);
 	}
 }
 
-void FontItem::Save(FILE * f)
+void FontItem::Save(HoeGame::ObjectFileWriter & f)
 {
-	fprintf(f,"font\n{\n");
-	fprintf(f,"\tname = \"%s\"\n", m_owner->GetTreeCtrl()->GetItemText(m_id).c_str());
-	fprintf(f,"\trect = %f %f %f %f\n", m_base.GetRect().left, m_base.GetRect().top, m_base.GetRect().right, m_base.GetRect().bottom);
-	fprintf(f,"\tfont = \"%s\"\n", m_font.c_str());
-	fprintf(f,"\ttext = \"%s\"\n", m_string.c_str());
-	fprintf(f,"}\n");
+	f.BeginObject("font");
+	f.AddString("name", m_owner->GetTreeCtrl()->GetItemText(m_id).c_str());
+	f.AddVector("rect", 4,
+		m_base.GetRect().left, m_base.GetRect().top, m_base.GetRect().right, m_base.GetRect().bottom);
+	f.AddString("font", m_font.c_str());
+	f.AddString("text", m_string.c_str());
+	f.EndObject();
 }
 
-void FontItem::Set(const char * prop, const char *value)
+void FontItem::Set(const char * prop, const HoeCore::Universal &value)
 {
 	wxString p = prop;
 	if (p == "font")

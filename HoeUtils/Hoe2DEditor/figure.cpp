@@ -9,7 +9,6 @@
 #include "StdAfx.h"
 #include "figure.h"
 #include "items.h"
-#include <locale.h>
 
 FigureEdit::FigureEdit(wxTreeCtrl * tc)
 {
@@ -59,10 +58,8 @@ void FigureEdit::AddItem(BaseItem * item, wxString name)
 
 bool FigureEdit::OnSave(const wxString fname)
 {
-	setlocale(LC_NUMERIC, "C");
-
-	FILE * f = fopen(fname.c_str(), "wt");
-	if (!f)
+	HoeGame::ObjectFileWriter f;
+	if (!f.Open(fname.c_str()))
 		return false;
 
 	wxTreeItemIdValue cook;
@@ -73,8 +70,6 @@ bool FigureEdit::OnSave(const wxString fname)
 		if (d) dynamic_cast<BaseItem*>(d)->Save(f);
 		item = m_tc->GetNextChild(m_root, cook);
 	}
-
-	fclose(f);
 }
 
 HoeGame::Gui::Base * FigureEdit::CreateGUI(const char * type)
