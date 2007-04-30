@@ -1,0 +1,392 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 39;
+	objects = {
+		2E84D2470BE68A3400DA51A1 = {
+			children = (
+				2E84D25A0BE68B1B00DA51A1,
+				2E84D2690BE68B8400DA51A1,
+			);
+			isa = PBXGroup;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		2E84D2490BE68A3400DA51A1 = {
+			buildRules = (
+			);
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			isa = PBXBuildStyle;
+			name = Development;
+		};
+		2E84D24A0BE68A3400DA51A1 = {
+			buildRules = (
+			);
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+			};
+			isa = PBXBuildStyle;
+			name = Deployment;
+		};
+		2E84D24B0BE68A3400DA51A1 = {
+			buildSettings = {
+			};
+			buildStyles = (
+				2E84D2490BE68A3400DA51A1,
+				2E84D24A0BE68A3400DA51A1,
+			);
+			hasScannedForEncodings = 1;
+			isa = PBXProject;
+			mainGroup = 2E84D2470BE68A3400DA51A1;
+			productRefGroup = 2E84D2690BE68B8400DA51A1;
+			projectDirPath = "";
+			targets = (
+				2E84D2670BE68B8400DA51A1,
+			);
+		};
+		2E84D2540BE68B0F00DA51A1 = {
+			fileEncoding = 10;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = hoe_core.cpp;
+			path = /Users/gejza/Hoe/HoeCore/src/hoe_core.cpp;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		2E84D2550BE68B0F00DA51A1 = {
+			fileEncoding = 10;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = hoe_log.cpp;
+			path = /Users/gejza/Hoe/HoeCore/src/hoe_log.cpp;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		2E84D2560BE68B0F00DA51A1 = {
+			fileEncoding = 10;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = hoe_math.cpp;
+			path = /Users/gejza/Hoe/HoeCore/src/hoe_math.cpp;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		2E84D2570BE68B0F00DA51A1 = {
+			fileEncoding = 10;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = hoe_string.cpp;
+			path = /Users/gejza/Hoe/HoeCore/src/hoe_string.cpp;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		2E84D2580BE68B0F00DA51A1 = {
+			fileEncoding = 10;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = hoe_universal.cpp;
+			path = /Users/gejza/Hoe/HoeCore/src/hoe_universal.cpp;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		2E84D2590BE68B0F00DA51A1 = {
+			fileEncoding = 10;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = StdAfx.h;
+			path = /Users/gejza/Hoe/HoeCore/src/StdAfx.h;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		2E84D25A0BE68B1B00DA51A1 = {
+			children = (
+				2E84D25B0BE68B5700DA51A1,
+				2E84D25C0BE68B5700DA51A1,
+				2E84D25D0BE68B5700DA51A1,
+				2E84D25E0BE68B5700DA51A1,
+				2E84D25F0BE68B5700DA51A1,
+				2E84D2600BE68B5700DA51A1,
+				2E84D2610BE68B5700DA51A1,
+				2E84D2620BE68B5700DA51A1,
+				2E84D2630BE68B5700DA51A1,
+				2E84D2640BE68B5700DA51A1,
+				2E84D2540BE68B0F00DA51A1,
+				2E84D2550BE68B0F00DA51A1,
+				2E84D2560BE68B0F00DA51A1,
+				2E84D2570BE68B0F00DA51A1,
+				2E84D2580BE68B0F00DA51A1,
+				2E84D2590BE68B0F00DA51A1,
+			);
+			isa = PBXGroup;
+			name = HoeCore;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		2E84D25B0BE68B5700DA51A1 = {
+			fileEncoding = 10;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = hoe_core.h;
+			path = /Users/gejza/Hoe/HoeCore/include/hoe_core.h;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		2E84D25C0BE68B5700DA51A1 = {
+			fileEncoding = 10;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = hoe_log.h;
+			path = /Users/gejza/Hoe/HoeCore/include/hoe_log.h;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		2E84D25D0BE68B5700DA51A1 = {
+			fileEncoding = 10;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = hoe_math_def.h;
+			path = /Users/gejza/Hoe/HoeCore/include/hoe_math_def.h;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		2E84D25E0BE68B5700DA51A1 = {
+			fileEncoding = 10;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = hoe_math_ext.h;
+			path = /Users/gejza/Hoe/HoeCore/include/hoe_math_ext.h;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		2E84D25F0BE68B5700DA51A1 = {
+			fileEncoding = 10;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = hoe_math.h;
+			path = /Users/gejza/Hoe/HoeCore/include/hoe_math.h;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		2E84D2600BE68B5700DA51A1 = {
+			fileEncoding = 10;
+			isa = PBXFileReference;
+			lastKnownFileType = text;
+			name = hoe_math.inl;
+			path = /Users/gejza/Hoe/HoeCore/include/hoe_math.inl;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		2E84D2610BE68B5700DA51A1 = {
+			fileEncoding = 10;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = hoe_string.h;
+			path = /Users/gejza/Hoe/HoeCore/include/hoe_string.h;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		2E84D2620BE68B5700DA51A1 = {
+			fileEncoding = 10;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = hoe_structures.h;
+			path = /Users/gejza/Hoe/HoeCore/include/hoe_structures.h;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		2E84D2630BE68B5700DA51A1 = {
+			fileEncoding = 10;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = hoe_types.h;
+			path = /Users/gejza/Hoe/HoeCore/include/hoe_types.h;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		2E84D2640BE68B5700DA51A1 = {
+			fileEncoding = 10;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = hoe_universal.h;
+			path = /Users/gejza/Hoe/HoeCore/include/hoe_universal.h;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		2E84D2650BE68B8400DA51A1 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXHeadersBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E84D2660BE68B8400DA51A1 = {
+			buildActionMask = 2147483647;
+			files = (
+				2E84D26C0BE68BBA00DA51A1,
+				2E84D26D0BE68BBA00DA51A1,
+				2E84D26E0BE68BBA00DA51A1,
+				2E84D26F0BE68BBA00DA51A1,
+				2E84D2700BE68BBA00DA51A1,
+				2E84D2710BE68BBA00DA51A1,
+				2E84D2720BE68BBA00DA51A1,
+				2E84D2730BE68BBA00DA51A1,
+				2E84D2740BE68BBA00DA51A1,
+				2E84D2750BE68BBA00DA51A1,
+				2E84D2760BE68BBA00DA51A1,
+				2E84D2770BE68BBA00DA51A1,
+				2E84D2780BE68BBA00DA51A1,
+				2E84D2790BE68BBA00DA51A1,
+				2E84D27A0BE68BBA00DA51A1,
+				2E84D27B0BE68BBA00DA51A1,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E84D2670BE68B8400DA51A1 = {
+			buildPhases = (
+				2E84D2650BE68B8400DA51A1,
+				2E84D2660BE68B8400DA51A1,
+			);
+			buildRules = (
+			);
+			buildSettings = {
+				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
+				GCC_WARN_UNKNOWN_PRAGMAS = NO;
+				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_STYLE = STATIC;
+				OPTIMIZATION_CFLAGS = "";
+				OTHER_CFLAGS = _MACOSX;
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = HoeCore;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wmost";
+			};
+			dependencies = (
+			);
+			isa = PBXNativeTarget;
+			name = HoeCore;
+			productName = HoeCore;
+			productReference = 2E84D2680BE68B8400DA51A1;
+			productType = "com.apple.product-type.library.static";
+		};
+		2E84D2680BE68B8400DA51A1 = {
+			explicitFileType = archive.ar;
+			includeInIndex = 0;
+			isa = PBXFileReference;
+			path = libHoeCore.a;
+			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E84D2690BE68B8400DA51A1 = {
+			children = (
+				2E84D2680BE68B8400DA51A1,
+			);
+			isa = PBXGroup;
+			name = Products;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		2E84D26C0BE68BBA00DA51A1 = {
+			fileRef = 2E84D2540BE68B0F00DA51A1;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		2E84D26D0BE68BBA00DA51A1 = {
+			fileRef = 2E84D25B0BE68B5700DA51A1;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		2E84D26E0BE68BBA00DA51A1 = {
+			fileRef = 2E84D2550BE68B0F00DA51A1;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		2E84D26F0BE68BBA00DA51A1 = {
+			fileRef = 2E84D25C0BE68B5700DA51A1;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		2E84D2700BE68BBA00DA51A1 = {
+			fileRef = 2E84D2560BE68B0F00DA51A1;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		2E84D2710BE68BBA00DA51A1 = {
+			fileRef = 2E84D25F0BE68B5700DA51A1;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		2E84D2720BE68BBA00DA51A1 = {
+			fileRef = 2E84D2600BE68B5700DA51A1;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		2E84D2730BE68BBA00DA51A1 = {
+			fileRef = 2E84D25D0BE68B5700DA51A1;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		2E84D2740BE68BBA00DA51A1 = {
+			fileRef = 2E84D25E0BE68B5700DA51A1;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		2E84D2750BE68BBA00DA51A1 = {
+			fileRef = 2E84D2570BE68B0F00DA51A1;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		2E84D2760BE68BBA00DA51A1 = {
+			fileRef = 2E84D2610BE68B5700DA51A1;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		2E84D2770BE68BBA00DA51A1 = {
+			fileRef = 2E84D2620BE68B5700DA51A1;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		2E84D2780BE68BBA00DA51A1 = {
+			fileRef = 2E84D2630BE68B5700DA51A1;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		2E84D2790BE68BBA00DA51A1 = {
+			fileRef = 2E84D2580BE68B0F00DA51A1;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		2E84D27A0BE68BBA00DA51A1 = {
+			fileRef = 2E84D2640BE68B5700DA51A1;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		2E84D27B0BE68BBA00DA51A1 = {
+			fileRef = 2E84D2590BE68B0F00DA51A1;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+	};
+	rootObject = 2E84D24B0BE68A3400DA51A1;
+}
