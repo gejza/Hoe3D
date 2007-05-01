@@ -240,30 +240,10 @@ void ObjectFileWriter::AddHex(const char * name, unsigned long dw)
 	fprintf(m_file, "%s = %x\n", name, dw);
 }
 
-void ObjectFileWriter::AddVector(const char * name, int num, ...)
+void ObjectFileWriter::AddVector(const char * name, float a1,float a2,float a3,float a4)
 {
 	WriteLevel();
-	fprintf(m_file, "%s = (",name);
-
-	va_list args;
-
-	va_start(args, name);
-	bool comma = false;
-	while (num > 0)
-	{
-		register float f = va_arg( args, float);
-		if (comma)
-			fprintf(m_file, ", %f", f);
-		else
-		{
-			fprintf(m_file, "%f", f);
-			comma = true;
-		}
-		num--;
-	}
-	va_end(args);
-	fprintf(m_file, ")\n");
-
+	fprintf(m_file, "%s = ( %f, %f, %f, %f)\n",name,a1,a2,a3,a4);
 }
 
 void ObjectFileWriter::WriteLevel()

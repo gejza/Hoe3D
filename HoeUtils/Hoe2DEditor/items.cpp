@@ -101,7 +101,7 @@ void ColorRectItem::Save(HoeGame::ObjectFileWriter & f)
 {
 	f.BeginObject("colorrect");
 	f.AddString("name", m_owner->GetTreeCtrl()->GetItemText(m_id).c_str());
-	f.AddVector("rect", 4,
+	f.AddVector("rect",
 		m_base.GetRect().left, m_base.GetRect().top, m_base.GetRect().right, m_base.GetRect().bottom);
 	f.AddBool("full", m_full);
 	f.AddFloat("alpha", m_alpha);
@@ -167,7 +167,7 @@ void StaticItem::Save(HoeGame::ObjectFileWriter & f)
 {
 	f.BeginObject("static");
 	f.AddString("name", m_owner->GetTreeCtrl()->GetItemText(m_id).c_str());
-	f.AddVector("rect", 4,
+	f.AddVector("rect",
 		m_base.GetRect().left, m_base.GetRect().top, m_base.GetRect().right, m_base.GetRect().bottom);
 	f.AddBool("alpha", m_alpha);
 	f.AddString("picture", (const char*)m_strpic.c_str());
@@ -244,7 +244,7 @@ void ButtonItem::Save(HoeGame::ObjectFileWriter & f)
 {
 	f.BeginObject("button");
 	f.AddString("name", m_owner->GetTreeCtrl()->GetItemText(m_id).c_str());
-	f.AddVector("rect", 4,
+	f.AddVector("rect",
 		m_base.GetRect().left, m_base.GetRect().top, m_base.GetRect().right, m_base.GetRect().bottom);
 	//fprintf(f,"\talpha = %s\n", m_alpha ? "true":"false");
 	f.AddString("picture", (const char*)m_strpic.c_str());
@@ -387,7 +387,7 @@ void DigiCounterItem::Save(HoeGame::ObjectFileWriter & f)
 {
 	f.BeginObject("digicounter");
 	f.AddString("name", m_owner->GetTreeCtrl()->GetItemText(m_id).c_str());
-	f.AddVector("rect", 4,
+	f.AddVector("rect",
 		m_base.GetRect().left, m_base.GetRect().top, 
 		m_base.GetRect().right, m_base.GetRect().bottom);
 	//fprintf(f,"\talpha = %s\n", m_alpha ? "true":"false");
@@ -448,7 +448,7 @@ void FontItem::Save(HoeGame::ObjectFileWriter & f)
 {
 	f.BeginObject("font");
 	f.AddString("name", m_owner->GetTreeCtrl()->GetItemText(m_id).c_str());
-	f.AddVector("rect", 4,
+	f.AddVector("rect",
 		m_base.GetRect().left, m_base.GetRect().top, m_base.GetRect().right, m_base.GetRect().bottom);
 	f.AddString("font", m_font.c_str());
 	f.AddString("text", m_string.c_str());

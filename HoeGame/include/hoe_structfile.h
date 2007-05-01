@@ -149,7 +149,7 @@ public:
 	/**
 	* Ulozeni vektoru do souboru
 	*/
-	void AddVector(const char * name, int s, ...);
+	void AddVector(const char * name, float a1,float a2,float a3,float a4);
 };
 
 END_HOEGAME
