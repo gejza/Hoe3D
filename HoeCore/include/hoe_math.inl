@@ -477,6 +477,7 @@ HOE_INLINE Matrix* HoeMatrixLookAtLH_(Matrix &out,const Vector3 &eye,const Vecto
  xaxis.y           yaxis.y           zaxis.y          0
  xaxis.z           yaxis.z           zaxis.z          0
 -dot(xaxis, eye)  -dot(yaxis, eye)  -dot(zaxis, eye)  1*/
+ return NULL;
 }
 
 HOE_INLINE float HoeDot(const Vector3 &vec1,const Vector3 &vec2)

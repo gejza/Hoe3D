@@ -23,7 +23,11 @@ struct GLExt
 };
 
 // multitexture
-#if !defined(GL_VERSION_1_3) || defined(_WIN32)
+#if !defined(GL_VERSION_1_3) || defined(_WIN32) || defined(_MACOSX)
+#define HOE_GL_MULTITEXTURE
+#endif
+
+#ifdef HOE_GL_MULTITEXTURE 
 extern PFNGLACTIVETEXTUREARBPROC glActiveTextureARB;
 extern PFNGLCLIENTACTIVETEXTUREARBPROC glClientActiveTextureARB;
 extern PFNGLMULTITEXCOORD1DARBPROC glMultiTexCoord1dARB;

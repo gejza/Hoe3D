@@ -23,6 +23,11 @@
 #include "hoe_linux.h"
 #endif
 
+#ifdef _MACOSX
+#include "hoe_macosx.h"
+#endif
+
+
 BEGIN_HOEGAME 
 
 /**
@@ -33,6 +38,9 @@ class HoeApp : public HoeWin32
 #endif
 #ifdef _LINUX
 class HoeApp : public HoeLinux
+#endif
+#ifdef _MACOSX
+class HoeApp : public HoeMacOsX
 #endif
 {
 protected:

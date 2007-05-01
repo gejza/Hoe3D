@@ -9,7 +9,7 @@
 #ifndef _HOE_3D_REF_
 #define _HOE_3D_REF_
 
-#if defined (_LINUX) && !defined (_USE_OPENGL_)
+#if (defined (_MACOSX) || defined (_LINUX)) && !defined (_USE_OPENGL_)
 #define _USE_OPENGL_
 #endif
 

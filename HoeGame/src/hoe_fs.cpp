@@ -2,7 +2,7 @@
 #include "StdAfx.h"
 #include "../include/hoe_fs.h"
 #include "../include/hoe_console.h"
-#include <hfmt/hres_file.h>
+#include "../../Hoe3D/include/hfmt/hres_file.h"
 #include "../include/hoe_utils.h"
 
 BEGIN_HOEGAME

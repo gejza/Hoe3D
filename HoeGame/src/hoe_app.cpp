@@ -16,6 +16,10 @@ HoeApp::HoeApp(HOE_INSTANCE hInst, Console * con) : HoeWin32(hInst)
 #ifdef _LINUX
 HoeApp::HoeApp(HOE_INSTANCE, Console * con) : HoeLinux()
 #endif
+
+#ifdef _MACOSX
+HoeApp::HoeApp(HOE_INSTANCE, Console * con) : HoeMacOsX()
+#endif
 {
 	this->m_con = con;
 	m_lastError = NULL;

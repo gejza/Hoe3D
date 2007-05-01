@@ -28,7 +28,7 @@ bool SetRootDir(const char * dir)
 
 const char * GetBaseDir(const char * path)
 {
-	static char basedir[ MAX_PATH ];
+	static char basedir[ 1024 ];
 	int j;
 
 	strcpy( basedir, path );

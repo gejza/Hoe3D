@@ -30,6 +30,11 @@
 #define DLL_EXPORT extern "C"
 #define DEFAULT_HOEFS_NAME "hoefs.so"
 
+#elif defined(_MACOSX)
+
+#define DLL_EXPORT extern "C"
+#define DEFAULT_HOEFS_NAME "hoefs.so"
+
 #else
 #error Platform not defined!
 #endif 

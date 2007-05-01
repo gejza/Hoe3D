@@ -19,12 +19,16 @@ typedef HINSTANCE HOE_INSTANCE;
 #endif // _WIN32
 
 #ifdef _LINUX
-
 typedef void * HOE_LIBRARY;
 #define ENGINE_DLL "./Hoe3D.so"
 typedef void* HOE_INSTANCE;
-
 #endif // _LINUX
+
+#ifdef _MACOSX
+typedef void * HOE_LIBRARY;
+#define ENGINE_DLL "./Hoe3D.so"
+typedef void* HOE_INSTANCE;
+#endif // _MACOSX
 
 #define BEGIN_HOEGAME namespace HoeGame { 
 #define END_HOEGAME  } // namespace HoeGame

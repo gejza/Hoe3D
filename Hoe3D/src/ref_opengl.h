@@ -9,6 +9,9 @@
 #ifndef _HOE_OPENGL_
 #define _HOE_OPENGL_
 
+#ifdef _MACOSX
+#include <OpenGL/gl.h>
+#else
 #include <GL/gl.h>
 //#include <GL/glu.h>
 
@@ -17,6 +20,7 @@
 #include <X11/extensions/xf86vmode.h>
 #include <X11/extensions/xf86dga.h>
 #endif 
+#endif
 
 #include "ref_base.h"
 #include "ref_opengl_ext.h"

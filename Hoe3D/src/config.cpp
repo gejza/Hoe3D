@@ -50,7 +50,8 @@ void Config::GetOSDesc(char * buff)
 #elif defined (_LINUX)
 
 	sprintf(buff,"LINUX");
-
+#elif defined (_MACOSX)
+	sprintf(buff,"Mac OS X");
 #else
 #error "platform not defined..."
 #endif

@@ -36,8 +36,9 @@
 #ifdef __cplusplus 
 #include <hoe_core.h>
 #include <hoe_types.h>
-#include <hoe_math.h>
+#include <hoe_math.h>
 #endif
+
 
 #ifdef _WIN32
 //#define _WIN32_WINNT 0x0500
