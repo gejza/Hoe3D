@@ -39,6 +39,7 @@ src/hoe_vars.cpp \
 src/hoe_view.cpp \
 src/lua_script.cpp \
 src/hoe_mem.cpp \
+src/hoe_structfile.cpp \
 src/config_parser.c src/lang_parser.c src/structfile_parser.cpp
 
 ___bin_libHoeGame_a_LDFLAGS = -static -lHoeCore

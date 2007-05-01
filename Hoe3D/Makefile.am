@@ -1,7 +1,7 @@
 AUTOMAKE_OPTIONS = subdir-objects
 
-lib_LIBRARIES = ../bin/Hoe3D.so
-#bin_PROGRAMS = ../bin/Hoe3D.so
+#lib_LIBRARIES = ../bin/Hoe3D.so
+bin_PROGRAMS = ../bin/Hoe3D.so
 
 src/icreate_parser.c: src/icreate_parser.l
 	flex -o"src/icreate_parser.c" src/icreate_parser.l

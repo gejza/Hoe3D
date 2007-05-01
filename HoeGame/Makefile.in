@@ -92,6 +92,7 @@ am____bin_libHoeGame_a_OBJECTS =  \
 	src/___bin_libHoeGame_a-hoe_view.$(OBJEXT) \
 	src/___bin_libHoeGame_a-lua_script.$(OBJEXT) \
 	src/___bin_libHoeGame_a-hoe_mem.$(OBJEXT) \
+	src/___bin_libHoeGame_a-hoe_structfile.$(OBJEXT) \
 	src/___bin_libHoeGame_a-config_parser.$(OBJEXT) \
 	src/___bin_libHoeGame_a-lang_parser.$(OBJEXT) \
 	src/___bin_libHoeGame_a-structfile_parser.$(OBJEXT)
@@ -309,6 +310,7 @@ src/hoe_vars.cpp \
 src/hoe_view.cpp \
 src/lua_script.cpp \
 src/hoe_mem.cpp \
+src/hoe_structfile.cpp \
 src/config_parser.c src/lang_parser.c src/structfile_parser.cpp
 
 ___bin_libHoeGame_a_LDFLAGS = -static -lHoeCore
@@ -432,6 +434,8 @@ src/___bin_libHoeGame_a-lua_script.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/___bin_libHoeGame_a-hoe_mem.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
+src/___bin_libHoeGame_a-hoe_structfile.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 src/___bin_libHoeGame_a-config_parser.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/___bin_libHoeGame_a-lang_parser.$(OBJEXT): src/$(am__dirstamp) \
@@ -470,6 +474,7 @@ mostlyclean-compile:
 	-rm -f src/___bin_libHoeGame_a-hoe_scene.$(OBJEXT)
 	-rm -f src/___bin_libHoeGame_a-hoe_strategy.$(OBJEXT)
 	-rm -f src/___bin_libHoeGame_a-hoe_stratmap.$(OBJEXT)
+	-rm -f src/___bin_libHoeGame_a-hoe_structfile.$(OBJEXT)
 	-rm -f src/___bin_libHoeGame_a-hoe_timer.$(OBJEXT)
 	-rm -f src/___bin_libHoeGame_a-hoe_utils.$(OBJEXT)
 	-rm -f src/___bin_libHoeGame_a-hoe_vars.$(OBJEXT)
@@ -503,6 +508,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/___bin_libHoeGame_a-hoe_scene.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/___bin_libHoeGame_a-hoe_strategy.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/___bin_libHoeGame_a-hoe_stratmap.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/___bin_libHoeGame_a-hoe_structfile.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/___bin_libHoeGame_a-hoe_timer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/___bin_libHoeGame_a-hoe_utils.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/___bin_libHoeGame_a-hoe_vars.Po@am__quote@
@@ -950,6 +956,20 @@ src/___bin_libHoeGame_a-hoe_mem.obj: src/hoe_mem.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/hoe_mem.cpp' object='src/___bin_libHoeGame_a-hoe_mem.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_libHoeGame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/___bin_libHoeGame_a-hoe_mem.obj `if test -f 'src/hoe_mem.cpp'; then $(CYGPATH_W) 'src/hoe_mem.cpp'; else $(CYGPATH_W) '$(srcdir)/src/hoe_mem.cpp'; fi`
+
+src/___bin_libHoeGame_a-hoe_structfile.o: src/hoe_structfile.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_libHoeGame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/___bin_libHoeGame_a-hoe_structfile.o -MD -MP -MF "src/$(DEPDIR)/___bin_libHoeGame_a-hoe_structfile.Tpo" -c -o src/___bin_libHoeGame_a-hoe_structfile.o `test -f 'src/hoe_structfile.cpp' || echo '$(srcdir)/'`src/hoe_structfile.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "src/$(DEPDIR)/___bin_libHoeGame_a-hoe_structfile.Tpo" "src/$(DEPDIR)/___bin_libHoeGame_a-hoe_structfile.Po"; else rm -f "src/$(DEPDIR)/___bin_libHoeGame_a-hoe_structfile.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/hoe_structfile.cpp' object='src/___bin_libHoeGame_a-hoe_structfile.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_libHoeGame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/___bin_libHoeGame_a-hoe_structfile.o `test -f 'src/hoe_structfile.cpp' || echo '$(srcdir)/'`src/hoe_structfile.cpp
+
+src/___bin_libHoeGame_a-hoe_structfile.obj: src/hoe_structfile.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_libHoeGame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/___bin_libHoeGame_a-hoe_structfile.obj -MD -MP -MF "src/$(DEPDIR)/___bin_libHoeGame_a-hoe_structfile.Tpo" -c -o src/___bin_libHoeGame_a-hoe_structfile.obj `if test -f 'src/hoe_structfile.cpp'; then $(CYGPATH_W) 'src/hoe_structfile.cpp'; else $(CYGPATH_W) '$(srcdir)/src/hoe_structfile.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "src/$(DEPDIR)/___bin_libHoeGame_a-hoe_structfile.Tpo" "src/$(DEPDIR)/___bin_libHoeGame_a-hoe_structfile.Po"; else rm -f "src/$(DEPDIR)/___bin_libHoeGame_a-hoe_structfile.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/hoe_structfile.cpp' object='src/___bin_libHoeGame_a-hoe_structfile.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_libHoeGame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/___bin_libHoeGame_a-hoe_structfile.obj `if test -f 'src/hoe_structfile.cpp'; then $(CYGPATH_W) 'src/hoe_structfile.cpp'; else $(CYGPATH_W) '$(srcdir)/src/hoe_structfile.cpp'; fi`
 
 src/___bin_libHoeGame_a-structfile_parser.o: src/structfile_parser.cpp
 @am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_libHoeGame_a_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/___bin_libHoeGame_a-structfile_parser.o -MD -MP -MF "src/$(DEPDIR)/___bin_libHoeGame_a-structfile_parser.Tpo" -c -o src/___bin_libHoeGame_a-structfile_parser.o `test -f 'src/structfile_parser.cpp' || echo '$(srcdir)/'`src/structfile_parser.cpp; \
