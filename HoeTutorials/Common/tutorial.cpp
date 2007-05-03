@@ -12,7 +12,7 @@ HoeTutorial::HoeTutorial(HOE_INSTANCE instance, HoeGame::Console * con) : HoeApp
 
 bool HoeTutorial::InitTutorial(HOE_TYPE_SCENE ts)
 {
-	if (!Init(GetTitle()))
+	if (!Init(GetTitle(), HOESDK_VERSION))
 		return false;
 
 	GetEngine()->SetActiveScene(GetEngine()->CreateScene(ts));
@@ -43,8 +43,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE,LPSTR lpStr,int iCmdShow)
 	return _hoemain(hInstance,&con);
 }
 
-#endif
-#ifdef _LINUX
+#else
 
 int main(int argc,char * argv[])
 {

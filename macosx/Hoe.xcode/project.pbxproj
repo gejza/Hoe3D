@@ -1295,6 +1295,243 @@
 			settings = {
 			};
 		};
+		2E4CBBF60BE76E4F000BA876 = {
+			buildActionMask = 2147483647;
+			files = (
+				2E4CBC180BE76EF9000BA876,
+				2E4CBC210BE76F28000BA876,
+			);
+			isa = PBXHeadersBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E4CBBF70BE76E4F000BA876 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXResourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E4CBBF80BE76E4F000BA876 = {
+			buildActionMask = 2147483647;
+			files = (
+				2E4CBC170BE76EF9000BA876,
+				2E4CBC200BE76F28000BA876,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E4CBBF90BE76E4F000BA876 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXRezBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E4CBBFA0BE76E4F000BA876 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2E4CBBFB0BE76E4F000BA876 = {
+			buildPhases = (
+				2E4CBBF60BE76E4F000BA876,
+				2E4CBBF70BE76E4F000BA876,
+				2E4CBBF80BE76E4F000BA876,
+				2E4CBBF90BE76E4F000BA876,
+				2E4CBBFA0BE76E4F000BA876,
+			);
+			buildRules = (
+			);
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				GCC_PREPROCESSOR_DEFINITIONS = _MACOSX;
+				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
+				GCC_WARN_UNKNOWN_PRAGMAS = NO;
+				INFOPLIST_FILE = "FirstApp-Info.plist";
+				INSTALL_PATH = "$(USER_APPS_DIR)";
+				OPTIMIZATION_CFLAGS = "";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "-framework Carbon -lHoeCore -lHoeGame -lHoe3D -llua -lfl";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = FirstApp;
+				REZ_EXECUTABLE = NO;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wmost";
+			};
+			dependencies = (
+				2E4CBC020BE76E9D000BA876,
+				2E4CBC040BE76E9D000BA876,
+				2E4CBC060BE76E9D000BA876,
+			);
+			isa = PBXNativeTarget;
+			name = FirstApp;
+			productName = FirstApp;
+			productReference = 2E4CBBFC0BE76E4F000BA876;
+			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>FirstApp</string>
+	<key>CFBundleGetInfoString</key>
+	<string></string>
+	<key>CFBundleIconFile</key>
+	<string></string>
+	<key>CFBundleIdentifier</key>
+	<string>com.MySoftwareCompany.FirstApp</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string></string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>1.0.0d1</string>
+</dict>
+</plist>
+";
+			productType = "com.apple.product-type.application";
+		};
+		2E4CBBFC0BE76E4F000BA876 = {
+			explicitFileType = wrapper.application;
+			includeInIndex = 0;
+			isa = PBXFileReference;
+			path = FirstApp.app;
+			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2E4CBBFE0BE76E50000BA876 = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.xml;
+			name = "FirstApp-Info.plist";
+			path = "/Users/gejza/Hoe/macosx/FirstApp-Info.plist";
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		2E4CBC010BE76E9D000BA876 = {
+			containerPortal = 2E84D24B0BE68A3400DA51A1;
+			isa = PBXContainerItemProxy;
+			proxyType = 1;
+			remoteGlobalIDString = 2E84D2670BE68B8400DA51A1;
+			remoteInfo = HoeCore;
+		};
+		2E4CBC020BE76E9D000BA876 = {
+			isa = PBXTargetDependency;
+			target = 2E84D2670BE68B8400DA51A1;
+			targetProxy = 2E4CBC010BE76E9D000BA876;
+		};
+		2E4CBC030BE76E9D000BA876 = {
+			containerPortal = 2E84D24B0BE68A3400DA51A1;
+			isa = PBXContainerItemProxy;
+			proxyType = 1;
+			remoteGlobalIDString = 2E7E50830BE6ABDE0035D983;
+			remoteInfo = Hoe3D;
+		};
+		2E4CBC040BE76E9D000BA876 = {
+			isa = PBXTargetDependency;
+			target = 2E7E50830BE6ABDE0035D983;
+			targetProxy = 2E4CBC030BE76E9D000BA876;
+		};
+		2E4CBC050BE76E9D000BA876 = {
+			containerPortal = 2E84D24B0BE68A3400DA51A1;
+			isa = PBXContainerItemProxy;
+			proxyType = 1;
+			remoteGlobalIDString = 2E4CB88A0BE7529E000BA876;
+			remoteInfo = HoeGame;
+		};
+		2E4CBC060BE76E9D000BA876 = {
+			isa = PBXTargetDependency;
+			target = 2E4CB88A0BE7529E000BA876;
+			targetProxy = 2E4CBC050BE76E9D000BA876;
+		};
+		2E4CBC0D0BE76EC9000BA876 = {
+			children = (
+				2E4CBC1E0BE76F28000BA876,
+				2E4CBC1F0BE76F28000BA876,
+				2E4CBC110BE76ED6000BA876,
+			);
+			isa = PBXGroup;
+			name = HoeTutorials;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		2E4CBC110BE76ED6000BA876 = {
+			children = (
+				2E4CBC150BE76EF9000BA876,
+				2E4CBC160BE76EF9000BA876,
+			);
+			isa = PBXGroup;
+			name = FirstApp;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		2E4CBC150BE76EF9000BA876 = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = first_app.cpp;
+			path = ../HoeTutorials/FirstApp/first_app.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		2E4CBC160BE76EF9000BA876 = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = first_app.h;
+			path = ../HoeTutorials/FirstApp/first_app.h;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		2E4CBC170BE76EF9000BA876 = {
+			fileRef = 2E4CBC150BE76EF9000BA876;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		2E4CBC180BE76EF9000BA876 = {
+			fileRef = 2E4CBC160BE76EF9000BA876;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		2E4CBC1E0BE76F28000BA876 = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = tutorial.cpp;
+			path = ../HoeTutorials/Common/tutorial.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		2E4CBC1F0BE76F28000BA876 = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = tutorial.h;
+			path = ../HoeTutorials/Common/tutorial.h;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		2E4CBC200BE76F28000BA876 = {
+			fileRef = 2E4CBC1E0BE76F28000BA876;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		2E4CBC210BE76F28000BA876 = {
+			fileRef = 2E4CBC1F0BE76F28000BA876;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
 		2E7E50810BE6ABDE0035D983 = {
 			buildActionMask = 2147483647;
 			files = (
@@ -3656,10 +3893,12 @@
 		};
 		2E84D2470BE68A3400DA51A1 = {
 			children = (
+				2E4CBC0D0BE76EC9000BA876,
 				2E4CB8810BE7526E000BA876,
 				2E7E50870BE6AC2A0035D983,
 				2E84D25A0BE68B1B00DA51A1,
 				2E84D2690BE68B8400DA51A1,
+				2E4CBBFE0BE76E50000BA876,
 			);
 			isa = PBXGroup;
 			refType = 4;
@@ -3699,6 +3938,7 @@
 				2E84D2670BE68B8400DA51A1,
 				2E7E50830BE6ABDE0035D983,
 				2E4CB88A0BE7529E000BA876,
+				2E4CBBFB0BE76E4F000BA876,
 			);
 		};
 		2E84D2540BE68B0F00DA51A1 = {
@@ -3939,6 +4179,7 @@
 				2E84D2680BE68B8400DA51A1,
 				2E7E50840BE6ABDE0035D983,
 				2E4CB88B0BE7529E000BA876,
+				2E4CBBFC0BE76E4F000BA876,
 			);
 			isa = PBXGroup;
 			name = Products;
