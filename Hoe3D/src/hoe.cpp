@@ -37,6 +37,10 @@
 //#pragma comment (lib,"libfl.a")
 //#pragma comment (lib,"freetype2110MT_D.lib")
 
+#include "video.h"
+
+HoeVideoPlayer vp;
+
 Hoe3D::Hoe3D(int flags) : m_rt(HoeRenderTarget::eMain)
 {	
 	SET_SHARED_PTR(hoe3d);
@@ -171,6 +175,9 @@ bool Hoe3D::Init(THoeInitSettings * his)
 
 	Con_Print("Load");
 
+	// odebrat
+	vp.Load("c:/work/test.avi");
+
 	return true;
 }
 
@@ -237,20 +244,19 @@ bool Hoe3D::Frame()
 		rt->Setup();
 		GetStates()->Reset();
 
-		m_active->Render();
+		m_active->Render(0);
 
-		rt->EndRender();
-		*/
+		rt->EndRender();*/
+		
 		
 		// render normal
 		m_rt.Setup();
 		// render vysledku
-		
 		/*Get2D()->Begin();
 		HoePicture pic;
 		pic.SetSource(rt->GetTexture());
 		const float w=2,h=2;
-		Get2D()->SetRECT(w,h);
+		Get2D()->SetRect(w,h);
 		for (float i=0;i<w;i++)
 			for (float j=0;j < h;j++)
 				Get2D()->BltFast(i,i+1,j,j+1,&pic);
@@ -258,6 +264,23 @@ bool Hoe3D::Frame()
 		
 		GetStates()->Reset();
 		m_active->Render(0);
+
+		// render video
+		vp.NextFrame();
+		Get2D()->Begin();
+		HoePicture pic;
+		pic.SetSource(vp.GetTexture());
+		const float w=4,h=3;
+		//Get2D()->SetRect(w,h);
+		//for (float i=0;i<w;i++)
+		//	for (float j=0;j < h;j++)
+		//		Get2D()->BltFast(i,i+1,j,j+1,&pic);
+		Get2D()->SetRect(40,30);
+		//for (float i=0;i<w;i++)
+		//	for (float j=0;j < h;j++)
+				Get2D()->BltFast(10,20,5,15,&pic);
+		Get2D()->End();
+
 		// render user 2d
 		Get2D()->Begin();
 		m_active->Paint2D();

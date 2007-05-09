@@ -177,3 +177,21 @@ IDirect3DSurface8 * HoeRenderTexture::GetSurface()
 	return sur;
 }
 #endif
+
+///////////////////////////////////////////////////
+bool HoeVideoTexture::Create(uint w,uint h,HOEFORMAT f)
+{
+	width = w;
+	height = h;
+	format = f;
+#ifdef _HOE_D3D_
+	HRESULT hRes;
+	hRes = D3DDevice()->CreateTexture(w,h,1,D3DUSAGE_DYNAMIC,HoeFormatX(f),D3DPOOL_DEFAULT,&m_texture RESERVE_PAR);
+	assert(hRes==S_OK);
+#endif
+#ifdef _HOE_OPENGL_
+	glGenTextures(1,&m_texture);
+	FillEmpty();
+#endif
+	return true;
+}

@@ -27,6 +27,7 @@
 
 #include <hoe_core.h>
 #include <hoe3d.h>
+#include <hoe_core.h>
 #include <hoe_console.h>
 #include <hoe_engine.h>
 #include <hoe_config.h>

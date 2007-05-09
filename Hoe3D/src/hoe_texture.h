@@ -62,5 +62,12 @@ public:
 #endif
 };
 
+class HoeVideoTexture : public HoeTexture
+{
+public:
+	bool Create(uint w,uint h,HOEFORMAT f);
+	// rychlo lock
+};
+
 #endif // _HOE_TEXTURE_H_
 
