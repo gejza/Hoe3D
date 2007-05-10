@@ -61,6 +61,12 @@ bool Config::CheckTexture(dword &width,dword &height,HOEFORMAT &format)
 {
 #ifdef _HOE_OPENGL_
 	if (format == HOE_X8R8G8B8) format = HOE_R8G8B8;
+	// resize to 2*n
+	dword w1=1,h1=1;
+	while (w1 < width) w1 <<= 1;
+	while (h1 < height) h1 <<= 1;
+	width = w1;
+	height = h1;
 #endif
 #ifdef _HOE_D3D_
 	switch (format)

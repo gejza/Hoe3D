@@ -34,6 +34,7 @@ public:
 
 	bool Lock(LOCKRECT *);
 	void Unlock();
+	void UnlockDynamic();
 
 	void Set();
 

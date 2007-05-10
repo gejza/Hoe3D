@@ -17,7 +17,7 @@ unsigned char *mp4_buffer = NULL;
 xvid_dec_stats_t xvid_dec_stats;
 static int XDIM = 576;
 static int YDIM = 432;
-static int CSP = XVID_CSP_BGRA;
+static int CSP = XVID_CSP_BGR;//XVID_CSP_BGRA;
 
 #define BUFFER_SIZE (1024*1024*1)
 
@@ -263,7 +263,7 @@ void HoeVideoPlayer::NextFrame()
 
 	// copy to texture
 	
-	m_tex->Unlock();
+	m_tex->UnlockDynamic();
 	  }
 
 

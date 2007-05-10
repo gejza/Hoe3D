@@ -9,6 +9,9 @@
 HoeTexture::HoeTexture()
 {
 	this->m_texture = 0;
+#ifdef _HOE_OPENGL_
+	pData = NULL;
+#endif
 }
 
 HoeTexture::~HoeTexture()
@@ -16,6 +19,10 @@ HoeTexture::~HoeTexture()
 #ifdef _HOE_D3D_
 	SAFE_RELEASE(m_texture);
 #endif
+#ifdef _HOE_OPENGL_
+	SAFE_DELETE_ARRAY(pData);
+#endif
+
 }
 
 bool HoeTexture::Create(uint w,uint h,HOEFORMAT f)
@@ -94,7 +101,9 @@ bool HoeTexture::Lock(LOCKRECT * lr)
 #endif
 #ifdef _HOE_OPENGL_
 	lr->pitch = width * HoeFormatSize(format) / 8;
-	lr->data = pData = new byte[lr->pitch * height];
+	if (!pData)
+		pData = new byte[lr->pitch * height];
+	lr->data = pData;
 #endif
 	return true;
 }
@@ -106,10 +115,23 @@ void HoeTexture::Unlock()
 #endif
 #ifdef _HOE_OPENGL_
 	BindData(pData);
-	delete [] pData;
+	SAFE_DELETE_ARRAY(pData);
 #endif
-
 }
+
+void HoeTexture::UnlockDynamic()
+{
+#ifdef _HOE_D3D_
+	m_texture->UnlockRect(0);
+#endif
+#ifdef _HOE_OPENGL_
+	glBindTexture(GL_TEXTURE_2D, m_texture);
+	checkgl("glBindTexture");
+	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, (HoeFormatSizeAlpha(format) > 0) ? GL_RGBA:GL_RGB, GL_UNSIGNED_BYTE, pData);
+	checkgl("glTexSubImage2D");
+#endif
+}
+
 
 void HoeTexture::FillEmpty()
 {
