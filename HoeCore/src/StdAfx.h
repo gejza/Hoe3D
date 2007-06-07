@@ -10,6 +10,10 @@
 #include <tchar.h>
 #endif
 
+#if defined (_MACOSX)
+#include <Carbon/Carbon.h>
+#endif
+
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>

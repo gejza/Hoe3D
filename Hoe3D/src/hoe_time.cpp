@@ -30,6 +30,7 @@ bool time_initQPC()
 }
 #endif // _WIN32
 
+#ifndef HOE_STATIC_ENGINE
 float SysFloatTime()
 {
 #ifdef _WIN32
@@ -56,6 +57,8 @@ float SysFloatTime()
 	return ((ctime.tv_sec % 100000) + ctime.tv_usec * 0.000001f);
 #endif // _LINUX
 }
+#endif
+
 
 TimeMeter::TimeMeter(const char * _name, bool autoregister)
 {

@@ -35,7 +35,8 @@ typedef void* HOE_INSTANCE;
 
 #define HOEGAMESDK "HoeGame v1.0"
 
-#define TRACE(text) fprintf(stderr,"trace point: %s\n",text);
+#define TRACET(text) fprintf(stderr,"trace point: %s on %s(%d) \n",text, __FILE__, __LINE__);
+#define TRACE fprintf(stderr,"trace point: %s(%d) \n",__FILE__, __LINE__);
 
 #define NUM_PI	3.1415926535897932
 #define ToRadian( degree ) ((degree) * (NUM_PI / 180.0f))

@@ -44,6 +44,7 @@ PFNGLMULTITEXCOORD4SARBPROC glMultiTexCoord4sARB = NULL;
 PFNGLMULTITEXCOORD4SVARBPROC glMultiTexCoord4svARB = NULL;
 #endif
 
+#ifndef _MACOSX
 PFNGLPROGRAMLOCALPARAMETER4FVARBPROC glProgramLocalParameter4fvARB = NULL;
 PFNGLGENPROGRAMSARBPROC glGenProgramsARB = NULL;
 PFNGLBINDPROGRAMARBPROC glBindProgramARB = NULL;
@@ -57,6 +58,7 @@ PFNGLDELETEBUFFERSARBPROC glDeleteBuffersARB = NULL;// Mazání VBO
 // compiled arrays
 PFNGLLOCKARRAYSEXTPROC glLockArraysEXT = NULL;
 PFNGLUNLOCKARRAYSEXTPROC glUnlockArraysEXT = NULL;
+#endif
 
 #define check(p) assert((p)!=NULL)
 
@@ -202,6 +204,7 @@ void RefOpenGL::LoadExtensions()
 		Con_Print("Use extension: GL_EXT_texture_env_combine");
 	}
 
+#ifndef _MACOSX
 	// Vertex buffer
 	if (ext.ARB_vertex_buffer_object)
 	{
@@ -228,7 +231,7 @@ void RefOpenGL::LoadExtensions()
 		glUnlockArraysEXT = (PFNGLUNLOCKARRAYSEXTPROC) GetProc("glUnlockArraysEXT");	
 		Con_Print("Use extension: GL_EXT_compiled_vertex_array");
 	}
-
+#endif
 }
 
 

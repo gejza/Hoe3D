@@ -14,7 +14,15 @@ HoeMacOsX::~HoeMacOsX()
 
 int HoeMacOsX::GetMsg(IHoe3DEngine * engine)
 {
-	
+	EventRef theEvent;
+	EventTargetRef theTarget;
+	theTarget = GetEventDispatcherTarget();
+    while  (ReceiveNextEvent(0, NULL,kEventDurationForever,true,
+            &theEvent)== noErr)
+        {
+            SendEventToEventTarget (theEvent, theTarget);
+            ReleaseEvent(theEvent);
+        }	
 	return 1;
 }
 

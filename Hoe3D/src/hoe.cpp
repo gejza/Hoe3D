@@ -37,9 +37,9 @@
 //#pragma comment (lib,"libfl.a")
 //#pragma comment (lib,"freetype2110MT_D.lib")
 
-#include "video.h"
+//#include "video.h"
 
-HoeVideoPlayer vp;
+//HoeVideoPlayer vp;
 
 Hoe3D::Hoe3D(int flags) : m_rt(HoeRenderTarget::eMain)
 {	
@@ -176,7 +176,7 @@ bool Hoe3D::Init(THoeInitSettings * his)
 	Con_Print("Load");
 
 	// odebrat
-	vp.Load("c:/work/test.avi");
+	//vp.Load("c:/work/test.avi");
 
 	return true;
 }
@@ -266,7 +266,7 @@ bool Hoe3D::Frame()
 		m_active->Render(0);
 
 		// render video
-		vp.NextFrame();
+		/*vp.NextFrame();
 		Get2D()->Begin();
 		HoePicture pic;
 		pic.SetSource(vp.GetTexture());
@@ -279,7 +279,7 @@ bool Hoe3D::Frame()
 		//for (float i=0;i<w;i++)
 		//	for (float j=0;j < h;j++)
 				Get2D()->BltFast(10,20,5,15,&pic);
-		Get2D()->End();
+		Get2D()->End();*/
 
 		// render user 2d
 		Get2D()->Begin();

@@ -258,6 +258,12 @@ bool RefOpenGL::Init(THoeInitSettings * his)
 
 #endif // _LINUX
 
+#ifdef _MACOSX
+	// mac nahravani
+	// his->win
+
+#endif // _MACOSX
+
 	Con_Print("%s",(char *)glGetString(GL_VENDOR));// Výpis výrobce
 	Con_Print("%s",(char *)glGetString(GL_RENDERER));// Výpis typu grafické karty
 	Con_Print("GL ver. %s",(char *)glGetString(GL_VERSION));// Výpis verze

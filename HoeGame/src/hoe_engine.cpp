@@ -71,9 +71,9 @@ bool HoeEngine::Load(const char * dllname, Console * con, XHoeFS * fs, int sdkve
 		return false;
 	}
 #endif
-
+	TRACE;
 	g_hoeengine = GetEngineInterface(HOESDK_VERSION,con,fs, NULL,0,0);
-
+	TRACE;
 	if (g_hoeengine)
 	{
 		m_loaded = true;
@@ -85,14 +85,18 @@ bool HoeEngine::Load(const char * dllname, Console * con, XHoeFS * fs, int sdkve
 
 bool HoeEngine::LoadStatic(Console * con)
 {
-	/*this->m_engine = CreateHoeEngine(con,NULL,0,HOESDK_VERSION);
+	TRACE
+#ifdef HOE_STATIC_ENGINE
+	TRACE;
+	g_hoeengine = CreateHoeEngine(HOESDK_VERSION, con, NULL, NULL, 0, 0);
 
-	if (m_engine)
+	if (g_hoeengine)
 	{
 		m_loaded = true;
 		return true;
 	}
-	else*/
+	else
+#endif
 		return false;
 }
 

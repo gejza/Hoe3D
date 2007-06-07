@@ -111,6 +111,7 @@ bool HoeApp::Init(const char * title, int sdkver)
 	his.height = m_height.GetInt();
 	his.forcewnd = false;
 	his.fullscreen = m_fullscreen.GetBool();
+	
 	if (!HoeGame::GetHoeEngine()->Init(&his))
 		return false;
 	win = his.win;
@@ -123,11 +124,44 @@ bool HoeApp::Init(const char * title, int sdkver)
 }
 
 #endif // _LINUX
+#ifdef _MACOSX
+
+bool HoeApp::Init(const char * title, int sdkver)
+{
+	TRACE;   
+        if (!LoadEngine(sdkver))
+                return false;
+
+	THoeInitSettings his;
+	his.dpy = 0;
+	his.screen = 0;
+	his.win = 0;
+	his.depth = 16;
+	his.width = m_width.GetInt();
+	his.height = m_height.GetInt();
+	his.forcewnd = true;
+	his.fullscreen = m_fullscreen.GetBool();
+
+	TRACE;
+	if (!HoeGame::GetHoeEngine()->Init(&his))
+		return false;
+	win = his.win;
+	return true;
+}
+
+#endif // _MACOSX
+
 
 bool HoeApp::LoadEngine(int sdkver)
 {
-	
+	TRACE;
+#ifdef HOE_STATIC_ENGINE
+	TRACE;
+	return m_engine.LoadStatic(m_con);
+#else	
+	TRACE;
 	return m_engine.Load(m_enginedll.GetString(), m_con, &m_fs, sdkver);
+#endif
 }
 
 void HoeApp::OnUpdate(float time)

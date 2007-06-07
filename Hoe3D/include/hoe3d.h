@@ -172,7 +172,7 @@ typedef IHoeEngineInfo * (HOEAPI *HOE_FUNCINFO)(int sdk_ver);
 typedef int (HOEAPI *HOE_FUNCGETSDKVER)();
 
 #ifdef HOE_STATIC_ENGINE
-IHoe3DEngine * HOEAPI CreateHoeEngine(int sdk_ver, XHoeConsole * con, XHoeFS * fs, void * p_memBase,int n_memSize, int flags);
+IHoe3DEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * con, ::XHoeFS * fs, void * p_memBase,int n_memSize, int flags);
 IHoeEngineInfo * HOEAPI GetEngineInfo(int sdk_ver);
 //int HOAPI GetSDKVersion();
 #endif

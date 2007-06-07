@@ -32,8 +32,13 @@
 
 #elif defined(_MACOSX)
 
-#define DLL_EXPORT extern "C"
-#define DEFAULT_HOEFS_NAME "hoefs.so"
+#include <Carbon/Carbon.h>
+
+#ifdef HOE_STATIC_ENGINE
+#define DLL_EXPORT
+#else
+#define DLL_EXPORT extern "C" 
+#endif
 
 #else
 #error Platform not defined!

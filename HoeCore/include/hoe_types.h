@@ -37,8 +37,8 @@ typedef void * HOE_INSTANCE;
 #endif // _LINUX
 
 #if defined(_MACOSX)
-typedef int HOE_WINDOW;
-typedef int HOE_DISPLAY;
+typedef WindowRef HOE_WINDOW;
+typedef void * HOE_DISPLAY;
 //typedef union _XEvent XEvent
 typedef void * HOE_INSTANCE;
 #endif

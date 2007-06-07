@@ -32,6 +32,10 @@
 #include <unistd.h>
 #endif
 
+#ifdef _LINUX
+#include <Carbon/Carbon.h>
+#endif
+
 #include <assert.h>
 #ifdef __cplusplus 
 #include <hoe_core.h>

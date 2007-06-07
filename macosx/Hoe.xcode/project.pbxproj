@@ -158,14 +158,13 @@
 			buildRules = (
 			);
 			buildSettings = {
-				GCC_MODEL_TUNING = G4;
-				GCC_PREPROCESSOR_DEFINITIONS = _MACOSX;
+				GCC_MODEL_TUNING = G3;
+				GCC_PREPROCESSOR_DEFINITIONS = "_MACOSX HOE_STATIC_ENGINE";
 				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
 				GCC_WARN_UNKNOWN_PRAGMAS = NO;
 				HEADER_SEARCH_PATHS = ../../Hoe3D/include;
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_STYLE = STATIC;
-				OPTIMIZATION_CFLAGS = "";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				OTHER_REZFLAGS = "";
@@ -1330,6 +1329,7 @@
 		2E4CBBFA0BE76E4F000BA876 = {
 			buildActionMask = 2147483647;
 			files = (
+				2EA17DA6C5B1B583004A2646,
 			);
 			isa = PBXFrameworksBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1352,9 +1352,8 @@
 				GCC_WARN_UNKNOWN_PRAGMAS = NO;
 				INFOPLIST_FILE = "FirstApp-Info.plist";
 				INSTALL_PATH = "$(USER_APPS_DIR)";
-				OPTIMIZATION_CFLAGS = "";
 				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "-framework Carbon -lHoeCore -lHoeGame -lHoe3D -llua -lfl";
+				OTHER_LDFLAGS = "-framework Carbon -framework OpenAL -framework OpenGL -framework AGL -lHoeCore -lHoeGame -lHoe3D -llua -lfl -ljpeg -lpng -lfreetype -logg -lvorbis -lvorbisfile";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = FirstApp;
 				REZ_EXECUTABLE = NO;
@@ -1681,7 +1680,8 @@
 			buildRules = (
 			);
 			buildSettings = {
-				GCC_PREPROCESSOR_DEFINITIONS = _MACOSX;
+				GCC_MODEL_TUNING = G3;
+				GCC_PREPROCESSOR_DEFINITIONS = "_MACOSX HOE_STATIC_ENGINE _USE_OPENGL_";
 				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
 				GCC_WARN_UNKNOWN_PRAGMAS = NO;
 				INSTALL_PATH = /usr/local/lib;
@@ -3893,6 +3893,8 @@
 		};
 		2E84D2470BE68A3400DA51A1 = {
 			children = (
+				2EA17D8BC5B1B4C7004A2646,
+				2EA17D5EC5B1B415004A2646,
 				2E4CBC0D0BE76EC9000BA876,
 				2E4CB8810BE7526E000BA876,
 				2E7E50870BE6AC2A0035D983,
@@ -4278,6 +4280,28 @@
 		};
 		2E84D27B0BE68BBA00DA51A1 = {
 			fileRef = 2E84D2590BE68B0F00DA51A1;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		2EA17D5EC5B1B415004A2646 = {
+			isa = PBXFileReference;
+			lastKnownFileType = wrapper.framework;
+			name = OpenGL.framework;
+			path = /System/Library/Frameworks/OpenGL.framework;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		2EA17D8BC5B1B4C7004A2646 = {
+			isa = PBXFileReference;
+			lastKnownFileType = wrapper.framework;
+			name = AGL.framework;
+			path = /System/Library/Frameworks/AGL.framework;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		2EA17DA6C5B1B583004A2646 = {
+			fileRef = 2EA17D5EC5B1B415004A2646;
 			isa = PBXBuildFile;
 			settings = {
 			};
