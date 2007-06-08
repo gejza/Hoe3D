@@ -6,6 +6,7 @@ BEGIN_HOEGAME
 
 HoeMacOsX::HoeMacOsX()
 {
+    m_nibRef = NULL;
 }
 
 HoeMacOsX::~HoeMacOsX()
@@ -28,6 +29,10 @@ int HoeMacOsX::GetMsg(IHoe3DEngine * engine)
 
 void HoeMacOsX::Destroy()
 {
+    if (m_nibRef)
+    {
+        DisposeNibReference(m_nibRef);
+    }
 }
 
 void HoeMacOsX::SetTitle(const char * title)

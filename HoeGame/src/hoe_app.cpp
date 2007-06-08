@@ -128,9 +128,12 @@ bool HoeApp::Init(const char * title, int sdkver)
 
 bool HoeApp::Init(const char * title, int sdkver)
 {
-	TRACE;   
-        if (!LoadEngine(sdkver))
-                return false;
+    OSStatus err;
+	err = CreateNibReference(CFSTR("main"), &m_nibRef); 
+
+
+    if (!LoadEngine(sdkver))
+        return false;
 
 	THoeInitSettings his;
 	his.dpy = 0;

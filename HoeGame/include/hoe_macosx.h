@@ -15,6 +15,7 @@ protected:
 	int screen;
 	HOE_WINDOW win;
 	IHoe3DEngine * m_enginstance;
+    IBNibRef m_nibRef;
 public:
 	HoeMacOsX();
 	virtual ~HoeMacOsX();
