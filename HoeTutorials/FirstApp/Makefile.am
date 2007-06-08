@@ -8,7 +8,7 @@ ___bin_FirstApp_CPPFLAGS = -I../../HoeCore/include -I../../HoeGame/include -I../
 ___bin_FirstApp_SOURCES = \ 
 first_app.cpp \
 ../Common/tutorial.cpp
-___bin_FirstApp_LDADD = -L../../bin -lHoeCore -lHoeGame $(LUA_LIBS) -lXxf86vm -lXxf86dga  
+___bin_FirstApp_LDADD = -L../../bin -lHoeGame -lHoeCore  $(LUA_LIBS) -lXxf86vm -lXxf86dga  
 
 
 

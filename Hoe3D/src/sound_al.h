@@ -62,7 +62,7 @@ class HoeALBuffer
 	ALuint	m_buffer; /**< AL buffer */
 	ALsizei m_size,m_freq; /**< velikost a frekvence */
 	ALenum	m_format; /**< format */
-	ALvoid	*m_data; /**< data pro inicializaci bufferu */
+	ALbyte	*m_data; /**< data pro inicializaci bufferu */
 
 public:
 	/** Kontruktor 

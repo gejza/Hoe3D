@@ -9,7 +9,7 @@ src/material_parser.c: src/material_parser.l
 	flex -o"src/material_parser.c" src/material_parser.l
 
 
-___bin_Hoe3D_so_SOURCES = \ 
+___bin_Hoe3D_so_SOURCES = \
 src/camera.cpp \
 src/cmdexec.cpp \
 src/config.cpp \
@@ -72,11 +72,12 @@ src/texture_loader.cpp \
 src/texture_system.cpp \
 src/unicode.cpp \
 src/utils.cpp \
-src/icreate_parser.c \  
+src/video.cpp \
+src/icreate_parser.c \
 src/material_parser.c
 
-___bin_Hoe3D_so_CPPFLAGS = -I../HoeCore/include -DGL_GLEXT_PROTOTYPES1 $(FT2_CFLAGS) $(OGG_CFLAGS) $(VORBIS_CFLAGS) $(VORBISFILE_LIBS)
-___bin_Hoe3D_so_LDFLAGS = -shared -fPIC -lGL -ljpeg -lpng -lopenal -lHoeCore -lXxf86vm -lXxf86dga -lvorbis -lvorbisfile  @LEXLIB@ $(FT2_LIBS) $(OGG_LIBS) $(VORBIS_LIBS) $(VORBISENC_LIBS)
+___bin_Hoe3D_so_CPPFLAGS = -I../HoeCore/include -DGL_GLEXT_PROTOTYPES1 $(FT2_CFLAGS) $(OGG_CFLAGS) $(VORBIS_CFLAGS)
+___bin_Hoe3D_so_LDFLAGS = -shared -fPIC -lGL -ljpeg -lpng -lopenal -lHoeCore -lXxf86vm -lXxf86dga -lvorbis -lvorbisfile  @LEXLIB@ $(FT2_LIBS) $(OGG_LIBS) $(VORBIS_LIBS) $(VORBISFILE_LIBS) $(VORBISENC_LIBS) $(XVID_LIBS)
 
 
 

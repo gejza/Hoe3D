@@ -116,7 +116,7 @@ bool HoeALBuffer::Create(int channels, int freq, int byts, long samples, bool ct
 byte * HoeALBuffer::Lock()
 {
 	SAFE_DELETE_ARRAY(m_data);
-	m_data = new byte[m_size];
+	m_data = new ALbyte[m_size];
     return (byte*)m_data;
 }
 

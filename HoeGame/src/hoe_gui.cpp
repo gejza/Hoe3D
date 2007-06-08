@@ -535,7 +535,7 @@ void ButtonUsr::Set(const char * prop, const HoeCore::Universal & value)
 	{
 		// load
 		char buff[256];
-		sprintf(buff,"picture %s", value);
+		sprintf(buff,"picture %s", (const char *)value);
 		m_pic_active = (IHoePicture*)GetHoeEngine()->Create(buff);
 	}
 	else 

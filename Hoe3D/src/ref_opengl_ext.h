@@ -27,7 +27,7 @@ struct GLExt
 #define HOE_GL_MULTITEXTURE
 #endif
 
-//#ifdef HOE_GL_MULTITEXTURE 
+#ifdef HOE_GL_MULTITEXTURE 
 extern PFNGLACTIVETEXTUREARBPROC glActiveTextureARB;
 extern PFNGLCLIENTACTIVETEXTUREARBPROC glClientActiveTextureARB;
 extern PFNGLMULTITEXCOORD1DARBPROC glMultiTexCoord1dARB;
@@ -62,9 +62,9 @@ extern PFNGLMULTITEXCOORD4IARBPROC glMultiTexCoord4iARB;
 extern PFNGLMULTITEXCOORD4IVARBPROC glMultiTexCoord4ivARB;
 extern PFNGLMULTITEXCOORD4SARBPROC glMultiTexCoord4sARB;
 extern PFNGLMULTITEXCOORD4SVARBPROC glMultiTexCoord4svARB;
-//#endif
+#endif
 
-//#ifndef _MACOSX
+#ifndef _MACOSX
 // program
 extern PFNGLPROGRAMLOCALPARAMETER4FVARBPROC glProgramLocalParameter4fvARB;
 extern PFNGLGENPROGRAMSARBPROC glGenProgramsARB;
@@ -80,7 +80,7 @@ extern PFNGLDELETEBUFFERSARBPROC glDeleteBuffersARB;// Mazání VBO
 // compiled arrays
 extern PFNGLLOCKARRAYSEXTPROC glLockArraysEXT;
 extern PFNGLUNLOCKARRAYSEXTPROC glUnlockArraysEXT;
-//#endif
+#endif
 
 #endif // _HOE_OPENGL_EXT_H_
 

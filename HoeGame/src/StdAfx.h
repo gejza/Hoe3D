@@ -32,7 +32,7 @@
 #include <unistd.h>
 #endif
 
-#ifdef _LINUX
+#ifdef _MACOSX
 #include <Carbon/Carbon.h>
 #endif
 

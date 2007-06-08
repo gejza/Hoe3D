@@ -119,6 +119,7 @@ am____bin_Hoe3D_so_OBJECTS = src/___bin_Hoe3D_so-camera.$(OBJEXT) \
 	src/___bin_Hoe3D_so-texture_system.$(OBJEXT) \
 	src/___bin_Hoe3D_so-unicode.$(OBJEXT) \
 	src/___bin_Hoe3D_so-utils.$(OBJEXT) \
+	src/___bin_Hoe3D_so-video.$(OBJEXT) \
 	src/___bin_Hoe3D_so-icreate_parser.$(OBJEXT) \
 	src/___bin_Hoe3D_so-material_parser.$(OBJEXT)
 ___bin_Hoe3D_so_OBJECTS = $(am____bin_Hoe3D_so_OBJECTS)
@@ -371,11 +372,12 @@ src/texture_loader.cpp \
 src/texture_system.cpp \
 src/unicode.cpp \
 src/utils.cpp \
+src/video.cpp \
 src/icreate_parser.c \
 src/material_parser.c
 
-___bin_Hoe3D_so_CPPFLAGS = -I../HoeCore/include -DGL_GLEXT_PROTOTYPES1 $(FT2_CFLAGS) $(OGG_CFLAGS) $(VORBIS_CFLAGS) $(VORBISFILE_LIBS)
-___bin_Hoe3D_so_LDFLAGS = -shared -fPIC -lGL -ljpeg -lpng -lopenal -lHoeCore -lXxf86vm -lXxf86dga -lvorbis -lvorbisfile  @LEXLIB@ $(FT2_LIBS) $(OGG_LIBS) $(VORBIS_LIBS) $(VORBISENC_LIBS)
+___bin_Hoe3D_so_CPPFLAGS = -I../HoeCore/include -DGL_GLEXT_PROTOTYPES1 $(FT2_CFLAGS) $(OGG_CFLAGS) $(VORBIS_CFLAGS)
+___bin_Hoe3D_so_LDFLAGS = -shared -fPIC -lGL -ljpeg -lpng -lopenal -lHoeCore -lXxf86vm -lXxf86dga -lvorbis -lvorbisfile  @LEXLIB@ $(FT2_LIBS) $(OGG_LIBS) $(VORBIS_LIBS) $(VORBISFILE_LIBS) $(VORBISENC_LIBS) $(XVID_LIBS)
 all: all-am
 
 .SUFFIXES:
@@ -567,6 +569,8 @@ src/___bin_Hoe3D_so-unicode.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/___bin_Hoe3D_so-utils.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
+src/___bin_Hoe3D_so-video.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 src/___bin_Hoe3D_so-icreate_parser.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/___bin_Hoe3D_so-material_parser.$(OBJEXT): src/$(am__dirstamp) \
@@ -644,6 +648,7 @@ mostlyclean-compile:
 	-rm -f src/___bin_Hoe3D_so-texture_system.$(OBJEXT)
 	-rm -f src/___bin_Hoe3D_so-unicode.$(OBJEXT)
 	-rm -f src/___bin_Hoe3D_so-utils.$(OBJEXT)
+	-rm -f src/___bin_Hoe3D_so-video.$(OBJEXT)
 
 distclean-compile:
 	-rm -f *.tab.c
@@ -712,6 +717,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/___bin_Hoe3D_so-texture_system.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/___bin_Hoe3D_so-unicode.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/___bin_Hoe3D_so-utils.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/___bin_Hoe3D_so-video.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`; \
@@ -1656,6 +1662,20 @@ src/___bin_Hoe3D_so-utils.obj: src/utils.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/utils.cpp' object='src/___bin_Hoe3D_so-utils.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_Hoe3D_so_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/___bin_Hoe3D_so-utils.obj `if test -f 'src/utils.cpp'; then $(CYGPATH_W) 'src/utils.cpp'; else $(CYGPATH_W) '$(srcdir)/src/utils.cpp'; fi`
+
+src/___bin_Hoe3D_so-video.o: src/video.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_Hoe3D_so_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/___bin_Hoe3D_so-video.o -MD -MP -MF "src/$(DEPDIR)/___bin_Hoe3D_so-video.Tpo" -c -o src/___bin_Hoe3D_so-video.o `test -f 'src/video.cpp' || echo '$(srcdir)/'`src/video.cpp; \
+@am__fastdepCXX_TRUE@	then mv -f "src/$(DEPDIR)/___bin_Hoe3D_so-video.Tpo" "src/$(DEPDIR)/___bin_Hoe3D_so-video.Po"; else rm -f "src/$(DEPDIR)/___bin_Hoe3D_so-video.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/video.cpp' object='src/___bin_Hoe3D_so-video.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_Hoe3D_so_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/___bin_Hoe3D_so-video.o `test -f 'src/video.cpp' || echo '$(srcdir)/'`src/video.cpp
+
+src/___bin_Hoe3D_so-video.obj: src/video.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_Hoe3D_so_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT src/___bin_Hoe3D_so-video.obj -MD -MP -MF "src/$(DEPDIR)/___bin_Hoe3D_so-video.Tpo" -c -o src/___bin_Hoe3D_so-video.obj `if test -f 'src/video.cpp'; then $(CYGPATH_W) 'src/video.cpp'; else $(CYGPATH_W) '$(srcdir)/src/video.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv -f "src/$(DEPDIR)/___bin_Hoe3D_so-video.Tpo" "src/$(DEPDIR)/___bin_Hoe3D_so-video.Po"; else rm -f "src/$(DEPDIR)/___bin_Hoe3D_so-video.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/video.cpp' object='src/___bin_Hoe3D_so-video.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(___bin_Hoe3D_so_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o src/___bin_Hoe3D_so-video.obj `if test -f 'src/video.cpp'; then $(CYGPATH_W) 'src/video.cpp'; else $(CYGPATH_W) '$(srcdir)/src/video.cpp'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
