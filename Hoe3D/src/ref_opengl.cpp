@@ -259,9 +259,59 @@ bool RefOpenGL::Init(THoeInitSettings * his)
 #endif // _LINUX
 
 #ifdef _MACOSX
+
+	_tp;
 	// mac nahravani
 	// his->win
+	CGLPixelFormatAttribute ATTRIBUTES[5] =
+	{
+		kCGLPFAFullScreen,
+	kCGLPFASingleRenderer,
+kCGLPFADisplayMask, 0,
+0
+};
 
+CGLError cglError;
+ATTRIBUTES[3] = CGDisplayIDToOpenGLDisplayMask(kCGDirectMainDisplay);
+CGLPixelFormatObj pixelFormat;
+long numberOfPixelFormats;
+cglError = CGLChoosePixelFormat(ATTRIBUTES,
+&pixelFormat,
+&numberOfPixelFormats);
+if (cglError != 0 || pixelFormat == NULL)
+{
+fprintf(stderr, "Can't find pixel format\n");
+return false;
+}
+CGLContextObj context;
+cglError = CGLCreateContext(pixelFormat, NULL, &context);
+if (cglError != 0 || context == NULL)
+{
+fprintf(stderr, "Can't create context\n");
+CGLDestroyPixelFormat(pixelFormat);
+return false;
+}
+
+CGLDestroyPixelFormat(pixelFormat);
+CGCaptureAllDisplays();
+cglError = CGLSetFullScreen(context);
+if (cglError != 0)
+{
+fprintf(stderr, "Can't set context's drawable to screen\n");
+CGLDestroyContext(context);
+CGReleaseAllDisplays();
+return false;
+}
+cglError = CGLSetCurrentContext(context);
+if (cglError != 0)
+{
+fprintf(stderr, "Can't make context current\n");
+CGLClearDrawable(context);
+CGLDestroyContext(context);
+CGReleaseAllDisplays();
+return false;
+}
+	_tp;
 #endif // _MACOSX
 
 	Con_Print("%s",(char *)glGetString(GL_VENDOR));// Výpis výrobce

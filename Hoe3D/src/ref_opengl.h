@@ -10,6 +10,7 @@
 #define _HOE_OPENGL_
 
 #ifdef _MACOSX
+#include <OpenGL/OpenGL.h>
 #include <OpenGL/gl.h>
 #else
 #include <GL/gl.h>

@@ -23,7 +23,7 @@ struct GLExt
 };
 
 // multitexture
-#if !defined(GL_VERSION_1_3) || defined(_WIN32)
+#if !defined(GL_VERSION_1_3) || defined(_WIN32) || defined(_MACOSX)
 #define HOE_GL_MULTITEXTURE
 #endif
 
@@ -64,7 +64,7 @@ extern PFNGLMULTITEXCOORD4SARBPROC glMultiTexCoord4sARB;
 extern PFNGLMULTITEXCOORD4SVARBPROC glMultiTexCoord4svARB;
 #endif
 
-#ifndef _MACOSX
+//#ifndef _MACOSX
 // program
 extern PFNGLPROGRAMLOCALPARAMETER4FVARBPROC glProgramLocalParameter4fvARB;
 extern PFNGLGENPROGRAMSARBPROC glGenProgramsARB;
@@ -80,7 +80,7 @@ extern PFNGLDELETEBUFFERSARBPROC glDeleteBuffersARB;// Mazání VBO
 // compiled arrays
 extern PFNGLLOCKARRAYSEXTPROC glLockArraysEXT;
 extern PFNGLUNLOCKARRAYSEXTPROC glUnlockArraysEXT;
-#endif
+//#endif
 
 #endif // _HOE_OPENGL_EXT_H_
 

@@ -1306,6 +1306,7 @@
 		2E4CBBF70BE76E4F000BA876 = {
 			buildActionMask = 2147483647;
 			files = (
+				2E74B90C0C1F4D8700D33856,
 			);
 			isa = PBXResourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1527,6 +1528,19 @@
 		};
 		2E4CBC210BE76F28000BA876 = {
 			fileRef = 2E4CBC1F0BE76F28000BA876;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		2E74B90B0C1F4D8700D33856 = {
+			isa = PBXFileReference;
+			lastKnownFileType = image.icns;
+			path = icon.icns;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		2E74B90C0C1F4D8700D33856 = {
+			fileRef = 2E74B90B0C1F4D8700D33856;
 			isa = PBXBuildFile;
 			settings = {
 			};
@@ -3893,6 +3907,7 @@
 		};
 		2E84D2470BE68A3400DA51A1 = {
 			children = (
+				2E74B90B0C1F4D8700D33856,
 				2EA17D8BC5B1B4C7004A2646,
 				2EA17D5EC5B1B415004A2646,
 				2E4CBC0D0BE76EC9000BA876,
