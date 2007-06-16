@@ -16,7 +16,7 @@
 #endif
 #endif
 
-#ifdef _WINDEF_
+#ifdef _WIN32
 typedef HWND HOE_WINDOW;
 typedef HINSTANCE HOE_INSTANCE;
 typedef void * HOE_DISPLAY;
