@@ -170,6 +170,7 @@ void HoeStream::Set(int n)
 		checkgl("glDisableClientState");
 	}
 
+	if (glClientActiveTextureARB) {
 	glClientActiveTextureARB(GL_TEXTURE0_ARB);
 	if (m_fvf.GetFVF() & FVF_TEX1)
 	{
@@ -201,7 +202,7 @@ void HoeStream::Set(int n)
 	}
 
 	glClientActiveTextureARB(GL_TEXTURE0_ARB);
-
+	}
 #endif
 }
 
