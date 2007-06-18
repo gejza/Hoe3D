@@ -2,6 +2,7 @@
 #ifndef _HOE_STRUCTURES_H_
 #define _HOE_STRUCTURES_H_
 
+
 namespace HoeCore {
 
 ///////////////////////////////
@@ -211,22 +212,22 @@ protected:
 	void Reindex()
 	{
 		hoe_assert(m_index > 0);
-		HoeCore::CrossMemMove(m_ptr,m_ptr+m_index, sizeof(C)*(m_count-m_index));
-		m_count -= m_index;
-		m_index = 0;
+		CrossMemMove(this->m_ptr,this->m_ptr+this->m_index, sizeof(C)*(this->m_count-this->m_index));
+		this->m_count -= this->m_index;
+		this->m_index = 0;
 	}
 public:
 	Queue()
 	{
-		m_index = 0;
+		this->m_index = 0;
 	}
-	uint Count() { return m_count-m_index; }
-	bool IsEmpty() { return m_index==m_count; }
-	void Delete() { this->m_count = m_index = 0; }
+	uint Count() { return this->m_count-this->m_index; }
+	bool IsEmpty() { return this->m_index==this->m_count; }
+	void Delete() { this->m_count = this->m_index = 0; }
 	C & Get(uint n) const
 	{
-		hoe_assert(n < (this->m_count-m_index));
-		return this->m_ptr[n+m_index];
+		hoe_assert(n < (this->m_count-this->m_index));
+		return this->m_ptr[n+this->m_index];
 	}
 	C & operator [] (const int index)
 	{
@@ -236,7 +237,7 @@ public:
 	{
 		if (this->m_size == this->m_count)
 		{
-			if (m_index)
+			if (this->m_index)
 				Reindex();
 			else
 				Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
@@ -257,46 +258,46 @@ public:
 	}
 	const C & Front()
 	{
-		hoe_assert(m_index < m_count);
+		hoe_assert(this->m_index < this->m_count);
 		return this->m_ptr[this->m_index++];
 	}
 	const C * Front(uint n)
 	{
-		hoe_assert((m_index+n) <= m_count);
-		m_index += n;
+		hoe_assert((this->m_index+n) <= this->m_count);
+		this->m_index += n;
 		return this->m_ptr + this->m_index-n;
 	}
 	void Remove(uint n)
 	{
-		hoe_assert(n < (m_count-m_index));
+		hoe_assert(n < (this->m_count-this->m_index));
 		if (!n)
-			m_index++;
-		else if (n==(m_count-m_index-1))
-			m_count--;
+			this->m_index++;
+		else if (n==(this->m_count-this->m_index-1))
+			this->m_count--;
 		// vyzaduje posunuti pameti
-		else if (m_index)
+		else if (this->m_index)
 		{
 			// presun prvni casti
 			if (n)
-				HoeCore::CrossMemMove(m_ptr, m_ptr + m_index,sizeof(C)*n);
+				CrossMemMove(this->m_ptr, this->m_ptr + m_index,sizeof(C)*n);
 			// presun druhe
-			register const int tail = m_count-m_index-n-1;
+			register const int tail = this->m_count-this->m_index-n-1;
 			if (tail)
-				HoeCore::CrossMemMove(m_ptr+n, m_ptr+m_index+n+1,sizeof(C)*tail);
-			m_count -= (m_index + 1);
-			m_index = 0;
+				CrossMemMove(this->m_ptr+n, this->m_ptr+this->m_index+n+1,sizeof(C)*tail);
+			this->m_count -= (this->m_index + 1);
+			this->m_index = 0;
 		}
 		else
 		{
-			if (n < (m_count/3)) // pokud je n v prvni tretine, presouva se index
+			if (n < (this->m_count/3)) // pokud je n v prvni tretine, presouva se index
 			{
-				HoeCore::CrossMemMove(m_ptr+n,m_ptr,sizeof(C)*n);
-				m_index++;
+				CrossMemMove(this->m_ptr+n,this->m_ptr,sizeof(C)*n);
+				this->m_index++;
 			}
 			else
 			{
-				HoeCore::CrossMemMove(m_ptr+n,m_ptr+n+1,sizeof(C)*(m_count-m_index-n-1));
-				m_count--;
+				CrossMemMove(this->m_ptr+n,this->m_ptr+n+1,sizeof(C)*(this->m_count-this->m_index-n-1));
+				this->m_count--;
 			}
 		}
 	}

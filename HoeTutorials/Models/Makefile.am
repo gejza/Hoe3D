@@ -8,7 +8,7 @@ ___bin_Models_CPPFLAGS = -I../../HoeCore/include -I../../HoeGame/include -I../..
 ___bin_Models_SOURCES = \ 
 model_app.cpp \
 ../Common/tutorial.cpp
-___bin_Models_LDADD = -L../../bin -lHoeCore -lHoeGame $(LUA_LIBS) -lXxf86vm -lXxf86dga  
+___bin_Models_LDADD = -L../../bin -lHoeGame -lHoeCore $(LUA_LIBS) -lXxf86vm -lXxf86dga  
 
 
 

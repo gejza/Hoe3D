@@ -8,7 +8,7 @@ ___bin_Paint2D_CPPFLAGS = -I../../HoeCore/include -I../../HoeGame/include -I../.
 ___bin_Paint2D_SOURCES = \ 
 paint2d_app.cpp \
 ../Common/tutorial.cpp
-___bin_Paint2D_LDADD = -L../../bin -lHoeCore -lHoeGame $(LUA_LIBS) -lXxf86vm -lXxf86dga  
+___bin_Paint2D_LDADD = -L../../bin -lHoeGame -lHoeCore $(LUA_LIBS) -lXxf86vm -lXxf86dga  
 
 
 
