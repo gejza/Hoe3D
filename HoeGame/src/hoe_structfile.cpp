@@ -42,6 +42,7 @@ bool ObjectFileParser::Open(const char *fname)
 	if (!m_f)
 		return false;
 	yyobjectrestart(m_f);
+	yyobjectlineno = 1;
 	return true;
 }
 

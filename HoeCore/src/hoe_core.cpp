@@ -289,6 +289,29 @@ bool HoeCore::Algorythm::Dajkrs::Process(TGraphPoint * from, TGraphPoint * to)
 	return false;
 }
 
+void HoeCore::CrossMemMove(void * dest, void * src, size_t size)
+{
+	// rozhoduje smer odkud a kam
+	byte* d = reinterpret_cast<byte*>(dest);
+	byte* s = reinterpret_cast<byte*>(src);
+	if (d < s)
+	{
+		// musi projet popredu, optimalizace by byla kdyby memcpy kopirovala vzdy odpredu
+		size_t di = s - d;
+		for (size_t i=0;i < size;i+=di)
+		{
+			memcpy(d+i, s+i, size < (di+i) ? size-i:di);
+		}
+	}
+	else if (d > s)
+	{
+		size_t di = d - s;
+		for (int i=size-di;i >= 0;i-=di)
+		{
+			memcpy(d+i, s+i, i > di ? di:di-i);
+		}
 
+	}
+}
 
 

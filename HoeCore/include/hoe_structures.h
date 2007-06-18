@@ -202,6 +202,107 @@ public:
 };
 
 /** 
+ * Fronta
+ */
+template<class C> class Queue : private SetBase<C>
+{
+protected:
+	uint m_index;
+	void Reindex()
+	{
+		hoe_assert(m_index > 0);
+		HoeCore::CrossMemMove(m_ptr,m_ptr+m_index, sizeof(C)*(m_count-m_index));
+		m_count -= m_index;
+		m_index = 0;
+	}
+public:
+	Queue()
+	{
+		m_index = 0;
+	}
+	uint Count() { return m_count-m_index; }
+	bool IsEmpty() { return m_index==m_count; }
+	void Delete() { this->m_count = m_index = 0; }
+	C & Get(uint n) const
+	{
+		hoe_assert(n < (this->m_count-m_index));
+		return this->m_ptr[n+m_index];
+	}
+	C & operator [] (const int index)
+	{
+		return Get(index);
+	}
+	void Push(const C &c)
+	{
+		if (this->m_size == this->m_count)
+		{
+			if (m_index)
+				Reindex();
+			else
+				Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
+		}
+		this->m_ptr[this->m_count] = c;this->m_count++;
+	}
+	C & Push()
+	{
+		if (this->m_size == this->m_count)
+		{
+			if (m_index)
+				Reindex();
+			else
+				Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
+		}
+		this->m_count++;
+		return this->m_ptr[this->m_count-1];
+	}
+	const C & Front()
+	{
+		hoe_assert(m_index < m_count);
+		return this->m_ptr[this->m_index++];
+	}
+	const C * Front(uint n)
+	{
+		hoe_assert((m_index+n) <= m_count);
+		m_index += n;
+		return this->m_ptr + this->m_index-n;
+	}
+	void Remove(uint n)
+	{
+		hoe_assert(n < (m_count-m_index));
+		if (!n)
+			m_index++;
+		else if (n==(m_count-m_index-1))
+			m_count--;
+		// vyzaduje posunuti pameti
+		else if (m_index)
+		{
+			// presun prvni casti
+			if (n)
+				HoeCore::CrossMemMove(m_ptr, m_ptr + m_index,sizeof(C)*n);
+			// presun druhe
+			register const int tail = m_count-m_index-n-1;
+			if (tail)
+				HoeCore::CrossMemMove(m_ptr+n, m_ptr+m_index+n+1,sizeof(C)*tail);
+			m_count -= (m_index + 1);
+			m_index = 0;
+		}
+		else
+		{
+			if (n < (m_count/3)) // pokud je n v prvni tretine, presouva se index
+			{
+				HoeCore::CrossMemMove(m_ptr+n,m_ptr,sizeof(C)*n);
+				m_index++;
+			}
+			else
+			{
+				HoeCore::CrossMemMove(m_ptr+n,m_ptr+n+1,sizeof(C)*(m_count-m_index-n-1));
+				m_count--;
+			}
+		}
+	}
+};
+
+/** 
  * Implementace haldy
  * prvky musi mit zabudovany operator <>
  */

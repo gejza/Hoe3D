@@ -51,7 +51,12 @@ bool Hoe2DFigureBase::Load(const char * fname)
 
 	return true;
 loaderror:
-	BaseConsole::Printf("%s(%d): error: %s", fname, parser.GetLineNum(), (const char*)err);
+	HoeCore::String_s<1024> errf;
+	errf.printf("%s(%d): error: %s", fname, parser.GetLineNum(), (const char*)err);
+	BaseConsole::Printf("%s", (const char*)errf);
+	// show error
+	HoeApp::GetApp<HoeApp>()->ShowMsg("Script error", errf);
+
 	return false;
 }
 

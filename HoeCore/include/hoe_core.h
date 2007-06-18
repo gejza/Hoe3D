@@ -149,6 +149,10 @@ bool Dajkrs::PGraphPoint::operator >(const HoeCore::Algorythm::Dajkrs::PGraphPoi
 
 }
 
+// functions
+void CrossMemMove(void * dest, void * src, size_t size);
+
+
 } // namespace HoeCore
 
 
