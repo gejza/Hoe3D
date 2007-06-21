@@ -334,7 +334,7 @@ return false;
 
     glGetIntegerv(GL_MAX_ELEMENTS_INDICES, &param.max_indices);
     glGetIntegerv(GL_MAX_ELEMENTS_VERTICES, &param.max_vertices);
-    param.max_indices = 500;
+    //param.max_indices = 500;
     Con_Print("GL: Max drawed vert = %d, indices = %d", param.max_vertices, param.max_indices);
     
 	// extensions 
