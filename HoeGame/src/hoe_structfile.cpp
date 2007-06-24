@@ -154,7 +154,7 @@ bool ObjectFileParser::ScanVector()
 		type = lexn();
 		if (type == ')')
 		{
-			m_property.Set(vec, s);
+			m_property.Set(vec, s*sizeof(float));
 			return true;
 		}
 		if (type != ',')

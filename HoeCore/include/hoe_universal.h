@@ -18,6 +18,8 @@ public:
 		TypeFloat,
 		TypeBool,
 		TypeFloatVector,
+		TypePointer,
+		TypeData,
 	};
 	Universal();
 	Universal(const char *);
@@ -40,7 +42,8 @@ public:
 	void Set(int value);
 	void Set(bool value);
 	void Set(const Universal & value);
-	void Set(const float * v, size_t size);
+	void Set(const void * v, size_t size);
+	void Set(void * p);
 
 	// getting functions
 	const char * GetStringValue() const;
@@ -48,8 +51,11 @@ public:
 	long GetDecimal() const;
 	unsigned long GetUnsigned() const;
 	float GetFloat() const;
+	void * GetPointer() const;
+	template<typename T> T * GetPtr() const
+	 { return reinterpret_cast<T*>(GetPointer());}
 
-	float vec_GetFloat(size_t index) const;
+	//float vec_GetFloat(size_t index) const;
 
 	// operators
 	const Universal & operator = (const char * value) { Set(value); return *this; }
@@ -73,7 +79,7 @@ protected:
 		float f;
 		char * str;
 		const char * cstr;
-		float * vf;
+		void * p;
 
 	} value;
 	dword type;

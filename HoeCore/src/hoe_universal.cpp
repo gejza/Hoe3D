@@ -67,8 +67,8 @@ void Universal::Clear()
 	case TypeString:
 		SAFE_DELETE_ARRAY(value.str);
 		break;
-	case TypeFloatVector:
-		SAFE_DELETE_ARRAY(value.vf);
+	case TypeData:
+		SAFE_DELETE_ARRAY(value.p);
 		break;
 	};
 	allocated = 0;
@@ -133,19 +133,26 @@ void Universal::Set(bool b)
 	if ()
 }*/
 
-void Universal::Set(const float * v, size_t s)
+void Universal::Set(void * v)
 {
-	if (GetType() == TypeFloatVector && allocated >= s && s > 0)
+	Clear();
+	type = (type & 0x80000000) | TypePointer;
+	value.p = v;
+}
+
+void Universal::Set(const void * v, size_t s)
+{
+	if (GetType() == TypeData && allocated >= s && s > 0)
 	{
-		memcpy(this->value.vf, v, s * sizeof(float)); this->size = s; return;
+		memcpy(this->value.p, v, s); this->size = s; return;
 	}
 	Clear();
-	type = (type & 0x80000000) | TypeFloatVector;
+	type = (type & 0x80000000) | TypeData;
 	if (s > 0)
 	{
-		this->value.vf = new float[s];
+		this->value.p = new byte[s];
 		allocated = this->size = s;
-		memcpy(this->value.vf, v, s * sizeof(float));
+		memcpy(this->value.p, v, s);
 	}
 }
 
@@ -162,7 +169,8 @@ bool Universal::GetBool() const
 	case TypeUnsigned: return value.ul != 0;
 	case TypeFloat: return value.f != 0.f;
 	case TypeBool: return value.b;
-	case TypeFloatVector: return size > 0;
+	case TypeData: return size > 0;
+	case TypePointer: return value.p != NULL;
 	};
 	return false;
 }
@@ -185,7 +193,7 @@ unsigned long Universal::GetUnsigned() const
 	case TypeUnsigned: return value.ul;
 	case TypeFloat: return (unsigned long)value.f;
 	case TypeBool: return (unsigned long)value.b;
-	case TypeFloatVector: return (unsigned long)vec_GetFloat(0);
+	//case TypeFloatVector: return (unsigned long)vec_GetFloat(0);
 	};
 	return 0;
 }
@@ -214,19 +222,31 @@ float Universal::GetFloat() const
 	case TypeUnsigned: return (float)value.ul;
 	case TypeFloat: return value.f;
 	case TypeBool: return value.b ? 1.f:0.f;
-	case TypeFloatVector: return vec_GetFloat(0);
+	//case TypeFloatVector: return vec_GetFloat(0);
 	};
 	return 0;
 }
 
-float Universal::vec_GetFloat(size_t index) const
+void * Universal::GetPointer() const 
+{
+	switch (GetType())
+	{
+	case TypePointer:
+	case TypeData:
+		return value.p;
+	default:
+		return NULL;
+	};
+}
+
+/*float Universal::vec_GetFloat(size_t index) const
 {
 	if (GetType() == TypeFloatVector && index < size)
 		return value.vf[index];
 	if (index == 0 && GetType() == TypeFloat)
 		return value.f;
 	return 0.f;
-}
+}*/
 
 
 

@@ -109,14 +109,15 @@ bool Theatre::Load(const char * fname)
 			//gui->Set(p->GetName(), p->GetStringValue());
 			if (strcmp(p->GetName(),"position") == 0)
 			{
-				k->SetPosition(p->GetValue().vec_GetFloat(0),
-					p->GetValue().vec_GetFloat(1),
-					p->GetValue().vec_GetFloat(2));
+				
+				k->SetPosition(p->GetValue().GetPtr<float>()[0],
+					p->GetValue().GetPtr<float>()[1],
+					p->GetValue().GetPtr<float>()[2]);
 			}
 			else if (strcmp(p->GetName(),"size") == 0)
 			{
-				k->SetSize(p->GetValue().vec_GetFloat(0),
-					p->GetValue().vec_GetFloat(1));
+				k->SetSize(p->GetValue().GetPtr<float>()[0],
+					p->GetValue().GetPtr<float>()[1]);
 			}
 			else if (strcmp(p->GetName(),"texture") == 0)
 			{

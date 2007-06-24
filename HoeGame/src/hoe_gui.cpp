@@ -35,10 +35,10 @@ void Item::SetRect(const THoeRect * rect)
 
 void Item::SetRect(const HoeCore::Universal & value)
 {
-	m_rect.left = value.vec_GetFloat(0);
-	m_rect.top = value.vec_GetFloat(1);
-	m_rect.right = value.vec_GetFloat(2);
-	m_rect.bottom = value.vec_GetFloat(3);
+	m_rect.left = value.GetPtr<float>()[0];
+	m_rect.top = value.GetPtr<float>()[1];
+	m_rect.right = value.GetPtr<float>()[2];
+	m_rect.bottom = value.GetPtr<float>()[3];
 }
 
 TextDevice::TextDevice()

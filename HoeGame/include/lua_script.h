@@ -34,6 +34,8 @@ public:
 	bool IsNum(int pos) const;
 	bool IsNil(int pos) const;
 	bool IsTable(int pos) const;
+	const char * GetTypeString(int pos) const;
+	int GetType(int pos) const;
     //bruca - neexistuje lua_ispointer()
     bool IsPointer(int pos) const;
 	void Error(const char * szFormat, ...);
@@ -51,6 +53,8 @@ public:
     bool ToString(char * buff, size_t lb, int from, int to);
     
 	void Pop(int num);
+
+	lua_State * GetLua() { return m_L; }
 };
 
 class LuaFunc : public LuaParam

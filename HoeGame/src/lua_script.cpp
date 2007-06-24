@@ -168,6 +168,16 @@ bool LuaParam::IsTable(int pos) const
 	return lua_istable(m_L, pos) != 0;
 }
 
+const char * LuaParam::GetTypeString(int pos) const
+{
+	return lua_typename(m_L, lua_type(m_L,pos)); 
+}
+
+int LuaParam::GetType(int pos) const
+{
+	return lua_type(m_L,pos);
+}
+
 void LuaParam::PushTable()
 {
 	lua_newtable(m_L);
@@ -278,6 +288,11 @@ bool LuaParam::ToString(char * buff, size_t lb, int from, int to)
 
 void LuaParam::Error(const char * szFormat, ...)
 {
+	/*lua_Debug ar;
+	int l=0;
+	while (lua_getstack(m_L, l++, &ar))
+		lua_getinfo (m_L, ">SnlufL", &ar);*/
+
 	va_list args;
 	va_start(args, szFormat);
 	lua_pushvfstring(m_L, szFormat, args);
@@ -647,6 +662,10 @@ int LuaScript::error(lua_State * L)
 	static char mbuff[256];
 	buff[0] = '\0';
 	// debug
+	/*lua_Debug ar;
+	int l=0;
+	while (lua_getstack(L, l++, &ar))
+	lua_getinfo (L, ">SnlufL", &ar);*/
 	for (i=1; i<=n; i++)
 	{
 		if (lua_isstring(L,i))

@@ -33,6 +33,15 @@ protected:
 	HoeCore::Universal m_value;
 };
 
+class DItem : public HoeCore::Universal
+{
+public:
+	const char * GetName() const { return m_name; }
+	void SetName(const char * name) { m_name = name; }
+protected:
+	HoeCore::String_s<256> m_name;
+};
+
 class Dictionary
 {
 	// key list
