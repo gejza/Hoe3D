@@ -153,6 +153,23 @@ bool Dajkrs::PGraphPoint::operator >(const HoeCore::Algorythm::Dajkrs::PGraphPoi
 void CrossMemMove(void * dest, void * src, size_t size);
 
 
+/** Optimalizovane uloziste pro stringy */
+class StringPool
+{
+    struct PoolIndex
+    {
+        int hash;
+    };
+    HoeCore::Set<PoolIndex> m_index;
+public:
+    StringPool() {};
+    /** Zaindexuje novy string */
+    const char * Add(const char * str);
+    /** Odebere jednu instanci */
+    void Remove(const char * str);
+};
+
+
 } // namespace HoeCore
 
 

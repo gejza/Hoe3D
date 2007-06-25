@@ -349,6 +349,35 @@ public:
 };
 
 
+/** Seznam klicu, umoznuje rychle hledani  
+ * C musi obsahovat operatory <> a operator == s klicem */
+template<class C, class INDEX> class KeyList : public SetBase<C>
+{
+public:
+	void Add(C c)
+	{
+		if (this->m_size == this->m_count)
+			Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
+		this->m_ptr[this->m_count] = c;this->m_count++;
+	}
+	C & Add(INDEX i)
+	{
+		if (this->m_size == this->m_count)
+			Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
+		this->m_ptr[this->m_count] = C(i);this->m_count++;
+        return this->m_ptr[this->m_count-1];
+	}
+    C * Find(const INDEX& index)
+    {
+        for (int i=0;i< this->m_count;i++)
+            if (this->m_ptr[i] == index)
+                return this->m_ptr + i;
+        return NULL;
+    }
+};
+
+
+
 ///////////////////////////////////////////////////
 // GRAF
 struct TGraphEdge;
