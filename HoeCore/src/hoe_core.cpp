@@ -314,4 +314,28 @@ void HoeCore::CrossMemMove(void * dest, void * src, size_t size)
 	}
 }
 
+/////////////////////////////////////////////
+HoeCore::Table::Table(HoeCore::StringPool & pool)
+: m_pool(pool) 
+{
+}
+
+HoeCore::Universal & HoeCore::Table::Get(const char * key)
+{
+	for (uint u=0;u < m_items.Count();u++)
+		if (strcmp(m_items[u].key, key) == 0)
+			return m_items[u].value;
+	return HoeCore::Universal();
+}
+
+HoeCore::Universal & HoeCore::Table::Insert(const char * key)
+{
+	for (uint u=0;u < m_items.Count();u++)
+		if (strcmp(m_items[u].key, key) == 0)
+			return m_items[u].value;
+	// vytvorit
+	Item &i = m_items.Add();
+	i.key = m_pool.Insert(key);
+	return i.value;
+}
 

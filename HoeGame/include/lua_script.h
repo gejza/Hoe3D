@@ -27,6 +27,7 @@ public:
 	double GetDouble(int pos) const;
 	float GetFloat(int pos) const;
 	void * GetPointer(int pos) const;
+	bool Get(int pos, HoeCore::Universal& data) const;
 	bool CheckPar(int num, const char * par) const;
 	bool CheckPar(int num, const char * par, const char * func);
 	int GetNumParam() const; 
@@ -42,12 +43,15 @@ public:
 	void PushNum(int num);
 	void PushPointer(void * p);
 	void PushTable();
+	void PushFromStack(int idx);
 	void SetTableInteger(const char * par, int data, int tab = -2);
 	int GetTableInteger(const char * par, int table) const;
 	void SetTableFloat(const char * par, float data, int tab = -2);
 	float GetTableFloat(const char * par, int table) const;
 	void SetTablePointer(const char * par, void * data, int tab = -2);
 	void * GetTablePointer(const char * par, int table) const;
+	void SetTable(const char * par, const HoeCore::Universal& data, int tab = -2);
+	void SetTable(const HoeCore::Table & data, int tab = -2);
 
     bool ToString(char * buff, size_t lb, int par);
     bool ToString(char * buff, size_t lb, int from, int to);

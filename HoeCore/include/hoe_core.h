@@ -156,19 +156,93 @@ void CrossMemMove(void * dest, void * src, size_t size);
 /** Optimalizovane uloziste pro stringy */
 class StringPool
 {
-    struct PoolIndex
+protected:
+	struct ConstString
+	{
+		uint hash;
+		const char * str;
+		ConstString(const char * s) 
+		{
+			hash = HoeCore::HashString(s);
+			str = s;
+		}
+	};
+	struct PoolIndex : public ConstString
     {
-        int hash;
+		uint ref;
+		PoolIndex(const char * s) : ConstString(s)
+		{
+			ref = 1;
+		}
+		bool operator == (const ConstString& s)
+		{
+			if (s.hash != this->hash) return false;
+			return strcmp(s.str,this->str)==0;
+		}
+		bool operator < (const PoolIndex& pi)
+		{
+			return this->hash < pi.hash;
+		}
+		bool operator > (const PoolIndex& pi)
+		{
+			return this->hash > pi.hash;
+		}
     };
-    HoeCore::Set<PoolIndex> m_index;
+	HoeCore::KeyList<PoolIndex, ConstString> m_keys;
 public:
     StringPool() {};
     /** Zaindexuje novy string */
-    const char * Add(const char * str);
+    const char * Insert(const char * str)
+	{
+		PoolIndex * ppi = m_keys.Find(str);
+		if (ppi)
+		{
+			ppi->ref++;
+			return ppi->str;
+		}
+		// vytvorit
+		PoolIndex pi(strdup(str));
+		m_keys.Add(pi);
+		return pi.str;
+	}
     /** Odebere jednu instanci */
-    void Remove(const char * str);
+    void Remove(const char * str)
+	{
+		// zatim vypnuto
+		/*todo PoolIndex * ppi = m_keys.Find(str);
+		hoe_assert(!ppi);
+		if (ppi)
+		{
+			if (ppi <= 1) 
+			{
+				// odebrat ze seznamu
+				free(ppi->str);
+			}
+			else
+				ppi->ref--;
+		}*/
+	}
 };
 
+class Table
+{
+	HoeCore::StringPool & m_pool;
+	// set of values
+	struct Item
+	{
+		const char * key;
+		HoeCore::Universal value;
+	};
+	HoeCore::Set<Item> m_items;
+public:
+	Table(HoeCore::StringPool & pool);
+	HoeCore::Universal & Get(const char * key);
+	const HoeCore::Universal & Get(const char * key) const;
+	uint Count() const { return m_items.Count(); }
+	const char * GetKey(uint i) const { return m_items[i].key; }
+	const HoeCore::Universal & GetValue(uint i) const { return m_items[i].value; }
+	HoeCore::Universal & Insert(const char * key);
+};
 
 } // namespace HoeCore
 

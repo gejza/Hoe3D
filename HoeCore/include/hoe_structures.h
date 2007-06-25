@@ -70,6 +70,10 @@ public:
 	{
 		return Get(index);
 	}
+	const C & operator [] (const int index) const
+	{
+		return Get(index);
+	}
 	bool IsEmpty() { return this->m_count == 0; }
 	void Copy(const SetBase & base)
 	{
@@ -358,6 +362,7 @@ public:
 	{
 		if (this->m_size == this->m_count)
 			Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
+		// vlozit serazene
 		this->m_ptr[this->m_count] = c;this->m_count++;
 	}
 	C & Add(INDEX i)
@@ -369,7 +374,8 @@ public:
 	}
     C * Find(const INDEX& index)
     {
-        for (int i=0;i< this->m_count;i++)
+		// hledat slozitosti log n
+        for (uint i=0;i< this->m_count;i++)
             if (this->m_ptr[i] == index)
                 return this->m_ptr + i;
         return NULL;

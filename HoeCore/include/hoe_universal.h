@@ -17,7 +17,6 @@ public:
 		TypeUnsigned,
 		TypeFloat,
 		TypeBool,
-		TypeFloatVector,
 		TypePointer,
 		TypeData,
 	};

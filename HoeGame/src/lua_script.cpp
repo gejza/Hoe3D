@@ -120,6 +120,27 @@ void * LuaParam::GetPointer(int pos) const
 	return lua_touserdata(m_L,pos);
 }
 
+bool LuaParam::Get(int pos, HoeCore::Universal& data) const
+{
+	// retrieve
+	switch (lua_type(m_L,pos))
+	{
+	//case LUA_TNIL:LUA_TTABLE, LUA_TFUNCTION,LUA_TTHREAD
+	case LUA_TNUMBER:
+		data.Set(GetNum(pos)); break;
+	case LUA_TBOOLEAN:
+		data.Set(GetBool(pos)); break;
+	case LUA_TSTRING:
+		data.Set(GetString(pos)); break;
+	case LUA_TUSERDATA:
+	case LUA_TLIGHTUSERDATA:
+		data.Set(GetPointer(pos)); break;
+	default:
+		return false;
+	};
+	return true;
+}
+
 void LuaParam::SaveString(const char *str)
 {
 	lua_pushstring(m_L,str);
@@ -135,6 +156,12 @@ void LuaParam::PushNum(int num)
 void LuaParam::PushPointer(void *p)
 {
 	lua_pushlightuserdata(m_L, p);
+	nump++;
+}
+
+void LuaParam::PushFromStack(int idx)
+{
+	lua_pushvalue(m_L, idx);
 	nump++;
 }
 
@@ -251,6 +278,42 @@ void * LuaParam::GetTablePointer(const char *par, int tab) const
 	return p;
 }
 
+void LuaParam::SetTable(const char * par, const HoeCore::Universal& data, int tab)
+{
+#if LUA_VERSION_NUM >= 501
+	switch (data.GetType())
+	{
+	case HoeCore::Universal::TypeNone:
+		lua_pushnil(m_L); break;
+	case HoeCore::Universal::TypeString:
+		lua_pushstring(m_L, data.GetStringValue()); break;
+	case HoeCore::Universal::TypeDecimal:
+		lua_pushnumber(m_L, data.GetDecimal()); break;
+	case HoeCore::Universal::TypeUnsigned:
+		lua_pushnumber(m_L, data.GetUnsigned()); break;
+	case HoeCore::Universal::TypeFloat:
+		lua_pushnumber(m_L, data.GetFloat()); break;
+	case HoeCore::Universal::TypeBool:
+		lua_pushboolean(m_L, data.GetBool()); break;
+	case HoeCore::Universal::TypePointer:
+	case HoeCore::Universal::TypeData:
+		lua_pushlightuserdata(m_L, data.GetPointer()); break;
+	default:
+		hoe_assert(!"Unknown datetype of HoeCore::Universal");
+		return;
+	};
+	lua_setfield(m_L,tab,par);
+#else
+	assert(!"tato funkce neni dostupna ve verzi Lua 5.0");
+#endif
+}
+
+void LuaParam::SetTable(const HoeCore::Table & data, int tab)
+{
+	for (uint i=0; i < data.Count();i++)
+		SetTable(data.GetKey(i), data.GetValue(i), tab);
+}
+
 void LuaParam::Pop(int num)
 {
 	lua_pop(m_L, num);
@@ -310,6 +373,7 @@ bool LuaFunc::Run(int nres)
 {
 	//lua_Debug ar;
 	lua_call(m_L,nump,nres);
+
 	/*switch (err)
 	{
 	case LUA_ERRRUN:

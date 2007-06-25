@@ -38,7 +38,6 @@ const char * Universal::GetTypeName(Universal::Type t)
 	case TypeUnsigned: return "unsigned";
 	case TypeFloat: return "real";
 	case TypeBool: return "boolean";
-	case TypeFloatVector: return "real vector";
 	default:
 		return "unknown";
 	};
@@ -54,7 +53,6 @@ const char * Universal::GetStringValue() const
 	case TypeUnsigned: return "unsigned";
 	case TypeFloat: return "real";
 	case TypeBool: return "boolean";
-	case TypeFloatVector: return "real vector";
 	default:
 		return "unknown";
 	};
@@ -193,6 +191,29 @@ unsigned long Universal::GetUnsigned() const
 	case TypeUnsigned: return value.ul;
 	case TypeFloat: return (unsigned long)value.f;
 	case TypeBool: return (unsigned long)value.b;
+	//case TypeFloatVector: return (unsigned long)vec_GetFloat(0);
+	};
+	return 0;
+}
+
+long Universal::GetDecimal() const
+{
+	switch (GetType())
+	{
+	case TypeString:
+		{
+			register long ret = 0;
+			register const char * str = GetStringValue();
+			if (str[0] == '0' && str[1] == 'x')
+				sscanf(str+2, "%x", &ret);
+			else
+				sscanf(str, "%d", &ret);
+			return ret;
+		}
+	case TypeDecimal: return value.l;
+	case TypeUnsigned: return (long)value.ul;
+	case TypeFloat: return (long)value.f;
+	case TypeBool: return (long)value.b;
 	//case TypeFloatVector: return (unsigned long)vec_GetFloat(0);
 	};
 	return 0;
