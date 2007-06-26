@@ -60,6 +60,7 @@ const char * Universal::GetStringValue() const
 
 void Universal::Clear()
 {
+    if (!size) return;
 	switch (GetType())
 	{
 	case TypeString:

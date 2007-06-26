@@ -222,6 +222,23 @@ public:
 				ppi->ref--;
 		}*/
 	}
+    const HoeCore::KeyList<PoolIndex, ConstString> & GetKeys() { return m_keys; }
+};
+
+struct KeyString
+{
+    dword hash;
+    const char * key;
+    KeyString(const char * s)
+    {
+        hash = HashString(s);
+        key = s;
+    }
+    bool operator == (const KeyString& k) const
+    {
+        if (this->hash != k.hash) return false;
+        return strcmp(this->key, k.key) == 0;
+    }
 };
 
 class Table
@@ -230,18 +247,21 @@ class Table
 	// set of values
 	struct Item
 	{
-		const char * key;
+        HoeCore::KeyString key;
 		HoeCore::Universal value;
 	};
 	HoeCore::Set<Item> m_items;
 public:
 	Table(HoeCore::StringPool & pool);
-	HoeCore::Universal & Get(const char * key);
-	const HoeCore::Universal & Get(const char * key) const;
+	HoeCore::Universal & Get(const HoeCore::KeyString& key);
+	const HoeCore::Universal & Get(const HoeCore::KeyString& key) const;
 	uint Count() const { return m_items.Count(); }
-	const char * GetKey(uint i) const { return m_items[i].key; }
+	const char * GetKey(uint i) const { return m_items[i].key.key; }
 	const HoeCore::Universal & GetValue(uint i) const { return m_items[i].value; }
-	HoeCore::Universal & Insert(const char * key);
+	bool IfExist(const HoeCore::KeyString& key) const;
+    HoeCore::Universal & operator [](const HoeCore::KeyString& key) { return Get(key); }
+    const HoeCore::Universal & operator [](const HoeCore::KeyString& key) const { return Get(key); }
+        
 };
 
 } // namespace HoeCore

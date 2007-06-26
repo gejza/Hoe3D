@@ -320,22 +320,22 @@ HoeCore::Table::Table(HoeCore::StringPool & pool)
 {
 }
 
-HoeCore::Universal & HoeCore::Table::Get(const char * key)
+bool HoeCore::Table::IfExist(const HoeCore::KeyString& key) const
 {
 	for (uint u=0;u < m_items.Count();u++)
-		if (strcmp(m_items[u].key, key) == 0)
-			return m_items[u].value;
-	return HoeCore::Universal();
+		if (m_items[u].key == key)
+			return true;
+	return false;
 }
 
-HoeCore::Universal & HoeCore::Table::Insert(const char * key)
+HoeCore::Universal & HoeCore::Table::Get(const HoeCore::KeyString& key)
 {
 	for (uint u=0;u < m_items.Count();u++)
-		if (strcmp(m_items[u].key, key) == 0)
+		if (m_items[u].key == key)
 			return m_items[u].value;
 	// vytvorit
 	Item &i = m_items.Add();
-	i.key = m_pool.Insert(key);
+	i.key = KeyString(m_pool.Insert(key.key));
 	return i.value;
 }
 

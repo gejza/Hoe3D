@@ -15,7 +15,7 @@ public:
     virtual ~HoeBaseApp() {}
 	template<class C> static C * GetApp()
 	{
-		assert(this_);
+		//assert(this_);
 		return dynamic_cast<C*>(this_);
 	}
 };

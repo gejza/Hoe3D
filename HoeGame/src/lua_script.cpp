@@ -432,7 +432,7 @@ bool LuaScript::Init()
 	BaseConsole::Printf("$Lua: " LUA_VERSION " " LUA_COPYRIGHT " $");
 	BaseConsole::Printf("$Authors: " LUA_AUTHORS " $");
     BaseConsole::Printf("$URL: www.lua.org $");
-	//con->Printf("Stack: %dKb", lua_getgcthreshold (m_L));
+    BaseConsole::Printf("Stack: %dKb", lua_gc (m_L,LUA_GCCOUNT,0));
 
 	return true;
 }
