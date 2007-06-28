@@ -1,7 +1,9 @@
 
 #include "StdAfx.h"
 #include "../include/hoe_console.h"
+#ifndef HOE_NO_BASS
 #include "../include/bassmod.h"
+#endif
 #include "../include/hoe_music.h"
 
 BEGIN_HOEGAME
@@ -34,6 +36,7 @@ HoeMusic_Module::~HoeMusic_Module(){
 
 	//////////////////init//////////////////////////////
 bool HoeMusic_Module::Init(BaseConsole * con){
+#ifndef HOE_NO_BASS
 	
 	char * desc = BASSMOD_GetDeviceDescription(-1);
 	console = con;
@@ -41,36 +44,49 @@ bool HoeMusic_Module::Init(BaseConsole * con){
 		return false;
 	if (con) con->Printf("BASS: Init %s",desc);
 	return BASSMOD_Init(-1,44100,0) != FALSE;
+#else
+	return true;
+#endif
 }
 
 void HoeMusic_Module::Destroy(){
 	
+#ifndef HOE_NO_BASS
 	BASSMOD_MusicStop();
 	BASSMOD_MusicFree();
+#endif
 }
 
 
 	//////////////////load//////////////////////////////
 bool HoeMusic_Module::Load(void *file){
 					
+#ifndef HOE_NO_BASS
 	if (!BASSMOD_MusicLoad(false,file,0,0,BASS_MUSIC_RAMP|BASS_MUSIC_FT2MOD|BASS_MUSIC_CALCLEN))
 	{
 		if (console) console->Printf("BASS: Failed load music from file %s, error=%d",(char*)file,BASSMOD_ErrorGetCode());
 		return false;
 	}
+#endif
 	if (console) console->Printf("BASS: Load music from file: %s", (char*)file);
 	return true;
 }
 
 	//////////////////play/pause/stop///////////////////
 void HoeMusic_Module::Play(){
+#ifndef HOE_NO_BASS
 	BASSMOD_MusicPlay();
+#endif
 }
 void HoeMusic_Module::Pause(){
+#ifndef HOE_NO_BASS
 	BASSMOD_MusicPause();
+#endif
 }
 void HoeMusic_Module::Stop(){
+#ifndef HOE_NO_BASS
 	BASSMOD_MusicStop();
+#endif
 }
 
 //int HoeMusic_Module::getLength(){
@@ -93,8 +109,10 @@ int HoeMusic_Module::getOffsetPosByFactor(float factor){
 
 	//////////////////set/position//////////////////////
 void HoeMusic_Module::setPos(DWORD pos){
+#ifndef HOE_NO_BASS
 	BASSMOD_MusicSetPosition(pos);
 	//console->Printf ("sync %d",(DWORD)pos);
+#endif
 
 }
 	//////////////////synchro/proc//////////////////////
@@ -114,6 +132,7 @@ void HoeMusic_Module::setOffsets(OffsetLoop *Offsets){
 
 	//////////////////set/factor//waiting///////////////
 void HoeMusic_Module::setFactor(float factor){
+#ifndef HOE_NO_BASS
 	
 	if(factor<0.0f) factor=0.0f;
 	if(factor>1.0f) factor=1.0f;
@@ -132,6 +151,7 @@ void HoeMusic_Module::setFactor(float factor){
 		PosSyncProc, (DWORD)this);
 
 	actualOffsetIndex = factorPos;
+#endif
 }
 
 ////////////////////////////////////////////////////

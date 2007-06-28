@@ -11,7 +11,7 @@ src/structfile_parser.cpp: src/structfile_parser.l
 	flex -o"src/structfile_parser.cpp" src/structfile_parser.l
 	
 
-___bin_libHoeGame_a_CPPFLAGS = -I../Hoe3D/include $(LUA_CFLAGS)
+___bin_libHoeGame_a_CPPFLAGS = -I../Hoe3D/include $(LUA_CFLAGS) -DHOE_NO_BASS
 
 ___bin_libHoeGame_a_SOURCES = src/hoe_app.cpp \
 src/hoe_baseapp.cpp \

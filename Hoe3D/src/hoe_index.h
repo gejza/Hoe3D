@@ -46,7 +46,7 @@ public:
 #ifdef _HOE_D3D_
 	inline SysIndexBuffer GetIndexBuffer() { return m_ib; }
 #else
-	inline SysIndexBuffer GetIndexBuffer() { return (SysIndexBuffer)m_sw; }
+	inline word * GetIndexBuffer() { return m_sw; }
 #endif
 	/**
 	* Pocet vertexu

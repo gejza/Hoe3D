@@ -16,8 +16,8 @@ AC_PROG_CXX
 AM_PROG_CC_C_O
 AC_PROG_LIBTOOL
 AM_PROG_LEX
-AM_GNU_GETTEXT
-BISON_I18N
+#AM_GNU_GETTEXT
+#BISON_I18N
 
 AM_PATH_GTK_2_0()
 CHECK_LUA()
@@ -49,11 +49,11 @@ fi
 #CFLAGS="$CFLAGS $WX_CFLAGS_ONLY"
 #LIBS="$LIBS $WX_LIBS"
 
-CPPFLAGS="$CXXFLAGS -mmmx -msse -march=pentium3 -D_LINUX -D_USE_OPENGL_ -ggdb3 -I../HoeCore/include"
+CPPFLAGS="$CXXFLAGS -mmmx -msse -D_LINUX -D_USE_OPENGL_ -ggdb3 -I../HoeCore/include"
 
 LDFLAGS="$LDFLAGS -L/usr/X11R6/lib -L../bin"
 
-AC_OUTPUT( Makefile HoeCore/Makefile Hoe3D/Makefile HoeGame/Makefile
+AC_OUTPUT( Makefile HoeCore/Makefile Hoe3D/Makefile HoeGame/Makefile po/Makefile.in
           HoeEditor/Makefile 
           HoeUtils/Makefile
           HoeUtils/lib/Makefile
