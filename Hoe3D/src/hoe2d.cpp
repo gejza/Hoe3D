@@ -78,7 +78,7 @@ void Hoe2D::SetRect(const float w,const float h)
 		HoeCamera::Setup2DMatrices(w,h);
 }
 
-void Hoe2D::PaintRect(const float l,const float r,const float t,const float b,dword color,bool full)
+void Hoe2D::PaintRect(const float l,const float r,const float t,const float b,unsigned long color,bool full)
 {
 	GetStates()->DisableTexture();
 	if ((color & 0xff000000) == 0xff000000)

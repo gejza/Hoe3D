@@ -103,7 +103,7 @@ bool Land::Preprocess(HoeCore::WordTileMap &map)
 			// priradit base
 			//todo 64 bit 
 			//TILE(x,y).souseds = m_lists.GetBasePointer(0)+TILE(x,y).souseds;
-			TILE(x,y).souseds = m_lists.GetBasePointer((uint)TILE(x,y).souseds);
+			TILE(x,y).souseds = m_lists.GetBasePointer((unsigned long)TILE(x,y).souseds);
 		}
 
 	return true;

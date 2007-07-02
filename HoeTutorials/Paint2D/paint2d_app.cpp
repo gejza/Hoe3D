@@ -50,7 +50,7 @@ void Paint2DApp::_Paint(IHoe2D *h)
 
 bool Paint2DApp::LoadScene()
 {
-	g_lang.Load("czech.lng");
+	g_lang.Load("bin/czech.lng");
 	GetEngine()->exec(g_lang.Get(1));
 	HoeGame::BaseConsole::Printf("test: %s",g_lang.Get(2));
 	GetFS()->AddResourceFile("data/tex.hx");

@@ -61,7 +61,7 @@ HoeModel * ModelLoader::LoadModel(const char * name, bool soft)
 
 HoeModel * ModelLoader::LoadModel()
 {
-	unsigned long ins;
+	unsigned int ins;
 
 	m_reader.Read(&ins,4);
 

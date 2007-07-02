@@ -28,7 +28,7 @@
 
 struct hfm_stream
 {
-	unsigned long size_fvf;
+	unsigned int size_fvf;
 	int numvert;
 	int size;
 };
@@ -64,7 +64,7 @@ struct hfm_point
 
 struct hfm_material
 {
-	unsigned long texsize;
+	unsigned int texsize;
 	int alphatest;
 };
 

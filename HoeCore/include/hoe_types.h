@@ -47,7 +47,7 @@ typedef void * HOE_INSTANCE;
 #error Platform not defined
 #endif
 
-typedef unsigned long dword;
+typedef unsigned int dword;
 typedef unsigned short word;
 typedef unsigned int  uint;
 typedef unsigned char byte;

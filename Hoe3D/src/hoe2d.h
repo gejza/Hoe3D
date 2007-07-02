@@ -29,7 +29,7 @@ public:
 	void SetRect(const float w,const float h);
 
 	// paint func
-	void PaintRect(const float l,const float r,const float t,const float b,dword color,bool full);
+	void PaintRect(const float l,const float r,const float t,const float b,unsigned long color,bool full);
 	void PaintLine(float x1,float y1,float x2,float y2,unsigned long c);
 
 	void BltFast(const float l,const float r,const float t,const float b,IHoePicture *);
