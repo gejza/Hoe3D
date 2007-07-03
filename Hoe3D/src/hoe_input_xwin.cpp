@@ -154,7 +154,7 @@ int HoeInputXWin::XKeyEventToHKey(XKeyEvent *ev)
 	XLookupRet = XLookupString(ev, buf, sizeof buf, &keysym, 0);
 
 	//Con_Print("XLookupString ret: %d buf: %s keysym: %x", XLookupRet, buf, keysym);
-
+    
 	switch (keysym)
 	{
 		case XK_KP_Page_Up: 
@@ -212,6 +212,10 @@ int HoeInputXWin::XKeyEventToHKey(XKeyEvent *ev)
 		case XK_Alt_R: return HK_RMENU;
         case XK_grave: return HK_GRAVE;
         case XK_minus: return HK_MINUS;
+        case XK_equal: return HK_EQUALS;
+        case XK_comma: return HK_COMMA;
+        case XK_period: return HK_PERIOD;
+        case XK_slash: return HK_SLASH;
   		//case XK_Meta_R: *key = K_ALT;     break;
 /*
   case XK_KP_Begin: *key = K_KP_5;  break;
@@ -346,7 +350,7 @@ bool HoeInputXWin::XProc(XEvent * event)
 		}
 		break;
 	default:
-		Con_Print("stisknuto %d", event->type);
+		//Con_Print("stisknuto %d", event->type);
 		break;
 	}
 	
