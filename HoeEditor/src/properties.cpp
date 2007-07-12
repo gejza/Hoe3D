@@ -430,7 +430,7 @@ void HoeEditor::PropertyGrid::OnChange( wxPropertyGridEvent& event )
 	if (m_propo)
 	{
 		PropItem pi( event.GetPropertyPtr());
-		m_propo->OnChangeProp( (int)event.GetPropertyClientData(), pi);
+		m_propo->OnChangeProp( (long)event.GetPropertyClientData(), pi);
 	}
 }
 
