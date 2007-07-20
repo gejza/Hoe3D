@@ -97,7 +97,7 @@
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="../../../bin"
 				IgnoreAllDefaultLibraries="true"
-				IgnoreDefaultLibraryNames=""
+				IgnoreDefaultLibraryNames="libcmt.lib;libcmtd.lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\DebugD3D9/Hoe3D.pdb"
 				Driver="0"
@@ -208,7 +208,7 @@
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="../../../bin"
 				IgnoreAllDefaultLibraries="false"
-				IgnoreDefaultLibraryNames="libcmtd.lib libcmt.lib LIBCMT LIBCMTD"
+				IgnoreDefaultLibraryNames="libcmt.lib;libcmtd.lib"
 				ProgramDatabaseFile=".\Release/Hoe3D.pdb"
 				ImportLibrary=".\Release/Hoe3D.lib"
 			/>
@@ -315,7 +315,7 @@
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="../../../bin"
 				IgnoreAllDefaultLibraries="true"
-				IgnoreDefaultLibraryNames=""
+				IgnoreDefaultLibraryNames="libcmt.lib;libcmtd.lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\DebugGL/Hoe3D_gl.pdb"
 				ImportLibrary=".\DebugGL/Hoe3D_gl.lib"
@@ -419,12 +419,12 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="winmm.lib libpng.lib zlib.lib libvorbis.lib libogg.lib libvorbisfile.lib HoeCore.lib"
+				AdditionalDependencies="winmm.lib libpng.lib libjpeg.lib zlib.lib libvorbis.lib libogg.lib libvorbisfile.lib HoeCore.lib opengl32.lib freetype2110MT.lib libxvidcore.lib"
 				OutputFile="../../../Bin/Hoe3D_GL.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="../../../bin"
-				IgnoreDefaultLibraryNames="libcmtd.lib libcmt.lib"
+				IgnoreDefaultLibraryNames="libcmt.lib;libcmtd.lib"
 				ProgramDatabaseFile=".\ReleaseGL/Hoe3D.pdb"
 				ImportLibrary=".\ReleaseGL/Hoe3D.lib"
 			/>
@@ -525,13 +525,13 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="winmm.lib libpngd.lib freetype2110MT_D.lib libjpeg.lib zlibd.lib libvorbis_d.lib libogg_d.lib libvorbisfile_d.lib HoeCore_d.lib msvcrtd.lib d3d8.lib dsound.lib dinput8.lib dxguid.lib DxErr8.lib oldnames.lib"
+				AdditionalDependencies="winmm.lib libpngd.lib freetype2110MT_D.lib libjpeg.lib zlibd.lib libvorbis_d.lib libogg_d.lib libvorbisfile_d.lib HoeCore_d.lib msvcrtd.lib d3d8.lib dsound.lib dinput8.lib dxguid.lib DxErr8.lib oldnames.lib libxvidcore.lib"
 				OutputFile="../../../Bin/Hoe3Dd_D3D8.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="../../../bin"
 				IgnoreAllDefaultLibraries="true"
-				IgnoreDefaultLibraryNames=""
+				IgnoreDefaultLibraryNames="libcmt.lib;libcmtd.lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\DebugD3D8/Hoe3D.pdb"
 				ImportLibrary=".\DebugD3D8/Hoe3D.lib"
@@ -722,12 +722,12 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="winmm.lib HoeCore.lib zlib.lib libvorbis.lib libogg.lib libvorbisfile.lib"
+				AdditionalDependencies="winmm.lib HoeCore.lib zlib.lib libvorbis.lib libogg.lib libvorbisfile.lib freetype2110MT_D.lib libjpeg.lib libxvidcore.lib dsound.lib libpng.lib"
 				OutputFile="../../../Bin/Hoe3D_D3D8.dll"
 				LinkIncremental="0"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="../../../bin"
-				IgnoreDefaultLibraryNames="libcmtd.lib libcmt.lib LIBCMT.lib"
+				IgnoreDefaultLibraryNames="libcmt.lib;libcmtd.lib"
 				ProgramDatabaseFile=".\Release/Hoe3D.pdb"
 				ImportLibrary=".\Release/Hoe3D.lib"
 			/>
@@ -1270,6 +1270,26 @@
 			<File
 				RelativePath="..\..\src\hoe_time.cpp"
 				>
+				<FileConfiguration
+					Name="DebugD3D9 (static)|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AssemblerListingLocation=".\DebugD3D9_s/"
+						ObjectFile=".\DebugD3D9_s/"
+						ProgramDataBaseFileName=".\DebugD3D9_s/"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL (static)|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AssemblerListingLocation=".\DebugGL_s/"
+						ObjectFile=".\DebugGL_s/"
+						ProgramDataBaseFileName=".\DebugGL_s/"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\src\hoe_time.h"

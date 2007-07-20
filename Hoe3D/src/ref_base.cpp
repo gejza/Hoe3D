@@ -18,7 +18,7 @@ RefBase::RefBase()
 	m_BackColor = 0xff000000;
 }
 
-void HOEAPI RefBase::SetBackgroundColor(dword color)
+void HOEAPI RefBase::SetBackgroundColor(unsigned long color)
 {
 	m_BackColor = color;
 }

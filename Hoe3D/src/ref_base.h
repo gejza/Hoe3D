@@ -35,7 +35,7 @@ public:
 	* Nastaveni barvy na pozadi 
 	* @param color Barva ve formatu 0xFFRRGGBB
 	*/
-	virtual void HOEAPI SetBackgroundColor(dword color);
+	virtual void HOEAPI SetBackgroundColor(unsigned long color);
 	/** 
 	* Zjisteni zapnuteho rezimu.
 	* @retval true Cela obrazovka

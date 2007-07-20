@@ -192,19 +192,7 @@ protected:
 public:
     StringPool() {};
     /** Zaindexuje novy string */
-    const char * Insert(const char * str)
-	{
-		PoolIndex * ppi = m_keys.Find(str);
-		if (ppi)
-		{
-			ppi->ref++;
-			return ppi->str;
-		}
-		// vytvorit
-		PoolIndex pi(strdup(str));
-		m_keys.Add(pi);
-		return pi.str;
-	}
+    const char * Insert(const char * str);
     /** Odebere jednu instanci */
     void Remove(const char * str)
 	{

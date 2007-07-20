@@ -111,7 +111,7 @@ size_t HoeFile::Read(void * buff, const size_t size)
 		return 0;
 
 #ifdef _WIN32
-	dword dwRead;
+	unsigned long dwRead;
 	ReadFile(file,buff,size,&dwRead,NULL);
 	return (size_t)dwRead;
 #else
@@ -126,7 +126,7 @@ bool HoeFile::Write(const void * buff,size_t size)
 		return false;
 
 #ifdef _WIN32
-	dword dwWrite;
+	unsigned long dwWrite;
 	WriteFile(file,buff,size,&dwWrite,NULL);
 	if (dwWrite != size)
 		return false;

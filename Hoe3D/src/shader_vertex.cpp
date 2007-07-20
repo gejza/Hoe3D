@@ -7,7 +7,7 @@
 #include "scene.h"
 #include "light_system.h"
 
-const dword g_vs11_main[] =
+const unsigned long g_vs11_main[] =
 {
     0xfffe0101, 0x0000001f, 0x80000000, 0x900f0000, 0x0000001f, 0x80000003, 
     0x900f0001, 0x00000014, 0xc00f0000, 0x90e40000, 0xa0e40000, 0x00000002, 

@@ -339,3 +339,19 @@ HoeCore::Universal & HoeCore::Table::Get(const HoeCore::KeyString& key)
 	return i.value;
 }
 
+/////////////////////////////////////////////////
+// Pools
+const char * HoeCore::StringPool::Insert(const char * str)
+{
+	PoolIndex * ppi = m_keys.Find(str);
+	if (ppi)
+	{
+		ppi->ref++;
+		return ppi->str;
+	}
+	// vytvorit
+	PoolIndex pi(strdup(str));
+	m_keys.Add(pi);
+	return pi.str;
+}
+
