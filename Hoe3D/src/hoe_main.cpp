@@ -48,8 +48,8 @@ DLL_EXPORT IHoeEngineInfo * HOEAPI GetEngineInfo(int sdk_ver)
 	{
 		return NULL;
 	}
-	static IHoeEngineInfo info;
-	return &info;
+	//static IHoeEngineInfo info;
+	return NULL;//&info;
 }
 
 DLL_EXPORT int HOEAPI GetSDKVersion()

@@ -1054,6 +1054,14 @@
 			>
 		</File>
 		<File
+			RelativePath="..\src\hoe_wx.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\include\hoe_wx.h"
+			>
+		</File>
+		<File
 			RelativePath="..\src\StdAfx.h"
 			>
 		</File>

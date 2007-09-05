@@ -149,31 +149,53 @@ bool Dajkrs::PGraphPoint::operator >(const HoeCore::Algorythm::Dajkrs::PGraphPoi
 
 }
 
-// functions
+/**
+* Bezpecne presunuti pameti, 
+* vyhodne pokud se zdrojove a cilove casti prekryvaji
+*/
 void CrossMemMove(void * dest, void * src, size_t size);
 
+/** Optimalizator pro alokovani malych objektu */
+class MemoryPool
+{
+	struct PoolItem
+	{
+		PoolItem * next;
+		char * base;
+		size_t size;
+		size_t max;
+		inline size_t GetAvail() { return max - size; }
+		void * GetMem(size_t s);
+		void * Clone(const void * p, size_t s);
+	};
+	PoolItem * m_pool;
+	PoolItem * CreateNew(size_t size);
+	PoolItem * FindFree(size_t size);
+public:
+	MemoryPool();
+	~MemoryPool();
+	/** Prirazeni pameti z poolu */
+	void * GetMem(size_t s);
+	/** Zkopirovani pameti do poolu */
+	void * Clone(const void * p, size_t s);
+	/** Uvolneni cele pameti */
+	void Free();
+};
 
 /** Optimalizovane uloziste pro stringy */
-class StringPool
+class StringPool : private MemoryPool
 {
 protected:
 	struct ConstString
 	{
 		uint hash;
 		const char * str;
-		ConstString(const char * s) 
-		{
-			hash = HoeCore::HashString(s);
-			str = s;
-		}
+		ConstString(const char * s);
 	};
 	struct PoolIndex : public ConstString
     {
 		uint ref;
-		PoolIndex(const char * s) : ConstString(s)
-		{
-			ref = 1;
-		}
+		PoolIndex(const char * s);
 		bool operator == (const ConstString& s)
 		{
 			if (s.hash != this->hash) return false;
@@ -189,27 +211,14 @@ protected:
 		}
     };
 	HoeCore::KeyList<PoolIndex, ConstString> m_keys;
+protected:
 public:
-    StringPool() {};
+    StringPool();
     /** Zaindexuje novy string */
     const char * Insert(const char * str);
     /** Odebere jednu instanci */
-    void Remove(const char * str)
-	{
-		// zatim vypnuto
-		/*todo PoolIndex * ppi = m_keys.Find(str);
-		hoe_assert(!ppi);
-		if (ppi)
-		{
-			if (ppi <= 1) 
-			{
-				// odebrat ze seznamu
-				free(ppi->str);
-			}
-			else
-				ppi->ref--;
-		}*/
-	}
+    void Remove(const char * str);
+	const char * Strdup(const char * str);
     const HoeCore::KeyList<PoolIndex, ConstString> & GetKeys() { return m_keys; }
 };
 

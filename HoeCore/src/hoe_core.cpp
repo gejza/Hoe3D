@@ -310,7 +310,6 @@ void HoeCore::CrossMemMove(void * dest, void * src, size_t size)
 		{
 			memcpy(d+i, s+i, i > di ? di:di-i);
 		}
-
 	}
 }
 
@@ -341,6 +340,116 @@ HoeCore::Universal & HoeCore::Table::Get(const HoeCore::KeyString& key)
 
 /////////////////////////////////////////////////
 // Pools
+void * HoeCore::MemoryPool::PoolItem::GetMem(size_t s)
+{
+	if (s > (max-size)) return NULL;
+	void * ret = base + size;
+	size += s;
+	return ret;
+}
+
+void * HoeCore::MemoryPool::PoolItem::Clone(const void * p, size_t s)
+{
+	void * pp = GetMem(s);
+	memcpy(pp, p, s);
+	return pp;
+}
+
+HoeCore::MemoryPool::PoolItem * HoeCore::MemoryPool::CreateNew(size_t size)
+{
+	PoolItem pi = {0};
+	pi.max = size + sizeof(PoolItem);
+	pi.base = new char[pi.max];
+	return reinterpret_cast<PoolItem*>(pi.Clone(&pi, sizeof(PoolItem)));
+}
+
+HoeCore::MemoryPool::PoolItem * HoeCore::MemoryPool::FindFree(size_t size)
+{
+	PoolItem * b = m_pool;
+	while (b)
+	{
+		if (b->GetAvail() >= size)
+			return b;
+		b = b->next;
+	}
+	return NULL;
+}
+void HoeCore::MemoryPool::Free()
+{
+	while (m_pool)
+	{
+		PoolItem * next = m_pool->next;
+		delete [] m_pool->base;
+		m_pool = next;
+	}
+}
+
+HoeCore::MemoryPool::MemoryPool() 
+{ 
+	m_pool = NULL; 
+}
+
+HoeCore::MemoryPool::~MemoryPool()
+{
+	Free();
+}
+
+void * HoeCore::MemoryPool::GetMem(size_t s)
+{
+	PoolItem * b = FindFree(s);
+	if (b) { return b->GetMem(s); }
+	// vytvorit
+	b = CreateNew(s > 10000 ? s*2:10000);
+	b->next = m_pool;
+	m_pool = b;
+	return b->GetMem(s);
+}
+
+void * HoeCore::MemoryPool::Clone(const void * p, size_t s)
+{
+	void * pp = GetMem(s);
+	memcpy(pp, p, s);
+	return pp;
+}
+
+HoeCore::StringPool::ConstString::ConstString(const char * s) 
+{
+	hash = HoeCore::HashString(s);
+	str = s;
+}
+
+HoeCore::StringPool::PoolIndex::PoolIndex(const char * s) : ConstString(s)
+{
+	ref = 1;
+}
+
+HoeCore::StringPool::StringPool() 
+{
+}
+
+const char * HoeCore::StringPool::Strdup(const char * str)
+{
+	size_t l = strlen(str)+1;
+	return reinterpret_cast<const char*>(Clone(str, l));
+}
+
+void HoeCore::StringPool::Remove(const char * str)
+{
+	// zatim vypnuto
+	/*todo PoolIndex * ppi = m_keys.Find(str);
+	hoe_assert(!ppi);
+	if (ppi)
+	{
+		if (ppi <= 1) 
+		{
+			// odebrat ze seznamu
+			free(ppi->str);
+		}
+		else
+			ppi->ref--;
+	}*/
+}
+
 const char * HoeCore::StringPool::Insert(const char * str)
 {
 	PoolIndex * ppi = m_keys.Find(str);
@@ -350,7 +459,7 @@ const char * HoeCore::StringPool::Insert(const char * str)
 		return ppi->str;
 	}
 	// vytvorit
-	PoolIndex pi(strdup(str));
+	PoolIndex pi(this->Strdup(str));
 	m_keys.Add(pi);
 	return pi.str;
 }

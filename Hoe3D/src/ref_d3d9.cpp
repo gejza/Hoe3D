@@ -25,6 +25,17 @@ RefD3D9::RefD3D9()
 	m_pD3D = Direct3DCreate9(D3D_SDK_VERSION);
 
 	m_Adapter = D3DADAPTER_DEFAULT;
+	uint max = m_pD3D->GetAdapterCount();
+	m_Adapter = max - 1;
+	// mode
+	D3DFORMAT f = D3DFMT_X8R8G8B8;
+	uint modes = m_pD3D->GetAdapterModeCount(m_Adapter, f);
+	for (int i=0;i < modes;i++)
+	{
+		D3DDISPLAYMODE mode;
+		m_pD3D->EnumAdapterModes(m_Adapter, f, i, &mode);
+		i=i;
+	}
 }
 
 bool RefD3D9::Init(THoeInitSettings * his)
