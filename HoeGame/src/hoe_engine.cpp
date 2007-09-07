@@ -151,6 +151,11 @@ bool HoeEngineInfo::Load(const char * dllname)
 
 void HoeEngineInfo::Unload()
 {
+	if (m_info)
+	{
+		m_info->Release();
+		m_info = NULL;
+	}
 #ifdef _WIN32
     if (m_lib)
 		FreeLibrary(m_lib);

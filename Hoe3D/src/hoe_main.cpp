@@ -42,14 +42,43 @@ DLL_EXPORT IHoe3DEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * co
 	return ret;
 }
 
+class EngineInfo : public IHoeEngineInfo
+{
+	Ref m_ref;
+
+public:
+	/** Vypise popisek enginu */
+	virtual const char * GetEngineName() { return Config::GetHoeDesc(); }
+	virtual const char * GetEngineDescription() { return ""; }
+	virtual const char * GetEngineVersion() { return Config::GetBuild(); }
+	/** Ziska pocet moznych zarizeni */
+	virtual const IHoeEngineInfo::InfoDevice * GetDevice(uint i)
+	{
+		if (i > 2)
+			return NULL;
+		static IHoeEngineInfo::InfoDevice dev;
+		dev.name = "jmeno";
+		dev.description = "desc";
+		return &dev;
+	}
+	virtual const IHoeEngineInfo::InfoFormat * GetFormat(const InfoDevice * dev, uint i)
+	{
+		return NULL;
+	}
+	virtual const IHoeEngineInfo::InfoDisplay * GetDisplay(const InfoDevice * dev, const InfoFormat * fmt, uint i)
+	{
+		return NULL;
+	}
+};
+
 DLL_EXPORT IHoeEngineInfo * HOEAPI GetEngineInfo(int sdk_ver)
 {
 	if (sdk_ver != HOESDK_VERSION)
 	{
 		return NULL;
 	}
-	//static IHoeEngineInfo info;
-	return NULL;//&info;
+	static EngineInfo info;
+	return &info;
 }
 
 DLL_EXPORT int HOEAPI GetSDKVersion()

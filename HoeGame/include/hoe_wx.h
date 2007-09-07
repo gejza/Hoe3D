@@ -11,12 +11,16 @@ namespace wx {
 class Dialog;
 class HwndTable
 {
-	Dialog * m_dlg;
-	HWND m_hwnd;
+	struct Item
+	{
+		HWND hwnd;
+		Dialog * dlg;
+	} m_item[10];//!!!todo
 public:
 	HwndTable();
 	Dialog * Get(HWND hwnd);
 	void Set(HWND hwnd, Dialog * dlg);
+	void Unset(HWND hwnd);
 };
 
 
@@ -25,10 +29,12 @@ class Dialog
 	static HwndTable s_hwnds;
 	static INT_PTR CALLBACK DialogProc(HWND hwndDlg,UINT uMsg,WPARAM wParam,LPARAM lParam);
 	HWND m_hWnd;
+	HINSTANCE m_hInst;
 public:
-	Dialog();
+	Dialog(HINSTANCE hInst);
 	HWND GetHWND() { return m_hWnd; }
-	int Show(HINSTANCE hInst, const char *res);
+	HINSTANCE GetInstance() { return m_hInst; }
+	int Show(const char *res);
 	virtual INT_PTR DialogProc(UINT uMsg,WPARAM wParam,LPARAM lParam);
 	INT_PTR End(int retcode);
 

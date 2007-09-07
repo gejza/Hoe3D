@@ -51,7 +51,6 @@ protected:
 	static CVar m_width;
 	static CVar m_height;
 	static CVar m_fullscreen;
-	static CVar m_enginedll;
 
 	const char * m_lastError;
 
@@ -59,6 +58,7 @@ protected:
 	virtual bool Frame(float time);
 	virtual bool Frame();
 public:
+	static CVar m_enginedll;
 	/** 
 	 * Kontruktor
 	 * @param con Konzole hry

@@ -165,11 +165,26 @@ public:
 class IHoeEngineInfo : public IHoeInterface
 {
 public:
-	/** Vypise popisek enginu */
-	virtual const char * GetEngineDescription() = 0;
-	/** Ziska pocet moznych zarizeni */
-	virtual uint GetDeviceCount() = 0;
+	struct InfoDevice
+	{
+		const char * name;
+		const char * description;
+	};
+	struct InfoFormat
+	{
+	};
+	struct InfoDisplay
+	{
+	};
 
+	/** Vypise popisek enginu */
+	virtual const char * GetEngineName() = 0;
+	virtual const char * GetEngineDescription() = 0;
+	virtual const char * GetEngineVersion() = 0;
+	/** Ziska pocet moznych zarizeni */
+	virtual const InfoDevice * GetDevice(uint i) = 0;
+	virtual const InfoFormat * GetFormat(const InfoDevice * dev, uint i) = 0;
+	virtual const InfoDisplay * GetDisplay(const InfoDevice * dev, const InfoFormat * fmt, uint i) = 0;
 };
 
 typedef IHoe3DEngine * (HOEAPI *HOE_FUNCCREATE)(int sdk_ver, XHoeConsole * con, XHoeFS * fs, void * p_memBase,int n_memSize, int flags);

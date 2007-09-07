@@ -10,30 +10,47 @@ HwndTable Dialog::s_hwnds;
 
 HwndTable::HwndTable()
 {
-	m_hwnd = 0;
-	m_dlg = NULL;
+	memset(m_item,0,sizeof(m_item));
 }
 
 Dialog * HwndTable::Get(HWND hwnd)
 {
-	return hwnd==m_hwnd ? m_dlg:NULL;
+	for (int i=0;i < 10;i++)
+		if (m_item[i].hwnd == hwnd)
+			return m_item[i].dlg;
+	return NULL;
 }
 
 void HwndTable::Set(HWND hwnd, Dialog * dlg)
 {
-	hoe_assert(m_hwnd==NULL);
-	m_hwnd=hwnd;
-	m_dlg=dlg;
+	for (int i=0;i < 10;i++)
+		if (m_item[i].hwnd == 0) {
+			m_item[i].hwnd=hwnd;
+			m_item[i].dlg=dlg;
+			return;
+		}
+	hoe_assert(0);
+}
+
+void HwndTable::Unset(HWND hwnd)
+{
+	for (int i=0;i < 10;i++)
+		if (m_item[i].hwnd == hwnd) {
+			m_item[i].hwnd=0;
+			return;
+		}
+	hoe_assert(0);
 }
 
 // dialog
-Dialog::Dialog()
+Dialog::Dialog(HINSTANCE hInst)
 {
+	m_hInst = hInst;
 }
 
-int Dialog::Show(HINSTANCE hInst, const char *res)
+int Dialog::Show(const char *res)
 {
-	return DialogBoxParam(hInst,res, 
+	return DialogBoxParam(m_hInst,res, 
 		GetDesktopWindow(), DialogProc, (LPARAM)this);
 }
 
@@ -41,6 +58,7 @@ INT_PTR Dialog::End(int retcode)
 {
 	OnEnd();
 	EndDialog(this->GetHWND(),retcode);
+	s_hwnds.Unset(this->GetHWND());
 	return TRUE;
 }
 
