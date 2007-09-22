@@ -6,6 +6,17 @@
 #define HOE_INLINE inline
 #endif // HOE_INLINE
 
+#ifdef UNDER_CE
+#define sqrtf(d)        (FLOAT)sqrt((double)d)
+#define sinf(d)         (FLOAT)sin((double)d)
+#define cosf(d)         (FLOAT)cos((double)d)
+#define tanf(d)         (FLOAT)tan((double)d)
+#define asinf(d)        (FLOAT)asin((double)d)
+#define acosf(d)        (FLOAT)acos((double)d)
+#define atan2f(d1,d2)   (FLOAT)atan2((double)d1,(double)d2)
+#define floorf(d)       (FLOAT)floor((double)d)
+#endif
+
 namespace HoeMath {
 
 struct Rect;

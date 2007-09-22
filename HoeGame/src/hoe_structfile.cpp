@@ -5,7 +5,7 @@
 
 void yyobjectrestart ( FILE *input_file );
 int yyobjectlex();
-extern unsigned char *yyobjecttext;
+extern char *yyobjecttext;
 extern int yyobjectleng;
 extern int yyobjectlineno;
 

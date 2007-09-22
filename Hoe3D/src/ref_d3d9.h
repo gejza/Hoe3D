@@ -10,7 +10,9 @@
 #define _HOE_D3D9_
 #define _HOE_D3D_
 
+#ifdef _DEBUG
 #define D3D_DEBUG_INFO
+#endif
 #include <d3d9.h>
 
 #include "ref_base.h"
