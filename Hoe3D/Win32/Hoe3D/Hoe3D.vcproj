@@ -10,6 +10,12 @@
 		<Platform
 			Name="Win32"
 		/>
+		<Platform
+			Name="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+		/>
+		<Platform
+			Name="x64"
+		/>
 	</Platforms>
 	<ToolFiles>
 		<ToolFile
@@ -130,6 +136,230 @@
 			/>
 		</Configuration>
 		<Configuration
+			Name="DebugD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+			OutputDirectory="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)\$(ConfigurationName)"
+			IntermediateDirectory="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)\$(ConfigurationName)"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG"
+				MkTypLibCompatible="true"
+				SuppressStartupBanner="true"
+				TargetEnvironment="1"
+				TypeLibraryName=".\Debug/Hoe3D.tlb"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				ExecutionBucket="7"
+				Optimization="0"
+				AdditionalIncludeDirectories="../../../HoeCore/include/"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_D3D9_"
+				RuntimeLibrary="3"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderThrough="../../src/StdAfx.h"
+				PrecompiledHeaderFile=".\DebugD3D9/Hoe3D.pch"
+				AssemblerListingLocation=".\DebugD3D9/"
+				ObjectFile=".\DebugD3D9/"
+				ProgramDataBaseFileName="../../../Bin/Hoe3Dd_D3D9.pdb"
+				WarningLevel="3"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="1029"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				IgnoreImportLibrary="true"
+				LinkLibraryDependencies="false"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="winmm.lib libpngd.lib freetype2110MT_D.lib libjpeg.lib zlibd.lib libvorbis_d.lib libogg_d.lib libvorbisfile_d.lib HoeCore_d.lib msvcrtd.lib d3d9.lib dsound.lib dinput8.lib dxguid.lib DxErr9.lib oldnames.lib libxvidcore.lib"
+				OutputFile="../../../Bin/Hoe3Dd_D3D9.dll"
+				LinkIncremental="2"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="../../../bin"
+				IgnoreAllDefaultLibraries="true"
+				IgnoreDefaultLibraryNames="libcmt.lib;libcmtd.lib"
+				GenerateDebugInformation="true"
+				ProgramDatabaseFile=".\DebugD3D9/Hoe3D.pdb"
+				Driver="0"
+				SetChecksum="false"
+				ImportLibrary=".\DebugD3D9/Hoe3D.lib"
+				TargetMachine="0"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCCodeSignTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+			<DeploymentTool
+				ForceDirty="-1"
+				RemoteDirectory=""
+				RegisterOutput="0"
+				AdditionalFiles=""
+			/>
+			<DebuggerTool
+			/>
+		</Configuration>
+		<Configuration
+			Name="DebugD3D9|x64"
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG"
+				MkTypLibCompatible="true"
+				SuppressStartupBanner="true"
+				TargetEnvironment="3"
+				TypeLibraryName=".\Debug/Hoe3D.tlb"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="../../../HoeCore/include/"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_D3D9_"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderThrough="../../src/StdAfx.h"
+				PrecompiledHeaderFile=".\DebugD3D9/Hoe3D.pch"
+				AssemblerListingLocation=".\DebugD3D9/"
+				ObjectFile=".\DebugD3D9/"
+				ProgramDataBaseFileName="../../../Bin/Hoe3Dd_D3D9.pdb"
+				WarningLevel="3"
+				SuppressStartupBanner="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="1029"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				IgnoreImportLibrary="true"
+				LinkLibraryDependencies="false"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="winmm.lib libpngd.lib freetype2110MT_D.lib libjpeg.lib zlibd.lib libvorbis_d.lib libogg_d.lib libvorbisfile_d.lib HoeCore_d.lib msvcrtd.lib d3d9.lib dsound.lib dinput8.lib dxguid.lib DxErr9.lib oldnames.lib libxvidcore.lib"
+				OutputFile="../../../Bin/Hoe3Dd_D3D9.dll"
+				LinkIncremental="2"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="../../../bin"
+				IgnoreAllDefaultLibraries="true"
+				IgnoreDefaultLibraryNames="libcmt.lib;libcmtd.lib"
+				GenerateDebugInformation="true"
+				ProgramDatabaseFile=".\DebugD3D9/Hoe3D.pdb"
+				Driver="0"
+				SetChecksum="false"
+				ImportLibrary=".\DebugD3D9/Hoe3D.lib"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
 			Name="ReleaseD3D9|Win32"
 			OutputDirectory=".\ReleaseD3D9"
 			IntermediateDirectory=".\ReleaseD3D9"
@@ -211,6 +441,224 @@
 				IgnoreDefaultLibraryNames="libcmt.lib;libcmtd.lib"
 				ProgramDatabaseFile=".\Release/Hoe3D.pdb"
 				ImportLibrary=".\Release/Hoe3D.lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="ReleaseD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+			OutputDirectory="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)\$(ConfigurationName)"
+			IntermediateDirectory="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)\$(ConfigurationName)"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG"
+				MkTypLibCompatible="true"
+				SuppressStartupBanner="true"
+				TargetEnvironment="1"
+				TypeLibraryName=".\Release/Hoe3D.tlb"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				ExecutionBucket="7"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="../../../HoeCore/include/"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_D3D9_"
+				StringPooling="true"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderFile=".\Release/Hoe3D.pch"
+				AssemblerListingLocation=".\Release/"
+				ObjectFile=".\Release/"
+				ProgramDataBaseFileName=".\Release/"
+				WarningLevel="3"
+				SuppressStartupBanner="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="1029"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				IgnoreImportLibrary="true"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="winmm.lib libpng.lib zlib.lib libvorbis.lib libogg.lib libvorbisfile.lib HoeCore.lib libxvidcore.lib freetype2110MT.lib d3d9.lib libjpeg.lib dsound.lib"
+				OutputFile="../../../Bin/Hoe3D_D3D9.dll"
+				LinkIncremental="1"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="../../../bin"
+				IgnoreAllDefaultLibraries="false"
+				IgnoreDefaultLibraryNames="libcmt.lib;libcmtd.lib"
+				ProgramDatabaseFile=".\Release/Hoe3D.pdb"
+				ImportLibrary=".\Release/Hoe3D.lib"
+				TargetMachine="0"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCCodeSignTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+			<DeploymentTool
+				ForceDirty="-1"
+				RemoteDirectory=""
+				RegisterOutput="0"
+				AdditionalFiles=""
+			/>
+			<DebuggerTool
+			/>
+		</Configuration>
+		<Configuration
+			Name="ReleaseD3D9|x64"
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG"
+				MkTypLibCompatible="true"
+				SuppressStartupBanner="true"
+				TargetEnvironment="3"
+				TypeLibraryName=".\Release/Hoe3D.tlb"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="../../../HoeCore/include/"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_D3D9_"
+				StringPooling="true"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderFile=".\Release/Hoe3D.pch"
+				AssemblerListingLocation=".\Release/"
+				ObjectFile=".\Release/"
+				ProgramDataBaseFileName=".\Release/"
+				WarningLevel="3"
+				SuppressStartupBanner="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="1029"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				IgnoreImportLibrary="true"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="winmm.lib libpng.lib zlib.lib libvorbis.lib libogg.lib libvorbisfile.lib HoeCore.lib libxvidcore.lib freetype2110MT.lib d3d9.lib libjpeg.lib dsound.lib"
+				OutputFile="../../../Bin/Hoe3D_D3D9.dll"
+				LinkIncremental="1"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="../../../bin"
+				IgnoreAllDefaultLibraries="false"
+				IgnoreDefaultLibraryNames="libcmt.lib;libcmtd.lib"
+				ProgramDatabaseFile=".\Release/Hoe3D.pdb"
+				ImportLibrary=".\Release/Hoe3D.lib"
+				TargetMachine="17"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -347,6 +795,222 @@
 			/>
 		</Configuration>
 		<Configuration
+			Name="DebugGL|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+			OutputDirectory="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)\$(ConfigurationName)"
+			IntermediateDirectory="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)\$(ConfigurationName)"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG"
+				MkTypLibCompatible="true"
+				SuppressStartupBanner="true"
+				TargetEnvironment="1"
+				TypeLibraryName=".\DebugGL/Hoe3D.tlb"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				ExecutionBucket="7"
+				Optimization="0"
+				AdditionalIncludeDirectories="../../../HoeCore/include/"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_OPENGL_"
+				RuntimeLibrary="3"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderFile=".\DebugGL/Hoe3D.pch"
+				AssemblerListingLocation=".\DebugGL/"
+				ObjectFile=".\DebugGL/"
+				ProgramDataBaseFileName="../../../Bin/Hoe3Dd_GL.pdb"
+				WarningLevel="3"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="1029"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				IgnoreImportLibrary="true"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="winmm.lib libpngd.lib freetype2110MT_D.lib libjpeg.lib zlibd.lib libvorbis_d.lib libogg_d.lib libvorbisfile_d.lib HoeCore_d.lib msvcrtd.lib oldnames.lib opengl32.lib glu32.lib OpenAl32.lib libxvidcore.lib"
+				OutputFile="../../../Bin/Hoe3Dd_GL.dll"
+				LinkIncremental="2"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="../../../bin"
+				IgnoreAllDefaultLibraries="true"
+				IgnoreDefaultLibraryNames="libcmt.lib;libcmtd.lib"
+				GenerateDebugInformation="true"
+				ProgramDatabaseFile=".\DebugGL/Hoe3D_gl.pdb"
+				ImportLibrary=".\DebugGL/Hoe3D_gl.lib"
+				TargetMachine="0"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCCodeSignTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+			<DeploymentTool
+				ForceDirty="-1"
+				RemoteDirectory=""
+				RegisterOutput="0"
+				AdditionalFiles=""
+			/>
+			<DebuggerTool
+			/>
+		</Configuration>
+		<Configuration
+			Name="DebugGL|x64"
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG"
+				MkTypLibCompatible="true"
+				SuppressStartupBanner="true"
+				TargetEnvironment="3"
+				TypeLibraryName=".\DebugGL/Hoe3D.tlb"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="../../../HoeCore/include/"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_OPENGL_"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderFile=".\DebugGL/Hoe3D.pch"
+				AssemblerListingLocation=".\DebugGL/"
+				ObjectFile=".\DebugGL/"
+				ProgramDataBaseFileName="../../../Bin/Hoe3Dd_GL.pdb"
+				WarningLevel="3"
+				SuppressStartupBanner="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="1029"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				IgnoreImportLibrary="true"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="winmm.lib libpngd.lib freetype2110MT_D.lib libjpeg.lib zlibd.lib libvorbis_d.lib libogg_d.lib libvorbisfile_d.lib HoeCore_d.lib msvcrtd.lib oldnames.lib opengl32.lib glu32.lib OpenAl32.lib libxvidcore.lib"
+				OutputFile="../../../Bin/Hoe3Dd_GL.dll"
+				LinkIncremental="2"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="../../../bin"
+				IgnoreAllDefaultLibraries="true"
+				IgnoreDefaultLibraryNames="libcmt.lib;libcmtd.lib"
+				GenerateDebugInformation="true"
+				ProgramDatabaseFile=".\DebugGL/Hoe3D_gl.pdb"
+				ImportLibrary=".\DebugGL/Hoe3D_gl.lib"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
 			Name="ReleaseGL|Win32"
 			OutputDirectory=".\ReleaseGL"
 			IntermediateDirectory=".\ReleaseGL"
@@ -427,6 +1091,222 @@
 				IgnoreDefaultLibraryNames="libcmt.lib;libcmtd.lib"
 				ProgramDatabaseFile=".\ReleaseGL/Hoe3D.pdb"
 				ImportLibrary=".\ReleaseGL/Hoe3D.lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="ReleaseGL|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+			OutputDirectory="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)\$(ConfigurationName)"
+			IntermediateDirectory="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)\$(ConfigurationName)"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG"
+				MkTypLibCompatible="true"
+				SuppressStartupBanner="true"
+				TargetEnvironment="1"
+				TypeLibraryName=".\Release/Hoe3D.tlb"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				ExecutionBucket="7"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="../../../HoeCore/include/"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_OPENGL_"
+				StringPooling="true"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderFile=".\ReleaseGL/Hoe3D.pch"
+				AssemblerListingLocation=".\ReleaseGL/"
+				ObjectFile=".\ReleaseGL/"
+				ProgramDataBaseFileName=".\ReleaseGL/"
+				WarningLevel="3"
+				SuppressStartupBanner="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="1029"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				IgnoreImportLibrary="true"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="winmm.lib libpng.lib libjpeg.lib zlib.lib libvorbis.lib libogg.lib libvorbisfile.lib HoeCore.lib opengl32.lib freetype2110MT.lib libxvidcore.lib"
+				OutputFile="../../../Bin/Hoe3D_GL.dll"
+				LinkIncremental="1"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="../../../bin"
+				IgnoreDefaultLibraryNames="libcmt.lib;libcmtd.lib"
+				ProgramDatabaseFile=".\ReleaseGL/Hoe3D.pdb"
+				ImportLibrary=".\ReleaseGL/Hoe3D.lib"
+				TargetMachine="0"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCCodeSignTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+			<DeploymentTool
+				ForceDirty="-1"
+				RemoteDirectory=""
+				RegisterOutput="0"
+				AdditionalFiles=""
+			/>
+			<DebuggerTool
+			/>
+		</Configuration>
+		<Configuration
+			Name="ReleaseGL|x64"
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG"
+				MkTypLibCompatible="true"
+				SuppressStartupBanner="true"
+				TargetEnvironment="3"
+				TypeLibraryName=".\Release/Hoe3D.tlb"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="../../../HoeCore/include/"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_OPENGL_"
+				StringPooling="true"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderFile=".\ReleaseGL/Hoe3D.pch"
+				AssemblerListingLocation=".\ReleaseGL/"
+				ObjectFile=".\ReleaseGL/"
+				ProgramDataBaseFileName=".\ReleaseGL/"
+				WarningLevel="3"
+				SuppressStartupBanner="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="1029"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				IgnoreImportLibrary="true"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="winmm.lib libpng.lib libjpeg.lib zlib.lib libvorbis.lib libogg.lib libvorbisfile.lib HoeCore.lib opengl32.lib freetype2110MT.lib libxvidcore.lib"
+				OutputFile="../../../Bin/Hoe3D_GL.dll"
+				LinkIncremental="1"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="../../../bin"
+				IgnoreDefaultLibraryNames="libcmt.lib;libcmtd.lib"
+				ProgramDatabaseFile=".\ReleaseGL/Hoe3D.pdb"
+				ImportLibrary=".\ReleaseGL/Hoe3D.lib"
+				TargetMachine="17"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -562,6 +1442,222 @@
 			/>
 		</Configuration>
 		<Configuration
+			Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+			OutputDirectory="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)\$(ConfigurationName)"
+			IntermediateDirectory="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)\$(ConfigurationName)"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG"
+				MkTypLibCompatible="true"
+				SuppressStartupBanner="true"
+				TargetEnvironment="1"
+				TypeLibraryName=".\Debug/Hoe3D.tlb"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				ExecutionBucket="7"
+				Optimization="0"
+				AdditionalIncludeDirectories="../../../HoeCore/include/"
+				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;DEBUG;_LIB;$(ARCHFAM);$(_ARCHFAM_);_WINCE;_USRDLL;"
+				RuntimeLibrary="3"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderFile=".\DebugD3D8/Hoe3D.pch"
+				AssemblerListingLocation=".\DebugD3D8/"
+				ObjectFile=".\DebugD3D8/"
+				ProgramDataBaseFileName=".\DebugD3D8/"
+				WarningLevel="3"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="1029"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				IgnoreImportLibrary="true"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="winmm.lib libpngd.lib freetype2110MT_D.lib libjpeg.lib zlibd.lib libvorbis_d.lib libogg_d.lib libvorbisfile_d.lib HoeCore_d.lib msvcrtd.lib d3d8.lib dsound.lib dinput8.lib dxguid.lib DxErr8.lib oldnames.lib libxvidcore.lib"
+				OutputFile="../../../Bin/Hoe3Dd_D3D8.dll"
+				LinkIncremental="2"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="../../../bin"
+				IgnoreAllDefaultLibraries="true"
+				IgnoreDefaultLibraryNames="libcmt.lib;libcmtd.lib"
+				GenerateDebugInformation="true"
+				ProgramDatabaseFile=".\DebugD3D8/Hoe3D.pdb"
+				ImportLibrary=".\DebugD3D8/Hoe3D.lib"
+				TargetMachine="0"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCCodeSignTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+			<DeploymentTool
+				ForceDirty="-1"
+				RemoteDirectory=""
+				RegisterOutput="0"
+				AdditionalFiles=""
+			/>
+			<DebuggerTool
+			/>
+		</Configuration>
+		<Configuration
+			Name="DebugD3D8|x64"
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG"
+				MkTypLibCompatible="true"
+				SuppressStartupBanner="true"
+				TargetEnvironment="3"
+				TypeLibraryName=".\Debug/Hoe3D.tlb"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="../../../HoeCore/include/"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_D3D8_"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderFile=".\DebugD3D8/Hoe3D.pch"
+				AssemblerListingLocation=".\DebugD3D8/"
+				ObjectFile=".\DebugD3D8/"
+				ProgramDataBaseFileName=".\DebugD3D8/"
+				WarningLevel="3"
+				SuppressStartupBanner="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="1029"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				IgnoreImportLibrary="true"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="winmm.lib libpngd.lib freetype2110MT_D.lib libjpeg.lib zlibd.lib libvorbis_d.lib libogg_d.lib libvorbisfile_d.lib HoeCore_d.lib msvcrtd.lib d3d8.lib dsound.lib dinput8.lib dxguid.lib DxErr8.lib oldnames.lib libxvidcore.lib"
+				OutputFile="../../../Bin/Hoe3Dd_D3D8.dll"
+				LinkIncremental="2"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="../../../bin"
+				IgnoreAllDefaultLibraries="true"
+				IgnoreDefaultLibraryNames="libcmt.lib;libcmtd.lib"
+				GenerateDebugInformation="true"
+				ProgramDatabaseFile=".\DebugD3D8/Hoe3D.pdb"
+				ImportLibrary=".\DebugD3D8/Hoe3D.lib"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
 			Name="DebugD3D9 (static)|Win32"
 			OutputDirectory=".\DebugD3D9"
 			IntermediateDirectory=".\DebugD3D9"
@@ -617,6 +1713,189 @@
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="1029"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="../../../Bin/Hoe3D_D3D9_d.lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="DebugD3D9 (static)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+			OutputDirectory="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)\$(ConfigurationName)"
+			IntermediateDirectory="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)\$(ConfigurationName)"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG"
+				MkTypLibCompatible="true"
+				SuppressStartupBanner="true"
+				TargetEnvironment="1"
+				TypeLibraryName=".\Debug/Hoe3D.tlb"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				ExecutionBucket="7"
+				Optimization="0"
+				AdditionalIncludeDirectories="../../../HoeCore/include/"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_D3D9_;HOE_STATIC_ENGINE"
+				RuntimeLibrary="3"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderFile=".\DebugD3D9/Hoe3Ds.pch"
+				AssemblerListingLocation=".\DebugD3D9/"
+				ObjectFile=".\DebugD3D9/"
+				ProgramDataBaseFileName=".\DebugD3D9/"
+				WarningLevel="3"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="1029"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="../../../Bin/Hoe3D_D3D9_d.lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCCodeSignTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+			<DeploymentTool
+				ForceDirty="-1"
+				RemoteDirectory=""
+				RegisterOutput="0"
+				AdditionalFiles=""
+			/>
+			<DebuggerTool
+			/>
+		</Configuration>
+		<Configuration
+			Name="DebugD3D9 (static)|x64"
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG"
+				MkTypLibCompatible="true"
+				SuppressStartupBanner="true"
+				TargetEnvironment="3"
+				TypeLibraryName=".\Debug/Hoe3D.tlb"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="../../../HoeCore/include/"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_D3D9_;HOE_STATIC_ENGINE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderFile=".\DebugD3D9/Hoe3Ds.pch"
+				AssemblerListingLocation=".\DebugD3D9/"
+				ObjectFile=".\DebugD3D9/"
+				ProgramDataBaseFileName=".\DebugD3D9/"
+				WarningLevel="3"
+				SuppressStartupBanner="true"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -757,6 +2036,222 @@
 			/>
 		</Configuration>
 		<Configuration
+			Name="ReleaseD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+			OutputDirectory="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)\$(ConfigurationName)"
+			IntermediateDirectory="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)\$(ConfigurationName)"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG"
+				MkTypLibCompatible="true"
+				SuppressStartupBanner="true"
+				TargetEnvironment="1"
+				TypeLibraryName=".\Release/Hoe3D.tlb"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				ExecutionBucket="7"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="../../../HoeCore/include/"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_D3D8_"
+				StringPooling="true"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderFile=".\ReleaseD3D8/Hoe3D.pch"
+				AssemblerListingLocation=".\ReleaseD3D8/"
+				ObjectFile=".\ReleaseD3D8/"
+				ProgramDataBaseFileName=".\ReleaseD3D8/"
+				WarningLevel="3"
+				SuppressStartupBanner="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="1029"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				IgnoreImportLibrary="true"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="winmm.lib HoeCore.lib zlib.lib libvorbis.lib libogg.lib libvorbisfile.lib freetype2110MT_D.lib libjpeg.lib libxvidcore.lib dsound.lib libpng.lib"
+				OutputFile="../../../Bin/Hoe3D_D3D8.dll"
+				LinkIncremental="0"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="../../../bin"
+				IgnoreDefaultLibraryNames="libcmt.lib;libcmtd.lib"
+				ProgramDatabaseFile=".\Release/Hoe3D.pdb"
+				ImportLibrary=".\Release/Hoe3D.lib"
+				TargetMachine="0"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCCodeSignTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+			<DeploymentTool
+				ForceDirty="-1"
+				RemoteDirectory=""
+				RegisterOutput="0"
+				AdditionalFiles=""
+			/>
+			<DebuggerTool
+			/>
+		</Configuration>
+		<Configuration
+			Name="ReleaseD3D8|x64"
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG"
+				MkTypLibCompatible="true"
+				SuppressStartupBanner="true"
+				TargetEnvironment="3"
+				TypeLibraryName=".\Release/Hoe3D.tlb"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="../../../HoeCore/include/"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_D3D8_"
+				StringPooling="true"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderFile=".\ReleaseD3D8/Hoe3D.pch"
+				AssemblerListingLocation=".\ReleaseD3D8/"
+				ObjectFile=".\ReleaseD3D8/"
+				ProgramDataBaseFileName=".\ReleaseD3D8/"
+				WarningLevel="3"
+				SuppressStartupBanner="true"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="1029"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				IgnoreImportLibrary="true"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="winmm.lib HoeCore.lib zlib.lib libvorbis.lib libogg.lib libvorbisfile.lib freetype2110MT_D.lib libjpeg.lib libxvidcore.lib dsound.lib libpng.lib"
+				OutputFile="../../../Bin/Hoe3D_D3D8.dll"
+				LinkIncremental="0"
+				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="../../../bin"
+				IgnoreDefaultLibraryNames="libcmt.lib;libcmtd.lib"
+				ProgramDatabaseFile=".\Release/Hoe3D.pdb"
+				ImportLibrary=".\Release/Hoe3D.lib"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
 			Name="DebugGL (static)|Win32"
 			OutputDirectory="$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
@@ -812,6 +2307,189 @@
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="1029"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="../../../Bin/Hoe3D_GL_d.lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="DebugGL (static)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+			OutputDirectory="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)\$(ConfigurationName)"
+			IntermediateDirectory="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)\$(ConfigurationName)"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG"
+				MkTypLibCompatible="true"
+				SuppressStartupBanner="true"
+				TargetEnvironment="1"
+				TypeLibraryName=".\Debug/Hoe3D.tlb"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				ExecutionBucket="7"
+				Optimization="0"
+				AdditionalIncludeDirectories="../../../HoeCore/include/"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_OPENGL_;HOE_STATIC_ENGINE"
+				RuntimeLibrary="3"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderFile=".\DebugGL/Hoe3Ds.pch"
+				AssemblerListingLocation=".\DebugGL/"
+				ObjectFile=".\DebugGL/"
+				ProgramDataBaseFileName=".\DebugGL/"
+				WarningLevel="3"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="1029"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="../../../Bin/Hoe3D_GL_d.lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCCodeSignTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+			<DeploymentTool
+				ForceDirty="-1"
+				RemoteDirectory=""
+				RegisterOutput="0"
+				AdditionalFiles=""
+			/>
+			<DebuggerTool
+			/>
+		</Configuration>
+		<Configuration
+			Name="DebugGL (static)|x64"
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG"
+				MkTypLibCompatible="true"
+				SuppressStartupBanner="true"
+				TargetEnvironment="3"
+				TypeLibraryName=".\Debug/Hoe3D.tlb"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="../../../HoeCore/include/"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_OPENGL_;HOE_STATIC_ENGINE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderFile=".\DebugGL/Hoe3Ds.pch"
+				AssemblerListingLocation=".\DebugGL/"
+				ObjectFile=".\DebugGL/"
+				ProgramDataBaseFileName=".\DebugGL/"
+				WarningLevel="3"
+				SuppressStartupBanner="true"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -918,7 +2596,39 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugD3D9|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleaseD3D9|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseD3D9|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -934,6 +2644,22 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugD3D8|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugD3D9 (static)|Win32"
 						ExcludedFromBuild="true"
 						>
@@ -942,7 +2668,39 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugD3D9 (static)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugD3D9 (static)|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleaseD3D8|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseD3D8|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -970,7 +2728,39 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugD3D9|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleaseD3D9|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseD3D9|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -986,6 +2776,22 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugD3D8|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugD3D9 (static)|Win32"
 						ExcludedFromBuild="true"
 						>
@@ -994,7 +2800,39 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugD3D9 (static)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugD3D9 (static)|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleaseD3D8|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseD3D8|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1022,7 +2860,39 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugGL|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugGL|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleaseGL|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseGL|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseGL|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1038,6 +2908,22 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugD3D8|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleaseD3D8|Win32"
 						ExcludedFromBuild="true"
 						>
@@ -1046,7 +2932,39 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="ReleaseD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseD3D8|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugGL (static)|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugGL (static)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugGL (static)|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1074,7 +2992,39 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="ReleaseD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseD3D9|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugGL|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugGL|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugGL|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1090,7 +3040,39 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="ReleaseGL|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseGL|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugD3D8|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugD3D8|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1106,6 +3088,22 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugD3D9 (static)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugD3D9 (static)|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleaseD3D8|Win32"
 						ExcludedFromBuild="true"
 						>
@@ -1114,7 +3112,39 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="ReleaseD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseD3D8|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugGL (static)|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugGL (static)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugGL (static)|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1138,7 +3168,39 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugD3D9|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleaseD3D9|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseD3D9|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1154,7 +3216,39 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugGL|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugGL|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleaseGL|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseGL|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseGL|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1170,7 +3264,39 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugD3D9 (static)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugD3D9 (static)|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugGL (static)|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugGL (static)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugGL (static)|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1281,7 +3407,47 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="DebugD3D9 (static)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AssemblerListingLocation=".\DebugD3D9_s/"
+						ObjectFile=".\DebugD3D9_s/"
+						ProgramDataBaseFileName=".\DebugD3D9_s/"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9 (static)|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AssemblerListingLocation=".\DebugD3D9_s/"
+						ObjectFile=".\DebugD3D9_s/"
+						ProgramDataBaseFileName=".\DebugD3D9_s/"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="DebugGL (static)|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AssemblerListingLocation=".\DebugGL_s/"
+						ObjectFile=".\DebugGL_s/"
+						ProgramDataBaseFileName=".\DebugGL_s/"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL (static)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AssemblerListingLocation=".\DebugGL_s/"
+						ObjectFile=".\DebugGL_s/"
+						ProgramDataBaseFileName=".\DebugGL_s/"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL (static)|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1352,7 +3518,43 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="ReleaseD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)material_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)material_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D9|x64"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)material_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)material_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="DebugGL|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)material_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)material_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)material_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)material_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL|x64"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1370,7 +3572,43 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="ReleaseGL|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)material_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)material_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseGL|x64"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)material_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)material_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="DebugD3D8|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)material_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)material_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)material_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)material_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D8|x64"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1388,6 +3626,24 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="DebugD3D9 (static)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)material_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)material_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9 (static)|x64"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)material_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)material_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="ReleaseD3D8|Win32"
 					>
 					<Tool
@@ -1397,7 +3653,43 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="ReleaseD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)material_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)material_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D8|x64"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)material_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)material_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="DebugGL (static)|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)material_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)material_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL (static)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)material_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)material_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL (static)|x64"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1494,7 +3786,41 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="DebugD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="Flex"
+						Lang="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9|x64"
+					>
+					<Tool
+						Name="Flex"
+						Lang="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="ReleaseD3D9|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)icreate_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)icreate_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)icreate_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)icreate_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D9|x64"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1512,7 +3838,43 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="DebugGL|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)icreate_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)icreate_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL|x64"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)icreate_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)icreate_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="ReleaseGL|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)icreate_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)icreate_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseGL|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)icreate_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)icreate_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseGL|x64"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1530,7 +3892,43 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)icreate_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)icreate_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D8|x64"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)icreate_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)icreate_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="DebugD3D9 (static)|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)icreate_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)icreate_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9 (static)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)icreate_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)icreate_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9 (static)|x64"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1548,7 +3946,43 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="ReleaseD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)icreate_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)icreate_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D8|x64"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)icreate_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)icreate_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="DebugGL (static)|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)icreate_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)icreate_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL (static)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						CommandLine="flex -o$(InputDir)icreate_parser.c $(InputPath)&#x0D;&#x0A;"
+						Outputs="$(InputDir)icreate_parser.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL (static)|x64"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1581,7 +4015,39 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="DebugD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="ReleaseD3D9|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D9|x64"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1597,7 +4063,39 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="DebugGL|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="ReleaseGL|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseGL|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseGL|x64"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1613,7 +4111,39 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D8|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="DebugD3D9 (static)|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9 (static)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9 (static)|x64"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1629,7 +4159,39 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="ReleaseD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D8|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="DebugGL (static)|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL (static)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL (static)|x64"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1689,7 +4251,39 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="DebugD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="ReleaseD3D9|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D9|x64"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1705,7 +4299,39 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="DebugGL|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="ReleaseGL|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseGL|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseGL|x64"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1721,7 +4347,39 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D8|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="DebugD3D9 (static)|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9 (static)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9 (static)|x64"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1737,7 +4395,39 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="ReleaseD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D8|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="DebugGL (static)|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL (static)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL (static)|x64"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1761,7 +4451,39 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="DebugD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="ReleaseD3D9|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D9|x64"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1777,7 +4499,39 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="DebugGL|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="ReleaseGL|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseGL|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseGL|x64"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1793,7 +4547,39 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D8|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="DebugD3D9 (static)|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9 (static)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9 (static)|x64"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1809,7 +4595,39 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="ReleaseD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D8|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="DebugGL (static)|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL (static)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL (static)|x64"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1877,7 +4695,39 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="DebugD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="ReleaseD3D9|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D9|x64"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1893,7 +4743,39 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="DebugGL|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="ReleaseGL|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseGL|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseGL|x64"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1909,7 +4791,39 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D8|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="DebugD3D9 (static)|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9 (static)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9 (static)|x64"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -1925,7 +4839,39 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="ReleaseD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D8|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="DebugGL (static)|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL (static)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL (static)|x64"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2001,7 +4947,39 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="DebugD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="DebugGL|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL|x64"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2137,7 +5115,39 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="DebugD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="NASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="NASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="ReleaseD3D9|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="NASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="NASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D9|x64"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2153,7 +5163,39 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="DebugGL|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="NASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="NASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="ReleaseGL|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="NASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseGL|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="NASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseGL|x64"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2169,7 +5211,39 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="NASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D8|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="NASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="DebugD3D9 (static)|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="NASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9 (static)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="NASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9 (static)|x64"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2185,7 +5259,39 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="ReleaseD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="NASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D8|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="NASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="DebugGL (static)|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="NASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL (static)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="NASM"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugGL (static)|x64"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -2264,12 +5370,44 @@
 						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\src\material_parser.c"
 				>
 				<FileConfiguration
 					Name="DebugD3D9|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9|x64"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2293,7 +5431,39 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D8|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="ReleaseD3D8|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseD3D8|x64"
 					ExcludedFromBuild="true"
 					>
 					<Tool

@@ -2,7 +2,6 @@
 #ifndef _HE_MATH_INL__
 #define _HE_MATH_INL__
 
-
 HOE_INLINE float Abs(float f)
 {
 	if (f >= 0)
