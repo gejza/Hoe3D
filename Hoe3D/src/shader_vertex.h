@@ -7,11 +7,12 @@ class HoeScene;
 class HoeVertexShader
 {
 protected:
-#ifdef _HOE_D3D9_
+#if defined (_HOE_D3D9_)
 	IDirect3DVertexShader9 * m_shader;
-#endif
-#ifdef _HOE_OPENGL_
+#elif defined (_HOE_OPENGL_)
 	GLuint m_shader;
+#else
+	int m_shader;
 #endif
 public:
 	bool Load();

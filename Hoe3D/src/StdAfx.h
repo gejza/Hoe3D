@@ -2,9 +2,13 @@
 #ifndef _OS_SYSTEM_H_
 #define _OS_SYSTEM_H_
 
+#ifdef _UNICODE
+#define No unicode support
+#endif
+
 #if defined (_WIN32) //////////////////////////
 //#define WINVER 0x0500
-#define _WIN32_WINNT 0x0500
+//#define _WIN32_WINNT 0x0500
 
 #define _CRT_SECURE_NO_DEPRECATE
 #include <windows.h>

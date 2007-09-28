@@ -20,7 +20,7 @@
 #include <vorbis/codec.h>
 #include <vorbis/vorbisfile.h> 
 
-#if defined (_HOE_DS8_) || defined (_HOE_OPENAL_)
+#if defined (_HOE_DS8_) || defined (_HOE_OPENAL_) || defined (_HOE_SOUNDM_) 
 SoundSystem::SoundSystem()
 {
 	assert(shared::sound == NULL);
@@ -150,5 +150,5 @@ bool HoeSoundBuffer::LoadFromFile(const char *filename)
 	return true;
 }
 #else
-#error aaa
+#error Check for sound errors
 #endif

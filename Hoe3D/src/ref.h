@@ -28,6 +28,11 @@ typedef RefD3D9 RefImpl;
 typedef RefD3D8 RefImpl;
 #endif 
 
+#ifdef _USE_D3DM_
+#include "ref_d3dmobile.h"
+typedef RefD3DM RefImpl;
+#endif 
+
 /**
 * @brief Nejvyssi Trida ref. 
 * Zajistuje spravne nahravani a odebrani shared pointru.

@@ -6,68 +6,66 @@
    @brief   Hlavni soubor deklarace DIRECT3D9.
 */
 
-#ifndef _HOE_D3D9_
-#define _HOE_D3D9_
-#define _HOE_D3D_
+#ifndef _HOE_D3DM_
+#define _HOE_D3DM_
+//#define _HOE_D3D_
 
 #ifdef _DEBUG
 #define D3D_DEBUG_INFO
 #endif
-#include <d3d9.h>
+#include <d3dm.h>
 
 #include "ref_base.h"
 
-#define FVF_XYZ D3DFVF_XYZ
-#define FVF_XYZRHW D3DFVF_XYZRHW
-#define FVF_NORMAL D3DFVF_NORMAL
-#define FVF_DIFFUSE D3DFVF_DIFFUSE
-#define FVF_SPECULAR D3DFVF_SPECULAR
-#define FVF_TEX1 D3DFVF_TEX1
-#define FVF_TEX2 D3DFVF_TEX2
-
+#define FVF_XYZ			(1 << 0)
+#define FVF_XYZRHW		(1 << 1) 
+#define FVF_NORMAL		(1 << 2)
+#define FVF_DIFFUSE		(1 << 3)
+#define FVF_SPECULAR	(1 << 4)
+#define FVF_TEX1		(1 << 5)
+#define FVF_TEX2		(1 << 6)
 
 #define RESERVE_PAR ,NULL
 typedef void** D3DLOCKTYPE;
 
-typedef IDirect3DDevice9 * SysDevice;
-typedef LPDIRECT3DTEXTURE9 SysTexture;
-typedef IDirect3DStateBlock9 * SysStateBlock;
-typedef IDirect3DIndexBuffer9 * SysIndexBuffer;
+typedef IDirect3DMobileDevice * SysDevice;
+typedef IDirect3DMobileTexture * SysTexture;
+typedef IDirect3DMobileIndexBuffer * SysIndexBuffer;
 
-typedef IDirect3DVertexBuffer9 * SysVertexBuffer;
+typedef IDirect3DMobileVertexBuffer * SysVertexBuffer;
 
-typedef D3DMATERIAL9 D3DMaterial;
+/*typedef D3DMATERIAL9 D3DMaterial;
 typedef D3DVIEWPORT9 D3DViewport;
-typedef D3DLIGHT9 D3DLight;
+typedef D3DLIGHT9 D3DLight;*/
 
 struct THoeInitSettings;
 
-inline const D3DVECTOR & VECToD3D(const HoeMath::Vector3 &v)
+inline const D3DMVECTOR & VECToD3D(const HoeMath::Vector3 &v)
 {
-	return *((D3DVECTOR*)&v);
+	return *((D3DMVECTOR*)&v);
 }
 
 /**
 * @brief Trida s implementaci zakladnich vlastnosti <b>D3D9</b>
 */
-class RefD3D9 : public RefBase
+class RefD3DM : public RefBase
 {
 protected:
 	HWND m_hWnd;  ///< Handle na okno
 	uint m_Adapter; ///< Cislo adapteru
-	IDirect3D9 * m_pD3D; ///< Ukazatel na DIRECT3D 
-	static IDirect3DDevice9 * m_Dev; ///< Device
-	D3DFORMAT m_AdapterFormat; ///< Format backbufferu
-	D3DCAPS9 m_Caps; ///< caps
+	IDirect3DMobile * m_pD3D; ///< Ukazatel na DIRECT3D 
+	static IDirect3DMobileDevice * m_Dev; ///< Device
+	D3DMFORMAT m_AdapterFormat; ///< Format backbufferu
+	D3DMCAPS m_Caps; ///< caps
 public:
 	/**
 	* Konstruktor
 	*/
-	RefD3D9();
+	RefD3DM();
 	/**
 	* Destruktor
 	*/
-	virtual ~RefD3D9() {}
+	virtual ~RefD3DM() {}
 	/**
 	* Inicializace DIRECTD3
 	* @param his vyplnena struktura THoeInitSettings
@@ -78,7 +76,7 @@ public:
 	* Vraci pointer na device viz DIRECT3D help.
 	* @return Pointer na device.
 	*/
-	static HOE_INLINE IDirect3DDevice9 * Device() 
+	static HOE_INLINE IDirect3DMobileDevice * Device() 
 	{ 
 		assert(m_Dev);
 		return m_Dev; 
@@ -161,7 +159,7 @@ public:
 	*/
 	word HOE_INLINE GetVertexShaderVersion()
 	{
-		return (word)(0xffff&m_Caps.VertexShaderVersion);
+		return 0;
 	}
 
 	/**
@@ -173,10 +171,13 @@ public:
 /**
 * Globalni funkce pro ziskani DIRECT3DDevice
 */
-HOE_INLINE IDirect3DDevice9 * D3DDevice();
+HOE_INLINE IDirect3DMobileDevice * D3DDevice();
 
 void ListState();
 
-#include "ref_d3d9.inl"
+#define D3DVECTOR D3DVECTOR
+#define D3DFORMAT D3DMFORMAT
 
-#endif // _HOE_D3D9_
+//#include "ref_d3d9.inl"
+
+#endif // _HOE_D3DM_

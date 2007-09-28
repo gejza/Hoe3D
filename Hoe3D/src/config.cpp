@@ -32,6 +32,8 @@ const char * Config::GetHoeDesc()
 	return "Hoe3D Direct3D9";
 #elif defined (_HOE_D3D8_)
 	return "Hoe3D Direct3D8";
+#elif defined (_HOE_D3DM_)
+	return "Hoe3D Direct3DMobile";
 #else
 #error No ref defined.
 #endif

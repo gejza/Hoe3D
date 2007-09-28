@@ -19,6 +19,10 @@
 #include "sound_al.h"
 #endif 
 
+#ifdef _USE_D3DM_
+#include "sound_mobile.h"
+#endif
+
 /**
   @brief	Uloziste zvuku 
  */

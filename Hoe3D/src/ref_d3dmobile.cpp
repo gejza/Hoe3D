@@ -8,14 +8,14 @@
 #include "StdAfx.h"
 #include "shared.h"
 #include "utils.h"
-#include "ref_d3d9.h"
+#include "ref_d3dmobile.h"
 #include <hoe_math.h>
 #include "../include/hoe3d.h"
 #include "config.h"
 #include "hoe_stream.h"
 #include "hoe_index.h"
 #include "hoe_info.h"
-
+/*
 // hoe
 IDirect3DDevice9 * RefD3D9::m_Dev = NULL;
 
@@ -225,7 +225,7 @@ bool RefD3D9::IsTextureFormatOk( HOEFORMAT TextureFormat)
     return SUCCEEDED( hr );
 }
 
-
+*/
 
 
 

@@ -19,7 +19,7 @@
 	</Platforms>
 	<ToolFiles>
 		<ToolFile
-			RelativePath="..\..\..\..\Common\bin\tools.rules"
+			RelativePath="..\..\..\Common\bin\tools.rules"
 		/>
 	</ToolFiles>
 	<Configurations>
@@ -1442,113 +1442,6 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-			OutputDirectory="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)\$(ConfigurationName)"
-			IntermediateDirectory="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)\$(ConfigurationName)"
-			ConfigurationType="2"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			CharacterSet="0"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="HTML help"
-			/>
-			<Tool
-				Name="Flex"
-			/>
-			<Tool
-				Name="NASM"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="Bison"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="_DEBUG"
-				MkTypLibCompatible="true"
-				SuppressStartupBanner="true"
-				TargetEnvironment="1"
-				TypeLibraryName=".\Debug/Hoe3D.tlb"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				ExecutionBucket="7"
-				Optimization="0"
-				AdditionalIncludeDirectories="../../../HoeCore/include/"
-				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;DEBUG;_LIB;$(ARCHFAM);$(_ARCHFAM_);_WINCE;_USRDLL;"
-				RuntimeLibrary="3"
-				UsePrecompiledHeader="0"
-				PrecompiledHeaderFile=".\DebugD3D8/Hoe3D.pch"
-				AssemblerListingLocation=".\DebugD3D8/"
-				ObjectFile=".\DebugD3D8/"
-				ProgramDataBaseFileName=".\DebugD3D8/"
-				WarningLevel="3"
-				SuppressStartupBanner="true"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
-				Culture="1029"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				IgnoreImportLibrary="true"
-				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="winmm.lib libpngd.lib freetype2110MT_D.lib libjpeg.lib zlibd.lib libvorbis_d.lib libogg_d.lib libvorbisfile_d.lib HoeCore_d.lib msvcrtd.lib d3d8.lib dsound.lib dinput8.lib dxguid.lib DxErr8.lib oldnames.lib libxvidcore.lib"
-				OutputFile="../../../Bin/Hoe3Dd_D3D8.dll"
-				LinkIncremental="2"
-				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="../../../bin"
-				IgnoreAllDefaultLibraries="true"
-				IgnoreDefaultLibraryNames="libcmt.lib;libcmtd.lib"
-				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\DebugD3D8/Hoe3D.pdb"
-				ImportLibrary=".\DebugD3D8/Hoe3D.lib"
-				TargetMachine="0"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCCodeSignTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-			<DeploymentTool
-				ForceDirty="-1"
-				RemoteDirectory=""
-				RegisterOutput="0"
-				AdditionalFiles=""
-			/>
-			<DebuggerTool
-			/>
-		</Configuration>
-		<Configuration
 			Name="DebugD3D8|x64"
 			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
@@ -2522,6 +2415,101 @@
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
+		<Configuration
+			Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+			OutputDirectory="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)\$(ConfigurationName)"
+			IntermediateDirectory="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets=".\Hoe3D_mobile_debug.vsprops"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG"
+				MkTypLibCompatible="true"
+				SuppressStartupBanner="true"
+				TargetEnvironment="1"
+				TypeLibraryName=".\Debug/Hoe3D.tlb"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				ExecutionBucket="7"
+				InlineFunctionExpansion="0"
+				PreprocessorDefinitions="_USE_D3DM_;HOE_STATIC_ENGINE"
+				RuntimeLibrary="3"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderThrough="../../src/StdAfx.h"
+				PrecompiledHeaderFile=".\DebugD3D9/Hoe3D.pch"
+				AssemblerListingLocation=".\DebugD3D9/"
+				ObjectFile=".\DebugD3D9/"
+				WarningLevel="3"
+				SuppressStartupBanner="true"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="1029"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				AdditionalOptions=" /MACHINE:I386"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCCodeSignTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+			<DeploymentTool
+				ForceDirty="-1"
+				RemoteDirectory=""
+				RegisterOutput="0"
+				AdditionalFiles=""
+			/>
+			<DebuggerTool
+			/>
+		</Configuration>
 	</Configurations>
 	<References>
 	</References>
@@ -2530,62 +2518,62 @@
 			Name="Ref"
 			>
 			<File
-				RelativePath="..\..\src\hoe_index.cpp"
+				RelativePath="..\src\hoe_index.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_index.h"
+				RelativePath="..\src\hoe_index.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_material.cpp"
+				RelativePath="..\src\hoe_material.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_material.h"
+				RelativePath="..\src\hoe_material.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_stream.cpp"
+				RelativePath="..\src\hoe_stream.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_stream.h"
+				RelativePath="..\src\hoe_stream.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\ref.cpp"
+				RelativePath="..\src\ref.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\ref.h"
+				RelativePath="..\src\ref.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\ref_base.cpp"
+				RelativePath="..\src\ref_base.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\ref_base.h"
+				RelativePath="..\src\ref_base.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\ref_utils.cpp"
+				RelativePath="..\src\ref_utils.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\ref_utils.h"
+				RelativePath="..\src\ref_utils.h"
 				>
 			</File>
 			<Filter
 				Name="OpenGL"
 				>
 				<File
-					RelativePath="..\..\src\glext.h"
+					RelativePath="..\src\glext.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\ref_opengl.cpp"
+					RelativePath="..\src\ref_opengl.cpp"
 					>
 					<FileConfiguration
 						Name="DebugD3D9|Win32"
@@ -2637,14 +2625,6 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="DebugD3D8|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2707,17 +2687,25 @@
 							Name="VCCLCompilerTool"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\..\src\ref_opengl.h"
+					RelativePath="..\src\ref_opengl.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\ref_opengl.inl"
+					RelativePath="..\src\ref_opengl.inl"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\ref_opengl_ext.cpp"
+					RelativePath="..\src\ref_opengl_ext.cpp"
 					>
 					<FileConfiguration
 						Name="DebugD3D9|Win32"
@@ -2769,14 +2757,6 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="DebugD3D8|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2839,9 +2819,17 @@
 							Name="VCCLCompilerTool"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\..\src\ref_opengl_ext.h"
+					RelativePath="..\src\ref_opengl_ext.h"
 					>
 				</File>
 			</Filter>
@@ -2849,7 +2837,7 @@
 				Name="D3D9"
 				>
 				<File
-					RelativePath="..\..\src\ref_d3d9.cpp"
+					RelativePath="..\src\ref_d3d9.cpp"
 					>
 					<FileConfiguration
 						Name="DebugGL|Win32"
@@ -2901,14 +2889,6 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="DebugD3D8|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2971,17 +2951,25 @@
 							Name="VCCLCompilerTool"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\..\src\ref_d3d9.h"
+					RelativePath="..\src\ref_d3d9.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\ref_d3d9.inl"
+					RelativePath="..\src\ref_d3d9.inl"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\ref_d3d9_debug.cpp"
+					RelativePath="..\src\ref_d3d9_debug.cpp"
 					>
 					<FileConfiguration
 						Name="ReleaseD3D9|Win32"
@@ -3064,14 +3052,6 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
 						Name="DebugD3D8|x64"
 						ExcludedFromBuild="true"
 						>
@@ -3145,6 +3125,14 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="DebugGL (static)|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3157,7 +3145,7 @@
 				Name="D3D8"
 				>
 				<File
-					RelativePath="..\..\src\ref_d3d8.cpp"
+					RelativePath="..\src\ref_d3d8.cpp"
 					>
 					<FileConfiguration
 						Name="DebugD3D9|Win32"
@@ -3303,13 +3291,33 @@
 							Name="VCCLCompilerTool"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\..\src\ref_d3d8.h"
+					RelativePath="..\src\ref_d3d8.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\ref_d3d8.inl"
+					RelativePath="..\src\ref_d3d8.inl"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="D3DMobile"
+				>
+				<File
+					RelativePath="..\src\ref_d3dmobile.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\ref_d3dmobile.h"
 					>
 				</File>
 			</Filter>
@@ -3318,51 +3326,51 @@
 			Name="Textures"
 			>
 			<File
-				RelativePath="..\..\src\hoe_texture.cpp"
+				RelativePath="..\src\hoe_texture.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_texture.h"
+				RelativePath="..\src\hoe_texture.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\htex_file.h"
+				RelativePath="..\src\htex_file.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\texture_converter.cpp"
+				RelativePath="..\src\texture_converter.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\texture_converter.h"
+				RelativePath="..\src\texture_converter.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\texture_convjpg.cpp"
+				RelativePath="..\src\texture_convjpg.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\texture_convpng.cpp"
+				RelativePath="..\src\texture_convpng.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\texture_loader.cpp"
+				RelativePath="..\src\texture_loader.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\texture_loader.h"
+				RelativePath="..\src\texture_loader.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\texture_system.cpp"
+				RelativePath="..\src\texture_system.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\texture_system.h"
+				RelativePath="..\src\texture_system.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\tga.h"
+				RelativePath="..\src\tga.h"
 				>
 			</File>
 		</Filter>
@@ -3370,31 +3378,31 @@
 			Name="Utils"
 			>
 			<File
-				RelativePath="..\..\src\cmdexec.cpp"
+				RelativePath="..\src\cmdexec.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\cmdexec.h"
+				RelativePath="..\src\cmdexec.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_format.cpp"
+				RelativePath="..\src\hoe_format.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_format.h"
+				RelativePath="..\src\hoe_format.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_info.cpp"
+				RelativePath="..\src\hoe_info.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_info.h"
+				RelativePath="..\src\hoe_info.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_time.cpp"
+				RelativePath="..\src\hoe_time.cpp"
 				>
 				<FileConfiguration
 					Name="DebugD3D9 (static)|Win32"
@@ -3458,35 +3466,35 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_time.h"
+				RelativePath="..\src\hoe_time.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_tokens.h"
+				RelativePath="..\src\hoe_tokens.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\shared.cpp"
+				RelativePath="..\src\shared.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\shared.h"
+				RelativePath="..\src\shared.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\unicode.cpp"
+				RelativePath="..\src\unicode.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\unicode.h"
+				RelativePath="..\src\unicode.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\utils.cpp"
+				RelativePath="..\src\utils.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\utils.h"
+				RelativePath="..\src\utils.h"
 				>
 			</File>
 		</Filter>
@@ -3494,19 +3502,19 @@
 			Name="Model"
 			>
 			<File
-				RelativePath="..\..\src\hoe_model.cpp"
+				RelativePath="..\src\hoe_model.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_model.h"
+				RelativePath="..\src\hoe_model.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\material_parser.h"
+				RelativePath="..\src\material_parser.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\material_parser.l"
+				RelativePath="..\src\material_parser.l"
 				>
 				<FileConfiguration
 					Name="ReleaseD3D9|Win32"
@@ -3591,15 +3599,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="DebugD3D8|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						CommandLine="flex -o$(InputDir)material_parser.c $(InputPath)&#x0D;&#x0A;"
-						Outputs="$(InputDir)material_parser.c"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -3697,33 +3696,40 @@
 						Outputs="$(InputDir)material_parser.c"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="Flex"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\material_system.cpp"
+				RelativePath="..\src\material_system.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\material_system.h"
+				RelativePath="..\src\material_system.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\model_generator.cpp"
+				RelativePath="..\src\model_generator.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\model_generator.h"
+				RelativePath="..\src\model_generator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\model_loader.cpp"
+				RelativePath="..\src\model_loader.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\model_loader.h"
+				RelativePath="..\src\model_loader.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\model_shader.h"
+				RelativePath="..\src\model_shader.h"
 				>
 			</File>
 		</Filter>
@@ -3731,27 +3737,27 @@
 			Name="Files"
 			>
 			<File
-				RelativePath="..\..\src\filesystem.cpp"
+				RelativePath="..\src\filesystem.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\filesystem.h"
+				RelativePath="..\src\filesystem.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoefile.cpp"
+				RelativePath="..\src\hoefile.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoefile.h"
+				RelativePath="..\src\hoefile.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\resmgr.cpp"
+				RelativePath="..\src\resmgr.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\resmgr.h"
+				RelativePath="..\src\resmgr.h"
 				>
 			</File>
 		</Filter>
@@ -3759,23 +3765,23 @@
 			Name="Main"
 			>
 			<File
-				RelativePath="..\..\src\hoe.cpp"
+				RelativePath="..\src\hoe.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe.h"
+				RelativePath="..\src\hoe.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_main.cpp"
+				RelativePath="..\src\hoe_main.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\icreate.cpp"
+				RelativePath="..\src\icreate.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\icreate_parser.l"
+				RelativePath="..\src\icreate_parser.l"
 				>
 				<FileConfiguration
 					Name="DebugD3D9|Win32"
@@ -3892,15 +3898,6 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						CommandLine="flex -o$(InputDir)icreate_parser.c $(InputPath)&#x0D;&#x0A;"
-						Outputs="$(InputDir)icreate_parser.c"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="DebugD3D8|x64"
 					>
 					<Tool
@@ -3990,13 +3987,21 @@
 						Outputs="$(InputDir)icreate_parser.c"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="Flex"
+						Lang="1"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\iget.cpp"
+				RelativePath="..\src\iget.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\StdAfx.h"
+				RelativePath="..\src\StdAfx.h"
 				>
 			</File>
 		</Filter>
@@ -4004,7 +4009,7 @@
 			Name="Hoe2D"
 			>
 			<File
-				RelativePath="..\..\src\cursor.cpp"
+				RelativePath="..\src\cursor.cpp"
 				>
 				<FileConfiguration
 					Name="DebugD3D9|Win32"
@@ -4111,14 +4116,6 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="DebugD3D8|x64"
 					ExcludedFromBuild="true"
 					>
@@ -4198,41 +4195,49 @@
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\cursor.h"
+				RelativePath="..\src\cursor.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\freetype.cpp"
+				RelativePath="..\src\freetype.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\freetype.h"
+				RelativePath="..\src\freetype.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe2d.cpp"
+				RelativePath="..\src\hoe2d.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe2d.h"
+				RelativePath="..\src\hoe2d.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_font.cpp"
+				RelativePath="..\src\hoe_font.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_font.h"
+				RelativePath="..\src\hoe_font.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_picture.cpp"
+				RelativePath="..\src\hoe_picture.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_picture.h"
+				RelativePath="..\src\hoe_picture.h"
 				>
 			</File>
 		</Filter>
@@ -4240,7 +4245,7 @@
 			Name="Scene"
 			>
 			<File
-				RelativePath="..\..\src\hoe_map.cpp"
+				RelativePath="..\src\hoe_map.cpp"
 				>
 				<FileConfiguration
 					Name="DebugD3D9|Win32"
@@ -4347,14 +4352,6 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="DebugD3D8|x64"
 					ExcludedFromBuild="true"
 					>
@@ -4434,13 +4431,21 @@
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_map.h"
+				RelativePath="..\src\hoe_map.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_map_part.cpp"
+				RelativePath="..\src\hoe_map_part.cpp"
 				>
 				<FileConfiguration
 					Name="DebugD3D9|Win32"
@@ -4547,14 +4552,6 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="DebugD3D8|x64"
 					ExcludedFromBuild="true"
 					>
@@ -4634,57 +4631,65 @@
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_map_part.h"
+				RelativePath="..\src\hoe_map_part.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\map_utils.cpp"
+				RelativePath="..\src\map_utils.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\scene.cpp"
+				RelativePath="..\src\scene.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\scene.h"
+				RelativePath="..\src\scene.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\scene_base.cpp"
+				RelativePath="..\src\scene_base.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\scene_base.h"
+				RelativePath="..\src\scene_base.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\scene_env.cpp"
+				RelativePath="..\src\scene_env.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\scene_env.h"
+				RelativePath="..\src\scene_env.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\scene_graph.cpp"
+				RelativePath="..\src\scene_graph.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\scene_graph.h"
+				RelativePath="..\src\scene_graph.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\scene_part.cpp"
+				RelativePath="..\src\scene_part.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\scene_part.h"
+				RelativePath="..\src\scene_part.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\skybox.cpp"
+				RelativePath="..\src\skybox.cpp"
 				>
 				<FileConfiguration
 					Name="DebugD3D9|Win32"
@@ -4791,14 +4796,6 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="DebugD3D8|x64"
 					ExcludedFromBuild="true"
 					>
@@ -4878,28 +4875,36 @@
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\skybox.h"
+				RelativePath="..\src\skybox.h"
 				>
 			</File>
 			<Filter
 				Name="Elements"
 				>
 				<File
-					RelativePath="..\..\src\gridsurface.cpp"
+					RelativePath="..\src\gridsurface.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\gridsurface.h"
+					RelativePath="..\src\gridsurface.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\heightmap.cpp"
+					RelativePath="..\src\heightmap.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\heightmap.h"
+					RelativePath="..\src\heightmap.h"
 					>
 				</File>
 			</Filter>
@@ -4908,35 +4913,35 @@
 			Name="Input"
 			>
 			<File
-				RelativePath="..\..\src\hoe_input.cpp"
+				RelativePath="..\src\hoe_input.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_input.h"
+				RelativePath="..\src\hoe_input.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_input_di.cpp"
+				RelativePath="..\src\hoe_input_di.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_input_di.h"
+				RelativePath="..\src\hoe_input_di.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_input_keymap.h"
+				RelativePath="..\src\hoe_input_keymap.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_input_winapi.cpp"
+				RelativePath="..\src\hoe_input_winapi.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_input_winapi.h"
+				RelativePath="..\src\hoe_input_winapi.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_input_xwin.cpp"
+				RelativePath="..\src\hoe_input_xwin.cpp"
 				>
 				<FileConfiguration
 					Name="DebugD3D9|Win32"
@@ -4986,9 +4991,17 @@
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\hoe_input_xwin.h"
+				RelativePath="..\src\hoe_input_xwin.h"
 				>
 			</File>
 		</Filter>
@@ -4996,15 +5009,15 @@
 			Name="Physics"
 			>
 			<File
-				RelativePath="..\..\src\map_utils.h"
+				RelativePath="..\src\map_utils.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\physics.cpp"
+				RelativePath="..\src\physics.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\physics.h"
+				RelativePath="..\src\physics.h"
 				>
 			</File>
 		</Filter>
@@ -5012,27 +5025,27 @@
 			Name="Sound"
 			>
 			<File
-				RelativePath="..\..\src\sound.cpp"
+				RelativePath="..\src\sound.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\sound.h"
+				RelativePath="..\src\sound.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\sound_al.cpp"
+				RelativePath="..\src\sound_al.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\sound_al.h"
+				RelativePath="..\src\sound_al.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\sound_ds.cpp"
+				RelativePath="..\src\sound_ds.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\sound_ds.h"
+				RelativePath="..\src\sound_ds.h"
 				>
 			</File>
 		</Filter>
@@ -5040,35 +5053,35 @@
 			Name="Object"
 			>
 			<File
-				RelativePath="..\..\src\camera.cpp"
+				RelativePath="..\src\camera.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\camera.h"
+				RelativePath="..\src\camera.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\object_controller.cpp"
+				RelativePath="..\src\object_controller.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\object_controller.h"
+				RelativePath="..\src\object_controller.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\object_inspector.cpp"
+				RelativePath="..\src\object_inspector.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\object_inspector.h"
+				RelativePath="..\src\object_inspector.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\render_target.cpp"
+				RelativePath="..\src\render_target.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\render_target.h"
+				RelativePath="..\src\render_target.h"
 				>
 			</File>
 		</Filter>
@@ -5076,19 +5089,19 @@
 			Name="Light"
 			>
 			<File
-				RelativePath="..\..\src\light.cpp"
+				RelativePath="..\src\light.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\light.h"
+				RelativePath="..\src\light.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\light_system.cpp"
+				RelativePath="..\src\light_system.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\light_system.h"
+				RelativePath="..\src\light_system.h"
 				>
 			</File>
 		</Filter>
@@ -5096,15 +5109,15 @@
 			Name="Config"
 			>
 			<File
-				RelativePath="..\..\src\config.cpp"
+				RelativePath="..\src\config.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\config.h"
+				RelativePath="..\src\config.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\config_asm.asm"
+				RelativePath="..\src\config_asm.asm"
 				>
 				<FileConfiguration
 					Name="DebugD3D9|Win32"
@@ -5211,14 +5224,6 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="NASM"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="DebugD3D8|x64"
 					ExcludedFromBuild="true"
 					>
@@ -5298,13 +5303,21 @@
 						Name="NASM"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="NASM"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\states.cpp"
+				RelativePath="..\src\states.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\states.h"
+				RelativePath="..\src\states.h"
 				>
 			</File>
 		</Filter>
@@ -5360,7 +5373,7 @@
 			Name="Generated"
 			>
 			<File
-				RelativePath="..\..\src\icreate_parser.yy.c"
+				RelativePath="..\src\icreate_parser.yy.c"
 				>
 				<FileConfiguration
 					Name="DebugD3D9|Win32"
@@ -5380,6 +5393,14 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="DebugD3D9|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -5388,7 +5409,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\material_parser.c"
+				RelativePath="..\src\material_parser.c"
 				>
 				<FileConfiguration
 					Name="DebugD3D9|Win32"
@@ -5408,6 +5429,14 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="DebugD3D9|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -5420,18 +5449,10 @@
 			Name="Shaders"
 			>
 			<File
-				RelativePath="..\..\src\shader_vertex.cpp"
+				RelativePath="..\src\shader_vertex.cpp"
 				>
 				<FileConfiguration
 					Name="DebugD3D8|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -5472,7 +5493,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\shader_vertex.h"
+				RelativePath="..\src\shader_vertex.h"
 				>
 			</File>
 		</Filter>
@@ -5480,20 +5501,20 @@
 			Name="Effects"
 			>
 			<File
-				RelativePath="..\..\src\particle_emitor.cpp"
+				RelativePath="..\src\particle_emitor.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\particle_emitor.h"
+				RelativePath="..\src\particle_emitor.h"
 				>
 			</File>
 		</Filter>
 		<File
-			RelativePath="..\..\src\video.cpp"
+			RelativePath="..\src\video.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\..\src\video.h"
+			RelativePath="..\src\video.h"
 			>
 		</File>
 	</Files>
