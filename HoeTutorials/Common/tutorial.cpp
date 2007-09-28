@@ -3,9 +3,6 @@
 
 using namespace HoeGame;
 
-#pragma comment (lib,"libfl.a")
-#pragma comment (lib,"Lua5.1.lib")
-
 HoeTutorial::HoeTutorial(HOE_INSTANCE instance, HoeGame::Console * con) : HoeApp(instance, con)
 {
 }
@@ -31,7 +28,7 @@ static const char * GetLogname()
 }
 
 #ifdef _WIN32
-int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE,LPSTR lpStr,int iCmdShow)
+int WINAPI WinMain2(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPCSTR lpCmdLine,int nCmdShow)
 {
 	SetRootFromInstance(hInstance);
 

@@ -15,8 +15,12 @@
 #include "hoe_engine.h"
 #include "hoe_fs.h"
 
-#ifdef _WIN32
+#ifdef _WIN32_WINNT
 #include "hoe_win32.h"
+#endif
+
+#ifdef _WIN32_WCE
+#include "hoe_mobile.h"
 #endif
 
 #ifdef _LINUX
@@ -33,8 +37,11 @@ BEGIN_HOEGAME
 /**
  * @brief Hlavní aplikace
  */
-#ifdef _WIN32
+#ifdef _WIN32_WINNT
 class HoeApp : public HoeWin32
+#endif
+#ifdef _WIN32_WCE
+class HoeApp : public HoeMobile
 #endif
 #ifdef _LINUX
 class HoeApp : public HoeLinux

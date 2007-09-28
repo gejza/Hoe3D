@@ -9,18 +9,16 @@
 MaterialSystem::MaterialSystem()
 {
 	SET_SHARED_PTR(material);
-	m_dir = 0;
 }
 
 MaterialSystem::~MaterialSystem()
 {
 	UNSET_SHARED_PTR(material);
-	if (m_dir) free((void*)m_dir);
 }
 
 void HOEAPI MaterialSystem::SetMaterialDir(const char * dir)
 {
-	m_dir = strdup(dir);
+	m_dir = dir;
 }
 
 HoeMaterial * MaterialSystem::GetMaterial(const char * name)
@@ -29,8 +27,8 @@ HoeMaterial * MaterialSystem::GetMaterial(const char * name)
 	char path[1024];
 	if (m_dir)
 	{
-		strcpy(path,m_dir);
-		size_t l = strlen(m_dir);
+		m_dir.Export(path, sizeof(path));
+		size_t l = m_dir.Length();
 		if (path[l-1] != '/' && path[l-1] != '\\')
 		{
 			strcat(path,"/");

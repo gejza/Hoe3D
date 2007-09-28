@@ -9,8 +9,12 @@ CVar HoeApp::m_height("height", 600, 0);
 CVar HoeApp::m_fullscreen("fullscreen", false, 0);
 CVar HoeApp::m_enginedll("engine", ENGINE_DLL, TVAR_SSTR);
 
-#ifdef _WIN32
+#ifdef _WIN32_WINNT
 HoeApp::HoeApp(HOE_INSTANCE hInst, Console * con) : HoeWin32(hInst)
+#endif
+
+#ifdef _WIN32_WCE
+HoeApp::HoeApp(HOE_INSTANCE hInst, Console * con) : HoeMobile(hInst)
 #endif
 
 #ifdef _LINUX

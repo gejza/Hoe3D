@@ -32,7 +32,7 @@ HoeTexture * TextureSystem::GetTexture(const char * name, HoeLog * log)
 
 	TextureLoader loader(m_log);
 	HoeTexture * tex = new HoeTexture();
-	tex->name = strdup(name);
+	tex->name = name;
 	
 	if (loader.Load(name))
 	{

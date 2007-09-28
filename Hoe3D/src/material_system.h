@@ -7,7 +7,7 @@
 
 class MaterialSystem : public IHoeMaterialSystem
 {
-	const char * m_dir;
+	HoeCore::String m_dir;
 public:
 	MaterialSystem();
 	~MaterialSystem();

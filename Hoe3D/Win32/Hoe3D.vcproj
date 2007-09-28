@@ -1442,6 +1442,77 @@
 			/>
 		</Configuration>
 		<Configuration
+			Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+			ConfigurationType="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				ExecutionBucket="7"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCCodeSignTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+			<DeploymentTool
+				ForceDirty="-1"
+				RemoteDirectory=""
+				RegisterOutput="0"
+				AdditionalFiles=""
+			/>
+			<DebuggerTool
+			/>
+		</Configuration>
+		<Configuration
 			Name="DebugD3D8|x64"
 			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
@@ -2417,7 +2488,6 @@
 		</Configuration>
 		<Configuration
 			Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-			OutputDirectory="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)\$(ConfigurationName)"
 			IntermediateDirectory="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)\$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets=".\Hoe3D_mobile_debug.vsprops"
@@ -2465,9 +2535,7 @@
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderThrough="../../src/StdAfx.h"
-				PrecompiledHeaderFile=".\DebugD3D9/Hoe3D.pch"
-				AssemblerListingLocation=".\DebugD3D9/"
-				ObjectFile=".\DebugD3D9/"
+				PrecompiledHeaderFile=".\$(IntDir)/StdAfx.pch"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 			/>
@@ -2484,7 +2552,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalOptions=" /MACHINE:I386"
+				OutputFile="$(OutDir)\$(ProjectName)_D3DMobile.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -3694,13 +3762,6 @@
 						Name="VCCustomBuildTool"
 						CommandLine="flex -o$(InputDir)material_parser.c $(InputPath)&#x0D;&#x0A;"
 						Outputs="$(InputDir)material_parser.c"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-					>
-					<Tool
-						Name="Flex"
 					/>
 				</FileConfiguration>
 			</File>

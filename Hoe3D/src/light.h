@@ -10,12 +10,11 @@ public:
 
 class HoeLight : public IHoeLight
 {
-#ifdef _HOE_D3D_
-	D3DLight light;
-#endif
 #ifdef _HOE_OPENGL_
 	HoeMath::Vector4 pos;
 	HoeMath::Vector4 color;
+#else
+	D3DLight light;
 #endif
 	DebugObject obj;
 	bool m_diRECT;

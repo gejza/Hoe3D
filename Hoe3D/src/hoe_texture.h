@@ -17,7 +17,7 @@ public:
 	};
 protected:
 	SysTexture m_texture;
-	char * name;
+	HoeCore::String name;
 	uint width;
 	uint height;
 	HOEFORMAT format;

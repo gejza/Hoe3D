@@ -6,7 +6,9 @@
 BEGIN_HOEGAME
 
 #ifdef _WIN32
+#ifndef _WIN32_WCE
 #include <dbghelp.h>
+#endif
 #include <shellapi.h>
 #include <shlobj.h>
 #pragma comment (lib,"dbghelp.lib")

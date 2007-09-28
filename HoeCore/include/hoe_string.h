@@ -6,6 +6,8 @@
 // string class
 namespace HoeCore {
 
+int vsnprintf(char *, size_t, const char *, va_list);
+
 template<size_t maxsize> class String_s
 {
 	char m_str[maxsize];
@@ -21,7 +23,7 @@ public:
 		int ret;
 		va_list args;
 		va_start(args, szFormat);
-		ret = vsnprintf( m_str, maxsize-1, szFormat, args );
+		ret = HoeCore::vsnprintf( m_str, maxsize-1, szFormat, args );
 		va_end(args);
 		return ret;
 	}
@@ -40,6 +42,10 @@ class String
 {
 public:
 	int printf(const char * szFormat, ...);
+	const String & operator = (const char * s);
+	operator bool ();
+	size_t Length();
+	void Export(char *, size_t size);
 };
 
 } // namespace HoeCore

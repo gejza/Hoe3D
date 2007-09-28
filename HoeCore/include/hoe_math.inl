@@ -525,7 +525,7 @@ HOE_INLINE float HoeAngleBetweenVectorsF(const Vector2 &v1, const Vector2 &v2)
 	float vectorsMagnitude = v1.MagnitudeF() * v2.MagnitudeF();
 
 	// Return the arc cosine of the (dotProduct / vectorsMagnitude) which is the angle in RADIANS.
-	return( acos( dotProduct / vectorsMagnitude ) );
+	return (float)( acos( dotProduct / vectorsMagnitude ) );
 }
 
 HOE_INLINE double HoeAngleBetweenVectors(const Vector3 &v1, const Vector3 &v2)
