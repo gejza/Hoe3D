@@ -14,7 +14,7 @@ extern "C" {
 
 #include "../include/lua_script.h"
 #include "../include/hoe_resource_mgr.h"
-#include "../include/hoe_lang.h"
+//#include "../include/hoe_lang.h"
 #include "../include/hoe_fs.h"
 #include "../include/hoe_app.h"
 
@@ -84,7 +84,7 @@ bool LuaParam::CheckPar(int num, const char * par, const char * func)
 {
 	if (!CheckPar(num, par))
 	{
-		Error("incorrect argument to function `%s'", func);
+		Error(T("incorrect argument to function `%s'"), func);
 		return false;
 	}
 	return true;
@@ -141,10 +141,14 @@ bool LuaParam::Get(int pos, HoeCore::Universal& data) const
 	return true;
 }
 
-void LuaParam::SaveString(const char *str)
+void LuaParam::SaveString(const tchar *str)
 {
+#ifndef UNICODE
 	lua_pushstring(m_L,str);
 	nump++;
+#else
+	assert(0);
+#endif
 }
 
 void LuaParam::PushNum(int num)
@@ -349,18 +353,21 @@ bool LuaParam::ToString(char * buff, size_t lb, int from, int to)
 	return true;
 }
 
-void LuaParam::Error(const char * szFormat, ...)
+void LuaParam::Error(const tchar * szFormat, ...)
 {
 	/*lua_Debug ar;
 	int l=0;
 	while (lua_getstack(m_L, l++, &ar))
 		lua_getinfo (m_L, ">SnlufL", &ar);*/
-
+#ifndef UNICODE
 	va_list args;
 	va_start(args, szFormat);
 	lua_pushvfstring(m_L, szFormat, args);
 	va_end(args);
 	lua_error(m_L);
+#else
+	assert(0);
+#endif
 }
 
 //////////////////////////////////////////////////////
@@ -396,7 +403,7 @@ LuaScript::LuaScript()
 	_this = this;
 	engine = NULL;
 	resources = NULL;
-	lang = NULL;
+	//lang = NULL;
 	m_L = NULL;
 }
 
@@ -410,7 +417,7 @@ LuaScript::~LuaScript()
 
 bool LuaScript::Init()
 {
-	BaseConsole::Printf("Lua init.."); 
+	BaseConsole::Printf(T("Lua init..")); 
 	/* initialize Lua */
 	m_L = lua_open();
 	//lua_atpanic(L, print);
@@ -431,7 +438,7 @@ bool LuaScript::Init()
 
 	BaseConsole::Printf("$Lua: " LUA_VERSION " " LUA_COPYRIGHT " $");
 	BaseConsole::Printf("$Authors: " LUA_AUTHORS " $");
-    BaseConsole::Printf("$URL: www.lua.org $");
+    BaseConsole::Printf(T("$URL: www.lua.org $"));
     BaseConsole::Printf("Stack: %dKb", lua_gc (m_L,LUA_GCCOUNT,0));
 
 	return true;
@@ -710,10 +717,10 @@ bool LuaScript::Connect(ResourceMgr *res)
 
 bool LuaScript::Connect(Lang * l)
 {
-	lang = l;
-	lua_register(m_L,"LoadLang",LuaScript::loadlang);
-	lua_register(m_L,"AddLang",LuaScript::addlang);
-	lua_register(m_L,"GetLang",LuaScript::getlang);
+	//lang = l;
+	//lua_register(m_L,"LoadLang",LuaScript::loadlang);
+	//lua_register(m_L,"AddLang",LuaScript::addlang);
+	//lua_register(m_L,"GetLang",LuaScript::getlang);
 	return true;
 }
 
@@ -722,9 +729,8 @@ int LuaScript::error(lua_State * L)
 {
 	int n=lua_gettop(L);
 	int i;
-	static char buff[512];
+	static HoeCore::String_s<512> buff;
 	static char mbuff[256];
-	buff[0] = '\0';
 	// debug
 	/*lua_Debug ar;
 	int l=0;
@@ -740,10 +746,10 @@ int LuaScript::error(lua_State * L)
 			sprintf(mbuff,"%s",lua_toboolean(L,i) ? "true" : "false");
 		else
 			sprintf(mbuff,"%s:%p",lua_typename(L,lua_type(L,i)),lua_topointer(L,i));
-		strcat(buff,mbuff);
+		buff.cat(mbuff);
 	}
 	BaseConsole::Printf(buff);
-	HoeApp::GetApp<HoeApp>()->ShowMsg("Script error", buff);
+	HoeApp::GetApp<HoeApp>()->ShowMsg(T("Script error"), buff);
   /*fprintf(stderr, "PANIC: unprotected error in call to Lua API (%s)\n",
                    lua_tostring(L, -1));*/
 
@@ -791,14 +797,14 @@ int LuaScript::loadfile(lua_State * L)
         lua_error(L);
 		*/
 
-		BaseConsole::Printf("Lua error: Bad param in function LoadFile");
+		BaseConsole::Printf(T("Lua error: Bad param in function LoadFile"));
 		return 0;
 	}
 
 	fname = lua_tostring(L,-1);
 
 	if (!GetInstance()->filesystem->AddResourceFile(fname))
-		BaseConsole::Printf("WARNING: file '%s' not exist.",fname);
+		BaseConsole::Printf(T("WARNING: file '%s' not exist."),fname);
 
 	return 0;
 }
@@ -816,13 +822,17 @@ int LuaScript::hoe(lua_State * L)
         lua_error(L);
 		*/
 
-		BaseConsole::Printf("Lua error: Bad param in function Exec");
+		BaseConsole::Printf(T("Lua error: Bad param in function Exec"));
 		return 0;
 	}
 
 	cmd = lua_tostring(L,-1);
 
+#ifndef UNICODE
 	GetInstance()->engine->exec(cmd);
+#else
+	assert(0);
+#endif
 
 	return 0;
 }
@@ -845,7 +855,7 @@ int LuaScript::loadresource(lua_State * L)
 	return 0;
 } 
 
-int LuaScript::loadlang(lua_State * L)
+/*int LuaScript::loadlang(lua_State * L)
 {
 	LuaParam par(L);
 
@@ -891,7 +901,7 @@ int LuaScript::getlang(lua_State * L)
 	par.SaveString(GetInstance()->lang->GetString(par.GetNum(-1)));
 
 	return 1;
-} 
+} */
 
 
 END_HOEGAME

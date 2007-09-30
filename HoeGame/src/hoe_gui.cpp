@@ -23,7 +23,7 @@ void Item::Set(const char * prop, const HoeCore::Universal & value)
 	if (strcmp(prop,"rect")==0)
 		SetRect(value);
 	else if (strcmp(prop,"name")==0)
-		m_name = strdup(value.GetStringValue());
+		m_name = value.GetStringValue();
 	else if (strcmp(prop,"show")==0)
 		m_show = value.GetBool();
 }
@@ -240,7 +240,7 @@ void InfoPanel::Add(const char * str)
 
 	assert(a != -1);
 
-	strcpy(m_infos[a].info,str);
+	m_infos[a].info = str;
 	m_infos[a].y = startheight;
 	m_infos[a].totime = GetHoeEngine()->SysFloatTime() + 5.f;
 	m_infos[a].visible = true;
@@ -348,7 +348,7 @@ Font::~Font()
 
 void Font::Draw(IHoe2D *hoe2d)
 {
-	const char * text = m_text;
+	const tchar * text = m_text;
 	// text overlap
 	if (m_ctrl && m_func)
 		text = (m_ctrl->*m_func)(this, text);
@@ -380,7 +380,7 @@ void Font::Draw(IHoe2D *hoe2d)
 	}
 }
 
-void Font::SetText(const char * ptr)
+void Font::SetText(const tchar * ptr)
 {
 	if (m_text)
 	{
@@ -390,8 +390,8 @@ void Font::SetText(const char * ptr)
 	size_t l = strlen(ptr);
 	if (l > 0)
 	{
-		char * p = new char[l+1];
-		memcpy(p, ptr, l+1);
+		char * p = new tchar[l+1];
+		memcpy(p, ptr, (l+1) * sizeof(tchar));
 		m_text = p;
 	}
 }

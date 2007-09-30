@@ -1,4 +1,5 @@
 
+#include "StdAfx.h"
 #include "shared.h"
 
 #ifndef NULL

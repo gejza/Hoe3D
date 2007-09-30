@@ -34,7 +34,7 @@ public:
 	Dialog(HINSTANCE hInst);
 	HWND GetHWND() { return m_hWnd; }
 	HINSTANCE GetInstance() { return m_hInst; }
-	int Show(const char *res);
+	int Show(const tchar *res);
 	virtual INT_PTR DialogProc(UINT uMsg,WPARAM wParam,LPARAM lParam);
 	INT_PTR End(int retcode);
 

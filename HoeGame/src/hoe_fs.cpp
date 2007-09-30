@@ -62,7 +62,7 @@ bool HoeFile::Open(const char *fname,EHoeFileMode mode)
 		break;
 	};
 
-	file = CreateFile(fname,acces,FILE_SHARE_READ,
+	file = CreateFileW(L"fname",acces,FILE_SHARE_READ,
 		NULL,creating,0,INVALID_HANDLE_VALUE);
 	if (file == INVALID_HANDLE_VALUE)
 		isopen = false;

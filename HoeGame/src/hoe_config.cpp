@@ -55,6 +55,7 @@ int Config::Load(const char * filename)
 		// value
 		switch (config_parse(&str))
 		{
+#ifndef _WIN32_WCE
 		case 5:
 			{
 				const char * env = getenv(str+1);
@@ -68,6 +69,7 @@ int Config::Load(const char * filename)
 					break;
 				/* pokud nepRECTena tak to ma projit do dalsiho*/
 			}
+#endif
 		case 4:
 			{
 				str++;

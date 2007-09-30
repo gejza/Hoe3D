@@ -59,7 +59,7 @@ protected:
 	static CVar m_height;
 	static CVar m_fullscreen;
 
-	const char * m_lastError;
+	const tchar * m_lastError;
 
 	virtual bool LoadEngine(int sdkver);
 	virtual bool Frame(float time);

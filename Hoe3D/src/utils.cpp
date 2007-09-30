@@ -14,11 +14,11 @@
 //////// Conzole /////////////
 XHoeConsole * _Con;
 
-void Con_Print(const char * szFormat,...)
+void Con_Print(const tchar * szFormat,...)
 {
 	if (_Con)
 	{
-		static char szBuff[1024];
+		static tchar szBuff[1024];
 
 		va_list args;
 
@@ -30,13 +30,13 @@ void Con_Print(const char * szFormat,...)
 	}
 }
 
-void Con_Print(int dlevel, const char * szFormat,...)
+void Con_Print(int dlevel, const tchar * szFormat,...)
 {
 	if (dlevel > 2) return;
 
 	if (_Con)
 	{
-		static char szBuff[1024];
+		static tchar szBuff[1024];
 
 		va_list args;
 
@@ -48,11 +48,11 @@ void Con_Print(int dlevel, const char * szFormat,...)
 	}
 }
 
-void Con_Print(HoeLog * log, const char * szFormat,...)
+void Con_Print(HoeLog * log, const tchar * szFormat,...)
 {
 	if (log)
 	{
-		static char szBuff[1024];
+		static tchar szBuff[1024];
 
 		va_list args;
 

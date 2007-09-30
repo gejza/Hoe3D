@@ -28,16 +28,17 @@ static const char * GetLogname()
 }
 
 #ifdef _WIN32
-int WINAPI WinMain2(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPCSTR lpCmdLine,int nCmdShow)
+int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPWSTR lpCmdLine,int nCmdShow)
 {
-	SetRootFromInstance(hInstance);
+	/*SetRootFromInstance(hInstance);
 
 	Console con;
 	con.SetFileLogging(GetLogname());
-	ConfigVars config;
-	config.Load("tutorials.conf");
+	//ConfigVars config;
+	//config.Load("tutorials.conf");
 
-	return _hoemain(hInstance,&con);
+	return _hoemain(hInstance,&con);*/
+	return 0;
 }
 
 #else

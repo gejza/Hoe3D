@@ -17,8 +17,8 @@ DLL_EXPORT IHoe3DEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * co
 {
 	if (sdk_ver != HOESDK_VERSION)
 	{
-		char buff[256];
-		sprintf(buff,"Bad version for interface (req: %.2f this: %.2f)",sdk_ver * 0.01f,HOESDK_VERSION * 0.01f);
+		HoeCore::String_s<256> buff;
+		buff.printf("Bad version for interface (req: %.2f this: %.2f)",sdk_ver * 0.01f,HOESDK_VERSION * 0.01f);
 		con->Con_Print(buff);
 		return NULL;
 	}

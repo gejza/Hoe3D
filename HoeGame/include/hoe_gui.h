@@ -3,6 +3,8 @@
 #define _HOE_GUI_UTILS_H_
 
 #include "hoe_game.h"
+#include <hoe_universal.h>
+#include <hoe_string.h>
 
 BEGIN_HOEGAME
 
@@ -14,7 +16,7 @@ class Hoe2DControl
 {
 public:
 	typedef void (Hoe2DControl::*FUNC_CMD)(Gui::Base * sender);
-	typedef const char * (Hoe2DControl::*FUNC_TEXTOVERLAP)(Gui::Base * sender, const char * text);
+	typedef const tchar * (Hoe2DControl::*FUNC_TEXTOVERLAP)(Gui::Base * sender, const tchar * text);
 };
 
 #define H2DC_TEXTOVERLAP(func) static_cast<HoeGame::Hoe2DControl::FUNC_TEXTOVERLAP>(&func)
@@ -44,7 +46,7 @@ class Item : public Base
 protected:
 	bool m_show;
 	THoeRect m_rect;
-	const char * m_name;
+	HoeCore::String m_name;
 public:
 	Item();
 	virtual void Set(const char * prop, const HoeCore::Universal & value);
@@ -53,7 +55,7 @@ public:
 	void SetRect(const THoeRect * Rect);
 	void SetRect(const HoeCore::Universal & value);
 	const THoeRect & GetRect() const { return m_rect; }
-	const char * GetName() const { return m_name; }
+	const tchar * GetName() const { return m_name; }
 	void Show() { m_show = true; }
 	void Hide() { m_show = false; }
 	bool GetShow() { return m_show; }
@@ -101,7 +103,7 @@ class InfoPanel : public Item
 		bool visible;
 		float y;
 		float totime;
-		char info[512];
+		HoeCore::String_s<512> info;
 		static int comp(const void *,const void *);
 	};
 
@@ -192,7 +194,7 @@ public:
 	};
 protected:
 	IHoeFont * m_font;
-	const char * m_text;
+	const tchar * m_text;
 	Align m_ax;
 	Align m_ay;
 	Hoe2DControl * m_ctrl;
@@ -204,7 +206,7 @@ public:
 	virtual void Draw(IHoe2D * hoe2d);
 	virtual void Set(const char * prop, const HoeCore::Universal & value);
 	void SetFont(IHoeFont * font) { m_font = font; }
-	void SetText(const char * ptr);
+	void SetText(const tchar * ptr);
 	void SetTextOverlaper(void * ctrl, Hoe2DControl::FUNC_TEXTOVERLAP func)
 	{
 		m_ctrl = (Hoe2DControl *)ctrl; m_func = func;

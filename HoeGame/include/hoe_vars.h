@@ -17,7 +17,7 @@ class CVar : protected THoeVar
 {
 protected:
 	static THoeVar * staticVars;
-	static char lastError[1024];
+	static HoeCore::String_s<1024> lastError;
 
 	void Register();
 	void Init(const char * name, int flags);
@@ -27,20 +27,20 @@ public:
 	CVar(const char * name, bool value, int flags=0);
 	CVar(const char * name, int value, int flags=0);
 	CVar(const char * name, float value, int flags=0);
-	CVar(const char * name, const char * value, int flags=0);
+	CVar(const char * name, const tchar * value, int flags=0);
 	CVar(const char * name, const THoeVarIndex * s, THoeVarValue * val, size_t size, int flags=0);
 	~CVar();
 	const char * GetName() const { return name; }
-	const char * GetStringValue();
+	const tchar * GetStringValue();
 	bool GetBool() const { return value.b; }
 	int GetInt() const { return value.i; }
 	float GetFloat() const { return value.f; }
-	const char * GetString() const { return value.str; }
+	const tchar * GetString() const { return value.str; }
 
 	bool GetBool(int i) const { return vars[i].b; }
 	int GetInt(int i) const { return vars[i].i; }
 	float GetFloat(int i) const { return vars[i].f; }
-	const char * GetString(int i) const { return vars[i].str; }
+	const tchar * GetString(int i) const { return vars[i].str; }
 
 	// structured types
 
@@ -66,7 +66,7 @@ public:
 	static bool SetVarValue(const char * path, const char * vs);
 	static bool SetVarValue(const char * path, float vf);
 
-	static const char * GetLastError() { return lastError; }
+	static const tchar * GetLastError() { return lastError; }
 
 	LUA_FUNCTION(l_setvar);
 	LUA_FUNCTION(l_getvar);

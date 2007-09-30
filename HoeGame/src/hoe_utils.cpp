@@ -8,10 +8,10 @@ BEGIN_HOEGAME
 #ifdef _WIN32
 #ifndef _WIN32_WCE
 #include <dbghelp.h>
+#pragma comment (lib,"dbghelp.lib")
 #endif
 #include <shellapi.h>
 #include <shlobj.h>
-#pragma comment (lib,"dbghelp.lib")
 #endif
 
 #ifdef _LINUX
@@ -20,12 +20,13 @@ BEGIN_HOEGAME
 
 bool SetRootDir(const char * dir)
 {
-#ifdef _WIN32
+#ifdef _WIN32_WINNT
 	return (SetCurrentDirectory(dir) != FALSE);
 #endif
 #ifdef _LINUX
 	return (chdir(dir) == 0);
 #endif
+	return false;
 }
 
 const char * GetBaseDir(const char * path)
@@ -80,7 +81,15 @@ void RemoveWhiteEndLine(char * line)
 	}
 }
 
-#ifdef _WIN32
+#ifdef _WIN32_WCE
+bool SetRootFromInstance(HINSTANCE hInstance)
+{
+	return false;
+}
+#endif
+
+#ifdef _WIN32_WINNT
+
 bool SetRootFromInstance(HINSTANCE hInstance)
 {
 	char moduleName[ MAX_PATH ];
@@ -91,7 +100,6 @@ bool SetRootFromInstance(HINSTANCE hInstance)
 
 	return SetRootFromExe(moduleName);
 }
-
 
 int GenerateDump(EXCEPTION_POINTERS* pExceptionPointers)
 {

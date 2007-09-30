@@ -19,9 +19,9 @@ BEGIN_HOEGAME
 class Property
 {
 public:
-	const char * GetName() const { return m_name; }
+	const HoeCore::String_s<256>& GetName() const { return m_name; }
 	const HoeCore::Universal & GetValue() const { return m_value; }
-	void SetName(const char * name) { m_name = name; }
+	void SetName(const tchar * name) { m_name = name; }
 	void Set(const char * value) { m_value = value; }
 	void Set(float value) { m_value = value; }
 	void Set(unsigned long value) { m_value = value; }
@@ -36,8 +36,8 @@ protected:
 class DItem : public HoeCore::Universal
 {
 public:
-	const char * GetName() const { return m_name; }
-	void SetName(const char * name) { m_name = name; }
+	const tchar * GetName() const { return m_name; }
+	void SetName(const tchar * name) { m_name = name; }
 protected:
 	HoeCore::String_s<256> m_name;
 };
@@ -86,7 +86,7 @@ public:
 	/**
 	* Typ objektu ( type {} )
 	*/
-	const char * GetTypeObject() { return m_objtype; }
+	const tchar * GetTypeObject() { return m_objtype; }
 	/** 
 	* Vlastnosti objektu, zbyvajici vlastnosti vrati jako slovnik
 	*/
@@ -103,7 +103,7 @@ public:
 	/**
 	* Chyba pri parsovani
 	*/
-	const char * GetLastError() { return m_error.IsEmpty() ? NULL:(const char *)m_error; }
+	const tchar * GetLastError() { return m_error.IsEmpty() ? NULL:(const tchar *)m_error; }
 };
 
 /** Ukladani do textoveho objektoveho souboru

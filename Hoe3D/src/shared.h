@@ -2,7 +2,7 @@
 #ifndef _SHARED_H_
 #define _SHARED_H_
 
-#include <assert.h>
+#include <hoe_types.h>
 
 class Hoe3D;
 class Config;
@@ -42,9 +42,9 @@ namespace shared {
 	extern CodePage * codepage;
 }
 
-#define SHARED_PTR(ptr) { assert(shared::ptr);return shared::ptr;}
-#define SET_SHARED_PTR(ptr) { assert(shared::ptr == NULL); shared::ptr = this; }
-#define UNSET_SHARED_PTR(ptr) { assert(shared::ptr == this); shared::ptr = NULL; }
+#define SHARED_PTR(ptr) { hoe_assert(shared::ptr);return shared::ptr;}
+#define SET_SHARED_PTR(ptr) { hoe_assert(shared::ptr == NULL); shared::ptr = this; }
+#define UNSET_SHARED_PTR(ptr) { hoe_assert(shared::ptr == this); shared::ptr = NULL; }
 
 inline Hoe3D * GetHoe3D() SHARED_PTR(hoe3d)
 inline Config * GetConfig() SHARED_PTR(config)

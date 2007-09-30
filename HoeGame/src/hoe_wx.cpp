@@ -48,7 +48,7 @@ Dialog::Dialog(HINSTANCE hInst)
 	m_hInst = hInst;
 }
 
-int Dialog::Show(const char *res)
+int Dialog::Show(const tchar *res)
 {
 	return DialogBoxParam(m_hInst,res, 
 		GetDesktopWindow(), DialogProc, (LPARAM)this);

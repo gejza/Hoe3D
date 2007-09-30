@@ -3,6 +3,8 @@
 #define _HOE_TYPES_H_
 
 #define hoe_assert assert
+#undef assert
+#define assert(a) 
 
 #ifndef HOEAPI
 #ifdef _WIN32
@@ -51,6 +53,16 @@ typedef unsigned int dword;
 typedef unsigned short word;
 typedef unsigned int  uint;
 typedef unsigned char byte;
+
+#undef T
+
+#ifdef UNICODE
+	typedef wchar_t tchar;
+#define T(text) L##text
+#else
+	typedef char tchar;
+#define T(text) text
+#endif
 
 /* pro big endian */
 #if 1 // little endian

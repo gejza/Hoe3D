@@ -6,7 +6,7 @@
 BEGIN_HOEGAME
 
 THoeVar * CVar::staticVars;
-char CVar::lastError[1024];
+HoeCore::String_s<1024> CVar::lastError;
 
 CVar::CVar(const char *_name, bool _value, int _flags)
 {
@@ -33,7 +33,7 @@ CVar::CVar(const char *_name, float _value, int _flags)
 }
 
 
-CVar::CVar(const char *_name, const char *_value, int _flags)
+CVar::CVar(const char *_name, const tchar *_value, int _flags)
 {
 	name = _name;
 	if ((_flags & 0xff) == TVAR_SSTR)
@@ -92,24 +92,24 @@ CVar * CVar::GetVar(const char * name)
 	return NULL;
 }
 
-const char * CVar::GetStringValue()
+const tchar * CVar::GetStringValue()
 {
-	static char str[100];
+	static HoeCore::String_s<100> str;
 	switch (flags & TVAR_TYPE)
 	{
 	case TVAR_BOOL:
-		return value.b ? "true":"false";
+		return value.b ? T("true"):T("false");
 	case TVAR_INTEGER:
-		sprintf(str, "%d", value.i);
+		str.printf("%d", value.i);
 		return str;
 	case TVAR_FLOAT:
-		sprintf(str, "%f", value.f);
+		str.printf("%f", value.f);
 		return str;
 	case TVAR_STR:
 	case TVAR_SSTR:
 		return value.str;
 	default:
-		return "unknown";
+		return T("unknown");
 	};
 }
 
@@ -339,7 +339,7 @@ bool CVar::ParseIndex(const char * idf, int &pos, int &flags, const THoeVarIndex
 		int i = Find(i_name, ix);
 		if (i==-1) 
 		{
-			sprintf(lastError, "Item %s not found.", i_name);
+			lastError.printf( "Item %s not found.", i_name);
 			return false;
 		}
 		pos += ix[i].position;
@@ -353,7 +353,7 @@ bool CVar::ParseIndex(const char * idf, int &pos, int &flags, const THoeVarIndex
 		}
 		if (!ix[i].index)
 		{
-			sprintf(lastError, "Item %s is not struct.", i_name);
+			lastError.printf("Item %s is not struct.", i_name);
 			return false;
 		}
 		ix = ix[i].index;
@@ -374,8 +374,8 @@ void CVar::SetString(const char * str)
 	{
 		size_t l = strlen(str);
 		l++;
-		value.str = new char[l];
-		strcpy(value.str, str);
+		value.str = new tchar[l];
+		HoeCore::string::copy(value.str, str, l);
 		flags = (flags & ~0xff) | TVAR_STR;
 	}
 }
@@ -387,7 +387,7 @@ CVar * CVar::GetFullVar(const char * path, int &pos, int &flags, const THoeVarIn
 	CVar * v = GetVar(var_name);
 	if (!v)
 	{
-		sprintf(lastError, "Var `%s' not exist.", var_name);
+		lastError.printf("Var `%s' not exist.", var_name);
 		return NULL;
 	}
 	// base bath
@@ -416,7 +416,7 @@ bool CVar::SetVarValue(const char * path, const char * vs)
 	{
 		if (vs == NULL)
 		{
-			sprintf(lastError, "Only string can set to structure var.");
+			lastError.printf( "Only string can set to structure var.");
 			return false;
 		}
 		// parse string
@@ -435,7 +435,7 @@ bool CVar::SetVarValue(const char * path, const char * vs)
 			vs += pi;
 			if (*vs++ != '=')
 			{
-				sprintf(lastError, "Format error.");
+				lastError = "Format error.";
 				return false;
 			}
 			pi = 0;
@@ -445,7 +445,7 @@ bool CVar::SetVarValue(const char * path, const char * vs)
 			int i = Find(name, index);
 			if (i==-1)
 			{
-				sprintf(lastError, "Item %s not found.", name);
+				lastError.printf( "Item %s not found.", name);
 				return false;
 			}
 			if (!v->SetStructItem(val, pos + index[i].position, index[i].flags))
@@ -471,7 +471,7 @@ bool CVar::SetVarValue(const char * path, float vf)
 	// jestli je struktura, tak projit a nastavit vsechny
 	if ((flags & TVAR_TYPE) == TVAR_STRUCT)
 	{
-		sprintf(lastError, "Only string can set to structure var.");
+		lastError.printf( "Only string can set to structure var.");
 		return false;
 	}
 	if (pos >= 0)
@@ -491,7 +491,7 @@ int CVar::c_printvar(int argc, const char * argv[], void * param)
 		}
 		else
 		{
-			BaseConsole::Printf("unknown variable %s", argv[1]);
+			BaseConsole::Printf(T("unknown variable %s"), argv[1]);
 		}
 	}
 	return 0;
@@ -512,11 +512,11 @@ int CVar::c_printallvars(int argc, const char * argv[], void * param)
 			fprintf(f, "%s=%s\n", var->GetName(), var->GetStringValue());
 		}
 		else
-			BaseConsole::Printf("%s=%s", var->GetName(), var->GetStringValue());
+			BaseConsole::Printf(T("%s=%s"), var->GetName(), var->GetStringValue());
 	}
 	if (f)
 	{
-		BaseConsole::Printf("Print vars to file %s.", argv[1]);
+		BaseConsole::Printf(T("Print vars to file %s."), argv[1]);
 		fclose(f);
 	}
 	return 0;
@@ -569,7 +569,7 @@ int CVar::l_getvar(lua_State * L)
 		}
 		else
 		{
-			lp.Error("Var `%s' not exist.", lp.GetString(-1));
+			lp.Error(T("Var `%s' not exist."), lp.GetString(-1));
 		}
 	}
 	return 0;

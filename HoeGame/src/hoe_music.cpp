@@ -42,7 +42,7 @@ bool HoeMusic_Module::Init(BaseConsole * con){
 	console = con;
 	if (BASSMOD_ErrorGetCode() != BASS_OK)
 		return false;
-	if (con) con->Printf("BASS: Init %s",desc);
+	if (con) con->Printf(T("BASS: Init %s"),desc);
 	return BASSMOD_Init(-1,44100,0) != FALSE;
 #else
 	return true;
@@ -64,11 +64,11 @@ bool HoeMusic_Module::Load(void *file){
 #ifndef HOE_NO_BASS
 	if (!BASSMOD_MusicLoad(false,file,0,0,BASS_MUSIC_RAMP|BASS_MUSIC_FT2MOD|BASS_MUSIC_CALCLEN))
 	{
-		if (console) console->Printf("BASS: Failed load music from file %s, error=%d",(char*)file,BASSMOD_ErrorGetCode());
+		if (console) console->Printf(T("BASS: Failed load music from file %s, error=%d"),(char*)file,BASSMOD_ErrorGetCode());
 		return false;
 	}
 #endif
-	if (console) console->Printf("BASS: Load music from file: %s", (char*)file);
+	if (console) console->Printf(T("BASS: Load music from file: %s"), (char*)file);
 	return true;
 }
 

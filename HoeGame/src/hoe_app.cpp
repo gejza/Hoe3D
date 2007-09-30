@@ -36,7 +36,7 @@ HoeApp::~HoeApp()
 		m_engine.Destroy();
 
 		if (m_lastError)
-			ShowMsg("Error:", m_lastError);
+			ShowMsg(T("Error:"), m_lastError);
 }
 
 #ifdef _WIN32

@@ -145,7 +145,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="../bin/FirstApp.exe"
+				OutputFile="$(OutDir)/FirstApp.exe"
 				LinkIncremental="2"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
@@ -171,7 +171,7 @@
 			<DeploymentTool
 				ForceDirty="-1"
 				RemoteDirectory=""
-				RegisterOutput="0"
+				RegisterOutput="-1"
 				AdditionalFiles=""
 			/>
 			<DebuggerTool

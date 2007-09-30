@@ -30,7 +30,7 @@ public:
 class XHoeConsole
 {
 public:
-	virtual void HOEAPI Con_Print(const char *) = 0;
+	virtual void HOEAPI Con_Print(const tchar *) = 0;
 
 };
 

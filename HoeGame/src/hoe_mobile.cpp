@@ -4,6 +4,7 @@
 
 BEGIN_HOEGAME 
 
+
 HoeMobile::HoeMobile(HOE_INSTANCE hInst)/* : HoeBaseApp()*/
 {
 	this->m_hInstance = hInst;
@@ -23,7 +24,7 @@ LRESULT CALLBACK HoeMobile::WndProc (HWND hwnd, UINT message, WPARAM wParam, LPA
 
 bool HoeMobile::RegisterApp()
 {
-     WNDCLASS     wndclass ;
+     WNDCLASSW     wndclass ;
      
      wndclass.style         = CS_HREDRAW | CS_VREDRAW; // | CS_OWNDCCS_HREDRAW | CS_VREDRAW ;
      wndclass.lpfnWndProc   = WndProc ;
@@ -31,19 +32,20 @@ bool HoeMobile::RegisterApp()
      wndclass.cbWndExtra    = 0 ;
      wndclass.hInstance     = m_hInstance;
      wndclass.hIcon         = 0;//LoadIcon (NULL, IDI_APPLICATION) ;
-     wndclass.hCursor       = LoadCursor (NULL, IDC_ARROW) ;
+     wndclass.hCursor       = 0;//LoadCursorW (NULL, IDC_ARROW) ;
      wndclass.hbrBackground = (HBRUSH) GetStockObject (WHITE_BRUSH) ;
      wndclass.lpszMenuName  = NULL ;
-     wndclass.lpszClassName = this->GetAppName();
+     wndclass.lpszClassName = L"aaa";//this->GetAppName();
      
-     return RegisterClass (&wndclass) != FALSE;
+     return RegisterClassW (&wndclass) != FALSE;
 }
 
 bool HoeMobile::CreateWin(const char * title, int width, int height, bool fs)
 {
 	if (fs)
 	{
-		m_hWnd = CreateWindow (this->GetAppName(), title,
+		m_hWnd = CreateWindowW (//this->GetAppName(), title,
+							L"aa", L"bb",
 							/*WS_OVERLAPPEDWINDOW*/0,
 							CW_USEDEFAULT, CW_USEDEFAULT,
 							640,480,//CW_USEDEFAULT, CW_USEDEFAULT,
@@ -51,7 +53,8 @@ bool HoeMobile::CreateWin(const char * title, int width, int height, bool fs)
 	}
 	else
 	{
-		m_hWnd = CreateWindow (this->GetAppName(), title,
+		m_hWnd = CreateWindowW (//this->GetAppName(), title,
+							L"aa", L"bb",
 							/*WS_OVERLAPPEDWINDOW*/0,
 							CW_USEDEFAULT, CW_USEDEFAULT,
 							width,height,//CW_USEDEFAULT, CW_USEDEFAULT,
@@ -77,13 +80,13 @@ void HoeMobile::HandleError()
 
 	UpdateConsole();
 
-	while (GetMessage( &msg, NULL, 0U, 0U ))
+	while (GetMessageW( &msg, NULL, 0U, 0U ))
     {
 		if (msg.message == WM_QUIT || (msg.message == WM_KEYUP && msg.wParam == VK_ESCAPE))
 			return;
 
         TranslateMessage (&msg) ;
-		DispatchMessage (&msg) ;
+		DispatchMessageW (&msg) ;
 	}
 }
 
@@ -94,8 +97,8 @@ void HoeMobile::UpdateConsole()
 
 void HoeMobile::SetTitle(const char * title)
 {
-	assert(m_hWnd);
-	SetWindowText(m_hWnd, title);
+	hoe_assert(m_hWnd);
+	SetWindowTextW(m_hWnd, L"title");
 }
 
 int HoeMobile::GetMsg(IHoe3DEngine * eng)
@@ -104,10 +107,10 @@ int HoeMobile::GetMsg(IHoe3DEngine * eng)
 
 	m_enginstance = eng;
 
-	while (PeekMessage( &msg, NULL, 0U, 0U, PM_REMOVE ))
+	while (PeekMessageW( &msg, NULL, 0U, 0U, PM_REMOVE ))
     {
         TranslateMessage (&msg) ;
-		DispatchMessage (&msg) ;
+		DispatchMessageW (&msg) ;
 
 		if (msg.message == WM_QUIT)
 			return 0;
@@ -116,7 +119,7 @@ int HoeMobile::GetMsg(IHoe3DEngine * eng)
 	return 1;
 }
 
-int HoeMobile::ShowMsg(const char * cap, const char * msg)
+int HoeMobile::ShowMsg(const tchar * cap, const tchar * msg)
 {
 	MessageBox(NULL,msg,cap, MB_OK);
 	return 0;
@@ -128,7 +131,7 @@ void HoeMobile::Destroy()
 		DestroyWindow(m_hWnd);
 	m_hWnd = NULL;
 	
-	UnregisterClass( this->GetAppName(), m_hInstance );
+	UnregisterClassW( L"this->GetAppName()", m_hInstance );
 }
 
 void HoeMobile::PaintConsole(Console * con)
@@ -165,14 +168,14 @@ void HoeMobile::PaintConsole(Console * con)
 LRESULT CALLBACK HoeMobile::MsgProc (HWND hwnd,UINT message, WPARAM wParam, LPARAM lParam)
 {
      HDC         hdc ;
-     TEXTMETRIC  tm ;
+     TEXTMETRICW  tm ;
      
      switch (message)
      {
      case WM_CREATE:
           hdc = GetDC (hwnd) ;
           
-          GetTextMetrics (hdc, &tm) ;
+          GetTextMetricsW (hdc, &tm) ;
           m_cyChar = tm.tmHeight + tm.tmExternalLeading ;
           
           ReleaseDC (hwnd, hdc) ;
@@ -196,7 +199,7 @@ LRESULT CALLBACK HoeMobile::MsgProc (HWND hwnd,UINT message, WPARAM wParam, LPAR
 	if(m_enginstance)
 		m_enginstance->WndProc(hwnd, message, wParam, lParam);
 
-     return DefWindowProc (hwnd, message, wParam, lParam) ;
+     return DefWindowProcW (hwnd, message, wParam, lParam) ;
 }
 
 

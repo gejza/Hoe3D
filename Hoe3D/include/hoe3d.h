@@ -85,8 +85,8 @@ struct THoeVarValue {
 		bool b;
 		int i;
 		float f;
-		char * str;
-		const char * cstr;
+		tchar * str;
+		const tchar * cstr;
 	};
 };
 
@@ -127,10 +127,10 @@ public:
 	virtual IHoeSystem * HOEAPI GetSystem(HOESYSTEMS sys) = 0;
 
 	/** Slouzi ke spusteni prikazu */
-	virtual int HOEAPI exec(const char *) = 0;
+	virtual int HOEAPI exec(const tchar *) = 0;
 
 	/** Zaregistrovani noveho prikazu */
-	virtual bool HOEAPI RegisterCmd(const char * cmd, HOE_CMDFUNC func, void * par) = 0;
+	virtual bool HOEAPI RegisterCmd(const tchar * cmd, HOE_CMDFUNC func, void * par) = 0;
 	/** Zaregistrovani var */
 	virtual bool HOEAPI RegisterVar(THoeVar * var) = 0;
 	

@@ -11,7 +11,7 @@ class Bench
 {
 	unsigned long start;
 public:
-	void Start(const char * name);
+	void Start(const tchar * name);
 	void End(int num);
 };
 

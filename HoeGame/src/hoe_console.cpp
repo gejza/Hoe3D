@@ -5,7 +5,11 @@
 #include "../include/hoe_console.h"
 #include "../include/hoe_app.h"
 
-BEGIN_HOEGAME
+BEGIN_HOEGAME 
+
+#ifdef _UNICODE
+#define strlen wcslen
+#endif
 
 BaseConsole * BaseConsole::m_shared = NULL;
 
@@ -21,23 +25,19 @@ BaseConsole::~BaseConsole()
 	m_shared = NULL;
 }
 
-void BaseConsole::Printfarg(const char * szFormat, va_list args)
+void BaseConsole::Printfarg(const tchar * szFormat, va_list args)
 {
-	static char szBuff[1024];
-#ifdef _WIN32
-	_vsnprintf( szBuff, 1024, szFormat, args );
-#else
-	vsnprintf( szBuff, 1024, szFormat, args );
-#endif
+	static tchar szBuff[1024];
+	HoeCore::Str::vsnprintf( szBuff, 1024, szFormat, args );
 	if (m_shared)
 		m_shared->Con_Print(szBuff);
 	/*!!!*/
-#if defined(DEBUG) | defined(_DEBUG)
+#if (defined(DEBUG) || defined(_DEBUG)) && defined(_WIN32_WINNT) 
 	OutputDebugString( szBuff );OutputDebugString( "\n" );
 #endif
 }
 
-void BaseConsole::Printf(const char * szFormat, ...)
+void BaseConsole::Printf(const tchar * szFormat, ...)
 {
 	va_list args;
 
@@ -73,7 +73,7 @@ void Console::SetFileLogging(const char * flog)
 	}
 }
 
-void Console::Con_Print(const char * str)
+void Console::Con_Print(const tchar * str)
 {
 	// repeated
 	/*static dword lastid = 0;
@@ -158,7 +158,7 @@ void GuiConsole::Draw(IHoe2D * h2d)
 	
 	while (y > -14)
 	{
-		const char * str = m_console.GetLines().GetLine(n++).GetText();
+		const tchar * str = m_console.GetLines().GetLine(n++).GetText();
 		font->DrawText(5,y,m_fontcolor,str);
 		y -= 14;
 	}
@@ -182,13 +182,14 @@ bool GuiConsole::Key(int k)
 	case HK_UP:
 		if (m_histptr < (m_history.Count()-1))
 		{
-			strcpy(cmdline, m_history.GetLine(++m_histptr).GetText());
+			HoeCore::Str::strncpy(cmdline, m_history.GetLine(++m_histptr).GetText(),sizeof(cmdline));
 		}
 		return false;
 	case HK_DOWN:
 		if (m_histptr > 0)
 		{
-			strcpy(cmdline, m_history.GetLine(--m_histptr).GetText());
+			HoeCore::Str::strncpy(cmdline, 
+				m_history.GetLine(--m_histptr).GetText(), sizeof(cmdline));
 		}
 		return false;
 	case HK_ESCAPE:
@@ -285,8 +286,8 @@ void GuiConsole::Update(float dtime)
 
 void GuiConsole::RegisterCommands(IHoe3DEngine * engine)
 {
-	engine->RegisterCmd("openconsole",GuiConsole::c_openconsole,this);
-	engine->RegisterCmd("closeconsole",GuiConsole::c_closeconsole,this);
+	engine->RegisterCmd(T("openconsole"),GuiConsole::c_openconsole,this);
+	engine->RegisterCmd(T("closeconsole"),GuiConsole::c_closeconsole,this);
 }
 
 int GuiConsole::c_openconsole(int argc, const char * argv[], void * param)

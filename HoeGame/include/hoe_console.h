@@ -24,40 +24,41 @@ public:
 	BaseConsole();
 	~BaseConsole();
 	static void Printf(const char *, ...);
-	static void Printfarg(const char *, va_list argptr);
+	static void Printf(const wchar_t *, ...);
+	static void Printfarg(const tchar *, va_list argptr);
 };
 
 class TextItem
 {
-	char * m_text;
+	tchar * m_text;
 public:
 	TextItem()
 	{
 		m_text = NULL;
 	}
-	TextItem(const char * text)
+	TextItem(const tchar * text)
 	{
 		m_text = NULL; SetText(text);
 	}
 	virtual ~TextItem()
 	{
-		SetText("");
+		SetText(T(""));
 	}
 
-	const char * GetText() const { return m_text ? m_text : ""; }
-	void SetText(const char * text);
+	const tchar * GetText() const { return m_text ? m_text : T(""); }
+	void SetText(const tchar * text);
 };
 
-inline void TextItem::SetText(const char * text)
+/*inline void TextItem::SetText(const tchar * text)
 {
 	if (m_text) { delete [] m_text; m_text = NULL; }
 	if (text && text[0])
 	{
 		size_t n = strlen(text) + 1;
-		m_text = new char[n];
-		memcpy(m_text, text, n);
+		m_text = new tchar[n];
+		memcpy(m_text, text, n * sizeof(tchar));
 	}
-}
+}*/
 
 /**
  * @brief Konzole
@@ -74,7 +75,7 @@ public:
 	Console();
 	~Console();
 	void SetFileLogging(const char * flog);
-	virtual void HOEAPI Con_Print(const char *);
+	virtual void HOEAPI Con_Print(const tchar *);
 	const HoeCore::CircleList<TextItem, 100> & GetLines() { return m_lines; }
 	void SetCallback(HoeApp * app) { app_callback = app; }
 };
@@ -96,7 +97,7 @@ protected:
 	IHoeFont * font; 
 	IHoePicture * background;
 	IHoe3DEngine * engine;
-	char cmdline[512];
+	tchar cmdline[512];
 	EState state;
 	float height;
 	float maxheight;

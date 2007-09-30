@@ -20,7 +20,7 @@ protected:
 	int nump;
 public:
 	LuaParam(lua_State * L);
-	void SaveString(const char * str);
+	void SaveString(const tchar * str);
 	bool GetBool(int pos) const;
 	const char * GetString(int pos) const;
 	int GetNum(int pos) const;
@@ -39,7 +39,7 @@ public:
 	int GetType(int pos) const;
     //bruca - neexistuje lua_ispointer()
     bool IsPointer(int pos) const;
-	void Error(const char * szFormat, ...);
+	void Error(const tchar * szFormat, ...);
 	void PushNum(int num);
 	void PushPointer(void * p);
 	void PushTable();
@@ -151,7 +151,7 @@ protected:
 	IHoe3DEngine * engine;
 	ResourceMgr * resources;
 	FileSystem * filesystem;
-	Lang * lang;
+	//Lang * lang;
 public:
 	bool Connect(ResourceMgr * res);
 	bool Connect(IHoe3DEngine * eng);
@@ -174,9 +174,9 @@ private:
 	static int loadfile(lua_State * L);
 	static int hoe(lua_State * L);
 	static int loadresource(lua_State * L);
-	static int loadlang(lua_State * L);
+	/*static int loadlang(lua_State * L);
 	static int addlang(lua_State * L);
-	static int getlang(lua_State * L);
+	static int getlang(lua_State * L);*/
 
 	friend class LuaThread;
 };

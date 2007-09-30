@@ -29,28 +29,28 @@ HoeEngine::~HoeEngine()
 
 }
 
-bool HoeEngine::Load(const char * dllname, Console * con, XHoeFS * fs, int sdkver)
+bool HoeEngine::Load(const tchar * dllname, Console * con, XHoeFS * fs, int sdkver)
 {
 	HOE_FUNCCREATE GetEngineInterface;
 	
 	if (sdkver != HOESDK_VERSION)
 	{
-		con->Printf("Bad version for HoeGame interface (req: %.2f editor: %.2f)",sdkver * 0.01f,HOESDK_VERSION * 0.01f);
+		con->Printf(T("Bad version for HoeGame interface (req: %.2f editor: %.2f)"),sdkver * 0.01f,HOESDK_VERSION * 0.01f);
 		return false;
 	}
 
 #ifdef _WIN32
-	m_lib = LoadLibrary(dllname);
+	m_lib = LoadLibraryW(L"dllname");
 	if (!m_lib)
 	{
-		con->Printf("Failed load library: %s",dllname);
+		con->Printf(T("Failed load library: %s"),dllname);
 		return false;
 	}
 
-	GetEngineInterface = (HOE_FUNCCREATE)GetProcAddress(m_lib,"_CreateHoeEngine@24");
+	GetEngineInterface = (HOE_FUNCCREATE)GetProcAddress(m_lib,L"_CreateHoeEngine@24");
 	if (!GetEngineInterface)
 	{
-		con->Printf("Nelze ziskat export knihovny.");
+		con->Printf(T("Nelze ziskat export knihovny."));
 		return false;
 	}
 #endif
@@ -127,13 +127,13 @@ bool HoeEngineInfo::Load(const char * dllname)
 #ifdef _WIN32
 	HOE_FUNCINFO func;
 	Unload();
-	m_lib = LoadLibrary(dllname);
+	m_lib = LoadLibraryW(L"dllname");
 	if (!m_lib)
 	{
 		return false;
 	}
 
-	func = (HOE_FUNCINFO)GetProcAddress(m_lib,"_GetEngineInfo@4");
+	func = (HOE_FUNCINFO)GetProcAddress(m_lib,L"_GetEngineInfo@4");
 	if (func == NULL)
 	{
 		Unload();

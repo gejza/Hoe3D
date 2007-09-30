@@ -107,19 +107,19 @@ bool Theatre::Load(const char * fname)
 		while (p = parser.GetNextProperty())
 		{
 			//gui->Set(p->GetName(), p->GetStringValue());
-			if (strcmp(p->GetName(),"position") == 0)
+			if (p->GetName() == "position")
 			{
 				
 				k->SetPosition(p->GetValue().GetPtr<float>()[0],
 					p->GetValue().GetPtr<float>()[1],
 					p->GetValue().GetPtr<float>()[2]);
 			}
-			else if (strcmp(p->GetName(),"size") == 0)
+			else if (p->GetName() == "size")
 			{
 				k->SetSize(p->GetValue().GetPtr<float>()[0],
 					p->GetValue().GetPtr<float>()[1]);
 			}
-			else if (strcmp(p->GetName(),"texture") == 0)
+			else if (p->GetName() == "texture")
 			{
 				k->SetTexture(p->GetValue().GetStringValue());
 			}
@@ -135,7 +135,7 @@ bool Theatre::Load(const char * fname)
 	else
 		err = parser.GetLastError();
 loaderror:
-	BaseConsole::Printf("%s(%d): error: %s", fname, parser.GetLineNum(), (const char*)err);
+	BaseConsole::Printf(T("%s(%d): error: %s"), fname, parser.GetLineNum(), (const tchar*)err);
 	return false;
 }
 

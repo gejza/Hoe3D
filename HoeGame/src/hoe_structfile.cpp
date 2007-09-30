@@ -82,7 +82,9 @@ const Property * ObjectFileParser::GetNextProperty()
 	// jmeno
 	if ((type=lex()) == 257)
 	{
-		m_property.SetName((char*)yyobjecttext);
+		HoeCore::String_s<1024> name;
+		name = (char*)yyobjecttext;
+		m_property.SetName(name);
 		if (lexn() != '=')
 		{
 			m_error = "syntax error, `=' requied";

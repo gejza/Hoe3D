@@ -35,7 +35,7 @@ public:
 	virtual int GetMsg(IHoe3DEngine *);
 	virtual void Destroy();
 
-	virtual int ShowMsg(const char * caption, const char * msg);
+	virtual int ShowMsg(const tchar * caption, const tchar * msg);
 
 	virtual void OnSize(int width, int height) = 0;
 	virtual void OnPaint() = 0;
