@@ -70,7 +70,8 @@ fi
 aclocal
 
 echo "Copying files provided by automake"
-$AUTOMAKE -c -a 1>/dev/null 2>&1
+#$AUTOMAKE -c -a 1>/dev/null 2>&1
+$AUTOMAKE -c -a --foreign
 
 echo "Creating ./configure"
 $AUTOCONF

@@ -14,6 +14,7 @@ int vsnprintf(wchar_t *, size_t, const char *, va_list);
 int vsnprintf(wchar_t *, size_t, const wchar_t *, va_list);
 void copy(tchar *, const char *, size_t);
 void copy(tchar *, const wchar_t *, size_t);
+
 inline size_t len(const tchar * s)
 {
 #ifdef UNICODE
@@ -22,6 +23,11 @@ inline size_t len(const tchar * s)
 	return strlen(s);
 #endif
 }
+
+
+bool ifbegin(const tchar* begin, const tchar* str);
+
+float atof(const tchar* str);
 
 } // end namespace
 

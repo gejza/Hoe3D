@@ -36,6 +36,10 @@
 #include <Carbon/Carbon.h>
 #endif
 
+#ifdef _UNICODE
+#include <wchar.h>
+#endif
+
 #include <assert.h>
 #ifdef __cplusplus 
 #include <hoe_core.h>
@@ -48,5 +52,6 @@
 //#define _WIN32_WINNT 0x0500
 #define snprintf _snprintf
 #endif
+
 
 #endif // _STDAFX_H_

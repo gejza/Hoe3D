@@ -25,7 +25,7 @@ class ModelModifier : public IHoeModelModifier
 public:
 	ModelModifier(HoeModel * model);
 	// funkce pro upravu materialu
-	virtual void HOEAPI SetMaterialTexture(int n, const char * texturename);
+	virtual void HOEAPI SetMaterialTexture(int n, const tchar * texturename);
 	virtual void HOEAPI SetTextureOverlap(int n, const THoeRect & rect);
 
 	virtual const char * GetName() { return "Model modifier";}

@@ -181,7 +181,7 @@ bool Hoe3D::Init(THoeInitSettings * his)
 	return true;
 }
 
-bool Hoe3D::RegisterCmd(const char * cmd, HOE_CMDFUNC func, void * par)
+bool Hoe3D::RegisterCmd(const tchar * cmd, HOE_CMDFUNC func, void * par)
 {
 	return GetExec()->Register(cmd,func,par);
 }
@@ -191,7 +191,7 @@ bool Hoe3D::RegisterVar(THoeVar * var)
 	return GetExec()->Register(var);
 }
 
-int Hoe3D::exec(const char * cmd)
+int Hoe3D::exec(const tchar * cmd)
 {
 	return GetExec()->exec(cmd);
 }

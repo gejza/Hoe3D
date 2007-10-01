@@ -55,6 +55,10 @@
 #include <stdlib.h>
 #include <assert.h>
 
+#ifdef _UNICODE
+#include <wchar.h>
+#endif
+
 #include <hoe_types.h>
 #include <hoe_math_ext.h>
 #include <hoe_core.h>
@@ -68,5 +72,6 @@
 #define _DFMT_D3D_
 #define _DFMT_D3D9_
 #endif 
+
 
 #endif //_OS_SYSTEM_H_

@@ -21,5 +21,9 @@
 #include <stdarg.h>
 #include <stdlib.h>
 
+#ifdef _UNICODE
+#include <wchar.h>
+#endif
+
 #endif // _STDAFX_H_
 

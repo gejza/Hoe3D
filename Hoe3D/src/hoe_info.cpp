@@ -26,9 +26,9 @@ InfoSystem::InfoSystem()
 
 	fpstime = 1.f;
 
-	GetExec()->Register("showfps",InfoSystem::c_showfps,NULL);
-	GetExec()->Register("hidefps",InfoSystem::c_hidefps,NULL);
-	GetExec()->Register("setfpstime",InfoSystem::c_fpstime,NULL);
+	GetExec()->Register(T("showfps"),InfoSystem::c_showfps,NULL);
+	GetExec()->Register(T("hidefps"),InfoSystem::c_hidefps,NULL);
+	GetExec()->Register(T("setfpstime"),InfoSystem::c_fpstime,NULL);
 	m_show = false;
 
 	m_stattriangles = 0;
@@ -181,24 +181,24 @@ void InfoSystem::RegisterTimeMeter(TimeMeter * tm)
 
 /////////////////////////////////////////////////////////
 
-int InfoSystem::c_showfps(int argc, const char * argv[], void * param)
+int InfoSystem::c_showfps(int argc, const tchar * argv[], void * param)
 {
 	GetInfo()->Show(true);
 	return 0;
 }
 
-int InfoSystem::c_hidefps(int argc, const char * argv[], void * param)
+int InfoSystem::c_hidefps(int argc, const tchar * argv[], void * param)
 {
 	GetInfo()->Show(false);
 	return 0;
 }
 
-int InfoSystem::c_fpstime(int argc, const char * argv[], void * param)
+int InfoSystem::c_fpstime(int argc, const tchar * argv[], void * param)
 {
 	if (argc != 2)
 		return 1;
 
-	GetInfo()->SetFpsTime((float)atof(argv[1]));
+	GetInfo()->SetFpsTime((float)HoeCore::string::atof(argv[1]));
 
 	return 0;
 }

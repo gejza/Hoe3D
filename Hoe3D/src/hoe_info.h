@@ -103,9 +103,9 @@ public:
 	/** Pridani trojuhelniku do pocitadla trojuhelniku */
 	void AddStatObjects(dword no) { m_curobjects += no; }
 
-	static int c_showfps(int argc, const char * argv[], void * param);
-	static int c_hidefps(int argc, const char * argv[], void * param);
-	static int c_fpstime(int argc, const char * argv[], void * param);
+	static int c_showfps(int argc, const tchar * argv[], void * param);
+	static int c_hidefps(int argc, const tchar * argv[], void * param);
+	static int c_fpstime(int argc, const tchar * argv[], void * param);
 };
 
 /*

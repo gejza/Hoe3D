@@ -46,7 +46,7 @@ enum HOE_TYPE_SCENE
 
 #ifndef HOE_CMDFUNC_DEF
 #define HOE_CMDFUNC_DEF
-typedef int (*HOE_CMDFUNC)(int argc, const char * argv[], void * param);
+typedef int (*HOE_CMDFUNC)(int argc, const tchar * argv[], void * param);
 #endif
 
 #ifndef HOE_VAR_DEF

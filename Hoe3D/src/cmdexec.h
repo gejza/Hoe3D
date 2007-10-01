@@ -22,14 +22,14 @@ public:
 class CmdExec
 {
 protected:
-	TCmd * FindCmd(const char * name);
-	int RunCmd(TCmd * tcmd,const char *cmd);
+	TCmd * FindCmd(const tchar * name);
+	int RunCmd(TCmd * tcmd,const tchar *cmd);
 public:
 	CmdExec();
 	~CmdExec();
-	bool Register(const char * cmd, HOE_CMDFUNC func, void * par, const char * help = NULL);
+	bool Register(const tchar * cmd, HOE_CMDFUNC func, void * par, const tchar * help = NULL);
 	bool Register(THoeVar * var);
-	int exec(const char *cmd);
+	int exec(const tchar *cmd);
 };
 
 #endif // _COMMAND_EXEC_H_
