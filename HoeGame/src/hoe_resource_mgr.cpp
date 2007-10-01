@@ -11,7 +11,7 @@ ResourceMgr::ResourceMgr()
 	numres = 0;
 }
 
-bool ResourceMgr::AddResource(int id,const char * cmd)
+bool ResourceMgr::AddResource(int id,const tchar * cmd)
 {
 	IHoeResource* resource = (IHoeResource*)HoeApp::GetEngine()->Create(cmd);
 	if (!resource)

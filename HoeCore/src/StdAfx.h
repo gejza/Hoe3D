@@ -11,10 +11,6 @@
 #include <math.h>
 #endif
 
-#ifdef _WINCE
-#define vsnprintf _vsnprintf
-#endif
-
 #if defined (_MACOSX)
 #include <Carbon/Carbon.h>
 #endif

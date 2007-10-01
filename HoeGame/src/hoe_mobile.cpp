@@ -35,17 +35,16 @@ bool HoeMobile::RegisterApp()
      wndclass.hCursor       = 0;//LoadCursorW (NULL, IDC_ARROW) ;
      wndclass.hbrBackground = (HBRUSH) GetStockObject (WHITE_BRUSH) ;
      wndclass.lpszMenuName  = NULL ;
-     wndclass.lpszClassName = L"aaa";//this->GetAppName();
+     wndclass.lpszClassName = this->GetAppName();
      
      return RegisterClassW (&wndclass) != FALSE;
 }
 
-bool HoeMobile::CreateWin(const char * title, int width, int height, bool fs)
+bool HoeMobile::CreateWin(const tchar * title, int width, int height, bool fs)
 {
 	if (fs)
 	{
-		m_hWnd = CreateWindowW (//this->GetAppName(), title,
-							L"aa", L"bb",
+		m_hWnd = CreateWindowW (this->GetAppName(), title,
 							/*WS_OVERLAPPEDWINDOW*/0,
 							CW_USEDEFAULT, CW_USEDEFAULT,
 							640,480,//CW_USEDEFAULT, CW_USEDEFAULT,
@@ -53,8 +52,7 @@ bool HoeMobile::CreateWin(const char * title, int width, int height, bool fs)
 	}
 	else
 	{
-		m_hWnd = CreateWindowW (//this->GetAppName(), title,
-							L"aa", L"bb",
+		m_hWnd = CreateWindowW (this->GetAppName(), title,
 							/*WS_OVERLAPPEDWINDOW*/0,
 							CW_USEDEFAULT, CW_USEDEFAULT,
 							width,height,//CW_USEDEFAULT, CW_USEDEFAULT,
@@ -172,28 +170,15 @@ LRESULT CALLBACK HoeMobile::MsgProc (HWND hwnd,UINT message, WPARAM wParam, LPAR
      
      switch (message)
      {
-     case WM_CREATE:
-          hdc = GetDC (hwnd) ;
-          
-          GetTextMetricsW (hdc, &tm) ;
-          m_cyChar = tm.tmHeight + tm.tmExternalLeading ;
-          
-          ReleaseDC (hwnd, hdc) ;
-
-          return 0 ;
      case WM_SIZE:
-         m_cyClient = HIWORD (lParam);
 		this->OnSize(LOWORD (lParam), HIWORD (lParam));
-
          break;
       case WM_PAINT :
 		this->OnPaint();
           return 0 ;
-
      case WM_DESTROY :
 		 PostQuitMessage (0) ;
           return 0 ;
-
      }
 
 	if(m_enginstance)

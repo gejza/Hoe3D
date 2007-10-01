@@ -2566,7 +2566,7 @@
 			InheritedPropertySheets=".\Hoe3D_mobile_debug.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
-			CharacterSet="0"
+			CharacterSet="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -2625,7 +2625,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\$(ProjectName)_D3DMobile.lib"
+				OutputFile="$(OutDir)\$(ProjectName)_D3DMobile_d.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -2653,6 +2653,7 @@
 		</Configuration>
 		<Configuration
 			Name="DebugD3DM|x64"
+			OutputDirectory="$(SolutionDir)$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
 			>
@@ -5241,6 +5242,14 @@
 			<File
 				RelativePath="..\src\sound_al.cpp"
 				>
+				<FileConfiguration
+					Name="DebugD3DM|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\sound_al.h"
@@ -5249,9 +5258,25 @@
 			<File
 				RelativePath="..\src\sound_ds.cpp"
 				>
+				<FileConfiguration
+					Name="DebugD3DM|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\sound_ds.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sound_mobile.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sound_mobile.h"
 				>
 			</File>
 		</Filter>

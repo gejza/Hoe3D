@@ -15,8 +15,8 @@ namespace Adventure {
 
 Kulission::Kulission(IHoeScene * scn) : BaseObject(scn)
 {
-	char cmd[1000];
-	sprintf(cmd, "generate model plane 1");
+	HoeCore::String_s<1000> cmd;
+	cmd.printf("generate model plane 1");
 	m_model = (IHoeModel*)HoeGame::GetHoeEngine()->Create(cmd);
 	if (!m_model)
 		return;
@@ -34,7 +34,7 @@ void Kulission::SetSize(float width, float height)
 	this->GetCtrl()->SetScale(HoeMath::Vector3(width, height, 1));
 }
 
-void Kulission::SetTexture(const char * texname)
+void Kulission::SetTexture(const tchar * texname)
 {
 	IHoeModelModifier * mf = m_model->GetModifier();
 	mf->SetMaterialTexture(0, texname);

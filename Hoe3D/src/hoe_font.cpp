@@ -215,7 +215,7 @@ struct FONTBACK_VERTEX
 #endif
 
 bool HoeFont::DrawText( float sx, float sy, dword dwColor, 
-                      const char* strText, dword dwFlags )
+                      const tchar* strText, dword dwFlags )
 {
 	this->m_tex->Set();
 	GetStates()->SetupFont();
@@ -226,7 +226,7 @@ bool HoeFont::DrawText( float sx, float sy, dword dwColor,
 
 	while( *strText )
     {
-        int c = GetCodePage()->UTFtoIndex(strText);
+        int c = GetCodePage()->StringToIndex(strText);
 
 		// gen text
 
@@ -272,7 +272,7 @@ bool HoeFont::DrawText( float sx, float sy, dword dwColor,
 	return true;
 }
 
-void HoeFont::GetTextSize(const char *text,THoeFontSize * size)
+void HoeFont::GetTextSize(const tchar *text,THoeFontSize * size)
 {
 	size->width = 0.f;
 	//y = 0.f;
@@ -288,7 +288,7 @@ void HoeFont::GetTextSize(const char *text,THoeFontSize * size)
 
 	while (*text)
 	{
-		index = GetCodePage()->UTFtoIndex(text);
+		index = GetCodePage()->StringToIndex(text);
 
 		size->width += m_fTexCoords[index].prex;
 

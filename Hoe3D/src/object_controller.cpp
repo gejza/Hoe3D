@@ -102,7 +102,7 @@ IHoeModel * ObjectController::GetModel()
 	return model;
 }
 
-bool ObjectController::LoadModel(const char * cmd)
+bool ObjectController::LoadModel(const tchar * cmd)
 {
 	model = (HoeModel*) GetHoe3D()->Create(cmd);
 

@@ -290,7 +290,11 @@ void LuaParam::SetTable(const char * par, const HoeCore::Universal& data, int ta
 	case HoeCore::Universal::TypeNone:
 		lua_pushnil(m_L); break;
 	case HoeCore::Universal::TypeString:
+#ifndef UNICODE
 		lua_pushstring(m_L, data.GetStringValue()); break;
+#else
+		assert(0);
+#endif
 	case HoeCore::Universal::TypeDecimal:
 		lua_pushnumber(m_L, data.GetDecimal()); break;
 	case HoeCore::Universal::TypeUnsigned:
@@ -846,11 +850,14 @@ int LuaScript::loadresource(lua_State * L)
 		BaseConsole::Printf("Lua error: Bad param in function AddResource");
 		return 0;
 	}
-
+#ifndef UNICODE
 	if (!GetInstance()->resources->AddResource(par.GetNum(-2), par.GetString(-1)))
 	{
 		BaseConsole::Printf("WARNING: cmd '%s' failed.",lua_tostring(L,-1));
 	}
+#else
+	assert(0);
+#endif
 
 	return 0;
 } 

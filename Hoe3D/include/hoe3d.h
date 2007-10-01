@@ -119,7 +119,7 @@ public:
 	virtual bool HOEAPI Init(THoeInitSettings *) = 0;
 
 	/** Funkce co vytvari interface tridy */
-	virtual IHoeInterface * HOEAPI Create(const char *) = 0;
+	virtual IHoeInterface * HOEAPI Create(const tchar *) = 0;
 
 	virtual IHoePicture * HOEAPI CreatePicture(int width, int height, dword * data) = 0;
 

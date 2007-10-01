@@ -49,8 +49,8 @@ public:
 
 	// public functions
     virtual bool DrawText( float x, float y, dword dwColor, 
-                      const char* strText, dword dwFlags=0L );
-	virtual void GetTextSize(const char *text,THoeFontSize * size);
+                      const tchar* strText, dword dwFlags=0L );
+	virtual void GetTextSize(const tchar *text,THoeFontSize * size);
 	virtual float GetTextHeight();
 };
 

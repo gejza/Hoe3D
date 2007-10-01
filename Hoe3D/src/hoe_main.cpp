@@ -27,7 +27,7 @@ DLL_EXPORT IHoe3DEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * co
 
 	if (IfExistHoe3DInstance())
 	{
-		con->Con_Print("One instance of Hoe3D is loaded.");
+		con->Con_Print(T("One instance of Hoe3D is loaded."));
 		return NULL;
 	}
 

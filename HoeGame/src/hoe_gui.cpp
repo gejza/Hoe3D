@@ -14,7 +14,6 @@ Item::Item()
 	m_rect.top = 100.f;
 	m_rect.right = 600.f;
 	m_rect.bottom = 500.f;
-	m_name = NULL;
 	m_show = true;
 }
 
@@ -99,8 +98,8 @@ void StaticPicture::Set(const char * prop, const HoeCore::Universal & value)
 	if (strcmp(prop,"picture") == 0)
 	{
 		// load
-		char buff[256];
-		sprintf(buff,"picture %s", value.GetStringValue());
+		HoeCore::String_s<256> buff;
+		buff.printf(T("picture %s"), value.GetStringValue());
 		m_pic = (IHoePicture*)GetHoeEngine()->Create(buff);
 	}
 	else 
@@ -387,10 +386,10 @@ void Font::SetText(const tchar * ptr)
 		delete [] m_text;
 		m_text = NULL;
 	}
-	size_t l = strlen(ptr);
+	size_t l = HoeCore::string::len(ptr);
 	if (l > 0)
 	{
-		char * p = new tchar[l+1];
+		tchar * p = new tchar[l+1];
 		memcpy(p, ptr, (l+1) * sizeof(tchar));
 		m_text = p;
 	}
@@ -512,7 +511,7 @@ void Button::SetToolTipFont(IHoeFont * fnt)
 {
 	m_fonttt = fnt;
 }
-void Button::SetToolTip(const char * tt)
+void Button::SetToolTip(const tchar * tt)
 {
 	m_tt = tt;
 }
@@ -534,8 +533,8 @@ void ButtonUsr::Set(const char * prop, const HoeCore::Universal & value)
 	if (strcmp(prop,"picture_act") == 0)
 	{
 		// load
-		char buff[256];
-		sprintf(buff,"picture %s", (const char *)value);
+		HoeCore::String_s<256> buff;
+		buff.printf(T("picture %s"), (const tchar *)value);
 		m_pic_active = (IHoePicture*)GetHoeEngine()->Create(buff);
 	}
 	else 

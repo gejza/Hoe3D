@@ -6,9 +6,6 @@
 
 #ifdef _HOE_OPENAL_
 
-#pragma comment (lib,"OpenAL32.lib")
-#pragma comment (lib,"ALut.lib")
-
 SoundSystemAl::SoundSystemAl()
 {
 	Device = NULL;

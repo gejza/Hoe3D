@@ -13,8 +13,6 @@ class HoeMobile : public HoeBaseApp
 protected:
 	HINSTANCE m_hInstance;
 	HWND m_hWnd;
-	int  m_cyClient;
-	int  m_cyChar;
 
 	IHoe3DEngine * m_enginstance;
 public:
@@ -22,10 +20,10 @@ public:
 	virtual ~HoeMobile();
 	
 	virtual bool RegisterApp();
-	virtual bool CreateWin(const char * title, int width, int height, bool fs);
+	virtual bool CreateWin(const tchar * title, int width, int height, bool fs);
 
 	HOE_INSTANCE GetInstance() { return m_hInstance; }
-	virtual const char * GetAppName() = 0;
+	virtual const tchar * GetAppName() = 0;
 
 	virtual void SetTitle(const char * title);
 

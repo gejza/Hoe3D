@@ -7,12 +7,35 @@
 // string class
 namespace HoeCore {
 
-int vsnprintf(char *, size_t, const char *, va_list);
 
-const String & String::operator = (const char * s)
+namespace string {
+
+int vsnprintf(wchar_t *, size_t, const char *, va_list)
 {
-	return *this;
+	return 0;
 }
 
+int vsnprintf(wchar_t *, size_t, const wchar_t *, va_list)
+{
+	return 0;
+}
+
+void copy(tchar *, const char *, size_t)
+{
+	
+}
+
+void copy(tchar *, const wchar_t *, size_t)
+{
+}
+
+
+
+} // end namespace
+
+/*const String & String::operator = (const char * s)
+{
+	return *this;
+}*/
 
 } // namespace HoeCore

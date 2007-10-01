@@ -43,7 +43,7 @@ public:
 
 	virtual void HOEAPI SetModel(IHoeModel * model);
 	virtual IHoeModel * HOEAPI GetModel();
-	virtual bool HOEAPI LoadModel(const char * cmd);
+	virtual bool HOEAPI LoadModel(const tchar * cmd);
 	virtual void HOEAPI Unregister();
 
 	virtual void HOEAPI SetPosition(const HoeMath::Vector3 &pos);

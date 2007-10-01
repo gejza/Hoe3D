@@ -39,9 +39,9 @@ HoeApp::~HoeApp()
 			ShowMsg(T("Error:"), m_lastError);
 }
 
-#ifdef _WIN32
+#ifdef _WIN32_WINNT
 
-bool HoeApp::Init(const char * title, int sdkver)
+bool HoeApp::Init(const tchar * title, int sdkver)
 {
 	THoeInitSettings his;
 
@@ -51,7 +51,8 @@ bool HoeApp::Init(const char * title, int sdkver)
 	if (!CreateWin(title,m_width.GetInt(),m_height.GetInt(),m_fullscreen.GetBool()))
 		return false;
 
-	m_con->SetCallback(this);
+	if (m_con)
+		m_con->SetCallback(this);
 
 	if (!GetMsg(NULL))
 		exit(0);
@@ -80,6 +81,39 @@ bool HoeApp::Init(const char * title, int sdkver)
 
 	if (!HoeGame::GetHoeEngine()->Init(&his))
 		return false;
+
+	m_con->SetCallback(NULL);
+
+	if (!GetMsg(HoeGame::GetHoeEngine()))
+		exit(0);
+
+	return true;
+}
+
+#endif // _WIN32
+#ifdef _WIN32_WCE
+
+bool HoeApp::Init(const tchar * title, int sdkver)
+{
+	THoeInitSettings his;
+
+	if (!this->RegisterApp())
+		return false;
+
+	if (!LoadEngine(sdkver))
+		return false;
+
+	his.hInst = m_hInstance;
+	his.fullscreen = m_fullscreen.GetBool();
+	his.forcewnd = false;
+	his.win = 0;
+	his.width =  m_width.GetInt();
+	his.height = m_height.GetInt();
+
+	if (!HoeGame::GetHoeEngine()->Init(&his))
+		return false;
+
+	m_hWnd = his.win;
 
 	m_con->SetCallback(NULL);
 

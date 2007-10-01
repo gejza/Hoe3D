@@ -25,7 +25,8 @@ public:
 	~BaseConsole();
 	static void Printf(const char *, ...);
 	static void Printf(const wchar_t *, ...);
-	static void Printfarg(const tchar *, va_list argptr);
+	static void Printfarg(const char *, va_list argptr);
+	static void Printfarg(const wchar_t *, va_list argptr);
 };
 
 class TextItem
@@ -49,16 +50,16 @@ public:
 	void SetText(const tchar * text);
 };
 
-/*inline void TextItem::SetText(const tchar * text)
+inline void TextItem::SetText(const tchar * text)
 {
 	if (m_text) { delete [] m_text; m_text = NULL; }
 	if (text && text[0])
 	{
-		size_t n = strlen(text) + 1;
+		size_t n = HoeCore::string::len(text) + 1;
 		m_text = new tchar[n];
 		memcpy(m_text, text, n * sizeof(tchar));
 	}
-}*/
+}
 
 /**
  * @brief Konzole

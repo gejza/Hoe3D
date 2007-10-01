@@ -20,7 +20,12 @@ public:
 	inline wchar_t GetChar(int index) { return m_codes[index]; }
 	void AddChar(wchar_t ch);
 	static wchar_t UTFtoUnicode(const char *&p);
-	int UTFtoIndex(const char *&p) { return GetIndex(UTFtoUnicode(p)); }
+	int StringToIndex(const char *&p) { return GetIndex(UTFtoUnicode(p)); }
+	int StringToIndex(const wchar_t *&p) 
+	{ 
+		int ret = GetIndex(*p);
+		p++; return ret;
+	}
 	int GetNumChars() { return m_num; } 
 	static int c_specialchars(int argc, const char * argv[], void * param);
 };

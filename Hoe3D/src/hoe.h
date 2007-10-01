@@ -13,12 +13,12 @@ public:
 	Hoe3D(int flags);
 	~Hoe3D();
 	bool HOEAPI Init(THoeInitSettings *);
-	IHoeResource * HOEAPI Create(const char *);
+	IHoeResource * HOEAPI Create(const tchar *);
 	virtual IHoePicture * HOEAPI CreatePicture(int width, int height, dword * data);
 	IHoeSystem * HOEAPI GetSystem(HOESYSTEMS sys);
 
-	virtual int HOEAPI exec(const char *);
-	virtual bool HOEAPI RegisterCmd(const char * cmd, HOE_CMDFUNC func, void * par);
+	virtual int HOEAPI exec(const tchar *);
+	virtual bool HOEAPI RegisterCmd(const tchar * cmd, HOE_CMDFUNC func, void * par);
 	virtual bool HOEAPI RegisterVar(THoeVar * var);
 	
 	virtual void HOEAPI Process(const double);

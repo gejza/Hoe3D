@@ -43,18 +43,18 @@ const char * Universal::GetTypeName(Universal::Type t)
 	};
 }
 
-const char * Universal::GetStringValue() const
+const tchar * Universal::GetStringValue() const
 {
 	switch (type)
 	{
-	case TypeNone: return "";
-	case TypeString: return value.str ? value.str : "";
-	case TypeDecimal: return "decimal";
-	case TypeUnsigned: return "unsigned";
-	case TypeFloat: return "real";
-	case TypeBool: return "boolean";
+	case TypeNone: return T("");
+	case TypeString: return value.str ? value.str : T("");
+	case TypeDecimal: return T("decimal");
+	case TypeUnsigned: return T("unsigned");
+	case TypeFloat: return T("real");
+	case TypeBool: return T("boolean");
 	default:
-		return "unknown";
+		return T("unknown");
 	};
 }
 
@@ -85,9 +85,9 @@ void Universal::Set(const char * value)
 	type = (type & 0x80000000) | TypeString;
 	if (sl > 1)
 	{
-		this->value.str = new char[sl];
+		this->value.str = new tchar[sl];
 		allocated = size = sl;
-		memcpy(this->value.str, value, sl);
+		memcpy(this->value.str, value, sl * sizeof(tchar));
 	}
 }
 
@@ -181,11 +181,11 @@ unsigned long Universal::GetUnsigned() const
 	case TypeString:
 		{
 			register unsigned long ret = 0;
-			register const char * str = GetStringValue();
+			register const tchar * str = GetStringValue();
 			if (str[0] == '0' && str[1] == 'x')
-				sscanf(str+2, "%x", &ret);
+				swscanf(str+2, T("%x"), &ret);
 			else
-				sscanf(str, "%d", &ret);
+				swscanf(str, T("%d"), &ret);
 			return ret;
 		}
 	case TypeDecimal: return (unsigned long)value.l;
@@ -204,11 +204,11 @@ long Universal::GetDecimal() const
 	case TypeString:
 		{
 			register long ret = 0;
-			register const char * str = GetStringValue();
+			register const tchar * str = GetStringValue();
 			if (str[0] == '0' && str[1] == 'x')
-				sscanf(str+2, "%x", &ret);
+				swscanf(str+2, T("%x"), &ret);
 			else
-				sscanf(str, "%d", &ret);
+				swscanf(str, T("%d"), &ret);
 			return ret;
 		}
 	case TypeDecimal: return value.l;
@@ -226,17 +226,17 @@ float Universal::GetFloat() const
 	{
 	case TypeString:
 		{
-			register const char * str = GetStringValue();
+			register const tchar * str = GetStringValue();
 			if (str[0] == '0' && str[1] == 'x')
 			{
 				register float ret = 0;
-				sscanf(str+2, "%x", &ret);
+				swscanf(str+2, T("%x"), &ret);
 				return (float)ret;
 			}
 			else
 			{
 				register float ret = 0.f;
-				sscanf(str, "%f", &ret);
+				swscanf(str, T("%f"), &ret);
 				return ret;
 			}
 		}

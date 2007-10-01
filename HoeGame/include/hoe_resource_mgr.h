@@ -19,7 +19,7 @@ class ResourceMgr
 public:
 	IHoeResource * ReqResource(int id);
 	ResourceMgr();
-	bool AddResource(int id,const char * cmd);
+	bool AddResource(int id,const tchar * cmd);
 	void Optimize();
 	IHoeResource * GetResource(int id);
 	template<class I> inline I * Get(int id)

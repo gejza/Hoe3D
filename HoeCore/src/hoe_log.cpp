@@ -2,6 +2,7 @@
 #include "StdAfx.h"
 #include "../include/hoe_types.h"
 #include "../include/hoe_log.h"
+#include "../../HoeCore/include/hoe_string.h"
 
 void HoeLog::Log(const char * szFormat,...)
 {
@@ -24,7 +25,7 @@ void HoeLogConsole::Log(const char * szFormat,...)
 	va_list args;
 
 	va_start(args, szFormat);
-	vsnprintf( szBuff + lnsize, 1024 - lnsize, szFormat, args );
+	HoeCore::string::vsnprintf( szBuff + lnsize, 1024 - lnsize, szFormat, args );
 	va_end(args);
 
 	Con_Print(szBuff);
@@ -48,7 +49,7 @@ void HoeLogFile::Log(const char * szFormat,...)
 	va_list args;
 
 	va_start(args, szFormat);
-	vsnprintf( szBuff, 1023, szFormat, args );
+	HoeCore::string::vsnprintf( szBuff, 1023, szFormat, args );
 	va_end(args);
 
 	if (m_file)

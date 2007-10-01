@@ -136,7 +136,7 @@ class Button : public StaticPicture
 protected:
 	bool m_active;
 	IHoeFont * m_fonttt;
-	const char * m_tt;
+	const tchar * m_tt;
 	Hoe2DControl * m_ctrl;
 	Hoe2DControl::FUNC_CMD m_func;
 	int m_id;
@@ -150,7 +150,7 @@ public:
 	void Move(const float x, const float y, bool & act);
 	bool Click(const float x, const float y);
 	void SetToolTipFont(IHoeFont * fnt);
-	void SetToolTip(const char * tt);
+	void SetToolTip(const tchar * tt);
 	void SetID(int id) { m_id = id; }
 	int GetID() { return m_id; }
 	virtual void Set(const char * prop, const HoeCore::Universal & value);

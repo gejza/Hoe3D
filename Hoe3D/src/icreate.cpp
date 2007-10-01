@@ -216,7 +216,7 @@ namespace icreate {
 	}
 }
 
-IHoeResource * HOEAPI Hoe3D::Create(const char * str)
+IHoeResource * HOEAPI Hoe3D::Create(const tchar * str)
 {
 	IHoeResource * ret = NULL;
 

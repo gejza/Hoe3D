@@ -15,7 +15,7 @@ public:
 	Kulission(IHoeScene * scn);
 	virtual ~Kulission();
 	void SetSize(float width, float height);
-	void SetTexture(const char * texname);
+	void SetTexture(const tchar * texname);
 	void SetOverlap(int i);
 };
 

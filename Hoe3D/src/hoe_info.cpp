@@ -136,6 +136,7 @@ void InfoSystem::EndFrame()
 
 void InfoSystem::Publish()
 {
+#ifndef UNICODE
 	if (m_show)
 	{
 		float h = font->GetTextHeight();
@@ -164,6 +165,7 @@ void InfoSystem::Publish()
 		}
 		// dalsi debug info
 	}
+#endif
 }
 
 void InfoSystem::SetFpsTime(float ftime)

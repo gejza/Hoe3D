@@ -61,7 +61,7 @@ public:
 	virtual IHoeModel * HOEAPI GetModel() = 0;
 
 	/** Nahrani modelu */
-	virtual bool HOEAPI LoadModel(const char * cmd) = 0;
+	virtual bool HOEAPI LoadModel(const tchar * cmd) = 0;
 
 	/** Nastavi aktualni pozici objektu */
 	virtual void HOEAPI SetPosition(const HoeMath::Vector3 &pos) = 0;
@@ -117,7 +117,7 @@ public:
 	inline IHoeModel * GetModel();
 
 	/** Nahrani modelu */
-	inline bool LoadModel(const char * cmd);
+	inline bool LoadModel(const tchar * cmd);
 	
 	/** Nastavi aktualni pozici objektu */
 	inline void SetPosition(const float x, const float y, const float z);
@@ -142,7 +142,7 @@ IHoeModel * XHoeObject::GetModel()
 	return GetCtrl()->GetModel();
 }
 
-bool XHoeObject::LoadModel(const char * cmd)
+bool XHoeObject::LoadModel(const tchar * cmd)
 {
 	return GetCtrl()->LoadModel(cmd);
 }

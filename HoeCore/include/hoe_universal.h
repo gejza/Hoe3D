@@ -45,7 +45,7 @@ public:
 	void Set(void * p);
 
 	// getting functions
-	const char * GetStringValue() const;
+	const tchar * GetStringValue() const;
 	bool GetBool() const;
 	long GetDecimal() const;
 	unsigned long GetUnsigned() const;
@@ -65,7 +65,7 @@ public:
 	const Universal & operator = (bool value) { Set(value); return *this; }
 	const Universal & operator = (const Universal & value) { Set(value); return *this; }
 
-    operator const char * () const { return GetStringValue(); }
+    operator const tchar * () const { return GetStringValue(); }
 protected:
 	void Reset();
 	void Clear();
@@ -76,8 +76,8 @@ protected:
 		long l;
 		unsigned long ul;
 		float f;
-		char * str;
-		const char * cstr;
+		tchar * str;
+		const tchar * cstr;
 		void * p;
 
 	} value;

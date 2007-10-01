@@ -56,7 +56,7 @@ class IHoeModelModifier : public IHoeInterface
 {
 public:
 	// funkce pro upravu materialu
-	virtual void HOEAPI SetMaterialTexture(int n, const char * texturename) = 0;
+	virtual void HOEAPI SetMaterialTexture(int n, const tchar * texturename) = 0;
 	virtual void HOEAPI SetTextureOverlap(int n, const THoeRect & rect) = 0;
 };
 

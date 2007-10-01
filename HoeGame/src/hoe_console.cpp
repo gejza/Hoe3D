@@ -25,10 +25,10 @@ BaseConsole::~BaseConsole()
 	m_shared = NULL;
 }
 
-void BaseConsole::Printfarg(const tchar * szFormat, va_list args)
+void BaseConsole::Printfarg(const char * szFormat, va_list args)
 {
 	static tchar szBuff[1024];
-	HoeCore::Str::vsnprintf( szBuff, 1024, szFormat, args );
+	HoeCore::string::vsnprintf( szBuff, 1024, szFormat, args );
 	if (m_shared)
 		m_shared->Con_Print(szBuff);
 	/*!!!*/
@@ -37,7 +37,19 @@ void BaseConsole::Printfarg(const tchar * szFormat, va_list args)
 #endif
 }
 
-void BaseConsole::Printf(const tchar * szFormat, ...)
+void BaseConsole::Printfarg(const wchar_t * szFormat, va_list args)
+{
+	static tchar szBuff[1024];
+	HoeCore::string::vsnprintf( szBuff, 1024, szFormat, args );
+	if (m_shared)
+		m_shared->Con_Print(szBuff);
+	/*!!!*/
+#if (defined(DEBUG) || defined(_DEBUG)) && defined(_WIN32_WINNT) 
+	OutputDebugString( szBuff );OutputDebugString( "\n" );
+#endif
+}
+
+void BaseConsole::Printf(const char * szFormat, ...)
 {
 	va_list args;
 
@@ -45,6 +57,16 @@ void BaseConsole::Printf(const tchar * szFormat, ...)
 	Printfarg(szFormat,args);
 	va_end(args);
 }
+
+void BaseConsole::Printf(const wchar_t * szFormat, ...)
+{
+	va_list args;
+
+	va_start(args, szFormat);
+	Printfarg(szFormat,args);
+	va_end(args);
+}
+
 
 ///////////////////////////////////////////////////////////////
 
@@ -124,10 +146,10 @@ GuiConsole::GuiConsole(Console & con)
 bool GuiConsole::Load(IHoe3DEngine *eng)
 {
 	engine = eng;
-	font = (IHoeFont *)eng->Create("font '../data/font.ttf' 12");
+	font = (IHoeFont *)eng->Create(T("font '../data/font.ttf' 12"));
 	if (!font)
 		return false;
-	background = (IHoePicture *)eng->Create("picture lake");
+	background = (IHoePicture *)eng->Create(T("picture lake"));
 	if (!background)
 		return false;
 
@@ -182,13 +204,13 @@ bool GuiConsole::Key(int k)
 	case HK_UP:
 		if (m_histptr < (m_history.Count()-1))
 		{
-			HoeCore::Str::strncpy(cmdline, m_history.GetLine(++m_histptr).GetText(),sizeof(cmdline));
+			HoeCore::string::copy(cmdline, m_history.GetLine(++m_histptr).GetText(),sizeof(cmdline));
 		}
 		return false;
 	case HK_DOWN:
 		if (m_histptr > 0)
 		{
-			HoeCore::Str::strncpy(cmdline, 
+			HoeCore::string::copy(cmdline, 
 				m_history.GetLine(--m_histptr).GetText(), sizeof(cmdline));
 		}
 		return false;
