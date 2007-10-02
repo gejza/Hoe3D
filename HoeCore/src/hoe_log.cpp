@@ -34,7 +34,11 @@ void HoeLogConsole::Log(const char * szFormat,...)
 ///////////////////////////////////////
 HoeLogFile::HoeLogFile(const tchar * name)
 {
+#ifdef _WIN32
 	m_file = _wfopen(name,T("wt")); 
+#else
+    assert(0);
+#endif
 }
 
 HoeLogFile::~HoeLogFile()

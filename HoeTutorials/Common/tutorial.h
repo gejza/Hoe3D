@@ -21,6 +21,7 @@
 #include <dlfcn.h>
 #include <stdarg.h>
 #include <string.h>
+#include <wchar.h>
 #endif
 
 #include <assert.h>

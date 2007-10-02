@@ -15,7 +15,7 @@ class Hoe2D : public IHoe2D
 	float m_maxX;
 	float m_maxY;
 
-	HoeFreeType freetype;
+	//HoeFreeType freetype;
 public:
 	Hoe2D();
 	~Hoe2D();
@@ -24,8 +24,9 @@ public:
 
 	HoePicture * CreatePicture(const tchar *, HoeLog * log);
 
-	HoeFreeType * GetFreeType() { return &freetype; }
-	// user func
+	//HoeFreeType * GetFreeType() { return &freetype; }
+	
+    // user func
 	void SetRect(const float w,const float h);
 
 	// paint func

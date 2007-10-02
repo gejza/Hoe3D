@@ -126,7 +126,7 @@ bool HoeApp::Init(const tchar * title, int sdkver)
 #endif // _WIN32
 #ifdef _LINUX
 
-bool HoeApp::Init(const char * title, int sdkver)
+bool HoeApp::Init(const tchar * title, int sdkver)
 {
     Atom wmDelete;
 

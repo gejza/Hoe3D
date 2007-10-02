@@ -19,7 +19,7 @@ public:
 	HoeLinux();
 	virtual ~HoeLinux();
 	
-	virtual const char * GetAppName() = 0;
+	virtual const tchar * GetAppName() = 0;
 
 	virtual void HandleError();
 
@@ -29,13 +29,13 @@ public:
 	virtual void OnSize(int width, int height) = 0;
 	virtual void OnPaint() = 0;
 
-	virtual void SetTitle(const char * title);
+	virtual void SetTitle(const tchar * title);
 
 	virtual void PaintConsole(Console *);
 
 	virtual void UpdateConsole();
 
-	virtual int ShowMsg(const char * caption, const char *text) {}
+	virtual int ShowMsg(const tchar * caption, const tchar *text) {}
 };
 
 END_HOEGAME

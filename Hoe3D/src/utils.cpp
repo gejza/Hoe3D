@@ -23,7 +23,7 @@ void Con_Print(const wchar_t * szFormat,...)
 		va_list args;
 
 		va_start(args, szFormat);
-		vsnprintf( szBuff, 1024, szFormat, args );
+        HoeCore::string::vsnprintf( szBuff, 1024, szFormat, args );
 		va_end(args);
 
 		_Con->Con_Print(szBuff);
@@ -57,7 +57,7 @@ void Con_Print(int dlevel, const tchar * szFormat,...)
 		va_list args;
 
 		va_start(args, szFormat);
-		vsnprintf( szBuff, 1024, szFormat, args );
+        HoeCore::string::vsnprintf( szBuff, 1024, szFormat, args );
 		va_end(args);
 
 		_Con->Con_Print(szBuff);
@@ -73,7 +73,7 @@ void Con_Print(HoeLog * log, const tchar * szFormat,...)
 		va_list args;
 
 		va_start(args, szFormat);
-		vsnprintf( szBuff, 1024, szFormat, args );
+        HoeCore::string::vsnprintf( szBuff, 1024, szFormat, args );
 		va_end(args);
 
 		log->Log("%s",szBuff);
