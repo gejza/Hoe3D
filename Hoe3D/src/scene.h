@@ -54,7 +54,7 @@ public:
 	virtual void HOEAPI RemovePolygon(int id);
 	virtual IHoeEnv::HeightMapSurface * HOEAPI CreateHeightMapSurface();
 	virtual IHoeEnv::GridSurface * HOEAPI CreateGridSurface();
-	virtual IHoeMaterial * HOEAPI GetMaterial(const char * name);
+	virtual IHoeMaterial * HOEAPI GetMaterial(const tchar * name);
 
 	// physicks
 	//iHoeMap * HOEAPI LoadMap(const char * name, XMapLoaderCallback *);

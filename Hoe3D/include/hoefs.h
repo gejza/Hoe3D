@@ -229,7 +229,7 @@ public:
 	virtual XHoeFile * Open(const char *fname,EHoeFileMode mode = hftRead) = 0;
 	virtual uint AddResourceFile(const char *) = 0;
 
-	virtual HoeFileReader FindResource_(const char * name,dword type = 0) = 0;
+	virtual HoeFileReader FindResource_(const tchar * name,dword type = 0) = 0;
 	virtual XHoeFile * GetFile(uint id) = 0;
 
 	virtual void CloseAll() = 0;

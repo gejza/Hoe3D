@@ -9,8 +9,8 @@ ResourceMgr::ResourceMgr()
 {
 	SET_SHARED_PTR(resmgr);
 
-	GetExec()->Register("files",ResourceMgr::c_list,NULL);
-	GetExec()->Register("closefiles",ResourceMgr::c_closeall,NULL);
+	GetExec()->Register(T("files"),ResourceMgr::c_list,NULL);
+	GetExec()->Register(T("closefiles"),ResourceMgr::c_closeall,NULL);
 
 }
 
@@ -29,13 +29,13 @@ IHoeModelFile * ResourceMgr::GetModelFile(HOE_HANDLE handle)
 	return new ModelFile((uint)handle);
 }*/
 
-int ResourceMgr::c_list(int argc, const char * argv[], void * param)
+int ResourceMgr::c_list(int argc, const tchar * argv[], void * param)
 {
 	GetFileSystem()->PrintList();
 	return 0;
 }
 
-int ResourceMgr::c_closeall(int argc, const char * argv[], void * param)
+int ResourceMgr::c_closeall(int argc, const tchar * argv[], void * param)
 {
 	GetFileSystem()->CloseAll();
 	return 0;

@@ -14,7 +14,7 @@ class TextureLoader
 public:
 	TextureLoader(HoeLog * log = NULL);
 	~TextureLoader();
-    bool Load(const char * name);
+    bool Load(const tchar * name);
 	hft_texture & GetHeader() { return m_head; }
 	bool GetData(void * buff,dword * size);
 	bool GetData(void * buff,dword size);

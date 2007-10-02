@@ -66,7 +66,7 @@ public:
 	virtual XHoeFile *  Open(const char *fname,EHoeFileMode mode = hftRead);
 
 	virtual uint AddResourceFile(const char *);
-	virtual HoeFileReader FindResource_(const char * name,dword type = 0);
+	virtual HoeFileReader FindResource_(const tchar * name,dword type = 0);
 	virtual XHoeFile * GetFile(uint id);
 
 	virtual void CloseAll();

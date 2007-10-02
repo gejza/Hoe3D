@@ -312,14 +312,14 @@ void GuiConsole::RegisterCommands(IHoe3DEngine * engine)
 	engine->RegisterCmd(T("closeconsole"),GuiConsole::c_closeconsole,this);
 }
 
-int GuiConsole::c_openconsole(int argc, const char * argv[], void * param)
+int GuiConsole::c_openconsole(int argc, const tchar * argv[], void * param)
 {
 	assert(param != NULL);
 	reinterpret_cast<GuiConsole*>(param)->Open();
 	return 0;
 }
 
-int GuiConsole::c_closeconsole(int argc, const char * argv[], void * param)
+int GuiConsole::c_closeconsole(int argc, const tchar * argv[], void * param)
 {
 	assert(param != NULL);
 	reinterpret_cast<GuiConsole*>(param)->Close();

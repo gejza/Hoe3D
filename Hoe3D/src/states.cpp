@@ -15,7 +15,7 @@ HoeStates::HoeStates()
 	SET_SHARED_PTR(states);
 	Con_Print("States system create");
 	wireframe = false;
-	GetExec()->Register("wireframe",HoeStates::c_setwireframe,NULL);
+	GetExec()->Register(T("wireframe"),HoeStates::c_setwireframe,NULL);
 
 	// alphatest
 	alphatest = false;
@@ -26,12 +26,12 @@ HoeStates::~HoeStates()
 	UNSET_SHARED_PTR(states);
 }
 
-int HoeStates::c_setwireframe(int argc, const char * argv[], void * param)
+int HoeStates::c_setwireframe(int argc, const tchar * argv[], void * param)
 {
 	if (argc != 2)
 		return 1;
 
-	GetStates()->wireframe = atoi(argv[1]) != 0;
+	GetStates()->wireframe = HoeCore::string::atoi(argv[1]) != 0;
 	return 0; 
 }
 

@@ -12,34 +12,23 @@
 	$Revision: 1.7 $
 */ 
 
-#ifndef _HOE_SOUND_AL_H_
-#define _HOE_SOUND_AL_H_
+#ifndef _HOE_SOUND_MOBILE_H_
+#define _HOE_SOUND_MOBILE_H_
 
-#define _HOE_OPENAL_
-
-#ifdef _MACOSX
-#include <OpenAL/al.h>
-#include <OpenAL/alc.h>
-#else
-#include <AL/al.h>
-#include <AL/alc.h>
-//#include <AL/alut.h>
-#endif
+#define _HOE_SOUNDM_
 
 struct THoeInitSettings;
 
 /**
-  @brief	Zvuk pres OpenAL 
+  @brief	Zvuk pres SoundMobile 
  */
 
-class SoundSystemAl
+class SoundSystemMobile
 {
-	ALCdevice *Device;  
-	ALCcontext *Context;
 public:
 	/** Konstruktor
 	 */
-	SoundSystemAl(void);
+	SoundSystemMobile(void);
 
 	/**
 	 * Zinicializuje zvuk.
@@ -54,32 +43,16 @@ public:
 };
 
 /**
-  @brief	OpenAL buffer 
+  @brief	SoundMobile buffer 
  */
 
-class HoeALBuffer
+class SoundMobileBuffer
 {
-	ALuint	m_buffer; /**< AL buffer */
-	ALsizei m_size,m_freq; /**< velikost a frekvence */
-	ALenum	m_format; /**< format */
-	ALbyte	*m_data; /**< data pro inicializaci bufferu */
-
 public:
 	/** Kontruktor 
 	 * @todo Dodelat destruktor 
 	 */
-	HoeALBuffer();
-
-	/** Kontruktor 
-	 * @param b AL buffer 
-	 */
-	HoeALBuffer(ALuint b);
-
-	/**
-	 * Funkce pro pristup k bufferu
-	 * @return ALuint buffer
-	 */
-	ALuint & GetBuffer() { return m_buffer; }
+	SoundMobileBuffer();
 
     /** Vytvoreni bufferu
     * @param channels Pocet kanalu
@@ -94,27 +67,26 @@ public:
 };
 
 /**
-  @brief	OpenAL player 
+  @brief	SoundMobile player 
  */
 
-class HoeALPlayer
+class SoundMobilePlayer
 {
-	ALuint	source; /**< AL source */
 protected:
 	
 public:
 	/** Kontruktor 
 	 * @todo Dodelat destruktor 
 	 */
-	HoeALPlayer();
+	SoundMobilePlayer();
 
 	/**
 	 * Play
 	 * @param buff Buffer kterej se ma prehrat
 	 */
-	void Play(HoeALBuffer * buff, bool loop);
+	void Play(SoundMobileBuffer * buff, bool loop);
 	void Stop() {};
 };
 
-#endif // _HOE_SOUND_AL_H_
+#endif // _HOE_SOUND_MOBILE_H_
 

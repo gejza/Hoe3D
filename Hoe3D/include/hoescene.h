@@ -91,13 +91,13 @@ namespace IHoeEnv
 		* @param width Pocet ctvercu na sirku
 		* @param height Pocet ctvercu na vysku
 		*/
-		virtual void HOEAPI SetTexture(int slot, const char * texname, int width, int height) = 0;
+		virtual void HOEAPI SetTexture(int slot, const tchar * texname, int width, int height) = 0;
 		/**
 		* Nastavi model
 		* @param slot Na ktery slot nastavit model
 		* @param modname Jmeno modelu
 		*/		
-		virtual void HOEAPI SetModel(int slot, const char * modname) = 0;
+		virtual void HOEAPI SetModel(int slot, const tchar * modname) = 0;
 		/**
 		* Ziskani parametru gridu. Muze byt i NULL
 		* @param sizeX realna velikost na sirku
@@ -170,7 +170,7 @@ public:
 	virtual void HOEAPI RemovePolygon(int id) = 0;
 	virtual IHoeEnv::HeightMapSurface * HOEAPI CreateHeightMapSurface() = 0;
 	virtual IHoeEnv::GridSurface * HOEAPI CreateGridSurface() = 0;
-	virtual IHoeMaterial * HOEAPI GetMaterial(const char * name) = 0;
+	virtual IHoeMaterial * HOEAPI GetMaterial(const tchar * name) = 0;
 };
 
 

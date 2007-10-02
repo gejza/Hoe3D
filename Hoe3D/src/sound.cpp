@@ -17,8 +17,9 @@
 #include "utils.h"
 #include "sound.h"
 #include "../include/hoefs.h"
-#include <vorbis/codec.h>
-#include <vorbis/vorbisfile.h> 
+#ifndef _WIN32_WCE
+#include "sound_ogg.h"
+#endif
 
 #if defined (_HOE_DS8_) || defined (_HOE_OPENAL_) || defined (_HOE_SOUNDM_) 
 SoundSystem::SoundSystem()
@@ -33,7 +34,7 @@ SoundSystem::~SoundSystem()
 	shared::sound = NULL;
 }
 
-HoeSoundBuffer * SoundSystem::GetSound(const char * name, bool ctrl3d)
+HoeSoundBuffer * SoundSystem::GetSound(const tchar * name, bool ctrl3d)
 {
 	if (ctrl3d)
 	{
@@ -49,7 +50,7 @@ HoeSoundBuffer * SoundSystem::GetSound(const char * name, bool ctrl3d)
 	}
 }
 
-HoeSoundBuffer * SoundSystem::GetBuffer(const char * name)
+HoeSoundBuffer * SoundSystem::GetBuffer(const tchar * name)
 {
 	HoeSoundBuffer * sb = new HoeSoundBuffer(true);
 	sb->LoadFromFile(name);
@@ -75,77 +76,39 @@ void HoeSound::Stop()
 	player.Stop();
 }
 
-static size_t read_func(void *ptr, size_t size, size_t nmemb, void *datasource)
+bool HoeSoundBuffer::LoadFromFile(const tchar *filename)
 {
-	return reinterpret_cast<XHoeFile*>(datasource)->Read(ptr, size*nmemb) / size;
+#ifdef HOE_OGG_PRESENT
+	SoundSourceOgg ogg;
+	return ogg.Open(filename) && Load(ogg);
+#else
+	return false;
+#endif
 }
 
-static int seek_func(void *datasource, ogg_int64_t offset, int whence)
+bool HoeSoundBuffer::Load(SoundSource& source)
 {
-	if (whence == SEEK_SET) 
-		reinterpret_cast<XHoeFile*>(datasource)->Seek((size_t)offset);
-	else if (whence == SEEK_CUR)
-		reinterpret_cast<XHoeFile*>(datasource)->Skip((size_t)offset);
-	//else if (whence == SEEK_END)
-	//	reinterpret_cast
-	return 0;
-}
+	TSoundSourceInfo info;
 
-static int close_func(void *datasource)
-{
-	return 1;
-}
-
-static long tell_func(void *datasource)
-{
-	return (long)reinterpret_cast<XHoeFile*>(datasource)->Tell();
-}
-
-bool HoeSoundBuffer::LoadFromFile(const char *filename)
-{
-	OggVorbis_File vf; 
-	ov_callbacks cbcs = {read_func, seek_func, close_func, tell_func};
-	//XHoeFile * file = GetFS()->Open(filename);
-	if (filename[strlen(filename)-1]!='g')
-		return true;
-	FILE *f = fopen(filename, "rb");
-	if (!f)
+	if (!source.GetInfo(&info))
 		return false;
-	if(ov_open(f, &vf, NULL, 0) < 0) 
-	{
-      Con_Print("Input does not appear to be an Ogg bitstream.\n");
-      exit(1);
-	} 
-	
-    char **ptr=ov_comment(&vf,-1)->user_comments;
-    vorbis_info *vi=ov_info(&vf,-1);
-    while(*ptr){
-      Con_Print("%s",*ptr);
-      ++ptr;
-    }
-	long samples = (long)ov_pcm_total(&vf,-1);
-    Con_Print("Bitstream is %d channel, %ldHz",vi->channels,vi->rate);
-    Con_Print("Decoded length: %ld samples",
-	    samples);
-    Con_Print("Encoded by: %s",ov_comment(&vf,-1)->vendor);
-	Create(vi->channels,vi->rate, 2, samples, m_ctrl3D);
-
-
+	// read
 	byte * l = Lock();
+	if (!l)
+		return false;
 
+	// read to lock < aa
 	int cs;
-	size_t bys = 2*samples*vi->channels;
+	size_t bys = 2*info.samples*info.channels;
 	while (bys>0)
 	{
-		long r = ov_read(&vf,(char*)l,bys,0,2,1,&cs); 
+		long r = source.Read(l,bys); 
 		assert(r > 0);
 		bys-=r;
 		l+=r;
 	}
 
 	Unlock();
-
-	ov_clear(&vf); 
 
 	return true;
 }

@@ -15,13 +15,13 @@
 #include "hoe_stream.h"
 #include "hoe_index.h"
 #include "hoe_info.h"
-/*
-// hoe
-IDirect3DDevice9 * RefD3D9::m_Dev = NULL;
 
-RefD3D9::RefD3D9()
+// hoe
+IDirect3DMobileDevice * RefD3DM::m_Dev = NULL;
+
+RefD3DM::RefD3DM()
 {
-	Con_Print("------ Direct X 9.0 ------");
+	/*Con_Print("------ Direct X 9.0 ------");
 	m_pD3D = Direct3DCreate9(D3D_SDK_VERSION);
 
 	m_Adapter = D3DADAPTER_DEFAULT;
@@ -35,12 +35,12 @@ RefD3D9::RefD3D9()
 		D3DDISPLAYMODE mode;
 		m_pD3D->EnumAdapterModes(m_Adapter, f, i, &mode);
 		i=i;
-	}
+	}*/
 }
 
-bool RefD3D9::Init(THoeInitSettings * his)
+bool RefD3DM::Init(THoeInitSettings * his)
 {
-	HRESULT hRes;
+	/*HRESULT hRes;
 	m_hWnd = his->win;
 	
 	m_Fullscreen = GetConfig()->IsFullscreen();
@@ -113,30 +113,31 @@ bool RefD3D9::Init(THoeInitSettings * his)
 	m_AdapterFormat = d3dpp.BackBufferFormat;
 	m_Dev->GetDeviceCaps(&m_Caps);
 
-	return true;
+	return true;*/
+	return false;
 }
 
-bool RefD3D9::Begin()
+bool RefD3DM::Begin()
 {
 	// Begin the scene.
 	m_Dev->BeginScene();
 	return true;
 }
 
-void RefD3D9::End()
+void RefD3DM::End()
 {
 	// End the scene.
 	m_Dev->EndScene();
 	m_Dev->Present( NULL, NULL, NULL, NULL );
 }
 
-void RefD3D9::ClearBuffers(bool target, bool depth)
+void RefD3DM::ClearBuffers(bool target, bool depth)
 {
 	// Clear the back buffer to a blue color
-	m_Dev->Clear( 0, NULL, (target?D3DCLEAR_TARGET:0) | (depth?D3DCLEAR_ZBUFFER:0), m_BackColor, 1.0f, 0 );
+	//m_Dev->Clear( 0, NULL, (target?D3DCLEAR_TARGET:0) | (depth?D3DCLEAR_ZBUFFER:0), m_BackColor, 1.0f, 0 );
 }
 
-void RefD3D9::Destroy()
+void RefD3DM::Destroy()
 {
     if( m_Dev != NULL)
         m_Dev->Release();
@@ -149,83 +150,84 @@ void RefD3D9::Destroy()
 	Con_Print("Ref destroyed.");
 }
 
-void RefD3D9::DrawStdObject(HoeStream * stream, HoeIndex * index)
+void RefD3DM::DrawStdObject(HoeStream * stream, HoeIndex * index)
 {
-	stream->Set(0);
+	/*stream->Set(0);
 
 	D3DDevice()->SetIndices(index->GetIndexBuffer());
 	register dword numtri = index->GetNumIndices()/3;
 	HRESULT hRes = D3DDevice()->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, 0, 0, stream->GetNumVert(), 0,  numtri);
 	//hRes = D3DERR_INVALIDCALL;
 	checkres(hRes,"DrawIndexedPrimitive");
-	GetInfo()->AddStatTriangles(numtri);
+	GetInfo()->AddStatTriangles(numtri);*/
 }
 
-void RefD3D9::DrawStdObject(HoeStream * stream, HoeIndex * index, dword vert, dword ind)
+void RefD3DM::DrawStdObject(HoeStream * stream, HoeIndex * index, dword vert, dword ind)
 {
-	stream->Set(0);
+	/*stream->Set(0);
 	D3DDevice()->SetIndices(index->GetIndexBuffer());
 	HRESULT hRes = D3DDevice()->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, 0, 0, vert, 0,  ind/3);
 	//hRes = D3DERR_INVALIDCALL;
 	checkres(hRes,"DrawIndexedPrimitive");	
-	GetInfo()->AddStatTriangles(ind/3);
+	GetInfo()->AddStatTriangles(ind/3);*/
 }
 
-void RefD3D9::DrawStdObjectFT(HoeStream * stream, HoeIndex * index, dword start, dword num)
+void RefD3DM::DrawStdObjectFT(HoeStream * stream, HoeIndex * index, dword start, dword num)
 {
-	stream->Set(0);
+	/*stream->Set(0);
 	D3DDevice()->SetIndices(index->GetIndexBuffer());
 	HRESULT hRes = D3DDevice()->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, 0, 0, stream->GetNumVert(), start,  num/3);
 	//hRes = D3DERR_INVALIDCALL;
 	checkres(hRes,"DrawIndexedPrimitive");	
-	GetInfo()->AddStatTriangles(num/3);
+	GetInfo()->AddStatTriangles(num/3);*/
 }
 
-void RefD3D9::DrawIndex(HoeIndex * index, dword offset, dword count)
+void RefD3DM::DrawIndex(HoeIndex * index, dword offset, dword count)
 {
-	assert(!"nefunkcni procedura, kvuli pevne nastavenemu poctu vertexu");
+	/*assert(!"nefunkcni procedura, kvuli pevne nastavenemu poctu vertexu");
 	D3DDevice()->SetIndices(index->GetIndexBuffer());
 	HRESULT hRes = D3DDevice()->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, 0, 0, 1000, offset,  count/3);
 	checkres(hRes,"DrawIndexedPrimitive");
-	GetInfo()->AddStatTriangles(count/3);
+	GetInfo()->AddStatTriangles(count/3);*/
 }
 
-void RefD3D9::DrawFanObject(dword offset, dword count)
+void RefD3DM::DrawFanObject(dword offset, dword count)
 {
-	HRESULT hRes = D3DDevice()->DrawPrimitive( D3DPT_TRIANGLEFAN, offset, count-2);
+	/*HRESULT hRes = D3DDevice()->DrawPrimitive( D3DPT_TRIANGLEFAN, offset, count-2);
 	checkres(hRes,"DrawPrimitive");
-	GetInfo()->AddStatTriangles(count-2);
+	GetInfo()->AddStatTriangles(count-2);*/
 }
 
-void RefD3D9::DrawPointObject(class HoeStream * stream, int vertCount)
+void RefD3DM::DrawPointObject(class HoeStream * stream, int vertCount)
 {
-	stream->Set(0);
+	/*stream->Set(0);
 	HRESULT hRes = D3DDevice()->DrawPrimitive( D3DPT_POINTLIST, 0, vertCount);
-	checkres(hRes,"DrawPrimitive");
+	checkres(hRes,"DrawPrimitive");*/
 }
 
-void RefD3D9::DrawLineObject(class HoeStream * stream, int lineCount)
+void RefD3DM::DrawLineObject(class HoeStream * stream, int lineCount)
 {
-	stream->Set(0);
+	/*stream->Set(0);
 	HRESULT hRes = D3DDevice()->DrawPrimitive( D3DPT_LINELIST, 0, lineCount);
-	checkres(hRes,"DrawPrimitive");
+	checkres(hRes,"DrawPrimitive");*/
 }
 
 // check
 
-bool RefD3D9::IsTextureFormatOk( HOEFORMAT TextureFormat) 
+bool RefD3DM::IsTextureFormatOk( HOEFORMAT TextureFormat) 
 {
-	HRESULT hr = m_pD3D->CheckDeviceFormat( m_Adapter,
+	/*HRESULT hr = m_pD3D->CheckDeviceFormat( m_Adapter,
                                           D3DDEVTYPE_HAL,
 										  m_AdapterFormat,
                                           0,
                                           D3DRTYPE_TEXTURE,
                                           HoeFormatX(TextureFormat));
     
-    return SUCCEEDED( hr );
+    return SUCCEEDED( hr );*/
+	return 1;
 }
 
-*/
+
 
 
 

@@ -15,9 +15,9 @@ public:
 
 class HoeLogConsole : public HoeLog
 {
-	char m_name[256];
+	tchar m_name[256];
 public:
-	HoeLogConsole(const char * name);
+	HoeLogConsole(const tchar * name);
 	virtual void Log(const char *,...);
 	virtual void Delete() { delete this; }
 };
@@ -26,7 +26,7 @@ class HoeLogFile : public HoeLog
 {
 	FILE * m_file;
 public:
-	HoeLogFile(const char * name);
+	HoeLogFile(const tchar * name);
 	virtual ~HoeLogFile();
 	virtual void Log(const char *,...);
 	virtual void Delete() { delete this; }

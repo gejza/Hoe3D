@@ -27,7 +27,7 @@ public:
 		p++; return ret;
 	}
 	int GetNumChars() { return m_num; } 
-	static int c_specialchars(int argc, const char * argv[], void * param);
+	static int c_specialchars(int argc, const tchar * argv[], void * param);
 };
 
 #endif // _HOE_CODEPAGE_UNICODE_H_

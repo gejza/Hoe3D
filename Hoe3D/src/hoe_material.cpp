@@ -180,7 +180,7 @@ void HoeMaterial::SetColor(int type, const HoeMaterialColor & color)
 
 bool HoeMaterial::LoadFromFile(const char *path)
 {
-	if (!material_load(path))
+	/*if (!material_load(path))
 	{
 		Con_Print("Material file '%s' not found.",path);
 		return false;
@@ -197,7 +197,8 @@ bool HoeMaterial::LoadFromFile(const char *path)
 		default:
 			break;
 		}
-	}
+	}*/
+	assert(0);
 
 	return true;
 }

@@ -45,7 +45,7 @@ struct ModStr
 }*/
 #define Tolerantion(a,b) (fabs((a)-(b)) < 2.f)
 
-bool TGridModel::LoadModel(const char * name)
+bool TGridModel::LoadModel(const tchar * name)
 {
 	if (name)
 	{
@@ -571,7 +571,7 @@ void HOEAPI GridSurface::SetPosCenter(float x, float y, float z)
 	m_worldpos.Translate(x,z,y);
 }
 
-void HOEAPI GridSurface::SetTexture(int slot, const char *texname, int width, int height)
+void HOEAPI GridSurface::SetTexture(int slot, const tchar *texname, int width, int height)
 {
 	assert(slot >= 0 && slot < MaxTextureSlots);
 	if (texname)
@@ -587,7 +587,7 @@ void HOEAPI GridSurface::SetTexture(int slot, const char *texname, int width, in
 	}
 }
 
-void HOEAPI GridSurface::SetModel(int slot, const char *modname)
+void HOEAPI GridSurface::SetModel(int slot, const tchar *modname)
 {
 	assert(slot >= 0 && slot < MaxTextureSlots);
 	m_models[slot].LoadModel(modname);

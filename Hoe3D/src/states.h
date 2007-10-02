@@ -43,7 +43,7 @@ public:
 	void StartWireframe();
 	void EndWireframe();
 
-	static int c_setwireframe(int argc, const char * argv[], void * param);
+	static int c_setwireframe(int argc, const tchar * argv[], void * param);
 };
 
 #endif // _HOE_STATES_SYSTEM_

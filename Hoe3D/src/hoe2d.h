@@ -22,7 +22,7 @@ public:
 	void Begin();
 	void End();
 
-	HoePicture * CreatePicture(const char *, HoeLog * log);
+	HoePicture * CreatePicture(const tchar *, HoeLog * log);
 
 	HoeFreeType * GetFreeType() { return &freetype; }
 	// user func

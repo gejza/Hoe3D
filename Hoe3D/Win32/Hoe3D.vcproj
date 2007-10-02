@@ -3534,6 +3534,10 @@
 					RelativePath="..\src\ref_d3dmobile.h"
 					>
 				</File>
+				<File
+					RelativePath="..\src\ref_d3dmobile.inl"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -5130,6 +5134,14 @@
 			<File
 				RelativePath="..\src\hoe_input_di.cpp"
 				>
+				<FileConfiguration
+					Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\hoe_input_di.h"
@@ -5243,6 +5255,14 @@
 				RelativePath="..\src\sound_al.cpp"
 				>
 				<FileConfiguration
+					Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="DebugD3DM|x64"
 					ExcludedFromBuild="true"
 					>
@@ -5258,6 +5278,14 @@
 			<File
 				RelativePath="..\src\sound_ds.cpp"
 				>
+				<FileConfiguration
+					Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="DebugD3DM|x64"
 					ExcludedFromBuild="true"
@@ -5277,6 +5305,14 @@
 			</File>
 			<File
 				RelativePath="..\src\sound_mobile.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sound_ogg.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sound_ogg.h"
 				>
 			</File>
 		</Filter>

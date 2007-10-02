@@ -170,7 +170,7 @@ ModelModifier::ModelModifier(HoeModel * model)
 	m_model = model;
 }
 
-void ModelModifier::SetMaterialTexture(int n, const char * texturename)
+void ModelModifier::SetMaterialTexture(int n, const tchar * texturename)
 {
 	// prirazeni textury k modelu
 	if (m_model->m_num_mat > n)

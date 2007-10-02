@@ -23,7 +23,7 @@ class IHoeInfo : public IHoeSystem
 {
 public:
 	virtual float HOEAPI GetFPS() = 0;
-	virtual bool HOEAPI LoadFont(const char * fontname, int height) = 0;
+	virtual bool HOEAPI LoadFont(const tchar * fontname, int height) = 0;
 	virtual void HOEAPI Show(bool enable) = 0;
 };
 

@@ -16,7 +16,7 @@ TextureLoader::~TextureLoader()
 {
 }
 
-bool TextureLoader::Load(const char * name)
+bool TextureLoader::Load(const tchar * name)
 {
 	m_reader = GetFileSystem()->FindResource_(name,IDTEXHEADER);
 	if (!m_reader)

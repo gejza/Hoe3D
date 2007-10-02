@@ -15,7 +15,7 @@ CodePage::CodePage()
 	for (wchar_t c = ' '; c <= 'z';c++)
 		AddChar(c);
 
-	GetExec()->Register("specialchars", CodePage::c_specialchars, NULL, "Register next unicode chars.");
+	GetExec()->Register(T("specialchars"), CodePage::c_specialchars, NULL, T("Register next unicode chars."));
 	//Register("quit",c_quit,NULL,"quit program");
 	//Register("quit!",c_fquit,NULL,"force quit");
 	//Register("help",c_help,NULL);
@@ -75,14 +75,18 @@ wchar_t CodePage::UTFtoUnicode(const char *&p)
 	return 'X';
 }
 
-int CodePage::c_specialchars(int argc, const char * argv[], void * param)
+int CodePage::c_specialchars(int argc, const tchar * argv[], void * param)
 {
 	for (int i=1;i < argc;i++)
 	{
-		const char * chars = argv[i];
+		const tchar * chars = argv[i];
 		while (*chars)
 		{
+#ifdef _UNICODE
+			GetCodePage()->AddChar(*chars++);
+#else
 			GetCodePage()->AddChar(UTFtoUnicode(chars));
+#endif
 		}
 	}
 	return 0;

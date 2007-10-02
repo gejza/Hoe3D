@@ -51,7 +51,7 @@ struct TGridModel
 {
 	HoeModel * mod;
 	float coigns[4];
-	bool LoadModel(const char * name);
+	bool LoadModel(const tchar * name);
 };
 
 struct TGridSurfaceTreeItem
@@ -202,9 +202,9 @@ public:
 	/** @see IHoeEnv::GridSurface::Create */
 	virtual void HOEAPI Create(float sizeX, float sizeY, int resX,int resY);
 	/** @see IHoeEnv::GridSurface::SetTexture */
-	virtual void HOEAPI SetTexture(int slot, const char * texname, int width, int height);
+	virtual void HOEAPI SetTexture(int slot, const tchar * texname, int width, int height);
 	/** @see IHoeEnv::GridSurface::SetModel */
-	virtual void HOEAPI SetModel(int slot, const char * modname);
+	virtual void HOEAPI SetModel(int slot, const tchar * modname);
 	/** @see IHoeEnv::GridSurface::GetDesc */
 	virtual void HOEAPI GetDesc(float *sizeX, float *sizeY, uint *resX,uint *resY);
 	/** @see IHoeEnv::GridSurface::SetGridDesc */

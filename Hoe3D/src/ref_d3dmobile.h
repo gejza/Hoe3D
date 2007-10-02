@@ -178,6 +178,6 @@ void ListState();
 #define D3DVECTOR D3DVECTOR
 #define D3DFORMAT D3DMFORMAT
 
-//#include "ref_d3d9.inl"
+#include "ref_d3dmobile.inl"
 
 #endif // _HOE_D3DM_

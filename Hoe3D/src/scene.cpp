@@ -185,7 +185,7 @@ IHoeEnv::GridSurface * HoeGraphScene::CreateGridSurface()
 	return g->value.grid;
 }
 
-IHoeMaterial * HoeGraphScene::GetMaterial(const char * name)
+IHoeMaterial * HoeGraphScene::GetMaterial(const tchar * name)
 {
 	HoeMaterial * m = new HoeMaterial;
 	HoeTexture * t = GetTextureSystem()->GetTexture(name);

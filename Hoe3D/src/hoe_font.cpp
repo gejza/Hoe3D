@@ -13,9 +13,9 @@
 #include "unicode.h"
 #include "hoe2d.h"
 
-HoeFont::HoeFont(const char* strFontName, uint dwHeight, float scalpha, dword dwFlags)
+HoeFont::HoeFont(const tchar* strFontName, uint dwHeight, float scalpha, dword dwFlags)
 {
-    strcpy( m_strFontName, strFontName );
+	HoeCore::string::copy( m_strFontName, strFontName, sizeof(m_strFontName)/sizeof(tchar) );
     m_dwFontHeight         = dwHeight;
     m_dwFontFlags          = dwFlags;
     m_dwSpacing            = 0;

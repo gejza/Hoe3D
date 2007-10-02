@@ -10,9 +10,9 @@ void HoeLog::Log(const char * szFormat,...)
 
 ////////////////////////////////////
 
-HoeLogConsole::HoeLogConsole(const char * name)
+HoeLogConsole::HoeLogConsole(const tchar * name)
 {
-	strcpy(m_name,name);
+	HoeCore::string::copy(m_name,name,sizeof(m_name)/sizeof(tchar));
 }
 
 void HoeLogConsole::Log(const char * szFormat,...)
@@ -32,9 +32,9 @@ void HoeLogConsole::Log(const char * szFormat,...)
 }
 
 ///////////////////////////////////////
-HoeLogFile::HoeLogFile(const char * name)
+HoeLogFile::HoeLogFile(const tchar * name)
 {
-	m_file = fopen(name,"wt"); 
+	m_file = _wfopen(name,T("wt")); 
 }
 
 HoeLogFile::~HoeLogFile()

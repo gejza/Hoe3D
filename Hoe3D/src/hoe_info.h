@@ -88,7 +88,7 @@ public:
 	~InfoSystem();
 	bool Init();
 	virtual float HOEAPI GetFPS();
-	virtual bool HOEAPI LoadFont(const char * fontname, int height);
+	virtual bool HOEAPI LoadFont(const tchar * fontname, int height);
 	virtual void HOEAPI Show(bool enable);
 	void BeginFrame();
 	void Publish();

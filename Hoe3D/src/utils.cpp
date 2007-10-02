@@ -14,7 +14,7 @@
 //////// Conzole /////////////
 XHoeConsole * _Con;
 
-void Con_Print(const tchar * szFormat,...)
+void Con_Print(const wchar_t * szFormat,...)
 {
 	if (_Con)
 	{
@@ -28,6 +28,22 @@ void Con_Print(const tchar * szFormat,...)
 
 		_Con->Con_Print(szBuff);
 	}
+}
+
+void Con_Print(const char * szFormat,...)
+{
+	/*if (_Con)
+	{
+		static char szBuff[1024];
+
+		va_list args;
+
+		va_start(args, szFormat);
+		vsnprintf( szBuff, 1024, szFormat, args );
+		va_end(args);
+
+		_Con->Con_Print(szBuff);
+	}*/
 }
 
 void Con_Print(int dlevel, const tchar * szFormat,...)

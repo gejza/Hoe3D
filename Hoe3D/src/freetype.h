@@ -55,7 +55,7 @@ private:
 public:
 	HoeFreeTypeFont(HoeFreeType * ft);
 	~HoeFreeTypeFont();
-	bool Load(const char * filename);
+	bool Load(const tchar * filename);
 	void SetHeight(long height);
 	bool GetChar(wchar_t c, FreeChar * out);
 };

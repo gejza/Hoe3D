@@ -60,7 +60,7 @@ void Hoe2D::End()
 	in_progress = false;
 }
 
-HoePicture * Hoe2D::CreatePicture(const char * name, HoeLog * log)
+HoePicture * Hoe2D::CreatePicture(const tchar * name, HoeLog * log)
 {
 	HoePicture * ret = new HoePicture;
 	if (name)

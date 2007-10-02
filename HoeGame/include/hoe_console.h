@@ -130,8 +130,8 @@ public:
 
 	void RegisterCommands(IHoe3DEngine *);
 
-	static int c_openconsole(int argc, const char * argv[], void * param); 
-	static int c_closeconsole(int argc, const char * argv[], void * param);
+	static int c_openconsole(int argc, const tchar * argv[], void * param); 
+	static int c_closeconsole(int argc, const tchar * argv[], void * param);
 };
 
 END_HOEGAME

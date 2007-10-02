@@ -287,7 +287,7 @@ uint FileSystem::AddResourceFile(const char * s)
 	return tf->GetID();
 }
 
-HoeFileReader FileSystem::FindResource_(const char * name,dword type)
+HoeFileReader FileSystem::FindResource_(const tchar * name,dword type)
 {
 	HoeFile * nf = m_flist;
 	if (type == 0) 
@@ -308,7 +308,7 @@ HoeFileReader FileSystem::FindResource_(const char * name,dword type)
 					hfres_name rn;
 					if (r.Read(&rn,sizeof(rn)))
 					{
-						if (strcmp(rn.name,name) == 0)
+						if (HoeCore::string::cmp(rn.name,name) == 0)
 							return HoeFileReader(nf, rn.filepos);
 					}
 					else

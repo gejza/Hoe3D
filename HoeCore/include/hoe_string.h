@@ -15,6 +15,20 @@ int vsnprintf(wchar_t *, size_t, const wchar_t *, va_list);
 void copy(tchar *, const char *, size_t);
 void copy(tchar *, const wchar_t *, size_t);
 
+inline int cmp(const char*s1, const char*s2)
+{
+	return ::strcmp(s1,s2);
+}
+int cmp(const char*, const wchar_t*);
+inline int cmp(const wchar_t* s1, const char* s2)
+{
+	return -cmp(s2,s1);
+}
+inline int cmp(const wchar_t* s1, const wchar_t* s2)
+{
+	return ::wcscmp(s1,s2);
+}
+
 inline size_t len(const tchar * s)
 {
 #ifdef UNICODE
@@ -25,9 +39,10 @@ inline size_t len(const tchar * s)
 }
 
 
-bool ifbegin(const tchar* begin, const tchar* str);
+inline bool ifbegin(const tchar* begin, const tchar* str) { return false; }
 
-float atof(const tchar* str);
+inline float atof(const tchar* str) { return 0; }
+inline int atoi(const tchar* str) { return 0; }
 
 } // end namespace
 

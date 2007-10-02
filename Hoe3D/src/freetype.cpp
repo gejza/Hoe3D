@@ -62,8 +62,9 @@ HoeFreeTypeFont::~HoeFreeTypeFont()
 		FT_Done_Face(face);
 }
 
-bool HoeFreeTypeFont::Load(const char * filename)
+bool HoeFreeTypeFont::Load(const tchar * filename)
 {
+#ifndef _UNICODE
 	FT_Error e;
 	if (e = FT_New_Face( freetype->GetLibrary(), filename, 0, &face )) 
 	{
@@ -72,6 +73,10 @@ bool HoeFreeTypeFont::Load(const char * filename)
 	}
 
 	return true;
+#else
+	assert(0);
+	return false;
+#endif
 }
 
 void HoeFreeTypeFont::SetHeight(long height)

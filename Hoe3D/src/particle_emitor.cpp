@@ -55,7 +55,7 @@ bool ParticleEmitor::Create(uint num_part)
 		p.posg.Set(0,0.8f,0);
 	}
 
-	m_tex = GetTextureSystem()->GetTexture("Particle");
+	m_tex = GetTextureSystem()->GetTexture(T("Particle"));
 
 	// inicializace streamu a indexu
 	if (!m_stream.Create(num_part*4, "pdt", sizeof(PartsVertex)*num_part*4))

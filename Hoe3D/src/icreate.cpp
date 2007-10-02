@@ -29,7 +29,7 @@
 
 extern "C" {
 
-void parse_load(const char *str); 
+void parse_load(const tchar *str); 
 int parse();
 const char *parser_getstring();
 
@@ -37,17 +37,17 @@ const char *parser_getstring();
 
 namespace icreate {
 
-	static char * get_string(char * buff)
+	static tchar * get_string(tchar * buff)
 	{
 		const char * str = parser_getstring();
 		if (str[0] == '\'' || str[0] == '\"')
 		{
-			strcpy(buff,str + 1);
-			int l = strlen(buff);
+			HoeCore::string::copy(buff,str + 1,0xffff);
+			int l = HoeCore::string::len(buff);
 			buff[l - 1] = '\0'; // remove last character
 		}
 		else
-			strcpy(buff,str);
+			HoeCore::string::copy(buff,str,0xffff);
 		return buff;
 	}
 
@@ -59,7 +59,7 @@ namespace icreate {
 		{
 			if (HOE_T_IS_LOGTYPE(token))
 			{
-				char logname[256] = {0};
+				tchar logname[256] = {0};
 				if (parse())
 					get_string(logname);
 				switch (token)
@@ -90,7 +90,7 @@ namespace icreate {
 	{
 		HoeLog * log = NULL;
 		int flags = 0;
-		char modelname[512];
+		tchar modelname[512];
 		if (HOE_T_IS_STRING(parse())) {
 			get_string(modelname);
 		}
@@ -111,7 +111,7 @@ namespace icreate {
 	{
 		HoeLog * log = NULL;
 		int flags = 0;
-		char picturename[256];
+		tchar picturename[256];
 		if (HOE_T_IS_STRING(parse())) {
 			get_string(picturename);
 		}
@@ -129,7 +129,7 @@ namespace icreate {
 
 	static IHoeFont * CreateFont()
 	{
-		char fontname[256];
+		tchar fontname[256];
 		int height;
 		HoeFont * f = NULL;
 
@@ -157,7 +157,7 @@ namespace icreate {
 
 	static IHoeSound * CreateSound(bool is3d)
 	{
-		char soundname[256];
+		tchar soundname[256];
 		if (HOE_T_IS_STRING(parse())) {
 			get_string(soundname);
 		}

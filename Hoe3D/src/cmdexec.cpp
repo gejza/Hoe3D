@@ -114,26 +114,26 @@ int CmdExec::RunCmd(TCmd * tcmd,const tchar *cmd)
 
 // std commands
 
-int c_quit(int argc, const char * argv[], void * param)
+int c_quit(int argc, const tchar * argv[], void * param)
 {
 	QuitGame(false,0);
 	return 0;
 }
 
-int c_fquit(int argc, const char * argv[], void * param)
+int c_fquit(int argc, const tchar * argv[], void * param)
 {
 	QuitGame(true,0);
 	return 0;
 }
 
-int c_help(int argc, const char * argv[], void * param)
+int c_help(int argc, const tchar * argv[], void * param)
 {
 	for (int i=1; i < argc;i++)
 		Con_Print("%d : %s",i,argv[i]);
 	return 0;
 }
 
-int c_list(int argc, const char * argv[], void * param)
+int c_list(int argc, const tchar * argv[], void * param)
 {
 	for (int i=0;i < numc;i++)
 	{

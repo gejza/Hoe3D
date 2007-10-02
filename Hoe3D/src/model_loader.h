@@ -25,7 +25,7 @@ class ModelLoader
 	HoeModel * LoadModel();
 public:
 	ModelLoader(HoeLog * log = NULL, int flags = 0);
-	HoeModel * LoadModel(const char * name, bool soft);
+	HoeModel * LoadModel(const tchar * name, bool soft);
 
 	HoeStream * GetStream(int id);
 	HoeIndex * GetIndex(int id);

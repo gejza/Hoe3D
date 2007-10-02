@@ -29,7 +29,11 @@ void copy(tchar *, const wchar_t *, size_t)
 {
 }
 
-
+int cmp(const char*, const wchar_t*)
+{
+	assert(0);
+	return 0;
+}
 
 } // end namespace
 

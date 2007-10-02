@@ -11,30 +11,63 @@
 
 #include "../include/hoeinterfaces.h"
 
+#ifdef _HOE_OPENAL_
+	: public SoundSystemAl
+#endif
+
+#ifdef _HOE_DS8_
+	: public SoundSystemDS
+#endif 
+
+#ifdef _HOE_SOUNDM_
+	: public SoundSystemMobile
+#endif 
+
 #if defined (_USE_D3D9_) || defined (_USE_D3D8_) 
 #include "sound_ds.h"
+typedef SoundSystemDS SoundSystemDevice;
+typedef HoeDSPlayer SoundPlayerBase;
+typedef HoeDSBuffer SoundBufferBase;
 #endif
 
 #ifdef _USE_OPENGL_
 #include "sound_al.h"
+typedef SoundSystemAl SoundSystemDevice;
+typedef HoeALPlayer SoundPlayerBase;
+typedef HoeALBuffer SoundBufferBase;
 #endif 
 
 #ifdef _USE_D3DM_
 #include "sound_mobile.h"
+typedef SoundSystemMobile SoundSystemDevice;
+typedef SoundMobilePlayer SoundPlayerBase;
+typedef SoundMobileBuffer SoundBufferBase;
 #endif
+
+class XHoeFile;
+
+struct TSoundSourceInfo
+{
+	int channels;
+	int rate;
+	int samples;
+};
+
+/**
+  @brief	Zdroj zvuku
+ */
+class SoundSource
+{
+public:
+	virtual size_t Read(byte* buff, size_t size) = 0;
+	virtual bool GetInfo(TSoundSourceInfo* info) = 0;
+};
 
 /**
   @brief	Uloziste zvuku 
  */
 
-class HoeSoundBuffer : public IHoeSound 
-#ifdef _HOE_OPENAL_
-	, public HoeALBuffer
-#endif
-
-#ifdef _HOE_DS8_
-	, public HoeDSBuffer
-#endif 
+class HoeSoundBuffer : public IHoeSound, public SoundBufferBase
 {
 	bool m_ctrl3D;
 public:
@@ -43,7 +76,8 @@ public:
 	 * Provizorni nacteni ze souboru
 	 * @todo predelat nacitani z file systemu 
 	 */
-	bool LoadFromFile(const char * filename);
+	bool LoadFromFile(const tchar * filename);
+	bool Load(SoundSource& source);
 	virtual void HOEAPI Play(bool loop) {};
 	virtual void HOEAPI Stop() {};
 	virtual void HOEAPI Delete() { delete this; }
@@ -53,14 +87,7 @@ public:
   @brief	Prehravac zvuku 
  */
 
-class HoeSoundPlayer
-#ifdef _HOE_OPENAL_
-	: public HoeALPlayer
-#endif
-
-#ifdef _HOE_DS8_
-	: public HoeDSPlayer
-#endif 
+class HoeSoundPlayer : public SoundPlayerBase
 {
 };
 
@@ -87,21 +114,14 @@ public:
   @brief	Hlavni objekt pro vytvareni zvuku. 
  */
 
-class SoundSystem
-#ifdef _HOE_OPENAL_
-	: public SoundSystemAl
-#endif
-
-#ifdef _HOE_DS8_
-	: public SoundSystemDS
-#endif 
+class SoundSystem : public SoundSystemDevice
 {
 protected:
 	/**
 	 * Nahrani bufferu ze souboru
 	 * @param name Jmeno zvuku, ktery se hleda ve File systemu
 	 */
-	HoeSoundBuffer * GetBuffer(const char * name);
+	HoeSoundBuffer * GetBuffer(const tchar * name);
 public:
 	/** Konstruktor */
 	SoundSystem();
@@ -114,7 +134,7 @@ public:
 	 * @param name Jmeno zvuku, ktery se hleda ve File systemu
 	 * @param ctrl3d Zvuk se prehrava ve 3d
 	 */
-	HoeSoundBuffer * GetSound(const char * name, bool ctrl3d);
+	HoeSoundBuffer * GetSound(const tchar * name, bool ctrl3d);
 
 };
 

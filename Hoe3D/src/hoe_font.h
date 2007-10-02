@@ -23,7 +23,7 @@ struct HoeFontCoord
 class HoeFont : public IHoeFont
 {
 public:
-    char   m_strFontName[80];            // Font properties
+    tchar   m_strFontName[80];            // Font properties
     dword   m_dwFontHeight;
     dword   m_dwFontFlags;
 	dword	m_dwSpacing;
@@ -38,7 +38,7 @@ public:
 	void CreateTexture();
 
 public:
-	HoeFont(const char* strFontName, uint dwHeight, float scaplha, dword dwFlags=0L);
+	HoeFont(const tchar* strFontName, uint dwHeight, float scaplha, dword dwFlags=0L);
 	~HoeFont();
 
 	// Initializing and destroying device-dependent objects

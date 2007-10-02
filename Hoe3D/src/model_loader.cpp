@@ -24,7 +24,7 @@ ModelLoader::ModelLoader(HoeLog * log, int flags)
 }
 
 
-HoeModel * ModelLoader::LoadModel(const char * name, bool soft)
+HoeModel * ModelLoader::LoadModel(const tchar * name, bool soft)
 {
 	LOG(m_log)->Log("LoadModel %s",name);
 
@@ -247,7 +247,7 @@ HoeMaterial * ModelLoader::GetMaterial(int id)
 
 	if (header.texsize)
 	{
-		char tex[256] = {0};
+		tchar tex[256] = {0};
 		reader.Read(tex,header.texsize);
 		LOG(m_log)->Log("Reading texture name=%s",tex);
 		mat->SetTexture(GetTextureSystem()->GetTexture(tex));
