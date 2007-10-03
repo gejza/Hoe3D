@@ -64,7 +64,7 @@ void Con_Print(int dlevel, const tchar * szFormat,...)
 	}
 }
 
-void Con_Print(HoeLog * log, const tchar * szFormat,...)
+void Con_Print(HoeLog * log, const char * szFormat,...)
 {
 	if (log)
 	{

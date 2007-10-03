@@ -9,9 +9,11 @@
 #include "hoe_texture.h"
 #include "texture_system.h"
 #include "hoe_font.h"
-#include "freetype.h"
 #include "unicode.h"
 #include "hoe2d.h"
+#ifndef _WIN32_WCE
+#include "freetype.h"
+#endif
 
 HoeFont::HoeFont(const tchar* strFontName, uint dwHeight, float scalpha, dword dwFlags)
 {
@@ -29,69 +31,11 @@ HoeFont::~HoeFont()
 
 }
 
-static void PrintCharA8L8(uint texX, uint texY, HoeFreeTypeFont::FreeChar * data,float sc_alpha, HoeTexture::LOCKRECT *lr)
-{
-    uint x, y;
-
-	// prepsat obraz znaku
-	for( y=0; y < data->height; y++ )
-	{
-		word * pDst32 = (word*)(((byte*)lr->data + (lr->pitch * (texY + y)) + texX * sizeof(word)));
-		for( x=0; x < data->width; x++ )
-		{
-			byte bAlpha = (byte)data->buffer[(y * data->pitch) + x];
-			if (bAlpha > 0)
-			{
-				const float alfaf = ((float)bAlpha) * sc_alpha;
-				byte a;
-				//Con_Print("%d %f", alfaf, (int)bAlpha);
-				//if (alfaf > 1.f) 
-					a = 0xff;
-				//else a = (byte)alfaf;
-				//Con_Print("bt");
-				*pDst32++ = (word) ((a << 8) | (bAlpha));
-			}
-			else
-			{
-				*pDst32++ = 0x00000000;
-			}
-		}
-	}
-
-}
-
-static void PrintCharA8R8G8B8(uint texX, uint texY, HoeFreeTypeFont::FreeChar * data,float sc_alpha, HoeTexture::LOCKRECT *lr)
-{
-    uint x, y;
-
-	// prepsat obraz znaku
-	for( y=0; y < data->height; y++ )
-	{
-		dword * pDst32 = (dword*)(((byte*)lr->data + (lr->pitch * (texY + y)) + texX * sizeof(dword)));
-		for( x=0; x < data->width; x++ )
-		{
-			byte bAlpha = (byte)data->buffer[(y * data->pitch) + x];
-			if (bAlpha > 0)
-			{
-				float af = bAlpha * sc_alpha;
-				byte a = af > 1.f ? 0xff:(byte)af;
-				*pDst32++ = (dword) ((a << 24) | (bAlpha << 16) | (bAlpha << 8) | bAlpha);
-			}
-			else
-			{
-				*pDst32++ = 0x00000000;
-			}
-		}
-	}
-
-}
-
 bool HoeFont::Init()
 {
-	HoeFreeTypeFont ffont(Get2D()->GetFreeType());
-	if (!ffont.Load(this->m_strFontName))
+	HoeFontRenderer * fr = GetFontRenderer(this->m_strFontName, this->m_dwFontHeight);
+	if (!fr)
 		return false;
-	ffont.SetHeight(this->m_dwFontHeight);
 
 	bool lformat = true;
 
@@ -107,6 +51,7 @@ bool HoeFont::Init()
 
 	if (!this->m_tex->Create(width,height,format))
 	{
+		fr->Release();
 		return false;
 	}
 	
@@ -128,8 +73,10 @@ bool HoeFont::Init()
 
 	for( int c = 0; c < GetCodePage()->GetNumChars(); c++ )
 	{
-		HoeFreeTypeFont::FreeChar data;
-		if (!ffont.GetChar(GetCodePage()->GetChar(c),&data))
+		// vygenerovat font
+		THoeFontCharInfo data;
+		wchar_t ch = GetCodePage()->GetChar(c);
+		if (!fr->GetCharInfo(ch, &data))
 			continue;
 		
 		// jestli se nevejde nacnout novou radku
@@ -153,10 +100,7 @@ bool HoeFont::Init()
 		if (data.width && data.height)
 		{
 			// prepsat obraz znaku
-			if (lformat)
-				PrintCharA8L8(texX,texY,&data,m_scalpha,&lr);
-			else
-				PrintCharA8R8G8B8(texX,texY,&data,m_scalpha,&lr);
+			fr->Render(ch, texX, texY, lformat ? HOE_A8L8:HOE_A8R8G8B8, m_scalpha, &lr);
 
 			// zapsat tex souradnice
 			this->m_fTexCoords[c].x1 = texX / 256.f;
@@ -175,6 +119,7 @@ bool HoeFont::Init()
 	}
 
     m_tex->Unlock();
+	fr->Release();
 
 	Con_Print("Create font: %s %d",this->m_strFontName,this->m_dwFontHeight);
     return true;

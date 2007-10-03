@@ -105,7 +105,7 @@ int HoeMobile::GetMsg(IHoe3DEngine * eng)
 
 	m_enginstance = eng;
 
-	while (PeekMessageW( &msg, NULL, 0U, 0U, PM_REMOVE ))
+	for (int i=5;i < 5 && PeekMessageW( &msg, NULL, 0U, 0U, PM_REMOVE );i++)
     {
         TranslateMessage (&msg) ;
 		DispatchMessageW (&msg) ;
@@ -189,3 +189,14 @@ LRESULT CALLBACK HoeMobile::MsgProc (HWND hwnd,UINT message, WPARAM wParam, LPAR
 
 
 END_HOEGAME
+
+extern "C" {
+// facked functions
+int isatty(int fildes)
+{
+	return 0;
+}
+
+}
+
+

@@ -10,6 +10,11 @@ namespace HoeCore {
 
 namespace string {
 
+int vsnprintf(char *, size_t, const char *, va_list)
+{
+	return 0;
+}
+
 int vsnprintf(wchar_t *, size_t, const char *, va_list)
 {
 	return 0;

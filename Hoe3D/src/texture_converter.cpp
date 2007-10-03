@@ -7,6 +7,7 @@
 #include "../include/hfmt/htex_file.h"
 #include "texture_loader.h"
 #include "texture_converter.h"
+#include "texture_hx.h"
 
 TextureConverter::TextureConverter(TextureLoader * l,HoeLog * log)
 {

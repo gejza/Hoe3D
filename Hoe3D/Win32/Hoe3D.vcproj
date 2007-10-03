@@ -2603,6 +2603,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
+				Optimization="0"
 				InlineFunctionExpansion="0"
 				PreprocessorDefinitions="_USE_D3DM_;HOE_STATIC_ENGINE"
 				RuntimeLibrary="3"
@@ -2611,6 +2612,7 @@
 				PrecompiledHeaderFile=".\$(IntDir)/StdAfx.pch"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -3564,11 +3566,23 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\texture_convjpg.cpp"
+				RelativePath="..\src\texture_hx.h"
 				>
 			</File>
 			<File
-				RelativePath="..\src\texture_convpng.cpp"
+				RelativePath="..\src\texture_jpg.cpp"
+				>
+				<FileConfiguration
+					Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\src\texture_jpg.h"
 				>
 			</File>
 			<File
@@ -3577,6 +3591,22 @@
 			</File>
 			<File
 				RelativePath="..\src\texture_loader.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\texture_png.cpp"
+				>
+				<FileConfiguration
+					Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\src\texture_png.h"
 				>
 			</File>
 			<File
@@ -4422,6 +4452,14 @@
 			<File
 				RelativePath="..\src\freetype.cpp"
 				>
+				<FileConfiguration
+					Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\freetype.h"

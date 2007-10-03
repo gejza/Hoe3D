@@ -36,16 +36,7 @@ public:
 class HoeFreeTypeFont
 {
 public:
-	struct FreeChar
-	{
-		uint width; // sirka znaku
-		uint pitch; // posun
-		uint height; // vyska znaku
-		int left; // posun znaku
-		int top; // posun znaku dolu
-		int movex; // odsun znaku
-		unsigned char* buffer; // data
-	};
+
 private:
 	HoeFreeType * freetype;
 

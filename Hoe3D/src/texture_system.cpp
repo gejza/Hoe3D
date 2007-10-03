@@ -11,7 +11,11 @@
 #include "texture_converter.h"
 #include "hoe_texture.h"
 #include "texture_system.h"
-
+#ifndef _WIN32_WCE
+#include "texture_jpg.h"
+#include "texture_png.h"
+#endif
+#include "texture_hx.h"
 
 TextureSystem::TextureSystem()
 {
@@ -40,9 +44,17 @@ HoeTexture * TextureSystem::GetTexture(const tchar * name, HoeLog * log)
 		TextureConverter * conv = NULL;
 		if (loader.GetHeader().format == HOE_JPEG)
 			// jpeg conv
+#ifdef PRESENT_JPG
 			conv = new TextureConverterJPG(&loader,m_log);
+#else
+			assert(0);
+#endif
 		else if (loader.GetHeader().format == HOE_PNG)
+#ifdef PRESENT_JPG
 			conv = new TextureConverterPNG(&loader,m_log);
+#else
+			assert(0);
+#endif
 		else
 			conv = new TextureConverterHX(&loader,m_log);
 

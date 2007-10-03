@@ -100,22 +100,24 @@ bool HoeApp::Init(const tchar * title, int sdkver)
 	if (!this->RegisterApp())
 		return false;
 
+    int iScreenWidth = GetSystemMetrics(SM_CXSCREEN);
+    int iScreenHeight = GetSystemMetrics(SM_CYSCREEN);
+
+	if (!CreateWin(title,iScreenWidth,iScreenHeight,true))
+		return false;
+
 	if (!LoadEngine(sdkver))
 		return false;
 
 	his.hInst = m_hInstance;
 	his.fullscreen = m_fullscreen.GetBool();
 	his.forcewnd = false;
-	his.win = 0;
-	his.width =  m_width.GetInt();
-	his.height = m_height.GetInt();
+	his.win = m_hWnd;
+	his.width =  iScreenWidth;
+	his.height = iScreenHeight;
 
 	if (!HoeGame::GetHoeEngine()->Init(&his))
 		return false;
-
-	m_hWnd = his.win;
-
-	m_con->SetCallback(NULL);
 
 	if (!GetMsg(HoeGame::GetHoeEngine()))
 		exit(0);

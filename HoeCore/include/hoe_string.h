@@ -8,6 +8,8 @@ namespace HoeCore {
 
 namespace string {
 
+#undef vsnprintf
+
 int vsnprintf(char *, size_t, const char *, va_list);
 int vsnprintf(char *, size_t, const wchar_t *, va_list);
 int vsnprintf(wchar_t *, size_t, const char *, va_list);
@@ -92,10 +94,10 @@ public:
 	int printf(const char * szFormat, ...) { return 0; }
 	const String & operator = (const char * s) {  return *this; }
 	const String & operator = (const wchar_t * s)  {  return *this; }
-	operator bool ();
-	size_t Length();
-	void Export(char *, size_t size);
-	operator const tchar * () const;
+	operator bool () { return false; }
+	size_t Length() { return 0; }
+	void Export(char *, size_t size) {}
+	operator const tchar * () const { return T(""); }
 };
 
 } // namespace HoeCore

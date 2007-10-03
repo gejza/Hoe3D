@@ -3,7 +3,6 @@
 #define _HOE_2D_
 
 #include "../include/hoeinterfaces.h"
-#include "freetype.h"
 
 class HoeLog;
 class HoePicture;
@@ -24,8 +23,6 @@ public:
 
 	HoePicture * CreatePicture(const tchar *, HoeLog * log);
 
-	//HoeFreeType * GetFreeType() { return &freetype; }
-	
     // user func
 	void SetRect(const float w,const float h);
 

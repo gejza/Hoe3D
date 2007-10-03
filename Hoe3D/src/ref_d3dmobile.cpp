@@ -21,51 +21,47 @@ IDirect3DMobileDevice * RefD3DM::m_Dev = NULL;
 
 RefD3DM::RefD3DM()
 {
-	/*Con_Print("------ Direct X 9.0 ------");
-	m_pD3D = Direct3DCreate9(D3D_SDK_VERSION);
+	Con_Print("------ Direct X Mobile ------");
+	m_pD3D = Direct3DMobileCreate( D3DM_SDK_VERSION );
 
-	m_Adapter = D3DADAPTER_DEFAULT;
-	uint max = m_pD3D->GetAdapterCount();
-	m_Adapter = max - 1;
 	// mode
-	D3DFORMAT f = D3DFMT_X8R8G8B8;
-	uint modes = m_pD3D->GetAdapterModeCount(m_Adapter, f);
+	uint modes = m_pD3D->GetAdapterModeCount(0);
 	for (int i=0;i < modes;i++)
 	{
-		D3DDISPLAYMODE mode;
-		m_pD3D->EnumAdapterModes(m_Adapter, f, i, &mode);
+		D3DMDISPLAYMODE mode;
+		m_pD3D->EnumAdapterModes(m_Adapter, i, &mode);
 		i=i;
-	}*/
+	}
 }
 
 bool RefD3DM::Init(THoeInitSettings * his)
 {
-	/*HRESULT hRes;
+	HRESULT hRes;
 	m_hWnd = his->win;
 	
 	m_Fullscreen = GetConfig()->IsFullscreen();
 	m_Width = GetConfig()->GetWidthView();
 	m_Height = GetConfig()->GetHeightView();
 
-	D3DADAPTER_IDENTIFIER9 ai;
+	D3DMADAPTER_IDENTIFIER ai;
 	hRes = m_pD3D->GetAdapterIdentifier(m_Adapter,0,&ai);
-	if (hRes == D3DERR_INVALIDCALL)
+	if (FAILED(hRes))
 	{
-		Con_Print("IDirect3D9::GetAdapterIdentifier failed");
+		Con_Print("IDirect3DMobile::GetAdapterIdentifier failed");
 		return false;
 	}
-	Con_Print("%s %s %s",ai.DeviceName,ai.Driver,ai.Description);
+	Con_Print("%s %s",ai.Driver,ai.Description);
 
-    hRes = m_pD3D->CheckDeviceType(m_Adapter,D3DDEVTYPE_HAL,D3DFMT_X8R8G8B8,D3DFMT_X8R8G8B8,FALSE);
-	if (hRes == D3DERR_INVALIDCALL)
+    /*hRes = m_pD3D->CheckDeviceType(m_Adapter,D3DMDEVTYPE_DEFAULT,D3DFMT_X8R8G8B8,D3DFMT_X8R8G8B8,FALSE);
+	if (FAILED(hRes))
 	{
 		Con_Print("HAL on adapter %s not supported!",m_Adapter);
 		return false;
-	}
+	}*/
 
-	D3DPRESENT_PARAMETERS d3dpp; 
+	D3DMPRESENT_PARAMETERS d3dpp; 
 	ZeroMemory( &d3dpp, sizeof(d3dpp) );
-	if (!m_Fullscreen)
+	/*if (!m_Fullscreen)
 	{
 		d3dpp.Windowed = TRUE;
 		d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
@@ -74,30 +70,32 @@ bool RefD3DM::Init(THoeInitSettings * his)
 		d3dpp.AutoDepthStencilFormat = D3DFMT_D24X8;
 	}
 	else
-	{
-		d3dpp.Windowed = FALSE;
-		d3dpp.SwapEffect = D3DSWAPEFFECT_FLIP;
-		d3dpp.BackBufferFormat = D3DFMT_X8R8G8B8;
-		d3dpp.EnableAutoDepthStencil = TRUE;
-		d3dpp.AutoDepthStencilFormat = D3DFMT_D24X8;
-		d3dpp.BackBufferWidth = m_Width;
-		d3dpp.BackBufferHeight = m_Height;
-		d3dpp.BackBufferCount = 1;
-		d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
-	}
+	{*/
+	    int iScreenWidth = GetSystemMetrics(SM_CXSCREEN);
+    int iScreenHeight = GetSystemMetrics(SM_CYSCREEN);
 
-	hRes = m_pD3D->CreateDevice( m_Adapter, D3DDEVTYPE_HAL, m_hWnd,
-                                  D3DCREATE_HARDWARE_VERTEXPROCESSING,
+		d3dpp.Windowed = FALSE;
+		d3dpp.SwapEffect = D3DMSWAPEFFECT_FLIP;
+		d3dpp.BackBufferFormat = D3DMFMT_R5G6B5;
+		d3dpp.EnableAutoDepthStencil = TRUE;
+		d3dpp.AutoDepthStencilFormat = D3DMFMT_D16;
+		d3dpp.BackBufferWidth = iScreenWidth;
+		d3dpp.BackBufferHeight = iScreenHeight;
+		d3dpp.BackBufferCount = 1;
+	//}
+
+	hRes = m_pD3D->CreateDevice( m_Adapter, D3DMDEVTYPE_DEFAULT, m_hWnd,
+                                  0,
                                   &d3dpp, &m_Dev );
 	if (FAILED( hRes ))
 	{
 		Con_Print("Hardware vertex processing not supported!");
-		hRes = m_pD3D->CreateDevice( m_Adapter, D3DDEVTYPE_HAL, m_hWnd,
+		/*hRes = m_pD3D->CreateDevice( m_Adapter, D3DDEVTYPE_HAL, m_hWnd,
 									D3DCREATE_MIXED_VERTEXPROCESSING,
-									&d3dpp, &m_Dev );
+									&d3dpp, &m_Dev );*/
 	}
 
-	if (FAILED( hRes ))
+	/*if (FAILED( hRes ))
 	{
 		Con_Print("Use software vertex processing!");
 		hRes = m_pD3D->CreateDevice( m_Adapter, D3DDEVTYPE_HAL, m_hWnd,
@@ -114,7 +112,7 @@ bool RefD3DM::Init(THoeInitSettings * his)
 	m_Dev->GetDeviceCaps(&m_Caps);
 
 	return true;*/
-	return false;
+	return true;
 }
 
 bool RefD3DM::Begin()
@@ -134,7 +132,7 @@ void RefD3DM::End()
 void RefD3DM::ClearBuffers(bool target, bool depth)
 {
 	// Clear the back buffer to a blue color
-	//m_Dev->Clear( 0, NULL, (target?D3DCLEAR_TARGET:0) | (depth?D3DCLEAR_ZBUFFER:0), m_BackColor, 1.0f, 0 );
+	m_Dev->Clear( 0, NULL, (target?D3DMCLEAR_TARGET:0) | (depth?D3DMCLEAR_ZBUFFER:0), m_BackColor, 1.0f, 0 );
 }
 
 void RefD3DM::Destroy()

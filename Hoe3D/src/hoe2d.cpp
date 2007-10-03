@@ -9,7 +9,6 @@
 #include "states.h"
 #include "hoe_picture.h"
 #include "hoe2d.h"
-#include "freetype.h"
 
 #ifdef _HOE_D3D_
 struct HOE2D_VERTEXCT
@@ -35,8 +34,6 @@ Hoe2D::Hoe2D()
 	in_progress = false;
 	m_maxX = 0.0f;
 	m_maxY = 0.0f;
-
-	freetype.Init();
 
 	Con_Print("Hoe 2d system created");
 }
