@@ -20,7 +20,7 @@ public:
 	Model * CreateObj(IHoeModel * m, float x, float y);
 	bool LoadScene();
 	ModelApp(HOE_INSTANCE instance, HoeGame::Console * con);
-	virtual const char * GetAppName() { return "ModelApp"; }
+	virtual const tchar * GetAppName() { return T("ModelApp"); }
 	virtual void OnUpdate(float time);
 
 };

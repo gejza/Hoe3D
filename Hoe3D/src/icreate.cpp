@@ -27,19 +27,15 @@
 #include <hoe_log.h>
 #pragma hdrstop
 
-extern "C" {
-
 void parse_load(const tchar *str); 
 int parse();
-const char *parser_getstring();
-
-}
+const tchar *parser_getstring();
 
 namespace icreate {
 
 	static tchar * get_string(tchar * buff)
 	{
-		const char * str = parser_getstring();
+		const tchar * str = parser_getstring();
 		if (str[0] == '\'' || str[0] == '\"')
 		{
 			HoeCore::string::copy(buff,str + 1,0xffff);
@@ -142,7 +138,7 @@ namespace icreate {
 		}
 
 		if (parse() == HOE_T_INT) {
-			height = atoi(parser_getstring());
+			height = HoeCore::string::atoi(parser_getstring());
 		}
 		else {
 			Con_Print("parse error: missing font height");
@@ -191,7 +187,7 @@ namespace icreate {
 		int type = parse();
 		float size = 1;
 		if (parse() == HOE_T_INT) {
-			size = (float)atof(parser_getstring());
+			size = (float)HoeCore::string::atof(parser_getstring());
 		}
 		else {
 			Con_Print("parse error: missing box size");

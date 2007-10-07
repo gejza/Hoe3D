@@ -8,7 +8,7 @@
 
 #ifndef _HOE_D3DM_
 #define _HOE_D3DM_
-//#define _HOE_D3D_
+#define _HOE_D3DA_
 
 #ifdef _DEBUG
 #define D3D_DEBUG_INFO
@@ -25,7 +25,7 @@
 #define FVF_TEX1		(1 << 5)
 #define FVF_TEX2		(1 << 6)
 
-#define RESERVE_PAR ,NULL
+#define RESERVE_PAR
 typedef void** D3DLOCKTYPE;
 
 typedef IDirect3DMobileDevice * SysDevice;
@@ -34,8 +34,8 @@ typedef IDirect3DMobileIndexBuffer * SysIndexBuffer;
 
 typedef IDirect3DMobileVertexBuffer * SysVertexBuffer;
 
-/*typedef D3DMATERIAL9 D3DMaterial;
-typedef D3DVIEWPORT9 D3DViewport;*/
+typedef D3DMMATERIAL D3DMaterial;
+/*typedef D3DVIEWPORT9 D3DViewport;*/
 typedef D3DMLIGHT D3DLight;
 
 struct THoeInitSettings;
@@ -166,6 +166,9 @@ public:
 	* Zruseni DIRECT3D
 	*/
 	void Destroy();
+
+	// utils
+	static const char * GetErrorString(HRESULT hRes);
 };
 
 /**
@@ -177,6 +180,66 @@ void ListState();
 
 #define D3DVECTOR D3DVECTOR
 #define D3DFORMAT D3DMFORMAT
+
+#define D3DUSAGE_WRITEONLY		D3DMUSAGE_WRITEONLY
+#define D3DUSAGE_DYNAMIC		D3DMUSAGE_DYNAMIC
+#define D3DFMT_INDEX16			D3DMFMT_INDEX16
+#define D3DPOOL_DEFAULT			D3DMPOOL_MANAGED
+
+#define D3DRS_FILLMODE                  D3DMRS_FILLMODE                  
+#define D3DRS_SHADEMODE                 D3DMRS_SHADEMODE                 
+#define D3DRS_ZWRITEENABLE              D3DMRS_ZWRITEENABLE              
+#define D3DRS_ALPHATESTENABLE           D3DMRS_ALPHATESTENABLE           
+#define D3DRS_LASTPIXEL                 D3DMRS_LASTPIXEL                 
+#define D3DRS_SRCBLEND                  D3DMRS_SRCBLEND                  
+#define D3DRS_DESTBLEND                 D3DMRS_DESTBLEND                 
+#define D3DRS_CULLMODE                  D3DMRS_CULLMODE                  
+#define D3DRS_ZFUNC                     D3DMRS_ZFUNC                     
+#define D3DRS_ALPHAREF                  D3DMRS_ALPHAREF                  
+#define D3DRS_ALPHAFUNC                 D3DMRS_ALPHAFUNC                 
+#define D3DRS_DITHERENABLE              D3DMRS_DITHERENABLE              
+#define D3DRS_ALPHABLENDENABLE          D3DMRS_ALPHABLENDENABLE          
+#define D3DRS_FOGENABLE                 D3DMRS_FOGENABLE                 
+#define D3DRS_SPECULARENABLE            D3DMRS_SPECULARENABLE            
+#define D3DRS_FOGCOLOR                  D3DMRS_FOGCOLOR                  
+#define D3DRS_FOGTABLEMODE              D3DMRS_FOGTABLEMODE              
+#define D3DRS_FOGSTART                  D3DMRS_FOGSTART                  
+#define D3DRS_FOGEND                    D3DMRS_FOGEND                    
+#define D3DRS_FOGDENSITY                D3DMRS_FOGDENSITY                
+#define D3DRS_DEPTHBIAS                 D3DMRS_DEPTHBIAS                 
+#define D3DRS_RANGEFOGENABLE            D3DMRS_RANGEFOGENABLE            
+#define D3DRS_STENCILENABLE             D3DMRS_STENCILENABLE             
+#define D3DRS_STENCILFAIL               D3DMRS_STENCILFAIL               
+#define D3DRS_STENCILZFAIL              D3DMRS_STENCILZFAIL              
+#define D3DRS_STENCILPASS               D3DMRS_STENCILPASS               
+#define D3DRS_STENCILFUNC               D3DMRS_STENCILFUNC               
+#define D3DRS_STENCILREF                D3DMRS_STENCILREF                
+#define D3DRS_STENCILMASK               D3DMRS_STENCILMASK               
+#define D3DRS_STENCILWRITEMASK          D3DMRS_STENCILWRITEMASK          
+#define D3DRS_TEXTUREFACTOR             D3DMRS_TEXTUREFACTOR           #define D3DMRS_TEXTUREPERSPECTIVE        D3DRS_TEXTUREPERSPECTIVE        
+#define D3DRS_WRAP0                     D3DMRS_WRAP0                     
+#define D3DRS_WRAP1                     D3DMRS_WRAP1                     
+#define D3DRS_WRAP2                     D3DMRS_WRAP2                     
+#define D3DRS_WRAP3                     D3DMRS_WRAP3                     
+#define D3DRS_CLIPPING                  D3DMRS_CLIPPING                  
+#define D3DRS_LIGHTING                  D3DMRS_LIGHTING                  
+#define D3DRS_AMBIENT                   D3DMRS_AMBIENT                   
+#define D3DRS_FOGVERTEXMODE             D3DMRS_FOGVERTEXMODE             
+#define D3DRS_COLORVERTEX               D3DMRS_COLORVERTEX               
+#define D3DRS_LOCALVIEWER               D3DMRS_LOCALVIEWER               
+#define D3DRS_NORMALIZENORMALS          D3DMRS_NORMALIZENORMALS          
+#define D3DRS_DIFFUSEMATERIALSOURCE     D3DMRS_DIFFUSEMATERIALSOURCE     
+#define D3DRS_SPECULARMATERIALSOURCE    D3DMRS_SPECULARMATERIALSOURCE    
+#define D3DRS_AMBIENTMATERIALSOURCE     D3DMRS_AMBIENTMATERIALSOURCE     
+#define D3DRS_COLORWRITEENABLE          D3DMRS_COLORWRITEENABLE          
+#define D3DRS_BLENDOP                   D3DMRS_BLENDOP                   
+#define D3DRS_ZENABLE                   D3DMRS_ZENABLE                   
+#define D3DRS_SLOPESCALEDEPTHBIAS       D3DMRS_SLOPESCALEDEPTHBIAS       
+
+#define D3DFILL_POINT					D3DMFILL_POINT
+#define D3DFILL_WIREFRAME				D3DMFILL_WIREFRAME
+#define D3DFILL_SOLID					D3DMFILL_SOLID
+
 
 #include "ref_d3dmobile.inl"
 

@@ -10,7 +10,7 @@
 	/>
 	<Tool
 		Name="VCLinkerTool"
-		AdditionalDependencies="HoeCore_d.lib lua5.1_d.lib"
+		AdditionalDependencies="HoeCore_d.lib lua5.1_d.lib HoeGame_d.lib Hoe3D_D3DMobile_d.lib d3dm.lib"
 		AdditionalLibraryDirectories="..\..\bin_ce"
 	/>
 </VisualStudioPropertySheet>

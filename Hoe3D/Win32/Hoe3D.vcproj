@@ -2606,7 +2606,9 @@
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				PreprocessorDefinitions="_USE_D3DM_;HOE_STATIC_ENGINE"
+				StringPooling="true"
 				RuntimeLibrary="3"
+				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderThrough="../../src/StdAfx.h"
 				PrecompiledHeaderFile=".\$(IntDir)/StdAfx.pch"
@@ -4025,30 +4027,6 @@
 				RelativePath="..\src\icreate_parser.l"
 				>
 				<FileConfiguration
-					Name="DebugD3D9|Win32"
-					>
-					<Tool
-						Name="Flex"
-						Lang="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DebugD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-					>
-					<Tool
-						Name="Flex"
-						Lang="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DebugD3D9|x64"
-					>
-					<Tool
-						Name="Flex"
-						Lang="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="ReleaseD3D9|Win32"
 					>
 					<Tool
@@ -4233,7 +4211,10 @@
 					>
 					<Tool
 						Name="Flex"
-						Lang="1"
+						AdditionalOptions=""
+						Unicode="true"
+						Skeleton="$(InputDir)..\..\HoeCore\template\hoe_flex.skl"
+						Output="$(InputDir)\$(InputName).yyu.cpp"
 					/>
 				</FileConfiguration>
 			</File>
@@ -5678,40 +5659,8 @@
 			Name="Generated"
 			>
 			<File
-				RelativePath="..\src\icreate_parser.yy.c"
+				RelativePath="..\src\icreate_parser.yyu.cpp"
 				>
-				<FileConfiguration
-					Name="DebugD3D9|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DebugD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DebugD3D9|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\material_parser.c"

@@ -455,6 +455,18 @@
 			>
 		</File>
 		<File
+			RelativePath="..\src\hoe_flex.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\include\hoe_flex.h"
+			>
+		</File>
+		<File
+			RelativePath="..\template\hoe_flex.skl"
+			>
+		</File>
+		<File
 			RelativePath="..\src\hoe_log.cpp"
 			>
 		</File>

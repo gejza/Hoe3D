@@ -9,6 +9,7 @@
 #ifndef _HOE_D3D9_
 #define _HOE_D3D9_
 #define _HOE_D3D_
+#define _HOE_D3DA_
 
 #ifdef _DEBUG
 #define D3D_DEBUG_INFO

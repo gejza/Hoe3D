@@ -79,7 +79,7 @@ public:
 	virtual void OnSize(int width, int height);
 	virtual void OnPaint();
 
-	virtual const char * GetTitle();
+	virtual const tchar * GetTitle();
 
 	static BaseConsole * GetConsole()
 	{

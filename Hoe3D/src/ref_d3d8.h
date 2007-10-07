@@ -9,6 +9,7 @@
 #ifndef _HOE_D3D8_
 #define _HOE_D3D8_
 #define _HOE_D3D_
+#define _HOE_D3DA_
 
 #include <d3d8.h>
 #include "ref_base.h"

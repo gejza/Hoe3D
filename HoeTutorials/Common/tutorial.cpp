@@ -13,7 +13,7 @@ bool HoeTutorial::InitTutorial(HOE_TYPE_SCENE ts)
 		return false;
 
 	GetEngine()->SetActiveScene(GetEngine()->CreateScene(ts));
-	HoeGetInfo(GetEngine())->LoadFont("../data/font.ttf",12);
+	HoeGetInfo(GetEngine())->LoadFont(T("../data/font.ttf"),12);
 
 	return true;
 }

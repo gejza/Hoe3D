@@ -10,7 +10,7 @@
 #include "hoe_picture.h"
 #include "hoe2d.h"
 
-#ifdef _HOE_D3D_
+#ifdef _HOE_D3DA_
 struct HOE2D_VERTEXCT
 {
 	FLOAT x, y, z; // The transformed position for the vertex.
@@ -122,6 +122,20 @@ void Hoe2D::PaintRect(const float l,const float r,const float t,const float b,un
 	};
 	D3DDevice()->SetFVF(D3DFVF_XYZ|D3DFVF_DIFFUSE);
 	D3DDevice()->DrawPrimitiveUP(D3DPT_TRIANGLEFAN,2,pv,sizeof(HOE2D_VERTEXC));
+#endif // _HOE_D3D9_
+#ifdef _HOE_D3DM_
+	HRESULT hRes;
+	IDirect3DMobileSurface* pbb;
+	hRes = D3DDevice()->GetBackBuffer(0, D3DMBACKBUFFER_TYPE_MONO, &pbb);
+	checkres(hRes, "IDirect3dMobileDevice::GetBackBuffer");
+	RECT rect;
+	rect.left = 10;
+	rect.right = 100;
+	rect.top = 10;
+	rect.bottom = 100;
+	hRes = D3DDevice()->ColorFill(pbb, &rect, color);
+	checkres(hRes, "IDirect3dMobileDevice::ColorFill");
+	pbb->Release();
 #endif // _HOE_D3D9_
 
 }

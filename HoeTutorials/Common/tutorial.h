@@ -35,13 +35,13 @@
 #include <hoe_app.h>
 #include <hoe_utils.h>
 
-extern const char * g_TutorialName;
+extern const tchar * g_TutorialName;
 
 class HoeTutorial : public HoeGame::HoeApp
 {
 public:
 	HoeTutorial(HOE_INSTANCE instance, HoeGame::Console * con);
-	virtual const char * GetAppName() { return g_TutorialName; }
+	virtual const tchar * GetAppName() { return g_TutorialName; }
 	virtual bool InitTutorial(HOE_TYPE_SCENE ts);
 };
 

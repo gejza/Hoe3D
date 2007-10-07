@@ -1,7 +1,7 @@
 
 #include "model_app.h"
 
-const char * g_TutorialName = "models";
+const tchar * g_TutorialName = T("models");
 
 const int n_light = 2;
 
@@ -52,7 +52,7 @@ bool ModelApp::LoadScene()
 //	HoeGetInput(GetEngine())->RegisterKeyboard(&m_view);
 	HoeGetInput(GetEngine())->RegisterMouse(IHoeInput::MT_Foreground, &m_view);
 
-	IHoeModel * lght = (IHoeModel*)GetEngine()->Create("generate model box 5");
+	IHoeModel * lght = (IHoeModel*)GetEngine()->Create(T("generate model box 5"));
 	if (!lght)
 		return false;
 
@@ -89,7 +89,7 @@ bool ModelApp::LoadScene()
 	if (!mod1)
 		return false;*/
 	//IHoeModel * mod2 = (IHoeModel*)GetEngine()->Create("model angel file:'angel.txt' -dump");
-	IHoeModel * mod2 = (IHoeModel*)GetEngine()->Create("model jackolan");
+	IHoeModel * mod2 = (IHoeModel*)GetEngine()->Create(T("model jackolan"));
 	//IHoeModel * mod2 = (IHoeModel*)GetEngine()->Create("generate model box 40");
 	if (!mod2)
 		return false;

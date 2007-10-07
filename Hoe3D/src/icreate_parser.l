@@ -51,9 +51,9 @@ name    ({alpha}|\$)({alpha}|{dig}|[_\-/$:@#%^&*])*
 
 %%
 
-void parse_load(const char *str)
+void parse_load(const tchar *str)
 {
-	yy_scan_string (str);
+	yy_scan_string ((const YY_CHAR *)str);
 } 
 
 int parse()
@@ -61,9 +61,9 @@ int parse()
 	return yylex();
 }
 
-const char *parser_getstring()
+const tchar *parser_getstring()
 {
-	return yytext;
+	return (const tchar*)yytext;
 }
 
 

@@ -331,18 +331,23 @@ void Hoe3D::Destroy()
 
 IHoeScene * Hoe3D::CreateScene(HOE_TYPE_SCENE type)
 {
+	IHoeScene * scene = NULL;
 	switch (type)
 	{
 	case HOETS_2D:
-		return new Hoe2DScene();
+		scene = new Hoe2DScene();
+		break;
 	case HOETS_NORMAL:
-		return new HoeScene();
+		scene = new HoeScene();
+		break;
 	case HOETS_GRAPH:
-		return new HoeGraphScene();
+		scene = new HoeGraphScene();
+		break;
 	default:
 		assert(false && "neimpletentovano");
 		return NULL;
 	};
+	return scene;
 }
 
 void Hoe3D::SetActiveScene(IHoeScene * scene)

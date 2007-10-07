@@ -879,30 +879,6 @@
 			<File
 				RelativePath="..\src\lang_parser.l"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="Flex"
-						Lang="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-					>
-					<Tool
-						Name="Flex"
-						Lang="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					>
-					<Tool
-						Name="Flex"
-						Lang="1"
-					/>
-				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
@@ -1831,30 +1807,6 @@
 			<File
 				RelativePath="..\src\config_parser.l"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="Flex"
-						Lang="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-					>
-					<Tool
-						Name="Flex"
-						Lang="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					>
-					<Tool
-						Name="Flex"
-						Lang="1"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\hoe_config.cpp"

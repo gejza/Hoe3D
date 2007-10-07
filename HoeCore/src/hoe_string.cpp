@@ -30,8 +30,13 @@ void copy(tchar *, const char *, size_t)
 	
 }
 
-void copy(tchar *, const wchar_t *, size_t)
+void copy(tchar * dest, const wchar_t * src, size_t n)
 {
+#ifdef UNICODE
+	wcscpy(dest, src);
+#else
+	assert(0);
+#endif
 }
 
 int cmp(const char*, const wchar_t*)

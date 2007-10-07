@@ -143,7 +143,7 @@ void ParticleEmitor::Render(const HoeCamera * cam)
 	m_stream.Unlock();
 	GetStates()->EnableTexture();
 	GetTextureSystem()->SetTexture(0,m_tex);
-#ifdef _HOE_D3D_
+#ifdef _HOE_D3DN_
 	//D3DDevice()->SetRenderState( D3DRS_LIGHTING, FALSE );
 
     D3DDevice()->SetRenderState( D3DRS_SRCBLEND,  D3DBLEND_SRCALPHA );
@@ -159,7 +159,7 @@ void ParticleEmitor::Render(const HoeCamera * cam)
 	D3DDevice()->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
     D3DDevice()->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE); 
     D3DDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE); 
-    D3DDevice()->SetRenderState(D3DRS_ZWRITEENABLE, FALSE); 
+    D3DDevice()->SetRenderState(D3DRS_ZWRITEENABLE, FALSE); `
 #endif
 
 	Ref::DrawStdObject(&m_stream,&m_index);

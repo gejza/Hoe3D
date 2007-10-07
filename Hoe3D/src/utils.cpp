@@ -124,7 +124,6 @@ void QuitGame(bool hard, int code)
 //////////////////////////////
 #ifdef _HOE_D3D_
 
-
 void d3derr(const char * file, dword line, const char * fnc, const char *ffnc,HRESULT hRes)
 {
 	if (FAILED(hRes))
@@ -146,11 +145,30 @@ void d3derr(const char * file, dword line, const char * fnc, const char *ffnc,HR
 	}
 }
 #endif
-//////////////////////////////
-#ifdef _WIN32
-#define snprintf _snprintf
-#endif
+#ifdef _HOE_D3DM_
 
+void d3derr(const char * file, dword line, const char * fnc, const char *ffnc,HRESULT hRes)
+{
+	if (FAILED(hRes))
+	{
+		char buff[2048];
+		_snprintf(buff, sizeof(buff)-1,
+			"File: %s\n"
+			"Line: %d\n"
+			"In Function: %s\n"
+			"Function: %s\n"
+			"HRESULT: %s\n"
+			"Program will exit..", file, line, ffnc,fnc, Ref::GetErrorString(hRes));
+		Con_Print("HRESULT failed!");
+		Con_Print("%s",buff);
+
+		//MessageBox(GetActiveWindow(), buff, "HRESULT failed!", MB_OK);
+		// call stack
+		__debugbreak();
+	}
+}
+#endif
+//////////////////////////////
 #ifdef _HOE_OPENGL_
 const char * glstrerror(int code)
 {

@@ -211,9 +211,9 @@ void HoeApp::OnUpdate(float time)
 {
 }
 
-const char * HoeApp::GetTitle()
+const tchar * HoeApp::GetTitle()
 {
-	return "HoeGame!";
+	return T("HoeGame!");
 }
 
 void HoeApp::Run()
