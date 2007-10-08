@@ -199,34 +199,43 @@
 	</References>
 	<Files>
 		<File
-			RelativePath="..\tests\coretest.cpp"
+			RelativePath="..\test\coretest.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\tests\flex.l"
+			RelativePath="..\test\flex.l"
 			>
 			<FileConfiguration
 				Name="Debug|Win32"
 				>
 				<Tool
 					Name="Flex"
-					Lang="false"
-					Skeleton="../template/hoe_flex.skl"
-					Output="$(InputDir)\flex.yy.cpp"
-				/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Release|Win32"
-				>
-				<Tool
-					Name="Flex"
-					Skeleton="../templates/hoe_flex.skl"
-					Output="../templates/hoe_flex.skl"
+					Skeleton="$(InputDir)\..\template\hoe_flex_empty.skl"
 				/>
 			</FileConfiguration>
 		</File>
 		<File
-			RelativePath="..\tests\flex.yy.cpp"
+			RelativePath="..\test\flex.yy.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\test\heap.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\test\keylist.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\test\string.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\test\structures.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\test\universal.cpp"
 			>
 		</File>
 	</Files>

@@ -446,6 +446,23 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="Flex"
+			Filter="*.skl"
+			>
+			<File
+				RelativePath="..\template\hoe_flex.skl"
+				>
+			</File>
+			<File
+				RelativePath="..\template\hoe_flex_2.5.33.skl"
+				>
+			</File>
+			<File
+				RelativePath="..\template\hoe_flex_empty.skl"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath="..\src\hoe_core.cpp"
 			>
@@ -460,10 +477,6 @@
 		</File>
 		<File
 			RelativePath="..\include\hoe_flex.h"
-			>
-		</File>
-		<File
-			RelativePath="..\template\hoe_flex.skl"
 			>
 		</File>
 		<File
