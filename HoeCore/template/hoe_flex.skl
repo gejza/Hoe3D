@@ -8,9 +8,9 @@
 #define YY_FLEX_MAJOR_VERSION 2
 #define YY_FLEX_MINOR_VERSION 5
 
-%-
+//%-
 #include <stdio.h>
-%*
+//%*
 
 
 /* cfront 1.2 defines "c_plusplus" instead of "__cplusplus" */
@@ -22,12 +22,15 @@
 
 
 #include <stdlib.h>
+#ifdef _WIN32
 #include <windows.h>
+#endif
 #include <hoe_types.h>
 
 #define yyconst const
 
-%% YY_CHAR and YY_SC_TO_UI() go here
+//%% YY_CHAR and YY_SC_TO_UI() go here
+typedef tchar YY_CHAR; 
 
 /* Returned upon end-of-file. */
 #define YY_NULL 0
@@ -59,9 +62,9 @@
 typedef struct yy_buffer_state *YY_BUFFER_STATE;
 
 extern int yyleng;
-%-
+//%-
 extern FILE *yyin, *yyout;
-%*
+//%*
 
 #define EOB_ACT_CONTINUE_SCAN 0
 #define EOB_ACT_END_OF_FILE 1
@@ -105,11 +108,11 @@ typedef unsigned int yy_size_t;
 
 struct yy_buffer_state
 	{
-%-
+//%-
 	FILE *yy_input_file;
-%+
-	istream* yy_input_file;
-%*
+//%+
+//	istream* yy_input_file;
+//%*
 
 	YY_CHAR *yy_ch_buf;		/* input buffer */
 	YY_CHAR *yy_buf_pos;		/* current position in input buffer */
@@ -164,9 +167,9 @@ struct yy_buffer_state
 #define YY_BUFFER_EOF_PENDING 2
 	};
 
-%- Standard (non-C++) definition
+//%- Standard (non-C++) definition
 static YY_BUFFER_STATE yy_current_buffer = 0;
-%*
+//%*
 
 /* We provide macros for accessing buffer states in case in the
  * future we want to put the buffer states in a more general
@@ -175,7 +178,7 @@ static YY_BUFFER_STATE yy_current_buffer = 0;
 #define YY_CURRENT_BUFFER yy_current_buffer
 
 
-%- Standard (non-C++) definition
+//%- Standard (non-C++) definition
 /* yy_hold_char holds the character lost when yytext is formed. */
 static YY_CHAR yy_hold_char;
 
@@ -211,7 +214,7 @@ YY_BUFFER_STATE yy_scan_string ( const YY_CHAR *yy_str );
  * confusion since a character may now be 1 or 2 bytes.
  */
 YY_BUFFER_STATE yy_scan_chars ( const YY_CHAR *chars, int len );
-%*
+//%*
 
 static void *yy_flex_alloc ( yy_size_t );
 static void *yy_flex_realloc ( void *, yy_size_t );
@@ -237,12 +240,12 @@ static void yy_flex_free ( void * );
 
 %% yytext/yyin/yyout/yy_state_type/yylineno etc. def's & init go here
 
-%- Standard (non-C++) definition
+//%- Standard (non-C++) definition
 static yy_state_type yy_get_previous_state ( void );
 static yy_state_type yy_try_NUL_trans ( yy_state_type current_state );
 static int yy_get_next_buffer ( void );
 static void yy_fatal_error ( const char msg[] );
-%*
+//%*
 
 /* Done after the current pattern has been matched and before the
  * corresponding action - sets up yytext.
@@ -263,11 +266,11 @@ static void yy_fatal_error ( const char msg[] );
 
 int yywrap ( void );
 
-%-
+//%-
 #ifndef YY_NO_UNPUT
 static void yyunput ( int c, YY_CHAR *buf_ptr );
 #endif
-%*
+//%*
 
 #ifndef yytext_ptr
 static void yy_flex_strncpy ( YY_CHAR *, const YY_CHAR *, int );
@@ -278,13 +281,13 @@ static int yy_flex_strlen ( const YY_CHAR * );
 #endif
 
 #ifndef YY_NO_INPUT
-%- Standard (non-C++) definition
+//%- Standard (non-C++) definition
 #ifdef __cplusplus
 static int yyinput ( void );
 #else
 static int input ( void );
 #endif
-%*
+//%*
 #endif
 
 #if YY_STACK_USED
@@ -330,14 +333,14 @@ YY_MALLOC_DECL
 /* Copy whatever the last rule matched to the standard output. */
 
 #ifndef ECHO
-%- Standard (non-C++) definition
+//%- Standard (non-C++) definition
 /* This used to be an fputs(), but since the string might contain NUL's,
  * we now use fwrite().
  */
 #define ECHO (void) fwrite( yytext, sizeof( YY_CHAR ), yyleng, yyout )
-%+ C++ definition
-#define ECHO LexerOutput( yytext, yyleng )
-%*
+//%+ C++ definition
+//#define ECHO LexerOutput( yytext, yyleng )
+//%*
 #endif
 
 /* Gets input and stuffs it into "buf".  number of characters read, or YY_NULL,
@@ -346,10 +349,10 @@ YY_MALLOC_DECL
 #ifndef YY_INPUT
 #define YY_INPUT(buf,result,max_size) \
 %% fread()/read() definition of YY_INPUT goes here unless we're doing C++
-%+ C++ definition
-	if ( (result = LexerInput( buf, max_size )) < 0 ) \
-		YY_FATAL_ERROR( "input in flex scanner failed" );
-%*
+//%+ C++ definition
+//	if ( (result = LexerInput( buf, max_size )) < 0 ) \
+//		YY_FATAL_ERROR( "input in flex scanner failed" );
+//%*
 #endif
 
 /* No semi-colon after return; correct usage is to write "yyterminate();" -
@@ -367,22 +370,22 @@ YY_MALLOC_DECL
 
 /* Report a fatal error. */
 #ifndef YY_FATAL_ERROR
-%-
+//%-
 #define YY_FATAL_ERROR(msg) yy_fatal_error( msg )
-%+
-#define YY_FATAL_ERROR(msg) LexerError( msg )
-%*
+//%+
+//#define YY_FATAL_ERROR(msg) LexerError( msg )
+//%*
 #endif
 
 /* Default declaration of generated scanner - a define so the user can
  * easily add parameters.
  */
 #ifndef YY_DECL
-%- Standard (non-C++) definition
+//%- Standard (non-C++) definition
 #define YY_DECL int yylex ( void )
-%+ C++ definition
-#define YY_DECL int yyFlexLexer::yylex()
-%*
+//%+ C++ definition
+//#define YY_DECL int yyFlexLexer::yylex()
+//%*
 #endif
 
 /* Code executed at the beginning of each rule, after yytext and yyleng
@@ -419,18 +422,18 @@ YY_DECL
 			yy_start = 1;	/* first start state */
 
 		if ( ! yyin )
-%-
+//%-
 			yyin = stdin;
-%+
-			yyin = &cin;
-%*
+//%+
+//			yyin = &cin;
+//%*
 
 		if ( ! yyout )
-%-
+//%-
 			yyout = stdout;
-%+
-			yyout = &cout;
-%*
+//%+
+//			yyout = &cout;
+//%*
 
 		if ( ! yy_current_buffer )
 			yy_current_buffer =
@@ -598,7 +601,7 @@ do_action:	/* This label is used only to access EOF actions. */
 		} /* end of scanning one token */
 	} /* end of yylex */
 
-%+
+/*%+
 yyFlexLexer::yyFlexLexer( istream* arg_yyin, ostream* arg_yyout )
 	{
 	yyin = arg_yyin;
@@ -680,7 +683,7 @@ void yyFlexLexer::LexerOutput( const YY_CHAR* buf, int size )
 	{
 	(void) yyout->write((unsigned char *)  buf, size * sizeof( YY_CHAR ) );
 	}
-%*
+*///%*
 
 /* yy_get_next_buffer - try to read in a new buffer
  *
@@ -690,11 +693,11 @@ void yyFlexLexer::LexerOutput( const YY_CHAR* buf, int size )
  *	EOB_ACT_END_OF_FILE - end of file
  */
 
-%-
+//%-
 static int yy_get_next_buffer()
-%+
-int yyFlexLexer::yy_get_next_buffer()
-%*
+//%+
+//int yyFlexLexer::yy_get_next_buffer()
+//%*
 	{
 	register YY_CHAR *dest = yy_current_buffer->yy_ch_buf;
 	register YY_CHAR *source = yytext_ptr;
@@ -827,11 +830,11 @@ int yyFlexLexer::yy_get_next_buffer()
 
 /* yy_get_previous_state - get the state just before the EOB char was reached */
 
-%-
+//%-
 static yy_state_type yy_get_previous_state()
-%+
-yy_state_type yyFlexLexer::yy_get_previous_state()
-%*
+//%+
+//yy_state_type yyFlexLexer::yy_get_previous_state()
+//%*
 	{
 	register yy_state_type yy_current_state;
 	register YY_CHAR *yy_cp;
@@ -853,11 +856,11 @@ yy_state_type yyFlexLexer::yy_get_previous_state()
  *	next_state = yy_try_NUL_trans( current_state );
  */
 
-%-
+//%-
 static yy_state_type yy_try_NUL_trans( yy_state_type yy_current_state )
-%+
-yy_state_type yyFlexLexer::yy_try_NUL_trans( yy_state_type yy_current_state )
-%*
+//%+
+//yy_state_type yyFlexLexer::yy_try_NUL_trans( yy_state_type yy_current_state )
+//%*
 	{
 	register int yy_is_jam;
 %% code to find the next state, and perhaps do backing up, goes here
@@ -866,12 +869,12 @@ yy_state_type yyFlexLexer::yy_try_NUL_trans( yy_state_type yy_current_state )
 	}
 
 
-%-
+//%-
 #ifndef YY_NO_UNPUT
 static void yyunput( int c, register YY_CHAR *yy_bp )
-%+
-void yyFlexLexer::yyunput( int c, register YY_CHAR* yy_bp )
-%*
+//%+
+//void yyFlexLexer::yyunput( int c, register YY_CHAR* yy_bp )
+//%*
 	{
 	register YY_CHAR *yy_cp = yy_c_buf_p;
 
@@ -907,20 +910,20 @@ void yyFlexLexer::yyunput( int c, register YY_CHAR* yy_bp )
 	yy_hold_char = *yy_cp;
 	yy_c_buf_p = yy_cp;
 	}
-%-
+//%-
 #endif	/* ifndef YY_NO_UNPUT */
-%*
+//%*
 
 
-%-
+//%-
 #ifdef __cplusplus
 static int yyinput()
 #else
 static int input()
 #endif
-%+
-int yyFlexLexer::yyinput()
-%*
+///%+
+//int yyFlexLexer::yyinput()
+//%*
 	{
 	int c;
 
@@ -990,11 +993,11 @@ int yyFlexLexer::yyinput()
 	}
 
 
-%-
+//%-
 void yyrestart( FILE *input_file )
-%+
-void yyFlexLexer::yyrestart( istream* input_file )
-%*
+//%+
+//void yyFlexLexer::yyrestart( istream* input_file )
+//%*
 	{
 	if ( ! yy_current_buffer )
 		yy_current_buffer = yy_create_buffer( yyin, YY_BUF_SIZE );
@@ -1004,11 +1007,11 @@ void yyFlexLexer::yyrestart( istream* input_file )
 	}
 
 
-%-
+//%-
 void yy_switch_to_buffer( YY_BUFFER_STATE new_buffer )
-%+
-void yyFlexLexer::yy_switch_to_buffer( YY_BUFFER_STATE new_buffer )
-%*
+///%+
+//void yyFlexLexer::yy_switch_to_buffer( YY_BUFFER_STATE new_buffer )
+//%*
 	{
 	if ( yy_current_buffer == new_buffer )
 		return;
@@ -1033,11 +1036,11 @@ void yyFlexLexer::yy_switch_to_buffer( YY_BUFFER_STATE new_buffer )
 	}
 
 
-%-
+//%-
 void yy_load_buffer_state( void )
-%+
+//%+
 void yyFlexLexer::yy_load_buffer_state()
-%*
+//%*
 	{
 	yy_n_chars = yy_current_buffer->yy_n_chars;
 	yytext_ptr = yy_c_buf_p = yy_current_buffer->yy_buf_pos;
@@ -1046,11 +1049,11 @@ void yyFlexLexer::yy_load_buffer_state()
 	}
 
 
-%-
+//%-
 YY_BUFFER_STATE yy_create_buffer( FILE *file, int size )
-%+
+//%+
 YY_BUFFER_STATE yyFlexLexer::yy_create_buffer( istream* file, int size )
-%*
+//%*
 	{
 	YY_BUFFER_STATE b;
 
@@ -1076,11 +1079,11 @@ YY_BUFFER_STATE yyFlexLexer::yy_create_buffer( istream* file, int size )
 	}
 
 
-%-
+//%-
 void yy_delete_buffer( YY_BUFFER_STATE b )
-%+
-void yyFlexLexer::yy_delete_buffer( YY_BUFFER_STATE b )
-%*
+//%+
+//void yyFlexLexer::yy_delete_buffer( YY_BUFFER_STATE b )
+//%*
 	{
 	if ( ! b )
 		return;
@@ -1095,11 +1098,11 @@ void yyFlexLexer::yy_delete_buffer( YY_BUFFER_STATE b )
 	}
 
 
-%-
+//%-
 void yy_init_buffer( YY_BUFFER_STATE b, FILE *file )
-%+
+//%+
 void yyFlexLexer::yy_init_buffer( YY_BUFFER_STATE b, istream* file )
-%*
+//%*
 
 	{
 	yy_flush_buffer( b );
@@ -1110,11 +1113,11 @@ void yyFlexLexer::yy_init_buffer( YY_BUFFER_STATE b, istream* file )
 	}
 
 
-%-
+//%-
 void yy_flush_buffer( YY_BUFFER_STATE b )
-%+
-void yyFlexLexer::yy_flush_buffer( YY_BUFFER_STATE b )
-%*
+//%+
+//void yyFlexLexer::yy_flush_buffer( YY_BUFFER_STATE b )
+//%*
 	{
 	if ( ! b )
 		return;
@@ -1136,11 +1139,11 @@ void yyFlexLexer::yy_flush_buffer( YY_BUFFER_STATE b )
 	if ( b == yy_current_buffer )
 		yy_load_buffer_state();
 	}
-%*
+//%*
 
 
 #ifndef YY_NO_SCAN_BUFFER
-%-
+//%-
 YY_BUFFER_STATE yy_scan_buffer( YY_CHAR *base, yy_size_t size )
 	{
 	YY_BUFFER_STATE b;
@@ -1169,12 +1172,12 @@ YY_BUFFER_STATE yy_scan_buffer( YY_CHAR *base, yy_size_t size )
 
 	return b;
 	}
-%*
+//%*
 #endif
 
 
 #ifndef YY_NO_SCAN_STRING
-%-
+//%-
 YY_BUFFER_STATE yy_scan_string( const YY_CHAR *yy_str )
 	{
 	int len;
@@ -1183,12 +1186,12 @@ YY_BUFFER_STATE yy_scan_string( const YY_CHAR *yy_str )
 
 	return yy_scan_chars( yy_str, len );
 	}
-%*
+//%*
 #endif
 
 
 #ifndef YY_NO_SCAN_BYTES
-%-
+//%-
 YY_BUFFER_STATE yy_scan_chars( const YY_CHAR *chars, int len )
 	{
 	YY_BUFFER_STATE b;
@@ -1218,16 +1221,16 @@ YY_BUFFER_STATE yy_scan_chars( const YY_CHAR *chars, int len )
 
 	return b;
 	}
-%*
+//%*
 #endif
 
 
 #ifndef YY_NO_PUSH_STATE
-%-
+//%-
 static void yy_push_state( int new_state )
-%+
+//%+
 void yyFlexLexer::yy_push_state( int new_state )
-%*
+//%*
 	{
 	if ( yy_start_stack_ptr >= yy_start_stack_depth )
 		{
@@ -1256,11 +1259,11 @@ void yyFlexLexer::yy_push_state( int new_state )
 
 
 #ifndef YY_NO_POP_STATE
-%-
+//%-
 static void yy_pop_state()
-%+
+//%+
 void yyFlexLexer::yy_pop_state()
-%*
+//%*
 	{
 	if ( --yy_start_stack_ptr < 0 )
 		YY_FATAL_ERROR( "start-condition stack underflow" );
@@ -1271,11 +1274,11 @@ void yyFlexLexer::yy_pop_state()
 
 
 #ifndef YY_NO_TOP_STATE
-%-
+//%-
 static int yy_top_state()
-%+
+//%+
 int yyFlexLexer::yy_top_state()
-%*
+//%*
 	{
 	return yy_start_stack[yy_start_stack_ptr - 1];
 	}
@@ -1285,21 +1288,21 @@ int yyFlexLexer::yy_top_state()
 #define YY_EXIT_FAILURE 2
 #endif
 
-%-
+//%-
 static void yy_fatal_error( const char msg[] )
 	{
 	(void) fprintf( stderr, "%s\n", msg );
 	exit( YY_EXIT_FAILURE );
 	}
 
-%+
+//%+
 
 void yyFlexLexer::LexerError( const char msg[] )
 	{
 	cerr << msg << '\n';
 	exit( YY_EXIT_FAILURE );
 	}
-%*
+//%*
 
 
 /* Redefine yyless() so it works in section 3 code. */

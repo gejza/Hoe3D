@@ -16,14 +16,12 @@
 
 	return ((ctime.tv_sec % 100000) + ctime.tv_usec * 0.000001f);
 }*/
+int test_flex();
 
 int main()
 {
-    HoeCore::Universal u;
-    u = "aaa";
-    printf("%s : %s\n", u.GetTypeName(), (const tchar*)u);
-	u = 1;
-    printf("%s : %s\n", u.GetTypeName(), (const tchar*)u);
+    test_flex();
+    
     return 0;
 }
 

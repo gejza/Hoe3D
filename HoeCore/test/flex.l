@@ -1,16 +1,6 @@
 %option prefix="yycreate"
 %{
-//#ifdef yywrap
-//#undef yywrap
-//#else
-//#define yyconfigwrap yywrap
-static int yywrap() { return 1; } 
-//#endif
 #include <stdlib.h>
-//int mylineno = 0;
-//using namespace std;
-
-//extern Object * act;
 %}
 
 ws      [ \t]+
@@ -34,20 +24,16 @@ name    ({alpha}|\$)({alpha}|{dig}|[_\-/$:@#%^&*])*
 
 %%
 
-void parse_load(const tchar *str)
+int test_flex()
 {
-	yy_scan_string ((const YY_CHAR *)str);
+    int a;
+	yy_scan_string ("testovaci string");
+    while (a = yylex())
+    {
+        printf("%d %s\n",a,yytext);
+    }
+    return 0;
 } 
-
-int parse()
-{
-	return yylex();
-}
-
-const tchar *parser_getstring()
-{
-	return (const tchar*)yytext;
-}
 
 
 

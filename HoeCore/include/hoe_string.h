@@ -50,7 +50,11 @@ inline bool ifbegin(const tchar* begin, const tchar* str) { return false; }
 inline float atof(const tchar* str) { return 0; }
 inline int atoi(const tchar* str) { return 0; }
 
-int scanf(const char *, const char *, ...);
+inline int scanf(const char *, const char *, ...)
+{
+    assert(0);
+    return 0;
+}
 
 } // end namespace
 
