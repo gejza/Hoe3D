@@ -1,7 +1,7 @@
 AUTOMAKE_OPTIONS = subdir-objects
 
 lib_LIBRARIES = ../bin/libHoeCore.a
-#bin_PROGRAMS = ../bin/Hoe3D.so
+noinst_PROGRAMS = HoeCoreTest
 
 #src/config_parser.cpp: src/config_parser.l
 #	flex -o src/config_parser.cpp src/config_parser.l
@@ -17,4 +17,8 @@ src/hoe_string.cpp \
 src/hoe_universal.cpp
 
 ___bin_libHoeCore_a_LDFLAGS = -static
+
+HoeCoreTest_SOURCES = test/coretest.cpp
+
+
 

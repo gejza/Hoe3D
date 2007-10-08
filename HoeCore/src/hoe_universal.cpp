@@ -1,6 +1,7 @@
 
 #include "StdAfx.h"
 #include "../include/hoe_core.h"
+#include "../include/hoe_string.h"
 #include "../include/hoe_universal.h"
 
 namespace HoeCore {
@@ -183,9 +184,9 @@ unsigned long Universal::GetUnsigned() const
 			register unsigned long ret = 0;
 			register const tchar * str = GetStringValue();
 			if (str[0] == '0' && str[1] == 'x')
-				swscanf(str+2, T("%x"), &ret);
+				string::scanf(str+2, T("%x"), &ret);
 			else
-				swscanf(str, T("%d"), &ret);
+				string::scanf(str, T("%d"), &ret);
 			return ret;
 		}
 	case TypeDecimal: return (unsigned long)value.l;
@@ -206,9 +207,9 @@ long Universal::GetDecimal() const
 			register long ret = 0;
 			register const tchar * str = GetStringValue();
 			if (str[0] == '0' && str[1] == 'x')
-				swscanf(str+2, T("%x"), &ret);
+				string::scanf(str+2, T("%x"), &ret);
 			else
-				swscanf(str, T("%d"), &ret);
+				string::scanf(str, T("%d"), &ret);
 			return ret;
 		}
 	case TypeDecimal: return value.l;
@@ -230,13 +231,13 @@ float Universal::GetFloat() const
 			if (str[0] == '0' && str[1] == 'x')
 			{
 				register float ret = 0;
-				swscanf(str+2, T("%x"), &ret);
+                string::scanf(str+2, T("%x"), &ret);
 				return (float)ret;
 			}
 			else
 			{
 				register float ret = 0.f;
-				swscanf(str, T("%f"), &ret);
+                string::scanf(str, T("%f"), &ret);
 				return ret;
 			}
 		}

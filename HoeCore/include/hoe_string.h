@@ -28,7 +28,11 @@ inline int cmp(const wchar_t* s1, const char* s2)
 }
 inline int cmp(const wchar_t* s1, const wchar_t* s2)
 {
+#ifdef _LINUX
+    return 0;
+#else
 	return ::wcscmp(s1,s2);
+#endif
 }
 
 inline size_t len(const tchar * s)
@@ -45,6 +49,8 @@ inline bool ifbegin(const tchar* begin, const tchar* str) { return false; }
 
 inline float atof(const tchar* str) { return 0; }
 inline int atoi(const tchar* str) { return 0; }
+
+int scanf(const char *, const char *, ...);
 
 } // end namespace
 
