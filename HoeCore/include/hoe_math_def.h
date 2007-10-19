@@ -22,21 +22,17 @@ namespace HoeMath {
 struct Rect;
 class Matrix;
 
-struct Vector2
+template<class fieldtype> struct Vector2
 {
-	union {
-		struct {
-			float x;
-			float y;
-		};
-		float m[2];
-	};
+	fieldtype x;
+	fieldtype y;
+	
 	Vector2() { };
-	Vector2(float X,float Y)
+	Vector2(const fieldtype& X, const fieldtype& Y)
 	{
 		x = X;y = Y;
 	}
-	Vector2(float * v)
+	Vector2(fieldtype * v)
 	{
 		x = v[0];y = v[1];
 	}
@@ -49,67 +45,41 @@ struct Vector2
 		x = v.x;y = v.y;
 		return *this;
 	}
-	HOE_INLINE void Set(float X,float Y)
+	HOE_INLINE void Set(fieldtype X,fieldtype Y)
 	{
 		x = X;y = Y;
 	}
-	HOE_INLINE double Magnitude(void) const;
-	HOE_INLINE float MagnitudeF(void) const;
-
-};
-
-template<class TYPE> struct Vector2T
-{
-	union {
-		struct {
-			TYPE x;
-			TYPE y;
-		};
-		TYPE m[2];
-	};
-	Vector2T() { };
-	Vector2T(TYPE X,TYPE Y)
-	{
-		x = X;y = Y;
-	}
-	Vector2T(TYPE * v)
-	{
-		x = v[0];y = v[1];
-	}
-	const Vector2T operator + ( const Vector2T& v ) const
-	{
-		return Vector2Ex(x + v.x, y + v.y);
-	}
-	const Vector2T& operator = ( const Vector2T& v )
-	{
-		x = v.x;y = v.y;
-		return *this;
-	}
-	bool operator == ( const Vector2T& v ) const
+	bool operator == ( const Vector2& v ) const
 	{
 		return (x == v.x && y == v.y);
 	}
+    HOE_INLINE double Magnitude(void) const
+    {
+        return sqrt( (x * x) + (y * y));
+    }
+
+    HOE_INLINE float MagnitudeF(void) const
+    {
+        return sqrtf( (x * x) + (y * y));
+    }
+
 };
 
-typedef Vector2T<int> Vector2Int;
+typedef Vector2<float> Vector2f;
+typedef Vector2<int> Vector2i;
 
-struct Vector3
+template<class fieldtype> struct Vector3
 {
-	union {
-		struct {
-			float x;
-			float y;
-			float z;
-		};
-		float m[3];
-	};
+    fieldtype x;
+    fieldtype y;
+    fieldtype z;
 
 	Vector3() { };
-	Vector3(float X,float Y,float Z)
+	Vector3(fieldtype X,fieldtype Y,fieldtype Z)
 	{
 		x = X;y = Y;z = Z;
 	}
-	Vector3(float * v)
+	Vector3(fieldtype * v)
 	{
 		x = v[0];y = v[1]; z = v[2];
 	}
@@ -177,7 +147,7 @@ struct Vector3
 	HOE_INLINE const Vector3 & Multiply(const Matrix &);
 	/** Funkce slozi vektor z nejvetsich slozek */
 	HOE_INLINE void Max(const Vector3 & v);
-	/** Funkce slozi vektor z nejvetsich slozek */
+	/** Funkce slozi vektor z nejmensich slozek */
 	HOE_INLINE void Min(const Vector3 & v);
 
 	Vector3 &operator *= (const Matrix &m)
@@ -193,17 +163,17 @@ struct Vector3
 #endif
 };
 
+typedef Vector3<float> Vector3f;
+typedef Vector3<int> Vector3i;
+typedef Vector3<double> Vector3d;
+
+
 struct Vector4
 {
-	union {
-		struct {
-			float x;
-			float y;
-			float z;
-			float w;
-		};
-		float m[4];
-	};
+    float x;
+    float y;
+    float z;
+    float w;
 
 	Vector4() { };
 	Vector4(const float X,const float Y,const float Z,const float W)
@@ -234,7 +204,7 @@ struct Quat
 		x = X;y = Y;z = Z;w = W;
 	}
 
-	void Create(const Vector3 &v, const float angle)
+	void Create(const Vector3f &v, const float angle)
 	{
 		const float a = sinf(angle * 0.5f);
 		x = a * v.x;
@@ -261,12 +231,12 @@ struct Rect
 	float top;
 	float right;
 	float bottom;
-	bool IsVectorInXY(Vector3 &v)
+	bool IsVectorInXY(Vector3f &v)
 	{
 		return (v.x > left && v.x < right && v.y > top && v.y < bottom);
 	}
 
-	bool IsVectorOnXY(Vector3 &v)
+	bool IsVectorOnXY(Vector3f &v)
 	{
 		// return (v.x+TOL >= left && v.x-TOL <= right && v.y+TOL >= top && v.y-TOL <= bottom);
 		return (v.x >= left && v.x <= right && v.y >= top && v.y <= bottom);
@@ -337,17 +307,17 @@ struct Plane
 		c /= magnitude;
 		d /= magnitude; 
 	}
-	float Func(const Vector3 & p) const
+	float Func(const Vector3f & p) const
 	{
 		return a * p.x + b * p.y + c * p.z + d;
 	}
 };
 
-struct Triangle
+template<class fieldtype> struct Triangle
 {
-	Vector3 a;
-	Vector3 b;
-	Vector3 c;
+	Vector3<fieldtype> a;
+	Vector3<fieldtype> b;
+	Vector3<fieldtype> c;
 	void SignXY(Rect &rect)
 	{
 		rect.More(a.x,a.y);
@@ -381,7 +351,7 @@ struct Line2
 		b = x1 - x2;
 		c = -a*x1 - b*y1;
 	}
-	void SetXY(const Vector2 &v1,const Vector2 &v2)
+	void SetXY(const Vector2f &v1,const Vector2f &v2)
 	{
 		a = v2.y - v1.y;
 		b = v1.x - v2.x;
@@ -430,8 +400,8 @@ template<class TYPE> struct VLineT
 	}
 };
 
-typedef VLineT<Vector2Int> VLine2Int;
-typedef VLineT<Vector2> VLine2;
+typedef VLineT<Vector2i> VLine2i;
+typedef VLineT<Vector2f> VLine2f;
 
 class Matrix
 {
@@ -469,15 +439,15 @@ public:
 	HOE_INLINE void RotationZ(const float angle);
 	HOE_INLINE void Scale(const float s);
 	HOE_INLINE void Scale(const float sx,const float sy,const float sz);
-	HOE_INLINE void Scale(const Vector3 &s);
+	HOE_INLINE void Scale(const Vector3f &s);
 	HOE_INLINE void Translate(const float x,const float y,const float z);
-	HOE_INLINE void Translate(const Vector3 &v);
+	HOE_INLINE void Translate(const Vector3f &v);
 	HOE_INLINE float Inverse(const Matrix &m);
 	HOE_INLINE void Adjung(const Matrix &m);
 	HOE_INLINE void Transpoze(const Matrix &m);
 	HOE_INLINE void Transpoze();
 
-	HOE_INLINE void Camera(const Vector3 &pos,const Vector3 &look);
+	HOE_INLINE void Camera(const Vector3f &pos,const Vector3f &look);
 	HOE_INLINE void Ortho(const float w,const float h,const float zn,const float zf);
 	HOE_INLINE void Ortho(const float l,const float r,const float b,const float t,const float zn,const float zf);
 	HOE_INLINE void Perspective(const float w,const float h,const float zn,const float zf);
@@ -490,19 +460,19 @@ public:
 	void ConPrint();
 };
 
-struct BoundingBox3
+template<class fieldtype> struct BoundingBox3
 {
-	Vector3 min;
-	Vector3 max;
+	Vector3<fieldtype> min;
+	Vector3<fieldtype> max;
 	float ball;
-	HOE_INLINE void Set(const Vector3 & v);
-	HOE_INLINE void Add(const Vector3 & v);	
+	HOE_INLINE void Set(const Vector3<fieldtype> & v);
+	HOE_INLINE void Add(const Vector3<fieldtype> & v);	
 	HOE_INLINE void Set(const BoundingBox3 & b);
 	HOE_INLINE void Add(const BoundingBox3 & b);
-	HOE_INLINE void Compute(const Vector3 *first, dword numvert, uint stride);
+	HOE_INLINE void Compute(const Vector3<fieldtype> *first, dword numvert, uint stride);
 };
 
-
+typedef BoundingBox3<float> BoundingBox3f;
 
 };
 

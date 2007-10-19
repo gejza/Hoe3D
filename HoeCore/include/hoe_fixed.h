@@ -6,6 +6,10 @@
 
 namespace HoeMath {
 
+#ifdef _LINUX
+    typedef int64_t _int64;
+#endif
+
 typedef int fxtype;
 const int fxbits = 16;
 const float fxbase = (float)(1 << fxbits);
@@ -14,8 +18,8 @@ class fixed
 {
 	fxtype n;
 public:
-	fixed() {}
-	fixed(int a) { n = a; }
+	/*fixed() {}
+	fixed(int a) { n = a; }*/
 	fixed& operator = (const float a)
 	{
 		n = (fxtype)(a * fxbase);
@@ -26,29 +30,43 @@ public:
 		n = a << fxbits;
 		return *this;
 	}
-	fixed operator * (const fixed& a)
+	fixed operator * (const fixed& a) const
 	{
-		return ((int)(((_int64)(a.n) * (_int64)(n)) >> fxbits));
+        fixed ret;
+		ret.n = ((fxtype)(((_int64)(a.n) * (_int64)(n)) >> fxbits));
+        return ret;
 	}
-	fixed operator / (const fixed& a)
+	fixed operator / (const fixed& a) const
 	{
-		return (int)(((_int64)(n) << fxbits) / (_int64)(a.n));
+        fixed ret;
+		ret.n = (fxtype)(((_int64)(n) << fxbits) / (_int64)(a.n));
+        return ret;
 		
 
 	}
-	fixed operator + (const fixed& a)
-	{
-		return fixed(n + a.n);
+	fixed operator + (const fixed& a) const
+    {
+        fixed ret;
+        ret.n = n + a.n;
+        return ret;
 	}
-	fixed operator - (const fixed& a)
+	fixed operator - (const fixed& a) const
 	{
-		return fixed(n - a.n);
+        fixed ret;
+        ret.n = n - a.n;
+        return ret;
 	}
-	operator float ()
+	fixed operator - (const int a) const
+	{
+        fixed ret;
+        ret.n = n - (a << fxbits);
+        return ret;
+	}
+	operator float () const
 	{
 		return n  / fxbase;
 	}
-	operator int ()
+	operator int () const
 	{
 		return n >> fxbits;
 	}
