@@ -151,9 +151,8 @@ void d3derr(const char * file, dword line, const char * fnc, const char *ffnc,HR
 {
 	if (FAILED(hRes))
 	{
-		char buff[2048];
-		_snprintf(buff, sizeof(buff)-1,
-			"File: %s\n"
+		HoeCore::String_s<2048> buff;
+		buff.printf("File: %s\n"
 			"Line: %d\n"
 			"In Function: %s\n"
 			"Function: %s\n"
@@ -162,7 +161,7 @@ void d3derr(const char * file, dword line, const char * fnc, const char *ffnc,HR
 		Con_Print("HRESULT failed!");
 		Con_Print("%s",buff);
 
-		//MessageBox(GetActiveWindow(), buff, "HRESULT failed!", MB_OK);
+		MessageBox(GetActiveWindow(), buff, T("HRESULT failed!"), MB_OK);
 		// call stack
 		__debugbreak();
 	}

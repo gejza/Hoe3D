@@ -47,10 +47,35 @@ inline size_t len(const tchar * s)
 
 inline bool ifbegin(const tchar* begin, const tchar* str) { return false; }
 
-inline float atof(const tchar* str) { return 0; }
+inline float atof(const tchar* str) 
+{  //TODO optimalizovat
+#ifdef _UNICODE
+	float p=0.f;
+	// dec
+	while (*str >= '0' && *str <= '9')
+	{
+		p = p * 10.f + (*str++ - '0');
+	}
+	if (*str++ != '.')
+		return p;
+	float e = 0.1f;
+	while (*str >= '0' && *str <= '9')
+	{
+		p += e * (*str++ - '0');
+		e /= 10.f;
+	}
+	return p;	
+#endif
+}
 inline int atoi(const tchar* str) { return 0; }
 
 inline int scanf(const char *, const char *, ...)
+{
+    assert(0);
+    return 0;
+}
+
+inline int scanf(const tchar *, const wchar_t *, ...)
 {
     assert(0);
     return 0;

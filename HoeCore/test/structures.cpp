@@ -3,19 +3,7 @@
 #include <stdlib.h>
 #include "../include/hoe_core.h"
 #include "../include/hoe_structures.h"
-
-#include <sys/time.h>
-
-////////// Timer /////////////////
-
-float SysFloatTime()
-{
-   struct timeval ctime;
-
-   gettimeofday(&ctime, NULL);
-
-   return ((ctime.tv_sec % 100000) + ctime.tv_usec * 0.000001f);
-}
+#include "test.h"
 
 struct TestItem
 {
@@ -23,17 +11,7 @@ struct TestItem
     int aa[16];
 };
 
-void print(const char *str, HoeCore::Queue<TestItem> &q)
-{
-	puts(str);
-	for (uint i=0;i < q.Count();i++)
-	{
-		printf("(%d %d) ", q[i].a,q[i].b);
-	}
-	printf("\n");
-}
-
-bool test_func()
+DEFINE_TEST(Queue, "Test queue structure")
 {
     // test queue
     HoeCore::Queue<TestItem> q;
@@ -56,8 +34,24 @@ bool test_func()
 	q.Remove(5);
 	print("Remove 5 index..",q);
     
-    return true;
+	return HoeTest::TEST_OK;
 }
+
+void print(const char *str, HoeCore::Queue<TestItem> &q)
+{
+	puts(str);
+	for (uint i=0;i < q.Count();i++)
+	{
+		printf("(%d %d) ", q[i].a,q[i].b);
+	}
+	printf("\n");
+}
+
+
+END_TEST(Queue)
+
+/*
+
 
 bool test_efectivity(int cyc, int &npush, int &nfront, int &nrem)
 {
@@ -95,7 +89,7 @@ bool test_efectivity(int cyc, int &npush, int &nfront, int &nrem)
     return true;
 }
 
-int main(int argc, char * argv[])
+int stmain(int argc, char * argv[])
 {
     if (argc < 2)
         return 0;
@@ -106,7 +100,7 @@ int main(int argc, char * argv[])
     printf("End in %f second (push %d, front %d, rem %d)\n", end - start,a,b,c);
 }
 
-
+*/
 
 
 

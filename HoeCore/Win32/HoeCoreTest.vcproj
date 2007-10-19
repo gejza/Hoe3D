@@ -23,7 +23,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -199,10 +199,6 @@
 	</References>
 	<Files>
 		<File
-			RelativePath="..\test\coretest.cpp"
-			>
-		</File>
-		<File
 			RelativePath="..\test\flex.l"
 			>
 			<FileConfiguration
@@ -217,6 +213,14 @@
 		<File
 			RelativePath="..\test\flex.yy.cpp"
 			>
+			<FileConfiguration
+				Name="Debug|Win32"
+				ExcludedFromBuild="true"
+				>
+				<Tool
+					Name="VCCLCompilerTool"
+				/>
+			</FileConfiguration>
 		</File>
 		<File
 			RelativePath="..\test\heap.cpp"
@@ -227,16 +231,43 @@
 			>
 		</File>
 		<File
+			RelativePath="..\test\math.cpp"
+			>
+		</File>
+		<File
 			RelativePath="..\test\string.cpp"
 			>
+			<FileConfiguration
+				Name="Debug|Win32"
+				>
+				<Tool
+					Name="VCCLCompilerTool"
+				/>
+			</FileConfiguration>
 		</File>
 		<File
 			RelativePath="..\test\structures.cpp"
 			>
 		</File>
 		<File
+			RelativePath="..\test\test.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\test\test.h"
+			>
+		</File>
+		<File
 			RelativePath="..\test\universal.cpp"
 			>
+			<FileConfiguration
+				Name="Debug|Win32"
+				ExcludedFromBuild="true"
+				>
+				<Tool
+					Name="VCCLCompilerTool"
+				/>
+			</FileConfiguration>
 		</File>
 	</Files>
 	<Globals>

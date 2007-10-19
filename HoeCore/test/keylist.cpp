@@ -65,7 +65,7 @@ void FillSP(HoeCore::StringPool &sp)
 	printf("jacob=%p\n", sp.Insert("jacob"));
 }
 
-int main()
+int kmain()
 {
     /*HoeCore::KeyList<Key, KeyIndex> kl;
     Key k1("a","acko");
