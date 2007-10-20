@@ -16,9 +16,9 @@
 
 struct PartsVertex
 {
-	HoeMath::Vector3 pos;
+	HoeMath::Vector3v pos;
 	dword color;
-	HoeMath::Vector2 tex;
+	HoeMath::Vector2v tex;
 };
 
 static dword palete[] = { 0xff8080, 0xffb080, 0xffff80, 0xb0ff80,
@@ -95,14 +95,14 @@ const float halfsize = 1.7f;
 
 void ParticleEmitor::Render(const HoeCamera * cam)
 {
-	HoeMath::Vector3 look = cam->GetLook();
+	HoeMath::Vector3v look = cam->GetLook();
 	look = look * -1.f;
 	look.Normalize();
 	// vytvorit 4 vektory
-	const HoeMath::Vector3 a(look.z,look.y,-look.x);
-	const HoeMath::Vector3 b = HoeMath::HoeCross(look, a);
-	const HoeMath::Vector3 d = a * -1.f;
-	const HoeMath::Vector3 c = b * -1.f;
+	const HoeMath::Vector3v a(look.z,look.y,-look.x);
+	const HoeMath::Vector3v b = HoeMath::HoeCross(look, a);
+	const HoeMath::Vector3v d = a * -1.f;
+	const HoeMath::Vector3v c = b * -1.f;
 
 	// update particles
 	PartsVertex * v = (PartsVertex*)m_stream.Lock();

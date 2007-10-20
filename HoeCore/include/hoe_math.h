@@ -42,7 +42,7 @@ HOE_INLINE const Vector3f HoeCross(const Vector3f &vec1, const Vector3f &vec2);
 HOE_INLINE double HoeAngleBetweenVectors(const Vector3f &v1, const Vector3f &v2);
 HOE_INLINE float HoeAngleBetweenVectorsF(const Vector2f &v1, const Vector2f &v2);
 
-HOE_INLINE bool HoeInsidePolygon(Line2 *,int num_lines,const float x,const float y,int i1,int i2);
+HOE_INLINE bool HoeInsidePolygon(Line2f *,int num_lines,const float x,const float y,int i1,int i2);
 
 HOE_INLINE bool HoePointInBox(Vector3f &p,float minx,float miny, float minz, float maxx, float maxy, float maxz);
 HOE_INLINE void HoePlaneNormal(const Vector3f &a, const Vector3f &b, const Vector3f &c,Vector3f &normal);

@@ -10,14 +10,14 @@
 class HoeCamera : public IHoeCamera
 {
 	MapPosition pos;
-	HoeMath::Vector3 look;
+	HoeMath::Vector3v look;
 
 	static uint m_width;
 	static uint m_height;
 
-	HoeMath::Matrix matView;
-	HoeMath::Matrix matProj;
-	HoeMath::Matrix matViewProj;
+	HoeMath::Matrix4v matView;
+	HoeMath::Matrix4v matProj;
+	HoeMath::Matrix4v matViewProj;
 
     enum FrustumSide
 	{
@@ -41,10 +41,10 @@ public:
 	void SetupMatrices();
 	static void Setup2DMatrices(const float w,const float h);
 
-	void HOEAPI Set(const HoeMath::Vector3 & pos,
-		const HoeMath::Vector3 & look);
+	void HOEAPI Set(const HoeMath::Vector3v & pos,
+		const HoeMath::Vector3v & look);
 	
-	void HOEAPI Pick(const float x, const float y, HoeMath::Vector3 * vPickRayDir, HoeMath::Vector3 * vPickRayOrig);
+	void HOEAPI Pick(const float x, const float y, HoeMath::Vector3v * vPickRayDir, HoeMath::Vector3v * vPickRayOrig);
 
 	static inline void sGetSize(int *w, int *h)
 	{
@@ -59,13 +59,13 @@ public:
 		return pos;
 	}
 
-	void GetViewProjMatrix(HoeMath::Matrix * m) const;
+	void GetViewProjMatrix(HoeMath::Matrix4v * m) const;
 
-	bool PointInFlustrum(const HoeMath::Vector3 & point) const;
+	bool PointInFlustrum(const HoeMath::Vector3v & point) const;
 
-	bool BoundInFlustrum(const HoeMath::Vector3 & center, const HoeMath::BoundingBox3 & box) const;
+	bool BoundInFlustrum(const HoeMath::Vector3v & center, const HoeMath::BoundingBox3v & box) const;
 
-	const HoeMath::Vector3 & GetLook() const { return look; }
+	const HoeMath::Vector3v & GetLook() const { return look; }
 
 };
 

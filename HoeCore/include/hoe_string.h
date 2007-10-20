@@ -65,6 +65,8 @@ inline float atof(const tchar* str)
 		e /= 10.f;
 	}
 	return p;	
+#else
+	return (float) ::atof(str);
 #endif
 }
 inline int atoi(const tchar* str) { return 0; }

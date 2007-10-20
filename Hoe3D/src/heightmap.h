@@ -51,7 +51,7 @@ public:
     void setSizeY(int sizeY);
 	void setHeightAt(int x, int y, float height);	
 	float getHeightAt(int x, int y);
-	HoeMath::Vector3 getNormalAt(int x, int y);
+	HoeMath::Vector3v getNormalAt(int x, int y);
     void resize(int sizeX, int sizeY);
 
 };

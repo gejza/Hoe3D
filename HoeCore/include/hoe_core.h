@@ -58,7 +58,7 @@ public:
 	void FloodFill(uint x, uint y, word w);
 	// vyplnuje vzalenosti od 0
 	void FloodFillPotencial();
-	int GetLines(word tile, HoeCore::Set<HoeMath::VLine2i> &lines);
+	int GetLines(word tile, HoeCore::Set<HoeMath::SegmentLine2i> &lines);
 };
 
 class TimeMeter

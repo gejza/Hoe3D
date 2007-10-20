@@ -9,22 +9,17 @@
 
 namespace HoeMath {
 
-template<class TYPE> struct PolygonT
+template<class TYPE> struct Polygon
 {
 	HoeCore::List<TYPE> points;
+	bool LeftPoint(const Vector2f & look, Vector2f & point);
+	bool RightPoint(const Vector2f & look, Vector2f & point);
 };
 
-struct Polygon2
+template<class TYPE> struct PolygonEx : public Polygon<TYPE>
 {
-	HoeCore::List<Vector2> points;
-	bool LeftPoint(const Vector2 & look, Vector2 & point);
-	bool RightPoint(const Vector2 & look, Vector2 & point);
-};
-
-struct Polygon2Ex : public Polygon2
-{
-	HoeMath::Vector2 min, max;
-	Polygon2Ex();
+	TYPE min, max;
+	PolygonEx();
 	void ComputeMinMax();
 };
 

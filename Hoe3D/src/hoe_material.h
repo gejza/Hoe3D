@@ -16,7 +16,7 @@ struct HoeMaterialColor
 		return (GLfloat *)this;
 	}
 #endif
-#ifdef _HOE_D3DN_
+#ifdef _HOE_D3D_
 	inline operator _D3DCOLORVALUE& () const
 	{
 		return *((_D3DCOLORVALUE *)this);
@@ -47,7 +47,7 @@ class HoeMaterial
 #endif
 public:
 	//TODO:
-	HoeMath::Matrix m_over;
+	HoeMath::Matrix4v m_over;
 	bool m_overlap;
 
 

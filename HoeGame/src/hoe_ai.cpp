@@ -23,13 +23,13 @@ namespace AI {
 }*/
 
 /////////////////////////////////////////////////////////
-HoeMath::Polygon2Ex * CreatePolygon(HoeCore::Set<HoeMath::VLine2Int> &lines)
+HoeMath::PolygonEx<HoeMath::Vector2f> * CreatePolygon(HoeCore::Set<HoeMath::SegmentLine2i> &lines)
 {
 	// vytvorit polygon
 	// vzit prvni lajnu
-	HoeMath::Polygon2Ex * p = new HoeMath::Polygon2Ex;
+	HoeMath::PolygonEx<HoeMath::Vector2f> * p = new HoeMath::PolygonEx<HoeMath::Vector2f>;
 	hoe_assert(lines.Count() > 0);
-	HoeMath::Vector2Int first,act,next,last;
+	HoeMath::Vector2i first,act,next,last;
 	last = first = act = lines[0].a;
 	next = lines[0].b;
 	lines.RemoveIndex(0);
@@ -43,7 +43,7 @@ HoeMath::Polygon2Ex * CreatePolygon(HoeCore::Set<HoeMath::VLine2Int> &lines)
 		// 
 		if (bsave)
 			//p->points.Add(HoeMath::Vector2((act.x * m_distX)-m_sizeX*0.5f,(act.y * m_distY)-m_sizeY*0.5f));
-			p->points.Add(HoeMath::Vector2((float)act.x,(float)act.y));
+			p->points.Add(HoeMath::Vector2v((float)act.x,(float)act.y));
 		act = next;
 
 		if (lines.Count() > 0)

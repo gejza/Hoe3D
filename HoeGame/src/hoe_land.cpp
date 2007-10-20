@@ -7,7 +7,7 @@ BEGIN_HOEGAME
 void LandPath::Insert(float x, float y, bool virt)
 {
     Point p;
-    p.pos = HoeMath::Vector2(x,y);
+    p.pos = HoeMath::Vector2v(x,y);
     p.virt = virt;
     m_stack.Push(p);
 }
@@ -110,7 +110,7 @@ bool Land::Preprocess(HoeCore::WordTileMap &map)
 }
 
 
-bool Land::Find(const HoeMath::Vector2 &from, const HoeMath::Vector2 &to, LandPath &out)
+bool Land::Find(const HoeMath::Vector2v &from, const HoeMath::Vector2v &to, LandPath &out)
 {
 	const float dx = (m_rect.right - m_rect.left)/m_width;
 	const float dy = (m_rect.bottom - m_rect.top)/m_height;

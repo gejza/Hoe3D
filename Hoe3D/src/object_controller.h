@@ -19,7 +19,7 @@ class ObjectController : public IHoeObjectController
 public:
 	XHoeObject * object;
 	HoeModel * model;
-	HoeMath::Vector3 m_scale;
+	HoeMath::Vector3v m_scale;
 	struct TSubObjectPtr
 	{
 		THoeSubObject::Type type;
@@ -39,19 +39,19 @@ public:
 	//inline bool IsShow() { return flags & 0x1; }
 	inline dword GetFlags() { return flags; }
 	inline XHoeObject * GetObject() { return object; }
-	inline const HoeMath::Vector3 & GetVectorPosition() { return pos.xyz; }
+	inline const HoeMath::Vector3v & GetVectorPosition() { return pos.xyz; }
 
 	virtual void HOEAPI SetModel(IHoeModel * model);
 	virtual IHoeModel * HOEAPI GetModel();
 	virtual bool HOEAPI LoadModel(const tchar * cmd);
 	virtual void HOEAPI Unregister();
 
-	virtual void HOEAPI SetPosition(const HoeMath::Vector3 &pos);
+	virtual void HOEAPI SetPosition(const HoeMath::Vector3v &pos);
 	virtual void HOEAPI SetOrientation(const float x, const float y, const float z, const float angle);
-	virtual const HoeMath::Vector3 & HOEAPI GetPosition() const;
+	virtual const HoeMath::Vector3v & HOEAPI GetPosition() const;
 	virtual void HOEAPI GetOrientation(float *x, float *y, float *z, float *angle);
-	virtual void HOEAPI SetScale(const HoeMath::Vector3 &scale);
-	virtual const HoeMath::Vector3 & HOEAPI GetScale() const;
+	virtual void HOEAPI SetScale(const HoeMath::Vector3v &scale);
+	virtual const HoeMath::Vector3v & HOEAPI GetScale() const;
 	/** @see IHoeObjectController::LinkSubObject */
 	virtual void HOEAPI Link(THoeSubObject::Type type, THoeSubObject * obj);
 	/** @see IHoeObjectController::UnlinkSubObject */

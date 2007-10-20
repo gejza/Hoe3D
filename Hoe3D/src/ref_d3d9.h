@@ -43,7 +43,7 @@ typedef D3DLIGHT9 D3DLight;
 
 struct THoeInitSettings;
 
-inline const D3DVECTOR & VECToD3D(const HoeMath::Vector3 &v)
+inline const D3DVECTOR & VECToD3D(const HoeMath::Vector3v &v)
 {
 	return *((D3DVECTOR*)&v);
 }
@@ -149,7 +149,7 @@ public:
 	* Nastaveni modelove matice.
 	* @param m Matice
 	*/
-	static HOE_INLINE void SetMatrix(const HoeMath::Matrix & m);
+	static HOE_INLINE void SetMatrix(const HoeMath::Matrix4v & m);
 
 	/**
 	* Zjisti zda zarizeni podporuje format textury

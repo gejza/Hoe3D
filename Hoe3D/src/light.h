@@ -21,10 +21,10 @@ class HoeLight : public IHoeLight
 public:
 	HoeLight(bool diRECT);
 	void Set(int slot);
-	virtual void HOEAPI SetPosition(const HoeMath::Vector3 &pos);
+	virtual void HOEAPI SetPosition(const HoeMath::Vector3v &pos);
 	virtual void HOEAPI SetColor(const float r, const float g, const float b);
-	const HoeMath::Vector4 GetPosition() const;
-	const HoeMath::Vector4 GetColor() const;
+	const HoeMath::Vector4v GetPosition() const;
+	const HoeMath::Vector4v GetColor() const;
 	// 
 	HoeLight * next;
 };

@@ -21,6 +21,8 @@
 #include <freetype/ftoutln.h>
 #include <freetype/fttrigon.h>
 
+class FreeChar;
+
 class HoeFreeType
 {
 	FT_Library library;

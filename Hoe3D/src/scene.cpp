@@ -106,7 +106,7 @@ void HoeGraphScene::Render(TRenderParameters * rp)
 	cam.SetupMatrices();
 	m_lights.Setup();
 
-	HoeMath::Matrix m;
+	HoeMath::Matrix4v m;
 	m.Identity();
 	Ref::SetMatrix(m);
 	TSceneGroup * g = m_root;
@@ -195,13 +195,13 @@ IHoeMaterial * HoeGraphScene::GetMaterial(const tchar * name)
 
 //////////////////////////////////////////////////////////
 
-XHoeObject * HoeGraphScene::Ray(const HoeMath::Vector3 & vPickRayDir, const HoeMath::Vector3 & vPickRayOrig)
+XHoeObject * HoeGraphScene::Ray(const HoeMath::Vector3v & vPickRayDir, const HoeMath::Vector3v & vPickRayOrig)
 {
 	// predpocitat d atd..
 	XHoeObject * act = NULL;
 	float actlength = 9999999.f;
 	ObjectController * obj;
-	HoeMath::Vector3 d(vPickRayDir);
+	HoeMath::Vector3v d(vPickRayDir);
 	d.Normalize();
 	const float o = -d.x*vPickRayOrig.x -d.y*vPickRayOrig.y -d.z*vPickRayOrig.z;
 	// projit vsechny objekty

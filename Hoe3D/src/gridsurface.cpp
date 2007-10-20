@@ -19,18 +19,18 @@ static CVar v_optimize("gridsurface_optimize", true, 0);
 
 struct VecPDT
 {
-		HoeMath::Vector3 pos;
-		HoeMath::Vector3 norm;
+		HoeMath::Vector3v pos;
+		HoeMath::Vector3v norm;
 		//dword color;
-		HoeMath::Vector2 tex1;
-		HoeMath::Vector2 tex2;
+		HoeMath::Vector2v tex1;
+		HoeMath::Vector2v tex2;
 };
 
 struct ModStr
 {
-		HoeMath::Vector3 pos;
-		HoeMath::Vector3 norm;
-		HoeMath::Vector2 tex1;
+		HoeMath::Vector3v pos;
+		HoeMath::Vector3v norm;
+		HoeMath::Vector2v tex1;
 };
 
 // D3DTOP_BLENDTEXTUREALPHA current textura -- alpha current
@@ -239,7 +239,7 @@ GridSurface::~GridSurface()
 	ReleaseData();
 }
 
-bool GridSurface::PlaneToMulti(float vx, float vy, const HoeMath::Matrix & Matrix, const TGridData & grid, int x, int y)
+bool GridSurface::PlaneToMulti(float vx, float vy, const HoeMath::Matrix4v & Matrix, const TGridData & grid, int x, int y)
 {
 	const float tx1 = (grid.tex1 == 0xff) ? 1/4.f:1.f/m_textures[grid.tex1].nx;
 	const float ty1 = (grid.tex1 == 0xff) ? 1/4.f:1.f/m_textures[grid.tex1].ny;
@@ -249,34 +249,34 @@ bool GridSurface::PlaneToMulti(float vx, float vy, const HoeMath::Matrix & Matri
 	// ulozit grid
 	VecPDT * pv = (VecPDT*)m_multi.LockNewVertices(4, 6);
 
-	const HoeMath::Vector2 s[4] = { HoeMath::Vector2(0,1/4.f),
-									HoeMath::Vector2(1/8.f,1/4.f),
-									HoeMath::Vector2(0,0),
-									HoeMath::Vector2(1/8.f,0)};
+	const HoeMath::Vector2v s[4] = { HoeMath::Vector2v(0,1/4.f),
+									HoeMath::Vector2v(1/8.f,1/4.f),
+									HoeMath::Vector2v(0,0),
+									HoeMath::Vector2v(1/8.f,0)};
 	vx /= 2;
 	vy /= 2;
-	pv[0].pos = HoeMath::Vector3(-vx, grid.plane_heights[0], -vy).Multiply(Matrix);
-	pv[1].pos = HoeMath::Vector3(+vx, grid.plane_heights[1], -vy).Multiply(Matrix);
-	pv[2].pos = HoeMath::Vector3(+vx, grid.plane_heights[3], +vy).Multiply(Matrix);
-	pv[3].pos = HoeMath::Vector3(-vx, grid.plane_heights[2], +vy).Multiply(Matrix);
+	pv[0].pos = HoeMath::Vector3v(-vx, grid.plane_heights[0], -vy).Multiply(Matrix);
+	pv[1].pos = HoeMath::Vector3v(+vx, grid.plane_heights[1], -vy).Multiply(Matrix);
+	pv[2].pos = HoeMath::Vector3v(+vx, grid.plane_heights[3], +vy).Multiply(Matrix);
+	pv[3].pos = HoeMath::Vector3v(-vx, grid.plane_heights[2], +vy).Multiply(Matrix);
 	// normaly prepocitat podle svetla
-	pv[0].norm = m_normals ? m_normals[NORMAL_INDEX(x,y)] : HoeMath::Vector3(0,1,0);
-	pv[1].norm = m_normals ? m_normals[NORMAL_INDEX(x+1,y)] : HoeMath::Vector3(0,1,0);
-	pv[2].norm = m_normals ? m_normals[NORMAL_INDEX(x+1,y+1)] : HoeMath::Vector3(0,1,0);
-	pv[3].norm = m_normals ? m_normals[NORMAL_INDEX(x,y+1)] : HoeMath::Vector3(0,1,0);
+	pv[0].norm = m_normals ? m_normals[NORMAL_INDEX(x,y)] : HoeMath::Vector3v(0,1,0);
+	pv[1].norm = m_normals ? m_normals[NORMAL_INDEX(x+1,y)] : HoeMath::Vector3v(0,1,0);
+	pv[2].norm = m_normals ? m_normals[NORMAL_INDEX(x+1,y+1)] : HoeMath::Vector3v(0,1,0);
+	pv[3].norm = m_normals ? m_normals[NORMAL_INDEX(x,y+1)] : HoeMath::Vector3v(0,1,0);
 	/*pv[0].color = 0xffffff00;
 	pv[1].color = 0xffffff00;
 	pv[2].color = 0xffffff00;
 	pv[3].color = 0xffffff00;*/
-	pv[0].tex1 = HoeMath::Vector2(grid.x1*tx1,(grid.y1+1)*ty1);
-	pv[1].tex1 = HoeMath::Vector2((grid.x1+1)*tx1,(grid.y1+1)*ty1);
-	pv[2].tex1 = HoeMath::Vector2((grid.x1+1)*tx1,grid.y1*ty1);
-	pv[3].tex1 = HoeMath::Vector2(grid.x1*tx1,grid.y1*ty1);
-	pv[0].tex2 = HoeMath::Vector2(grid.x2*tx2,(grid.y2+1)*ty2);
-	pv[1].tex2 = HoeMath::Vector2((grid.x2+1)*tx2,(grid.y2+1)*ty2);
-	pv[2].tex2 = HoeMath::Vector2((grid.x2+1)*tx2,grid.y2*ty2);
+	pv[0].tex1 = HoeMath::Vector2v(grid.x1*tx1,(grid.y1+1)*ty1);
+	pv[1].tex1 = HoeMath::Vector2v((grid.x1+1)*tx1,(grid.y1+1)*ty1);
+	pv[2].tex1 = HoeMath::Vector2v((grid.x1+1)*tx1,grid.y1*ty1);
+	pv[3].tex1 = HoeMath::Vector2v(grid.x1*tx1,grid.y1*ty1);
+	pv[0].tex2 = HoeMath::Vector2v(grid.x2*tx2,(grid.y2+1)*ty2);
+	pv[1].tex2 = HoeMath::Vector2v((grid.x2+1)*tx2,(grid.y2+1)*ty2);
+	pv[2].tex2 = HoeMath::Vector2v((grid.x2+1)*tx2,grid.y2*ty2);
 
-	pv[3].tex2 = HoeMath::Vector2(grid.x2*tx2,grid.y2*ty2);
+	pv[3].tex2 = HoeMath::Vector2v(grid.x2*tx2,grid.y2*ty2);
 
 	/*for (int i=0;i < 4;i++) {
 	// levo nahore
@@ -296,7 +296,7 @@ bool GridSurface::PlaneToMulti(float vx, float vy, const HoeMath::Matrix & Matri
 	return true;
 }
 
-bool GridSurface::ModelToMulti(const HoeMath::Matrix & Matrix, const TGridData & grid)
+bool GridSurface::ModelToMulti(const HoeMath::Matrix4v & Matrix, const TGridData & grid)
 {
 	const float tx1 = (grid.tex1 == 0xff) ? 1/4.f:1.f/m_textures[grid.tex1].nx;
 	const float ty1 = (grid.tex1 == 0xff) ? 1/4.f:1.f/m_textures[grid.tex1].ny;
@@ -313,12 +313,12 @@ bool GridSurface::ModelToMulti(const HoeMath::Matrix & Matrix, const TGridData &
 	ModStr * mv = (ModStr *)str->Lock();
 	for (dword i=0;i<str->GetNumVert();i++)
 	{
-		HoeMath::Vector3 pos = mv[i].pos;
+		HoeMath::Vector3v pos = mv[i].pos;
 		pv[i].pos = pos.Multiply(Matrix);
 		//pv[i].color = 0xffffff00;
 		pv[i].norm = mv[i].norm;
 		// upravit tex
-		HoeMath::Vector2 tex = mv[i].tex1;
+		HoeMath::Vector2v tex = mv[i].tex1;
 		pv[i].tex2.x = (grid.x2+tex.x)*tx2;
 		pv[i].tex2.y = (grid.y2+tex.y)*ty2;
 		// tex 1 podle stareho pravidla
@@ -360,7 +360,7 @@ TGridSurfaceTreeItem * GridSurface::CreateQuadTree(dword * gr, uint ngr, uint mi
 			const uint y = loword(gr[i]);
 			if (x < minx || x > maxx || y < miny || y > maxy)
 				continue;
-			HoeMath::Matrix mat;
+			HoeMath::Matrix4v mat;
 			const float vx = m_sizeX / m_width;
 			const float vy = m_sizeY / m_height;
 			mat.Translate((x * vx) - (m_sizeX*0.5f) + (vx * 0.5f),(m_grids[y*m_width+x].type == TGridData::eModel) ? m_grids[y*m_width+x].base_height:0, // tady bude height
@@ -978,34 +978,34 @@ void GridSurface::Opt_ProcessPlanes(uint fromx, uint tox, uint fromy, uint toy)
 }
 
 
-const HoeMath::Vector3 GridSurface::GetNormal(uint x, uint y, int roh)
+const HoeMath::Vector3v GridSurface::GetNormal(uint x, uint y, int roh)
 {
 	// nejdriv zjistit grid
 	if (x < 0 || y < 0 || x>=m_width || y >= m_height)
-		return HoeMath::Vector3(0,1,0);
+		return HoeMath::Vector3v(0,1,0);
 	TGridData & d = m_grids[GRID_INDEX(x,y)];
 	if (d.type != TGridData::ePlane)
-		return HoeMath::Vector3(0,1,0);
+		return HoeMath::Vector3v(0,1,0);
 	const float vx = m_sizeX / m_width;
 	const float vy = m_sizeY / m_height;
-	HoeMath::Vector3 a,b,c;
+	HoeMath::Vector3v a,b,c;
 	switch (roh)
 	{
 	case 0:
-		a = HoeMath::Vector3(0,d.plane_heights[2]-d.plane_heights[0],vy);
-		b = HoeMath::Vector3(vx,d.plane_heights[1]-d.plane_heights[0],0);
+		a = HoeMath::Vector3v(0,d.plane_heights[2]-d.plane_heights[0],vy);
+		b = HoeMath::Vector3v(vx,d.plane_heights[1]-d.plane_heights[0],0);
 		break;
 	case 1:
-		a = HoeMath::Vector3(-vx,d.plane_heights[0]-d.plane_heights[1],0);
-		b = HoeMath::Vector3(0,d.plane_heights[3]-d.plane_heights[1],vy);
+		a = HoeMath::Vector3v(-vx,d.plane_heights[0]-d.plane_heights[1],0);
+		b = HoeMath::Vector3v(0,d.plane_heights[3]-d.plane_heights[1],vy);
 		break;
 	case 2:
-		a = HoeMath::Vector3(vx,d.plane_heights[3]-d.plane_heights[2],0);
-		b = HoeMath::Vector3(0,d.plane_heights[0]-d.plane_heights[2],-vy);
+		a = HoeMath::Vector3v(vx,d.plane_heights[3]-d.plane_heights[2],0);
+		b = HoeMath::Vector3v(0,d.plane_heights[0]-d.plane_heights[2],-vy);
 		break;
 	case 3:
-		a = HoeMath::Vector3(0,d.plane_heights[1]-d.plane_heights[3],-vy);
-		b = HoeMath::Vector3(-vx,d.plane_heights[2]-d.plane_heights[3],0);
+		a = HoeMath::Vector3v(0,d.plane_heights[1]-d.plane_heights[3],-vy);
+		b = HoeMath::Vector3v(-vx,d.plane_heights[2]-d.plane_heights[3],0);
 		break;
 	};
 	HoeMath::HoeCross(a,b,c);
@@ -1017,7 +1017,7 @@ const HoeMath::Vector3 GridSurface::GetNormal(uint x, uint y, int roh)
 void GridSurface::BuildNormals()
 {
 	SAFE_DELETE_ARRAY(m_normals);
-	m_normals = new HoeMath::Vector3[(m_width+1)*(m_height+1)];
+	m_normals = new HoeMath::Vector3v[(m_width+1)*(m_height+1)];
 	for (uint x=0;x <= m_width;x++)
 	{
 		for (uint y=0;y <= m_height;y++)

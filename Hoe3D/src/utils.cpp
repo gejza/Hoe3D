@@ -80,7 +80,7 @@ void Con_Print(HoeLog * log, const char * szFormat,...)
 	}
 }
 
-void Con_Print(HoeMath::Matrix &m)
+void Con_Print(HoeMath::Matrix4f &m)
 {
 	Con_Print("%f %f %f %f", m._11,m._12,m._13,m._14);
 	Con_Print("%f %f %f %f", m._21,m._22,m._23,m._24);

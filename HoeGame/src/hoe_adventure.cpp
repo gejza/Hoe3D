@@ -31,7 +31,7 @@ Kulission::~Kulission()
 
 void Kulission::SetSize(float width, float height)
 {
-	this->GetCtrl()->SetScale(HoeMath::Vector3(width, height, 1));
+	this->GetCtrl()->SetScale(HoeMath::Vector3v(width, height, 1));
 }
 
 void Kulission::SetTexture(const tchar * texname)

@@ -158,7 +158,7 @@ public:
 	virtual float HOEAPI GetHeight(float x,float y) = 0;
 	virtual bool HOEAPI GetCamber(const float x1,const float x2,const float y1,const float y2, float & min,float &max) = 0;
 	/** Ray tracer */
-	virtual XHoeObject * HOEAPI Ray(const HoeMath::Vector3 & vPickRayDir, const HoeMath::Vector3 & vPickRayOrig) = 0;
+	virtual XHoeObject * HOEAPI Ray(const HoeMath::Vector3v & vPickRayDir, const HoeMath::Vector3v & vPickRayOrig) = 0;
 
 };
 

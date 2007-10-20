@@ -77,7 +77,7 @@ byte * HoeStream::Lock()
 void HoeStream::Unlock()
 {
 	if (!m_dynamic)
-		m_box.Compute((const HoeMath::Vector3 *)m_pVertices,m_numvert,m_size/m_numvert);
+		m_box.Compute((const HoeMath::Vector3v *)m_pVertices,m_numvert,m_size/m_numvert);
 	if (m_soft)
 		return;
 #ifdef _HOE_D3DA_
@@ -218,7 +218,7 @@ void HoeStream::Dump(HoeLog *log)
 		return;
 	}
 	log->Log("Memory address %p -> %p", m_pVertices, m_pVertices+m_size);
-	m_box.Compute((const HoeMath::Vector3 *)m_pVertices,m_numvert,m_size/m_numvert);
+	m_box.Compute((const HoeMath::Vector3v *)m_pVertices,m_numvert,m_size/m_numvert);
 
 	size_t stride = m_size / m_numvert;
 

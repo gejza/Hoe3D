@@ -219,10 +219,10 @@ float Heightmap::getHeightAt(int x, int y)
  *	Vypoèítá normálu z výškové mapy.
  *	(4-okolí)
  */
-HoeMath::Vector3 Heightmap::getNormalAt(int x, int y)
+HoeMath::Vector3v Heightmap::getNormalAt(int x, int y)
 {
 
-	HoeMath::Vector3 normal(0,0,0);
+	HoeMath::Vector3v normal(0,0,0);
 	float center=getHeightAt(x,y);
 	/*float left, right, up, down;
 
@@ -236,28 +236,28 @@ HoeMath::Vector3 Heightmap::getNormalAt(int x, int y)
 	if(x>0)
 	{
 		float r = center-getHeightAt(x-1,y);
-		HoeMath::Vector3 n(-r,sqrt(16+r*r),0);
+		HoeMath::Vector3v n(-r,sqrt(16+r*r),0);
 		n.Normalize();
 		normal += n;
 	}
 	if(x<sizeX-1)
 	{
 		float r = getHeightAt(x+1,y)-center;
-		HoeMath::Vector3 n(-r,sqrt(16+r*r),0);
+		HoeMath::Vector3v n(-r,sqrt(16+r*r),0);
 		n.Normalize();
 		normal += n.Normalize();
 	}
 	if(y>0)
 	{
 		float r = center-getHeightAt(x-1,y);
-		HoeMath::Vector3 n(0,sqrt(16+r*r),r);
+		HoeMath::Vector3v n(0,sqrt(16+r*r),r);
 		n.Normalize();
 		normal += n.Normalize();
 	}
 	if(y<sizeY-1)
 	{
 		float r = getHeightAt(x-1,y)-center;
-		HoeMath::Vector3 n(0,sqrt(16+r*r),r);
+		HoeMath::Vector3v n(0,sqrt(16+r*r),r);
 		n.Normalize();
 		normal += n.Normalize();
 	}

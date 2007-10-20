@@ -12,10 +12,10 @@ struct Particle
 {
 	float life;
 	float fade;
-	HoeMath::Vector3 pos;
+	HoeMath::Vector3v pos;
 	dword color;
-	HoeMath::Vector3 posi;
-	HoeMath::Vector3 posg;
+	HoeMath::Vector3v posi;
+	HoeMath::Vector3v posg;
 };
 
 class HoeCamera;

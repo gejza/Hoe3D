@@ -35,11 +35,11 @@ void ObjectController::Render(const HoeScene * scene)
 	if (!model || !scene->GetCamera()->BoundInFlustrum(pos.xyz, model->GetBound()))
 		return;
 
-	HoeMath::Matrix m;
+	HoeMath::Matrix4v m;
 	this->pos.GetMatrix(&m);
 	if (flags & HOF_SCALED)
 	{
-		HoeMath::Matrix t;
+		HoeMath::Matrix4v t;
 		t.Scale(m_scale);
 		t.Multiply(m);
 		Ref::SetMatrix(t);
@@ -61,7 +61,7 @@ void ObjectController::Render(const HoeScene * scene)
 			case THoeSubObject::Object:
 				{
 					const THoeSub_Model & sm = *reinterpret_cast<const THoeSub_Model*>(p.ptr);
-					HoeMath::Matrix a = sm.pos;
+					HoeMath::Matrix4v a = sm.pos;
 					a.Multiply(m);
 					Ref::SetMatrix(a);
 					if (sm.model)
@@ -71,7 +71,7 @@ void ObjectController::Render(const HoeScene * scene)
 			case THoeSubObject::Particle:
 				{
 					const THoeSub_Particle & sm = *reinterpret_cast<const THoeSub_Particle*>(p.ptr);
-					HoeMath::Matrix a;
+					HoeMath::Matrix4v a;
 					a.Translate(sm.pos);
 					a.Multiply(m);
 					Ref::SetMatrix(a);
@@ -109,19 +109,19 @@ bool ObjectController::LoadModel(const tchar * cmd)
 	return false;
 }
 
-void HOEAPI ObjectController::SetPosition(const HoeMath::Vector3 &p)
+void HOEAPI ObjectController::SetPosition(const HoeMath::Vector3v &p)
 {
 	pos.xyz = p;
 }
 
 void HOEAPI ObjectController::SetOrientation(const float x, const float y, const float z, const float angle)
 {
-	HoeMath::Vector3 vect(x,y,z);
+	HoeMath::Vector3v vect(x,y,z);
 	vect.Normalize();
 	pos.rot.Create(vect,angle);
 }
 
-const HoeMath::Vector3 & ObjectController::GetPosition() const
+const HoeMath::Vector3v & ObjectController::GetPosition() const
 {
 	return pos.xyz; 
 }
@@ -134,16 +134,16 @@ void ObjectController::GetOrientation(float *x, float *y, float *z, float *angle
 	if (angle) *angle = pos.rot.w; 
 }
 
-void ObjectController::SetScale(const HoeMath::Vector3 &scale)
+void ObjectController::SetScale(const HoeMath::Vector3v &scale)
 {
-	if (scale == HoeMath::Vector3(1.f, 1.f, 1.f))
+	if (scale == HoeMath::Vector3v(1.f, 1.f, 1.f))
 		UnsetFlags(HOF_SCALED);
 	else
 		SetFlags(HOF_SCALED);
 	m_scale = scale;
 }
 
-const HoeMath::Vector3 & ObjectController::GetScale() const
+const HoeMath::Vector3v & ObjectController::GetScale() const
 {
 	return m_scale;
 }

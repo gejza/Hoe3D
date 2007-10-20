@@ -26,7 +26,7 @@ HoeLight::HoeLight(bool diRECT)
 	light.Attenuation0 = 1.f;
 
 	float t = SysFloatTime();
-	HoeMath::Vector3 vec(sinf(t),-1,cosf(t));
+	HoeMath::Vector3v vec(sinf(t),-1,cosf(t));
 	vec.Normalize();
 	light.Direction = VECToD3D(vec);
 	light.Range = 50;
@@ -40,7 +40,7 @@ HoeLight::HoeLight(bool diRECT)
 void HoeLight::Set(int slot)
 {
 	float t = SysFloatTime();
-	HoeMath::Vector3 vec(sinf(t),-1,cosf(t));
+	HoeMath::Vector3v vec(sinf(t),-1,cosf(t));
 	SetPosition(vec);
 #ifdef _HOE_D3D_
 	D3DDevice()->SetLight( slot, &light );
@@ -59,9 +59,9 @@ void HoeLight::Set(int slot)
 #endif
 }
 
-void HoeLight::SetPosition(const HoeMath::Vector3 &a)
+void HoeLight::SetPosition(const HoeMath::Vector3v &a)
 {
-	HoeMath::Vector3 p = a;
+	HoeMath::Vector3v p = a;
 	if (m_diRECT)
 	{
 		p.Normalize();
@@ -88,21 +88,21 @@ void HoeLight::SetColor(const float r, const float g, const float b)
 #endif
 }
 
-const HoeMath::Vector4 HoeLight::GetPosition() const
+const HoeMath::Vector4v HoeLight::GetPosition() const
 {
 #ifdef _HOE_OPENGL_
 	return this->pos;
 #else
-	return HoeMath::Vector4((float*)&light.Position);
+	return HoeMath::Vector4v((float*)&light.Position);
 #endif
 }
 
-const HoeMath::Vector4 HoeLight::GetColor() const
+const HoeMath::Vector4v HoeLight::GetColor() const
 {
 #ifdef _HOE_OPENGL_
 	return this->color;
 #else
-	return HoeMath::Vector4((float*)&light.Diffuse);
+	return HoeMath::Vector4v((float*)&light.Diffuse);
 #endif
 
 }

@@ -19,20 +19,24 @@
 
 namespace HoeMath {
 
-struct Rect;
-class Matrix;
+// zmenit
+typedef float real;
 
-template<class fieldtype> struct Vector2
+
+struct Rect;
+template<class TYPE> struct Matrix4;
+
+template<class TYPE> struct Vector2
 {
-	fieldtype x;
-	fieldtype y;
+	TYPE x;
+	TYPE y;
 	
 	Vector2() { };
-	Vector2(const fieldtype& X, const fieldtype& Y)
+	Vector2(const TYPE& X, const TYPE& Y)
 	{
 		x = X;y = Y;
 	}
-	Vector2(fieldtype * v)
+	Vector2(TYPE * v)
 	{
 		x = v[0];y = v[1];
 	}
@@ -45,7 +49,7 @@ template<class fieldtype> struct Vector2
 		x = v.x;y = v.y;
 		return *this;
 	}
-	HOE_INLINE void Set(fieldtype X,fieldtype Y)
+	HOE_INLINE void Set(TYPE X,TYPE Y)
 	{
 		x = X;y = Y;
 	}
@@ -67,19 +71,20 @@ template<class fieldtype> struct Vector2
 
 typedef Vector2<float> Vector2f;
 typedef Vector2<int> Vector2i;
+typedef Vector2<real> Vector2v;
 
-template<class fieldtype> struct Vector3
+template<class TYPE> struct Vector3
 {
-    fieldtype x;
-    fieldtype y;
-    fieldtype z;
+    TYPE x;
+    TYPE y;
+    TYPE z;
 
 	Vector3() { };
-	Vector3(fieldtype X,fieldtype Y,fieldtype Z)
+	Vector3(TYPE X,TYPE Y,TYPE Z)
 	{
 		x = X;y = Y;z = Z;
 	}
-	Vector3(fieldtype * v)
+	Vector3(TYPE * v)
 	{
 		x = v[0];y = v[1]; z = v[2];
 	}
@@ -143,14 +148,14 @@ template<class fieldtype> struct Vector3
 	HOE_INLINE double Magnitude(void) const;
 	HOE_INLINE float MagnitudeF(void) const;
 	HOE_INLINE const Vector3 & Normalize(void);
-	HOE_INLINE void Multiply(const Vector3 &,const Matrix &);
-	HOE_INLINE const Vector3 & Multiply(const Matrix &);
+	HOE_INLINE void Multiply(const Vector3 &,const Matrix4<TYPE> &);
+	HOE_INLINE const Vector3 & Multiply(const Matrix4<TYPE> &);
 	/** Funkce slozi vektor z nejvetsich slozek */
 	HOE_INLINE void Max(const Vector3 & v);
 	/** Funkce slozi vektor z nejmensich slozek */
 	HOE_INLINE void Min(const Vector3 & v);
 
-	Vector3 &operator *= (const Matrix &m)
+	Vector3 &operator *= (const Matrix4<TYPE> &m)
 	{
 		Multiply(m);
 		return *this;
@@ -166,14 +171,14 @@ template<class fieldtype> struct Vector3
 typedef Vector3<float> Vector3f;
 typedef Vector3<int> Vector3i;
 typedef Vector3<double> Vector3d;
+typedef Vector3<real> Vector3v;
 
-
-struct Vector4
+template <class TYPE> struct Vector4
 {
-    float x;
-    float y;
-    float z;
-    float w;
+    TYPE x;
+    TYPE y;
+    TYPE z;
+    TYPE w;
 
 	Vector4() { };
 	Vector4(const float X,const float Y,const float Z,const float W)
@@ -190,8 +195,13 @@ struct Vector4
 		x = v.x;y = v.y; z = v.z; w = 0.f;
 	}
 #endif
+	operator const TYPE* () const
+	{
+		return &x;
+	}
 };
 
+typedef Vector4<real> Vector4v;
 
 struct Quat
 {
@@ -222,7 +232,7 @@ struct Quat
 	}
 	HOE_INLINE double Magnitude(void) const;
 	HOE_INLINE void Normalize(void);
-	HOE_INLINE void GetMatrix(Matrix * m) const;
+	HOE_INLINE void GetMatrix(Matrix4<float> * m) const;
 };
 
 struct Rect
@@ -313,11 +323,11 @@ struct Plane
 	}
 };
 
-template<class fieldtype> struct Triangle
+template<class TYPE> struct Triangle
 {
-	Vector3<fieldtype> a;
-	Vector3<fieldtype> b;
-	Vector3<fieldtype> c;
+	Vector3<TYPE> a;
+	Vector3<TYPE> b;
+	Vector3<TYPE> c;
 	void SignXY(Rect &rect)
 	{
 		rect.More(a.x,a.y);
@@ -334,17 +344,11 @@ template<class fieldtype> struct Triangle
 	}
 };
 
-struct Line2
+template<class TYPE> struct Line2
 {
-#if 1
-	double a;
-	double b;
-	double c;
-#else
-	float a;
-	float b;
-	float c;
-#endif
+	TYPE a;
+	TYPE b;
+	TYPE c;
 	void Set(const float x1,const float y1,const float x2,const float y2)
 	{
 		a = y2 - y1;
@@ -380,7 +384,11 @@ struct Line2
 
 };
 
-template<class TYPE> struct VLineT
+typedef Line2<int> Line2i;
+typedef Line2<float> Line2f;
+typedef Line2<double> Line2d;
+
+template<class TYPE> struct SegmentLine
 {
 	TYPE a;
 	TYPE b;
@@ -400,21 +408,21 @@ template<class TYPE> struct VLineT
 	}
 };
 
-typedef VLineT<Vector2i> VLine2i;
-typedef VLineT<Vector2f> VLine2f;
+typedef SegmentLine<Vector2i> SegmentLine2i;
+typedef SegmentLine<Vector2f> SegmentLine2f;
 
-class Matrix
+template<class TYPE> struct Matrix4
 {
 public:
     union {
         struct {
-            float        _11, _12, _13, _14;
-            float        _21, _22, _23, _24;
-            float        _31, _32, _33, _34;
-            float        _41, _42, _43, _44;
+            TYPE        _11, _12, _13, _14;
+            TYPE        _21, _22, _23, _24;
+            TYPE        _31, _32, _33, _34;
+            TYPE        _41, _42, _43, _44;
 
         };
-        float m[4][4];
+        TYPE m[4][4];
     };
 #ifdef _HOE_D3D_
 	operator const D3DMATRIX*() const
@@ -442,9 +450,9 @@ public:
 	HOE_INLINE void Scale(const Vector3f &s);
 	HOE_INLINE void Translate(const float x,const float y,const float z);
 	HOE_INLINE void Translate(const Vector3f &v);
-	HOE_INLINE float Inverse(const Matrix &m);
-	HOE_INLINE void Adjung(const Matrix &m);
-	HOE_INLINE void Transpoze(const Matrix &m);
+	HOE_INLINE float Inverse(const Matrix4 &m);
+	HOE_INLINE void Adjung(const Matrix4 &m);
+	HOE_INLINE void Transpoze(const Matrix4 &m);
 	HOE_INLINE void Transpoze();
 
 	HOE_INLINE void Camera(const Vector3f &pos,const Vector3f &look);
@@ -453,26 +461,30 @@ public:
 	HOE_INLINE void Perspective(const float w,const float h,const float zn,const float zf);
 	HOE_INLINE void PerspectiveFov(const float fovX,const float a,const float zn,const float zf);
 
-	HOE_INLINE void Multiply( const Matrix &a,const Matrix &b);
-	HOE_INLINE void Multiply( const Matrix &m);
-	HOE_INLINE void MultiplyLeft( const Matrix &m);
+	HOE_INLINE void Multiply( const Matrix4 &a,const Matrix4 &b);
+	HOE_INLINE void Multiply( const Matrix4 &m);
+	HOE_INLINE void MultiplyLeft( const Matrix4 &m);
 
 	void ConPrint();
 };
 
-template<class fieldtype> struct BoundingBox3
+typedef Matrix4<float> Matrix4f;
+typedef Matrix4<real> Matrix4v;
+
+template<class TYPE> struct BoundingBox3
 {
-	Vector3<fieldtype> min;
-	Vector3<fieldtype> max;
+	Vector3<TYPE> min;
+	Vector3<TYPE> max;
 	float ball;
-	HOE_INLINE void Set(const Vector3<fieldtype> & v);
-	HOE_INLINE void Add(const Vector3<fieldtype> & v);	
+	HOE_INLINE void Set(const Vector3<TYPE> & v);
+	HOE_INLINE void Add(const Vector3<TYPE> & v);	
 	HOE_INLINE void Set(const BoundingBox3 & b);
 	HOE_INLINE void Add(const BoundingBox3 & b);
-	HOE_INLINE void Compute(const Vector3<fieldtype> *first, dword numvert, uint stride);
+	HOE_INLINE void Compute(const Vector3<TYPE> *first, dword numvert, uint stride);
 };
 
 typedef BoundingBox3<float> BoundingBox3f;
+typedef BoundingBox3<real> BoundingBox3v;
 
 };
 

@@ -19,7 +19,7 @@ HOE_INLINE float UpperRound(float f)
 		return (float)(i+1);
 }
 
-// Matrix & vector
+// Matrix4 & vector
 
 //////// vector ////////////////////////////////////////
 
@@ -55,14 +55,14 @@ HOE_INLINE const Vector3f & Vector3f::Normalize(void)
 	return *this;
 }
 
-HOE_INLINE void Vector3f::Multiply(const Vector3f &v,const Matrix &m)
+HOE_INLINE void Vector3f::Multiply(const Vector3f &v,const Matrix4f &m)
 {
 	x = v.x * m._11 + v.y * m._21 + v.z * m._31 + m._41;
 	y = v.x * m._12 + v.y * m._22 + v.z * m._32 + m._42;
 	z = v.x * m._13 + v.y * m._23 + v.z * m._33 + m._43;
 }
 
-HOE_INLINE const Vector3f &  Vector3f::Multiply(const Matrix &m)
+HOE_INLINE const Vector3f &  Vector3f::Multiply(const Matrix4f &m)
 {
 	Vector3f v = *this;
 	Multiply(v,m);
@@ -99,7 +99,7 @@ HOE_INLINE void Quat::Normalize(void)
 	z = z / mag;
 }
 
-HOE_INLINE void Quat::GetMatrix(Matrix * m) const 
+HOE_INLINE void Quat::GetMatrix(Matrix4f * m) const 
 {
 	m->_11  = 1 - 2 * ( y*y + z*z );
     m->_12  =     2 * ( x*y - z*w );
@@ -114,8 +114,8 @@ HOE_INLINE void Quat::GetMatrix(Matrix * m) const
 	m->_44 = 1.f;
 }
 
-//////// Matrix ////////////////////////////////////////
-HOE_INLINE void Matrix::Identity(void)
+//////// Matrix4 ////////////////////////////////////////
+HOE_INLINE void Matrix4f::Identity(void)
 {
     _11 = _22 = _33 = _44 = 1.0f;
     _12 = _13 = _14 = _41 = 0.0f;
@@ -123,7 +123,7 @@ HOE_INLINE void Matrix::Identity(void)
     _31 = _32 = _34 = _43 = 0.0f;
 }
 
-HOE_INLINE void Matrix::RotationX(const float angle)
+HOE_INLINE void Matrix4f::RotationX(const float angle)
 {
 	_12 = _13 = _14 = 0.0f;   
 	_21 = _24 = 0.0f;	
@@ -135,7 +135,7 @@ HOE_INLINE void Matrix::RotationX(const float angle)
 }
 
 
-HOE_INLINE void Matrix::RotationY(const float angle)
+HOE_INLINE void Matrix4f::RotationY(const float angle)
 {
     
     _12 = _14 = 0.0f;	
@@ -148,7 +148,7 @@ HOE_INLINE void Matrix::RotationY(const float angle)
 
 }
 
-HOE_INLINE void Matrix::RotationZ(const float angle)
+HOE_INLINE void Matrix4f::RotationZ(const float angle)
 {
     
     _13 = _14 = 0.0f;
@@ -161,7 +161,7 @@ HOE_INLINE void Matrix::RotationZ(const float angle)
 
 }
 
-HOE_INLINE void Matrix::Scale(const float s)
+HOE_INLINE void Matrix4f::Scale(const float s)
 {
     _12 = _13 = _14 = _41 = 0.0f;
     _21 = _23 = _24 = _42 = 0.0f;
@@ -171,7 +171,7 @@ HOE_INLINE void Matrix::Scale(const float s)
 
 }
 
-HOE_INLINE void Matrix::Scale(const float sx,const float sy,const float sz)
+HOE_INLINE void Matrix4f::Scale(const float sx,const float sy,const float sz)
 {
     _12 = _13 = _14 = _41 = 0.0f;
     _21 = _23 = _24 = _42 = 0.0f;
@@ -183,7 +183,7 @@ HOE_INLINE void Matrix::Scale(const float sx,const float sy,const float sz)
 
 }
 
-HOE_INLINE void Matrix::Scale(const Vector3f &s)
+HOE_INLINE void Matrix4f::Scale(const Vector3f &s)
 {
     _12 = _13 = _14 = _41 = 0.0f;
     _21 = _23 = _24 = _42 = 0.0f;
@@ -195,7 +195,7 @@ HOE_INLINE void Matrix::Scale(const Vector3f &s)
 
 }
 
-HOE_INLINE void Matrix::Translate(const float x,const float y,const float z)
+HOE_INLINE void Matrix4f::Translate(const float x,const float y,const float z)
 {
     _11 = _22 = _33 = _44 = 1.0f;
     _12 = _13 = _14 = 0.0f;
@@ -207,7 +207,7 @@ HOE_INLINE void Matrix::Translate(const float x,const float y,const float z)
 
 }
 
-HOE_INLINE void Matrix::Translate(const Vector3f &v)
+HOE_INLINE void Matrix4f::Translate(const Vector3f &v)
 {
     _11 = _22 = _33 = _44 = 1.0f;
     _12 = _13 = _14 = 0.0f;
@@ -218,7 +218,7 @@ HOE_INLINE void Matrix::Translate(const Vector3f &v)
 	_43 = v.z;
 }
 
-HOE_INLINE void Matrix::Adjung(const Matrix &m)
+HOE_INLINE void Matrix4f::Adjung(const Matrix4f &m)
 {
 	_11 = m._22 * m._33 * m._44 + m._23 * m._34 * m._42 + m._32 * m._43 * m._24 - m._24 * m._33 * m._42 - m._23 * m._32 * m._44 - m._22 * m._34 * m._43;
 	_12 = - m._12 * m._33 * m._44 - m._13 * m._34 * m._42 - m._32 * m._43 * m._14 + m._14 * m._33 * m._42 + m._13 * m._32 * m._44 + m._12 * m._34 * m._43;
@@ -239,7 +239,7 @@ HOE_INLINE void Matrix::Adjung(const Matrix &m)
 
 }
 
-HOE_INLINE void Matrix::Transpoze(const Matrix &m)
+HOE_INLINE void Matrix4f::Transpoze(const Matrix4 &m)
 {
 	_11 = m._11;_12 = m._21; _13 = m._31; _14 = m._41;
 	_21 = m._12;_22 = m._22; _23 = m._32; _24 = m._42;
@@ -247,13 +247,13 @@ HOE_INLINE void Matrix::Transpoze(const Matrix &m)
 	_41 = m._14;_42 = m._24; _43 = m._34; _44 = m._44;
 }
 
-HOE_INLINE void Matrix::Transpoze()
+HOE_INLINE void Matrix4f::Transpoze()
 {
-	Matrix m = *this;
+	Matrix4 m = *this;
 	Transpoze(m);
 }
 
-HOE_INLINE float Matrix::Inverse( const Matrix &m)
+HOE_INLINE float Matrix4f::Inverse( const Matrix4f &m)
 {
 	Adjung(m);
 
@@ -282,7 +282,7 @@ HOE_INLINE float Matrix::Inverse( const Matrix &m)
 	return det;
 }
 
-HOE_INLINE void Matrix::Camera(const Vector3f &pos,const Vector3f &look)
+HOE_INLINE void Matrix4f::Camera(const Vector3f &pos,const Vector3f &look)
 {
 
 	Vector3f pos2(-pos.x,-pos.y,-pos.z);
@@ -311,7 +311,7 @@ HOE_INLINE void Matrix::Camera(const Vector3f &pos,const Vector3f &look)
 
 }
 
-HOE_INLINE void Matrix::Perspective(const float w,const float h,const float zn,const float zf)
+HOE_INLINE void Matrix4f::Perspective(const float w,const float h,const float zn,const float zf)
 {
 	_11 = 2*zn/w;
 	_12 = _13 = _14 = 0;
@@ -325,7 +325,7 @@ HOE_INLINE void Matrix::Perspective(const float w,const float h,const float zn,c
 
 }
 
-HOE_INLINE void Matrix::PerspectiveFov(const float fovX,const float a,const float zn,const float zf)
+HOE_INLINE void Matrix4f::PerspectiveFov(const float fovX,const float a,const float zn,const float zf)
 {
 	const float w = 1/tanf(fovX/2);
 	const float h = w/a;
@@ -341,7 +341,7 @@ HOE_INLINE void Matrix::PerspectiveFov(const float fovX,const float a,const floa
 
 }
 
-HOE_INLINE void Matrix::Ortho(const float w,const float h,const float zn,const float zf)
+HOE_INLINE void Matrix4f::Ortho(const float w,const float h,const float zn,const float zf)
 {
 	_11 = 2/w;
 	_12 = _13 = _14 = 0;
@@ -355,7 +355,7 @@ HOE_INLINE void Matrix::Ortho(const float w,const float h,const float zn,const f
 
 }
 
-HOE_INLINE void Matrix::Ortho(const float l,const float r,const float b,const float t,const float zn,const float zf)
+HOE_INLINE void Matrix4f::Ortho(const float l,const float r,const float b,const float t,const float zn,const float zf)
 {
 	_11 = 2/(r-l);
 	_12 = _13 = _14 = 0;
@@ -371,7 +371,7 @@ HOE_INLINE void Matrix::Ortho(const float l,const float r,const float b,const fl
 
 }
 
-HOE_INLINE void Matrix::Multiply(const Matrix &a,const Matrix &b)
+HOE_INLINE void Matrix4f::Multiply(const Matrix4 &a,const Matrix4 &b)
 {
 
 	_11 = b._11 * a._11 + b._21 * a._12 + b._31 * a._13 + b._41 * a._14;
@@ -396,25 +396,25 @@ HOE_INLINE void Matrix::Multiply(const Matrix &a,const Matrix &b)
 
 }
 
-HOE_INLINE void Matrix::Multiply(const Matrix &m)
+HOE_INLINE void Matrix4f::Multiply(const Matrix4 &m)
 {
-	Matrix a = *this;
+	Matrix4 a = *this;
 	Multiply(a,m);
 }
 
-HOE_INLINE void Matrix::MultiplyLeft(const Matrix &m)
+HOE_INLINE void Matrix4f::MultiplyLeft(const Matrix4 &m)
 {
-	Matrix a = *this;
+	Matrix4 a = *this;
 	Multiply(m,a);
 }
 
-HOE_INLINE void BoundingBox3::Set(const Vector3f & v)
+HOE_INLINE void BoundingBox3f::Set(const Vector3f & v)
 {
 	min = max = v;
 	ball = (float)v.Magnitude();
 }
 
-HOE_INLINE void BoundingBox3::Add(const Vector3f & v)
+HOE_INLINE void BoundingBox3f::Add(const Vector3f & v)
 {
 	min.Min(v);
 	max.Max(v);
@@ -422,12 +422,12 @@ HOE_INLINE void BoundingBox3::Add(const Vector3f & v)
 	if (m > ball)
 		ball = m;
 }	
-HOE_INLINE void BoundingBox3::Set(const BoundingBox3 & b)
+HOE_INLINE void BoundingBox3f::Set(const BoundingBox3f & b)
 {
 	*this = b;
 }
 
-HOE_INLINE void BoundingBox3::Add(const BoundingBox3 & b)
+HOE_INLINE void BoundingBox3f::Add(const BoundingBox3f & b)
 {
 	min.Min(b.min);
 	max.Max(b.max);
@@ -435,7 +435,7 @@ HOE_INLINE void BoundingBox3::Add(const BoundingBox3 & b)
 		ball = b.ball;
 }
 
-HOE_INLINE void BoundingBox3::Compute(const Vector3f *first, dword numvert, uint stride)
+HOE_INLINE void BoundingBox3f::Compute(const Vector3f *first, dword numvert, uint stride)
 {
 	assert(first && numvert > 0 && "bad parameters BoundingBox::Compute");
 	Set(*first);
@@ -448,7 +448,7 @@ HOE_INLINE void BoundingBox3::Compute(const Vector3f *first, dword numvert, uint
 
 //////// func //////////////////////////////////////////
 
-HOE_INLINE Matrix* HoeMatrixLookAtLH_(Matrix &out,const Vector3f &eye,const Vector3f &at,const Vector3f &up)
+HOE_INLINE Matrix4f* HoeMatrixLookAtLH_(Matrix4f &out,const Vector3f &eye,const Vector3f &at,const Vector3f &up)
 {
 /*	Vector3f zaxis = at - eye;
 	HoeNormal(zaxis);
@@ -585,7 +585,7 @@ HOE_INLINE int HoeClassifySphere(Vector3f &pos,
 	return P_BEHIND;
 }
 
-bool HoeInsidePolygon(Line2 * lines,int num_lines,const float x,const float y,int i1,int i2)
+bool HoeInsidePolygon(Line2f * lines,int num_lines,const float x,const float y,int i1,int i2)
 {
 	for (int i=0;i < num_lines;i++)
 	{

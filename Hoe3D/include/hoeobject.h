@@ -23,19 +23,19 @@ struct THoeSubObject
 struct THoeSub_Model : public THoeSubObject
 {
 	IHoeModel * model;
-	HoeMath::Matrix pos;
+	HoeMath::Matrix4f pos;
 };
 
 struct THoeSub_Particle : public THoeSubObject
 {
 	IHoeParticleEmitor * emitor;
-	HoeMath::Vector3 pos;
+	HoeMath::Vector3f pos;
 };
 
 struct THoeSub_Sound : public THoeSubObject
 {
 	IHoeParticleEmitor * emitor;
-	HoeMath::Vector3 pos;
+	HoeMath::Vector3v pos;
 };
 
 // flags
@@ -64,10 +64,10 @@ public:
 	virtual bool HOEAPI LoadModel(const tchar * cmd) = 0;
 
 	/** Nastavi aktualni pozici objektu */
-	virtual void HOEAPI SetPosition(const HoeMath::Vector3 &pos) = 0;
+	virtual void HOEAPI SetPosition(const HoeMath::Vector3v &pos) = 0;
 
 	/** vrati aktualni pozici objektu */
-	virtual const HoeMath::Vector3 & HOEAPI GetPosition() const = 0;
+	virtual const HoeMath::Vector3v & HOEAPI GetPosition() const = 0;
 
 	/** Nastavi oriantaci objektu */
 	virtual void HOEAPI SetOrientation(const float x, const float y, const float z, const float angle) = 0;
@@ -75,9 +75,9 @@ public:
 	/** Vrati oriantaci objektu */
 	//virtual void HOEAPI GetOrientation(float *x, float *y, float *z, float *angle) = 0;
 
-	virtual void HOEAPI SetScale(const HoeMath::Vector3 & scale) = 0;
+	virtual void HOEAPI SetScale(const HoeMath::Vector3v & scale) = 0;
 
-	virtual const HoeMath::Vector3 & HOEAPI GetScale() const = 0;
+	virtual const HoeMath::Vector3v & HOEAPI GetScale() const = 0;
 
 	/** nastaveni priznaku */
 	virtual void HOEAPI SetFlags(unsigned long  flags) = 0;
@@ -149,7 +149,7 @@ bool XHoeObject::LoadModel(const tchar * cmd)
 
 void XHoeObject::SetPosition(const float x, const float y, const float z)
 {
-	GetCtrl()->SetPosition(HoeMath::Vector3(x,y,z));
+	GetCtrl()->SetPosition(HoeMath::Vector3v(x,y,z));
 }
 
 void XHoeObject::SetOrientation(const float x, const float y, const float z, const float angle)

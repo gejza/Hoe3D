@@ -311,9 +311,9 @@ void HoeVertexShader::Setup(const HoeScene * scene) const
 {
 	if (m_shader)
 	{
-	HoeMath::Matrix m;
+	HoeMath::Matrix4v m;
 	scene->GetCamera()->GetViewProjMatrix(&m);
-	HoeMath::Matrix w;
+	HoeMath::Matrix4v w;
 #ifdef _HOE_D3D9_
 	D3DDevice()->GetTransform(D3DTS_WORLD, (D3DMATRIX*)&w);
 #endif
@@ -343,17 +343,17 @@ ogl:
 */
 //	exit(1);
 
-	HoeMath::Vector4 zero(0,0,0,0);
+	HoeMath::Vector4v zero(0,0,0,0);
 #ifdef _HOE_D3D9_
 	HRESULT hRes = D3DDevice()->SetVertexShader( m_shader);
 	assert(hRes == S_OK);
 	D3DDevice()->SetVertexShaderConstantF(  0, (float*)w.m, 4 );		// c0-c3 contains composite transform Matrix
-	D3DDevice()->SetVertexShaderConstantF(  5, zero.m, 1 );	// c5   0,0,0,0
+	D3DDevice()->SetVertexShaderConstantF(  5, zero, 1 );	// c5   0,0,0,0
 
 	for(uint i=0; i<17 && i < scene->GetLS()->GetNumActiveLights(); i++)
 		{
-			D3DDevice()->SetVertexShaderConstantF( i+10, scene->GetLS()->GetActiveLight(i)->GetPosition().m, 1 );
-			D3DDevice()->SetVertexShaderConstantF( i+40, scene->GetLS()->GetActiveLight(i)->GetColor().m,  1 );
+			D3DDevice()->SetVertexShaderConstantF( i+10, scene->GetLS()->GetActiveLight(i)->GetPosition(), 1 );
+			D3DDevice()->SetVertexShaderConstantF( i+40, scene->GetLS()->GetActiveLight(i)->GetColor(),  1 );
 		}
 #endif
 #ifdef _HOE_OPENGL_

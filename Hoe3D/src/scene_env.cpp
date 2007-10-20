@@ -45,9 +45,9 @@ objekty mapy
 
 struct WallVec
 {
-	HoeMath::Vector3 pos;
+	HoeMath::Vector3v pos;
 	//dword color;
-	HoeMath::Vector2 tex;
+	HoeMath::Vector2v tex;
 };
 
 /////////////////////////////////////
@@ -78,7 +78,7 @@ void HoePolygonSet::SetPos(float * vv, uint stride)
 	WallVec * v = (WallVec*)poly->m_stream.Lock();
 	for (int i=0;i < poly->nump;i++)
 	{
-		v->pos = HoeMath::Vector3(vv[0],vv[1],vv[2]);
+		v->pos = HoeMath::Vector3v(vv[0],vv[1],vv[2]);
 		v++;
 		vv = reinterpret_cast<float*>(reinterpret_cast<byte*>(vv)+stride);
 	}
@@ -89,7 +89,7 @@ void HoePolygonSet::SetTex(float * vv, uint stride)
 	WallVec * v = (WallVec*)poly->m_stream.Lock();
 	for (int i=0;i < poly->nump;i++)
 	{
-		v->tex = HoeMath::Vector2(vv[0],vv[1]);
+		v->tex = HoeMath::Vector2v(vv[0],vv[1]);
 		v++;
 		vv = reinterpret_cast<float*>(reinterpret_cast<byte*>(vv)+stride);
 	}

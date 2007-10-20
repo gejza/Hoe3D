@@ -170,10 +170,10 @@ void HoeCore::WordTileMap::Copy(const HoeCore::WordTileMap * map)
 	memcpy(m_map, map->m_map, m_width * m_height);
 }
 
-int HoeCore::WordTileMap::GetLines(word tile, HoeCore::Set<HoeMath::VLine2Int> &lines)
+int HoeCore::WordTileMap::GetLines(word tile, HoeCore::Set<HoeMath::SegmentLine2i> &lines)
 {
 	hoe_assert(m_map);
-	HoeMath::VLine2Int line;
+	HoeMath::SegmentLine2i line;
 	uint scount = lines.Count();
 	for (uint y=0;y < m_height;y++)
 		for (uint x=0;x<m_width;x++)
@@ -183,26 +183,26 @@ int HoeCore::WordTileMap::GetLines(word tile, HoeCore::Set<HoeMath::VLine2Int> &
 				continue;
 			if ((x+1) < m_width && m_map[INDEX(x+1,y)] != tile)
 			{
-				line.a = HoeMath::Vector2Int(x+1,y);
-				line.b = HoeMath::Vector2Int(x+1,y+1);
+				line.a = HoeMath::Vector2i(x+1,y);
+				line.b = HoeMath::Vector2i(x+1,y+1);
 				lines.Add(line);
 			}
 			if ((y+1) < m_height && m_map[INDEX(x,y+1)] != tile)
 			{
-				line.a = HoeMath::Vector2Int(x,y+1);
-				line.b = HoeMath::Vector2Int(x+1,y+1);
+				line.a = HoeMath::Vector2i(x,y+1);
+				line.b = HoeMath::Vector2i(x+1,y+1);
 				lines.Add(line);
 			}
 			if (x > 0 && m_map[INDEX(x-1,y)] != tile)
 			{
-				line.a = HoeMath::Vector2Int(x,y);
-				line.b = HoeMath::Vector2Int(x,y+1);
+				line.a = HoeMath::Vector2i(x,y);
+				line.b = HoeMath::Vector2i(x,y+1);
 				lines.Add(line);
 			}
 			if (y > 0 && m_map[INDEX(x,y-1)] != tile)
 			{
-				line.a = HoeMath::Vector2Int(x,y);
-				line.b = HoeMath::Vector2Int(x+1,y);
+				line.a = HoeMath::Vector2i(x,y);
+				line.b = HoeMath::Vector2i(x+1,y);
 				lines.Add(line);
 			}
 		}

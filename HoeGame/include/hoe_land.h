@@ -11,7 +11,7 @@ class LandPath
 public:
     struct Point
     {
-        HoeMath::Vector2 pos;
+        HoeMath::Vector2v pos;
         bool virt;
     };
 //protected:
@@ -38,7 +38,7 @@ public:
     virtual ~Land();
     bool Create(int width, int height, const THoeRect &rect);
 	bool Preprocess(HoeCore::WordTileMap & map);
-	bool Find(const HoeMath::Vector2 &from, const HoeMath::Vector2 &to, LandPath &path);
+	bool Find(const HoeMath::Vector2v &from, const HoeMath::Vector2v &to, LandPath &path);
 };
 
 
