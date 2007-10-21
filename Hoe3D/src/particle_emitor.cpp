@@ -35,8 +35,8 @@ ParticleEmitor::~ParticleEmitor()
 {
 }
 
-const float xspeed = 1.f;
-const float yspeed = 30.f;
+const vfloat xspeed = 1.f;
+const vfloat yspeed = 30.f;
 
 bool ParticleEmitor::Create(uint num_part)
 {
@@ -46,12 +46,12 @@ bool ParticleEmitor::Create(uint num_part)
 	{
 		Particle & p = m_parts.Add();
 		p.life = 1.f;
-		p.fade = float(rand()%100)/1000.0f+0.003f;// Rychlost stárnutí
+		p.fade = vfloat(rand()%100) / 1000.0f + 0.003f;// Rychlost stárnutí
 		p.color = palete[i*12/num_part];
 		p.pos.Set(0,0,0);
-		p.posi.Set(xspeed+float((rand()%60)-32.0f),
-			yspeed+float((rand()%60)-30.0f),
-			float((rand()%60)-30.0f));
+		p.posi.Set(xspeed+vfloat((rand()%60)-32.0f),
+			yspeed+vfloat((rand()%60)-30.0f),
+			vfloat((rand()%60)-30.0f));
 		p.posg.Set(0,0.8f,0);
 	}
 

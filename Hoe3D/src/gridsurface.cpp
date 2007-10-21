@@ -64,8 +64,8 @@ bool TGridModel::LoadModel(const tchar * name)
 		for (uint i=0;i < s.GetNumVert();i++)
 		{
 			m[i].pos.y *= 1.8f;
-			float tx = m[i].pos.x;
-			float tz = m[i].pos.z;
+			vfloat tx = m[i].pos.x;
+			vfloat tz = m[i].pos.z;
 			if (Tolerantion(tx, -10.f) && Tolerantion(tz, -10.f))
 			{
 				m[i].pos.x = -10.f; m[i].pos.z = -10.f;this->coigns[0] = m[i].pos.y;
@@ -319,11 +319,11 @@ bool GridSurface::ModelToMulti(const HoeMath::Matrix4v & Matrix, const TGridData
 		pv[i].norm = mv[i].norm;
 		// upravit tex
 		HoeMath::Vector2v tex = mv[i].tex1;
-		pv[i].tex2.x = (grid.x2+tex.x)*tx2;
-		pv[i].tex2.y = (grid.y2+tex.y)*ty2;
+		pv[i].tex2.x = ((vfloat)grid.x2+tex.x)*tx2;
+		pv[i].tex2.y = ((vfloat)grid.y2+tex.y)*ty2;
 		// tex 1 podle stareho pravidla
-		pv[i].tex1.x = (grid.x1+((pos.x + 10.f) / 20.f))*tx1;
-		pv[i].tex1.y = (grid.y1+((pos.z + 10.f) / 20.f))*ty1;
+		pv[i].tex1.x = ((vfloat)grid.x1+((pos.x + 10.f) / 20.f))*tx1;
+		pv[i].tex1.y = ((vfloat)grid.y1+((pos.z + 10.f) / 20.f))*ty1;
 	}
 	str->Unlock();
 

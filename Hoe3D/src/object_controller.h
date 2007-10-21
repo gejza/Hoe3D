@@ -47,9 +47,9 @@ public:
 	virtual void HOEAPI Unregister();
 
 	virtual void HOEAPI SetPosition(const HoeMath::Vector3v &pos);
-	virtual void HOEAPI SetOrientation(const float x, const float y, const float z, const float angle);
+	virtual void HOEAPI SetOrientation(const vfloat x, const vfloat y, const vfloat z, const vfloat angle);
 	virtual const HoeMath::Vector3v & HOEAPI GetPosition() const;
-	virtual void HOEAPI GetOrientation(float *x, float *y, float *z, float *angle);
+	virtual void HOEAPI GetOrientation(vfloat *x, vfloat *y, vfloat *z, vfloat *angle);
 	virtual void HOEAPI SetScale(const HoeMath::Vector3v &scale);
 	virtual const HoeMath::Vector3v & HOEAPI GetScale() const;
 	/** @see IHoeObjectController::LinkSubObject */

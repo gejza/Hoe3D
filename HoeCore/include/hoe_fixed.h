@@ -12,14 +12,25 @@ namespace HoeMath {
 
 typedef int fxtype;
 const int fxbits = 16;
+const int fxmax = 0x7ffffff;
+const int fxmin = 0x8000000;
 const float fxbase = (float)(1 << fxbits);
 
-class fixed
+struct fixed
 {
 	fxtype n;
-public:
-	/*fixed() {}
-	fixed(int a) { n = a; }*/
+
+	fixed() {}
+	fixed(const int a) 	{		n = a << fxbits;
+	}	fixed(const float a)
+	{
+		n = (fxtype)(a * fxbase);
+	}
+	fixed(const double a)
+	{
+		n = (fxtype)(a * fxbase);
+	}
+
 	fixed& operator = (const float a)
 	{
 		n = (fxtype)(a * fxbase);
@@ -30,27 +41,81 @@ public:
 		n = a << fxbits;
 		return *this;
 	}
+	const fixed& operator *= (const fixed& a)
+	{
+		n = ((fxtype)(((_int64)(a.n) * (_int64)(n)) >> fxbits));
+        return *this;
+	}
 	fixed operator * (const fixed& a) const
 	{
         fixed ret;
 		ret.n = ((fxtype)(((_int64)(a.n) * (_int64)(n)) >> fxbits));
         return ret;
 	}
-	fixed operator / (const fixed& a) const
+	fixed operator * (const float a) const
+	{
+        fixed ret;
+		ret.n = ((fxtype)(((_int64)(a * fxbase) * (_int64)(n)) >> fxbits));
+        return ret;
+	}
+	fixed operator * (const int a) const
+	{
+        fixed ret;
+		ret.n = ((fxtype)(((_int64)(a << fxbits) * (_int64)(n)) >> fxbits));
+        return ret;
+	}
+	const fixed& operator /= (const fixed& a)
+	{
+		n = (fxtype)(((_int64)(n) << fxbits) / (_int64)(a.n));
+        return *this;
+	}
+	const fixed operator / (const fixed& a) const
 	{
         fixed ret;
 		ret.n = (fxtype)(((_int64)(n) << fxbits) / (_int64)(a.n));
         return ret;
-		
-
 	}
-	fixed operator + (const fixed& a) const
+	const fixed operator / (const float a) const
+	{
+        fixed ret;
+		ret.n = (fxtype)(((_int64)(n) << fxbits) / (_int64)(a * fxbase));
+        return ret;
+	}
+	const fixed operator / (const int a) const
+	{
+        fixed ret;
+		ret.n = (fxtype)(((_int64)(n) << fxbits) / (_int64)(a << fxbits));
+        return ret;
+	}
+	const fixed& operator += (const fixed& a)
+	{
+        n += a.n;
+        return *this;
+	}
+	const fixed operator + (const fixed& a) const
     {
         fixed ret;
         ret.n = n + a.n;
         return ret;
 	}
-	fixed operator - (const fixed& a) const
+	const fixed operator + (const float a) const
+    {
+        fixed ret;
+        ret.n = n + (fxtype)(a * fxbase);
+        return ret;
+	}
+	const fixed operator + (const int a) const
+    {
+        fixed ret;
+        ret.n = n + (fxtype)(a << fxbits);
+        return ret;
+	}
+	const fixed& operator -= (const fixed& a)
+	{
+        n -= a.n;
+        return *this;
+	}
+	const fixed operator - (const fixed& a) const
 	{
         fixed ret;
         ret.n = n - a.n;
@@ -60,6 +125,18 @@ public:
 	{
         fixed ret;
         ret.n = n - (a << fxbits);
+        return ret;
+	}
+	fixed operator - (const float a) const
+	{
+        fixed ret;
+        ret.n = n - (fxtype)(a * fxbase);
+        return ret;
+	}
+	fixed operator - () const
+	{
+        fixed ret;
+        ret.n = -n;
         return ret;
 	}
 	operator float () const
@@ -72,7 +149,122 @@ public:
 	}
 };
 
+inline fixed operator * (const int a, const fixed& n)
+{
+    fixed ret;
+	ret.n = ((fxtype)(((_int64)(a << fxbits) * (_int64)(n.n)) >> fxbits));
+    return ret;
+}
+
+/*fixed operator / (const int a, const fixed& n) const
+{
+    fixed ret;
+	ret.n = (fxtype)(((_int64)(n) << (2*fxbits)) / (_int64)(n.n));
+    return ret;
+}*/
+
+inline fixed operator - (const int a, const fixed& n)
+{
+    fixed ret;
+	ret.n = (a << fxbits) - n.n;
+    return ret;
+}
+
+inline fixed operator - (const float a, const fixed& n)
+{
+    fixed ret;
+	ret.n = (fxtype)(a * fxbase) - n.n;
+    return ret;
+}
+
+inline fixed operator + (const int a, const fixed& n)
+{
+    fixed ret;
+	ret.n = (a << fxbits) + n.n;
+    return ret;
+}
+
+// compare
+inline bool operator == (const fixed& a, const fixed& b)
+{
+    return a.n == b.n;
+}
+
+inline bool operator == (const fixed& a, const int b)
+{
+    return a.n == b << fxbits;
+}
+
+inline bool operator == (const fixed& a, const float b)
+{
+    return a.n == b * fxbase;
+}
+
+inline bool operator <= (const fixed& a, const fixed& b)
+{
+    return a.n <= b.n;
+}
+
+inline bool operator <= (const fixed& a, const int b)
+{
+	return a.n <= (b << fxbits);
+}
+
+inline bool operator <= (const fixed& a, const float b)
+{
+	return a.n <= (b * fxbase);
+}
+
+inline bool operator >= (const fixed& a, const fixed& b)
+{
+    return a.n >= b.n;
+}
+
+inline bool operator > (const fixed& a, const fixed& b)
+{
+    return a.n > b.n;
+}
+
+inline bool operator > (const fixed& a, const float b)
+{
+    return a.n > (fxtype)(b * fxbase);
+}
+
+inline bool operator > (const fixed& a, const int b)
+{
+    return a.n > (fxtype)(b << fxbits);
+}
+
+inline bool operator < (const fixed& a, const fixed& b)
+{
+    return a.n < b.n;
+}
+
+inline bool operator < (const fixed& a, const float b)
+{
+    return a.n < (fxtype)(b * fxbase);
+}
+
+inline bool operator < (const fixed& a, const int b)
+{
+    return a.n < (fxtype)(b << fxbits);
+}
+
+
+
 } // namespace HoeMath
+
+// functions?
+inline const HoeMath::fixed fabs(const HoeMath::fixed n)
+{
+	HoeMath::fixed ret;
+	ret.n = n.n & HoeMath::fxmax;
+	return ret;
+}
+
+const HoeMath::fixed sinf(HoeMath::fixed n);
+const HoeMath::fixed cosf(HoeMath::fixed n);
+const HoeMath::fixed tanf(HoeMath::fixed n);
 
 #endif // __cplusplus
 

@@ -2,6 +2,8 @@
 #ifndef _HOE_MATH_DEF_H_
 #define _HOE_MATH_DEF_H_
 
+#include "hoe_fixed.h"
+
 #ifndef HOE_INLINE
 #define HOE_INLINE inline
 #endif // HOE_INLINE
@@ -17,11 +19,13 @@
 #define floorf(d)       (FLOAT)floor((double)d)
 #endif
 
+#if 0
+typedef HoeMath::fixed vfloat;
+#else
+typedef float vfloat;
+#endif
+
 namespace HoeMath {
-
-// zmenit
-typedef float real;
-
 
 struct Rect;
 template<class TYPE> struct Matrix4;
@@ -71,7 +75,7 @@ template<class TYPE> struct Vector2
 
 typedef Vector2<float> Vector2f;
 typedef Vector2<int> Vector2i;
-typedef Vector2<real> Vector2v;
+typedef Vector2<vfloat> Vector2v;
 
 template<class TYPE> struct Vector3
 {
@@ -90,13 +94,13 @@ template<class TYPE> struct Vector3
 	}
 	HOE_INLINE void RotateY(float angle);
 
-	HOE_INLINE void Set(float *f)
+	HOE_INLINE void Set(TYPE *f)
 	{
 		x = f[0];
 		y = f[1];
 		z = f[2];
 	}
-	HOE_INLINE void Set(float X,float Y,float Z)
+	HOE_INLINE void Set(TYPE X,TYPE Y,TYPE Z)
 	{
 		x = X;y = Y;z = Z;
 	}
@@ -124,11 +128,11 @@ template<class TYPE> struct Vector3
 	{
 		return Vector3(x + v.x, y + v.y, z + v.z);
 	}
-	Vector3 operator * ( const float f ) const
+	Vector3 operator * ( const TYPE f ) const
 	{
 		return Vector3(x * f, y * f, z * f);
 	}
-	Vector3 operator / ( const float f ) const
+	Vector3 operator / ( const TYPE f ) const
 	{
 		return Vector3(x / f, y / f, z / f);
 	}
@@ -171,7 +175,7 @@ template<class TYPE> struct Vector3
 typedef Vector3<float> Vector3f;
 typedef Vector3<int> Vector3i;
 typedef Vector3<double> Vector3d;
-typedef Vector3<real> Vector3v;
+typedef Vector3<vfloat> Vector3v;
 
 template <class TYPE> struct Vector4
 {
@@ -201,28 +205,28 @@ template <class TYPE> struct Vector4
 	}
 };
 
-typedef Vector4<real> Vector4v;
+typedef Vector4<vfloat> Vector4v;
 
-struct Quat
+template<class TYPE> struct Quat
 {
-	float x;
-	float y;
-	float z;
-	float w;
-	void Set(float W, float X, float Y, float Z)
+	TYPE x;
+	TYPE y;
+	TYPE z;
+	TYPE w;
+	void Set(TYPE W, TYPE X, TYPE Y, TYPE Z)
 	{
 		x = X;y = Y;z = Z;w = W;
 	}
 
-	void Create(const Vector3f &v, const float angle)
+	void Create(const Vector3<TYPE> &v, const TYPE angle)
 	{
-		const float a = sinf(angle * 0.5f);
+		const vfloat a = sinf(angle * 0.5f);
 		x = a * v.x;
 		y = a * v.y;
 		z = a * v.z;
 		w = cosf(angle * 0.5f);
 	}
-	void Create(const float X, const float Y, const float Z, const float angle)
+	void Create(const TYPE X, const TYPE Y, const TYPE Z, const TYPE angle)
 	{
 		const float a = sinf(angle * 0.5f);
 		x = a * X;
@@ -232,8 +236,13 @@ struct Quat
 	}
 	HOE_INLINE double Magnitude(void) const;
 	HOE_INLINE void Normalize(void);
-	HOE_INLINE void GetMatrix(Matrix4<float> * m) const;
+	HOE_INLINE void GetMatrix(Matrix4<TYPE> * m) const;
 };
+
+typedef Quat<float> Quatf;
+typedef Quat<vfloat> Quatv;
+typedef Quat<double> Quatd;
+typedef Quat<int> Quati;
 
 struct Rect
 {
@@ -299,29 +308,33 @@ struct Rect
 	}
 };
 
-struct Plane
+template<class TYPE> struct Plane
 {
-	float a;
-	float b;
-	float c;
-	float d;
-	void Set(float A,float B,float C,float D)
+	TYPE a;
+	TYPE b;
+	TYPE c;
+	TYPE d;
+	void Set(TYPE A,TYPE B,TYPE C,TYPE D)
 	{
 		a = A;b = B;c = C;d = D;
 	}
 	void Normalize()
 	{
-		const float magnitude = (float)sqrt( a * a + b * b + c * c );
+		const TYPE magnitude = (TYPE)sqrt( a * a + b * b + c * c );
 		a /= magnitude;
 		b /= magnitude;
 		c /= magnitude;
 		d /= magnitude; 
 	}
-	float Func(const Vector3f & p) const
+	TYPE Func(const Vector3<TYPE> & p) const
 	{
 		return a * p.x + b * p.y + c * p.z + d;
 	}
 };
+
+typedef Plane<vfloat> Plane_v;
+typedef Plane<float> Plane_f;
+typedef Plane<int> Plane_i;
 
 template<class TYPE> struct Triangle
 {
@@ -414,16 +427,11 @@ typedef SegmentLine<Vector2f> SegmentLine2f;
 template<class TYPE> struct Matrix4
 {
 public:
-    union {
-        struct {
-            TYPE        _11, _12, _13, _14;
-            TYPE        _21, _22, _23, _24;
-            TYPE        _31, _32, _33, _34;
-            TYPE        _41, _42, _43, _44;
+    TYPE        _11, _12, _13, _14;
+    TYPE        _21, _22, _23, _24;
+    TYPE        _31, _32, _33, _34;
+    TYPE        _41, _42, _43, _44;
 
-        };
-        TYPE m[4][4];
-    };
 #ifdef _HOE_D3D_
 	operator const D3DMATRIX*() const
 	{
@@ -442,24 +450,24 @@ public:
 #endif
 
 	HOE_INLINE void Identity(void);
-	HOE_INLINE void RotationX(const float angle);
-	HOE_INLINE void RotationY(const float angle);
-	HOE_INLINE void RotationZ(const float angle);
-	HOE_INLINE void Scale(const float s);
-	HOE_INLINE void Scale(const float sx,const float sy,const float sz);
-	HOE_INLINE void Scale(const Vector3f &s);
-	HOE_INLINE void Translate(const float x,const float y,const float z);
-	HOE_INLINE void Translate(const Vector3f &v);
+	HOE_INLINE void RotationX(const TYPE angle);
+	HOE_INLINE void RotationY(const TYPE angle);
+	HOE_INLINE void RotationZ(const TYPE angle);
+	HOE_INLINE void Scale(const TYPE s);
+	HOE_INLINE void Scale(const TYPE sx,const TYPE sy,const TYPE sz);
+	HOE_INLINE void Scale(const Vector3<TYPE> &s);
+	HOE_INLINE void Translate(const TYPE x,const TYPE y,const TYPE z);
+	HOE_INLINE void Translate(const Vector3<TYPE> &v);
 	HOE_INLINE float Inverse(const Matrix4 &m);
 	HOE_INLINE void Adjung(const Matrix4 &m);
 	HOE_INLINE void Transpoze(const Matrix4 &m);
 	HOE_INLINE void Transpoze();
 
-	HOE_INLINE void Camera(const Vector3f &pos,const Vector3f &look);
-	HOE_INLINE void Ortho(const float w,const float h,const float zn,const float zf);
-	HOE_INLINE void Ortho(const float l,const float r,const float b,const float t,const float zn,const float zf);
-	HOE_INLINE void Perspective(const float w,const float h,const float zn,const float zf);
-	HOE_INLINE void PerspectiveFov(const float fovX,const float a,const float zn,const float zf);
+	HOE_INLINE void Camera(const Vector3<TYPE> &pos,const Vector3<TYPE> &look);
+	HOE_INLINE void Ortho(const TYPE w,const TYPE h,const TYPE zn,const TYPE zf);
+	HOE_INLINE void Ortho(const TYPE l,const TYPE r,const TYPE b,const TYPE t,const TYPE zn,const TYPE zf);
+	HOE_INLINE void Perspective(const TYPE w,const TYPE h,const TYPE zn,const TYPE zf);
+	HOE_INLINE void PerspectiveFov(const TYPE fovX,const TYPE a,const TYPE zn,const TYPE zf);
 
 	HOE_INLINE void Multiply( const Matrix4 &a,const Matrix4 &b);
 	HOE_INLINE void Multiply( const Matrix4 &m);
@@ -469,7 +477,7 @@ public:
 };
 
 typedef Matrix4<float> Matrix4f;
-typedef Matrix4<real> Matrix4v;
+typedef Matrix4<vfloat> Matrix4v;
 
 template<class TYPE> struct BoundingBox3
 {
@@ -484,7 +492,7 @@ template<class TYPE> struct BoundingBox3
 };
 
 typedef BoundingBox3<float> BoundingBox3f;
-typedef BoundingBox3<real> BoundingBox3v;
+typedef BoundingBox3<vfloat> BoundingBox3v;
 
 };
 

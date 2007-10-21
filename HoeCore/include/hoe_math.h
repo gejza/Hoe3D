@@ -35,12 +35,12 @@ static const float HOE_2PIF = (2*HOE_PIF);
 #define MATCH_FACTOR 0.9
 
 /** Funkce pro vypocet vektoroveho souctu */
-HOE_INLINE float HoeDot(const Vector3f &vec1,const Vector3f &vec2);
-HOE_INLINE float HoeDot(const Vector2f &vec1,const Vector2f &vec2);
-HOE_INLINE void HoeCross(const Vector3f &vec1, const Vector3f &vec2,Vector3f &cross);
-HOE_INLINE const Vector3f HoeCross(const Vector3f &vec1, const Vector3f &vec2);
-HOE_INLINE double HoeAngleBetweenVectors(const Vector3f &v1, const Vector3f &v2);
-HOE_INLINE float HoeAngleBetweenVectorsF(const Vector2f &v1, const Vector2f &v2);
+HOE_INLINE float HoeDot(const Vector3v &vec1,const Vector3v &vec2);
+HOE_INLINE float HoeDot(const Vector2v &vec1,const Vector2v &vec2);
+HOE_INLINE void HoeCross(const Vector3v &vec1, const Vector3v &vec2,Vector3v &cross);
+HOE_INLINE const Vector3v HoeCross(const Vector3v &vec1, const Vector3v &vec2);
+HOE_INLINE double HoeAngleBetweenVectors(const Vector3v &v1, const Vector3v &v2);
+HOE_INLINE float HoeAngleBetweenVectorsF(const Vector2v &v1, const Vector2v &v2);
 
 HOE_INLINE bool HoeInsidePolygon(Line2f *,int num_lines,const float x,const float y,int i1,int i2);
 
@@ -49,8 +49,8 @@ HOE_INLINE void HoePlaneNormal(const Vector3f &a, const Vector3f &b, const Vecto
 HOE_INLINE float HoePlaneDistance(Vector3f &normal, Vector3f &point);
 HOE_INLINE float HoeDistance(Vector2f &a, Vector2f &b);
 HOE_INLINE float HoeDistance(Vector3f &a, Vector3f &b);
-HOE_INLINE int HoeClassifySphere(Vector3f &pos, 
-				   Vector3f &normal, Vector3f &a, float radius, float &distance);
+HOE_INLINE int HoeClassifySphere(Vector3v &pos, 
+				   Vector3v &normal, Vector3v &a, vfloat radius, vfloat &distance);
 HOE_INLINE bool HoeInsidePolygon(const Vector3f &intersection, const Vector3f &a,const Vector3f &b,const Vector3f &c);
 HOE_INLINE void HoeGetCollisionOffset(Vector3f &normal, float radius, float distance,Vector3f &offset);
 HOE_INLINE bool HoeEdgePlanesCollision(Vector3f &center, 

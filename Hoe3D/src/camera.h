@@ -28,7 +28,7 @@ class HoeCamera : public IHoeCamera
 		BACK = 4,
 		FRONT = 5
 	};
-	HoeMath::Plane m_frustrum[6];
+	HoeMath::Plane_v m_frustrum[6];
 
 	void CalculateFrustum();
 	void Update();

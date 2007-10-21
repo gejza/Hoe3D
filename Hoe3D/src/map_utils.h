@@ -14,7 +14,7 @@ struct MapPosition
 
 struct MapOrientation : public MapPosition
 {
-	HoeMath::Quat rot;
+	HoeMath::Quatv rot;
 
 	// pridat orientaci
 	void GetMatrix(HoeMath::Matrix4v *m);

@@ -47,7 +47,7 @@ bool HoeEngine::Load(const tchar * dllname, Console * con, XHoeFS * fs, int sdkv
 		return false;
 	}
 
-	GetEngineInterface = (HOE_FUNCCREATE)GetProcAddress(m_lib,L"_CreateHoeEngine@24");
+	GetEngineInterface = (HOE_FUNCCREATE)GetProcAddress(m_lib,T("_CreateHoeEngine@24"));
 	if (!GetEngineInterface)
 	{
 		con->Printf(T("Nelze ziskat export knihovny."));
@@ -133,7 +133,7 @@ bool HoeEngineInfo::Load(const char * dllname)
 		return false;
 	}
 
-	func = (HOE_FUNCINFO)GetProcAddress(m_lib,L"_GetEngineInfo@4");
+	func = (HOE_FUNCINFO)GetProcAddress(m_lib,T("_GetEngineInfo@4"));
 	if (func == NULL)
 	{
 		Unload();

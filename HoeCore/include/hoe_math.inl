@@ -2,14 +2,6 @@
 #ifndef _HE_MATH_INL__
 #define _HE_MATH_INL__
 
-HOE_INLINE float Abs(float f)
-{
-	if (f >= 0)
-		return f;
-	else 
-		return -f;
-}
-
 HOE_INLINE float UpperRound(float f)
 {
 	int i = (int)f;
@@ -85,21 +77,21 @@ HOE_INLINE void Vector3f::Min(const Vector3f & v)
 
 //////// quaternions ///////////////////////////////////
 
-HOE_INLINE double Quat::Magnitude(void) const
+HOE_INLINE double Quatf::Magnitude(void) const
 {
 	return sqrt( w*w + x*x + y*y + z*z);
 }
 
-HOE_INLINE void Quat::Normalize(void)
+HOE_INLINE void Quatv::Normalize(void)
 {
-	float mag = (float)Magnitude();
+	vfloat mag = (vfloat)Magnitude();
 	w = w / mag;
 	x = x / mag;
 	y = y / mag;
 	z = z / mag;
 }
 
-HOE_INLINE void Quat::GetMatrix(Matrix4f * m) const 
+HOE_INLINE void Quatv::GetMatrix(Matrix4v * m) const 
 {
 	m->_11  = 1 - 2 * ( y*y + z*z );
     m->_12  =     2 * ( x*y - z*w );
@@ -282,10 +274,10 @@ HOE_INLINE float Matrix4f::Inverse( const Matrix4f &m)
 	return det;
 }
 
-HOE_INLINE void Matrix4f::Camera(const Vector3f &pos,const Vector3f &look)
+HOE_INLINE void Matrix4v::Camera(const Vector3v &pos,const Vector3v &look)
 {
 
-	Vector3f pos2(-pos.x,-pos.y,-pos.z);
+	Vector3v pos2(-pos.x,-pos.y,-pos.z);
 
 	_14 = 0;
 	_24 = 0;
@@ -477,7 +469,7 @@ HOE_INLINE float HoeDot(const Vector2f &vec1,const Vector2f &vec2)
 	return vec1.x * vec2.x + vec1.y * vec2.y;
 }
 
-HOE_INLINE void HoeCross(const Vector3f &vec1, const Vector3f &vec2,Vector3f &cross)
+HOE_INLINE void HoeCross(const Vector3v &vec1, const Vector3v &vec2,Vector3v &cross)
 {
 
 	// The X value for the vector is:  (V1.y * V2.z) - (V1.z * V2.y)													// Get the X value
@@ -540,7 +532,7 @@ HOE_INLINE bool HoeSphereInBox(Vector3f &p,float radius,float minx,float miny, f
 	return !((p.x+radius) < minx || (p.x-radius) > maxx || (p.y+radius) < miny || (p.y-radius) > maxy || (p.z+radius) < minz || (p.z-radius) > maxz);
 }
 
-HOE_INLINE void HoePlaneNormal(const Vector3f &a,const Vector3f &b, const Vector3f &c,Vector3f &normal)
+HOE_INLINE void HoePlaneNormal(const Vector3v &a,const Vector3v &b, const Vector3v &c,Vector3v &normal)
 {
 	HoeCross(b-a,c-a,normal);
 
@@ -626,18 +618,18 @@ HOE_INLINE void HoeGetCollisionOffset(Vector3f &normal, float radius, float dist
 	}
 }
 
-HOE_INLINE bool HoeEdgePlanesCollision(Vector3f &center, 
-						 Vector3f &a,Vector3f &b,Vector3f &c, Vector3f &normal, float radius)
+HOE_INLINE bool HoeEdgePlanesCollision(Vector3v &center, 
+						 Vector3v &a,Vector3v &b,Vector3v &c, Vector3v &normal, vfloat radius)
 {
 	// Create some variables to hold each edge planes classification with the sphere
 	int edge1 = 0, edge2 = 0, edge3 = 0;
-	float distance1 = 0, distance2 = 0, distance3 = 0;
+	vfloat distance1 = 0, distance2 = 0, distance3 = 0;
 
 	//////////////// Calculate Edge 1 ////////////////
 
 	// Get a vector from the edge of the triangle
-	Vector3f vector = b - a;
-	Vector3f edgenormal;
+	Vector3v vector = b - a;
+	Vector3v edgenormal;
 	// Get the vector perpendicular from the normal of the triangle and this edge vector
 	HoeCross(vector, normal,edgenormal);
 
@@ -679,11 +671,11 @@ HOE_INLINE bool HoeEdgePlanesCollision(Vector3f &center,
 	if (edge2 == P_BEHIND)
 		return false;
 	
-	if(edge1 == P_INTERSECTS && Abs(distance1) < radius/2.0f) 
+	if(edge1 == P_INTERSECTS && fabs(distance1) < radius/2.0f) 
 		return true;
-	else if(edge2 == P_INTERSECTS && Abs(distance2) < radius/2.0f) 
+	else if(edge2 == P_INTERSECTS && fabs(distance2) < radius/2.0f) 
 		return true;
-	else if(edge3 == P_INTERSECTS && Abs(distance3) < radius/2.0f) 
+	else if(edge3 == P_INTERSECTS && fabs(distance3) < radius/2.0f) 
 		return true;
 
 	return false;

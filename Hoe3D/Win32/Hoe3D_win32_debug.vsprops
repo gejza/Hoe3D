@@ -5,4 +5,8 @@
 	Name="Hoe3D_win32_debug"
 	InheritedPropertySheets=".\Hoe3D_base.vsprops"
 	>
+	<Tool
+		Name="VCLinkerTool"
+		AdditionalLibraryDirectories="../../bin"
+	/>
 </VisualStudioPropertySheet>

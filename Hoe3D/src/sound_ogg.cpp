@@ -21,6 +21,19 @@
 #include <vorbis/codec.h>
 #include <vorbis/vorbisfile.h> 
 
+SoundSourceOgg::SoundSourceOgg()
+{
+}
+
+SoundSourceOgg::~SoundSourceOgg()
+{
+}
+
+bool SoundSourceOgg::Open(const tchar *name)
+{
+	return false;
+}
+
 /*static size_t read_func(void *ptr, size_t size, size_t nmemb, void *datasource)
 {
 	return reinterpret_cast<XHoeFile*>(datasource)->Read(ptr, size*nmemb) / size;

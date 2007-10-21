@@ -114,7 +114,7 @@ void HOEAPI ObjectController::SetPosition(const HoeMath::Vector3v &p)
 	pos.xyz = p;
 }
 
-void HOEAPI ObjectController::SetOrientation(const float x, const float y, const float z, const float angle)
+void HOEAPI ObjectController::SetOrientation(const vfloat x, const vfloat y, const vfloat z, const vfloat angle)
 {
 	HoeMath::Vector3v vect(x,y,z);
 	vect.Normalize();
@@ -126,7 +126,7 @@ const HoeMath::Vector3v & ObjectController::GetPosition() const
 	return pos.xyz; 
 }
 
-void ObjectController::GetOrientation(float *x, float *y, float *z, float *angle)
+void ObjectController::GetOrientation(vfloat *x, vfloat *y, vfloat *z, vfloat *angle)
 {
 	if (x) *x = pos.rot.x; 
 	if (y) *y = pos.rot.y; 

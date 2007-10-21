@@ -23,13 +23,13 @@ struct THoeSubObject
 struct THoeSub_Model : public THoeSubObject
 {
 	IHoeModel * model;
-	HoeMath::Matrix4f pos;
+	HoeMath::Matrix4v pos;
 };
 
 struct THoeSub_Particle : public THoeSubObject
 {
 	IHoeParticleEmitor * emitor;
-	HoeMath::Vector3f pos;
+	HoeMath::Vector3v pos;
 };
 
 struct THoeSub_Sound : public THoeSubObject
@@ -70,7 +70,7 @@ public:
 	virtual const HoeMath::Vector3v & HOEAPI GetPosition() const = 0;
 
 	/** Nastavi oriantaci objektu */
-	virtual void HOEAPI SetOrientation(const float x, const float y, const float z, const float angle) = 0;
+	virtual void HOEAPI SetOrientation(const vfloat x, const vfloat y, const vfloat z, const vfloat angle) = 0;
 
 	/** Vrati oriantaci objektu */
 	//virtual void HOEAPI GetOrientation(float *x, float *y, float *z, float *angle) = 0;
@@ -120,10 +120,10 @@ public:
 	inline bool LoadModel(const tchar * cmd);
 	
 	/** Nastavi aktualni pozici objektu */
-	inline void SetPosition(const float x, const float y, const float z);
+	inline void SetPosition(const vfloat x, const vfloat y, const vfloat z);
 
 	/** Nastavi oriantaci objektu */
-	inline void SetOrientation(const float x, const float y, const float z, const float angle);
+	inline void SetOrientation(const vfloat x, const vfloat y, const vfloat z, const vfloat angle);
 
 	/** zobrazeni */
 	inline void Show(bool show);
@@ -147,12 +147,12 @@ bool XHoeObject::LoadModel(const tchar * cmd)
 	return GetCtrl()->LoadModel(cmd);
 }
 
-void XHoeObject::SetPosition(const float x, const float y, const float z)
+void XHoeObject::SetPosition(const vfloat x, const vfloat y, const vfloat z)
 {
 	GetCtrl()->SetPosition(HoeMath::Vector3v(x,y,z));
 }
 
-void XHoeObject::SetOrientation(const float x, const float y, const float z, const float angle)
+void XHoeObject::SetOrientation(const vfloat x, const vfloat y, const vfloat z, const vfloat angle)
 {
 	GetCtrl()->SetOrientation(x,y,z,angle);
 }

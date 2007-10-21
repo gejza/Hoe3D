@@ -191,8 +191,8 @@ void HoeCamera::Pick(const float x, const float y, HoeMath::Vector3v * vPickRayD
         
 	// Compute the vector of the pick ray in screen space
     static Vector3v v;
-    v.x =  ( ( ( 2.0f * x ) / m_width  ) - 1 ) / matProj._11;
-    v.y = -( ( ( 2.0f * y ) / m_height ) - 1 ) / matProj._22;
+    v.x =  fixed( ( ( 2.0f * x ) / m_width  ) - 1 ) / matProj._11;
+    v.y = -fixed( ( ( 2.0f * y ) / m_height ) - 1 ) / matProj._22;
     v.z =  1.0f;
 
         // Get the inverse view Matrix

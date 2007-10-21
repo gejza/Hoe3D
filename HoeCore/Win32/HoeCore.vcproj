@@ -426,6 +426,10 @@
 			Name="Math"
 			>
 			<File
+				RelativePath="..\src\hoe_fixed.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\include\hoe_fixed.h"
 				>
 			</File>
