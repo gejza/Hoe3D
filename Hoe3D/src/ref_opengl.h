@@ -153,7 +153,7 @@ public:
 	* Nastaveni aktualni modelove matice.
 	* @param m Matice
 	*/
-	static HOE_INLINE void SetMatrix(const HoeMath::Matrix & m);
+	static HOE_INLINE void SetMatrix(const HoeMath::Matrix4v & m);
 	/**
 	* Test na pritomnost rozsireni
 	* @param ext_name Jmeno extension

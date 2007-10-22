@@ -264,6 +264,7 @@ inline const HoeMath::fixed fabs(const HoeMath::fixed n)
 
 const HoeMath::fixed sinf(HoeMath::fixed n);
 const HoeMath::fixed cosf(HoeMath::fixed n);
+void sincosf(HoeMath::fixed a, HoeMath::fixed* s, HoeMath::fixed* c);
 const HoeMath::fixed tanf(HoeMath::fixed n);
 
 #endif // __cplusplus

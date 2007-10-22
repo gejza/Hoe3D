@@ -14,11 +14,12 @@ ___bin_libHoeCore_a_SOURCES = src/hoe_core.cpp \
 src/hoe_log.cpp \
 src/hoe_math.cpp \
 src/hoe_string.cpp \
-src/hoe_universal.cpp
+src/hoe_universal.cpp \
+src/hoe_fixed.cpp
 
 ___bin_libHoeCore_a_LDFLAGS = -static
 
-HoeCoreTest_SOURCES = test/coretest.cpp test/flex.cpp
+HoeCoreTest_SOURCES = test/test.cpp test/math.cpp
 
 HoeCoreTest_CPPFLAGS = -D_NOXLIB 
 

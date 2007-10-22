@@ -19,7 +19,7 @@
 #define floorf(d)       (FLOAT)floor((double)d)
 #endif
 
-#if 0
+#ifdef USE_FIXED
 typedef HoeMath::fixed vfloat;
 #else
 typedef float vfloat;
@@ -92,7 +92,7 @@ template<class TYPE> struct Vector3
 	{
 		x = v[0];y = v[1]; z = v[2];
 	}
-	HOE_INLINE void RotateY(float angle);
+	HOE_INLINE void RotateY(TYPE angle);
 
 	HOE_INLINE void Set(TYPE *f)
 	{
@@ -432,22 +432,14 @@ public:
     TYPE        _31, _32, _33, _34;
     TYPE        _41, _42, _43, _44;
 
-#ifdef _HOE_D3D_
-	operator const D3DMATRIX*() const
+	operator const TYPE*() const
 	{
-		return reinterpret_cast<const D3DMATRIX*>(this);
+		return reinterpret_cast<const TYPE*>(this);
 	}
-	operator D3DMATRIX*()
+	operator TYPE*()
 	{
-		return reinterpret_cast<D3DMATRIX*>(this);
+		return reinterpret_cast<TYPE*>(this);
 	}
-#endif
-#ifdef _HOE_OPENGL_
-	operator const GLfloat*() const
-	{
-		return reinterpret_cast<const GLfloat*>(this);
-	}
-#endif
 
 	HOE_INLINE void Identity(void);
 	HOE_INLINE void RotationX(const TYPE angle);
@@ -458,7 +450,7 @@ public:
 	HOE_INLINE void Scale(const Vector3<TYPE> &s);
 	HOE_INLINE void Translate(const TYPE x,const TYPE y,const TYPE z);
 	HOE_INLINE void Translate(const Vector3<TYPE> &v);
-	HOE_INLINE float Inverse(const Matrix4 &m);
+	HOE_INLINE TYPE Inverse(const Matrix4 &m);
 	HOE_INLINE void Adjung(const Matrix4 &m);
 	HOE_INLINE void Transpoze(const Matrix4 &m);
 	HOE_INLINE void Transpoze();

@@ -60,7 +60,7 @@ void HoeCamera::SetupMatrices()
 #endif
 #ifdef _HOE_OPENGL_
 	glMatrixMode(GL_PROJECTION);// Zvolí projekèní matici
-	glLoadMatrixf((const GLfloat *)matViewProj.m);
+	glLoadMatrixf((const GLfloat *)matViewProj);
 	
 	glMatrixMode(GL_MODELVIEW);// Zvolí matici modelview
 	glLoadIdentity();

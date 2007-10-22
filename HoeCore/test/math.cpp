@@ -28,6 +28,8 @@ DEFINE_TEST(MathFixed, "Decription of test")
 		ab += fabs(a-b);
 	}
 	printf("chyba: %f\n", ab);*/
+    HoeMath::Vector3v a;
+    a.RotateY(1.3);
 	const int niter = 90000000;
 	volatile float f1 = 0.5679f;
 	HoeMath::fixed f2 = f1;

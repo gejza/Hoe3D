@@ -42,7 +42,7 @@ public:
 	}
 };
 
-void CORDIC<0>::rotate(HoeMath::fixed a, 
+template<> void CORDIC<0>::rotate(HoeMath::fixed a, 
 					HoeMath::fixed& x, 
 					HoeMath::fixed& y)
 {
@@ -69,6 +69,17 @@ const HoeMath::fixed cosf(HoeMath::fixed n)
 
 }
 
+void sincosf(HoeMath::fixed a, HoeMath::fixed* s, HoeMath::fixed* c)
+{
+    HoeMath::fixed x0=1;
+    HoeMath::fixed y0=0;
+
+	CORDIC<HoeMath::fxbits>::rotate(a, x0, y0);
+    *c = (x0 * K_fx);        
+    *s = (y0 * K_fx);        
+
+}
+
 const HoeMath::fixed tanf(HoeMath::fixed n)
 {
     HoeMath::fixed x0=1;
@@ -84,3 +95,5 @@ const HoeMath::fixed tanf(HoeMath::fixed n)
     return (y0 / x0);        
 
 }
+
+

@@ -40,7 +40,7 @@ void MinMaxV3(const Vector3f * src, uint count, uint stride, Vector3f * min, Vec
 	if (max) *max = x;
 }
 
-bool Polygon<Vector2f>::LeftPoint(const Vector2f & look, Vector2f & point)
+template<> bool Polygon<Vector2f>::LeftPoint(const Vector2f & look, Vector2f & point)
 {
 	// najit nejlevejsi bod
 	bool ret = false;
@@ -58,6 +58,7 @@ bool Polygon<Vector2f>::LeftPoint(const Vector2f & look, Vector2f & point)
 	return ret;
 }
 
+template<>
 bool Polygon<Vector2f>::RightPoint(const Vector2f & look, Vector2f & point)
 {
 	// najit nejlevejsi bod
@@ -76,12 +77,14 @@ bool Polygon<Vector2f>::RightPoint(const Vector2f & look, Vector2f & point)
 	return ret;
 }
 
+template<>
 PolygonEx<Vector2f>::PolygonEx()
 {
 	min.Set(0,0);
 	max = min;
 }
 
+template<>
 void PolygonEx<Vector2f>::ComputeMinMax()
 {
 	if (!points.IsEmpty())
