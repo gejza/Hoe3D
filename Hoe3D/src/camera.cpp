@@ -82,7 +82,7 @@ void HoeCamera::Setup2DMatrices(const float w,const float h)
 	D3DDevice()->SetTransform( D3DTS_PROJECTION, (const D3DMATRIX*)&matView );
 #endif
 #ifdef _HOE_D3DM_
-	Matrix matView;
+	Matrix4fx matView;
 	matView.Identity();
 	D3DDevice()->SetTransform( D3DMTS_WORLD, (const D3DMMATRIX*)&matWorld, D3DMFMT_D3DMVALUE_FLOAT );
 	D3DDevice()->SetTransform( D3DMTS_VIEW, (const D3DMMATRIX*)&matView, D3DMFMT_D3DMVALUE_FLOAT );

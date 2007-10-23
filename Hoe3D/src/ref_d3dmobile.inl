@@ -15,7 +15,7 @@ HOE_INLINE IDirect3DMobileDevice * D3DDevice()
 	return RefD3DM::Device();
 }
 
-HOE_INLINE void RefD3DM::SetMatrix(const HoeMath::Matrix & m)
+HOE_INLINE void RefD3DM::SetMatrix(const HoeMath::Matrix4fx & m)
 {
 	assert(0);
 	//D3DDevice()->SetTransform( D3DMTS_WORLD, reinterpret_cast<const D3DMMATRIX*>(&m) );

@@ -12,8 +12,8 @@ namespace HoeMath {
 template<class TYPE> struct Polygon
 {
 	HoeCore::List<TYPE> points;
-	bool LeftPoint(const Vector2f & look, Vector2f & point);
-	bool RightPoint(const Vector2f & look, Vector2f & point);
+	bool LeftPoint(const Vector2v & look, Vector2v & point);
+	bool RightPoint(const Vector2v & look, Vector2v & point);
 };
 
 template<class TYPE> struct PolygonEx : public Polygon<TYPE>

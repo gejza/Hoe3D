@@ -23,49 +23,49 @@ public:
 
 class StrategyView : public View
 {
-	float m_mapDist;
-	float m_target[3];
-	float angle;
+	vfloat m_mapDist;
+	vfloat m_target[3];
+	vfloat angle;
 	bool m_tracked;
-	float m_track_x;
-	float m_track_y;
-	float m_track_speed;
+	vfloat m_track_x;
+	vfloat m_track_y;
+	vfloat m_track_speed;
 public:
 	StrategyView();
-	void SetTargetPosition(float x, float y);	
-	void GetTargetPosition(float *x, float *y) { *x=m_target[0];*y=m_target[2];}
-	void SetAngle(float a);
-	void SetDistance(float dist);
-	float GetDistance() { return m_mapDist; }
+	void SetTargetPosition(vfloat x, vfloat y);	
+	void GetTargetPosition(vfloat *x, vfloat *y) { *x=m_target[0];*y=m_target[2];}
+	void SetAngle(vfloat a);
+	void SetDistance(vfloat dist);
+	vfloat GetDistance() { return m_mapDist; }
 	void Update();
-	void Rotate(float a);
-	void Zoom(float d);
-	void Move(float straight, float side);
-	bool GetPick(float mx, float my, float *sx, float *sy);
+	void Rotate(vfloat a);
+	void Zoom(vfloat d);
+	void Move(vfloat straight, vfloat side);
+	bool GetPick(vfloat mx, vfloat my, vfloat *sx, vfloat *sy);
 	float GetAngle() { return angle; }
-	Strategy::StgObject * SelObject(float mx, float my);
-	void Update(const float dtime);
-	void SetTrack(float x, float y, float speed);
+	Strategy::StgObject * SelObject(vfloat mx, vfloat my);
+	void Update(const vfloat dtime);
+	void SetTrack(vfloat x, vfloat y, vfloat speed);
 };
 
 class ModelView : public View
 {
-	float m_target[3];
-	float m_angle;
-	float m_arcangle;
-	float m_distance;
+	vfloat m_target[3];
+	vfloat m_angle;
+	vfloat m_arcangle;
+	vfloat m_distance;
 protected:
 	void Update();
 public:
 	ModelView();
-	void SetTargetPosition(float x, float y, float z);
-	void SetDistance(float dist);
-	float GetDistance() { return m_distance; }
-	void MoveDistance(float dist);
-	void SetAngle(float a);
-	void Rotate(float a);
-	void SetArcAngle(float a);
-	void RotateArc(float a);
+	void SetTargetPosition(vfloat x, vfloat y, vfloat z);
+	void SetDistance(vfloat dist);
+	vfloat GetDistance() { return m_distance; }
+	void MoveDistance(vfloat dist);
+	void SetAngle(vfloat a);
+	void Rotate(vfloat a);
+	void SetArcAngle(vfloat a);
+	void RotateArc(vfloat a);
 
 };
 
@@ -80,22 +80,22 @@ public:
 
 class FreeCameraView : public View
 {
-	float m_pos[3];
-	float m_arcangle;
-	float m_angle;
-	float m_zoom;
+	vfloat m_pos[3];
+	vfloat m_arcangle;
+	vfloat m_angle;
+	vfloat m_zoom;
 protected:
 	void Update();
 public:
 	FreeCameraView();
-	void SetPosition(float x, float y, float z);
-	void SetAngle(float a);
-	void Rotate(float a);
-	void SetArcAngle(float a);
-	void RotateArc(float a);
-	void SetZoom(float z);
-	void Zoom(float z);
-	void Move(float fw, float si);
+	void SetPosition(vfloat x, vfloat y, vfloat z);
+	void SetAngle(vfloat a);
+	void Rotate(vfloat a);
+	void SetArcAngle(vfloat a);
+	void RotateArc(vfloat a);
+	void SetZoom(vfloat z);
+	void Zoom(vfloat z);
+	void Move(vfloat fw, vfloat si);
 };
 
 class FreeCameraViewCtrl : public FreeCameraView, public XHoeMouse, public XHoeKeyboard
@@ -109,16 +109,16 @@ public:
 
 class StrightCameraView : public View
 {
-	float m_pos[3];
-	float m_zoom;
+	vfloat m_pos[3];
+	vfloat m_zoom;
 protected:
 	void Update();
 public:
 	StrightCameraView();
-	void SetPosition(float x, float y, float z);
-	void SetZoom(float z);
-	void Zoom(float z);
-	void Move(float fw, float si);
+	void SetPosition(vfloat x, vfloat y, vfloat z);
+	void SetZoom(vfloat z);
+	void Zoom(vfloat z);
+	void Move(vfloat fw, vfloat si);
 };
 
 class StrightCameraViewCtrl : public StrightCameraView, public XHoeMouse, public XHoeKeyboard

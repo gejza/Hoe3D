@@ -156,7 +156,7 @@ inline fixed operator * (const int a, const fixed& n)
     return ret;
 }
 
-/*fixed operator / (const int a, const fixed& n) const
+/*const fixed operator / (const int a, const fixed& n) const
 {
     fixed ret;
 	ret.n = (fxtype)(((_int64)(n) << (2*fxbits)) / (_int64)(n.n));
@@ -266,6 +266,8 @@ const HoeMath::fixed sinf(HoeMath::fixed n);
 const HoeMath::fixed cosf(HoeMath::fixed n);
 void sincosf(HoeMath::fixed a, HoeMath::fixed* s, HoeMath::fixed* c);
 const HoeMath::fixed tanf(HoeMath::fixed n);
+
+const HoeMath::fixed sqrtf(const HoeMath::fixed n);
 
 #endif // __cplusplus
 

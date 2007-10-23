@@ -40,11 +40,11 @@ void MinMaxV3(const Vector3f * src, uint count, uint stride, Vector3f * min, Vec
 	if (max) *max = x;
 }
 
-template<> bool Polygon<Vector2f>::LeftPoint(const Vector2f & look, Vector2f & point)
+template<> bool Polygon<Vector2v>::LeftPoint(const Vector2v & look, Vector2v & point)
 {
 	// najit nejlevejsi bod
 	bool ret = false;
-	Line2f line;
+	Line2v line;
 	line.SetXY(look, point);
 	for (uint i=0;i < points.Count();i++)
 	{
@@ -59,11 +59,11 @@ template<> bool Polygon<Vector2f>::LeftPoint(const Vector2f & look, Vector2f & p
 }
 
 template<>
-bool Polygon<Vector2f>::RightPoint(const Vector2f & look, Vector2f & point)
+bool Polygon<Vector2v>::RightPoint(const Vector2v & look, Vector2v & point)
 {
 	// najit nejlevejsi bod
 	bool ret = false;
-	Line2f line;
+	Line2v line;
 	line.SetXY(look, point);
 	for (uint i=0;i < points.Count();i++)
 	{

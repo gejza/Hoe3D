@@ -40,6 +40,11 @@ public:
         x=xn;
 		return CORDIC<iter-1>::rotate(a,x,y);
 	}
+	static inline const HoeMath::fixed sqrt_step(const HoeMath::fixed xi, const HoeMath::fixed y)
+	{
+		const HoeMath::fixed io = 0.5f;
+		return CORDIC<iter-1>::sqrt_step(io*(xi+y/xi), y);
+	}
 };
 
 template<> void CORDIC<0>::rotate(HoeMath::fixed a, 
@@ -47,6 +52,12 @@ template<> void CORDIC<0>::rotate(HoeMath::fixed a,
 					HoeMath::fixed& y)
 {
 	/* empty */
+}
+
+template<> const HoeMath::fixed CORDIC<0>::sqrt_step(const HoeMath::fixed xi, 
+										  const HoeMath::fixed y)
+{
+	return xi;
 }
 
 const HoeMath::fixed sinf(HoeMath::fixed n)
@@ -93,6 +104,16 @@ const HoeMath::fixed tanf(HoeMath::fixed n)
 		return f;
 	}
     return (y0 / x0);        
+
+}
+
+const HoeMath::fixed sqrtf(const HoeMath::fixed n)
+{
+    HoeMath::fixed x0;
+	x0.n = n.n >> 1;
+	// vice nez 10 iteraci je pro 32bitu zbytecne
+	return CORDIC<10>::sqrt_step(x0, n);
+       
 
 }
 

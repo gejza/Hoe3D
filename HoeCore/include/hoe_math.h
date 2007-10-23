@@ -35,12 +35,12 @@ static const float HOE_2PIF = (2*HOE_PIF);
 #define MATCH_FACTOR 0.9
 
 /** Funkce pro vypocet vektoroveho souctu */
-HOE_INLINE float HoeDot(const Vector3v &vec1,const Vector3v &vec2);
-HOE_INLINE float HoeDot(const Vector2v &vec1,const Vector2v &vec2);
+HOE_INLINE vfloat HoeDot(const Vector3v &vec1,const Vector3v &vec2);
+HOE_INLINE vfloat HoeDot(const Vector2v &vec1,const Vector2v &vec2);
 HOE_INLINE void HoeCross(const Vector3v &vec1, const Vector3v &vec2,Vector3v &cross);
 HOE_INLINE const Vector3v HoeCross(const Vector3v &vec1, const Vector3v &vec2);
-HOE_INLINE double HoeAngleBetweenVectors(const Vector3v &v1, const Vector3v &v2);
-HOE_INLINE float HoeAngleBetweenVectorsF(const Vector2v &v1, const Vector2v &v2);
+HOE_INLINE vdouble HoeAngleBetweenVectors(const Vector3v &v1, const Vector3v &v2);
+HOE_INLINE vfloat HoeAngleBetweenVectorsF(const Vector2v &v1, const Vector2v &v2);
 
 HOE_INLINE bool HoeInsidePolygon(Line2f *,int num_lines,const float x,const float y,int i1,int i2);
 

@@ -25,7 +25,7 @@ StrategyView::StrategyView()
 	m_tracked = false;
 }
 
-void StrategyView::SetTargetPosition(float x, float y)
+void StrategyView::SetTargetPosition(vfloat x, vfloat y)
 {
 	m_target[0] = x;
 	m_target[1] = 0;
@@ -34,14 +34,14 @@ void StrategyView::SetTargetPosition(float x, float y)
 	Update();
 }
 
-void StrategyView::SetAngle(float a)
+void StrategyView::SetAngle(vfloat a)
 {
 	angle = a;
 	m_tracked = false;
 	Update();
 }
 
-void StrategyView::SetDistance(float dist)
+void StrategyView::SetDistance(vfloat dist)
 {
 	m_mapDist = dist;
 	m_tracked = false;
@@ -50,31 +50,31 @@ void StrategyView::SetDistance(float dist)
 
 void StrategyView::Update()
 {
-	float l[3];
-	l[0] = (float)sin(angle);
+	vfloat l[3];
+	l[0] = (vfloat)sin(angle);
 	l[1] = -1.f;
-	l[2] = (float)cos(angle);
+	l[2] = (vfloat)cos(angle);
 
-	float p[3] = { -l[0] * m_mapDist + m_target[0],-l[1] * m_mapDist + m_target[1],-l[2] * m_mapDist + m_target[2] };
+	vfloat p[3] = { -l[0] * m_mapDist + m_target[0],-l[1] * m_mapDist + m_target[1],-l[2] * m_mapDist + m_target[2] };
 
 	GetCamera()->Set(p,l);
 }
 
-void StrategyView::Rotate(float a)
+void StrategyView::Rotate(vfloat a)
 {
 	m_tracked = false;
 	angle += a;
 	Update();
 }
 
-void StrategyView::Zoom(float d)
+void StrategyView::Zoom(vfloat d)
 {
 	m_tracked = false;
 	m_mapDist += d;
 	Update();
 }
 
-void StrategyView::Move(float straight, float side)
+void StrategyView::Move(vfloat straight, vfloat side)
 {
 	m_tracked = false;
 	m_target[0] += side * cosf(-angle) - straight * sinf(-angle);
@@ -82,11 +82,11 @@ void StrategyView::Move(float straight, float side)
 	Update();
 }
 
-bool StrategyView::GetPick(float mx, float my, float *sx, float *sy)
+bool StrategyView::GetPick(vfloat mx, vfloat my, vfloat *sx, vfloat *sy)
 {
 	HoeMath::Vector3v dir,orig;
 	GetCamera()->Pick(mx,my,&dir,&orig);
-	const float t = - orig.y / dir.y;
+	const vfloat t = - orig.y / dir.y;
 	if (t > 0)
 	{
 		*sx = t * dir.x + orig.x;
@@ -97,7 +97,7 @@ bool StrategyView::GetPick(float mx, float my, float *sx, float *sy)
 		return false;
 }
 
-Strategy::StgObject * StrategyView::SelObject(float mx, float my)
+Strategy::StgObject * StrategyView::SelObject(vfloat mx, vfloat my)
 {
 	HoeMath::Vector3v dir,orig;
 	GetCamera()->Pick(mx,my,&dir,&orig);
@@ -109,13 +109,13 @@ Strategy::StgObject * StrategyView::SelObject(float mx, float my)
 		return NULL;
 }
 
-void StrategyView::Update(const float dtime)
+void StrategyView::Update(const vfloat dtime)
 {
 	if (m_tracked)
 	{
 		// update
-		float mx = m_track_x - m_target[0];
-		float my = m_track_y - m_target[2];
+		vfloat mx = m_track_x - m_target[0];
+		vfloat my = m_track_y - m_target[2];
 		if (dtime * m_track_speed > 1.f)
 		{
 			m_target[0] = m_track_x;
@@ -132,7 +132,7 @@ void StrategyView::Update(const float dtime)
 	}
 }
 
-void StrategyView::SetTrack(float x, float y, float speed)
+void StrategyView::SetTrack(vfloat x, vfloat y, vfloat speed)
 {
 	m_tracked = true;
 	m_track_x = x;
@@ -152,17 +152,17 @@ ModelView::ModelView()
 
 void ModelView::Update()
 {
-	float l[3];
+	vfloat l[3];
 	l[0] = cosf(m_arcangle) * sinf(m_angle);
 	l[1] = sinf(m_arcangle);
 	l[2] = cosf(m_arcangle) * cosf(m_angle);
 
-	float p[3] = { -l[0] * m_distance + m_target[0],-l[1] * m_distance + m_target[1],-l[2] * m_distance + m_target[2] };
+	vfloat p[3] = { -l[0] * m_distance + m_target[0],-l[1] * m_distance + m_target[1],-l[2] * m_distance + m_target[2] };
 
 	GetCamera()->Set(p,l);
 }
 
-void ModelView::SetTargetPosition(float x, float y, float z)
+void ModelView::SetTargetPosition(vfloat x, vfloat y, vfloat z)
 {
 	m_target[0] = x;
 	m_target[1] = y;
@@ -170,13 +170,13 @@ void ModelView::SetTargetPosition(float x, float y, float z)
 	Update();
 }
 
-void ModelView::SetDistance(float dist)
+void ModelView::SetDistance(vfloat dist)
 {
 	m_distance = dist;
 	Update();
 }
 
-void ModelView::MoveDistance(float dist)
+void ModelView::MoveDistance(vfloat dist)
 {
 	m_distance += dist;
 	if (m_distance < 0)
@@ -184,31 +184,31 @@ void ModelView::MoveDistance(float dist)
 	Update();
 }
 
-void ModelView::SetAngle(float a)
+void ModelView::SetAngle(vfloat a)
 {
 	m_angle = a;
 	Update();
 }
 
-void ModelView::Rotate(float a)
+void ModelView::Rotate(vfloat a)
 {
 	m_angle += a;
 	Update();
 }
 
-void ModelView::SetArcAngle(float a)
+void ModelView::SetArcAngle(vfloat a)
 {
 	m_arcangle = a;
 	Update();
 }
 
-void ModelView::RotateArc(float a)
+void ModelView::RotateArc(vfloat a)
 {
 	m_arcangle += a;
-	if (m_arcangle > 1.5)
-		m_arcangle = 1.5;
-	if (m_arcangle < -1.5)
-		m_arcangle = -1.5;
+	if (m_arcangle > 1.5f)
+		m_arcangle = 1.5f;
+	if (m_arcangle < -1.5f)
+		m_arcangle = -1.5f;
 	Update();
 }
 
@@ -222,53 +222,55 @@ FreeCameraView::FreeCameraView()
 
 void FreeCameraView::Update()
 {
-	float l[3];
-	l[0] = cosf(m_arcangle) * sinf(m_angle) * m_zoom;
-	l[1] = sinf(m_arcangle) * m_zoom;
-	l[2] = cosf(m_arcangle) * cosf(m_angle) * m_zoom;
+	vfloat l[3],s,c,sa,ca;
+	sincosf(m_arcangle, &s, &c);
+	sincosf(m_angle, &sa, &ca);
+	l[0] = c * sa * m_zoom;
+	l[1] = s * m_zoom;
+	l[2] = c * ca * m_zoom;
 
 	this->GetCamera()->Set(m_pos, l);
 }
 
-void FreeCameraView::SetPosition(float x, float y, float z)
+void FreeCameraView::SetPosition(vfloat x, vfloat y, vfloat z)
 {
 	m_pos[0] = x; m_pos[1] = y; m_pos[2] = z;
 	Update();
 }
 
-void FreeCameraView::SetAngle(float a)
+void FreeCameraView::SetAngle(vfloat a)
 {
 	m_angle = a;
 	Update();
 }
 
-void FreeCameraView::Rotate(float a)
+void FreeCameraView::Rotate(vfloat a)
 {
 	m_angle += a;
 	Update();
 }
 
-void FreeCameraView::SetArcAngle(float a)
+void FreeCameraView::SetArcAngle(vfloat a)
 {
 	m_arcangle = a;
 	Update();
 }
 
-void FreeCameraView::RotateArc(float a)
+void FreeCameraView::RotateArc(vfloat a)
 {
 	m_arcangle += a;
-	if (m_arcangle > 1.5)
-		m_arcangle = 1.5;
-	if (m_arcangle < -1.5)
-		m_arcangle = -1.5;
+	if (m_arcangle > 1.5f)
+		m_arcangle = 1.5f;
+	if (m_arcangle < -1.5f)
+		m_arcangle = -1.5f;
 	Update();
 }
 
 /*void FreeCameraView::SetZoom(float z);
 void FreeCameraView::Zoom(float z);*/
-void FreeCameraView::Move(float fw, float si)
+void FreeCameraView::Move(vfloat fw, vfloat si)
 {
-	float l[3];
+	vfloat l[3];
 	l[0] = cosf(m_arcangle) * sinf(m_angle) * m_zoom;
 	l[1] = sinf(m_arcangle) * m_zoom;
 	l[2] = cosf(m_arcangle) * cosf(m_angle) * m_zoom;
@@ -506,7 +508,7 @@ StrightCameraView::StrightCameraView()
 
 void StrightCameraView::Update()
 {
-	float l[3];
+	vfloat l[3];
 	l[0] = 0;
 	l[1] = 0;
 	l[2] = m_zoom;
@@ -514,7 +516,7 @@ void StrightCameraView::Update()
 	this->GetCamera()->Set(m_pos, l);
 }
 
-void StrightCameraView::SetPosition(float x, float y, float z)
+void StrightCameraView::SetPosition(vfloat x, vfloat y, vfloat z)
 {
 	m_pos[0] = x; m_pos[1] = y; m_pos[2] = z;
 	Update();
@@ -522,7 +524,7 @@ void StrightCameraView::SetPosition(float x, float y, float z)
 
 /*void FreeCameraView::SetZoom(float z);
 void FreeCameraView::Zoom(float z);*/
-void StrightCameraView::Move(float fw, float si)
+void StrightCameraView::Move(vfloat fw, vfloat si)
 {
 	m_pos[0] += si;
 	m_pos[1] += fw;

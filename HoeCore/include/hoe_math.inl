@@ -318,10 +318,13 @@ template<> HOE_INLINE void Matrix4f::Perspective(const float w,const float h,con
 }
 
 template<>
-HOE_INLINE void Matrix4f::PerspectiveFov(const float fovX,const float a,const float zn,const float zf)
+HOE_INLINE void Matrix4v::PerspectiveFov(const vfloat fovX,
+										 const vfloat a,
+										 const vfloat zn,
+										 const vfloat zf)
 {
-	const float w = 1/tanf(fovX/2);
-	const float h = w/a;
+	const vfloat w = (vfloat)1 / tanf(fovX/2);
+	const vfloat h = w/a;
 	_11 = w;
 	_12 = _13 = _14 = 0;
 	_22 = h;
@@ -335,13 +338,16 @@ HOE_INLINE void Matrix4f::PerspectiveFov(const float fovX,const float a,const fl
 }
 
 template<>
-HOE_INLINE void Matrix4f::Ortho(const float w,const float h,const float zn,const float zf)
+HOE_INLINE void Matrix4v::Ortho(const vfloat w,
+								const vfloat h,
+								const vfloat zn,
+								const vfloat zf)
 {
-	_11 = 2/w;
+	_11 = (vfloat)2/w;
 	_12 = _13 = _14 = 0;
-	_22 = 2/h;
+	_22 = (vfloat)2/h;
 	_21 = _23 = _24 = 0;
-	_33 = 1.0f/(zf-zn);
+	_33 = (vfloat)1.0f/(zf-zn);
 	_31 = _32 = 0;
 	_44 = 1.0f;
 	_43 = zn/(zn-zf);
@@ -350,13 +356,18 @@ HOE_INLINE void Matrix4f::Ortho(const float w,const float h,const float zn,const
 }
 
 template<>
-HOE_INLINE void Matrix4f::Ortho(const float l,const float r,const float b,const float t,const float zn,const float zf)
+HOE_INLINE void Matrix4v::Ortho(const vfloat l,
+								const vfloat r,
+								const vfloat b,
+								const vfloat t,
+								const vfloat zn,
+								const vfloat zf)
 {
-	_11 = 2/(r-l);
+	_11 = (vfloat)2/(r-l);
 	_12 = _13 = _14 = 0;
-	_22 = 2/(t-b);
+	_22 = (vfloat)2/(t-b);
 	_21 = _23 = _24 = 0;
-	_33 = 1.0f/(zf-zn);
+	_33 = (vfloat)1.0f/(zf-zn);
 	_31 = _32 = 0;
 	_34 = 0.0f;
 	_43 = zn/(zn-zf);
@@ -367,7 +378,7 @@ HOE_INLINE void Matrix4f::Ortho(const float l,const float r,const float b,const 
 }
 
 template<>
-HOE_INLINE void Matrix4f::Multiply(const Matrix4 &a,const Matrix4 &b)
+HOE_INLINE void Matrix4v::Multiply(const Matrix4v &a,const Matrix4v &b)
 {
 
 	_11 = b._11 * a._11 + b._21 * a._12 + b._31 * a._13 + b._41 * a._14;
@@ -393,7 +404,7 @@ HOE_INLINE void Matrix4f::Multiply(const Matrix4 &a,const Matrix4 &b)
 }
 
 template<>
-HOE_INLINE void Matrix4f::Multiply(const Matrix4 &m)
+HOE_INLINE void Matrix4v::Multiply(const Matrix4 &m)
 {
 	Matrix4 a = *this;
 	Multiply(a,m);
@@ -407,30 +418,30 @@ HOE_INLINE void Matrix4f::MultiplyLeft(const Matrix4 &m)
 }
 
 template<>
-HOE_INLINE void BoundingBox3f::Set(const Vector3f & v)
+HOE_INLINE void BoundingBox3v::Set(const Vector3v & v)
 {
 	min = max = v;
-	ball = (float)v.Magnitude();
+	ball = (vfloat)v.MagnitudeF();
 }
 
 template<>
-HOE_INLINE void BoundingBox3f::Add(const Vector3f & v)
+HOE_INLINE void BoundingBox3v::Add(const Vector3v & v)
 {
 	min.Min(v);
 	max.Max(v);
-	register float m = v.MagnitudeF();
+	register vfloat m = v.MagnitudeF();
 	if (m > ball)
 		ball = m;
 }	
 
 template<>
-HOE_INLINE void BoundingBox3f::Set(const BoundingBox3f & b)
+HOE_INLINE void BoundingBox3v::Set(const BoundingBox3v & b)
 {
 	*this = b;
 }
 
 template<>
-HOE_INLINE void BoundingBox3f::Add(const BoundingBox3f & b)
+HOE_INLINE void BoundingBox3v::Add(const BoundingBox3v & b)
 {
 	min.Min(b.min);
 	max.Max(b.max);
@@ -439,13 +450,13 @@ HOE_INLINE void BoundingBox3f::Add(const BoundingBox3f & b)
 }
 
 template<>
-HOE_INLINE void BoundingBox3f::Compute(const Vector3f *first, dword numvert, uint stride)
+HOE_INLINE void BoundingBox3v::Compute(const Vector3v *first, dword numvert, uint stride)
 {
 	assert(first && numvert > 0 && "bad parameters BoundingBox::Compute");
 	Set(*first);
 	for (dword i=1; i < numvert;i++)
 	{
-		register const Vector3f * v = (const Vector3f *)(((const byte*)first)+stride*i);
+		register const Vector3v * v = (const Vector3v *)(((const byte*)first)+stride*i);
 		Add(*v);
 	}
 }
@@ -471,12 +482,12 @@ HOE_INLINE Matrix4f* HoeMatrixLookAtLH_(Matrix4f &out,const Vector3f &eye,const 
  return NULL;
 }
 
-HOE_INLINE float HoeDot(const Vector3f &vec1,const Vector3f &vec2)
+HOE_INLINE vfloat HoeDot(const Vector3v &vec1,const Vector3v &vec2)
 {
 	return vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z;
 }
 
-HOE_INLINE float HoeDot(const Vector2f &vec1,const Vector2f &vec2)
+HOE_INLINE vfloat HoeDot(const Vector2v &vec1,const Vector2v &vec2)
 {
 	return vec1.x * vec2.x + vec1.y * vec2.y;
 }
@@ -494,9 +505,9 @@ HOE_INLINE void HoeCross(const Vector3v &vec1, const Vector3v &vec2,Vector3v &cr
 	cross.z = ((vec1.x * vec2.y) - (vec1.y * vec2.x));
 }
 
-HOE_INLINE const Vector3f HoeCross(const Vector3f &vec1, const Vector3f &vec2)
+HOE_INLINE const Vector3v HoeCross(const Vector3v &vec1, const Vector3v &vec2)
 {
-	Vector3f cross;
+	Vector3v cross;
 	// The X value for the vector is:  (V1.y * V2.z) - (V1.z * V2.y)													// Get the X value
 	cross.x = ((vec1.y * vec2.z) - (vec1.z * vec2.y));
 														
@@ -508,25 +519,25 @@ HOE_INLINE const Vector3f HoeCross(const Vector3f &vec1, const Vector3f &vec2)
 	return cross;
 }
 
-HOE_INLINE float HoeAngleBetweenVectorsF(const Vector2f &v1, const Vector2f &v2)
+HOE_INLINE vfloat HoeAngleBetweenVectorsF(const Vector2v &v1, const Vector2v &v2)
 {							
 	// Get the dot product of the vectors
-	float dotProduct = HoeDot(v1, v2);				
+	vfloat dotProduct = HoeDot(v1, v2);				
 
 	// Get the product of both of the vectors magnitudes
-	float vectorsMagnitude = v1.MagnitudeF() * v2.MagnitudeF();
+	vfloat vectorsMagnitude = v1.MagnitudeF() * v2.MagnitudeF();
 
 	// Return the arc cosine of the (dotProduct / vectorsMagnitude) which is the angle in RADIANS.
-	return (float)( acos( dotProduct / vectorsMagnitude ) );
+	return (vfloat)( acos( dotProduct / vectorsMagnitude ) );
 }
 
-HOE_INLINE double HoeAngleBetweenVectors(const Vector3f &v1, const Vector3f &v2)
+HOE_INLINE vdouble HoeAngleBetweenVectors(const Vector3v &v1, const Vector3v &v2)
 {							
 	// Get the dot product of the vectors
-	double dotProduct = HoeDot(v1, v2);				
+	vdouble dotProduct = HoeDot(v1, v2);				
 
 	// Get the product of both of the vectors magnitudes
-	double vectorsMagnitude = v1.MagnitudeF() * v2.MagnitudeF();
+	vdouble vectorsMagnitude = v1.Magnitude() * v2.Magnitude();
 
 	// Return the arc cosine of the (dotProduct / vectorsMagnitude) which is the angle in RADIANS.
 	return( acos( dotProduct / vectorsMagnitude ) );
@@ -534,7 +545,13 @@ HOE_INLINE double HoeAngleBetweenVectors(const Vector3f &v1, const Vector3f &v2)
 
 // colision
 
-HOE_INLINE bool HoePointInBox(Vector3f &p,float minx,float miny, float minz, float maxx, float maxy, float maxz)
+HOE_INLINE bool HoePointInBox(Vector3v &p,
+							  vfloat minx,
+							  vfloat miny, 
+							  vfloat minz, 
+							  vfloat maxx, 
+							  vfloat maxy, 
+							  vfloat maxz)
 {
 	return !(p.x < minx || p.x > maxx || p.y < miny || p.y > maxy || p.z < minz || p.z > maxz);
 }
@@ -602,15 +619,15 @@ bool HoeInsidePolygon(Line2f * lines,int num_lines,const float x,const float y,i
 }
 
 
-HOE_INLINE bool HoeInsidePolygon(const Vector3f &intersection, const Vector3f &a,const Vector3f &b,const Vector3f &c)
+HOE_INLINE bool HoeInsidePolygon(const Vector3v &intersection, const Vector3v &a,const Vector3v &b,const Vector3v &c)
 {
-	register double angle = 0.0;					
+	register vdouble angle = 0.0;					
 	
 	angle += HoeAngleBetweenVectors(a-intersection, b-intersection);
 	angle += HoeAngleBetweenVectors(b-intersection, c-intersection);
 	angle += HoeAngleBetweenVectors(c-intersection, a-intersection);
 											
-	return (angle >= (MATCH_FACTOR * (2.0 * HOE_PI)));
+	return (angle >= vdouble(MATCH_FACTOR * (2.0 * HOE_PI)));
 		
 }
 

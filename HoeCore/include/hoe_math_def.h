@@ -9,20 +9,18 @@
 #endif // HOE_INLINE
 
 #ifdef UNDER_CE
-#define sqrtf(d)        (FLOAT)sqrt((double)d)
-#define sinf(d)         (FLOAT)sin((double)d)
-#define cosf(d)         (FLOAT)cos((double)d)
-#define tanf(d)         (FLOAT)tan((double)d)
 #define asinf(d)        (FLOAT)asin((double)d)
 #define acosf(d)        (FLOAT)acos((double)d)
 #define atan2f(d1,d2)   (FLOAT)atan2((double)d1,(double)d2)
 #define floorf(d)       (FLOAT)floor((double)d)
 #endif
 
-#ifdef USE_FIXED
+#ifdef _WIN32_WCE
 typedef HoeMath::fixed vfloat;
+typedef HoeMath::fixed vdouble;
 #else
 typedef float vfloat;
+typedef double vdouble;
 #endif
 
 namespace HoeMath {
@@ -173,6 +171,7 @@ template<class TYPE> struct Vector3
 };
 
 typedef Vector3<float> Vector3f;
+typedef Vector3<fixed> Vector3fx;
 typedef Vector3<int> Vector3i;
 typedef Vector3<double> Vector3d;
 typedef Vector3<vfloat> Vector3v;
@@ -362,23 +361,23 @@ template<class TYPE> struct Line2
 	TYPE a;
 	TYPE b;
 	TYPE c;
-	void Set(const float x1,const float y1,const float x2,const float y2)
+	void Set(const TYPE x1,const TYPE y1,const TYPE x2,const TYPE y2)
 	{
 		a = y2 - y1;
 		b = x1 - x2;
 		c = -a*x1 - b*y1;
 	}
-	void SetXY(const Vector2f &v1,const Vector2f &v2)
+	void SetXY(const Vector2<TYPE> &v1,const Vector2<TYPE> &v2)
 	{
 		a = v2.y - v1.y;
 		b = v1.x - v2.x;
 		c = -a*v1.x -b*v1.y;
 	}
-	double Compute(const float x,const float y)
+	double Compute(const TYPE x,const TYPE y)
 	{
 		return a * x + b * y + c;
 	}
-	bool Intersection(Line2 &line, float& x, float& y)
+	bool Intersection(Line2 &line, TYPE& x, TYPE& y)
 	{
 		//if(*this == primka)// Pøímky jsou splývající - nekoneènì mnoho spoleèných bodù
 		//	return false;// Spíše by se mìlo vrátit true a nìjaký bod... záleží na použití
@@ -389,8 +388,8 @@ template<class TYPE> struct Line2
 			const double t = (a*line.b - line.a*b);
 			if (t == 0)
 				return false;
-			x = float((b*line.c - c * line.b) / t);
-			y = float(-(a*line.c - line.a * c) / t);
+			x = TYPE((b*line.c - c * line.b) / t);
+			y = TYPE(-(a*line.c - line.a * c) / t);
 			return true;
 		}
 	}
@@ -400,6 +399,8 @@ template<class TYPE> struct Line2
 typedef Line2<int> Line2i;
 typedef Line2<float> Line2f;
 typedef Line2<double> Line2d;
+typedef Line2<fixed> Line2fx;
+typedef Line2<vfloat> Line2v;
 
 template<class TYPE> struct SegmentLine
 {
@@ -469,13 +470,14 @@ public:
 };
 
 typedef Matrix4<float> Matrix4f;
+typedef Matrix4<fixed> Matrix4fx;
 typedef Matrix4<vfloat> Matrix4v;
 
 template<class TYPE> struct BoundingBox3
 {
 	Vector3<TYPE> min;
 	Vector3<TYPE> max;
-	float ball;
+	TYPE ball;
 	HOE_INLINE void Set(const Vector3<TYPE> & v);
 	HOE_INLINE void Add(const Vector3<TYPE> & v);	
 	HOE_INLINE void Set(const BoundingBox3 & b);
