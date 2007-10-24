@@ -22,7 +22,7 @@ public:
 	HoeLight(bool diRECT);
 	void Set(int slot);
 	virtual void HOEAPI SetPosition(const HoeMath::Vector3v &pos);
-	virtual void HOEAPI SetColor(const float r, const float g, const float b);
+	virtual void HOEAPI SetColor(const vfloat r, const vfloat g, const vfloat b);
 	const HoeMath::Vector4v GetPosition() const;
 	const HoeMath::Vector4v GetColor() const;
 	// 

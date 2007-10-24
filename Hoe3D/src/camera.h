@@ -36,15 +36,15 @@ class HoeCamera : public IHoeCamera
 public:
 	HoeCamera();
 	static void SetView(uint,uint);
-	void SetPerspective( const float fov, const float zn, const float zf);
+	void SetPerspective( const vfloat fov, const vfloat zn, const vfloat zf);
 
 	void SetupMatrices();
-	static void Setup2DMatrices(const float w,const float h);
+	static void Setup2DMatrices(const vfloat w,const vfloat h);
 
 	void HOEAPI Set(const HoeMath::Vector3v & pos,
 		const HoeMath::Vector3v & look);
 	
-	void HOEAPI Pick(const float x, const float y, HoeMath::Vector3v * vPickRayDir, HoeMath::Vector3v * vPickRayOrig);
+	void HOEAPI Pick(const vfloat x, const vfloat y, HoeMath::Vector3v * vPickRayDir, HoeMath::Vector3v * vPickRayOrig);
 
 	static inline void sGetSize(int *w, int *h)
 	{

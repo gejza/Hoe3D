@@ -29,8 +29,8 @@ class HoePolygonSet : public IHoeEnv::Poly
 	HoePolygon * poly;
 public:
 	HoePolygonSet(HoePolygon * p);
-	virtual void HOEAPI SetPos(float * v, uint stride);
-	virtual void HOEAPI SetTex(float * v, uint stride);
+	virtual void HOEAPI SetPos(vfloat * v, uint stride);
+	virtual void HOEAPI SetTex(vfloat * v, uint stride);
 	virtual void HOEAPI SetMaterial(IHoeMaterial * m);
 	virtual int HOEAPI GetID() { return poly->id; }
 	virtual void HOEAPI Release() { delete this; };

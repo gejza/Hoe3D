@@ -11,8 +11,8 @@ class Hoe2D : public IHoe2D
 {
 	bool in_progress;
 
-	float m_maxX;
-	float m_maxY;
+	vfloat m_maxX;
+	vfloat m_maxY;
 
 	//HoeFreeType freetype;
 public:
@@ -24,13 +24,13 @@ public:
 	HoePicture * CreatePicture(const tchar *, HoeLog * log);
 
     // user func
-	void SetRect(const float w,const float h);
+	void SetRect(const vfloat w,const vfloat h);
 
 	// paint func
-	void PaintRect(const float l,const float r,const float t,const float b,unsigned long color,bool full);
-	void PaintLine(float x1,float y1,float x2,float y2,unsigned long c);
+	void PaintRect(const vfloat l,const vfloat r,const vfloat t,const vfloat b,unsigned long color,bool full);
+	void PaintLine(vfloat x1,vfloat y1,vfloat x2,vfloat y2,unsigned long c);
 
-	void BltFast(const float l,const float r,const float t,const float b,IHoePicture *);
+	void BltFast(const vfloat l,const vfloat r,const vfloat t,const vfloat b,IHoePicture *);
 	void Blt(const THoeRect * dest,IHoePicture *);
 	void Blt(const THoeRect * dest,IHoePicture *,const THoeRect * src);
 	virtual void SetAlpha(bool set);

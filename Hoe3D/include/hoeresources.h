@@ -31,7 +31,7 @@ public:
 
 struct THoeFontSize
 {
-	float width;
+	vfloat width;
 };
 /**
  * @brief Pismo
@@ -43,10 +43,10 @@ class IHoeFont : public IHoeResource
 {
 public:
 	
-	virtual bool DrawText( float x, float y, dword dwColor, 
+	virtual bool DrawText( vfloat x, vfloat y, dword dwColor, 
                       const tchar* strText, dword dwFlags=0L ) = 0;
 	virtual void GetTextSize(const tchar *text,THoeFontSize * size) = 0;
-	virtual float GetTextHeight() = 0;
+	virtual vfloat GetTextHeight() = 0;
 };
 
 /**

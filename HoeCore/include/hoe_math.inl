@@ -148,8 +148,8 @@ template<> HOE_INLINE void Matrix4v::RotationZ(const vfloat angle)
 	_31 = _32 = _34 = 0.0f;
 	_41 = _42 = _43 = 0.0f;
 	_33 = _44 = 1.0f;
-	_11 = _22 = (float)cosf( angle );
-	_12 = -(_21 = (float)sinf( angle ));
+	_11 = _22 = (vfloat)cosf( angle );
+	_12 = -(_21 = (vfloat)sinf( angle ));
 
 }
 
@@ -528,7 +528,7 @@ HOE_INLINE vfloat HoeAngleBetweenVectorsF(const Vector2v &v1, const Vector2v &v2
 	vfloat vectorsMagnitude = v1.MagnitudeF() * v2.MagnitudeF();
 
 	// Return the arc cosine of the (dotProduct / vectorsMagnitude) which is the angle in RADIANS.
-	return (vfloat)( acos( dotProduct / vectorsMagnitude ) );
+	return (vfloat)( acosf( dotProduct / vectorsMagnitude ) );
 }
 
 HOE_INLINE vdouble HoeAngleBetweenVectors(const Vector3v &v1, const Vector3v &v2)
@@ -540,7 +540,7 @@ HOE_INLINE vdouble HoeAngleBetweenVectors(const Vector3v &v1, const Vector3v &v2
 	vdouble vectorsMagnitude = v1.Magnitude() * v2.Magnitude();
 
 	// Return the arc cosine of the (dotProduct / vectorsMagnitude) which is the angle in RADIANS.
-	return( acos( dotProduct / vectorsMagnitude ) );
+	return( acosf( dotProduct / vectorsMagnitude ) );
 }
 
 // colision

@@ -26,9 +26,9 @@ void Physics::SetPart(unsigned long partID)
 
 }
 
-XHoeObject * Physics::RayTrace(const float * orig,const float * dir,unsigned long flags)
+XHoeObject * Physics::RayTrace(const vfloat * orig,const vfloat * dir,unsigned long flags)
 {
-	float t = 0.f;
+	vfloat t = 0.f;
 	
 	XHoeObject * obj = NULL;
 	XHoeObject * ret = NULL;

@@ -67,15 +67,15 @@ HoePicture * Hoe2D::CreatePicture(const tchar * name, HoeLog * log)
 
 ///////////////////////////////////////
 
-void Hoe2D::SetRect(const float w,const float h)
+void Hoe2D::SetRect(const vfloat w,const vfloat h)
 {
 	m_maxX = w;
 	m_maxY = h;
-	if (in_progress)
+	if (in_progress) //todo udelat kontrolu na nulove hodnoty
 		HoeCamera::Setup2DMatrices(w,h);
 }
 
-void Hoe2D::PaintRect(const float l,const float r,const float t,const float b,unsigned long color,bool full)
+void Hoe2D::PaintRect(const vfloat l,const vfloat r,const vfloat t,const vfloat b,unsigned long color,bool full)
 {
 	GetStates()->DisableTexture();
 	if ((color & 0xff000000) == 0xff000000)
@@ -84,10 +84,10 @@ void Hoe2D::PaintRect(const float l,const float r,const float t,const float b,un
 		GetStates()->Setup2DAlpha();
 
 #ifdef _HOE_OPENGL_
-	const float ca = ((color & 0xff000000) >> 24) * (1/255.f);
-	const float cr = ((color & 0xff0000) >> 16) * (1/255.f);
-	const float cg = ((color & 0xff00) >> 8) * (1/255.f);
-	const float cb = (color & 0xff) * (1/255.f);
+	const vfloat ca = ((color & 0xff000000) >> 24) * (1/255.f);
+	const vfloat cr = ((color & 0xff0000) >> 16) * (1/255.f);
+	const vfloat cg = ((color & 0xff00) >> 8) * (1/255.f);
+	const vfloat cb = (color & 0xff) * (1/255.f);
 	glColor4f(cr,cg,cb,ca);
 
 	if (full)
@@ -140,11 +140,11 @@ void Hoe2D::PaintRect(const float l,const float r,const float t,const float b,un
 
 }
 
-void Hoe2D::PaintLine(float x1,float y1,float x2,float y2,unsigned long c)
+void Hoe2D::PaintLine(vfloat x1,vfloat y1,vfloat x2,vfloat y2,unsigned long c)
 {
-	float r = ((c & 0xff0000) >> 16) / 255.f;
-	float g = ((c & 0xff00) >> 8) / 255.f;
-	float b = (c & 0xff) / 255.f;
+	vfloat r = ((c & 0xff0000) >> 16) / 255.f;
+	vfloat g = ((c & 0xff00) >> 8) / 255.f;
+	vfloat b = (c & 0xff) / 255.f;
 #ifdef _HOE_OPENGL_
 	glColor3f(r,g,b);
 	glLineWidth(3.0f);// Šíøka èáry 1.0f
@@ -171,7 +171,7 @@ void Hoe2D::PaintLine(float x1,float y1,float x2,float y2,unsigned long c)
 #endif // _HOE_D3D9_
 }
 
-void Hoe2D::BltFast(const float l,const float r,const float t,const float b,IHoePicture * pic)
+void Hoe2D::BltFast(const vfloat l,const vfloat r,const vfloat t,const vfloat b,IHoePicture * pic)
 {
 	THoeRect src = { 0.0f,0.0f,1.0f,1.0f };
 //	reinterpret_cast<HoePicture*>(pic)->GetRect(&src);

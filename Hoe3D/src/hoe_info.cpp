@@ -67,7 +67,7 @@ void InfoSystem::Show(bool show)
 		m_show = false;
 }
 
-float InfoSystem::GetFPS()
+vfloat InfoSystem::GetFPS()
 {
 	return fps.fps;
 }
@@ -91,10 +91,10 @@ void InfoSystem::ComputeStatistic()
 
 void InfoSystem::BeginFrame()
 {
-	float time_s = SysFloatTime();
+	vfloat time_s = SysFloatTime();
 
 	// spocitani
-	const float td = time_s - times.begin;
+	const vfloat td = time_s - times.begin;
 
 	stime_total += td;
 	s_engine.total += times.preend - times.begin;
@@ -168,7 +168,7 @@ void InfoSystem::Publish()
 #endif
 }
 
-void InfoSystem::SetFpsTime(float ftime)
+void InfoSystem::SetFpsTime(vfloat ftime)
 {
 	if (ftime > 0.f && ftime < 3600.f)
 		fpstime = ftime;

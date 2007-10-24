@@ -9,10 +9,10 @@
 #endif // HOE_INLINE
 
 #ifdef UNDER_CE
-#define asinf(d)        (FLOAT)asin((double)d)
-#define acosf(d)        (FLOAT)acos((double)d)
-#define atan2f(d1,d2)   (FLOAT)atan2((double)d1,(double)d2)
-#define floorf(d)       (FLOAT)floor((double)d)
+#define asinf(d)        (FLOAT)asin(d)
+#define acosf(d)        (FLOAT)acos(d)
+#define atan2f(d1,d2)   (FLOAT)atan2(d1,d2)
+#define floorf(d)       (FLOAT)floor(d)
 #endif
 
 #ifdef _WIN32_WCE

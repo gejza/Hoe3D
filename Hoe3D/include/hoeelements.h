@@ -11,7 +11,7 @@ class IHoeCamera : public IHoeElement
 public:
 	virtual void HOEAPI Set(const HoeMath::Vector3v & pos,
 		const HoeMath::Vector3v & look) = 0;
-	virtual void HOEAPI Pick(const float x, const float y, 
+	virtual void HOEAPI Pick(const vfloat x, const vfloat y, 
 		HoeMath::Vector3v * vPickRayDir, HoeMath::Vector3v * vPickRayOrig) = 0;
 	virtual void HOEAPI GetSize(int *w, int *h) const = 0;
 };
@@ -72,7 +72,7 @@ class IHoeLight : public IHoeElement
 {
 public:
 	virtual void HOEAPI SetPosition(const HoeMath::Vector3v & pos) = 0;
-	virtual void HOEAPI SetColor(const float r, const float g, const float b) = 0;
+	virtual void HOEAPI SetColor(const vfloat r, const vfloat g, const vfloat b) = 0;
 };
 
 class IHoeSoundPlayer : public IHoeElement

@@ -167,7 +167,7 @@ void HoeEngineInfo::Unload()
 END_HOEGAME
 
 
-float SysFloatTime()
+vfloat SysFloatTime()
 {
 	/*if (HoeGame::g_hoeengine)
     {

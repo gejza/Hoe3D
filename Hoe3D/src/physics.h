@@ -17,7 +17,7 @@ public:
 	virtual const char * GetName() { return "Physics engine v1.0";}
 
 	virtual void HOEAPI SetPart(unsigned long partID);
-	virtual XHoeObject * HOEAPI RayTrace(const float *,const float *,unsigned long flags);
+	virtual XHoeObject * HOEAPI RayTrace(const vfloat *,const vfloat *,unsigned long flags);
 };
 
 #endif // _PHYSICS_H_

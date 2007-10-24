@@ -5643,47 +5643,43 @@
 			Name="Interface"
 			>
 			<File
-				RelativePath="..\..\include\hoe3d.h"
+				RelativePath="..\include\hoe3d.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\hoeelements.h"
+				RelativePath="..\include\hoeelements.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\hoefs.h"
+				RelativePath="..\include\hoefs.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\hoeinput.h"
+				RelativePath="..\include\hoeinput.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\hoeinputkeys.h"
+				RelativePath="..\include\hoeinputkeys.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\hoeinterfaces.h"
+				RelativePath="..\include\hoeinterfaces.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\hoeobject.h"
+				RelativePath="..\include\hoeobject.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\hoeresources.h"
+				RelativePath="..\include\hoeresources.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\hoescene.h"
+				RelativePath="..\include\hoescene.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\hoesystems.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\include\hoetypes.h"
+				RelativePath="..\include\hoesystems.h"
 				>
 			</File>
 		</Filter>

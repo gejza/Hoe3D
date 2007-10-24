@@ -15,30 +15,30 @@ class InfoSystem : public IHoeInfo
 {
 	struct TimeStat
 	{
-		float total;
-		float percent;
-		float maxtime;
-		float maxpercent;
+		vfloat total;
+		vfloat percent;
+		vfloat maxtime;
+		vfloat maxpercent;
 		inline void Start()
 		{
 			maxpercent = maxtime = total = percent = 0.f;
 		}
-		inline void Compute(const float totaltime, const float maxframetime)
+		inline void Compute(const vfloat totaltime, const vfloat maxframetime)
 		{
-			percent = 100.f * total / totaltime;
-			maxpercent = 100.f * maxtime / maxframetime;
-			total = maxtime = 0.f;
+			percent = 100 * total / totaltime;
+			maxpercent = 100 * maxtime / maxframetime;
+			total = maxtime = 0;
 		}
 	};
 
 	struct FpsStat
 	{
-		float fps;
-		float maxtime;
-		float minfps;
-		float start_meter;
+		vfloat fps;
+		vfloat maxtime;
+		vfloat minfps;
+		vfloat start_meter;
 		int numframes;
-		inline void Start(const float ctime)
+		inline void Start(const vfloat ctime)
 		{
 			fps = 0.f;
 			maxtime = 0.f;
@@ -46,11 +46,11 @@ class InfoSystem : public IHoeInfo
 			numframes = 0;
 			start_meter = ctime;
 		}
-		inline void Compute(const float ctime)
+		inline void Compute(const vfloat ctime)
 		{
-			const float dtime = ctime - start_meter;
-			fps = (float)numframes / dtime;
-			minfps = 1.f / maxtime;
+			const vfloat dtime = ctime - start_meter;
+			fps = (vfloat)numframes / dtime;
+			minfps = vfloat(1) / maxtime;
 			maxtime = 0;
 			numframes = 0;
 			start_meter = ctime;
@@ -59,9 +59,9 @@ class InfoSystem : public IHoeInfo
 
 	struct Times
 	{
-		float begin;
-		float preend;
-		float end;
+		vfloat begin;
+		vfloat preend;
+		vfloat end;
 	};
 	
 	HoeFont *font;
@@ -70,11 +70,11 @@ class InfoSystem : public IHoeInfo
 	FpsStat fps;
 	Times times;
 
-	float stime_total;
+	vfloat stime_total;
 	TimeStat s_engine;
 	TimeStat s_gpu;
 	TimeStat s_app;
-	float fpstime;
+	vfloat fpstime;
 
 	TimeMeter * tms[10];
 	int ntms;
@@ -87,7 +87,7 @@ public:
 	InfoSystem();
 	~InfoSystem();
 	bool Init();
-	virtual float HOEAPI GetFPS();
+	virtual vfloat HOEAPI GetFPS();
 	virtual bool HOEAPI LoadFont(const tchar * fontname, int height);
 	virtual void HOEAPI Show(bool enable);
 	void BeginFrame();
@@ -95,7 +95,7 @@ public:
 	void PreEndFrame(); 
 	void EndFrame();
 	void ComputeStatistic();
-	void SetFpsTime(float ftime);
+	void SetFpsTime(vfloat ftime);
 	void RegisterTimeMeter(TimeMeter * tm);
 
 	/** Pridani trojuhelniku do pocitadla trojuhelniku */

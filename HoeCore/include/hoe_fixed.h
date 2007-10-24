@@ -22,6 +22,7 @@ struct fixed
 
 	fixed() {}
 	fixed(const int a) 	{		n = a << fxbits;
+	}	fixed(const uint a) 	{		n = a << fxbits;
 	}	fixed(const float a)
 	{
 		n = (fxtype)(a * fxbase);
@@ -87,6 +88,12 @@ struct fixed
 		ret.n = (fxtype)(((_int64)(n) << fxbits) / (_int64)(a << fxbits));
         return ret;
 	}
+	const fixed operator / (const uint a) const
+	{
+        fixed ret;
+		ret.n = (fxtype)(((_int64)(n) << fxbits) / (_int64)(a << fxbits));
+        return ret;
+	}
 	const fixed& operator += (const fixed& a)
 	{
         n += a.n;
@@ -147,7 +154,18 @@ struct fixed
 	{
 		return n >> fxbits;
 	}
+	operator uint () const
+	{
+		return n >> fxbits;
+	}
 };
+
+inline fixed operator * (const float a, const fixed& n)
+{
+    fixed ret;
+	ret.n = ((fxtype)(((_int64)(a * fxbase) * (_int64)(n.n)) >> fxbits));
+    return ret;
+}
 
 inline fixed operator * (const int a, const fixed& n)
 {
@@ -155,6 +173,21 @@ inline fixed operator * (const int a, const fixed& n)
 	ret.n = ((fxtype)(((_int64)(a << fxbits) * (_int64)(n.n)) >> fxbits));
     return ret;
 }
+
+inline fixed operator * (const uint a, const fixed& n)
+{
+    fixed ret;
+	ret.n = ((fxtype)(((_int64)(a << fxbits) * (_int64)(n.n)) >> fxbits));
+    return ret;
+}
+
+inline fixed operator * (const byte a, const fixed& n)
+{
+    fixed ret;
+	ret.n = ((fxtype)(((_int64)(a << fxbits) * (_int64)(n.n)) >> fxbits));
+    return ret;
+}
+
 
 /*const fixed operator / (const int a, const fixed& n) const
 {
@@ -170,7 +203,7 @@ inline fixed operator - (const int a, const fixed& n)
     return ret;
 }
 
-inline fixed operator - (const float a, const fixed& n)
+inline fixed operator - (const float a, const fixed n)
 {
     fixed ret;
 	ret.n = (fxtype)(a * fxbase) - n.n;

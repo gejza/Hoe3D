@@ -8,7 +8,7 @@
 #include "hoe_string.h"
 #include "hoe_universal.h"
 
-float SysFloatTime();
+vfloat SysFloatTime();
 
 //-----------------------------------------------------------------------------
 // Miscellaneous helper functions
@@ -64,17 +64,17 @@ public:
 class TimeMeter
 {
 protected:
-	float start;
-	float max;
-	float total;
-	float avarage;
-	float percent;
-	float pubmax;
-	float last;
+	vfloat start;
+	vfloat max;
+	vfloat total;
+	vfloat avarage;
+	vfloat percent;
+	vfloat pubmax;
+	vfloat last;
 	int num;
 public:
 	TimeMeter();
-	void ComputeFrame(const float totaltime)
+	void ComputeFrame(const vfloat totaltime)
 	{
 		percent = 100.f * total / totaltime;
 		avarage = (total / num) * 1000;

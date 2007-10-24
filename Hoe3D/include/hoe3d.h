@@ -113,7 +113,7 @@ class IHoe3DEngine : public IHoeInterface
 {
 public:
 	/** Ukazatel na funkci k ziskani casu */
-	float (*SysFloatTime)(); 
+	vfloat (*SysFloatTime)(); 
 
 	/** Init funkce */
 	virtual bool HOEAPI Init(THoeInitSettings *) = 0;

@@ -29,14 +29,16 @@ struct TGridData : public IHoeEnv::GridSurface::TGridDesc
 	union {
 		struct {
 			int modelid;
-			float base_height;
+			vfloat base_height; // pro typ fixed funguje pouze ve VS
 		};
 		struct {
 			int resx;
 			int resy;
-			float * map_heights; //< v dumpu se pak uklada uplne na konci
+			vfloat * map_heights; //< v dumpu se pak uklada uplne na konci
 		};
-		float plane_heights[4];
+		struct {
+			vfloat plane_heights[4];
+		};
 	};
 };
 
@@ -50,7 +52,7 @@ class HoeModel;
 struct TGridModel
 {
 	HoeModel * mod;
-	float coigns[4];
+	vfloat coigns[4];
 	bool LoadModel(const tchar * name);
 };
 
@@ -158,7 +160,7 @@ class GridSurface : public IHoeEnv::GridSurface
 
 	TGridData * m_grids; ///< ukazatel na pole gridu
 	uint m_width, m_height; ///< velikost mrize
-	float m_sizeX, m_sizeY; ///< realna velikost mrize
+	vfloat m_sizeX, m_sizeY; ///< realna velikost mrize
 	HoeMath::Vector3v * m_normals; ///< predpocitane normaly
 
 	TGridTexture m_textures[MaxTextureSlots]; ///< sloty na textury povrchu
@@ -174,14 +176,14 @@ class GridSurface : public IHoeEnv::GridSurface
 	*/
 	TGridSurfaceTreeItem * CreateQuadTree(dword * gr, uint ngr, uint minx, uint maxx, uint miny, uint maxy);
 	/** Nahrani roviny */
-	bool PlaneToMulti(float vx, float vy, const HoeMath::Matrix4v & Matrix, const TGridData & grid, int x, int y);
+	bool PlaneToMulti(vfloat vx, vfloat vy, const HoeMath::Matrix4v & Matrix, const TGridData & grid, int x, int y);
 	/** Nahrani modelu */
 	bool ModelToMulti(const HoeMath::Matrix4v & Matrix, const TGridData & grid);
 	/** Upravit roviny podle pripadnych modelu (nebo rovin). */
 	void Opt_ProcessPlanes(uint fromx, uint tox, uint fromy, uint toy);
 	/** Funkce ktera vraci vypoctenou vysku rohoveho bodu (zadava se spodni hranice)
 	* Modely se prumeruji, roviny se prizpusobuji modelum, pripadne se prumeruji */
-	float Opt_GetHeight(uint x, uint y);
+	vfloat Opt_GetHeight(uint x, uint y);
 	/** Funkce prepocita normaly */
 	void BuildNormals();
 	const HoeMath::Vector3v GetNormal(uint x, uint y, int roh);
@@ -198,38 +200,38 @@ public:
 	virtual void HOEAPI ReleaseData();
 	void Unload();
 	void Render();
-	virtual void HOEAPI SetPosCenter( float x, float y, float z);
+	virtual void HOEAPI SetPosCenter( vfloat x, vfloat y, vfloat z);
 	/** @see IHoeEnv::GridSurface::Create */
-	virtual void HOEAPI Create(float sizeX, float sizeY, int resX,int resY);
+	virtual void HOEAPI Create(vfloat sizeX, vfloat sizeY, int resX,int resY);
 	/** @see IHoeEnv::GridSurface::SetTexture */
 	virtual void HOEAPI SetTexture(int slot, const tchar * texname, int width, int height);
 	/** @see IHoeEnv::GridSurface::SetModel */
 	virtual void HOEAPI SetModel(int slot, const tchar * modname);
 	/** @see IHoeEnv::GridSurface::GetDesc */
-	virtual void HOEAPI GetDesc(float *sizeX, float *sizeY, uint *resX,uint *resY);
+	virtual void HOEAPI GetDesc(vfloat *sizeX, vfloat *sizeY, uint *resX,uint *resY);
 	/** @see IHoeEnv::GridSurface::SetGridDesc */
 	virtual void HOEAPI SetGridDesc(int x, int y, TGridDesc * desc);
 	/** @see IHoeEnv::GridSurface::GetGriddesc */
 	virtual void HOEAPI GetGridDesc(int x, int y, TGridDesc * desc);
 	/** @see IHoeEnv::GridSurface::SetGridModel */
-	virtual void HOEAPI SetGridModel(int x, int y, float height, int modelid);
+	virtual void HOEAPI SetGridModel(int x, int y, vfloat height, int modelid);
 	/** @see IHoeEnv::GridSurface::GetGridModel */
 	virtual int HOEAPI GetGridModel(int x, int y);
 	/** @see IHoeEnv::GridSurface::SetGridPlane */
-	virtual void HOEAPI SetGridPlane(int x, int y, float height, float lt = 0.f, float rt = 0.f, float lb = 0.f, float rb = 0.f);
+	virtual void HOEAPI SetGridPlane(int x, int y, vfloat height, vfloat lt = 0.f, vfloat rt = 0.f, vfloat lb = 0.f, vfloat rb = 0.f);
 	/** @see IHoeEnv::GridSurface::SetGridHeightmap */
-	virtual void HOEAPI SetGridHeightmap(int x, int y, float height, int resx, int resy, float * h);
+	virtual void HOEAPI SetGridHeightmap(int x, int y, vfloat height, int resx, int resy, vfloat * h);
 
 	// hejbani
-	virtual void HOEAPI MoveHeight(float x, float y, float moveheight, float radius);
+	virtual void HOEAPI MoveHeight(vfloat x, vfloat y, vfloat moveheight, vfloat radius);
 
 	// funkce pro fyziku
-	bool GetHeight(const float x, const float y, float * height);
-	bool GetCamber(const float x1,const float x2,const float y1,const float y2, float & min,float &max);
-	virtual float HOEAPI GetAvgHeight(const uint x, const uint y, float *min, float *max);
+	bool GetHeight(const vfloat x, const vfloat y, vfloat * height);
+	bool GetCamber(const vfloat x1,const vfloat x2,const vfloat y1,const vfloat y2, vfloat & min,vfloat &max);
+	virtual vfloat HOEAPI GetAvgHeight(const uint x, const uint y, vfloat *min, vfloat *max);
 
 	//virtual void HOEAPI ShowBrush(bool show);
-	//virtual void HOEAPI SetBrush(float x, float y, float radius, dword color);
+	//virtual void HOEAPI SetBrush(vfloat x, vfloat y, vfloat radius, dword color);
 	/** @see IHoeEnv::GridSurface::ShowWireframe */
 	virtual void HOEAPI ShowWireframe(bool show);
 	/** @see IHoeEnv::GridSurface::Dump */

@@ -78,7 +78,7 @@ void HoeLight::SetPosition(const HoeMath::Vector3v &a)
 #endif
 }
 
-void HoeLight::SetColor(const float r, const float g, const float b)
+void HoeLight::SetColor(const vfloat r, const vfloat g, const vfloat b)
 {
 #ifdef _HOE_D3D_
 	light.Diffuse.r = r; light.Diffuse.g = g; light.Diffuse.b = b;light.Diffuse.a = 1.f;

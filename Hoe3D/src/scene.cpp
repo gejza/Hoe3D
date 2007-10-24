@@ -247,11 +247,11 @@ XHoeObject * HoeGraphScene::Ray(const HoeMath::Vector3v & vPickRayDir, const Hoe
 	return act;
 }
 
-float HoeGraphScene::GetHeight(float x,float y)
+vfloat HoeGraphScene::GetHeight(vfloat x,vfloat y)
 {
 	/** @todo predelat nejen na terrain */
 	TSceneGroup * g = m_root;
-	float h;
+	vfloat h;
 	while (g)
 	{
 		switch (g->type)
@@ -273,7 +273,7 @@ float HoeGraphScene::GetHeight(float x,float y)
 	return 0.f;
 }
 
-bool HoeGraphScene::GetCamber(const float x1,const float x2,const float y1,const float y2, float & min,float &max)
+bool HoeGraphScene::GetCamber(const vfloat x1,const vfloat x2,const vfloat y1,const vfloat y2, vfloat & min,vfloat &max)
 {
 	// v terenu se musi najit ctverce, a z nech vypocitat
 	TSceneGroup * g = m_root;

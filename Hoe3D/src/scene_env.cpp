@@ -73,25 +73,25 @@ HoePolygonSet::HoePolygonSet(HoePolygon * p)
 { 
 	poly = p; 
 }
-void HoePolygonSet::SetPos(float * vv, uint stride)
+void HoePolygonSet::SetPos(vfloat * vv, uint stride)
 {
 	WallVec * v = (WallVec*)poly->m_stream.Lock();
 	for (int i=0;i < poly->nump;i++)
 	{
 		v->pos = HoeMath::Vector3v(vv[0],vv[1],vv[2]);
 		v++;
-		vv = reinterpret_cast<float*>(reinterpret_cast<byte*>(vv)+stride);
+		vv = reinterpret_cast<vfloat*>(reinterpret_cast<byte*>(vv)+stride);
 	}
 	poly->m_stream.Unlock();
 }
-void HoePolygonSet::SetTex(float * vv, uint stride)
+void HoePolygonSet::SetTex(vfloat * vv, uint stride)
 {
 	WallVec * v = (WallVec*)poly->m_stream.Lock();
 	for (int i=0;i < poly->nump;i++)
 	{
 		v->tex = HoeMath::Vector2v(vv[0],vv[1]);
 		v++;
-		vv = reinterpret_cast<float*>(reinterpret_cast<byte*>(vv)+stride);
+		vv = reinterpret_cast<vfloat*>(reinterpret_cast<byte*>(vv)+stride);
 	}
 	poly->m_stream.Unlock();
 }

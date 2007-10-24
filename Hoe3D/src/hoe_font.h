@@ -16,10 +16,10 @@
 
 struct HoeFontCoord
 {
-	float prex,postx;
-	float top;
-	float x1,y1;
-	float x2,y2;
+	vfloat prex,postx;
+	vfloat top;
+	vfloat x1,y1;
+	vfloat x2,y2;
 };
 
 struct THoeFontCharInfo
@@ -38,7 +38,7 @@ class HoeFontRenderer
 public:
 	virtual bool GetCharInfo(wchar_t c, THoeFontCharInfo* info) = 0;
 	virtual void Render(wchar_t ch,uint texX, uint texY, HOEFORMAT format,
-		float sc_alpha, 
+		vfloat sc_alpha, 
 		HoeTexture::LOCKRECT *lr) = 0;
 	virtual void Release() {}
 };
@@ -50,7 +50,7 @@ public:
     dword   m_dwFontHeight;
     dword   m_dwFontFlags;
 	dword	m_dwSpacing;
-	float m_scalpha;
+	vfloat m_scalpha;
 
     //dword   m_dwTexWidth;                 // Texture dimensions
     //dword   m_dwTexHeight;
@@ -60,9 +60,9 @@ public:
 
 	void CreateTexture();
 
-	HoeFontRenderer * GetFontRenderer(const tchar* fname, float height) { return 0; }
+	HoeFontRenderer * GetFontRenderer(const tchar* fname, vfloat height) { return 0; }
 public:
-	HoeFont(const tchar* strFontName, uint dwHeight, float scaplha, dword dwFlags=0L);
+	HoeFont(const tchar* strFontName, uint dwHeight, vfloat scaplha, dword dwFlags=0L);
 	~HoeFont();
 
 	// Initializing and destroying device-dependent objects
@@ -72,10 +72,10 @@ public:
     virtual void HOEAPI Delete();
 
 	// public functions
-    virtual bool DrawText( float x, float y, dword dwColor, 
+    virtual bool DrawText( vfloat x, vfloat y, dword dwColor, 
                       const tchar* strText, dword dwFlags=0L );
 	virtual void GetTextSize(const tchar *text,THoeFontSize * size);
-	virtual float GetTextHeight();
+	virtual vfloat GetTextHeight();
 };
 
 #endif // _HOE_FONT_

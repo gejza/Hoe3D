@@ -354,8 +354,8 @@ void Font::Draw(IHoe2D *hoe2d)
 
 	if (m_font && text)
 	{
-		float x = m_rect.left;
-		float y = m_rect.top;
+		vfloat x = m_rect.left;
+		vfloat y = m_rect.top;
 		if (m_ax != ALeft)
 		{
 			// sirka

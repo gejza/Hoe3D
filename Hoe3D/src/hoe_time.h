@@ -13,7 +13,7 @@ public:
 };
 
 bool time_initQPC();
-float SysFloatTime();
-float SysFrameTime();
+vfloat SysFloatTime();
+vfloat SysFrameTime();
 
 #endif // _HOE_TIMER_

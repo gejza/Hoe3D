@@ -16,8 +16,8 @@ namespace IHoeEnv
 	class Poly : public Base
 	{
 	public:
-		virtual void HOEAPI SetPos(float * v, uint stride) = 0;
-		virtual void HOEAPI SetTex(float * v, uint stride) = 0;
+		virtual void HOEAPI SetPos(vfloat * v, uint stride) = 0;
+		virtual void HOEAPI SetTex(vfloat * v, uint stride) = 0;
 		virtual void HOEAPI SetMaterial(IHoeMaterial * m) = 0;
 	};
 	class HeightMapSurface : public Base
@@ -26,11 +26,11 @@ namespace IHoeEnv
 		/**
 		* Nastavi pozici stredu mapy
 		*/
-		virtual void HOEAPI SetPosCenter( float x, float y, float z) = 0;
+		virtual void HOEAPI SetPosCenter( vfloat x, vfloat y, vfloat z) = 0;
 		/**
 		* Nastavi velikost mapy
 		*/
-		virtual void HOEAPI SetSize(float sizeX, float sizeY) = 0;
+		virtual void HOEAPI SetSize(vfloat sizeX, vfloat sizeY) = 0;
 		/**
 		* Vygeneruje vyskovou mapu
 		* @param resX rozliseni sirky (pocet bodu mapy)
@@ -43,10 +43,10 @@ namespace IHoeEnv
 		* @param resY rozliseni vysky (pocet bodu mapy)
 		* @param f Jednotlive vysky mapy, ulozene po radcich (podle sizeX)
 		*/
-		virtual void HOEAPI SetHeightMap(int resX,int resY, float *f) = 0;
+		virtual void HOEAPI SetHeightMap(int resX,int resY, vfloat *f) = 0;
 		virtual void HOEAPI ShowBrush(bool show) = 0;
-		virtual void HOEAPI SetBrush(float x, float y, float radius, dword color) = 0;
-		virtual void HOEAPI MoveHeight(float x, float y, float radius, float value) = 0;
+		virtual void HOEAPI SetBrush(vfloat x, vfloat y, vfloat radius, dword color) = 0;
+		virtual void HOEAPI MoveHeight(vfloat x, vfloat y, vfloat radius, vfloat value) = 0;
 		// Dump
 		
 	};
@@ -71,7 +71,7 @@ namespace IHoeEnv
 		/**
 		* Nastavi pozici stredu mapy
 		*/
-		virtual void HOEAPI SetPosCenter( float x, float y, float z) = 0;
+		virtual void HOEAPI SetPosCenter( vfloat x, vfloat y, vfloat z) = 0;
 		/**
 		* Vytvori grid mapu
 		* @param sizeX realna velikost na sirku
@@ -79,7 +79,7 @@ namespace IHoeEnv
 		* @param resX rozliseni sirky (pocet bodu mapy)
 		* @param resY rozliseni vysky (pocet bodu mapy)
 		*/
-		virtual void HOEAPI Create(float sizeX, float sizeY, int resX,int resY) = 0;
+		virtual void HOEAPI Create(vfloat sizeX, vfloat sizeY, int resX,int resY) = 0;
 		/**
 		* Aktualizuje mapu
 		*/
@@ -105,7 +105,7 @@ namespace IHoeEnv
 		* @param resX rozliseni sirky (pocet bodu mapy)
 		* @param resY rozliseni vysky (pocet bodu mapy)
 		*/
-		virtual void HOEAPI GetDesc(float *sizeX, float *sizeY, uint *resX,uint *resY) = 0;
+		virtual void HOEAPI GetDesc(vfloat *sizeX, vfloat *sizeY, uint *resX,uint *resY) = 0;
 		/**
 		* Nastavi parametry jedne mrize
 		* @param x X-ova souradnice policka
@@ -142,21 +142,21 @@ namespace IHoeEnv
 		* lb - levy dolni
 		* rb - pravy dolni
 		*/
-		virtual void HOEAPI SetGridPlane(int x, int y, float height, float lt = 0.f, float rt = 0.f, float lb = 0.f, float rb = 0.f) = 0;
-		virtual void HOEAPI SetGridModel(int x, int y, float height, int modelid) = 0;
+		virtual void HOEAPI SetGridPlane(int x, int y, vfloat height, vfloat lt = 0.f, vfloat rt = 0.f, vfloat lb = 0.f, vfloat rb = 0.f) = 0;
+		virtual void HOEAPI SetGridModel(int x, int y, vfloat height, int modelid) = 0;
 		virtual int HOEAPI GetGridModel(int x, int y) = 0;
-		virtual void HOEAPI SetGridHeightmap(int x, int y, float height, int resx, int resy, float * h) = 0;
-		virtual float HOEAPI GetAvgHeight(const uint x, const uint y, float *min, float *max) = 0;
+		virtual void HOEAPI SetGridHeightmap(int x, int y, vfloat height, int resx, int resy, vfloat * h) = 0;
+		virtual vfloat HOEAPI GetAvgHeight(const uint x, const uint y, vfloat *min, vfloat *max) = 0;
 		// funkce na editovani
-		virtual void HOEAPI MoveHeight(float x, float y, float moveheight, float radius) = 0;
+		virtual void HOEAPI MoveHeight(vfloat x, vfloat y, vfloat moveheight, vfloat radius) = 0;
 	};
 };
 
 class IHoeScenePhysics : public IHoeElement
 {
 public:
-	virtual float HOEAPI GetHeight(float x,float y) = 0;
-	virtual bool HOEAPI GetCamber(const float x1,const float x2,const float y1,const float y2, float & min,float &max) = 0;
+	virtual vfloat HOEAPI GetHeight(vfloat x,vfloat y) = 0;
+	virtual bool HOEAPI GetCamber(const vfloat x1,const vfloat x2,const vfloat y1,const vfloat y2, vfloat & min,vfloat &max) = 0;
 	/** Ray tracer */
 	virtual XHoeObject * HOEAPI Ray(const HoeMath::Vector3v & vPickRayDir, const HoeMath::Vector3v & vPickRayOrig) = 0;
 

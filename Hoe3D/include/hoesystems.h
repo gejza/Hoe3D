@@ -22,7 +22,7 @@ class IHoeSystem : public IHoeInterface
 class IHoeInfo : public IHoeSystem
 {
 public:
-	virtual float HOEAPI GetFPS() = 0;
+	virtual vfloat HOEAPI GetFPS() = 0;
 	virtual bool HOEAPI LoadFont(const tchar * fontname, int height) = 0;
 	virtual void HOEAPI Show(bool enable) = 0;
 };
@@ -51,13 +51,13 @@ public:
 class IHoe2D : public IHoeSystem
 {
 public:
-	virtual void SetRect(const float w,const float h) = 0;
+	virtual void SetRect(const vfloat w,const vfloat h) = 0;
 
 	/// paint func
-	virtual void PaintRect(const float l,const float r,const float t,const float b,unsigned long color,bool full) = 0;
-	virtual	void PaintLine(float x1,float y1,float x2,float y2,unsigned long c) = 0;
+	virtual void PaintRect(const vfloat l,const vfloat r,const vfloat t,const vfloat b,unsigned long color,bool full) = 0;
+	virtual	void PaintLine(vfloat x1,vfloat y1,vfloat x2,vfloat y2,unsigned long c) = 0;
 
-	virtual void BltFast(const float l,const float r,const float t,const float b,IHoePicture *) = 0;
+	virtual void BltFast(const vfloat l,const vfloat r,const vfloat t,const vfloat b,IHoePicture *) = 0;
 	virtual void Blt(const THoeRect * dest,IHoePicture *) = 0;
 	virtual void Blt(const THoeRect* dest,IHoePicture *,const THoeRect * src) = 0;
 	// dve moznosti alfy
@@ -81,7 +81,7 @@ class IHoePhysics : public IHoeSystem
 {
 public:
 	virtual void HOEAPI SetPart(unsigned long partID) = 0;
-	virtual XHoeObject * HOEAPI RayTrace(const float *,const float *,unsigned long flags) = 0;
+	virtual XHoeObject * HOEAPI RayTrace(const vfloat *,const vfloat *,unsigned long flags) = 0;
 };
 
 #endif // _HOE_SYSTEMS_INTERFACE_H_

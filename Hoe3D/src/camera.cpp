@@ -69,7 +69,7 @@ void HoeCamera::SetupMatrices()
 
 }
 
-void HoeCamera::Setup2DMatrices(const float w,const float h)
+void HoeCamera::Setup2DMatrices(const vfloat w,const vfloat h)
 {
 	Matrix4v matWorld;
 	matWorld.Ortho( 0,(w > 0) ? w:m_width,(h > 0) ? h:m_height,0,-1,1); 
@@ -148,7 +148,7 @@ void HoeCamera::Update()
 	CalculateFrustum();
 }
 
-void HoeCamera::SetPerspective( const float fov, const float zn, const float zf)
+void HoeCamera::SetPerspective( const vfloat fov, const vfloat zn, const vfloat zf)
 {
 	matProj.PerspectiveFov( fov, 1.0f, zn, zf );
 }
@@ -185,14 +185,14 @@ bool HoeCamera::BoundInFlustrum(const Vector3v & center, const HoeMath::Bounding
 	return true;
 }
 
-void HoeCamera::Pick(const float x, const float y, HoeMath::Vector3v * vPickRayDir, HoeMath::Vector3v * vPickRayOrig)
+void HoeCamera::Pick(const vfloat x, const vfloat y, HoeMath::Vector3v * vPickRayDir, HoeMath::Vector3v * vPickRayOrig)
 {
 	static Matrix4v m;
         
 	// Compute the vector of the pick ray in screen space
     static Vector3v v;
-    v.x =  fixed( ( ( 2.0f * x ) / m_width  ) - 1 ) / matProj._11;
-    v.y = -fixed( ( ( 2.0f * y ) / m_height ) - 1 ) / matProj._22;
+    v.x =  vfloat( ( ( 2 * x ) / m_width  ) - 1 ) / matProj._11;
+    v.y = -vfloat( ( ( 2 * y ) / m_height ) - 1 ) / matProj._22;
     v.z =  1.0f;
 
         // Get the inverse view Matrix

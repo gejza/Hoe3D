@@ -15,7 +15,7 @@
 #include "freetype.h"
 #endif
 
-HoeFont::HoeFont(const tchar* strFontName, uint dwHeight, float scalpha, dword dwFlags)
+HoeFont::HoeFont(const tchar* strFontName, uint dwHeight, vfloat scalpha, dword dwFlags)
 {
 	HoeCore::string::copy( m_strFontName, strFontName, sizeof(m_strFontName)/sizeof(tchar) );
     m_dwFontHeight         = dwHeight;
@@ -159,7 +159,7 @@ struct FONTBACK_VERTEX
 
 #endif
 
-bool HoeFont::DrawText( float sx, float sy, dword dwColor, 
+bool HoeFont::DrawText( vfloat sx, vfloat sy, dword dwColor, 
                       const tchar* strText, dword dwFlags )
 {
 	this->m_tex->Set();
@@ -247,11 +247,11 @@ void HoeFont::GetTextSize(const tchar *text,THoeFontSize * size)
 	size->width += 2 * m_dwSpacing;
 }
 
-float HoeFont::GetTextHeight()
+vfloat HoeFont::GetTextHeight()
 {
 	int index = GetCodePage()->GetIndex('X');
-	float ty1 = this->m_fTexCoords[index].y1;
-	float ty2 = this->m_fTexCoords[index].y2;
+	vfloat ty1 = this->m_fTexCoords[index].y1;
+	vfloat ty2 = this->m_fTexCoords[index].y2;
 
 	return (ty2-ty1) * 255;
 }
