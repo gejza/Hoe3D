@@ -66,8 +66,6 @@ src/sound_al.cpp \
 src/sound_ds.cpp \
 src/states.cpp \
 src/texture_converter.cpp \
-src/texture_convjpg.cpp \
-src/texture_convpng.cpp \
 src/texture_loader.cpp \
 src/texture_system.cpp \
 src/unicode.cpp \

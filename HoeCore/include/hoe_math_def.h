@@ -184,11 +184,11 @@ template <class TYPE> struct Vector4
     TYPE w;
 
 	Vector4() { };
-	Vector4(const float X,const float Y,const float Z,const float W)
+	Vector4(const TYPE X,const TYPE Y,const TYPE Z,const TYPE W)
 	{
 		x = X;y = Y;z = Z;w = W;
 	}
-	Vector4(const float * v)
+	Vector4(const TYPE * v)
 	{
 		x = v[0];y = v[1]; z = v[2];w = v[3];
 	}
@@ -204,6 +204,8 @@ template <class TYPE> struct Vector4
 	}
 };
 
+typedef Vector4<float> Vector4f;
+typedef Vector4<int> Vector4i;
 typedef Vector4<vfloat> Vector4v;
 
 template<class TYPE> struct Quat

@@ -53,8 +53,8 @@ void HoeLight::Set(int slot)
 
 	glLightModelfv ( GL_LIGHT_MODEL_AMBIENT, LightAmbient );	// nastavenie okoliteho (Ambient) svetla
 	glLightfv ( GL_LIGHT0+slot, GL_AMBIENT, LightAmbient );	// nastavenie 
-	glLightfv (GL_LIGHT0+slot,GL_DIFFUSE, color.m );			// nastavenie difuzneho svetla
-	glLightfv ( GL_LIGHT0+slot,GL_POSITION, pos.m  );		// pozicia difuzneho svetla
+	glLightfv (GL_LIGHT0+slot,GL_DIFFUSE, color );			// nastavenie difuzneho svetla
+	glLightfv ( GL_LIGHT0+slot,GL_POSITION, pos  );		// pozicia difuzneho svetla
 	glEnable  ( GL_LIGHT0+slot );									// aktivovanie svetla 0
 #endif
 }

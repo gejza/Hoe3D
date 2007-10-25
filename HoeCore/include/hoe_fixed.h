@@ -181,12 +181,12 @@ inline fixed operator * (const uint a, const fixed& n)
     return ret;
 }
 
-inline fixed operator * (const byte a, const fixed& n)
+/*inline fixed operator * (const byte a, const fixed& n)
 {
     fixed ret;
 	ret.n = ((fxtype)(((_int64)(a << fxbits) * (_int64)(n.n)) >> fxbits));
     return ret;
-}
+}*/
 
 
 /*const fixed operator / (const int a, const fixed& n) const

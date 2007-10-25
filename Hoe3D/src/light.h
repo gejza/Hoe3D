@@ -11,8 +11,8 @@ public:
 class HoeLight : public IHoeLight
 {
 #ifdef _HOE_OPENGL_
-	HoeMath::Vector4 pos;
-	HoeMath::Vector4 color;
+	HoeMath::Vector4f pos;
+	HoeMath::Vector4f color;
 #else
 	D3DLight light;
 #endif

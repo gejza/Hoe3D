@@ -7,6 +7,8 @@
 
 #include "freetype.h"
 
+#if 0
+
 static void PrintCharA8L8(uint texX, uint texY, HoeFreeTypeFont::FreeChar * data,float sc_alpha, HoeTexture::LOCKRECT *lr)
 {
     uint x, y;
@@ -274,4 +276,6 @@ bool HoeFont::Init()
 	Con_Print("Create font: %s %d",this->m_strFontName,this->m_dwFontHeight);
     return true;
 }
+
+#endif
 

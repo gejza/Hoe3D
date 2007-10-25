@@ -320,7 +320,7 @@ void HoeVertexShader::Setup(const HoeScene * scene) const
 #ifdef _HOE_OPENGL_
 	// consts
 	w.Identity();
-	glGetFloatv(GL_MODELVIEW_MATRIX,(GLfloat*)w.m);
+	glGetFloatv(GL_MODELVIEW_MATRIX,(GLfloat*)w);
 #endif
 
 	//HoeMath::Vector3 vv(0,0,0);
@@ -364,12 +364,12 @@ ogl:
 	glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, 1, &w._21 );
 	glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, 2, &w._31 );
 	glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, 3, &w._41 );
-	glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB,  5, zero.m);	// c5   0,0,0,0
+	glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB,  5, zero);	// c5   0,0,0,0
 
 	for(uint i=0; i<17 && i < scene->GetLS()->GetNumActiveLights(); i++)
 		{
-			glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, i+10, scene->GetLS()->GetActiveLight(i)->GetPosition().m);
-			glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, i+40, scene->GetLS()->GetActiveLight(i)->GetColor().m);
+			glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, i+10, scene->GetLS()->GetActiveLight(i)->GetPosition());
+			glProgramLocalParameter4fvARB( GL_VERTEX_PROGRAM_ARB, i+40, scene->GetLS()->GetActiveLight(i)->GetColor());
 		}
 #endif
 	}
