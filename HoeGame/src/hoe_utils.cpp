@@ -18,7 +18,7 @@ BEGIN_HOEGAME
 #define MAX_PATH 512
 #endif
 
-bool SetRootDir(const char * dir)
+bool SetRootDir(const tchar * dir)
 {
 #ifdef _WIN32_WINNT
 	return (SetCurrentDirectory(dir) != FALSE);
@@ -29,14 +29,14 @@ bool SetRootDir(const char * dir)
 	return false;
 }
 
-const char * GetBaseDir(const char * path)
+const tchar * GetBaseDir(const tchar * path)
 {
-	static char basedir[ 1024 ];
+	static tchar basedir[ 1024 ];
 	int j;
 
-	strcpy( basedir, path );
+	HoeCore::string::copy( basedir, path, 1024 );
 
-	for (j=strlen(basedir)-1;j > 0;j--)
+	for (j=HoeCore::string::len(basedir)-1;j > 0;j--)
 	{
  		if (basedir[j] == '/' || basedir[j] == '\\')
 		{
@@ -45,10 +45,10 @@ const char * GetBaseDir(const char * path)
 		}
 	}
 
-	return ".";
+	return T(".");
 }
 
-bool SetRootFromExe(const char * path)
+bool SetRootFromExe(const tchar * path)
 {
 	return SetRootDir(GetBaseDir(path));
 }
@@ -92,7 +92,7 @@ bool SetRootFromInstance(HINSTANCE hInstance)
 
 bool SetRootFromInstance(HINSTANCE hInstance)
 {
-	char moduleName[ MAX_PATH ];
+	tchar moduleName[ MAX_PATH ];
 	if ( !GetModuleFileName( hInstance, moduleName, MAX_PATH ) )
 	{
 		return false;
@@ -105,7 +105,7 @@ int GenerateDump(EXCEPTION_POINTERS* pExceptionPointers)
 {
     BOOL bMiniDumpSuccessful;
     //CHAR szPath[MAX_PATH]; 
-    CHAR szFileName[MAX_PATH]; 
+	HoeCore::String_s<MAX_PATH> szFileName; 
     CHAR* szAppName = "AppName";
     CHAR* szVersion = "v1.0";
     DWORD dwBufferSize = MAX_PATH;
@@ -115,7 +115,7 @@ int GenerateDump(EXCEPTION_POINTERS* pExceptionPointers)
 
     GetLocalTime( &stLocalTime );
 
-    _snprintf( szFileName, MAX_PATH, "%s-%04d%02d%02d-%02d%02d%02d-%ld-%ld.dmp", 
+	szFileName.printf("%s-%04d%02d%02d-%02d%02d%02d-%ld-%ld.dmp", 
                szVersion, 
                stLocalTime.wYear, stLocalTime.wMonth, stLocalTime.wDay, 
                stLocalTime.wHour, stLocalTime.wMinute, stLocalTime.wSecond, 

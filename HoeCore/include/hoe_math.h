@@ -69,6 +69,12 @@ HOE_INLINE float UpperRound(float f);
 
 } // namespace HoeMath
 
+HOE_INLINE void sincosf(float a, float* s, float* c)
+{
+	*s = sinf(a);
+	*c = cosf(a);
+}
+
 #endif // __cplusplus
 
 #endif // _HOE_MATH_H_

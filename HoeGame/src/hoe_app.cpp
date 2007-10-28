@@ -4,8 +4,8 @@
 
 BEGIN_HOEGAME 
 
-CVar HoeApp::m_width("width", 800, 0);
-CVar HoeApp::m_height("height", 600, 0);
+CVar HoeApp::m_width("width", 240, 0);
+CVar HoeApp::m_height("height", 320, 0);
 CVar HoeApp::m_fullscreen("fullscreen", false, 0);
 CVar HoeApp::m_enginedll("engine", ENGINE_DLL, TVAR_SSTR);
 

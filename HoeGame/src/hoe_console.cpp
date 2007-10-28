@@ -33,7 +33,7 @@ void BaseConsole::Printfarg(const char * szFormat, va_list args)
 		m_shared->Con_Print(szBuff);
 	/*!!!*/
 #if (defined(DEBUG) || defined(_DEBUG)) && defined(_WIN32_WINNT) 
-	OutputDebugString( szBuff );OutputDebugString( "\n" );
+	OutputDebugString( szBuff );OutputDebugString( T("\n") );
 #endif
 }
 
@@ -45,7 +45,7 @@ void BaseConsole::Printfarg(const wchar_t * szFormat, va_list args)
 		m_shared->Con_Print(szBuff);
 	/*!!!*/
 #if (defined(DEBUG) || defined(_DEBUG)) && defined(_WIN32_WINNT) 
-	OutputDebugString( szBuff );OutputDebugString( "\n" );
+	OutputDebugString( szBuff );OutputDebugString( T("\n") );
 #endif
 }
 

@@ -540,7 +540,7 @@ HOE_INLINE vdouble HoeAngleBetweenVectors(const Vector3v &v1, const Vector3v &v2
 	vdouble vectorsMagnitude = v1.Magnitude() * v2.Magnitude();
 
 	// Return the arc cosine of the (dotProduct / vectorsMagnitude) which is the angle in RADIANS.
-	return( acosf( dotProduct / vectorsMagnitude ) );
+	return( acos( dotProduct / vectorsMagnitude ) );
 }
 
 // colision

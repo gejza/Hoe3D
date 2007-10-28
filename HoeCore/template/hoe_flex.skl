@@ -29,7 +29,10 @@
 
 #define yyconst const
 
-//%% YY_CHAR and YY_SC_TO_UI() go here
+#if 0
+%% YY_CHAR and YY_SC_TO_UI() go here
+#endif
+#define YY_SC_TO_UI(c) ((unsigned int) (tchar) c)
 typedef tchar YY_CHAR; 
 
 /* Returned upon end-of-file. */
@@ -649,11 +652,7 @@ void yyFlexLexer::switch_streams( istream* new_in, ostream* new_out )
 		yyout = new_out;
 	}
 
-#ifdef YY_INTERACTIVE
-int yyFlexLexer::LexerInput( YY_CHAR* buf, int /* max_size */ )
-#else
 int yyFlexLexer::LexerInput( YY_CHAR* buf, int max_size )
-#endif
 	{
 	if ( yyin->eof() || yyin->fail() )
 		return 0;
@@ -830,11 +829,7 @@ static int yy_get_next_buffer()
 
 /* yy_get_previous_state - get the state just before the EOB char was reached */
 
-//%-
 static yy_state_type yy_get_previous_state()
-//%+
-//yy_state_type yyFlexLexer::yy_get_previous_state()
-//%*
 	{
 	register yy_state_type yy_current_state;
 	register YY_CHAR *yy_cp;
@@ -1036,11 +1031,7 @@ void yy_switch_to_buffer( YY_BUFFER_STATE new_buffer )
 	}
 
 
-//%-
 void yy_load_buffer_state( void )
-//%+
-void yyFlexLexer::yy_load_buffer_state()
-//%*
 	{
 	yy_n_chars = yy_current_buffer->yy_n_chars;
 	yytext_ptr = yy_c_buf_p = yy_current_buffer->yy_buf_pos;
@@ -1049,11 +1040,7 @@ void yyFlexLexer::yy_load_buffer_state()
 	}
 
 
-//%-
 YY_BUFFER_STATE yy_create_buffer( FILE *file, int size )
-//%+
-YY_BUFFER_STATE yyFlexLexer::yy_create_buffer( istream* file, int size )
-//%*
 	{
 	YY_BUFFER_STATE b;
 
@@ -1081,9 +1068,6 @@ YY_BUFFER_STATE yyFlexLexer::yy_create_buffer( istream* file, int size )
 
 //%-
 void yy_delete_buffer( YY_BUFFER_STATE b )
-//%+
-//void yyFlexLexer::yy_delete_buffer( YY_BUFFER_STATE b )
-//%*
 	{
 	if ( ! b )
 		return;
@@ -1098,11 +1082,7 @@ void yy_delete_buffer( YY_BUFFER_STATE b )
 	}
 
 
-//%-
 void yy_init_buffer( YY_BUFFER_STATE b, FILE *file )
-//%+
-void yyFlexLexer::yy_init_buffer( YY_BUFFER_STATE b, istream* file )
-//%*
 
 	{
 	yy_flush_buffer( b );
@@ -1259,11 +1239,7 @@ void yyFlexLexer::yy_push_state( int new_state )
 
 
 #ifndef YY_NO_POP_STATE
-//%-
 static void yy_pop_state()
-//%+
-void yyFlexLexer::yy_pop_state()
-//%*
 	{
 	if ( --yy_start_stack_ptr < 0 )
 		YY_FATAL_ERROR( "start-condition stack underflow" );
@@ -1276,9 +1252,6 @@ void yyFlexLexer::yy_pop_state()
 #ifndef YY_NO_TOP_STATE
 //%-
 static int yy_top_state()
-//%+
-int yyFlexLexer::yy_top_state()
-//%*
 	{
 	return yy_start_stack[yy_start_stack_ptr - 1];
 	}
@@ -1288,21 +1261,11 @@ int yyFlexLexer::yy_top_state()
 #define YY_EXIT_FAILURE 2
 #endif
 
-//%-
 static void yy_fatal_error( const char msg[] )
 	{
 	(void) fprintf( stderr, "%s\n", msg );
 	exit( YY_EXIT_FAILURE );
 	}
-
-//%+
-
-void yyFlexLexer::LexerError( const char msg[] )
-	{
-	cerr << msg << '\n';
-	exit( YY_EXIT_FAILURE );
-	}
-//%*
 
 
 /* Redefine yyless() so it works in section 3 code. */

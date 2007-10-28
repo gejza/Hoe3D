@@ -17,7 +17,8 @@
 #include "utils.h"
 #include "sound.h"
 #include "../include/hoefs.h"
-#ifndef _WIN32_WCE
+//#ifndef _WIN32_WCE
+#if 0
 #include "sound_ogg.h"
 #endif
 

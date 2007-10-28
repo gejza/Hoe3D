@@ -39,7 +39,7 @@ bool HoeWin32::RegisterApp()
      return RegisterClass (&wndclass) != FALSE;
 }
 
-bool HoeWin32::CreateWin(const char * title, int width, int height, bool fs)
+bool HoeWin32::CreateWin(const tchar * title, int width, int height, bool fs)
 {
 	if (fs)
 	{
@@ -92,7 +92,7 @@ void HoeWin32::UpdateConsole()
 	InvalidateRect(m_hWnd,NULL,TRUE);
 }
 
-void HoeWin32::SetTitle(const char * title)
+void HoeWin32::SetTitle(const tchar * title)
 {
 	assert(m_hWnd);
 	SetWindowText(m_hWnd, title);
@@ -116,7 +116,7 @@ int HoeWin32::GetMsg(IHoe3DEngine * eng)
 	return 1;
 }
 
-int HoeWin32::ShowMsg(const char * cap, const char * msg)
+int HoeWin32::ShowMsg(const tchar * cap, const tchar * msg)
 {
 	MessageBox(NULL,msg,cap, MB_OK);
 	return 0;
@@ -133,14 +133,11 @@ void HoeWin32::Destroy()
 
 void HoeWin32::PaintConsole(Console * con)
 {
+	if (!con)
+		return;
 	HDC         hdc ;
      PAINTSTRUCT ps ;
 
-		 /* if (Becher::GetState() != Becher::sInit)
-		 {
-			 ValidateRECT(hwnd,NULL);
-			 break;
-		 }*/
 			  int numlines = (m_cyClient-5) / m_cyChar;
 				if (numlines > con->GetLines().Count())
 					numlines = con->GetLines().Count();
@@ -154,7 +151,7 @@ void HoeWin32::PaintConsole(Console * con)
 			  
 				while (y > 0)
 				{
-					const char * str = con->GetLines().GetLine(n++).GetText();
+					const tchar * str = con->GetLines().GetLine(n++).GetText();
 					TextOut (hdc, 5, y,	str,lstrlen (str)) ;
 					y -= m_cyChar;
 				}

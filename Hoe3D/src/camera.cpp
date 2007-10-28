@@ -54,17 +54,17 @@ void HoeCamera::SetView(uint w,uint h)
 
 void HoeCamera::SetupMatrices()
 {
-#ifdef _HOE_D3D_
-	D3DDevice()->SetTransform( D3DTS_VIEW, (const D3DMATRIX*)&matView );
-	D3DDevice()->SetTransform( D3DTS_PROJECTION, (const D3DMATRIX*)&matProj );
-#endif
 #ifdef _HOE_OPENGL_
-	glMatrixMode(GL_PROJECTION);// Zvolí projekèní matici
+	Ref::SetMatrix<Ref::MatrixViewProj>(matViewProj);
+
+	/*glMatrixMode(GL_PROJECTION);// Zvolí projekèní matici
 	glLoadMatrixf((const GLfloat *)matViewProj);
 	
 	glMatrixMode(GL_MODELVIEW);// Zvolí matici modelview
-	glLoadIdentity();
-
+	glLoadIdentity();*/
+#else
+	Ref::SetMatrix<Ref::MatrixView>(matView);
+	Ref::SetMatrix<Ref::MatrixProj>(matProj);
 #endif
 
 }
@@ -74,19 +74,22 @@ void HoeCamera::Setup2DMatrices(const vfloat w,const vfloat h)
 	Matrix4v matWorld;
 	matWorld.Ortho( 0,(w > 0) ? w:m_width,(h > 0) ? h:m_height,0,-1,1); 
 
-#ifdef _HOE_D3D_
 	Matrix4v matView;
 	matView.Identity();
-	D3DDevice()->SetTransform( D3DTS_WORLD, (const D3DMATRIX*)&matWorld );
+	Ref::SetMatrix<Ref::MatrixWorld>( matWorld);
+	Ref::SetMatrix<Ref::MatrixViewProj>( matView);
+
+/*#ifdef _HOE_D3D_
+	D3DDevice()->SetTransform( D3DTS_WORLD, (const D3DMATRIX*)& );
 	D3DDevice()->SetTransform( D3DTS_VIEW, (const D3DMATRIX*)&matView );
 	D3DDevice()->SetTransform( D3DTS_PROJECTION, (const D3DMATRIX*)&matView );
 #endif
 #ifdef _HOE_D3DM_
 	Matrix4fx matView;
 	matView.Identity();
-	D3DDevice()->SetTransform( D3DMTS_WORLD, (const D3DMMATRIX*)&matWorld, D3DMFMT_D3DMVALUE_FLOAT );
-	D3DDevice()->SetTransform( D3DMTS_VIEW, (const D3DMMATRIX*)&matView, D3DMFMT_D3DMVALUE_FLOAT );
-	D3DDevice()->SetTransform( D3DMTS_PROJECTION, (const D3DMMATRIX*)&matView,D3DMFMT_D3DMVALUE_FLOAT );
+	D3DDevice()->SetTransform( D3DMTS_WORLD, (const D3DMMATRIX*)&matWorld, D3DMFMT_D3DMVALUE_FIXED );
+	D3DDevice()->SetTransform( D3DMTS_VIEW, (const D3DMMATRIX*)&matView, D3DMFMT_D3DMVALUE_FIXED );
+	D3DDevice()->SetTransform( D3DMTS_PROJECTION, (const D3DMMATRIX*)&matView,D3DMFMT_D3DMVALUE_FIXED );
 #endif
 #ifdef _HOE_OPENGL_
 	glMatrixMode(GL_PROJECTION);// Zvolí projekèní matici
@@ -94,7 +97,7 @@ void HoeCamera::Setup2DMatrices(const vfloat w,const vfloat h)
 	
 	glMatrixMode(GL_MODELVIEW);// Zvolí matici modelview
 	glLoadMatrixf((GLfloat*)&matWorld);
-#endif
+#endif*/
 }
 
 const float scale = 0.1f;

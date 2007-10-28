@@ -17,13 +17,13 @@
 
 #include "ref_base.h"
 
-#define FVF_XYZ			(1 << 0)
-#define FVF_XYZRHW		(1 << 1) 
-#define FVF_NORMAL		(1 << 2)
-#define FVF_DIFFUSE		(1 << 3)
-#define FVF_SPECULAR	(1 << 4)
-#define FVF_TEX1		(1 << 5)
-#define FVF_TEX2		(1 << 6)
+#define FVF_XYZ			D3DMFVF_XYZ_FLOAT
+#define FVF_XYZRHW		D3DMFVF_XYZRHW_FLOAT
+#define FVF_NORMAL		D3DMFVF_NORMAL_FLOAT
+#define FVF_DIFFUSE		D3DMFVF_DIFFUSE
+#define FVF_SPECULAR	D3DMFVF_SPECULAR
+#define FVF_TEX1		D3DMFVF_TEX1
+#define FVF_TEX2		D3DMFVF_TEX2
 
 #define RESERVE_PAR
 typedef void** D3DLOCKTYPE;
@@ -45,6 +45,8 @@ inline const D3DMVECTOR & VECToD3D(const HoeMath::Vector3fx &v)
 	return *((D3DMVECTOR*)&v);
 }
 
+class HoeFVF;
+
 /**
 * @brief Trida s implementaci zakladnich vlastnosti <b>D3D9</b>
 */
@@ -58,6 +60,11 @@ protected:
 	D3DMFORMAT m_AdapterFormat; ///< Format backbufferu
 	D3DMCAPS m_Caps; ///< caps
 public:
+	static const int MatrixWorld = D3DMTS_WORLD;
+	static const int MatrixView = D3DMTS_VIEW;
+	static const int MatrixProj = D3DMTS_PROJECTION;
+	static const int MatrixViewProj = 0xff001;
+
 	/**
 	* Konstruktor
 	*/
@@ -143,10 +150,18 @@ public:
 	*/
 	static void DrawPointObject(class HoeStream * stream, int vertCount);
 	/** 
-	* Nastaveni modelove matice.
+	* Nastaveni modelove matice. Funguje jako sablona (optimalizace)
 	* @param m Matice
 	*/
-	static HOE_INLINE void SetMatrix(const HoeMath::Matrix4fx & m);
+	template<int type> static HOE_INLINE void SetMatrix(const HoeMath::Matrix4fx & m);
+	/** 
+	* Nastaveni modelove matice. Funguje jako sablona (optimalizace)
+	* @param m Matice
+	*/
+	template<int type> static HOE_INLINE void SetMatrix(const HoeMath::Matrix4f & m);
+
+	IDirect3DMobileVertexBuffer * CreateVertexBuffer(dword size, HoeFVF& fvf,
+		bool dynamic);
 
 	/**
 	* Zjisti zda zarizeni podporuje format textury

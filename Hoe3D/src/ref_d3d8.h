@@ -56,6 +56,11 @@ protected:
 	D3DCAPS8 m_Caps; ///< caps
 
 public:
+	static const int MatrixWorld = D3DTS_WORLD;
+	static const int MatrixView = D3DTS_VIEW;
+	static const int MatrixProj = D3DTS_PROJECTION;
+	static const int MatrixViewProj = 0xff001;
+
 	/**
 	* Konstruktor
 	*/
@@ -135,10 +140,10 @@ public:
 	*/
 	static void DrawPointObject(class HoeStream * stream, int vertCount);
 	/** 
-	* Nastaveni aktualni modelove matice.
+	* Nastaveni modelove matice. Funguje jako sablona (optimalizace)
 	* @param m Matice
 	*/
-	static HOE_INLINE void SetMatrix(const HoeMath::Matrix & m);
+	template<int type> static HOE_INLINE void SetMatrix(const HoeMath::Matrix4f & m);
 	/**
 	* Zjisti zda zarizeni podporuje format textury
 	* @param TextureFormat format textury

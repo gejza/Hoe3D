@@ -150,14 +150,13 @@ void RefD3DM::Destroy()
 
 void RefD3DM::DrawStdObject(HoeStream * stream, HoeIndex * index)
 {
-	/*stream->Set(0);
+	stream->Set(0);
 
 	D3DDevice()->SetIndices(index->GetIndexBuffer());
 	register dword numtri = index->GetNumIndices()/3;
-	HRESULT hRes = D3DDevice()->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, 0, 0, stream->GetNumVert(), 0,  numtri);
-	//hRes = D3DERR_INVALIDCALL;
+	HRESULT hRes = D3DDevice()->DrawIndexedPrimitive( D3DMPT_TRIANGLELIST, 0, 0, stream->GetNumVert(), 0,  numtri);
 	checkres(hRes,"DrawIndexedPrimitive");
-	GetInfo()->AddStatTriangles(numtri);*/
+	GetInfo()->AddStatTriangles(numtri);
 }
 
 void RefD3DM::DrawStdObject(HoeStream * stream, HoeIndex * index, dword vert, dword ind)
@@ -223,6 +222,17 @@ bool RefD3DM::IsTextureFormatOk( HOEFORMAT TextureFormat)
     
     return SUCCEEDED( hr );*/
 	return 1;
+}
+
+IDirect3DMobileVertexBuffer * RefD3DM::CreateVertexBuffer(dword size, HoeFVF& fvf,
+		bool dynamic)
+{
+	IDirect3DMobileVertexBuffer * vb;
+	const DWORD dfvf = fvf.GetFVF();
+	HRESULT hRes = m_Dev->CreateVertexBuffer( size,
+		dynamic ? D3DUSAGE_DYNAMIC:0 /* Usage */, dfvf, D3DMPOOL_SYSTEMMEM, &vb );
+	checkres(hRes, "CreateVertexBuffer");
+	return vb;
 }
 
 const char * RefD3DM::GetErrorString(HRESULT hRes)

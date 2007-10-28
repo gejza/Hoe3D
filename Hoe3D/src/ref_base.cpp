@@ -16,6 +16,7 @@
 RefBase::RefBase()
 {
 	m_BackColor = 0xff000000;
+	//m_BackColor = 0xffff00ff;
 }
 
 void HOEAPI RefBase::SetBackgroundColor(unsigned long color)

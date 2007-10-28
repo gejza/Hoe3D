@@ -63,6 +63,10 @@ protected:
 #endif
 	
 public:
+	static const int MatrixWorld = GL_MODELVIEW;
+	static const int MatrixViewProj = GL_PROJECTION;
+
+
 	GLExt ext;
     struct Param
     {
@@ -150,10 +154,10 @@ public:
 	*/
 	static void DrawPointObject(class HoeStream * stream, int vertCount);
 	/** 
-	* Nastaveni aktualni modelove matice.
+	* Nastaveni modelove matice. Funguje jako sablona (optimalizace)
 	* @param m Matice
 	*/
-	static HOE_INLINE void SetMatrix(const HoeMath::Matrix4v & m);
+	template<int type> static HOE_INLINE void SetMatrix(const HoeMath::Matrix4f & m);
 	/**
 	* Test na pritomnost rozsireni
 	* @param ext_name Jmeno extension

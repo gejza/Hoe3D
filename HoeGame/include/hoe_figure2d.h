@@ -37,8 +37,8 @@ public:
 	/** Destruktor */
 	virtual ~Hoe2DFigureBase();
 	/** Funkce ktera nacte ze souboru dalsi prvky */
-	bool Load(const char * fname);
-	virtual Gui::Base * CreateGUI(const char * type) = 0;
+	bool Load(const tchar * fname);
+	virtual Gui::Base * CreateGUI(const tchar * type) = 0;
 };
 
 class Hoe2DFigure : public Hoe2DFigureBase

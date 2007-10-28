@@ -26,6 +26,17 @@ bool HoeIndex::Create(dword num_indices)
 	SAFE_RELEASE(m_ib);
 	HRESULT hRes = D3DDevice()->CreateIndexBuffer(m_num * 2,D3DUSAGE_WRITEONLY | D3DUSAGE_DYNAMIC,
 		D3DFMT_INDEX16,D3DPOOL_DEFAULT,&m_ib RESERVE_PAR);
+	checkres(hRes, "CreateIndexBuffer");
+	}
+	else
+#endif
+#ifdef _HOE_D3DM_ 
+	if (!m_soft)
+	{
+	SAFE_RELEASE(m_ib);
+	HRESULT hRes = D3DDevice()->CreateIndexBuffer(m_num * 2,D3DMUSAGE_WRITEONLY,
+		D3DMFMT_INDEX16,D3DMPOOL_SYSTEMMEM,&m_ib RESERVE_PAR);
+	checkres(hRes, "CreateIndexBuffer");
 	}
 	else
 #endif

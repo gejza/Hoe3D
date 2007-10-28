@@ -39,8 +39,66 @@ IHoeLight * HoeScene::CreateLight(bool diRECT)
 	return l;
 }
 
+// A structure for our custom vertex type
+struct CUSTOMVERTEX
+{
+	float x, y, z; // The transformed position for the vertex
+    DWORD color;        // The vertex color
+};
+
+// Our custom FVF, which describes our custom vertex structure
+#define D3DMFVF_CUSTOMVERTEX (D3DMFVF_XYZ_FLOAT | D3DMFVF_DIFFUSE)
+
+SysVertexBuffer InitVB()
+{
+	SysVertexBuffer vb;
+    // Initialize three vertices for rendering a triangle
+    CUSTOMVERTEX vertices[] =
+    {
+        { 150.0f,  150.0f, 0.5f, 0xffff0000 }, // x, y, z, rhw, color
+        { 250.0f, 250.0f, 0.5f,  0xff00ff00 },
+        {  50.0f, 250.0f, 0.5f,  0xff00ffff }
+    };
+
+    D3DMPOOL pool;
+        pool = D3DMPOOL_SYSTEMMEM;
+    if( FAILED( D3DDevice()->CreateVertexBuffer( 3*sizeof(CUSTOMVERTEX),
+                                                  0, D3DMFVF_CUSTOMVERTEX,
+                                                  pool, &vb ) ) )
+    {
+        return 0;
+    }
+
+    // Now we fill the vertex buffer. To do this, we need to Lock() the VB to
+    // gain access to the vertices. This mechanism is required becuase vertex
+    // buffers may be in device memory.
+    void* pVertices;
+    if( FAILED( vb->Lock( 0, sizeof(vertices), &pVertices, 0 ) ) )
+        return 0;
+    memcpy( pVertices, vertices, sizeof(vertices) );
+    vb->Unlock();
+
+    return vb;
+}
+
+
+
+
 void HoeScene::Render(TRenderParameters * rp)
 {
+	// test
+	static SysVertexBuffer vb = InitVB();
+	HoeMath::Matrix4v a;
+	a.Identity();
+	Ref::SetMatrix<Ref::MatrixView>(a);
+	Ref::SetMatrix<Ref::MatrixProj>(a);
+	a.Ortho(240,320,1.0f, 0.0f);
+	Ref::SetMatrix<Ref::MatrixWorld>(a);
+	Ref::Device()->SetStreamSource( 0, vb, sizeof(CUSTOMVERTEX) );
+    Ref::Device()->DrawPrimitive( D3DMPT_TRIANGLELIST, 0, 1 );
+
+
+
 	ObjectController * obj;
 	GetStates()->SetupModel();
 
@@ -108,7 +166,7 @@ void HoeGraphScene::Render(TRenderParameters * rp)
 
 	HoeMath::Matrix4v m;
 	m.Identity();
-	Ref::SetMatrix(m);
+	Ref::SetMatrix<Ref::MatrixWorld>( m);
 	TSceneGroup * g = m_root;
 	while (g)
 	{

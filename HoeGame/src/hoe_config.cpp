@@ -253,21 +253,21 @@ bool Config::Save(const char * filename)
 
 #define ISWHITE(c) ((c) == ' ' || (c) == '\t')
 
-void Config::ParseArgs(HOE_INSTANCE hInstance, const char *cmdline)
+void Config::ParseArgs(HOE_INSTANCE hInstance, const tchar *cmdline)
 {
-	char arg[1000] = {0};
-	strncpy(arg, cmdline, sizeof(arg)-1);
+	tchar arg[1000] = {0};
+	HoeCore::string::copy(arg, cmdline, sizeof(arg)-1);
 	int argc = 0;
-	char * argv[100];
+	tchar * argv[100];
 #ifdef _WIN32
-	char moduleName[ MAX_PATH ];
+	tchar moduleName[ MAX_PATH ];
 	if ( !GetModuleFileName( hInstance, moduleName, MAX_PATH ) )
 	{
 		return;
 	}
 	argv[argc++] = moduleName;
 #endif
-	char * a = arg;
+	tchar * a = arg;
 	while (1)
 	{
 		bool uv = false;
@@ -295,7 +295,7 @@ void Config::ParseArgs(HOE_INSTANCE hInstance, const char *cmdline)
 	//free(arg);
 }
 
-void Config::ParseArgs(int argc, char *argv[])
+void Config::ParseArgs(int argc, tchar *argv[])
 {
 	for (int i=1;i < argc;)
 	{
@@ -306,7 +306,7 @@ void Config::ParseArgs(int argc, char *argv[])
 	}
 }
 
-int Config::Arg(int argc, char *argv[])
+int Config::Arg(int argc, tchar *argv[])
 {
 	return argc;
 }
@@ -323,7 +323,8 @@ void ConfigVars::Var(const char * varname, const char * value)
 
 void ConfigVars::PushVar(CVar & var)
 {
-	Set(var.GetName(), var.GetStringValue());
+	//TODO!!!
+	//Set(var.GetName(), var.GetStringValue());
 }
 
 void ConfigVars::PushVar(const char * varname)

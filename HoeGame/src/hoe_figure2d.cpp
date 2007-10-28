@@ -17,7 +17,7 @@ Hoe2DFigureBase::~Hoe2DFigureBase()
 {
 }
 
-bool Hoe2DFigureBase::Load(const char * fname)
+bool Hoe2DFigureBase::Load(const tchar * fname)
 {
 	ObjectFileParser parser;
 	HoeCore::String_s<1024> err;
@@ -116,7 +116,7 @@ Gui::Item * Hoe2DFigure::GetItem(const char * name, Gui::EType type)
 	{
 		if (type != Gui::ENone && m_list.Get(i)->GetType() != type)
 			continue;
-		const char * n = m_list.Get(i)->GetName();
+		const tchar * n = m_list.Get(i)->GetName();
 		if (n && strcmp(n,name)==0)
 			return m_list.Get(i);
 	}
@@ -128,9 +128,9 @@ Gui::Item * Hoe2DFigure::ReqItem(const char * name, Gui::EType type)
 	Gui::Item * i = GetItem(name, type);
 	if (!i)
 	{
-		char err[1024];
-		sprintf(err,"Missing 2D object '%s'", name);
-		HoeApp::GetApp<HoeApp>()->ShowMsg("2DFigure Error",err);
+		HoeCore::String_s<1024> err;
+		err.printf(err,"Missing 2D object '%s'", name);
+		HoeApp::GetApp<HoeApp>()->ShowMsg(T("2DFigure Error"),err);
 		exit(1);
 	}
 	return i;

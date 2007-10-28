@@ -128,18 +128,16 @@ void d3derr(const char * file, dword line, const char * fnc, const char *ffnc,HR
 {
 	if (FAILED(hRes))
 	{
-		char buff[2048];
+		HoeCore::String_s<2048> buff;
 #ifdef _HOE_D3D9_
-		_snprintf(buff, sizeof(buff)-1,
-			"File: %s\nLine: %d\nIn Function: %s\nFunction: %s\nHRESULT: %s\nProgram will exit..", file, line, ffnc,fnc, DXGetErrorString9(hRes));
+		buff.printf("File: %s\nLine: %d\nIn Function: %s\nFunction: %s\nHRESULT: %s\nProgram will exit..", file, line, ffnc,fnc, DXGetErrorString9(hRes));
 #else
-		_snprintf(buff, sizeof(buff)-1,
-			"File: %s\nLine: %d\nIn Function: %s\nFunction: %s\nHRESULT: 0x%x\nProgram will exit..", file, line, ffnc,fnc, hRes);
+		buff.printf("File: %s\nLine: %d\nIn Function: %s\nFunction: %s\nHRESULT: 0x%x\nProgram will exit..", file, line, ffnc,fnc, hRes);
 #endif
 		Con_Print("HRESULT failed!");
 		Con_Print("%s",buff);
 
-		MessageBox(GetActiveWindow(), buff, "HRESULT failed!", MB_OK);
+		MessageBox(GetActiveWindow(), buff, T("HRESULT failed!"), MB_OK);
 		// call stack
 		__debugbreak();
 	}

@@ -31,13 +31,13 @@ public:
 	virtual void Var(const char * varname, int value);
 	virtual void Var(const char * varname, float value);
 
-	virtual void ParseArgs(HOE_INSTANCE hInstance, const char * cmdline);
-	virtual void ParseArgs(int argc,char * argv[]);
+	virtual void ParseArgs(HOE_INSTANCE hInstance, const tchar * cmdline);
+	virtual void ParseArgs(int argc,tchar * argv[]);
 	/**
 	* Callback funkce ktera se vola pro parsovani parametru.
 	* @return Pocet parsovanych parametru, nebo -1 pri chybe
 	*/
-	virtual int Arg(int argc,char * argv[]);
+	virtual int Arg(int argc,tchar * argv[]);
 };
 
 class ConfigVars : public Config

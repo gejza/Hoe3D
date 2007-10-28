@@ -85,13 +85,13 @@ struct fixed
 	const fixed operator / (const int a) const
 	{
         fixed ret;
-		ret.n = (fxtype)(((_int64)(n) << fxbits) / (_int64)(a << fxbits));
+		ret.n = (fxtype)(((_int64)(n)) / (_int64)(a));
         return ret;
 	}
 	const fixed operator / (const uint a) const
 	{
         fixed ret;
-		ret.n = (fxtype)(((_int64)(n) << fxbits) / (_int64)(a << fxbits));
+		ret.n = (fxtype)(((_int64)(n)) / (_int64)(a));
         return ret;
 	}
 	const fixed& operator += (const fixed& a)
@@ -286,7 +286,7 @@ inline bool operator < (const fixed& a, const int b)
 
 
 } // namespace HoeMath
-
+/*
 // functions?
 inline const HoeMath::fixed fabs(const HoeMath::fixed n)
 {
@@ -301,7 +301,7 @@ void sincosf(HoeMath::fixed a, HoeMath::fixed* s, HoeMath::fixed* c);
 const HoeMath::fixed tanf(HoeMath::fixed n);
 
 const HoeMath::fixed sqrtf(const HoeMath::fixed n);
-
+*/
 #endif // __cplusplus
 
 #endif // _HOE_FIXED_H_

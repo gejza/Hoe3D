@@ -6,8 +6,8 @@
 
 BEGIN_HOEGAME
 
-bool SetRootDir(const char * dir);
-const char * GetBaseDir(const char * path);
+bool SetRootDir(const tchar * dir);
+const tchar * GetBaseDir(const tchar * path);
 
 void RemoveEndLine(char * line);
 

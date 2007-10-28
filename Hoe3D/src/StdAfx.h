@@ -14,8 +14,6 @@
 #include <windows.h>
 #include <tchar.h>
 
-#define vsnprintf _vsntprintf
-
 #ifdef HOE_STATIC_ENGINE
 #define DLL_EXPORT
 #else

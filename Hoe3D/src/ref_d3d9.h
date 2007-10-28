@@ -61,6 +61,12 @@ protected:
 	D3DFORMAT m_AdapterFormat; ///< Format backbufferu
 	D3DCAPS9 m_Caps; ///< caps
 public:
+	static const int MatrixWorld = D3DTS_WORLD;
+	static const int MatrixView = D3DTS_VIEW;
+	static const int MatrixProj = D3DTS_PROJECTION;
+	static const int MatrixViewProj = 0xff001;
+
+
 	/**
 	* Konstruktor
 	*/
@@ -146,10 +152,13 @@ public:
 	*/
 	static void DrawPointObject(class HoeStream * stream, int vertCount);
 	/** 
-	* Nastaveni modelove matice.
+	* Nastaveni modelove matice. Funguje jako sablona (optimalizace)
 	* @param m Matice
 	*/
-	static HOE_INLINE void SetMatrix(const HoeMath::Matrix4v & m);
+	template<int type> static HOE_INLINE void SetMatrix(const HoeMath::Matrix4f & m);
+
+	IDirect3DVertexBuffer9 * CreateVertexBuffer(dword size, HoeFVF& fvf,
+		bool dynamic);
 
 	/**
 	* Zjisti zda zarizeni podporuje format textury

@@ -9,6 +9,9 @@
 #ifndef _HOE_3D_REF_
 #define _HOE_3D_REF_
 
+#include "utils.h"
+#include "ref_utils.h"
+
 #if (defined (_MACOSX) || defined (_LINUX)) && !defined (_USE_OPENGL_)
 #define _USE_OPENGL_
 #endif

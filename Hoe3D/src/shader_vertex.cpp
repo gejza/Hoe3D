@@ -347,7 +347,7 @@ ogl:
 #ifdef _HOE_D3D9_
 	HRESULT hRes = D3DDevice()->SetVertexShader( m_shader);
 	assert(hRes == S_OK);
-	D3DDevice()->SetVertexShaderConstantF(  0, (float*)w.m, 4 );		// c0-c3 contains composite transform Matrix
+	D3DDevice()->SetVertexShaderConstantF(  0, (float*)w, 4 );		// c0-c3 contains composite transform Matrix
 	D3DDevice()->SetVertexShaderConstantF(  5, zero, 1 );	// c5   0,0,0,0
 
 	for(uint i=0; i<17 && i < scene->GetLS()->GetNumActiveLights(); i++)

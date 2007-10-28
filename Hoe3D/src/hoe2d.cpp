@@ -84,10 +84,10 @@ void Hoe2D::PaintRect(const vfloat l,const vfloat r,const vfloat t,const vfloat 
 		GetStates()->Setup2DAlpha();
 
 #ifdef _HOE_OPENGL_
-	const vfloat ca = ((color & 0xff000000) >> 24) * (1/255.f);
-	const vfloat cr = ((color & 0xff0000) >> 16) * (1/255.f);
-	const vfloat cg = ((color & 0xff00) >> 8) * (1/255.f);
-	const vfloat cb = (color & 0xff) * (1/255.f);
+	const float ca = ((color & 0xff000000) >> 24) * (1/255.f);
+	const float cr = ((color & 0xff0000) >> 16) * (1/255.f);
+	const float cg = ((color & 0xff00) >> 8) * (1/255.f);
+	const float cb = (color & 0xff) * (1/255.f);
 	glColor4f(cr,cg,cb,ca);
 
 	if (full)
@@ -129,10 +129,12 @@ void Hoe2D::PaintRect(const vfloat l,const vfloat r,const vfloat t,const vfloat 
 	hRes = D3DDevice()->GetBackBuffer(0, D3DMBACKBUFFER_TYPE_MONO, &pbb);
 	checkres(hRes, "IDirect3dMobileDevice::GetBackBuffer");
 	RECT rect;
-	rect.left = 10;
-	rect.right = 100;
-	rect.top = 10;
-	rect.bottom = 100;
+	const vfloat h = vfloat(GetRef()->GetWidth()) / this->m_maxX;
+	const vfloat v = vfloat(GetRef()->GetHeight()) / this->m_maxY;
+	rect.left = int(l * h);
+	rect.right = int(r * h);
+	rect.top = int(t * v);
+	rect.bottom = int(b * v);
 	hRes = D3DDevice()->ColorFill(pbb, &rect, color);
 	checkres(hRes, "IDirect3dMobileDevice::ColorFill");
 	pbb->Release();

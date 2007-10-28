@@ -11,7 +11,8 @@
 #include "texture_converter.h"
 #include "hoe_texture.h"
 #include "texture_system.h"
-#ifndef _WIN32_WCE
+//#ifndef _WIN32_WCE
+#if 0
 #include "texture_jpg.h"
 #include "texture_png.h"
 #endif

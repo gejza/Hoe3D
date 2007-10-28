@@ -8,6 +8,7 @@
 #include "StdAfx.h"
 #include "shared.h"
 #include "utils.h"
+#include "ref_utils.h"
 #include "ref_d3d9.h"
 #include <hoe_math.h>
 #include "../include/hoe3d.h"

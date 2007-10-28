@@ -40,9 +40,7 @@ bool HoeStream::Create(dword numvert,const char * fvf,dword size)
 #endif // _HOE_OPENGL_
 #ifdef _HOE_D3DA_
 	SAFE_RELEASE(m_vb);
-	HRESULT hRes = D3DDevice()->CreateVertexBuffer( size,
-		m_dynamic ? D3DUSAGE_DYNAMIC:0 /* Usage */, m_fvf.GetFVF(), D3DPOOL_DEFAULT, &m_vb RESERVE_PAR );
-	checkres(hRes, "CreateVertexBuffer");
+	m_vb = GetRef()->CreateVertexBuffer(m_size, m_fvf, m_dynamic);
 #endif // _HOE_D3D9_
 	}
 
@@ -97,14 +95,17 @@ void HoeStream::Unlock()
 void HoeStream::Set(int n)
 {
 	assert(!m_soft && "Soft stream not use for rendering.");
+#ifdef _HOE_D3DA_
 #ifdef _HOE_D3D_
 	D3DDevice()->SetFVF(m_fvf.GetFVF());
+#endif
 #ifdef _HOE_D3D9_
     D3DDevice()->SetStreamSource( n, m_vb, 0, m_size / m_numvert );
 #else
     D3DDevice()->SetStreamSource( n, m_vb, m_size / m_numvert );
 #endif // _HOE_D3D_
 #endif // _HOE_D3D_
+
 #ifdef _HOE_OPENGL_
 	int stride = 0;
 	if (m_vb)

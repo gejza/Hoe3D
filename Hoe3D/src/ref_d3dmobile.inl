@@ -15,10 +15,40 @@ HOE_INLINE IDirect3DMobileDevice * D3DDevice()
 	return RefD3DM::Device();
 }
 
-HOE_INLINE void RefD3DM::SetMatrix(const HoeMath::Matrix4fx & m)
+template<int type> void RefD3DM::SetMatrix(const HoeMath::Matrix4fx & m)
 {
-	assert(0);
-	//D3DDevice()->SetTransform( D3DMTS_WORLD, reinterpret_cast<const D3DMMATRIX*>(&m) );
+	if (type == MatrixViewProj)
+	{
+		HoeMath::Matrix4fx matIdent;
+		matIdent.Identity();
+		m_Dev->SetTransform( D3DMTS_VIEW, 
+			reinterpret_cast<const D3DMMATRIX*>(&m), D3DMFMT_D3DMVALUE_FIXED );
+		m_Dev->SetTransform( D3DMTS_PROJECTION, 
+			reinterpret_cast<const D3DMMATRIX*>(&matIdent), D3DMFMT_D3DMVALUE_FIXED );
+	}
+	else
+	{
+		m_Dev->SetTransform( (D3DMTRANSFORMSTATETYPE)type, 
+			reinterpret_cast<const D3DMMATRIX*>(&m), D3DMFMT_D3DMVALUE_FIXED );
+	}
+}
+
+template<int type> void RefD3DM::SetMatrix(const HoeMath::Matrix4f & m)
+{
+	if (type == MatrixViewProj)
+	{
+		HoeMath::Matrix4f matIdent;
+		matIdent.Identity();
+		m_Dev->SetTransform( D3DMTS_VIEW, 
+			reinterpret_cast<const D3DMMATRIX*>(&m), D3DMFMT_D3DMVALUE_FLOAT );
+		m_Dev->SetTransform( D3DMTS_PROJECTION, 
+			reinterpret_cast<const D3DMMATRIX*>(&matIdent), D3DMFMT_D3DMVALUE_FLOAT );
+	}
+	else
+	{
+		m_Dev->SetTransform( (D3DMTRANSFORMSTATETYPE)type, 
+		reinterpret_cast<const D3DMMATRIX*>(&m), D3DMFMT_D3DMVALUE_FLOAT );
+	}
 }
 
 

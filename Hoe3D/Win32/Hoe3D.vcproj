@@ -31,7 +31,7 @@
 			InheritedPropertySheets=".\Hoe3D_win32_debug.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
-			CharacterSet="2"
+			CharacterSet="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -1629,7 +1629,7 @@
 			ConfigurationType="4"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
-			CharacterSet="2"
+			CharacterSet="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -1666,8 +1666,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../HoeCore/include/"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_D3D9_;HOE_STATIC_ENGINE"
+				AdditionalIncludeDirectories="../../HoeCore/include/"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;HOE3D_EXPORTS;_USE_D3D9_;HOE_STATIC_ENGINE;_WIN32_WINNT=0x500"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
@@ -3541,6 +3541,14 @@
 							Name="VCCLCompilerTool"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugD3D9 (static)|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\ref_d3dmobile.h"
@@ -3591,6 +3599,14 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="DebugD3D9 (static)|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
 					>
@@ -3616,6 +3632,14 @@
 				>
 				<FileConfiguration
 					Name="DebugD3D9|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9 (static)|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -4237,7 +4261,7 @@
 						Name="Flex"
 						AdditionalOptions=""
 						Unicode="true"
-						Skeleton="$(InputDir)..\..\HoeCore\template\hoe_flex.skl"
+						Skeleton="../../HoeCore/template/hoe_flex.skl"
 						Output="$(InputDir)\$(InputName).yyu.cpp"
 					/>
 				</FileConfiguration>
@@ -4459,6 +4483,14 @@
 				>
 				<FileConfiguration
 					Name="DebugD3D9|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugD3D9 (static)|Win32"
 					ExcludedFromBuild="true"
 					>
 					<Tool
@@ -5361,6 +5393,14 @@
 			<File
 				RelativePath="..\src\sound_ogg.cpp"
 				>
+				<FileConfiguration
+					Name="DebugD3D9|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\sound_ogg.h"

@@ -22,12 +22,12 @@ public:
 	virtual ~HoeWin32();
 	
 	virtual bool RegisterApp();
-	virtual bool CreateWin(const char * title, int width, int height, bool fs);
+	virtual bool CreateWin(const tchar * title, int width, int height, bool fs);
 
 	HOE_INSTANCE GetInstance() { return m_hInstance; }
-	virtual const char * GetAppName() = 0;
+	virtual const tchar * GetAppName() = 0;
 
-	virtual void SetTitle(const char * title);
+	virtual void SetTitle(const tchar * title);
 
 	virtual void HandleError();
 
@@ -35,7 +35,7 @@ public:
 	virtual int GetMsg(IHoe3DEngine *);
 	virtual void Destroy();
 
-	virtual int ShowMsg(const char * caption, const char * msg);
+	virtual int ShowMsg(const tchar * caption, const tchar * msg);
 
 	virtual void OnSize(int width, int height) = 0;
 	virtual void OnPaint() = 0;

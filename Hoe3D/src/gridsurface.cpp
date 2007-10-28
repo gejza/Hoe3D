@@ -533,7 +533,7 @@ void GridSurface::Render()
 		Load();
 		tm.End();*/
 		// wireframe
-		Ref::SetMatrix(m_worldpos);
+		Ref::SetMatrix<Ref::MatrixWorld>( m_worldpos);
 		GetStates()->SetupMap();
 		// nastavit matros
 		// enable textures

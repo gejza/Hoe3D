@@ -42,10 +42,10 @@ void ObjectController::Render(const HoeScene * scene)
 		HoeMath::Matrix4v t;
 		t.Scale(m_scale);
 		t.Multiply(m);
-		Ref::SetMatrix(t);
+		Ref::SetMatrix<Ref::MatrixWorld>(t);
 	}
 	else
-		Ref::SetMatrix(m);
+		Ref::SetMatrix<Ref::MatrixWorld>(m);
 
 	if (model)
         model->Render(scene, m_frame, m_overcolor);
@@ -63,7 +63,7 @@ void ObjectController::Render(const HoeScene * scene)
 					const THoeSub_Model & sm = *reinterpret_cast<const THoeSub_Model*>(p.ptr);
 					HoeMath::Matrix4v a = sm.pos;
 					a.Multiply(m);
-					Ref::SetMatrix(a);
+					Ref::SetMatrix<Ref::MatrixWorld>(a);
 					if (sm.model)
 						dynamic_cast<HoeModel*>(sm.model)->Render(scene, m_frame, m_overcolor);
 				}
@@ -74,7 +74,7 @@ void ObjectController::Render(const HoeScene * scene)
 					HoeMath::Matrix4v a;
 					a.Translate(sm.pos);
 					a.Multiply(m);
-					Ref::SetMatrix(a);
+					Ref::SetMatrix<Ref::MatrixWorld>(a);
 					if (sm.emitor)
 						dynamic_cast<ParticleEmitor*>(sm.emitor)->Render(scene->GetCamera());
 				}

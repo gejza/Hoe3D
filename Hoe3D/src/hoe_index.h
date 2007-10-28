@@ -43,7 +43,7 @@ public:
 	/**
 	* Handle na buffer
 	*/
-#ifdef _HOE_D3D_
+#ifdef _HOE_D3DA_
 	inline SysIndexBuffer GetIndexBuffer() { return m_ib; }
 #else
 	inline word * GetIndexBuffer() { return m_sw; }
