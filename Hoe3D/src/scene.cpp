@@ -39,7 +39,7 @@ IHoeLight * HoeScene::CreateLight(bool diRECT)
 	return l;
 }
 
-// A structure for our custom vertex type
+/*/ A structure for our custom vertex type
 struct CUSTOMVERTEX
 {
 	float x, y, z; // The transformed position for the vertex
@@ -79,7 +79,7 @@ SysVertexBuffer InitVB()
     vb->Unlock();
 
     return vb;
-}
+}*/
 
 
 
@@ -87,7 +87,7 @@ SysVertexBuffer InitVB()
 void HoeScene::Render(TRenderParameters * rp)
 {
 	// test
-	static SysVertexBuffer vb = InitVB();
+	/*static SysVertexBuffer vb = InitVB();
 	HoeMath::Matrix4v a;
 	a.Identity();
 	Ref::SetMatrix<Ref::MatrixView>(a);
@@ -96,7 +96,7 @@ void HoeScene::Render(TRenderParameters * rp)
 	Ref::SetMatrix<Ref::MatrixWorld>(a);
 	Ref::Device()->SetStreamSource( 0, vb, sizeof(CUSTOMVERTEX) );
     Ref::Device()->DrawPrimitive( D3DMPT_TRIANGLELIST, 0, 1 );
-
+    */
 
 
 	ObjectController * obj;
