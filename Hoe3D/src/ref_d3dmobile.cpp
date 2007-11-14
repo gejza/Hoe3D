@@ -71,6 +71,14 @@ bool RefD3DM::Init(THoeInitSettings * his)
 	}
 	else
 	{*/
+	    //D3DMPRESENT_PARAMETERS d3dpp; 
+    /*memset( &d3dpp, 0, sizeof(d3dpp) );
+    d3dpp.Windowed = TRUE;
+    d3dpp.SwapEffect = D3DMSWAPEFFECT_DISCARD;
+    d3dpp.BackBufferFormat = D3DMFMT_UNKNOWN;
+    d3dpp.EnableAutoDepthStencil = TRUE;
+    d3dpp.AutoDepthStencilFormat = D3DMFMT_D16; 
+	*/
 	    int iScreenWidth = GetSystemMetrics(SM_CXSCREEN);
     int iScreenHeight = GetSystemMetrics(SM_CYSCREEN);
 
@@ -94,6 +102,16 @@ bool RefD3DM::Init(THoeInitSettings * his)
 									D3DCREATE_MIXED_VERTEXPROCESSING,
 									&d3dpp, &m_Dev );*/
 	}
+
+    // Turn off culling
+    m_Dev->SetRenderState( D3DMRS_CULLMODE, D3DMCULL_NONE );
+
+    // Turn off D3D lighting
+    m_Dev->SetRenderState( D3DMRS_LIGHTING, FALSE );
+
+    // Turn on the zbuffer
+    m_Dev->SetRenderState( D3DMRS_ZENABLE, TRUE );
+
 
 	/*if (FAILED( hRes ))
 	{

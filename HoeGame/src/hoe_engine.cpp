@@ -166,15 +166,16 @@ void HoeEngineInfo::Unload()
 
 END_HOEGAME
 
-
+/*#ifndef STATIC_ENGINE
 vfloat SysFloatTime()
 {
-	/*if (HoeGame::g_hoeengine)
+	if (HoeGame::g_hoeengine)
     {
         hoe_assert(HoeGame::g_hoeengine->SysFloatTime != NULL);
 	return HoeGame::g_hoeengine->SysFloatTime();
-	}*/
+	}
 	return 0.f;
 }
+#endif*/
 
 

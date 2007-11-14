@@ -88,21 +88,21 @@ void HoeLight::SetColor(const vfloat r, const vfloat g, const vfloat b)
 #endif
 }
 
-const HoeMath::Vector4v HoeLight::GetPosition() const
+const HoeMath::Vector4f HoeLight::GetPosition() const
 {
 #ifdef _HOE_OPENGL_
 	return this->pos;
 #else
-	return HoeMath::Vector4v((float*)&light.Position);
+	return HoeMath::Vector4f((float*)&light.Position);
 #endif
 }
 
-const HoeMath::Vector4v HoeLight::GetColor() const
+const HoeMath::Vector4f HoeLight::GetColor() const
 {
 #ifdef _HOE_OPENGL_
 	return this->color;
 #else
-	return HoeMath::Vector4v((float*)&light.Diffuse);
+	return HoeMath::Vector4f((float*)&light.Diffuse);
 #endif
 
 }

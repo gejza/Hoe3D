@@ -35,7 +35,7 @@ void HoeCamera::SetView(uint w,uint h)
 
 	m_width = w;
 	m_height = h;
-#ifdef _HOE_D3D_
+#ifdef _HOE_D3DA_
 	D3DViewport vp;
 	vp.X      = 0;
 	vp.Y      = 0;

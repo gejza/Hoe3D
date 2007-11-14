@@ -286,7 +286,7 @@ inline bool operator < (const fixed& a, const int b)
 
 
 } // namespace HoeMath
-/*
+
 // functions?
 inline const HoeMath::fixed fabs(const HoeMath::fixed n)
 {
@@ -301,7 +301,7 @@ void sincosf(HoeMath::fixed a, HoeMath::fixed* s, HoeMath::fixed* c);
 const HoeMath::fixed tanf(HoeMath::fixed n);
 
 const HoeMath::fixed sqrtf(const HoeMath::fixed n);
-*/
+
 #endif // __cplusplus
 
 #endif // _HOE_FIXED_H_

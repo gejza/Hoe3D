@@ -30,10 +30,11 @@ bool time_initQPC()
 }
 #endif // _WIN32
 
-#ifndef HOE_STATIC_ENGINE
-float SysFloatTime()
+//#ifndef HOE_STATIC_ENGINE
+vfloat SysFloatTime()
 {
 #ifdef _WIN32
+#ifndef _WIN32_WCE
 	static bool b = false;//time_initQPC();
 
 	if (g_useQPC)
@@ -42,10 +43,11 @@ float SysFloatTime()
 
 		QueryPerformanceCounter( &qwTime );
 
-		return (float) qwTime.QuadPart / (float) g_time_QPFTicksPerSec;
+		return (vfloat) qwTime.QuadPart / (vfloat) g_time_QPFTicksPerSec;
 	}
 	else
-		return (float)(/*GetTickCount()*/ timeGetTime() * 0.001f);
+#endif
+		return (vfloat)(/*GetTickCount()*/ timeGetTime() * 0.001f);
 #endif // _WIN32
 #ifdef _LINUX
 
@@ -57,7 +59,7 @@ float SysFloatTime()
 	return ((ctime.tv_sec % 100000) + ctime.tv_usec * 0.000001f);
 #endif // _LINUX
 }
-#endif
+//#endif
 
 
 TimeMeter::TimeMeter(const char * _name, bool autoregister)

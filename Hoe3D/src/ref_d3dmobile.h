@@ -35,7 +35,7 @@ typedef IDirect3DMobileIndexBuffer * SysIndexBuffer;
 typedef IDirect3DMobileVertexBuffer * SysVertexBuffer;
 
 typedef D3DMMATERIAL D3DMaterial;
-/*typedef D3DVIEWPORT9 D3DViewport;*/
+typedef D3DMVIEWPORT D3DViewport;
 typedef D3DMLIGHT D3DLight;
 
 struct THoeInitSettings;

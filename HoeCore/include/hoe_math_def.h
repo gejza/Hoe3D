@@ -9,22 +9,19 @@
 #endif // HOE_INLINE
 
 #ifdef UNDER_CE
-#define sinf(d) (float)sin(d)
-#define tanf(d) (float)tan(d)
-#define cosf(d) (float)cos(d)
 #define asinf(d)        (FLOAT)asin(d)
 #define acosf(d)        (FLOAT)acos(d)
 #define atan2f(d1,d2)   (FLOAT)atan2(d1,d2)
 #define floorf(d)       (FLOAT)floor(d)
 #endif
 
-/*#ifdef _WIN32_WCE
+#ifdef _WIN32_WCE
 typedef HoeMath::fixed vfloat;
 typedef HoeMath::fixed vdouble;
-#else*/
+#else
 typedef float vfloat;
 typedef double vdouble;
-//#endif
+#endif
 
 namespace HoeMath {
 

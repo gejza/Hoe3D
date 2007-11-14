@@ -217,6 +217,70 @@ public:
 	virtual void DrawScene(HoeBaseScene * scene) = 0;
 };
 
+// A structure for our custom vertex type
+struct CUSTOMVERTEX
+{
+	HoeMath::fixed x, y, z;
+    DWORD color;        // The vertex color
+};
+
+// Our custom FVF, which describes our custom vertex structure
+#define D3DMFVF_CUSTOMVERTEX (D3DMFVF_XYZ_FIXED | D3DMFVF_DIFFUSE)
+
+SysVertexBuffer InitVB()
+{
+	SysVertexBuffer vb;
+    // Initialize three vertices for rendering a triangle
+    CUSTOMVERTEX vertices[] =
+    {
+        { 150.0f,  150.0f, 0.f, 0xffff0000 }, // x, y, z, rhw, color
+        { 250.0f, 250.0f, 0.f,  0xff00ff00 },
+        {  50.0f, 250.0f, 0.f,  0xff00ffff }
+    };
+
+    D3DMPOOL pool;
+        pool = D3DMPOOL_SYSTEMMEM;
+    if( FAILED( D3DDevice()->CreateVertexBuffer( 3*sizeof(CUSTOMVERTEX),
+                                                  0, D3DMFVF_CUSTOMVERTEX,
+                                                  pool, &vb RESERVE_PAR ) ) )
+    {
+        return 0;
+    }
+
+    // Now we fill the vertex buffer. To do this, we need to Lock() the VB to
+    // gain access to the vertices. This mechanism is required becuase vertex
+    // buffers may be in device memory.
+    void* pVertices;
+    if( FAILED( vb->Lock( 0, sizeof(vertices), &pVertices, 0 ) ) )
+        return 0;
+    memcpy( pVertices, vertices, sizeof(vertices) );
+    vb->Unlock();
+
+    return vb;
+}
+
+void TestRef()
+{
+	// test
+	static SysVertexBuffer vb = InitVB();
+	HoeMath::Matrix4v a;
+	a.Ortho(20,20,0.0f, 1.0f);
+	HoeMath::Vector3v vec(150.0f,  150.0f, 0.5f);
+	HoeMath::Vector3v t;
+	t.Multiply(vec, a);
+	t = t;
+	Ref::SetMatrix<Ref::MatrixView>(a);
+	a.Identity();
+	Ref::SetMatrix<Ref::MatrixProj>(a);
+	Ref::SetMatrix<Ref::MatrixWorld>(a);
+	Ref::Device()->SetStreamSource( 0, vb, sizeof(CUSTOMVERTEX) );
+	//Ref::Device()->SetFVF(D3DMFVF_CUSTOMVERTEX);
+	HoeCamera::Setup2DMatrices(0,0);
+
+    Ref::Device()->DrawPrimitive( D3DMPT_TRIANGLELIST, 0, 1 );
+    
+}
+
 bool Hoe3D::Frame()
 {
 	// scene preprocess
@@ -287,6 +351,10 @@ bool Hoe3D::Frame()
 		// render stats & logos
 		GetInfo()->Publish();
 		Get2D()->End(); 
+
+		// test
+		TestRef();
+
 		//HoeCursor::Draw();
 		m_rt.EndRender();
 	}
