@@ -157,6 +157,31 @@ public:
 	/** Matoda pro zpravy Xwindows */
 	virtual bool HOEAPI XProc(XEvent * event) = 0;	
 	#endif // _LINUX
+
+	// support functions
+	inline IHoeMaterialSystem * GetMaterialSystem()
+	{
+		IHoeMaterialSystem * ms = reinterpret_cast<IHoeMaterialSystem *>(this->GetSystem(HOE_SYS_MATERIAL));
+		return ms;
+	}
+
+	inline IHoeInfo * GetInfo()
+	{
+		IHoeInfo * info = reinterpret_cast<IHoeInfo *>(this->GetSystem(HOE_SYS_INFO));
+		return info;
+	}
+
+	inline IHoeInput * GetInput()
+	{
+		IHoeInput * input = reinterpret_cast<IHoeInput *>(this->GetSystem(HOE_SYS_INPUT));
+		return input;
+	}
+
+	inline IHoeRef * GetRef()
+	{
+		IHoeRef * ref = reinterpret_cast<IHoeRef *>(this->GetSystem(HOE_SYS_REF));
+		return ref;
+	}
 };
 
 #define HOEF_NOINPUT	0x01
@@ -196,29 +221,5 @@ IHoe3DEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * con, ::XHoeFS
 IHoeEngineInfo * HOEAPI GetEngineInfo(int sdk_ver);
 //int HOAPI GetSDKVersion();
 #endif
-
-inline IHoeMaterialSystem * HoeGetMaterialSystem(IHoe3DEngine * eng)
-{
-	IHoeMaterialSystem * ms = reinterpret_cast<IHoeMaterialSystem *>(eng->GetSystem(HOE_SYS_MATERIAL));
-	return ms;
-}
-
-inline IHoeInfo * HoeGetInfo(IHoe3DEngine * eng)
-{
-	IHoeInfo * info = reinterpret_cast<IHoeInfo *>(eng->GetSystem(HOE_SYS_INFO));
-	return info;
-}
-
-inline IHoeInput * HoeGetInput(IHoe3DEngine * eng)
-{
-	IHoeInput * input = reinterpret_cast<IHoeInput *>(eng->GetSystem(HOE_SYS_INPUT));
-	return input;
-}
-
-inline IHoeRef * HoeGetRef(IHoe3DEngine * eng)
-{
-	IHoeRef * ref = reinterpret_cast<IHoeRef *>(eng->GetSystem(HOE_SYS_REF));
-	return ref;
-}
 
 #endif // _HOE_3D_

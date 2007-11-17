@@ -1,5 +1,4 @@
 
-
 #include "StdAfx.h"
 #include "shared.h"
 #include "utils.h"
@@ -33,15 +32,15 @@ IHoeSystem * HOEAPI Hoe3D::GetSystem(HOESYSTEMS sys)
 	switch (sys)
 	{
 	case HOE_SYS_REF:
-		return GetRef();
+		return ::GetRef();
 	case HOE_SYS_MATERIAL:
-		return GetMaterialSystem();
+		return ::GetMaterialSystem();
 	case HOE_SYS_INFO:
-		return GetInfo();
+		return ::GetInfo();
 	case HOE_SYS_INPUT:
-		return (IsInputLoaded()) ? GetInput():NULL;
+		return (IsInputLoaded()) ? ::GetInput():NULL;
 	case HOE_SYS_RESMGR:
-		return GetResMgr();
+		return ::GetResMgr();
 	default:
 		Con_Print("error get system %d",sys);
 		return NULL;

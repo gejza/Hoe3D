@@ -85,8 +85,8 @@ bool Theatre::Create()
    //IHoeModel * mod2 = (IHoeModel*)HoeGame::GetHoeEngine()->Create("model angel");
 
 	//m_camera.SetDistance(300);
-   if (HoeGetInput(HoeGame::GetHoeEngine()))
-		HoeGetInput(HoeGame::GetHoeEngine())->RegisterKeyboard(&m_camera);
+   if (HoeGame::GetHoeEngine()->GetInput())
+	   HoeGame::GetHoeEngine()->GetInput()->RegisterKeyboard(&m_camera);
 	return true;
 }
 

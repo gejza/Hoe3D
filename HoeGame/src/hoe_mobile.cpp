@@ -1,6 +1,7 @@
 
 #include "StdAfx.h"
 #include "../include/hoe_mobile.h"
+#include "../include/hoe_engine.h"
 
 BEGIN_HOEGAME 
 
@@ -105,8 +106,10 @@ int HoeMobile::GetMsg(IHoe3DEngine * eng)
 
 	m_enginstance = eng;
 
-	for (int i=5;i < 5 && PeekMessageW( &msg, NULL, 0U, 0U, PM_REMOVE );i++)
+	while (PeekMessageW( &msg, NULL, 0U, 0U, PM_NOREMOVE ))
     {
+		if (!GetMessageW( &msg, NULL, 0U, 0U))
+			return 0;
         TranslateMessage (&msg) ;
 		DispatchMessageW (&msg) ;
 
@@ -136,11 +139,11 @@ void HoeMobile::PaintConsole(Console * con)
 {
 	HDC         hdc ;
      PAINTSTRUCT ps ;
+	
 
 		 /* if (Becher::GetState() != Becher::sInit)
 		 {
-			 ValidateRECT(hwnd,NULL);
-			 break;
+			 
 		 }*/
 			  /*int numlines = (m_cyClient-5) / m_cyChar;
 				if (numlines > con->GetLines().Count())
@@ -175,14 +178,15 @@ LRESULT CALLBACK HoeMobile::MsgProc (HWND hwnd,UINT message, WPARAM wParam, LPAR
          break;
       case WM_PAINT :
 		this->OnPaint();
-          return 0 ;
+		ValidateRect(hwnd,NULL);
+          break ;
      case WM_DESTROY :
 		 PostQuitMessage (0) ;
           return 0 ;
      }
 
-	if(m_enginstance)
-		m_enginstance->WndProc(hwnd, message, wParam, lParam);
+	if(GetHoeEngine())
+		GetHoeEngine()->WndProc(hwnd, message, wParam, lParam);
 
      return DefWindowProcW (hwnd, message, wParam, lParam) ;
 }

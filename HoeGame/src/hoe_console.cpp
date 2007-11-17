@@ -270,16 +270,16 @@ void GuiConsole::Close(void)
 void GuiConsole::Acquire()
 {
 		// chytit input
-		prev = HoeGetInput(engine)->RegisterKeyboard(this);
+		prev = engine->GetInput()->RegisterKeyboard(this);
 }
 
 void GuiConsole::Unacquire()
 {
 #ifdef _DEBUG
-		XHoeKeyboard * actrl = HoeGetInput(engine)->RegisterKeyboard(prev);
+		XHoeKeyboard * actrl = engine->GetInput()->RegisterKeyboard(prev);
 		assert(actrl == this);
 #else
-		HoeGetInput(engine)->RegisterKeyboard(prev);
+		engine->GetInput()->RegisterKeyboard(prev);
 #endif
 
 }
