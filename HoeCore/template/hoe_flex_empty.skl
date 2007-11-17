@@ -1,0 +1,79 @@
+
+%% old
+
+//start %% [1.0] yytext/yyin/yyout/yy_state_type/yylineno etc. def's & init go here
+%% [1.0] yytext/yyin/yyout/yy_state_type/yylineno etc. def's & init go here
+//end %% [1.0] yytext/yyin/yyout/yy_state_type/yylineno etc. def's & init go here
+
+//start %% [2.0] code to fiddle yytext and yyleng for yymore() goes here \
+%% [2.0] code to fiddle yytext and yyleng for yymore() goes here \
+//end %% [2.0] code to fiddle yytext and yyleng for yymore() goes here \
+
+//start %% [3.0] code to copy yytext_ptr to yytext[] goes here, if %array \
+%% [3.0] code to copy yytext_ptr to yytext[] goes here, if %array \
+//end %% [3.0] code to copy yytext_ptr to yytext[] goes here, if %array \
+
+//start %% [4.0] data tables for the DFA and the user's section 1 definitions go here
+%% [4.0] data tables for the DFA and the user's section 1 definitions go here
+//end %% [4.0] data tables for the DFA and the user's section 1 definitions go here
+
+//start %% [5.0] fread()/read() definition of YY_INPUT goes here unless we're doing C++ \
+%% [5.0] fread()/read() definition of YY_INPUT goes here unless we're doing C++ \
+//end %% [5.0] fread()/read() definition of YY_INPUT goes here unless we're doing C++ \
+
+//start %% [6.0] YY_RULE_SETUP definition goes here
+%% [6.0] YY_RULE_SETUP definition goes here
+//end %% [6.0] YY_RULE_SETUP definition goes here
+
+//start %% [7.0] user's declarations go here
+%% [7.0] user's declarations go here
+//end %% [7.0] user's declarations go here
+
+//start %% [8.0] yymore()-related code goes here
+%% [8.0] yymore()-related code goes here
+//end %% [8.0] yymore()-related code goes here
+
+//start %% [9.0] code to set up and find next match goes here
+%% [9.0] code to set up and find next match goes here
+//end %% [9.0] code to set up and find next match goes here
+
+//start %% [10.0] code to find the action number goes here
+%% [10.0] code to find the action number goes here
+//end %% [10.0] code to find the action number goes here
+
+//start %% [11.0] code for yylineno update goes here
+%% [11.0] code for yylineno update goes here
+//end %% [11.0] code for yylineno update goes here
+
+//start %% [12.0] debug code goes here
+%% [12.0] debug code goes here
+//end %% [12.0] debug code goes here
+
+//start %% [13.0] actions go here
+%% [13.0] actions go here
+//end %% [13.0] actions go here
+
+//start %% [14.0] code to do back-up for compressed tables and set up yy_cp goes here
+%% [14.0] code to do back-up for compressed tables and set up yy_cp goes here
+//end %% [14.0] code to do back-up for compressed tables and set up yy_cp goes here
+
+//start %% [15.0] code to get the start state into yy_current_state goes here
+%% [15.0] code to get the start state into yy_current_state goes here
+//end %% [15.0] code to get the start state into yy_current_state goes here
+
+//start %% [16.0] code to find the next state goes here
+%% [16.0] code to find the next state goes here
+//end %% [16.0] code to find the next state goes here
+
+//start %% [17.0] code to find the next state, and perhaps do backing up, goes here
+%% [17.0] code to find the next state, and perhaps do backing up, goes here
+//end %% [17.0] code to find the next state, and perhaps do backing up, goes here
+
+//start %% [18.0] update yylineno here
+%% [18.0] update yylineno here
+//end %% [18.0] update yylineno here
+
+//start %% [19.0] update BOL and yylineno
+%% [19.0] update BOL and yylineno
+//end %% [19.0] update BOL and yylineno
+

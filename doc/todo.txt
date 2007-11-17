@@ -1,0 +1,22 @@
+Hoe3D:
+	Shadery
+	Fyzika
+HoeGame:
+HoeEditor:
+HoeUtils:
+	HoeViewer
+	dodelat 2D editor
+	model editor
+	binarni format exportu
+	dodelat celkove format na export
+
+Odladit na MacOS a 64bitu
+
+HoeCore
+	Matematicka knihovna vyuzivajici mmx a ssh2 instrukce
+	
+
+
+
+
+

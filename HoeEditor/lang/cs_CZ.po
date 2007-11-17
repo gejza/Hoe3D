@@ -1,0 +1,185 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: HoeStudio\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2006-06-15 13:01+0100\n"
+"Last-Translator: Gejza <gejza@gejza.net>\n"
+"Language-Team: Heimdall <gejza@gejza.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Czech\n"
+"X-Poedit-Country: CZECH REPUBLIC\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SearchPath-0: src\n"
+"X-Poedit-SearchPath-1: include/he\n"
+
+#: src/editor.cpp:71
+#: src/editor.cpp:73
+msgid "Choose a engine..."
+msgstr "Vybrat knihovnu enginu..."
+
+#: src/editor.cpp:71
+msgid "Engine|*.dll"
+msgstr ""
+
+#: src/editor.cpp:73
+msgid "Engine|*.so"
+msgstr ""
+
+#: src/engview.cpp:60
+#, c-format
+msgid "Failed load library: %s"
+msgstr "Chyba při nahrávaní knihovny: %s"
+
+#: src/engview.cpp:67
+msgid "Find symbol GetEngineInterface failed."
+msgstr "Nenalezen symbol GetEngineInterface."
+
+#: src/engview.cpp:157
+msgid "Engine not loaded."
+msgstr "Engine není nahrán."
+
+#: src/log.cpp:173
+msgid "Log..."
+msgstr ""
+
+#: src/log.cpp:179
+#, fuzzy
+msgid "Save log"
+msgstr "Uložit vše"
+
+#: src/log.cpp:179
+msgid "Save log to custom file."
+msgstr ""
+
+#: src/log.cpp:277
+msgid "Save log to file ..."
+msgstr "Uložit log do souboru..."
+
+#: src/log.cpp:277
+msgid "Txt Files (*.txt)|*.txt"
+msgstr "Soubory Txt (*.txt)|*.txt"
+
+#: src/log.cpp:291
+#, c-format
+msgid "Append log to file '%s' (choosing [No] will overwrite it)?"
+msgstr ""
+
+#: src/log.cpp:293
+msgid "Question"
+msgstr ""
+
+#: src/log.cpp:307
+msgid "invalid message box return value"
+msgstr ""
+
+#: src/log.cpp:344
+msgid "Can't save log contents to file."
+msgstr ""
+
+#: src/log.cpp:347
+#, c-format
+msgid "Log saved to the file '%s'."
+msgstr ""
+
+#: src/properties.cpp:35
+msgid "Width"
+msgstr "Šířka"
+
+#: src/properties.cpp:36
+msgid "Height"
+msgstr "Výška"
+
+#: src/resources.cpp:53
+#, c-format
+msgid "Failed command %s for resource %s."
+msgstr ""
+
+#: src/resources.cpp:63
+#, c-format
+msgid "Missing resource %s"
+msgstr "Chybí resource %s"
+
+#: src/resources.cpp:268
+msgid "Becher Preferences"
+msgstr ""
+
+# C:\work\HoeEditor\src/mainframe.cpp:176
+#: src/resources.cpp:276
+#, fuzzy
+msgid "Files"
+msgstr "&Soubor"
+
+#: src/resources.cpp:277
+msgid "Resources"
+msgstr ""
+
+#: src/resources.cpp:311
+msgid "Location:"
+msgstr "Umístění:"
+
+#: src/resources.cpp:317
+msgid "Browse..."
+msgstr "Najít..."
+
+#: src/resources.cpp:323
+#: src/resources.cpp:350
+msgid "Add.."
+msgstr ""
+
+#: src/resources.cpp:325
+#: src/resources.cpp:352
+msgid "Remove"
+msgstr ""
+
+#: src/resources.cpp:358
+#, fuzzy
+msgid "Name"
+msgstr "Jméno:"
+
+#: src/resources.cpp:361
+msgid "ID"
+msgstr ""
+
+#: src/resources.cpp:364
+msgid "Command"
+msgstr ""
+
+#: src/resources.cpp:380
+msgid "Choose directory"
+msgstr "Vybrat adresář"
+
+#: src/resources.cpp:398
+msgid "Hoe Resource Files(*.hx;*.hm)|*.hx;*.hm|All files(*.*)|*.*"
+msgstr ""
+
+#: src/resources.cpp:399
+msgid "Add file..."
+msgstr "Přidat soubor..."
+
+#: src/resources.cpp:527
+msgid "Edit resource"
+msgstr ""
+
+#: src/resources.cpp:532
+msgid "Name:"
+msgstr "Jméno:"
+
+#: src/resources.cpp:541
+msgid "ID:"
+msgstr ""
+
+#: src/resources.cpp:550
+msgid "Command:"
+msgstr ""
+
+#: src/resources.cpp:563
+msgid "OK"
+msgstr ""
+
+#: src/resources.cpp:567
+msgid "Cancel"
+msgstr ""
+

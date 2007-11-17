@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="windows-1250"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="Mobile_debug"
+	>
+	<Tool
+		Name="VCCLCompilerTool"
+		PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;DEBUG;$(ARCHFAM);$(_ARCHFAM_);_WINCE"
+	/>
+	<Tool
+		Name="VCLinkerTool"
+		AdditionalDependencies="HoeCore_d.lib lua5.1_d.lib HoeGame_d.lib Hoe3D_D3DMobile_d.lib d3dm.lib"
+		AdditionalLibraryDirectories="..\..\bin_ce"
+	/>
+</VisualStudioPropertySheet>
