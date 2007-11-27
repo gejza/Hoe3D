@@ -90,6 +90,24 @@ extension
 
 nez bude hotovo musi se osefovat model shader
 
+//////////////
+model fvf:
+definovani streamu s daty
+p - x,y,z pozice (3f)
+r - rhw pozice (4f)
+n - normala (3f)
+d - diffuse (dw)
+s - specular (dw)
+2 - texture (2f)
+4fxr
+p - pozice, mod. x - fixed
+n - normala mod x - fixed
+sc - specular
+c - diffuse
+
+
+fixed3:position
+float3:position
 
 //////////////
 

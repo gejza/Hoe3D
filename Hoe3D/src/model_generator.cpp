@@ -12,9 +12,9 @@
 
 struct BoxVertex
 {
-	HoeMath::Vector3v pos;
-	HoeMath::Vector3v n;
-	HoeMath::Vector2v tex;
+	HoeMath::Vector3f pos;
+	HoeMath::Vector3f n;
+	HoeMath::Vector2f tex;
 };
 
 ModelGenerator::ModelGenerator(HoeLog *log, int flags)

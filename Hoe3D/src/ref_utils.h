@@ -1,6 +1,20 @@
 #ifndef _HOE_REF_UTILS_
 #define _HOE_REF_UTILS_
 
+/*
+FVF:
+   typ, pocet, pouziti
+   f - float
+   x - fixed
+   p - pozice
+   c - barva
+   n - normala
+   1-9 - pocet
+
+	
+
+*/
+
 /** 
 * Pomocna trida pro fvf
 */

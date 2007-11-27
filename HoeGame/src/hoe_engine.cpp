@@ -132,8 +132,11 @@ bool HoeEngineInfo::Load(const char * dllname)
 	{
 		return false;
 	}
-
+#ifdef _WIN32_WCE
+	func = (HOE_FUNCINFO)GetProcAddress(m_lib,L"_GetEngineInfo@4");
+#else
 	func = (HOE_FUNCINFO)GetProcAddress(m_lib,"_GetEngineInfo@4");
+#endif
 	if (func == NULL)
 	{
 		Unload();

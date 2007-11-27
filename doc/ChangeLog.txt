@@ -1,3 +1,7 @@
+26.11.2007
+Hoe
+  Hotova migrace na Windows Mobile
+ -------------------------------------
 26.6.2007
 HoeCore
 	nove objekty keyList, StringPool, Table

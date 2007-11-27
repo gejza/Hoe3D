@@ -26,7 +26,7 @@ template<class TYPE> HOE_INLINE void Vector3<TYPE>::RotateY(TYPE angle)
 	x = tx;
 }
 
-template<> HOE_INLINE double Vector3v::Magnitude(void) const
+template<class TYPE> HOE_INLINE double Vector3<TYPE>::Magnitude(void) const
 {
 	return sqrt( (x * x) + (y * y) + (z * z) );
 }
@@ -36,9 +36,9 @@ template<> HOE_INLINE float Vector3v::MagnitudeF(void) const
 	return sqrtf( (x * x) + (y * y) + (z * z) );
 }
 
-template<> HOE_INLINE const Vector3v & Vector3v::Normalize(void)
+template<class TYPE> HOE_INLINE const Vector3<TYPE> & Vector3<TYPE>::Normalize(void)
 {
-	vfloat magnitude = (vfloat)Magnitude();			
+	TYPE magnitude = (TYPE)Magnitude();			
 
 	x /= magnitude;							
 	y /= magnitude;							
