@@ -8,6 +8,8 @@ static int yywrap() { return 1; }
 //#endif
 #include <stdlib.h>
 #include "hoe_tokens.h"
+#define _NOXLIB
+#include <hoe_types.h>
 //int mylineno = 0;
 //using namespace std;
 
