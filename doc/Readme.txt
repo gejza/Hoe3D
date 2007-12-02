@@ -109,6 +109,32 @@ c - diffuse
 fixed3:position
 float3:position
 
+jazyk pro vytvareni resources
+ruzne skripty pro soubory, nebo odkazy na soubory
+// shader skript, data stream soubor, textura
+// definice materialu
+// definice 
+
+ns
+becher:podlaha
+becher:vino:sklenice
+
+v souboru, resource uzavrene podle namespace
+
+:korenarka:strecha
+:korenarka:barak
+:korenarka:nevim
+
+struct file
+ id
+ version
+ flags?
+
+// name
+jmeno
+ key -> value
+ key -> value
+
 //////////////
 
  
