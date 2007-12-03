@@ -6,7 +6,42 @@ typedef short flex_int16_t;
 #define yyconst const
 typedef int yy_state_type;
 
-//%% old
+
+// old declaration
+#if 1
+%% old
+#else
+typedef char YY_CHAR;
+#endif
+// end declaration
+
+static YY_CHAR yy_hold_char;
+/* Enter a start condition.  This macro really ought to take a parameter,
+ * but we do it the disgusting crufty way forced on us by the ()-less
+ * definition of BEGIN.
+ */
+#define BEGIN yy_start = 1 + 2 *
+
+/* Translate the current start state into a value that can be later handed
+ * to BEGIN to return to the state.  The YYSTATE alias is for lex
+ * compatibility.
+ */
+#define YY_START ((yy_start - 1) / 2)
+#define YYSTATE YY_START
+
+/* Action number for EOF rule of a given start state. */
+#define YY_STATE_EOF(state) (YY_END_OF_BUFFER + state + 1)
+
+#define yyterminate() return 0;
+
+#define ECHO /*(void) fwrite( yytext, sizeof( YY_CHAR ), yyleng, yyout )*/
+/* Code executed at the beginning of each rule, after yytext and yyleng
+ * have been set up.
+ */
+#define YY_USER_ACTION
+static int yy_start = 0;	/* start state number */
+
+
 
 //start %% [1.0] yytext/yyin/yyout/yy_state_type/yylineno etc. def's & init go here
 #if 0
@@ -40,9 +75,7 @@ typedef int yy_state_type;
 //end %% [5.0] fread()/read() definition of YY_INPUT goes here unless we're doing C++ 
 
 //start %% [6.0] YY_RULE_SETUP definition goes here
-#if 0
 %% [6.0] YY_RULE_SETUP definition goes here
-#endif
 //end %% [6.0] YY_RULE_SETUP definition goes here
 
 //start %% [7.0] user's declarations go here
@@ -51,41 +84,67 @@ typedef int yy_state_type;
 #endif
 //end %% [7.0] user's declarations go here
 
+#define YY_BREAK break;
+
+////////////////////////////////////////////////
+// LEX
+
+int yylex()
+{
+	int yy_current_state;
+	//register yy_state_type yy_current_state;
+	register YY_CHAR *yy_cp, *yy_bp;
+	register int yy_act;
+	
+	while (1) /* loops until end-of-file is reached */
+	{
 //start %% [8.0] yymore()-related code goes here
-#if 0
 %% [8.0] yymore()-related code goes here
-#endif
 //end %% [8.0] yymore()-related code goes here
+		
+		//yy_cp = yy_c_buf_p;
+		/* Support of yytext. */
+		//*yy_cp = yy_hold_char;
+		/* yy_bp points to the position in yy_ch_buf of the start of
+		 * the current run.
+		 */
+		//yy_bp = yy_cp;
 
 //start %% [9.0] code to set up and find next match goes here
-#if 0
 %% [9.0] code to set up and find next match goes here
-#endif
 //end %% [9.0] code to set up and find next match goes here
 
+yy_find_action:
+
 //start %% [10.0] code to find the action number goes here
-#if 0
 %% [10.0] code to find the action number goes here
-#endif
 //end %% [10.0] code to find the action number goes here
 
+		//YY_DO_BEFORE_ACTION;
+
 //start %% [11.0] code for yylineno update goes here
-#if 0
 %% [11.0] code for yylineno update goes here
-#endif
 //end %% [11.0] code for yylineno update goes here
 
+do_action:	/* This label is used only to access EOF actions. */
+
 //start %% [12.0] debug code goes here
-#if 0
 %% [12.0] debug code goes here
-#endif
 //end %% [12.0] debug code goes here
 
+		switch ( yy_act )
+		{ /* beginning of action switch */
 //start %% [13.0] actions go here
-#if 0
 %% [13.0] actions go here
-#endif
 //end %% [13.0] actions go here
+		}; /* end of action switch */
+	} /* end of scanning one token */
+} /* end of yylex */
+
+
+
+
+
 
 //start %% [14.0] code to do back-up for compressed tables and set up yy_cp goes here
 #if 0
