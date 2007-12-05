@@ -14,146 +14,149 @@
 //	#define yyFlexLexer zzFlexLexer
 //	#include <FlexLexer.h>
 //	...
-/*
-#ifndef __FLEX_LEXER_H
-// Never included before - need to define base class.
-#define __FLEX_LEXER_H
 
-extern "C++" {
+#ifndef _HOE_FLEX_H_
+#define _HOE_FLEX_H_
 
-struct yy_buffer_state;
-typedef int yy_state_type;
+namespace HoeCore {
 
-class FlexLexer {
+/* Define the YY_CHAR type. */
+typedef char YY_CHAR;
+/* Promotes a YY_CHAR to an unsigned integer for use as an array index. */
+#define YY_SC_TO_UI(c) ((unsigned int) (unsigned short) c)
+#define YY_END_OF_BUFFER_CHAR 0
+
+
+class HoeFlexBuffer
+{
+	/* Whether we're considered to be at the beginning of a line.
+	 * If so, '^' rules will be active on the next match, otherwise
+	 * not.
+	 */
+	bool m_bol;
 public:
-	virtual ~FlexLexer()	{ }
+    bool IsBol() { return m_bol; }
+    void SetBol(bool bol) { m_bol = bol; }
 
-	const char* YYText()	{ return yytext; }
-	int YYLeng()		{ return yyleng; }
+	FILE *yy_input_file;
 
-	virtual void
-		yy_switch_to_buffer( struct yy_buffer_state* new_buffer ) = 0;
-	virtual struct yy_buffer_state*
-		yy_create_buffer( istream* s, int size ) = 0;
-	virtual void yy_delete_buffer( struct yy_buffer_state* b ) = 0;
-	virtual void yyrestart( istream* s ) = 0;
+	YY_CHAR *yy_ch_buf;		/* input buffer */
+	YY_CHAR *yy_buf_pos;		/* current position in input buffer */
 
-	virtual int yylex() = 0;
+	/* Size of input buffer in bytes, not including room for EOB
+	 * characters.
+	 */
+	size_t yy_buf_size;
 
-	// Call yylex with new input/output sources.
-	int yylex( istream* new_in, ostream* new_out = 0 )
-		{
-		switch_streams( new_in, new_out );
-		return yylex();
-		}
-
-	// Switch to new input/output streams.  A nil stream pointer
-	// indicates "keep the current one".
-	virtual void switch_streams( istream* new_in = 0,
-					ostream* new_out = 0 ) = 0;
-
-	int lineno() const		{ return yylineno; }
-
-	int debug() const		{ return yy_flex_debug; }
-	void set_debug( int flag )	{ yy_flex_debug = flag; }
-
-protected:
-	char* yytext;
-	int yyleng;
-	int yylineno;		// only maintained if you use %option yylineno
-	int yy_flex_debug;	// only has effect with -d or "%option debug"
-};
-
-}
-#endif
-
-#if defined(yyFlexLexer) || ! defined(yyFlexLexerOnce)
-// Either this is the first time through (yyFlexLexerOnce not defined),
-// or this is a repeated include to define a different flavor of
-// yyFlexLexer, as discussed in the flex man page.
-#define yyFlexLexerOnce
-
-class yyFlexLexer : public FlexLexer {
-public:
-	// arg_yyin and arg_yyout default to the cin and cout, but we
-	// only make that assignment when initializing in yylex().
-	yyFlexLexer( istream* arg_yyin = 0, ostream* arg_yyout = 0 );
-
-	virtual ~yyFlexLexer();
-
-	void yy_switch_to_buffer( struct yy_buffer_state* new_buffer );
-	struct yy_buffer_state* yy_create_buffer( istream* s, int size );
-	void yy_delete_buffer( struct yy_buffer_state* b );
-	void yyrestart( istream* s );
-
-	virtual int yylex();
-	virtual void switch_streams( istream* new_in, ostream* new_out );
-
-protected:
-	virtual int LexerInput( char* buf, int max_size );
-	virtual void LexerOutput( const char* buf, int size );
-	virtual void LexerError( const char* msg );
-
-	void yyunput( int c, char* buf_ptr );
-	int yyinput();
-
-	void yy_load_buffer_state();
-	void yy_init_buffer( struct yy_buffer_state* b, istream* s );
-	void yy_flush_buffer( struct yy_buffer_state* b );
-
-	int yy_start_stack_ptr;
-	int yy_start_stack_depth;
-	int* yy_start_stack;
-
-	void yy_push_state( int new_state );
-	void yy_pop_state();
-	int yy_top_state();
-
-	yy_state_type yy_get_previous_state();
-	yy_state_type yy_try_NUL_trans( yy_state_type current_state );
-	int yy_get_next_buffer();
-
-	istream* yyin;	// input source for default LexerInput
-	ostream* yyout;	// output sink for default LexerOutput
-
-	struct yy_buffer_state* yy_current_buffer;
-
-	// yy_hold_char holds the character lost when yytext is formed.
-	char yy_hold_char;
-
-	// Number of characters read into yy_ch_buf.
+	/* Number of characters read into yy_ch_buf, not including EOB
+	 * characters.
+	 */
 	int yy_n_chars;
 
-	// Points to current character in buffer.
-	char* yy_c_buf_p;
+	/* Whether we "own" the buffer - i.e., we know we created it,
+	 * and can realloc() it to grow it, and should free() it to
+	 * delete it.
+	 */
+	int yy_is_our_buffer;
 
-	int yy_init;		// whether we need to initialize
-	int yy_start;		// start state number
 
-	// Flag which is used to allow yywrap()'s to do buffer switches
-	// instead of setting up a fresh yyin.  A bit of a hack ...
-	int yy_did_buffer_switch_on_eof;
+	/* Whether to try to fill the input buffer when we reach the
+	 * end of it.
+	 */
+	int yy_fill_buffer;
 
-	// The following are not always needed, but may be depending
-	// on use of certain flex features (like REJECT or yymore()).
+	int yy_buffer_status;
+#define YY_BUFFER_NEW 0
+#define YY_BUFFER_NORMAL 1
+	/* When an EOF's been seen but there's still some text to process
+	 * then we mark the buffer as YY_EOF_PENDING, to indicate that we
+	 * shouldn't try reading from the input source any more.  We might
+	 * still have a bunch of tokens to match, though, because of
+	 * possible backing-up.
+	 *
+	 * When we actually see the EOF, we change the status to "new"
+	 * (via yyrestart()), so that the user can continue scanning by
+	 * just pointing yyin at a new input file.
+	 */
+#define YY_BUFFER_EOF_PENDING 2
 
-	yy_state_type yy_last_accepting_state;
-	char* yy_last_accepting_cpos;
+    void Flush()
+    {
 
-	yy_state_type* yy_state_buf;
-	yy_state_type* yy_state_ptr;
+        this->yy_n_chars = 0;
 
-	char* yy_full_match;
-	int* yy_full_state;
-	int yy_full_lp;
+        /* We always need two end-of-buffer characters.  The first causes
+         * a transition to the end-of-buffer state.  The second causes
+         * a jam in that state.
+         */
+        this->yy_ch_buf[0] = YY_END_OF_BUFFER_CHAR;
+        this->yy_ch_buf[1] = YY_END_OF_BUFFER_CHAR;
 
-	int yy_lp;
-	int yy_looking_for_trail_begin;
+        this->yy_buf_pos = &this->yy_ch_buf[0];
 
-	int yy_more_flag;
-	int yy_more_len;
-	int yy_more_offset;
-	int yy_prev_more_offset;
+        this->m_bol = true;
+        this->yy_buffer_status = YY_BUFFER_NEW;
+
+        /*if ( b == m_buffer )
+            yy_load_buffer_state();
+        }*/
+    }
 };
 
-#endif */
+class HoeFlexFile : public HoeFlexBuffer
+{
+public:
+    HoeFlexFile(FILE * f) 
+    {
+	    this->yy_buf_size = 1000;
+
+        //	/* yy_ch_buf has to be 2 characters longer than the size given because
+        //	 * we need to put in 2 end-of-buffer characters.
+        //	 */
+
+        this->yy_ch_buf = (YY_CHAR *) malloc(
+		( this->yy_buf_size + 2 ) * sizeof( YY_CHAR ) );
+
+	    this->yy_is_our_buffer = 1;
+
+        Flush();
+        this->yy_input_file = f;
+        this->yy_fill_buffer = 1;
+
+	}
+};
+
+typedef int yy_state_type;
+
+class HoeFlex
+{
+protected:
+	HoeFlexBuffer * m_buffer;
+public:
+	HoeFlex()
+	{
+		m_buffer = NULL;
+	}
+	
+	void Print(const char * buff, size_t size)
+	{
+		fwrite(buff, 1, size, stdout);
+	}
+	void Switch(HoeFlexBuffer& buff);
+
+	#define YY_FLUSH_BUFFER yy_flush_buffer( m_buffer )
+	int yy_get_next_buffer ( void );
+	void yyunput ( int c, YY_CHAR *buf_ptr );
+	int yyinput ( void );
+   
+};
+
+#define DECLARE_FLEX_FUNCTIONS int Lex(); \
+	 private: \
+	 yy_state_type yy_get_previous_state();
+
+} // namespace HoeCore
+
+#endif // _HOE_FLEX_H_
+
+

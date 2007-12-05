@@ -1,6 +1,14 @@
-%option prefix="yycreate"
 %{
+#include "test.h"
 #include <stdlib.h>
+
+class HoeFlexTest : public HoeFlex
+{
+public:
+	DECLARE_FLEX_FUNCTIONS
+};
+#define YY_CLASS_NAME HoeFlexTest
+
 %}
 
 ws      [ \t]+
@@ -24,16 +32,17 @@ name    ({alpha}|\$)({alpha}|{dig}|[_\-/$:@#%^&*])*
 
 %%
 
-int test_flex()
+DEFINE_TEST(TestFlex, "Flex parser")
 {
-    int a;
-	yy_scan_string ("testovaci string");
-    while (a = yylex())
-    {
-        printf("%d %s\n",a,yytext);
-    }
-    return 0;
+    HoeFlexFile buff(stdin);
+	HoeFlexTest f;
+	f.Switch(buff);
+	f.Lex();
+	return HoeTest::TEST_OK;
 } 
+
+// dalsi definice
+END_TEST(TestFlex)
 
 
 

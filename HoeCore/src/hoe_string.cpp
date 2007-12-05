@@ -25,7 +25,12 @@ int vsnprintf(wchar_t *, size_t, const wchar_t *, va_list)
 	return 0;
 }
 
-void copy(tchar *, const char *, size_t)
+void copy(char *, const char *, size_t)
+{
+	
+}
+
+void copy(wchar_t *, const char *, size_t)
 {
 	
 }
