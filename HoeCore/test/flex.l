@@ -2,7 +2,7 @@
 #include "test.h"
 #include <stdlib.h>
 
-class HoeFlexTest : public HoeFlex
+class HoeFlexTest : public HoeCore::HoeFlex
 {
 public:
 	DECLARE_FLEX_FUNCTIONS
@@ -34,7 +34,7 @@ name    ({alpha}|\$)({alpha}|{dig}|[_\-/$:@#%^&*])*
 
 DEFINE_TEST(TestFlex, "Flex parser")
 {
-    HoeFlexFile buff(stdin);
+    HoeCore::HoeFlexFile buff(stdin);
 	HoeFlexTest f;
 	f.Switch(buff);
 	f.Lex();
