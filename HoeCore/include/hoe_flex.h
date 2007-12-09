@@ -45,11 +45,12 @@ extern int yyleng;
 #define EOB_ACT_END_OF_FILE 1
 #define EOB_ACT_LAST_MATCH 2
 
+#define YY_MORE_ADJ 0
+
 
 typedef int flex_int32_t;
 typedef short flex_int16_t;
 
-typedef class HoeFlexBuffer * YY_BUFFER_STATE;
 
 #define YY_G(a) (a)
 
@@ -69,6 +70,8 @@ typedef class HoeFlexBuffer * YY_BUFFER_STATE;
 
 
 namespace HoeCore {
+
+typedef class HoeFlexBuffer * YY_BUFFER_STATE;
 
 class HoeFlexBuffer
 {
@@ -159,8 +162,6 @@ protected:
 	YY_CHAR yy_hold_char; /* yy_hold_char holds the character lost when yytext is formed. */
 	/* Points to current character in buffer. */
 	YY_CHAR *yy_c_buf_p;
-	int yy_init;		/* whether we need to initialize */
-	int yy_start;	/* start state number */
 	/* Flag which is used to allow yywrap()'s to do buffer switches
 	 * instead of setting up a fresh yyin.  A bit of a hack ...
 	 */
@@ -172,8 +173,6 @@ public:
 	{
 		m_buffer = NULL;
 		yy_c_buf_p = (YY_CHAR *) 0;
-		yy_init = 1;		/* whether we need to initialize */
-		yy_start = 0;	/* start state number */
 	}
 	
 	virtual int Echo(const char * buff, size_t size)

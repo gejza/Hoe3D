@@ -8,6 +8,13 @@
 
 
 %%
+"//".*$					/* skip */
+
+"Stream"				return Stream;
+"StreamFile"			return StreamFile;
+
+.						return yytext_ptr[0];
+
 %%
 
 

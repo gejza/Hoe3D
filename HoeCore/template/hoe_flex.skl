@@ -22,26 +22,14 @@
 #endif
 //#include <hoe_types.h>
 
+#define yytext yytext_ptr
+
 #if 0
 %% YY_CHAR and YY_SC_TO_UI() go here
 
 #endif
 
 #include <hoe_flex.h>
-
-/* The funky do-while in the following #define is used to turn the definition
- * int a single C statement (which needs a semi-colon terminator).  This
- * avoids problems with code like:
- *
- * 	if ( condition_holds )
- *		yyless( 5 );
- *	else
- *		do_something_else();
- *
- * Prior to using the do-while the compiler would get upset at the
- * "else" because it interpreted the "if" statement as being all
- * done when it reached the ';' after the yyless() call.
- */
 
 /* Return all but the first 'n' matched characters back to the input stream. */
 
@@ -58,12 +46,6 @@
 
 #define unput(c) yyunput( c, yytext_ptr )
 
-/* The following is because we cannot portably get our hands on size_t
- * (without autoconf's help, which isn't available because we want
- * flex-generated scanners to compile on their own).
- */
-typedef unsigned int yy_size_t;
-
 /* We provide macros for accessing buffer states in case in the
  * future we want to put the buffer states in a more general
  * "scanner state".
@@ -71,13 +53,7 @@ typedef unsigned int yy_size_t;
 #define YY_CURRENT_BUFFER m_buffer
 #define YY_CURRENT_BUFFER_LVALUE m_buffer
 
-
-
 int yyleng;
-
-static void *yy_flex_alloc ( yy_size_t );
-static void *yy_flex_realloc ( void *, yy_size_t );
-static void yy_flex_free ( void * );
 
 #define yy_new_buffer yy_create_buffer
 
@@ -150,28 +126,7 @@ static int yy_top_state ( void );
 #define YY_NO_TOP_STATE 1
 #endif
 
-#ifdef YY_MALLOC_DECL
-YY_MALLOC_DECL
-#else
-#if __STDC__
-#ifndef __cplusplus
-#include <stdlib.h>
-#endif
-#else
-/* Just try to get by without declaring the routines.  This will fail
- * miserably on non-ANSI systems for which sizeof(size_t) != sizeof(int)
- * or sizeof(void*) != sizeof(int).
- */
-#endif
-#endif
-
-/* Amount of stuff to slurp up with each read. */
-#ifndef YY_READ_BUF_SIZE
-#define YY_READ_BUF_SIZE 8192
-#endif
-
 /* Echo output. */
-
 #define ECHO \
 	do { \
 	 int s = this->Echo( (YY_CHAR*)yytext_ptr, yyleng ); \
@@ -185,10 +140,6 @@ YY_MALLOC_DECL
 %% fread()/read() definition of YY_INPUT goes here unless we're doing C++
 
 #endif
-#define YY_INPUT(buf,result,max_size) \
-	if ( ((result = fread( buf, sizeof( YY_CHAR ), max_size, stdin )) \
-		  == 0) && ferror( stdin ) ) \
-		YY_FATAL_ERROR( "input in flex scanner failed" );
 
 /* No semi-colon after return; correct usage is to write "yyterminate();" -
  * we don't want an extra ';' after the "return" because that will cause
@@ -198,19 +149,7 @@ YY_MALLOC_DECL
 #define yyterminate() return YY_NULL
 #endif
 
-/* Number of entries by which start-condition stack grows. */
-#ifndef YY_START_STACK_INCR
-#define YY_START_STACK_INCR 25
-#endif
-
-/* Report a fatal error. */
-#ifndef YY_FATAL_ERROR
-//%-
 #define YY_FATAL_ERROR(msg) yy_fatal_error( msg )
-//%+
-//#define YY_FATAL_ERROR(msg) LexerError( msg )
-//%*
-#endif
 
 /* Code executed at the beginning of each rule, after yytext and yyleng
  * have been set up.
@@ -228,7 +167,7 @@ YY_MALLOC_DECL
 #else
 #define YY_RULE_SETUP \
 	if ( yyleng > 0 ) \
-		m_buffer->SetBol(yytext[yyleng - 1] == '\n'); \
+		m_buffer->SetBol(yytext_ptr[yyleng - 1] == '\n'); \
 	YY_USER_ACTION
 #endif
 
@@ -237,24 +176,16 @@ int YY_CLASS_NAME::Lex()
 	register yy_state_type yy_current_state;
 	register YY_CHAR *yy_cp, *yy_bp;
 	register int yy_act;
+	const int yy_start = 1;
 
 %% user's declarations go here
 
-	if ( yy_init )
-	{
-		yy_init = 0;
-
-#ifdef YY_USER_INIT
+/*#ifdef YY_USER_INIT
 		YY_USER_INIT;
-#endif
+#endif*/
 
-		if ( ! yy_start )
-			yy_start = 1;	/* first start state */
-
-		if ( ! m_buffer ) /* throw */
-            return 0;
-
-	}
+	if (!m_buffer)
+		return YY_NULL;
 
 	while ( 1 )		/* loops until end-of-file is reached */
 		{
@@ -288,6 +219,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 	case YY_END_OF_BUFFER:
 		{
+			/* end of buffer -> newread or end */
 		/* Amount of text matched not including the EOB char. */
 		int yy_amount_of_matched_text = (int) (yy_cp - yytext_ptr) - 1;
 
@@ -341,7 +273,8 @@ do_action:	/* This label is used only to access EOF actions. */
 
 			if ( yy_next_state )
 				{
-				/* Consume the NUL. */
+				/* Consume the NUL. */ 
+				/* prislo nul => teoreticky staci jeden*/
 				yy_cp = ++yy_c_buf_p;
 				yy_current_state = yy_next_state;
 				goto yy_match;
@@ -429,6 +362,7 @@ yy_state_type YY_CLASS_NAME::yy_get_previous_state()
 {
 	register yy_state_type yy_current_state;
 	register YY_CHAR *yy_cp;
+	const int yy_start = 1;
 
 %% code to get the start state into yy_current_state goes here
 
@@ -465,13 +399,6 @@ yy_state_type YY_CLASS_NAME::yy_try_NUL_trans( yy_state_type yy_current_state )
 #define YY_EXIT_FAILURE 2
 #endif
 
-static void yy_fatal_error( const char msg[] )
-	{
-	(void) fprintf( stderr, "%s\n", msg );
-	exit( YY_EXIT_FAILURE );
-	}
-
-
 /* Redefine yyless() so it works in section 3 code. */
 
 #undef yyless
@@ -488,49 +415,7 @@ static void yy_fatal_error( const char msg[] )
 	while ( 0 )
 
 
-/* Internal utility routines. */
-
-#ifndef yytext_ptr
-static void yy_flex_strncpy( YY_CHAR *s1, const YY_CHAR *s2, int n )
-	{
-	register int i;
-	for ( i = 0; i < n; ++i )
-		s1[i] = s2[i];
-	}
-#endif
-
-#ifdef YY_NEED_STRLEN
-static int yy_flex_strlen( const YY_CHAR *s )
-	{
-	register int n;
-	for ( n = 0; s[n]; ++n )
-		;
-
-	return n;
-	}
-#endif
 
 
-static void *yy_flex_alloc( yy_size_t size )
-	{
-	return (void *) malloc( size );
-	}
-
-static void *yy_flex_realloc( void *ptr, yy_size_t size )
-	{
-	/* The cast to (char *) in the following accommodates both
-	 * implementations that use char* generic pointers, and those
-	 * that use void* generic pointers.  It works with the latter
-	 * because both ANSI C and C++ allow castless assignment from
-	 * any pointer type to void*, and deal with argument conversions
-	 * as though doing an assignment.
-	 */
-	return (void *) realloc( (char *) ptr, size );
-	}
-
-static void yy_flex_free( void *ptr )
-	{
-	free( ptr );
-	}
 
 

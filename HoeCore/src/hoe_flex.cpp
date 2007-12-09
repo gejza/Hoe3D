@@ -28,15 +28,13 @@ HoeFlexFile::HoeFlexFile(FILE * f)
 
 int HoeFlex::yy_get_next_buffer()
 {
-	return EOB_ACT_END_OF_FILE;
-#if 0
 	register YY_CHAR *dest = m_buffer->yy_ch_buf;
 	register YY_CHAR *source = yytext_ptr;
 	register int number_to_move, i;
 	int ret_val;
 
 	if ( yy_c_buf_p > &m_buffer->yy_ch_buf[yy_n_chars + 1] )
-		YY_FATAL_ERROR(
+		yy_fatal_error(
 		"fatal flex scanner internal error--end of buffer missed" );
 
 	if ( m_buffer->yy_fill_buffer == 0 )
@@ -101,7 +99,7 @@ int HoeFlex::yy_get_next_buffer()
 
 				b->yy_ch_buf = (YY_CHAR *)
 					/* Include room in for 2 EOB chars. */
-					yy_flex_realloc( (void *) b->yy_ch_buf,
+					realloc( (void *) b->yy_ch_buf,
 							( b->yy_buf_size + 2 ) *
 							sizeof( YY_CHAR ) );
 				}
@@ -110,7 +108,7 @@ int HoeFlex::yy_get_next_buffer()
 				b->yy_ch_buf = 0;
 
 			if ( ! b->yy_ch_buf )
-				YY_FATAL_ERROR(
+				yy_fatal_error(
 				"fatal error - scanner input buffer overflow" );
 
 			yy_c_buf_p = &b->yy_ch_buf[yy_c_buf_p_offset];
@@ -120,12 +118,12 @@ int HoeFlex::yy_get_next_buffer()
 #endif
 			}
 
-		if ( num_to_read > YY_READ_BUF_SIZE )
-			num_to_read = YY_READ_BUF_SIZE;
+		if ( num_to_read > 1000 )
+			num_to_read = 1000;
 
 		/* Read in more data. */
-		YY_INPUT( (&m_buffer->yy_ch_buf[number_to_move]),
-			yy_n_chars, num_to_read );
+		yy_n_chars = fread( (&m_buffer->yy_ch_buf[number_to_move]),
+			1, num_to_read, stdin );
 
 		m_buffer->yy_n_chars = yy_n_chars;
 		}
@@ -156,7 +154,6 @@ int HoeFlex::yy_get_next_buffer()
 	yytext_ptr = &m_buffer->yy_ch_buf[0];
 
 	return ret_val;
-#endif
 }
 
 void HoeFlex::Switch(HoeFlexBuffer& buff)
@@ -444,6 +441,29 @@ void HoeFlex::yyunput( int c, register YY_CHAR *yy_bp )
 //static int yy_top_state()
 //	{
 //	return yy_start_stack[yy_start_stack_ptr - 1];
+//	}
+//#endif
+
+
+/* Internal utility routines. */
+
+//#ifndef yytext_ptr
+//static void yy_flex_strncpy( YY_CHAR *s1, const YY_CHAR *s2, int n )
+//	{
+//	register int i;
+//	for ( i = 0; i < n; ++i )
+//		s1[i] = s2[i];
+//	}
+//#endif
+//
+//#ifdef YY_NEED_STRLEN
+//static int yy_flex_strlen( const YY_CHAR *s )
+//	{
+//	register int n;
+//	for ( n = 0; s[n]; ++n )
+//		;
+//
+//	return n;
 //	}
 //#endif
 

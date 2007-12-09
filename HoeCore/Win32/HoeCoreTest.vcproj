@@ -206,7 +206,7 @@
 				>
 				<Tool
 					Name="Flex"
-					Skeleton="$(InputDir)\..\template\hoe_flex.skl"
+					Skeleton=""
 					dep="$(InputDir)\..\template\hoe_flex.skl"
 				/>
 			</FileConfiguration>
@@ -214,13 +214,6 @@
 		<File
 			RelativePath="..\test\flex.yy.cpp"
 			>
-			<FileConfiguration
-				Name="Debug|Win32"
-				>
-				<Tool
-					Name="VCCLCompilerTool"
-				/>
-			</FileConfiguration>
 			<FileConfiguration
 				Name="Release|Win32"
 				ExcludedFromBuild="true"
