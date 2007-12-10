@@ -10,6 +10,7 @@ namespace HoeCore {
 HoeFlexFile::HoeFlexFile(FILE * f) 
 {
     this->yy_buf_size = 1000;
+	file = f;
 
     //	/* yy_ch_buf has to be 2 characters longer than the size given because
     //	 * we need to put in 2 end-of-buffer characters.
@@ -122,8 +123,8 @@ int HoeFlex::yy_get_next_buffer()
 			num_to_read = 1000;
 
 		/* Read in more data. */
-		yy_n_chars = fread( (&m_buffer->yy_ch_buf[number_to_move]),
-			1, num_to_read, stdin );
+		yy_n_chars = m_buffer->Input( (&m_buffer->yy_ch_buf[number_to_move]),
+			num_to_read );
 
 		m_buffer->yy_n_chars = yy_n_chars;
 		}

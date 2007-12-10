@@ -83,6 +83,7 @@ class HoeFlexBuffer
 public:
     bool IsBol() { return m_bol; }
     void SetBol(bool bol) { m_bol = bol; }
+	virtual size_t Input(char * buff, size_t max) = 0;
 
 	FILE *yy_input_file;
 
@@ -151,8 +152,13 @@ public:
 
 class HoeFlexFile : public HoeFlexBuffer
 {
+	FILE * file;
 public:
     HoeFlexFile(FILE * f);
+	virtual size_t Input(char * buff, size_t max)
+	{
+		return fread(buff, 1, max, file);
+	}
 };
 
 class HoeFlex
