@@ -15,7 +15,8 @@ src/hoe_log.cpp \
 src/hoe_math.cpp \
 src/hoe_string.cpp \
 src/hoe_universal.cpp \
-src/hoe_fixed.cpp
+src/hoe_fixed.cpp \
+src/hoe_flex.cpp
 
 ___bin_libHoeCore_a_LDFLAGS = -static
 
