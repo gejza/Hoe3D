@@ -1,4 +1,5 @@
 %pure-parser
+%error-verbose
 %parse-param { Scaner * lex }
 %lex-param   { Scaner * lex }
      //%parse-param {int *randomness}
@@ -7,16 +8,18 @@
 #define YYDEBUG 1
 #define YYERROR_VERBOSE 1
 
-#include "StdAfx.h"
+#include <stdio.h>
 #include "scan.h"
 static int yylex(int * l, Scaner * lex)
-{
+{ 
 	return lex->Lex();
 }
 
-int yyerror(Scaner * lex, char* err)
+static int yyerror(Scaner * lex, char* err)
 {
-	fputs(err,stderr);
+	fprintf(stderr, "%s(%d) : ", lex->GetIdentifier(), lex->GetLine());
+	fprintf(stderr, err, lex->GetText());
+	fprintf(stderr, "\n");
 	return 0;
 }
 
@@ -24,9 +27,8 @@ int yyerror(Scaner * lex, char* err)
 
 %token TK_Stream StreamFile Texture TextureFile
 %token Material MaterialFile Index IndexFile
-%token TK_name TK_num
-
-
+%token TK_Picture
+%token TK_name "%s" TK_num " %s" TK_string
 
 %%
 file: 
@@ -38,7 +40,10 @@ res:
 ;
 resource:
 		'\n'
-		| TK_Stream TK_name '[' { /* start fvf */ } fvf ']' '\n'
+		| stream
+		| picture
+;
+stream:	TK_Stream TK_name '[' { /* start fvf */ } fvf ']' '\n'
 		{
 			// parse stream
 		}
@@ -56,5 +61,25 @@ stream_data_row:
 		TK_num
 		| stream_data_row ',' TK_num
 		| stream_data_row ';' TK_num
+;
+picture: 
+		TK_Picture TK_name '\n'
+		  picture_attribute
+		'~' TK_Picture '\n'
+;
+picture_attribute:
+		'\n'
+		| TK_name '=' value '\n'
+		| picture_attribute TK_name '=' value '\n'
+;
+value:	TK_name
+		| TK_num
+		| TK_string
+		| vector
+;
+vector: '(' vector_item ')'
+;
+vector_item: TK_num
+			 | vector_item ',' TK_num
 ;
 %%

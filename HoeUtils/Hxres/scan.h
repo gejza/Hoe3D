@@ -8,6 +8,7 @@ class Scaner : public HoeCore::HoeFlex
 {
 public:
 	DECLARE_FLEX_FUNCTIONS(void)
+public:
 };
 
 #endif // _HOE_UTIL_RESOURCE_COMPILER_SCAN_H_

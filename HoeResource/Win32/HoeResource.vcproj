@@ -608,18 +608,6 @@
 			>
 		</File>
 		<File
-			RelativePath="..\..\HoeCore\template\hoe_flex.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\HoeCore\template\hoe_flex.skl"
-			>
-		</File>
-		<File
-			RelativePath="..\..\HoeCore\template\hoe_flex_empty.skl"
-			>
-		</File>
-		<File
 			RelativePath="..\include\hoe_sl_parser.h"
 			>
 		</File>

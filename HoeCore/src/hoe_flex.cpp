@@ -7,6 +7,13 @@
 namespace HoeCore {
 
 // buffers
+HoeFlexBuffer::HoeFlexBuffer()
+{
+	m_line = 1;
+}
+
+// flex file
+
 HoeFlexFile::HoeFlexFile(FILE * f) 
 {
     this->yy_buf_size = 1000;
@@ -26,6 +33,8 @@ HoeFlexFile::HoeFlexFile(FILE * f)
     this->yy_fill_buffer = 1;
 
 }
+
+////////////////////////////////
 
 int HoeFlex::yy_get_next_buffer()
 {

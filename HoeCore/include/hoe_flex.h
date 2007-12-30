@@ -18,7 +18,6 @@
 #ifndef _HOE_FLEX_H_
 #define _HOE_FLEX_H_
 
-
 /* Define the YY_CHAR type. */
 typedef char YY_CHAR;
 /* Promotes a YY_CHAR to an unsigned integer for use as an array index. */
@@ -72,6 +71,7 @@ typedef short flex_int16_t;
 namespace HoeCore {
 
 typedef class HoeFlexBuffer * YY_BUFFER_STATE;
+class HoeFlex;
 
 class HoeFlexBuffer
 {
@@ -80,9 +80,14 @@ class HoeFlexBuffer
 	 * not.
 	 */
 	bool m_bol;
+	int m_line;
 public:
+	HoeFlexBuffer();
     bool IsBol() { return m_bol; }
     void SetBol(bool bol) { m_bol = bol; }
+	void IncLineNo() { m_line++; }
+	int GetLine() { return m_line; }
+	virtual const char * GetIdentifier() { return ""; }
 	virtual size_t Input(char * buff, size_t max) = 0;
 
 	FILE *yy_input_file;
@@ -152,9 +157,11 @@ public:
 
 class HoeFlexFile : public HoeFlexBuffer
 {
+protected:
 	FILE * file;
 public:
     HoeFlexFile(FILE * f);
+	virtual const char * GetIdentifier() { return "test"; }
 	virtual size_t Input(char * buff, size_t max)
 	{
 		return fread(buff, 1, max, file);
@@ -174,6 +181,7 @@ protected:
 	int yy_did_buffer_switch_on_eof;
 	int yy_n_chars;		/* number of characters read into yy_ch_buf */
 	YY_CHAR * yytext_ptr;
+
 public:
 	HoeFlex()
 	{
@@ -186,6 +194,10 @@ public:
 		return 0;
 	}
 	void Switch(HoeFlexBuffer& buff);
+	int GetLine() { return m_buffer ? m_buffer->GetLine():0; }
+	const char * GetIdentifier() 
+		{ return m_buffer ? m_buffer->GetIdentifier():""; }
+	const YY_CHAR * GetText() { return yytext_ptr; }
 
 	#define YY_FLUSH_BUFFER yy_flush_buffer( m_buffer )
 	int yy_get_next_buffer ( void );

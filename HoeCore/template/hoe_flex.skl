@@ -16,16 +16,19 @@
 #include <stdio.h>
 //%*
 
+
 #include <stdlib.h>
 #ifdef _WIN32
-#include <windows.h>
+//#include <windows.h>
 #endif
 //#include <hoe_types.h>
 
 #define yytext yytext_ptr
 
 #if 0
+//%% YY_CHAR and YY_SC_TO_UI() go here
 %% YY_CHAR and YY_SC_TO_UI() go here
+//end %% YY_CHAR and YY_SC_TO_UI() go here
 
 #endif
 
@@ -52,6 +55,7 @@
  */
 #define YY_CURRENT_BUFFER m_buffer
 #define YY_CURRENT_BUFFER_LVALUE m_buffer
+#define YY_BUF_SIZE 1024
 
 int yyleng;
 
@@ -68,14 +72,13 @@ int yyleng;
 
 #define M4_YY_INCR_LINENO() 
 
-//%% yytext/yyin/yyout/yy_state_type/yylineno etc. def's & init go here
 #if 0
+//%% yytext/yyin/yyout/yy_state_type/yylineno etc. def's & init go here
 %% yytext/yyin/yyout/yy_state_type/yylineno etc. def's & init go here
+//end %% yytext/yyin/yyout/yy_state_type/yylineno etc. def's & init go here
 #else
-FILE *yyout = (FILE *) 0;
 //extern YY_CHAR *yytext;
 #endif
-// end %% yytext/yyin/yyout/yy_state_type/yylineno etc. def's & init go here
 
 /* Done after the current pattern has been matched and before the
  * corresponding action - sets up yytext.
@@ -203,19 +206,38 @@ int YY_CLASS_NAME::Lex()
 %% code to set up and find next match goes here
 
 yy_find_action:
+//%% code to find the action number goes here
 %% code to find the action number goes here
+//end%% code to find the action number goes here
 
 		YY_DO_BEFORE_ACTION;
 
+#if 0 //%% code for yylineno update goes here
+//%% code for yylineno update goes here
 %% code for yylineno update goes here
+//end %% code for yylineno update goes here
+
+#else
+		if ( yy_act != YY_END_OF_BUFFER )
+			{
+			int yyl;
+			for ( yyl = 0; yyl < yyleng; ++yyl )
+				if ( yytext[yyl] == '\n' )
+					m_buffer->IncLineNo();
+			}
+#endif //end%% code for yylineno update goes here
 
 do_action:	/* This label is used only to access EOF actions. */
 
+//%% debug code goes here
 %% debug code goes here
+//end %% debug code goes here
 
 		switch ( yy_act )
 	{ /* beginning of action switch */
+//%% actions go here
 %% actions go here
+//end %% actions go here
 
 	case YY_END_OF_BUFFER:
 		{
@@ -282,7 +304,9 @@ do_action:	/* This label is used only to access EOF actions. */
 
 			else
 				{
+//%% code to do back-up for compressed tables and set up yy_cp goes here
 %% code to do back-up for compressed tables and set up yy_cp goes here
+//end %% code to do back-up for compressed tables and set up yy_cp goes here
 				goto yy_find_action;
 				}
 			}
@@ -364,11 +388,15 @@ yy_state_type YY_CLASS_NAME::yy_get_previous_state()
 	register YY_CHAR *yy_cp;
 	const int yy_start = 1;
 
+//%% code to get the start state into yy_current_state goes here
 %% code to get the start state into yy_current_state goes here
+//end %% code to get the start state into yy_current_state goes here
 
 	for ( yy_cp = yytext_ptr + YY_MORE_ADJ; yy_cp < yy_c_buf_p; ++yy_cp )
 		{
+//%% code to find the next state goes here
 %% code to find the next state goes here
+//end %% code to find the next state goes here
 		}
 
 	return yy_current_state;
@@ -384,15 +412,21 @@ yy_state_type YY_CLASS_NAME::yy_get_previous_state()
 yy_state_type YY_CLASS_NAME::yy_try_NUL_trans( yy_state_type yy_current_state )
 {
 	register int yy_is_jam;
+//%% code to find the next state, and perhaps do backing up, goes here
 %% code to find the next state, and perhaps do backing up, goes here
+//end %% code to find the next state, and perhaps do backing up, goes here
 
 	return yy_is_jam ? 0 : yy_current_state;
 }
 
 #if 0
+//%% update yylineno here
 %% update yylineno here
+//end %% update yylineno here
 //
+//%% update BOL and yylineno
 %% update BOL and yylineno
+//end %% update BOL and yylineno
 #endif
 
 #ifndef YY_EXIT_FAILURE

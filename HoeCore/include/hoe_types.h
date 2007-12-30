@@ -3,8 +3,7 @@
 #define _HOE_TYPES_H_
 
 #define hoe_assert assert
-#undef assert
-#define assert(a) 
+#define not_implemented(str) assert(0)
 
 #ifndef HOEAPI
 #ifdef _WIN32

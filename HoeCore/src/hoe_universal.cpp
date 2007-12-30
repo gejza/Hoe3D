@@ -183,11 +183,7 @@ unsigned long Universal::GetUnsigned() const
 		{
 			register unsigned long ret = 0;
 			register const tchar * str = GetStringValue();
-			if (str[0] == '0' && str[1] == 'x')
-				string::scanf(str+2, T("%x"), &ret);
-			else
-				string::scanf(str, T("%d"), &ret);
-			return ret;
+			return string::strtoi(str);
 		}
 	case TypeDecimal: return (unsigned long)value.l;
 	case TypeUnsigned: return value.ul;

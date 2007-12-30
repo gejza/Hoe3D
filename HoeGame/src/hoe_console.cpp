@@ -1,5 +1,5 @@
 
-
+#define ENABLE_AUTOCONV_FUNCTIONS 1
 #include "StdAfx.h"
 #include <hoe3d.h>
 #include "../include/hoe_console.h"

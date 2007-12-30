@@ -1,3 +1,5 @@
+%option yylineno
+
 %{
 #include "StdAfx.h"
 #include "scan.h"
@@ -12,7 +14,7 @@ comment	\/\/.*
 alpha   [A-Za-z_]
 dig     [-+]?[0-9]+
 hex		"0x"[0-9A-Fa-f]+
-name    ({alpha}|\$)({alpha}|{dig}|[_\-/$])*
+name    ({alpha}|\$)({alpha}|{dig}|[_\-/$:])*
 num1    [-+]?{dig}+\.({dig}+)?f?
 num2    [-+]?{dig}*\.{dig}+f?
 num		{num1}|{num2}
@@ -23,12 +25,14 @@ num		{num1}|{num2}
 
 "Stream"				return TK_Stream;
 "StreamFile"			return StreamFile;
+"Picture"				return TK_Picture;
 {name}					yytext_ptr[0]; return TK_name;
 {num}					return TK_num;
 {dig}					return TK_num;
+{string}				return TK_string;
 
 \n						return '\n';
-.						printf("%c",yytext_ptr[0]);return yytext_ptr[0];
+.						return yytext_ptr[0];
 
 %%
 
