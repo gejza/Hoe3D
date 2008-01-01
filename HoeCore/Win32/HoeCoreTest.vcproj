@@ -206,7 +206,7 @@
 				>
 				<Tool
 					Name="Flex"
-					Skeleton=""
+					Skeleton="$(InputDir)\..\template\hoe_flex.skl"
 					dep="$(InputDir)\..\template\hoe_flex.skl"
 				/>
 			</FileConfiguration>

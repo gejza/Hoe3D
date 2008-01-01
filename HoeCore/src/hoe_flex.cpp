@@ -140,6 +140,7 @@ int HoeFlex::yy_get_next_buffer()
 
 	if ( yy_n_chars == 0 )
 		{
+		m_buffer->yy_fill_buffer = 0;
 		if ( number_to_move == YY_MORE_ADJ )
 			{
 			ret_val = EOB_ACT_END_OF_FILE;

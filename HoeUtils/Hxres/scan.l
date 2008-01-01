@@ -26,6 +26,8 @@ num		{num1}|{num2}
 "Stream"				return TK_Stream;
 "StreamFile"			return StreamFile;
 "Picture"				return TK_Picture;
+"Index"					return TK_Index;
+"Model"					return TK_Model;
 {name}					yytext_ptr[0]; return TK_name;
 {num}					return TK_num;
 {dig}					return TK_num;

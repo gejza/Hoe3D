@@ -85,10 +85,14 @@ int yyleng;
  */
 #define YY_DO_BEFORE_ACTION \
 	yytext_ptr = yy_bp; \
+/*%% code to fiddle yytext and yyleng for yymore() goes here */ \
 %% code to fiddle yytext and yyleng for yymore() goes here
+/*end %% code to fiddle yytext and yyleng for yymore() goes here*/ \
 	yy_hold_char = *yy_cp; \
 	*yy_cp = (YY_CHAR) '\0'; \
+/*%% code to copy yytext_ptr to yytext[] goes here, if %array*/ \
 %% code to copy yytext_ptr to yytext[] goes here, if %array
+/* end %% code to copy yytext_ptr to yytext[] goes here, if %array*/ \
 	yy_c_buf_p = yy_cp;
 
 //%% data tables for the DFA and the user's section 1 definitions go here
@@ -181,7 +185,9 @@ int YY_CLASS_NAME::Lex()
 	register int yy_act;
 	const int yy_start = 1;
 
+//%% user's declarations go here
 %% user's declarations go here
+//end %% user's declarations go here
 
 /*#ifdef YY_USER_INIT
 		YY_USER_INIT;
@@ -192,7 +198,9 @@ int YY_CLASS_NAME::Lex()
 
 	while ( 1 )		/* loops until end-of-file is reached */
 		{
+//%% yymore()-related code goes here
 %% yymore()-related code goes here
+//end %% yymore()-related code goes here
 		yy_cp = yy_c_buf_p;
 
 		/* Support of yytext. */
@@ -203,7 +211,9 @@ int YY_CLASS_NAME::Lex()
 		 */
 		yy_bp = yy_cp;
 
+//%% code to set up and find next match goes here
 %% code to set up and find next match goes here
+//end %% code to set up and find next match goes here
 
 yy_find_action:
 //%% code to find the action number goes here

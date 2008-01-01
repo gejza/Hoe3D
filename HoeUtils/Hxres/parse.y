@@ -27,7 +27,7 @@ static int yyerror(Scaner * lex, char* err)
 
 %token TK_Stream StreamFile Texture TextureFile
 %token Material MaterialFile Index IndexFile
-%token TK_Picture
+%token TK_Picture TK_Model TK_Index
 %token TK_name "%s" TK_num " %s" TK_string
 
 %%
@@ -42,6 +42,8 @@ resource:
 		'\n'
 		| stream
 		| picture
+		| index
+		| model
 ;
 stream:	TK_Stream TK_name '[' { /* start fvf */ } fvf ']' '\n'
 		{
@@ -50,8 +52,8 @@ stream:	TK_Stream TK_name '[' { /* start fvf */ } fvf ']' '\n'
 			stream_data
 		'~' TK_Stream '\n'
 ;
-fvf:	TK_name ':' TK_name
-		| fvf '|' TK_name ':' TK_name
+fvf:	TK_name
+		| fvf '|' TK_name
 ;
 stream_data:
 		stream_data_row '\n'
@@ -71,6 +73,27 @@ picture_attribute:
 		'\n'
 		| TK_name '=' value '\n'
 		| picture_attribute TK_name '=' value '\n'
+;
+index:	TK_Index TK_name '\n'
+		index_data
+		'~' TK_Index
+;
+index_data:
+		| TK_num
+		| index_data ',' TK_num
+		| index_data '\n'
+		| index_data '\n' TK_num
+;
+model:	TK_Model model_name '\n'
+		'~' TK_Model
+;
+model_name: TK_name
+		| TK_name '(' ')'
+		| TK_name '(' model_param ')'
+;
+model_param:
+		TK_name
+		| model_param ',' TK_name
 ;
 value:	TK_name
 		| TK_num
