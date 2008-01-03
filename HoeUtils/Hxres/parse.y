@@ -27,7 +27,7 @@ static int yyerror(Scaner * lex, char* err)
 
 %token TK_Stream StreamFile Texture TextureFile
 %token Material MaterialFile Index IndexFile
-%token TK_Picture TK_Model TK_Index
+%token TK_Picture TK_Model TK_Index TK_Namespace TK_Texture
 %token TK_name "%s" TK_num " %s" TK_string
 
 %%

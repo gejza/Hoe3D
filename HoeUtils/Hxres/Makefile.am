@@ -10,9 +10,9 @@
 bin_PROGRAMS = hxres
 
 # the application source, library search path, and link libraries
-hxres_SOURCES = hxres.cpp parse.tab.cpp scan.yy.cpp
+hxres_SOURCES = hxres.cpp parse.tab.cpp scan.yy.cpp linker.cpp
 
-hxres_CPPFLAGS = -I../../HoeCore/include -I../../HoeResource/include/HoeResource
+hxres_CPPFLAGS = -D_NOXLIB -I../../HoeCore/include -I../../HoeResource/include/HoeResource
 
 hxres_LDFLAGS = -L../../bin -ll -lHoeCore -ldl 
 

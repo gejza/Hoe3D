@@ -10,7 +10,13 @@
 #endif						
 
 #include <stdio.h>
+#ifdef _WIN32
 #include <windows.h>
+#endif
+#include <string.h>
+#include <wchar.h>
+#include <stdlib.h>
+
 #include <assert.h>
 //#include <tchar.h>
 #include <hoe_types.h>

@@ -180,7 +180,7 @@ class String
 
 		void Init(int num);
 		int Lock() { return ++ref; }
-		__forceinline void Unlock() { if (!--ref) free(this); }
+		inline void Unlock() { if (!--ref) free(this); }
 		bool IsShared() { return ref > 1; }
 	};
 

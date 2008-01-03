@@ -21,6 +21,9 @@ public:
 
 };
 
+// scan parameters
+//
+
 int main(int argc, char* argv[])
 {
 	// parse
