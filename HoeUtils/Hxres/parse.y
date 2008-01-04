@@ -1,6 +1,8 @@
 %pure-parser
 %error-verbose
-%parse-param { Linker& linker, HoeCore::StringPool& pool, Scaner& lex }
+%parse-param { Linker& linker }
+%parse-param { HoeCore::StringPool& pool }
+%parse-param { Scaner& lex }
 %lex-param   { HoeCore::StringPool& pool }
 %lex-param   { Scaner& lex }
 	//%parse-param {int *randomness}
@@ -18,7 +20,7 @@ static int yylex(union YYSTYPE * l, HoeCore::StringPool& pool, Scaner& lex)
 	return lex.Lex(pool,l);
 }
 
-static int yyerror(Scaner& lex, char* err)
+static int yyerror(Linker& linker, HoeCore::StringPool& pool, Scaner& lex, char* err)
 {
 	fprintf(stderr, "%s(%d) : ", lex.GetIdentifier(), lex.GetLine());
 	fprintf(stderr, err, lex.GetText());
@@ -61,7 +63,7 @@ namespace:
 		'~' TK_Namespace
 		 { linker.PopNamespace(); }
 ;
-stream:	TK_Stream TK_name { linker.AddObject($2, 1); } 
+stream:	TK_Stream TK_name { Compiler *  = linker.AddObject($2, 1); } 
 			'[' { /* start fvf */ } fvf ']' '\n'
 			stream_data
 		'~' TK_Stream '\n'

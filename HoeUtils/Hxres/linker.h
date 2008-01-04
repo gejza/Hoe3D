@@ -1,20 +1,19 @@
-#pragma once
 
+#ifndef _HXRES_LINKER_H_
+#define _HXRES_LINKER_H_
+
+#include "compiler.h"
 
 class Linker
 {
 public:
-	class ObjectData
-	{
-	};
 	struct Obj
 	{
 		HoeCore::String name;
 		int type;
-		ObjectData * obj;
+		Compiler * c;
 	};
 protected:
-	virtual ObjectData * CreateObject(const char * name, int type);
 	HoeCore::List<Obj> m_obj;
 	HoeCore::String_s<2048> m_ns;
 public:
@@ -24,7 +23,11 @@ public:
 	void PushNamespace(const char * name);
 	void PopNamespace();
 
-	virtual ObjectData * AddObject(const char * name, int type);
+	virtual Compiler * AddObject(const char * name, int type);
 	virtual int Link(const char * output);
 
 };
+
+#endif // _HXRES_LINKER_H_
+
+

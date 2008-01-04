@@ -9,12 +9,7 @@ Linker::~Linker(void)
 {
 }
 
-Linker::ObjectData * Linker::CreateObject(const char * name, int type)
-{
-	return new Linker::ObjectData;
-}
-
-Linker::ObjectData * Linker::AddObject(const char * name, int type)
+Compiler * Linker::AddObject(const char * name, int type)
 {
 	Obj& o = m_obj.Add();
 	memset(&o, 0, sizeof(o));
@@ -23,8 +18,8 @@ Linker::ObjectData * Linker::AddObject(const char * name, int type)
 		o.name += ':';
 	o.name += name;
 	o.type = type;
-	o.obj = CreateObject(name, type);
-	return o.obj;
+	o.c = Compiler::Create(o.name, type);
+	return o.c;
 }
 
 void Linker::PushNamespace(const char * name)
