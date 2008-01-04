@@ -2,17 +2,17 @@
 // or project specific include files that are used frequently, but
 // are changed infrequently
 //
-
-#pragma once
+#ifndef _HXRES_STD_AFX_H_
+#define _HXRES_STD_AFX_H_
 
 #ifndef _WIN32_WINNT		// Allow use of features specific to Windows XP or later.                   
 #define _WIN32_WINNT 0x0501	// Change this to the appropriate value to target other versions of Windows.
 #endif						
 
-#include <stdio.h>
 #ifdef _WIN32
 #include <windows.h>
 #endif
+#include <stdio.h>
 #include <string.h>
 #include <wchar.h>
 #include <stdlib.h>
@@ -24,3 +24,6 @@
 #include <hoe_structures.h>
 
 // TODO: reference additional headers your program requires here
+
+#endif // _HXRES_STD_AFX_H_
+

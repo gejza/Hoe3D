@@ -9,7 +9,7 @@
 //class parser
 //  class compiler
 
-int yyparse(Scaner * lex);
+int yyparse(Linker& linker, HoeCore::StringPool& pool, Scaner& lex);
 
 class HoeFlexFileEx : public HoeCore::HoeFlexFile
 {
@@ -23,6 +23,10 @@ public:
 
 // scan parameters
 //
+float SysFloatTime(void)
+{
+	return 0;
+}
 
 int main(int argc, char* argv[])
 {
@@ -34,7 +38,8 @@ int main(int argc, char* argv[])
 	s.Switch(fs);
 
 	Linker link;
-	int res = yyparse(&s);
+	HoeCore::StringPool pool;
+	int res = yyparse(link,pool,s);
 	if (!res)
 	{
 		printf("Linking...\n");

@@ -108,6 +108,17 @@ inline int scanf(const tchar *, const wchar_t *, ...)
     return 0;
 }
 
+inline void concat(char* dest, size_t sizeb, char c)
+{
+	char src[2] = { c, 0 };
+	::strncat(dest, src, sizeb);
+}
+
+inline void concat(char* dest, size_t sizeb, const char* src)
+{
+	::strncat(dest, src, sizeb);
+}
+
 #ifdef ENABLE_AUTOCONV_FUNCTIONS
 int vsnprintf(char *, size_t, const wchar_t *, va_list);
 int vsnprintf(wchar_t *, size_t, const char *, va_list);
@@ -147,17 +158,32 @@ public:
 		return ret;
 	}*/
 	int printf(const wchar_t * szFormat, ...) { return 0; }
-	void cat(const char *) {}
-	void cat(const wchar_t *) {}
 	// obecne funkce
 	bool IsEmpty() const { return m_str[0] == 0; }
 	// operatory
 	operator const tchar * () const { return m_str;}
 #if defined(ENABLE_AUTOCONV_FUNCTIONS) || !defined(_UNICODE)
+	bool operator == (const char * s) const;
 	const String_s & operator = (const char * s)
 	{
 		string::copy(m_str, s, maxsize-1);
 		return *this;
+	}
+	const String_s& operator += (char c)
+	{
+		concat(c); return *this;
+	}
+	const String_s& operator += (const char* str)
+	{
+		concat(str); return *this;
+	}
+	void concat(const char * str)
+	{
+		string::concat(m_str, maxsize, str);
+	}
+	void concat(char c)
+	{
+		string::concat(m_str, maxsize, c);
 	}
 #endif
 #if defined(ENABLE_AUTOCONV_FUNCTIONS) || defined(_UNICODE)
@@ -166,16 +192,17 @@ public:
 		string::copy(m_str, s, maxsize-1);
 		return *this;
 	}
-#endif
-	bool operator == (const char * s) const;
 	bool operator == (const wchar_t * s) const;
+	void concat(const wchar_t *);
+#endif
+
 };
 
 class String
 {
 	struct StringData
 	{
-		int ref;
+		mutable int ref;
 		size_t alloc;
 
 		void Init(int num);
@@ -189,18 +216,54 @@ class String
 		StringData data;
 		tchar str[];
 	} * m_data;
+
+	static StringDataPtr* CreateStringData(size_t n);
+	void PrepareForModify(size_t n);
 public:
 	String();
 	String(const String& s);
 	~String();
 	//int printf(const char * szFormat, ...) { return 0; }
-	const String & operator = (const char * s);
-	const String & operator = (const wchar_t * s);
 	const String & operator = (const String& s);
-	operator bool () { return m_data && m_data->str[0]; }
-	size_t Length() { return m_data ? string::len(m_data->str):0; }
+	bool IsEmpty() const { return !m_data || !m_data->str[0]; }
+	operator bool () const { return !IsEmpty(); }
+	size_t Length() const { return m_data ? string::len(m_data->str):0; }
 	//void Export(char *, size_t size) {}
 	operator const tchar * () const { return m_data ? m_data->str:T(""); }
+#if defined(ENABLE_AUTOCONV_FUNCTIONS) || !defined(_UNICODE)
+	const String & operator = (const char * s);
+	const String& operator += (char c)
+	{
+		concat(c); return *this;
+	}
+	const String& operator += (const char* str)
+	{
+		concat(str); return *this;
+	}
+	void concat(const char * str);
+	void concat(char c)
+	{
+		char src[2] = { c, 0 };
+		concat(src);
+	}
+#endif
+#if defined(ENABLE_AUTOCONV_FUNCTIONS) || defined(_UNICODE)
+	const String & operator = (const wchar_t * s);
+	const String& operator += (wchar_t c)
+	{
+		concat(c); return *this;
+	}
+	const String& operator += (const wchar_t* str)
+	{
+		concat(str); return *this;
+	}
+	void concat(const wchar_t * str);
+	void concat(wchar_t c)
+	{
+		wchar_t src[2] = { c, 0 };
+		concat(src);
+	}
+#endif
 };
 
 } // namespace HoeCore

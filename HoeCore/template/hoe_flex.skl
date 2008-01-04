@@ -27,7 +27,7 @@
 
 #if 0
 //%% YY_CHAR and YY_SC_TO_UI() go here
-//%% YY_CHAR and YY_SC_TO_UI() go here
+%% YY_CHAR and YY_SC_TO_UI() go here
 //end %% YY_CHAR and YY_SC_TO_UI() go here
 
 #endif
@@ -103,7 +103,7 @@ int yyleng;
  * section 1.
  */
 
- int yywrap ( void ) { return 0; }
+ int yywrap ( void ) { return 1; }
 
 #ifndef yytext_ptr
 static void yy_flex_strncpy ( YY_CHAR *, const YY_CHAR *, int );
@@ -178,7 +178,11 @@ static int yy_top_state ( void );
 	YY_USER_ACTION
 #endif
 
+#ifdef YY_CLASS_DECL
+int YY_CLASS_NAME::YY_CLASS_DECL
+#else
 int YY_CLASS_NAME::Lex()
+#endif
 {
 	register yy_state_type yy_current_state;
 	register YY_CHAR *yy_cp, *yy_bp;

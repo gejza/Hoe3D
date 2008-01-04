@@ -4,6 +4,7 @@
 #include "StdAfx.h"
 #include "scan.h"
 #define YY_CLASS_NAME Scaner
+#define YY_CLASS_DECL Lex(HoeCore::StringPool& pool, union YYSTYPE * l)
 #include "parse.tab.hpp"
 
 %}
@@ -24,13 +25,13 @@ num		{num1}|{num2}
 {ws}					/* skip */
 
 "Stream"				return TK_Stream;
-"StreamFile"			return StreamFile;
+"StreamFile"			return TK_StreamFile;
 "Picture"				return TK_Picture;
 "Index"					return TK_Index;
 "Model"					return TK_Model;
 "Namespace"             return TK_Namespace;
 "Texture"               return TK_Texture;
-{name}					yytext_ptr[0]; return TK_name;
+{name}					l->string = pool.Strdup(yytext_ptr); return TK_name;
 {num}					return TK_num;
 {dig}					return TK_num;
 {string}				return TK_string;

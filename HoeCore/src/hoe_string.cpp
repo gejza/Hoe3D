@@ -142,10 +142,18 @@ String::~String()
 		m_data->data.Unlock();
 }
 
-void String::StringData::Init(int num)
+const String & String::operator = (const String& s)
 {
-	ref = 1;
-	alloc = num;
+	if (this == &s)
+		return *this;
+	if (m_data)
+		m_data->data.Unlock();
+	m_data = NULL;
+	if (!s.IsEmpty())
+	{
+		m_data = s.m_data;
+		m_data->data.Lock();
+	}
 }
 
 const String & String::operator = (const char * s)
@@ -154,8 +162,7 @@ const String & String::operator = (const char * s)
 	if (m_data) 
 		m_data->data.Unlock();
 
-	m_data = (StringDataPtr*)malloc(sizeof(StringData)+(l+1)*sizeof(tchar));
-	m_data->data.Init(l+1);
+	m_data = CreateStringData(l);
 	string::copy(m_data->str, s, m_data->data.alloc);
 	return *this;
 }
@@ -170,10 +177,53 @@ const String & String::operator = (const wchar_t * s)
 	if (m_data) 
 		m_data->data.Unlock();
 
-	m_data = (StringDataPtr*)malloc(sizeof(StringData)+(l+1)*sizeof(tchar));
-	m_data->data.Init(l+1);
+	m_data = CreateStringData(l);
 	string::copy(m_data->str, s, m_data->data.alloc);
 	return *this;
+}
+
+String::StringDataPtr* String::CreateStringData(size_t n)
+{
+	StringDataPtr * data = (StringDataPtr*)malloc(sizeof(StringData)+(n+1)*sizeof(tchar));
+	data->data.ref = 1;
+	data->data.alloc = (n+1);
+	return data;
+}
+
+void String::PrepareForModify(size_t n)
+{
+	if (!m_data)
+	{
+		m_data = CreateStringData(n);
+		m_data->str[0] = 0;
+	}
+	else if (m_data->data.IsShared())
+	{
+		StringDataPtr * data = CreateStringData(n);
+		string::copy(data->str, m_data->str, n);
+		m_data->data.Unlock();
+		m_data = data;
+	}
+	else if (n > m_data->data.alloc)
+	{
+		m_data = (StringDataPtr*)realloc(m_data, sizeof(StringData)+(n+1)*sizeof(tchar));
+		m_data->data.alloc = (n+1);
+	}
+}
+
+void String::concat(const char * str)
+{
+	if (IsEmpty())
+	{
+		*this = str;
+	}
+	else
+	{
+		size_t s1 = string::len(m_data->str);
+		size_t s2 = string::len(str);
+		PrepareForModify(s1 + s2 + 1);
+		string::copy(m_data->str + s1, str, m_data->data.alloc - s1);
+	}
 }
 
 

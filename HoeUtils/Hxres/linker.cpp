@@ -18,10 +18,24 @@ Linker::ObjectData * Linker::AddObject(const char * name, int type)
 {
 	Obj& o = m_obj.Add();
 	memset(&o, 0, sizeof(o));
-	o.name = name;
+	o.name = m_ns;
+	if (!o.name.IsEmpty())
+		o.name += ':';
+	o.name += name;
 	o.type = type;
 	o.obj = CreateObject(name, type);
 	return o.obj;
+}
+
+void Linker::PushNamespace(const char * name)
+{
+	if (!m_ns.IsEmpty())
+		m_ns += ':';
+	m_ns += name;
+}
+
+void Linker::PopNamespace()
+{
 }
 
 int Linker::Link(const char * output)

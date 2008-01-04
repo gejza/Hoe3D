@@ -429,7 +429,7 @@ HoeCore::StringPool::StringPool()
 
 const char * HoeCore::StringPool::Strdup(const char * str)
 {
-	size_t l = strlen(str)+1;
+	size_t l = string::len(str)+1;
 	return reinterpret_cast<const char*>(Clone(str, l));
 }
 
