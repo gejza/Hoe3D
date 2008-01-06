@@ -7,6 +7,7 @@
 #include "hoe_structures.h"
 #include "hoe_string.h"
 #include "hoe_universal.h"
+#include "hoe_mem.h"
 
 vfloat SysFloatTime();
 
@@ -149,41 +150,25 @@ bool Dajkrs::PGraphPoint::operator >(const HoeCore::Algorythm::Dajkrs::PGraphPoi
 
 }
 
-/**
-* Bezpecne presunuti pameti, 
-* vyhodne pokud se zdrojove a cilove casti prekryvaji
-*/
-void CrossMemMove(void * dest, void * src, size_t size);
-
-/** Optimalizator pro alokovani malych objektu */
-class MemoryPool
+struct KeyString
 {
-	struct PoolItem
-	{
-		PoolItem * next;
-		char * base;
-		size_t size;
-		size_t max;
-		inline size_t GetAvail() { return max - size; }
-		void * GetMem(size_t s);
-		void * Clone(const void * p, size_t s);
-	};
-	PoolItem * m_pool;
-	PoolItem * CreateNew(size_t size);
-	PoolItem * FindFree(size_t size);
-public:
-	MemoryPool();
-	~MemoryPool();
-	/** Prirazeni pameti z poolu */
-	void * GetMem(size_t s);
-	/** Zkopirovani pameti do poolu */
-	void * Clone(const void * p, size_t s);
-	/** Uvolneni cele pameti */
-	void Free();
+    dword hash;
+    const char * key;
+    KeyString(const char * s)
+    {
+        hash = HashString(s);
+        key = s;
+    }
+    bool operator == (const KeyString& k) const
+    {
+        if (this->hash != k.hash) return false;
+        return strcmp(this->key, k.key) == 0;
+    }
 };
 
+
 /** Optimalizovane uloziste pro stringy */
-class StringPool : private MemoryPool
+class StringPool : public MemoryPool
 {
 protected:
 	struct ConstString
@@ -222,22 +207,6 @@ public:
     const HoeCore::KeyList<PoolIndex, ConstString> & GetKeys() { return m_keys; }
 };
 
-struct KeyString
-{
-    dword hash;
-    const char * key;
-    KeyString(const char * s)
-    {
-        hash = HashString(s);
-        key = s;
-    }
-    bool operator == (const KeyString& k) const
-    {
-        if (this->hash != k.hash) return false;
-        return strcmp(this->key, k.key) == 0;
-    }
-};
-
 class Table
 {
 	HoeCore::StringPool & m_pool;
@@ -262,7 +231,6 @@ public:
 };
 
 } // namespace HoeCore
-
 
 #endif // _HOE_CORE_H_
 

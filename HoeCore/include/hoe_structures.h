@@ -2,6 +2,7 @@
 #ifndef _HOE_STRUCTURES_H_
 #define _HOE_STRUCTURES_H_
 
+#include "hoe_mem.h"
 
 namespace HoeCore {
 
@@ -168,14 +169,15 @@ public:
 	{
 		if (this->m_size == this->m_count)
 			Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
-		this->m_ptr[this->m_count] = c;this->m_count++;
+		new (&this->m_ptr[this->m_count]) C(c);
+		this->m_count++;
 	}
 	C & Add()
 	{
 		if (this->m_size == this->m_count)
 			Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
 		this->m_count++;
-		return this->m_ptr[this->m_count-1];
+		return * new (&this->m_ptr[this->m_count-1]) C;
 	}
 };
 
@@ -246,7 +248,8 @@ public:
 			else
 				Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
 		}
-		this->m_ptr[this->m_count] = c;this->m_count++;
+		new (&this->m_ptr[this->m_count]) C(c);
+		this->m_count++;
 	}
 	C & Push()
 	{
@@ -258,7 +261,7 @@ public:
 				Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
 		}
 		this->m_count++;
-		return this->m_ptr[this->m_count-1];
+		return *new (&this->m_ptr[this->m_count-1]) C;
 	}
 	const C & Front()
 	{
@@ -375,6 +378,7 @@ public:
     C * Find(const INDEX& index)
     {
 		// hledat slozitosti log n
+		// todo hledat log n
         for (uint i=0;i< this->m_count;i++)
             if (this->m_ptr[i] == index)
                 return this->m_ptr + i;

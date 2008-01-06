@@ -129,7 +129,95 @@ int cmp(const char*, const wchar_t*)
 	return 0;
 }
 
-} // end namespace
+float GetReal(const char* str) 
+{
+	return (float) ::atof(str);
+}
+
+float GetReal(const wchar_t* str) 
+{  //TODO optimalizovat
+	float p=0.f;
+	// dec
+	while (*str >= '0' && *str <= '9')
+	{
+		p = p * 10.f + (*str++ - '0');
+	}
+	if (*str++ != '.')
+		return p;
+	float e = 0.1f;
+	while (*str >= '0' && *str <= '9')
+	{
+		p += e * (*str++ - '0');
+		e /= 10.f;
+	}
+	return p;	
+}
+
+int GetHex(const char* str) 
+{
+	int n = 0;
+	while (*str)
+	{
+		register char c = *str;
+		if (c >= '0' && c <= '9')
+			n = (n << 4) + (c - '0');
+		else if (c >= 'A' && c <= 'F')
+			n = (n << 4) + (c - 'A' + 10);
+		else if (c >= 'a' && c <= 'f')
+			n = (n << 4) + (c - 'a' + 10);
+		else
+			break;
+		str++;
+	}
+	return n;
+}
+
+int GetHex(const wchar_t* str) 
+{
+	int n = 0;
+	while (*str)
+	{
+		register wchar_t c = *str;
+		if (c >= '0' && c <= '9')
+			n = (n << 4) + (c - '0');
+		else if (c >= 'A' && c <= 'F')
+			n = (n << 4) + (c - 'A' + 10);
+		else if (c >= 'a' && c <= 'f')
+			n = (n << 4) + (c - 'a' + 10);
+		else
+			break;
+		str++;
+	}
+	return n;
+}
+
+int GetNumber(const char* str)
+{
+	if (str[0] == '0' && str[1] == 'x')
+		return GetHex(str+2);
+	else
+		return atoi(str);
+}
+
+int GetNumber(const wchar_t* str)
+{
+	if (str[0] == '0' && str[1] == 'x')
+		return GetHex(str+2);
+
+	int n = 0;
+	while (*str)
+	{
+		register wchar_t c = *str;
+		if (c >= '0' && c <= '9')
+			n = (n * 10) + (c - '0');
+		else
+			break;
+		str++;
+	}
+	return n;
+}
+
+} // end namespace string
 
 String::String()
 {
@@ -154,6 +242,7 @@ const String & String::operator = (const String& s)
 		m_data = s.m_data;
 		m_data->data.Lock();
 	}
+	return *this;
 }
 
 const String & String::operator = (const char * s)

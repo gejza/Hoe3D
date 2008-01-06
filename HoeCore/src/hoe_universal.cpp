@@ -3,6 +3,7 @@
 #include "../include/hoe_core.h"
 #include "../include/hoe_string.h"
 #include "../include/hoe_universal.h"
+#include "../include/hoe_mem.h"
 
 namespace HoeCore {
 
@@ -11,10 +12,22 @@ Universal::Universal()
 	Reset();
 }
 
-Universal::Universal(const char * value)
+Universal::Universal(const char * value, HoeCore::MemoryPool* pool)
+{
+	Reset();
+	Set(value, pool);
+}
+
+Universal::Universal(TDecimal value)
 {
 	Reset();
 	Set(value);
+}
+
+Universal::Universal(const Universal & value, HoeCore::MemoryPool* pool)
+{
+	Reset();
+	Set(value, pool);
 }
 
 Universal::~Universal()
@@ -35,6 +48,7 @@ const char * Universal::GetTypeName(Universal::Type t)
 	{
 	case TypeNone: return "none";
 	case TypeString: return "string";
+	case TypeWString: return "unicode";
 	case TypeDecimal: return "decimal";
 	case TypeUnsigned: return "unsigned";
 	case TypeFloat: return "real";
@@ -44,38 +58,58 @@ const char * Universal::GetTypeName(Universal::Type t)
 	};
 }
 
-const tchar * Universal::GetStringValue() const
+const char * Universal::GetStringValue() const
 {
 	switch (type)
 	{
-	case TypeNone: return T("");
-	case TypeString: return value.str ? value.str : T("");
-	case TypeDecimal: return T("decimal");
-	case TypeUnsigned: return T("unsigned");
-	case TypeFloat: return T("real");
-	case TypeBool: return T("boolean");
+	case TypeNone: return "";
+	case TypeString: return value.str ? value.str : "";
+	case TypeWString: return "unicode";
+	case TypeDecimal: return "decimal";
+	case TypeUnsigned: return "unsigned";
+	case TypeFloat: return "real";
+	case TypeBool: return "boolean";
 	default:
-		return T("unknown");
+		return "unknown";
+	};
+}
+
+const wchar_t * Universal::GetWideStringValue() const
+{
+	switch (type)
+	{
+	case TypeNone: return L"";
+	case TypeString: return L"string";
+	case TypeWString: return value.wstr ? value.wstr : L"";
+	case TypeDecimal: return L"decimal";
+	case TypeUnsigned: return L"unsigned";
+	case TypeFloat: return L"real";
+	case TypeBool: return L"boolean";
+	default:
+		return L"unknown";
 	};
 }
 
 void Universal::Clear()
 {
     if (!size) return;
-	switch (GetType())
+	if (!IsPooled())
 	{
-	case TypeString:
-		SAFE_DELETE_ARRAY(value.str);
-		break;
-	case TypeData:
-		SAFE_DELETE_ARRAY(value.p);
-		break;
-	};
+		switch (GetType())
+		{
+		case TypeString:
+			SAFE_DELETE_ARRAY(value.str);
+			break;
+		case TypeData:
+			SAFE_DELETE_ARRAY(value.p);
+			break;
+		};
+	}
 	allocated = 0;
 	size = 0;
 }
 
-void Universal::Set(const char * value)
+void Universal::Set(const char * value, HoeCore::MemoryPool* pool)
 {
 	size_t sl = strlen(value)+1;
 	if (GetType() == TypeString && allocated >= sl && sl > 1)
@@ -86,13 +120,42 @@ void Universal::Set(const char * value)
 	type = (type & 0x80000000) | TypeString;
 	if (sl > 1)
 	{
-		this->value.str = new tchar[sl];
+		if (pool)
+		{
+			this->value.str = new (*pool) char[sl];
+			type |= 0x40000000;
+		}
+		else
+			this->value.str = new char[sl];
 		allocated = size = sl;
-		memcpy(this->value.str, value, sl * sizeof(tchar));
+		memcpy(this->value.str, value, sl);
 	}
 }
 
-void Universal::Set(float f)
+void Universal::Set(const wchar_t * value, HoeCore::MemoryPool* pool)
+{
+	size_t sl = (string::len(value)+1)*sizeof(wchar_t);
+	if (GetType() == TypeWString && allocated >= sl && sl > 1)
+	{
+		memcpy(this->value.str, value, sl); size = sl; return;
+	}
+	Clear();
+	type = (type & 0x80000000) | TypeWString;
+	if (sl > 1)
+	{
+		if (pool)
+		{
+			this->value.wstr = new (*pool) wchar_t[sl];
+			type |= 0x40000000;
+		}
+		else
+			this->value.wstr = new wchar_t[sl];
+		allocated = size = sl;
+		memcpy(this->value.str, value, sl);
+	}
+}
+
+void Universal::Set(TReal f)
 {
 	Clear();
 	type = (type & 0x80000000) | TypeFloat;
@@ -106,7 +169,7 @@ void Universal::Set(unsigned long ul)
 	value.ul = ul;
 }
 
-void Universal::Set(long l)
+void Universal::Set(TDecimal l)
 {
 	Clear();
 	type = (type & 0x80000000) | TypeDecimal;
@@ -128,10 +191,28 @@ void Universal::Set(bool b)
 
 }
 
-/*void Universal::Set(const Universal & u)
+void Universal::Set(const Universal & value, HoeCore::MemoryPool* pool)
 {
-	if ()
-}*/
+	Clear();
+	switch (value.type & 0x0fffffff)
+	{
+	case TypeString:
+		Set(value.GetStringValue(), pool);
+		break;
+	case TypeWString:
+		Set(value.GetWideStringValue(), pool);
+		break;
+	case TypeData:
+		Set(value.GetPointer(), value.GetSize(), pool);
+		break;
+	default:
+		this->type = value.type;
+		this->size = value.size;
+		this->allocated = value.allocated;
+		memcpy(&this->value, &value.value, sizeof(this->value));
+		break;
+	};
+}
 
 void Universal::Set(void * v)
 {
@@ -140,7 +221,7 @@ void Universal::Set(void * v)
 	value.p = v;
 }
 
-void Universal::Set(const void * v, size_t s)
+void Universal::Set(const void * v, size_t s, HoeCore::MemoryPool* pool)
 {
 	if (GetType() == TypeData && allocated >= s && s > 0)
 	{
@@ -150,7 +231,15 @@ void Universal::Set(const void * v, size_t s)
 	type = (type & 0x80000000) | TypeData;
 	if (s > 0)
 	{
-		this->value.p = new byte[s];
+		if (pool)
+		{
+			this->value.p = new (*pool) byte[s];
+			type |= 0x40000000;
+		}
+		else
+		{
+			this->value.p = new byte[s];
+		}
 		allocated = this->size = s;
 		memcpy(this->value.p, v, s);
 	}
@@ -179,12 +268,8 @@ unsigned long Universal::GetUnsigned() const
 {
 	switch (GetType())
 	{
-	case TypeString:
-		{
-			register unsigned long ret = 0;
-			register const tchar * str = GetStringValue();
-			return string::strtoi(str);
-		}
+	case TypeString: return string::GetNumber(GetStringValue());
+	case TypeWString: return string::GetNumber(GetWideStringValue());
 	case TypeDecimal: return (unsigned long)value.l;
 	case TypeUnsigned: return value.ul;
 	case TypeFloat: return (unsigned long)value.f;
@@ -194,53 +279,31 @@ unsigned long Universal::GetUnsigned() const
 	return 0;
 }
 
-long Universal::GetDecimal() const
+Universal::TDecimal Universal::GetDecimal() const
 {
 	switch (GetType())
 	{
-	case TypeString:
-		{
-			register long ret = 0;
-			register const tchar * str = GetStringValue();
-			if (str[0] == '0' && str[1] == 'x')
-				string::scanf(str+2, T("%x"), &ret);
-			else
-				string::scanf(str, T("%d"), &ret);
-			return ret;
-		}
+	case TypeString: return string::GetNumber(GetStringValue());
+	case TypeWString: return string::GetNumber(GetWideStringValue());
 	case TypeDecimal: return value.l;
-	case TypeUnsigned: return (long)value.ul;
-	case TypeFloat: return (long)value.f;
-	case TypeBool: return (long)value.b;
+	case TypeUnsigned: return (TDecimal)value.ul;
+	case TypeFloat: return (TDecimal)value.f;
+	case TypeBool: return (TDecimal)value.b;
 	//case TypeFloatVector: return (unsigned long)vec_GetFloat(0);
 	};
 	return 0;
 }
 
-float Universal::GetFloat() const
+Universal::TReal Universal::GetFloat() const
 {
 	switch (GetType())
 	{
-	case TypeString:
-		{
-			register const tchar * str = GetStringValue();
-			if (str[0] == '0' && str[1] == 'x')
-			{
-				register float ret = 0;
-                string::scanf(str+2, T("%x"), &ret);
-				return (float)ret;
-			}
-			else
-			{
-				register float ret = 0.f;
-                string::scanf(str, T("%f"), &ret);
-				return ret;
-			}
-		}
-	case TypeDecimal: return (float)value.l;
-	case TypeUnsigned: return (float)value.ul;
+	case TypeString: return string::GetReal(GetStringValue());
+	case TypeWString: return string::GetReal(GetWideStringValue());
+	case TypeDecimal: return (TReal)value.l;
+	case TypeUnsigned: return (TReal)value.ul;
 	case TypeFloat: return value.f;
-	case TypeBool: return value.b ? 1.f:0.f;
+	case TypeBool: return (TReal)(value.b ? 1:0);
 	//case TypeFloatVector: return vec_GetFloat(0);
 	};
 	return 0;

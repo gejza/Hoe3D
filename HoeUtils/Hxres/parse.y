@@ -28,28 +28,34 @@ static int yyerror(Linker& linker, HoeCore::StringPool& pool, Scaner& lex, char*
 	return 0;
 }
 
+Compiler * comp = NULL;
+VectorUniversal vec;
+
 %}
 
 %union {
-  int            ivalue;
   const char * string;
+  double real;
+  long long num;
 }
 
 %token TK_Stream TK_StreamFile TK_Texture TK_TextureFile
 %token TK_Material TK_MaterialFile TK_IndexFile
 %token TK_Picture TK_Model TK_Index TK_Namespace TK_Texture
-%token <string>TK_name "%s" TK_num " %s" TK_string
+%token <string>TK_name "%s" 
+%token <num> TK_num "%s" 
+%token <real> TK_real "%s" 
+%token <string> TK_string
 
 %%
 file: 
 	res
 ;
-res:
-	resource
+res : resource
 	| res resource
 ;
-resource:
-		'\n'
+resource
+		: '\n'
 		| stream
 		| picture
 		| index
@@ -63,7 +69,7 @@ namespace:
 		'~' TK_Namespace
 		 { linker.PopNamespace(); }
 ;
-stream:	TK_Stream TK_name { Compiler *  = linker.AddObject($2, 1); } 
+stream:	TK_Stream TK_name { comp  = linker.AddObject($2, ERT_Stream); } 
 			'[' { /* start fvf */ } fvf ']' '\n'
 			stream_data
 		'~' TK_Stream '\n'
@@ -75,50 +81,63 @@ stream_data:
 		stream_data_row '\n'
 		| stream_data stream_data_row '\n'
 ;
-stream_data_row:
-		TK_num
+stream_data_row
+		: TK_num
+		| TK_real 
 		| stream_data_row ',' TK_num
 		| stream_data_row ';' TK_num
+		| stream_data_row ',' TK_real
+		| stream_data_row ';' TK_real
 ;
 picture: 
-		TK_Picture TK_name '\n'
+		TK_Picture TK_name '\n' { comp = linker.AddObject($2, ERT_Picture); }
 		  picture_attribute
-		'~' TK_Picture '\n'
+		'~' TK_Picture '\n' { comp = NULL; }
 ;
-picture_attribute:
-		'\n'
-		| TK_name '=' value '\n'
-		| picture_attribute TK_name '=' value '\n'
+picture_attribute
+		: '\n'
+		| TK_name '=' TK_name '\n'
+			{ comp->AddProp($1, $3); } 
+		| TK_name '=' TK_string '\n'
+			{ comp->AddProp($1, $3); } 
+		| TK_name '=' vector '\n'
+			{ comp->AddProp($1, vec); } 
+		| picture_attribute TK_name '=' TK_name '\n'
+			{ comp->AddProp($2, $4); }
+		| picture_attribute TK_name '=' TK_string '\n'
+			{ comp->AddProp($2, $4); } 
+		| picture_attribute TK_name '=' vector '\n'
+			{ comp->AddProp($2, vec); } 
 ;
 index:	TK_Index TK_name '\n'
 		index_data
-		'~' TK_Index
+		'~' TK_Index '\n'
 ;
-index_data:
+index_data
+		: '\n'
 		| TK_num
 		| index_data ',' TK_num
 		| index_data '\n'
 		| index_data '\n' TK_num
 ;
 model:	TK_Model model_name '\n'
-		'~' TK_Model
+		'~' TK_Model '\n'
 ;
-model_name: TK_name
+model_name
+		: TK_name
 		| TK_name '(' ')'
 		| TK_name '(' model_param ')'
 ;
-model_param:
-		TK_name
+model_param
+		: TK_name
 		| model_param ',' TK_name
 ;
-value:	TK_name
-		| TK_num
-		| TK_string
-		| vector
+vector: '(' { vec.Delete(); } vector_item ')'
 ;
-vector: '(' vector_item ')'
-;
-vector_item: TK_num
-			 | vector_item ',' TK_num
+vector_item
+		: TK_num 
+		  { vec.Add($1); }
+		| vector_item ',' TK_num
+		  { vec.Add($3); }
 ;
 %%

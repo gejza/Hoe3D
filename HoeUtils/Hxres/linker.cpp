@@ -12,7 +12,6 @@ Linker::~Linker(void)
 Compiler * Linker::AddObject(const char * name, int type)
 {
 	Obj& o = m_obj.Add();
-	memset(&o, 0, sizeof(o));
 	o.name = m_ns;
 	if (!o.name.IsEmpty())
 		o.name += ':';

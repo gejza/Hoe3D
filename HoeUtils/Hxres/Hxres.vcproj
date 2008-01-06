@@ -280,6 +280,14 @@
 			</File>
 		</Filter>
 		<File
+			RelativePath=".\compiler.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\compiler.h"
+			>
+		</File>
+		<File
 			RelativePath=".\linker.cpp"
 			>
 		</File>

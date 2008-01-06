@@ -22,6 +22,7 @@
 #include <hoe_types.h>
 #include <hoe_string.h>
 #include <hoe_structures.h>
+#include <hoe_universal.h>
 
 // TODO: reference additional headers your program requires here
 

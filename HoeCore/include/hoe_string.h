@@ -38,63 +38,12 @@ size_t utf8len(const wchar_t * s);
 
 inline bool ifbegin(const tchar* begin, const tchar* str) { return false; }
 
-inline float atof(const char* str) 
-{
-	return (float) ::atof(str);
-}
-inline float atof(const wchar_t* str) 
-{  //TODO optimalizovat
-	float p=0.f;
-	// dec
-	while (*str >= '0' && *str <= '9')
-	{
-		p = p * 10.f + (*str++ - '0');
-	}
-	if (*str++ != '.')
-		return p;
-	float e = 0.1f;
-	while (*str >= '0' && *str <= '9')
-	{
-		p += e * (*str++ - '0');
-		e /= 10.f;
-	}
-	return p;	
-}
-
-inline int xtoi(const tchar* str) 
-{
-	int n = 0;
-	while (*str)
-	{
-		register char c = *str;
-		if (c >= '0' && c <= '9')
-			n = (n << 4) + (c - '0');
-		else if (c >= 'A' && c <= 'F')
-			n = (n << 4) + (c - 'A' + 10);
-		else if (c >= 'a' && c <= 'f')
-			n = (n << 4) + (c - 'a' + 10);
-		else
-			break;
-		str++;
-	}
-	return n;
-}
-
-
-inline int atoi(const char* str) 
-{ 
-	return ::atoi(str); 
-}
-
-inline int atoi(const wchar_t* str);
-
-inline int strtoi(const tchar* str)
-{
-	if (str[0] == '0' && str[1] == 'x')
-		return xtoi(str+2);
-	else
-		return atoi(str);
-}
+float GetReal(const char* str);
+float GetReal(const wchar_t* str);
+int GetHex(const char* str);
+int GetHex(const wchar_t* str);
+int GetNumber(const char* str);
+int GetNumber(const wchar_t* str);
 
 
 inline int scanf(const char *, const char *, ...)
@@ -214,7 +163,7 @@ class String
 	struct StringDataPtr 
 	{
 		StringData data;
-		tchar str[];
+		tchar str[1];
 	} * m_data;
 
 	static StringDataPtr* CreateStringData(size_t n);
