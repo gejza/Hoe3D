@@ -41,5 +41,7 @@ public:
 
 void * operator new(size_t, HoeCore::MemoryPool& pool);
 void * operator new(size_t, void *);
+void * operator new[](size_t, HoeCore::MemoryPool& pool);
+void * operator new[](size_t, void *);
 
 #endif // _HOE_CORE_MEM_H_

@@ -4,7 +4,7 @@
 
 #include "compiler.h"
 
-class Linker
+class Linker : public PInterface
 {
 public:
 	struct Obj
@@ -12,6 +12,7 @@ public:
 		HoeCore::String name;
 		int type;
 		Compiler * c;
+        // file for save
 	};
 protected:
 	HoeCore::List<Obj> m_obj;

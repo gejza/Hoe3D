@@ -20,24 +20,23 @@ Compiler * Compiler::Create(HoeCore::String&, int type)
 // Compilers
 
 // picture
-void PictureCompiler::AddProp(const char* name, const char* value)
+void PictureCompiler::AddProp(const HoeCore::CString name, const HoeCore::CString value)
+{
+    if (name == "File")
+        printf("Soubor ");
+    printf("%s = %s\n", (const char*)name, (const char*)value);
+}
+
+void PictureCompiler::AddProp(const HoeCore::CString name, double value)
 {
 }
 
-void PictureCompiler::AddProp(const char* name, double value)
+void PictureCompiler::AddProp(const HoeCore::CString name, long long value)
 {
 }
 
-void PictureCompiler::AddProp(const char* name, long long value)
+void PictureCompiler::AddProp(const HoeCore::CString name, const VectorUniversal& value)
 {
-}
-
-void PictureCompiler::AddProp(const char* name, const VectorUniversal& value)
-{
-	for (uint i=0;i < value.Count();i++)
-	{
-		printf("%s = %d\n", name, value.Get(i).GetDecimal());
-	}
 }
 
 

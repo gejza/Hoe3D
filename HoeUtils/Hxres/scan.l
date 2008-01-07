@@ -21,6 +21,7 @@ name    ({alpha}|\$)({alpha}|{dig}|[_\-/$:])*
 real1    [-+]?{dig}+\.({dig}+)?f?
 real2    [-+]?{dig}*\.{dig}+f?
 real	 {real1}|{real2}
+proc     ({real}|{dig})"%"
 
 %%
 {comment}				/* skip */
@@ -35,6 +36,7 @@ real	 {real1}|{real2}
 "Texture"               return TK_Texture;
 {name}					l->string = pool.Insert(yytext_ptr); return TK_name;
 {real}					l->real = HoeCore::string::GetReal(yytext_ptr); return TK_real;
+{proc}					l->real = HoeCore::string::GetReal(yytext_ptr) * 0.01; return TK_proc;
 {dig}|{hex}				l->num = HoeCore::string::GetNumber(yytext_ptr); return TK_num;
 {string}				l->string = GetString(yytext_ptr, yyleng, pool); return TK_string;
 

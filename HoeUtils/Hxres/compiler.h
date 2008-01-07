@@ -6,27 +6,40 @@ typedef HoeCore::List<HoeCore::Universal> VectorUniversal;
 
 #define EMPTY_FUNC { }
 
-class Compiler
+class PInterface
+{
+public:
+	virtual void AddProp(const HoeCore::CString name, const HoeCore::CString value) EMPTY_FUNC
+	virtual void AddProp(const HoeCore::CString name, double value) EMPTY_FUNC
+	virtual void AddProp(const HoeCore::CString name, long long value) EMPTY_FUNC
+	virtual void AddProp(const HoeCore::CString name, const VectorUniversal& value) EMPTY_FUNC
+};
+
+class Stream
+{
+public:
+    virtual void Save(void* ptr, size_t size) = 0;
+};
+
+class File : public Stream
+{
+};
+
+class Compiler : public PInterface
 {
 public:
     static Compiler * Create(HoeCore::String& str, int type);
 
-	//
-	virtual void AddProp(const char* name, const char* value) EMPTY_FUNC
-	virtual void AddProp(const char* name, double value) EMPTY_FUNC
-	virtual void AddProp(const char* name, long long value) EMPTY_FUNC
-	virtual void AddProp(const char* name, const VectorUniversal& value) EMPTY_FUNC
-
-	virtual void Save(class Stream& s);
+	virtual void Save(Stream& s) {}
 };
 
 class PictureCompiler : public Compiler
 {
 public:
-	virtual void AddProp(const char* name, const char* value);
-	virtual void AddProp(const char* name, double value);
-	virtual void AddProp(const char* name, long long value);
-	virtual void AddProp(const char* name, const VectorUniversal& value);
+	virtual void AddProp(const HoeCore::CString name, const HoeCore::CString value);
+	virtual void AddProp(const HoeCore::CString name, double value);
+	virtual void AddProp(const HoeCore::CString name, long long value);
+	virtual void AddProp(const HoeCore::CString name, const VectorUniversal& value);
 };
 
 class StreamCompiler : public Compiler

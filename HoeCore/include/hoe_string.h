@@ -215,6 +215,34 @@ public:
 #endif
 };
 
+class CString
+{
+    const tchar* m_str;
+public:
+    CString(const tchar* str)
+    {
+        m_str = str;
+    }
+    CString(const CString& str)
+    {
+        m_str = str.m_str;
+    }
+	operator const tchar * () const { return m_str ? m_str:T(""); }
+#if defined(ENABLE_AUTOCONV_FUNCTIONS) || !defined(_UNICODE)
+	bool operator == (const char * s) const
+    {
+        return string::cmp(m_str, s) == 0;
+    }
+#endif
+#if defined(ENABLE_AUTOCONV_FUNCTIONS) || defined(_UNICODE)
+	bool operator == (const wchar_t * s) const
+    {
+        return string::cmp(m_str, s) == 0;
+    }
+#endif
+};
+
+
 } // namespace HoeCore
 
 #endif // _HOE_STRING_H_

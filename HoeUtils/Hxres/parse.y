@@ -28,7 +28,7 @@ static int yyerror(Linker& linker, HoeCore::StringPool& pool, Scaner& lex, char*
 	return 0;
 }
 
-Compiler * comp = NULL;
+PInterface * pint = NULL;
 VectorUniversal vec;
 
 %}
@@ -41,10 +41,11 @@ VectorUniversal vec;
 
 %token TK_Stream TK_StreamFile TK_Texture TK_TextureFile
 %token TK_Material TK_MaterialFile TK_IndexFile
-%token TK_Picture TK_Model TK_Index TK_Namespace TK_Texture
-%token <string>TK_name "%s" 
-%token <num> TK_num "%s" 
-%token <real> TK_real "%s" 
+%token TK_Picture TK_Model TK_Index TK_Namespace
+%token <string>TK_name  
+%token <num> TK_num  
+%token <real> TK_real  
+%token <real> TK_proc  
 %token <string> TK_string
 
 %%
@@ -61,6 +62,7 @@ resource
 		| index
 		| model
 		| namespace
+        /*| { pint = &linker; } attribute*/
 ;
 namespace:
 		TK_Namespace TK_name '\n'
@@ -69,7 +71,7 @@ namespace:
 		'~' TK_Namespace
 		 { linker.PopNamespace(); }
 ;
-stream:	TK_Stream TK_name { comp  = linker.AddObject($2, ERT_Stream); } 
+stream:	TK_Stream TK_name { pint  = linker.AddObject($2, ERT_Stream); } 
 			'[' { /* start fvf */ } fvf ']' '\n'
 			stream_data
 		'~' TK_Stream '\n'
@@ -90,24 +92,32 @@ stream_data_row
 		| stream_data_row ';' TK_real
 ;
 picture: 
-		TK_Picture TK_name '\n' { comp = linker.AddObject($2, ERT_Picture); }
-		  picture_attribute
-		'~' TK_Picture '\n' { comp = NULL; }
+		TK_Picture TK_name '\n' { pint = linker.AddObject($2, ERT_Picture); }
+		  attribute
+		'~' TK_Picture '\n' { pint = NULL; }
 ;
-picture_attribute
+attribute
 		: '\n'
 		| TK_name '=' TK_name '\n'
-			{ comp->AddProp($1, $3); } 
+			{ pint->AddProp($1, $3); } 
 		| TK_name '=' TK_string '\n'
-			{ comp->AddProp($1, $3); } 
+			{ pint->AddProp($1, $3); } 
 		| TK_name '=' vector '\n'
-			{ comp->AddProp($1, vec); } 
-		| picture_attribute TK_name '=' TK_name '\n'
-			{ comp->AddProp($2, $4); }
-		| picture_attribute TK_name '=' TK_string '\n'
-			{ comp->AddProp($2, $4); } 
-		| picture_attribute TK_name '=' vector '\n'
-			{ comp->AddProp($2, vec); } 
+			{ pint->AddProp($1, vec); } 
+		| attribute TK_name '=' TK_name '\n'
+			{ pint->AddProp($2, $4); }
+		| attribute TK_name '=' TK_string '\n'
+			{ pint->AddProp($2, $4); } 
+		| attribute TK_name '=' vector '\n'
+			{ pint->AddProp($2, vec); }
+        | TK_name '(' func_param ')' '\n'
+        | attribute TK_name '(' func_param ')' '\n'
+;
+func_param
+        : TK_name
+        | TK_proc
+        | func_param ',' TK_name
+        | func_param ',' TK_proc
 ;
 index:	TK_Index TK_name '\n'
 		index_data
