@@ -40,8 +40,6 @@ int main(int argc, char* argv[])
 	Linker link;
 	HoeCore::StringPool pool;
 
-	HoeCore::Table * t = new (pool) HoeCore::Table(pool);
-
 	int res = yyparse(link,pool,s);
 	if (!res)
 	{

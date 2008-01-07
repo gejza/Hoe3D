@@ -31,6 +31,8 @@ static int yyerror(Linker& linker, HoeCore::StringPool& pool, Scaner& lex, char*
 PInterface * pint = NULL;
 VectorUniversal vec;
 
+#define DONE(p) if (p) { pint->Done();pint = NULL; }
+
 %}
 
 %union {
@@ -94,7 +96,7 @@ stream_data_row
 picture: 
 		TK_Picture TK_name '\n' { pint = linker.AddObject($2, ERT_Picture); }
 		  attribute
-		'~' TK_Picture '\n' { pint = NULL; }
+		'~' TK_Picture '\n' { DONE(pint); }
 ;
 attribute
 		: '\n'

@@ -41,7 +41,7 @@ void HoeCore::CrossMemMove(void * dest, void * src, size_t size)
 	else if (d > s)
 	{
 		size_t di = d - s;
-		for (int i=size-di;i >= 0;i-=di)
+		for (size_t i=size-di;i >= 0;i-=di)
 		{
 			memcpy(d+i, s+i, i > di ? di:di-i);
 		}

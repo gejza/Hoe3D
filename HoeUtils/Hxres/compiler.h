@@ -13,6 +13,8 @@ public:
 	virtual void AddProp(const HoeCore::CString name, double value) EMPTY_FUNC
 	virtual void AddProp(const HoeCore::CString name, long long value) EMPTY_FUNC
 	virtual void AddProp(const HoeCore::CString name, const VectorUniversal& value) EMPTY_FUNC
+
+	virtual void Done() {}
 };
 
 class Stream
@@ -23,19 +25,24 @@ public:
 
 class File : public Stream
 {
+public:
+	virtual void Save(void* ptr, size_t size) {};
 };
 
 class Compiler : public PInterface
 {
+protected:
+	Stream& m_out;
 public:
+	Compiler(Stream& out) : m_out(out) {}
     static Compiler * Create(HoeCore::String& str, int type);
 
-	virtual void Save(Stream& s) {}
 };
 
 class PictureCompiler : public Compiler
 {
 public:
+	PictureCompiler(Stream& out) : Compiler(out) {}
 	virtual void AddProp(const HoeCore::CString name, const HoeCore::CString value);
 	virtual void AddProp(const HoeCore::CString name, double value);
 	virtual void AddProp(const HoeCore::CString name, long long value);
@@ -44,6 +51,8 @@ public:
 
 class StreamCompiler : public Compiler
 {
+public:
+	StreamCompiler(Stream& out) : Compiler(out) {}
 };
 
 enum EResourceType

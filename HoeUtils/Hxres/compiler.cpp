@@ -7,9 +7,9 @@ Compiler * Compiler::Create(HoeCore::String&, int type)
     switch (type)
     {
 	case ERT_Picture:
-		return new PictureCompiler();
+		return new PictureCompiler(*new File);
 	case ERT_Stream:
-		return new StreamCompiler();
+		return new StreamCompiler(*new File);
     default:
 		hoe_assert(!"Unknown compiler type.");
         return NULL;
@@ -24,6 +24,7 @@ void PictureCompiler::AddProp(const HoeCore::CString name, const HoeCore::CStrin
 {
     if (name == "File")
         printf("Soubor ");
+
     printf("%s = %s\n", (const char*)name, (const char*)value);
 }
 
