@@ -23,6 +23,7 @@ public:
 		TypeDecimal,
 		TypeUnsigned,
 		TypeFloat,
+		TypePercent,
 		TypeBool,
 		TypePointer,
 		TypeData,

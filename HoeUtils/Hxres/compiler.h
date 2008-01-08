@@ -13,6 +13,7 @@ public:
 	virtual void AddProp(const HoeCore::CString name, double value) EMPTY_FUNC
 	virtual void AddProp(const HoeCore::CString name, long long value) EMPTY_FUNC
 	virtual void AddProp(const HoeCore::CString name, const VectorUniversal& value) EMPTY_FUNC
+	virtual void Func(const HoeCore::CString name, const VectorUniversal& value) EMPTY_FUNC
 
 	virtual void Done() {}
 };
@@ -47,6 +48,7 @@ public:
 	virtual void AddProp(const HoeCore::CString name, double value);
 	virtual void AddProp(const HoeCore::CString name, long long value);
 	virtual void AddProp(const HoeCore::CString name, const VectorUniversal& value);
+	virtual void Func(const HoeCore::CString name, const VectorUniversal& value);
 };
 
 class StreamCompiler : public Compiler

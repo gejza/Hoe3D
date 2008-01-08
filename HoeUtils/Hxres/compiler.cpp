@@ -40,6 +40,11 @@ void PictureCompiler::AddProp(const HoeCore::CString name, const VectorUniversal
 {
 }
 
+void PictureCompiler::Func(const HoeCore::CString name, const VectorUniversal& value)
+{
+    printf("Running func %s width %d arguments.\n", (const tchar*)name, value.Count());
+}
+
 
 
 

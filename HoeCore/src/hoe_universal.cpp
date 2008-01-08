@@ -24,6 +24,12 @@ Universal::Universal(TDecimal value)
 	Set(value);
 }
 
+Universal::Universal(TReal value)
+{
+	Reset();
+	Set(value);
+}
+
 Universal::Universal(const Universal & value, HoeCore::MemoryPool* pool)
 {
 	Reset();

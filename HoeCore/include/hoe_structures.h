@@ -179,6 +179,16 @@ public:
 		this->m_count++;
 		return * new (&this->m_ptr[this->m_count-1]) C;
 	}
+    void Set(C c)
+    {
+        this->Delete();
+        Add(c);
+    }
+    C& Set()
+    {
+        this->Delete();
+        return Add();
+    }
 };
 
 template<class C> class Stack : public SetBase<C>

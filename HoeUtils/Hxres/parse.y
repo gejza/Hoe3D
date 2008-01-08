@@ -113,13 +113,17 @@ attribute
 		| attribute TK_name '=' vector '\n'
 			{ pint->AddProp($2, vec); }
         | TK_name '(' func_param ')' '\n'
-        | attribute TK_name '(' func_param ')' '\n'
+            { pint->Func($1, vec); }
+        | attribute TK_name '('  func_param ')' '\n'
+            { pint->Func($2, vec); }
 ;
 func_param
-        : TK_name
-        | TK_proc
-        | func_param ',' TK_name
-        | func_param ',' TK_proc
+        : TK_name { vec.Set($1); }
+        | TK_proc { vec.Set((float)$1); }
+        | TK_num { vec.Set($1); }
+        | func_param ',' TK_name { vec.Add($3); }
+        | func_param ',' TK_proc { vec.Add((float)$3); }
+        | func_param ',' TK_num { vec.Add($3); }
 ;
 index:	TK_Index TK_name '\n'
 		index_data
@@ -144,11 +148,11 @@ model_param
 		: TK_name
 		| model_param ',' TK_name
 ;
-vector: '(' { vec.Delete(); } vector_item ')'
+vector: '(' vector_item ')'
 ;
 vector_item
 		: TK_num 
-		  { vec.Add($1); }
+		  { vec.Set($1); }
 		| vector_item ',' TK_num
 		  { vec.Add($3); }
 ;
