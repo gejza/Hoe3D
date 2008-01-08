@@ -459,34 +459,66 @@
 			Filter="*.skl"
 			>
 			<File
+				RelativePath="..\src\hoe_flex.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\include\hoe_flex.h"
+				>
+			</File>
+			<File
 				RelativePath="..\template\hoe_flex.skl"
 				>
 			</File>
+		</Filter>
+		<Filter
+			Name="String"
+			>
 			<File
-				RelativePath="..\template\hoe_flex_2.5.33.skl"
+				RelativePath="..\src\hoe_string.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\template\hoe_flex_empty.skl"
+				RelativePath="..\include\hoe_string.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\hoe_unicode.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\include\hoe_unicode.h"
 				>
 			</File>
 		</Filter>
-		<File
-			RelativePath="..\src\hoe_core.cpp"
+		<Filter
+			Name="Utils"
 			>
-		</File>
-		<File
-			RelativePath="..\include\hoe_core.h"
+			<File
+				RelativePath="..\src\hoe_mem.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\include\hoe_mem.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Core"
 			>
-		</File>
-		<File
-			RelativePath="..\src\hoe_flex.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\include\hoe_flex.h"
-			>
-		</File>
+			<File
+				RelativePath="..\src\hoe_core.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\include\hoe_core.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\hoe_types.h"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath="..\src\hoe_log.cpp"
 			>
@@ -496,27 +528,7 @@
 			>
 		</File>
 		<File
-			RelativePath="..\src\hoe_mem.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\include\hoe_mem.h"
-			>
-		</File>
-		<File
-			RelativePath="..\src\hoe_string.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\include\hoe_string.h"
-			>
-		</File>
-		<File
 			RelativePath="..\include\hoe_structures.h"
-			>
-		</File>
-		<File
-			RelativePath="..\include\hoe_types.h"
 			>
 		</File>
 		<File

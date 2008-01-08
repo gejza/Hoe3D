@@ -2,49 +2,66 @@
 #include "StdAfx.h"
 #include "../include/hoe_core.h"
 #include "../include/hoe_string.h"
+#include "../include/hoe_unicode.h"
 
 ////////////////////////////////
 // string class
 namespace HoeCore {
 namespace string {
 
-int vsnprintf(char *, size_t, const char *, va_list)
+int vsnprintf(char *dest, size_t n, const char * fmt, va_list vl)
 {
-	not_implemented();
-	return 0;
+	return ::vsprintf_s(dest, n, fmt, vl);
 }
 
-int vsnprintf(wchar_t *, size_t, const char *, va_list)
+int vsnprintf(wchar_t* dest, size_t n, const char *fmt, va_list vl)
 {
-	not_implemented();
-	return 0;
+	const int size_buff = 2512;
+	if (n <= 2048)
+	{
+		char str[size_buff];
+		int r = string::vsnprintf(str, size_buff, fmt, vl);
+		string::copy(dest, str, n);
+		return r;
+	}
+	else
+	{
+		char* str = new char[int(n * 1.3)];
+		int r = string::vsnprintf(str, int(n * 1.3), fmt, vl);
+		string::copy(dest, str, n);
+		delete [] str;
+		return r;
+	}
 }
 
-int vsnprintf(wchar_t *, size_t, const wchar_t *, va_list)
+int vsnprintf(char* dest, size_t n, const wchar_t *fmt, va_list vl)
 {
-	not_implemented();
-	return 0;
+	const int size_buff = 2512;
+	if (n <= 2048)
+	{
+		wchar_t str[size_buff];
+		int r = string::vsnprintf(str, size_buff, fmt, vl);
+		string::copy(dest, str, n);
+		return r;
+	}
+	else
+	{
+		wchar_t* str = new wchar_t[int(n * 1.3)];
+		int r = string::vsnprintf(str, int(n * 1.3), fmt, vl);
+		string::copy(dest, str, n);
+		delete [] str;
+		return r;
+	}
+}
+
+int vsnprintf(wchar_t* dest, size_t n, const wchar_t* fmt, va_list vl)
+{
+	return ::vswprintf_s(dest, n, fmt, vl);
 }
 
 void copy(char * dest, const char * src, size_t cnt)
 {
 	strncpy(dest, src, cnt);
-}
-
-inline size_t utf8len(const wchar_t c)
-{
-	if (c <= 0x7F)
-		return 1;
-	else if (c <= 0x7FF)
-		return 2;
-	else if (c <= 0xFFFF)
-		return 3;
-	else if (c <= 0x1FFFFF)
-		return 4;
-	else if (c <= 0x3FFFFFF)
-		return 5;
-	else
-		return 6;
 }
 
 size_t utf8len(const wchar_t * s)
@@ -62,22 +79,7 @@ void copy(wchar_t * dest, const char * src, size_t s)
 	s--;
 	while (s > 0)
 	{
-		register wchar_t ch = 0;
-		// pokud *p < 0x80
-		if (!(*src & 0x80)) ch = *src++;
-		else if ((*src & 0xE0) == 0xC0)
-		{
-			ch |= ((*src) & 0x1F) << 6;src++;
-			ch |= (*src) & 0x3F; src++;
-		}
-		else if ((*src & 0xF0) == 0xE0)
-		{
-			ch |= (*src & 0xF) << 12;src++;
-			ch |= (*src & 0x3F) << 6;src++;
-			ch |= (*src) & 0x3F; src++;
-		}	
-		else
-			ch = *src++;
+		register wchar_t ch = utf2w(src);
 		*dest++ = ch;
 		if (!ch)
 			break;
@@ -98,35 +100,28 @@ void copy(char * dest, const wchar_t * src, size_t n)
 	while (*src)
 	{
 		register wchar_t c = *src++;
-		register size_t l = utf8len(c);
-		if (n < l)
+		register size_t l = w2utf(dest, *src++, n);
+		if (!l)
 			break;
 		n-=l;
-		switch (l)
-		{
-		case 1:
-			*dest++ = (char)c;
-			break;
-		case 2:
-			*dest++ = 0xA0 | (c >> 6);
-			*dest++ = 0x80 | (c & 0x3F);
-			break;
-		case 3:
-			*dest++ = 0xE0 | (c >> 12);
-			*dest++ = 0x80 | ((c&0xFA0) >> 6);
-			*dest++ = 0x80 | (c & 0x3f);
-			break;
-		default:
-			*dest++ = '?';
-		};
 	};
 	*dest = 0;
 }
 
-int cmp(const char*, const wchar_t*)
+int cmp(const char* str1, const wchar_t* str2)
 {
-	not_implemented();
-	return 0;
+	register wchar_t c1, c2;
+	do
+	{
+		c1 = utf2w(str1);
+		c2 = *str2++;
+	} while (c1 && (c1 == c2));
+	if (c1 < c2)
+		return -1;
+	else if (c1 > c2)
+		return 1;
+	else
+		return 0;
 }
 
 float GetReal(const char* str) 
@@ -244,6 +239,18 @@ const String & String::operator = (const String& s)
 	}
 	return *this;
 }
+
+const String & String::operator = (const CString& s)
+{
+	size_t l = string::len((const tchar*)s);
+	if (m_data) 
+		m_data->data.Unlock();
+
+	m_data = CreateStringData(l);
+	string::copy(m_data->str, (const tchar*)s, m_data->data.alloc);
+	return *this;
+}
+
 
 const String & String::operator = (const char * s)
 {

@@ -279,6 +279,18 @@
 				</FileConfiguration>
 			</File>
 		</Filter>
+		<Filter
+			Name="Utils"
+			>
+			<File
+				RelativePath=".\image.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\image.h"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\compiler.cpp"
 			>

@@ -2,18 +2,18 @@
 #ifndef _HXRES_COMPILER_H_
 #define _HXRES_COMPILER_H_
 
+#include "image.h"
+
 typedef HoeCore::List<HoeCore::Universal> VectorUniversal;
 
-#define EMPTY_FUNC { }
+#define EMPTY_FUNC { return false; }
 
 class PInterface
 {
 public:
-	virtual void AddProp(const HoeCore::CString name, const HoeCore::CString value) EMPTY_FUNC
-	virtual void AddProp(const HoeCore::CString name, double value) EMPTY_FUNC
-	virtual void AddProp(const HoeCore::CString name, long long value) EMPTY_FUNC
-	virtual void AddProp(const HoeCore::CString name, const VectorUniversal& value) EMPTY_FUNC
-	virtual void Func(const HoeCore::CString name, const VectorUniversal& value) EMPTY_FUNC
+	virtual bool AddProp(const HoeCore::CString name, const HoeCore::Universal& value) EMPTY_FUNC
+	virtual bool AddProp(const HoeCore::CString name, const VectorUniversal& value) EMPTY_FUNC
+	virtual bool Func(const HoeCore::CString name, const VectorUniversal& value) EMPTY_FUNC
 
 	virtual void Done() {}
 };
@@ -42,13 +42,12 @@ public:
 
 class PictureCompiler : public Compiler
 {
+	Image im;
 public:
 	PictureCompiler(Stream& out) : Compiler(out) {}
-	virtual void AddProp(const HoeCore::CString name, const HoeCore::CString value);
-	virtual void AddProp(const HoeCore::CString name, double value);
-	virtual void AddProp(const HoeCore::CString name, long long value);
-	virtual void AddProp(const HoeCore::CString name, const VectorUniversal& value);
-	virtual void Func(const HoeCore::CString name, const VectorUniversal& value);
+	virtual bool AddProp(const HoeCore::CString name, const HoeCore::Universal& value);
+	virtual bool AddProp(const HoeCore::CString name, const VectorUniversal& value);
+	virtual bool Func(const HoeCore::CString name, const VectorUniversal& value);
 };
 
 class StreamCompiler : public Compiler

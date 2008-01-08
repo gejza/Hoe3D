@@ -147,6 +147,33 @@ public:
 
 };
 
+class CString
+{
+    const tchar* m_str;
+public:
+    CString(const tchar* str)
+    {
+        m_str = str;
+    }
+    CString(const CString& str)
+    {
+        m_str = str.m_str;
+    }
+	operator const tchar * () const { return m_str ? m_str:T(""); }
+#if defined(ENABLE_AUTOCONV_FUNCTIONS) || !defined(_UNICODE)
+	bool operator == (const char * s) const
+    {
+        return string::cmp(m_str, s) == 0;
+    }
+#endif
+#if defined(ENABLE_AUTOCONV_FUNCTIONS) || defined(_UNICODE)
+	bool operator == (const wchar_t * s) const
+    {
+        return string::cmp(m_str, s) == 0;
+    }
+#endif
+};
+
 class String
 {
 	struct StringData
@@ -174,11 +201,13 @@ public:
 	~String();
 	//int printf(const char * szFormat, ...) { return 0; }
 	const String & operator = (const String& s);
+	const String & operator = (const CString& s);
 	bool IsEmpty() const { return !m_data || !m_data->str[0]; }
 	operator bool () const { return !IsEmpty(); }
 	size_t Length() const { return m_data ? string::len(m_data->str):0; }
 	//void Export(char *, size_t size) {}
 	operator const tchar * () const { return m_data ? m_data->str:T(""); }
+	operator const CString () const { return CString(m_data ? m_data->str:T("")); }
 #if defined(ENABLE_AUTOCONV_FUNCTIONS) || !defined(_UNICODE)
 	const String & operator = (const char * s);
 	const String& operator += (char c)
@@ -214,34 +243,6 @@ public:
 	}
 #endif
 };
-
-class CString
-{
-    const tchar* m_str;
-public:
-    CString(const tchar* str)
-    {
-        m_str = str;
-    }
-    CString(const CString& str)
-    {
-        m_str = str.m_str;
-    }
-	operator const tchar * () const { return m_str ? m_str:T(""); }
-#if defined(ENABLE_AUTOCONV_FUNCTIONS) || !defined(_UNICODE)
-	bool operator == (const char * s) const
-    {
-        return string::cmp(m_str, s) == 0;
-    }
-#endif
-#if defined(ENABLE_AUTOCONV_FUNCTIONS) || defined(_UNICODE)
-	bool operator == (const wchar_t * s) const
-    {
-        return string::cmp(m_str, s) == 0;
-    }
-#endif
-};
-
 
 } // namespace HoeCore
 

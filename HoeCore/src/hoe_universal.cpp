@@ -24,10 +24,10 @@ Universal::Universal(TDecimal value)
 	Set(value);
 }
 
-Universal::Universal(TReal value)
+Universal::Universal(TReal value, Type t)
 {
 	Reset();
-	Set(value);
+	Set(value, t);
 }
 
 Universal::Universal(const Universal & value, HoeCore::MemoryPool* pool)
@@ -57,6 +57,7 @@ const char * Universal::GetTypeName(Universal::Type t)
 	case TypeWString: return "unicode";
 	case TypeDecimal: return "decimal";
 	case TypeUnsigned: return "unsigned";
+	case TypePercent: return "percent";
 	case TypeFloat: return "real";
 	case TypeBool: return "boolean";
 	default:
@@ -74,6 +75,7 @@ const char * Universal::GetStringValue() const
 	case TypeDecimal: return "decimal";
 	case TypeUnsigned: return "unsigned";
 	case TypeFloat: return "real";
+	case TypePercent: return "percent";
 	case TypeBool: return "boolean";
 	default:
 		return "unknown";
@@ -90,6 +92,7 @@ const wchar_t * Universal::GetWideStringValue() const
 	case TypeDecimal: return L"decimal";
 	case TypeUnsigned: return L"unsigned";
 	case TypeFloat: return L"real";
+	case TypePercent: return L"percent";
 	case TypeBool: return L"boolean";
 	default:
 		return L"unknown";
@@ -161,11 +164,19 @@ void Universal::Set(const wchar_t * value, HoeCore::MemoryPool* pool)
 	}
 }
 
-void Universal::Set(TReal f)
+void Universal::Set(TReal f, Type t)
 {
 	Clear();
-	type = (type & 0x80000000) | TypeFloat;
-	value.f = f;
+	switch (t)
+	{
+	case TypeFloat:
+	case TypePercent:
+		type = (type & 0x80000000) | t;
+		value.f = f;
+		break;
+	default:
+		not_implemented("Universal::Set");
+	};
 }
 
 void Universal::Set(unsigned long ul)
@@ -262,6 +273,7 @@ bool Universal::GetBool() const
 		return false;
 	case TypeDecimal: return value.l != 0;
 	case TypeUnsigned: return value.ul != 0;
+	case TypePercent:
 	case TypeFloat: return value.f != 0.f;
 	case TypeBool: return value.b;
 	case TypeData: return size > 0;
@@ -278,6 +290,7 @@ unsigned long Universal::GetUnsigned() const
 	case TypeWString: return string::GetNumber(GetWideStringValue());
 	case TypeDecimal: return (unsigned long)value.l;
 	case TypeUnsigned: return value.ul;
+	case TypePercent: return (unsigned long)(100.f * value.f);
 	case TypeFloat: return (unsigned long)value.f;
 	case TypeBool: return (unsigned long)value.b;
 	//case TypeFloatVector: return (unsigned long)vec_GetFloat(0);
@@ -293,6 +306,7 @@ Universal::TDecimal Universal::GetDecimal() const
 	case TypeWString: return string::GetNumber(GetWideStringValue());
 	case TypeDecimal: return value.l;
 	case TypeUnsigned: return (TDecimal)value.ul;
+	case TypePercent: return (TDecimal)(100.f * value.f);
 	case TypeFloat: return (TDecimal)value.f;
 	case TypeBool: return (TDecimal)value.b;
 	//case TypeFloatVector: return (unsigned long)vec_GetFloat(0);
@@ -308,6 +322,7 @@ Universal::TReal Universal::GetFloat() const
 	case TypeWString: return string::GetReal(GetWideStringValue());
 	case TypeDecimal: return (TReal)value.l;
 	case TypeUnsigned: return (TReal)value.ul;
+	case TypePercent:
 	case TypeFloat: return value.f;
 	case TypeBool: return (TReal)(value.b ? 1:0);
 	//case TypeFloatVector: return vec_GetFloat(0);

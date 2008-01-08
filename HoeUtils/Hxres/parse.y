@@ -15,6 +15,8 @@
 #include "scan.h"
 #include "linker.h"
 
+using namespace HoeCore;
+
 static int yylex(union YYSTYPE * l, HoeCore::StringPool& pool, Scaner& lex)
 { 
 	return lex.Lex(pool,l);
@@ -47,7 +49,7 @@ VectorUniversal vec;
 %token <string>TK_name  
 %token <num> TK_num  
 %token <real> TK_real  
-%token <real> TK_proc  
+%token <real> TK_perc  
 %token <string> TK_string
 
 %%
@@ -104,12 +106,24 @@ attribute
 			{ pint->AddProp($1, $3); } 
 		| TK_name '=' TK_string '\n'
 			{ pint->AddProp($1, $3); } 
+		| TK_name '=' TK_num '\n'
+			{ pint->AddProp($1, $3); } 
+		| TK_name '=' TK_real '\n'
+			{ pint->AddProp($1, (Universal::TReal)$3); } 
+		| TK_name '=' TK_perc '\n'
+			{ pint->AddProp($1, Universal($3, Universal::TypePercent)); } 
 		| TK_name '=' vector '\n'
 			{ pint->AddProp($1, vec); } 
 		| attribute TK_name '=' TK_name '\n'
 			{ pint->AddProp($2, $4); }
 		| attribute TK_name '=' TK_string '\n'
 			{ pint->AddProp($2, $4); } 
+		| attribute TK_name '=' TK_num '\n'
+			{ pint->AddProp($2, $4); } 
+		| attribute TK_name '=' TK_real '\n'
+			{ pint->AddProp($2, (Universal::TReal)$4); } 
+		| attribute TK_name '=' TK_perc '\n'
+			{ pint->AddProp($2, Universal($4, Universal::TypePercent)); } 
 		| attribute TK_name '=' vector '\n'
 			{ pint->AddProp($2, vec); }
         | TK_name '(' func_param ')' '\n'
@@ -119,10 +133,10 @@ attribute
 ;
 func_param
         : TK_name { vec.Set($1); }
-        | TK_proc { vec.Set((float)$1); }
+        | TK_perc { vec.Set((float)$1); }
         | TK_num { vec.Set($1); }
         | func_param ',' TK_name { vec.Add($3); }
-        | func_param ',' TK_proc { vec.Add((float)$3); }
+        | func_param ',' TK_perc { vec.Add((float)$3); }
         | func_param ',' TK_num { vec.Add($3); }
 ;
 index:	TK_Index TK_name '\n'

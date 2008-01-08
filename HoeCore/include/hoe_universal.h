@@ -30,7 +30,7 @@ public:
 	};
 	Universal();
 	Universal(const char *, HoeCore::MemoryPool* pool = NULL);
-	Universal(TReal value);
+	Universal(TReal value, Type=TypeFloat);
 	Universal(unsigned long value);
 	Universal(TDecimal value);
 	Universal(int value);
@@ -54,7 +54,7 @@ public:
 	// setting functions
 	void Set(const char * value, HoeCore::MemoryPool* pool = NULL);
 	void Set(const wchar_t * value, HoeCore::MemoryPool* pool = NULL);
-	void Set(TReal value);
+	void Set(TReal value, Type type=TypeFloat);
 	void Set(unsigned long value);
 	void Set(TDecimal value);
 	void Set(int value);

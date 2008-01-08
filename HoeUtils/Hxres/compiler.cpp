@@ -18,31 +18,39 @@ Compiler * Compiler::Create(HoeCore::String&, int type)
 
 //////////////////////////////////////////////////////////
 // Compilers
+struct ArgCheck
+{
+	const char * name;
+	HoeCore::Universal::Type type;
+
+};
 
 // picture
-void PictureCompiler::AddProp(const HoeCore::CString name, const HoeCore::CString value)
+bool PictureCompiler::AddProp(const HoeCore::CString name, const HoeCore::Universal& value)
 {
+	printf("cannot convert from %s to %s\n", 
+		HoeCore::Universal::GetTypeName(value.GetType()),
+		HoeCore::Universal::GetTypeName(HoeCore::Universal::TypeDecimal));
+
     if (name == "File")
-        printf("Soubor ");
-
-    printf("%s = %s\n", (const char*)name, (const char*)value);
+	{
+        im.SetSource(value.GetStringValue());
+		return true;
+	}
+	else
+		printf("%s = %s\n", (const char*)name, (const char*)value);
+	return false;
 }
 
-void PictureCompiler::AddProp(const HoeCore::CString name, double value)
+bool PictureCompiler::AddProp(const HoeCore::CString name, const VectorUniversal& value)
 {
+	return false;
 }
 
-void PictureCompiler::AddProp(const HoeCore::CString name, long long value)
-{
-}
-
-void PictureCompiler::AddProp(const HoeCore::CString name, const VectorUniversal& value)
-{
-}
-
-void PictureCompiler::Func(const HoeCore::CString name, const VectorUniversal& value)
+bool PictureCompiler::Func(const HoeCore::CString name, const VectorUniversal& value)
 {
     printf("Running func %s width %d arguments.\n", (const tchar*)name, value.Count());
+	return false;
 }
 
 
