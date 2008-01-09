@@ -200,7 +200,11 @@ public:
 	String(const String& s);
 	~String();
 	//int printf(const char * szFormat, ...) { return 0; }
-	const String & operator = (const String& s);
+	void Set(const String& s);
+	const String & operator = (const String& s)
+	{
+		Set(s); return *this;
+	}
 	const String & operator = (const CString& s);
 	bool IsEmpty() const { return !m_data || !m_data->str[0]; }
 	operator bool () const { return !IsEmpty(); }
@@ -208,8 +212,15 @@ public:
 	//void Export(char *, size_t size) {}
 	operator const tchar * () const { return m_data ? m_data->str:T(""); }
 	operator const CString () const { return CString(m_data ? m_data->str:T("")); }
+
+	// utf section
 #if defined(ENABLE_AUTOCONV_FUNCTIONS) || !defined(_UNICODE)
-	const String & operator = (const char * s);
+	String(const char* s);
+	void Set(const char * s);
+	const String & operator = (const char * s)
+	{
+		Set(s); return *this;
+	}
 	const String& operator += (char c)
 	{
 		concat(c); return *this;
@@ -225,8 +236,14 @@ public:
 		concat(src);
 	}
 #endif
+	// unicode section
 #if defined(ENABLE_AUTOCONV_FUNCTIONS) || defined(_UNICODE)
-	const String & operator = (const wchar_t * s);
+	String(const wchar_t* s);
+	void Set(const wchar_t * s);
+	const String & operator = (const wchar_t * s)
+	{
+		Set(s); return *this;
+	}
 	const String& operator += (wchar_t c)
 	{
 		concat(c); return *this;

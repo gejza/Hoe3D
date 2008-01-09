@@ -88,48 +88,38 @@ stream_data:
 		| stream_data stream_data_row '\n'
 ;
 stream_data_row
+		: stream_data_item
+		| stream_data_row ',' stream_data_item
+		| stream_data_row ';' stream_data_item
+;
+stream_data_item
 		: TK_num
 		| TK_real 
-		| stream_data_row ',' TK_num
-		| stream_data_row ';' TK_num
-		| stream_data_row ',' TK_real
-		| stream_data_row ';' TK_real
-;
+;	
 picture: 
 		TK_Picture TK_name '\n' { pint = linker.AddObject($2, ERT_Picture); }
-		  attribute
+		  attributes
 		'~' TK_Picture '\n' { DONE(pint); }
 ;
+attributes
+		: attribute
+		| attributes attribute
 attribute
 		: '\n'
-		| TK_name '=' TK_name '\n'
-			{ pint->AddProp($1, $3); } 
-		| TK_name '=' TK_string '\n'
-			{ pint->AddProp($1, $3); } 
-		| TK_name '=' TK_num '\n'
-			{ pint->AddProp($1, $3); } 
-		| TK_name '=' TK_real '\n'
-			{ pint->AddProp($1, (Universal::TReal)$3); } 
-		| TK_name '=' TK_perc '\n'
-			{ pint->AddProp($1, Universal($3, Universal::TypePercent)); } 
-		| TK_name '=' vector '\n'
-			{ pint->AddProp($1, vec); } 
-		| attribute TK_name '=' TK_name '\n'
-			{ pint->AddProp($2, $4); }
-		| attribute TK_name '=' TK_string '\n'
-			{ pint->AddProp($2, $4); } 
-		| attribute TK_name '=' TK_num '\n'
-			{ pint->AddProp($2, $4); } 
-		| attribute TK_name '=' TK_real '\n'
-			{ pint->AddProp($2, (Universal::TReal)$4); } 
-		| attribute TK_name '=' TK_perc '\n'
-			{ pint->AddProp($2, Universal($4, Universal::TypePercent)); } 
-		| attribute TK_name '=' vector '\n'
-			{ pint->AddProp($2, vec); }
-        | TK_name '(' func_param ')' '\n'
-            { pint->Func($1, vec); }
-        | attribute TK_name '('  func_param ')' '\n'
-            { pint->Func($2, vec); }
+		| TK_name '=' TK_name
+			{ pint->AddProp($1, $3); } '\n' 
+		| TK_name '=' TK_string
+			{ pint->AddProp($1, $3); } '\n' 
+		| TK_name '=' TK_num
+			{ pint->AddProp($1, $3); } '\n' 
+		| TK_name '=' TK_real
+			{ pint->AddProp($1, (Universal::TReal)$3); } '\n' 
+		| TK_name '=' TK_perc
+			{ pint->AddProp($1, Universal($3, Universal::TypePercent)); } '\n' 
+		| TK_name '=' vector
+			{ pint->AddProp($1, vec); } '\n' 
+        | TK_name '(' func_param ')'
+            { pint->Func($1, vec); } '\n'
 ;
 func_param
         : TK_name { vec.Set($1); }

@@ -283,6 +283,14 @@
 			Name="Utils"
 			>
 			<File
+				RelativePath=".\error.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\error.h"
+				>
+			</File>
+			<File
 				RelativePath=".\image.cpp"
 				>
 			</File>

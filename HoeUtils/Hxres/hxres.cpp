@@ -5,6 +5,7 @@
 #include "scan.h"
 #define _NOXLIB
 #include "linker.h"
+#include "error.h"
 //class scaner
 //class parser
 //  class compiler
@@ -39,12 +40,20 @@ int main(int argc, char* argv[])
 
 	Linker link;
 	HoeCore::StringPool pool;
-
-	int res = yyparse(link,pool,s);
-	if (!res)
+	
+	int res = 0;
+	try {
+		res = yyparse(link,pool,s);
+		if (!res)
+		{
+			printf("Linking...\n");
+			res = link.Link("test.rc");
+		}
+	} catch (const Error& e)
 	{
-		printf("Linking...\n");
-		res = link.Link("test.rc");
+			fprintf(stderr, "%s(%d) : ", s.GetIdentifier(), s.GetLine());
+			fprintf(stderr, e.GetStr());
+			fprintf(stderr, "\n");
 	}
 	
 	return res;

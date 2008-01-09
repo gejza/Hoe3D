@@ -1,6 +1,9 @@
 
 #include "StdAfx.h"
 #include "compiler.h"
+#include "error.h"
+
+using namespace HoeCore;
 
 Compiler * Compiler::Create(HoeCore::String&, int type)
 {
@@ -18,16 +21,16 @@ Compiler * Compiler::Create(HoeCore::String&, int type)
 
 //////////////////////////////////////////////////////////
 // Compilers
-struct ArgCheck
+bool CheckArg(const Universal& value, Universal::Type p_num[])
 {
-	const char * name;
-	HoeCore::Universal::Type type;
-
-};
+	return false;
+}
 
 // picture
-bool PictureCompiler::AddProp(const HoeCore::CString name, const HoeCore::Universal& value)
+bool PictureCompiler::AddProp(const CString name, const Universal& value)
 {
+	throw Error("chybicka 2");
+
 	printf("cannot convert from %s to %s\n", 
 		HoeCore::Universal::GetTypeName(value.GetType()),
 		HoeCore::Universal::GetTypeName(HoeCore::Universal::TypeDecimal));
