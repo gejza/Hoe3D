@@ -11,7 +11,11 @@ namespace string {
 
 int vsnprintf(char *dest, size_t n, const char * fmt, va_list vl)
 {
+#ifdef _WIN32
 	return ::vsprintf_s(dest, n, fmt, vl);
+#else
+	return vsnprintf(dest, n, fmt, vl);
+#endif
 }
 
 int vsnprintf(wchar_t* dest, size_t n, const char *fmt, va_list vl)
@@ -56,7 +60,11 @@ int vsnprintf(char* dest, size_t n, const wchar_t *fmt, va_list vl)
 
 int vsnprintf(wchar_t* dest, size_t n, const wchar_t* fmt, va_list vl)
 {
+#ifdef _WIN32
 	return ::vswprintf_s(dest, n, fmt, vl);
+#else
+	return ::vswprintf(dest, n, fmt, vl);
+#endif
 }
 
 void copy(char * dest, const char * src, size_t cnt)
