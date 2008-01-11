@@ -57,10 +57,17 @@ public:
 	}
 	~SetBase()
 	{
+		this->Delete();
 		if (this->m_ptr) free(this->m_ptr);
 	}
 	uint Count() const { return this->m_count; }
-	void Delete() { this->m_count = 0; }
+	void Delete() 
+	{
+		while (this->m_count)
+		{
+			this->m_ptr[--this->m_count].~C();
+		}
+	}
 	void SetCount(int count) { this->m_count=count; } 
 	C & Get(uint n) const
 	{

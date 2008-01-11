@@ -6,26 +6,20 @@
 #define IDHRESVER 107
 
 namespace HoeRes {
+namespace Res { 
 
 #pragma pack(push,1)
 
-struct Head
+struct HeadResource
 {
-	unsigned long id;
-	unsigned long ver;
-	unsigned long num_sumbols;
-	unsigned char byteorder;
-};
-
-struct SymbolPointer 
-{
-	unsigned long hash;
-	unsigned long str_pos;
-	unsigned long long pos;
+	uint32 id;
+	uint16 size_struct;
+	uint16 version_struct;
 };
 
 #pragma pack(pop)
 
+} // namespace Res
 } // namespace HoeRes
 
 #endif // _HOE_RESOURCE_DEF_FILE_

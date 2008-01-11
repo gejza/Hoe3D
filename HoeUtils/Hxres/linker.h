@@ -12,7 +12,7 @@ public:
 		HoeCore::String name;
 		int type;
 		Compiler * c;
-        // file for save
+        File file;
 	};
 protected:
 	HoeCore::List<Obj> m_obj;

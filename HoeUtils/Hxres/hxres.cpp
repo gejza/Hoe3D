@@ -23,7 +23,7 @@ public:
 };
 
 // scan parameters
-//
+// pridat automatickou selekci sys float time
 float SysFloatTime(void)
 {
 	return 0;

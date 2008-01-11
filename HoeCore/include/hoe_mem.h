@@ -43,5 +43,9 @@ void * operator new(size_t, HoeCore::MemoryPool& pool);
 void * operator new(size_t, void *);
 void * operator new[](size_t, HoeCore::MemoryPool& pool);
 void * operator new[](size_t, void *);
+// empty delete operators
+void operator delete( void* , void* );
+void operator delete( void* , HoeCore::MemoryPool& pool );
+
 
 #endif // _HOE_CORE_MEM_H_

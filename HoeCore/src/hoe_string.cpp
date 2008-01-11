@@ -12,7 +12,7 @@ namespace string {
 int vsnprintf(char *dest, size_t n, const char * fmt, va_list vl)
 {
 #ifdef _WIN32
-	return ::vsprintf_s(dest, n, fmt, vl);
+	return ::vsnprintf_s(dest, n, n-1, fmt, vl);
 #else
 	return vsnprintf(dest, n, fmt, vl);
 #endif
@@ -132,6 +132,17 @@ int cmp(const char* str1, const wchar_t* str2)
 		return 0;
 }
 
+void concat(char* dest, size_t sizeb, char c)
+{
+	char src[2] = { c, 0 };
+	::strncat(dest, src, sizeb);
+}
+
+void concat(char* dest, size_t sizeb, const char* src)
+{
+	::strncat(dest, src, sizeb);
+}
+
 float GetReal(const char* str) 
 {
 	return (float) ::atof(str);
@@ -227,16 +238,34 @@ String::String()
 	m_data = NULL;
 }
 
+String::String(const String& s)
+{
+	m_data = NULL;
+	Set(s);
+}
+
+String::String(const char* str)
+{
+	m_data = NULL;
+	Set(str);
+}
+
+String::String(const wchar_t* str)
+{
+	m_data = NULL;
+	Set(str);
+}
+
 String::~String()
 {
 	if (m_data)
 		m_data->data.Unlock();
 }
 
-const String & String::operator = (const String& s)
+void String::Set(const String& s)
 {
 	if (this == &s)
-		return *this;
+		return;
 	if (m_data)
 		m_data->data.Unlock();
 	m_data = NULL;
@@ -245,7 +274,6 @@ const String & String::operator = (const String& s)
 		m_data = s.m_data;
 		m_data->data.Lock();
 	}
-	return *this;
 }
 
 const String & String::operator = (const CString& s)
@@ -259,8 +287,7 @@ const String & String::operator = (const CString& s)
 	return *this;
 }
 
-
-const String & String::operator = (const char * s)
+void String::Set(const char * s)
 {
 	size_t l = string::len(s);
 	if (m_data) 
@@ -268,10 +295,9 @@ const String & String::operator = (const char * s)
 
 	m_data = CreateStringData(l);
 	string::copy(m_data->str, s, m_data->data.alloc);
-	return *this;
 }
 
-const String & String::operator = (const wchar_t * s)
+void String::Set(const wchar_t * s)
 {
 #ifdef _UNICODE
 	size_t l = string::len(s);
@@ -283,7 +309,6 @@ const String & String::operator = (const wchar_t * s)
 
 	m_data = CreateStringData(l);
 	string::copy(m_data->str, s, m_data->data.alloc);
-	return *this;
 }
 
 String::StringDataPtr* String::CreateStringData(size_t n)
@@ -294,7 +319,7 @@ String::StringDataPtr* String::CreateStringData(size_t n)
 	return data;
 }
 
-void String::PrepareForModify(size_t n)
+void String::PrepareForModify(size_t n, bool canempty)
 {
 	if (!m_data)
 	{
@@ -304,7 +329,8 @@ void String::PrepareForModify(size_t n)
 	else if (m_data->data.IsShared())
 	{
 		StringDataPtr * data = CreateStringData(n);
-		string::copy(data->str, m_data->str, n);
+		if (!canempty)
+			string::copy(data->str, m_data->str, n);
 		m_data->data.Unlock();
 		m_data = data;
 	}
@@ -325,10 +351,53 @@ void String::concat(const char * str)
 	{
 		size_t s1 = string::len(m_data->str);
 		size_t s2 = string::len(str);
-		PrepareForModify(s1 + s2 + 1);
+		PrepareForModify(s1 + s2 + 1, false);
 		string::copy(m_data->str + s1, str, m_data->data.alloc - s1);
 	}
 }
 
+int String::printf(const char * szFormat, ...)
+{
+	int ret;
+	va_list args;
+	va_start(args, szFormat);
+	ret = this->vprintf(szFormat, args);
+	va_end(args);
+	return ret;
+}
+
+int String::vprintf(const char * szFormat, va_list vl)
+{
+	// todo optimalizovat
+	size_t max = string::len(szFormat);
+	int ret = 0;
+	do 
+	{
+		max = size_t(max * 1.5);
+		PrepareForModify(max, false);
+		ret = string::vsnprintf(m_data->str, max, szFormat, vl);
+	} while (ret == -1);
+	return ret;
+}
+
+int String::Replace(char f, char r)
+{
+	// todo optimalizovat
+	int n = 0;
+	if (!m_data)
+		return 0;
+	PrepareForModify(m_data->data.alloc,false);
+	char* s = m_data->str;
+	while (*s)
+	{
+		if (*s == f)
+		{
+			*s = r;
+			n++;
+		}
+		s++;
+	}
+	return n;
+}
 
 } // namespace HoeCore

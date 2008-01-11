@@ -27,6 +27,7 @@ public:
 	virtual ETestStatus Run() = 0;
 
 	static int RunAll();
+	static int RunTest(const char * name);
 };
 
 #define DEFINE_TEST(name, desc) class name : public HoeTest::BaseTest \

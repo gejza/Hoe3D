@@ -22,6 +22,16 @@ void * operator new[](size_t s, void* ptr)
 	return ptr;
 }
 
+void operator delete( void* , void* )
+{
+	/* empty operator */
+}
+
+void operator delete( void* , HoeCore::MemoryPool& pool )
+{
+	/* empty operator */
+}
+
 ////////////////////////////////////////////////////
 
 void HoeCore::CrossMemMove(void * dest, void * src, size_t size)

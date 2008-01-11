@@ -21,13 +21,17 @@ public:
 class Stream
 {
 public:
-    virtual void Save(void* ptr, size_t size) = 0;
+    virtual void Write(void* ptr, size_t size) = 0;
 };
 
 class File : public Stream
 {
+	FILE * f;
 public:
-	virtual void Save(void* ptr, size_t size) {};
+	File();
+	~File();
+	void Open(const HoeCore::CString s);
+	virtual void Write(void* ptr, size_t size);
 };
 
 class Compiler : public PInterface
@@ -36,7 +40,7 @@ protected:
 	Stream& m_out;
 public:
 	Compiler(Stream& out) : m_out(out) {}
-    static Compiler * Create(HoeCore::String& str, int type);
+    static Compiler * Create(HoeCore::String& str, int type, Stream& s);
 
 };
 
@@ -48,6 +52,8 @@ public:
 	virtual bool AddProp(const HoeCore::CString name, const HoeCore::Universal& value);
 	virtual bool AddProp(const HoeCore::CString name, const VectorUniversal& value);
 	virtual bool Func(const HoeCore::CString name, const VectorUniversal& value);
+
+	virtual void Done();
 };
 
 class StreamCompiler : public Compiler

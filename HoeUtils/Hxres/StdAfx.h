@@ -24,6 +24,8 @@
 #include <hoe_structures.h>
 #include <hoe_universal.h>
 
+#include <hoe_resfile.h>
+
 // TODO: reference additional headers your program requires here
 
 #endif // _HXRES_STD_AFX_H_

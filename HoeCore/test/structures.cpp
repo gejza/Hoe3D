@@ -9,6 +9,15 @@ struct TestItem
 {
 	int a,b,c,d;
     int aa[16];
+	HoeCore::String str;
+	TestItem()
+	{
+		printf("Constructor TestItem\n");
+	}
+	~TestItem()
+	{
+		printf("Destructor TestItem\n");
+	}
 };
 
 DEFINE_TEST(Queue, "Test queue structure")
@@ -24,7 +33,9 @@ DEFINE_TEST(Queue, "Test queue structure")
 	print("init..",q);
 	q.Front();
 	print("front..",q);
-	TestItem ti = {20,20};
+	TestItem ti;
+	ti.a = 20;
+	ti.b = 20;
 	q.Push(ti);
 	print("push 20,20..",q);
 	q.Remove(1);
@@ -49,6 +60,22 @@ void print(const char *str, HoeCore::Queue<TestItem> &q)
 
 
 END_TEST(Queue)
+
+DEFINE_TEST(List, "Test list structure")
+{
+	HoeCore::MemoryPool pool;
+	TestItem* ti = new (pool) TestItem;
+	ti->~TestItem();
+	HoeCore::List<TestItem> l;
+	l.Add();
+	l.Add();
+	l.Add();
+	return HoeTest::TEST_OK;
+
+}
+
+END_TEST(List)
+
 
 /*
 

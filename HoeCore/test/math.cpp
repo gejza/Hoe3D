@@ -28,7 +28,7 @@ DEFINE_TEST(MathFixed, "Decription of test")
 		ab += fabs(a-b);
 	}
 	printf("chyba: %f\n", ab);
-	const int niter = 10000000;
+	const int niter = 1000;
 	volatile float f1 = 0.5679f;
 	HoeMath::fixed f2 = f1;
 	int t1 = time(NULL);

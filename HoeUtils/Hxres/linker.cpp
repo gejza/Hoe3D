@@ -17,7 +17,10 @@ Compiler * Linker::AddObject(const char * name, int type)
 		o.name += ':';
 	o.name += name;
 	o.type = type;
-	o.c = Compiler::Create(o.name, type);
+	HoeCore::String fn = o.name;
+	fn.Replace(':','_');
+	o.file.Open(fn); // otevrit tmp soubor
+	o.c = Compiler::Create(o.name, type,o.file);
 	return o.c;
 }
 

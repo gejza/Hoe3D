@@ -57,16 +57,8 @@ inline int scanf(const tchar *, const wchar_t *, ...)
     return 0;
 }
 
-inline void concat(char* dest, size_t sizeb, char c)
-{
-	char src[2] = { c, 0 };
-	::strncat(dest, src, sizeb);
-}
-
-inline void concat(char* dest, size_t sizeb, const char* src)
-{
-	::strncat(dest, src, sizeb);
-}
+void concat(char* dest, size_t sizeb, char c);
+void concat(char* dest, size_t sizeb, const char* src);
 
 #ifdef ENABLE_AUTOCONV_FUNCTIONS
 int vsnprintf(char *, size_t, const wchar_t *, va_list);
@@ -97,7 +89,7 @@ public:
 		string::copy(m_str, s, maxsize-1);
 	}
 	// funkce ze stdio (proto jsou v jinem coding stylu)
-	int printf(const char * szFormat, ...) { return 0; }
+	//int printf(const char * szFormat, ...) { return 0; }
 	/*{
 		int ret;
 		va_list args;
@@ -106,7 +98,7 @@ public:
 		va_end(args);
 		return ret;
 	}*/
-	int printf(const wchar_t * szFormat, ...) { return 0; }
+	//int printf(const wchar_t * szFormat, ...) { return 0; }
 	// obecne funkce
 	bool IsEmpty() const { return m_str[0] == 0; }
 	// operatory
@@ -134,6 +126,7 @@ public:
 	{
 		string::concat(m_str, maxsize, c);
 	}
+
 #endif
 #if defined(ENABLE_AUTOCONV_FUNCTIONS) || defined(_UNICODE)
 	const String_s & operator = (const wchar_t * s)
@@ -194,7 +187,7 @@ class String
 	} * m_data;
 
 	static StringDataPtr* CreateStringData(size_t n);
-	void PrepareForModify(size_t n);
+	void PrepareForModify(size_t n, bool canempty);
 public:
 	String();
 	String(const String& s);
@@ -235,6 +228,16 @@ public:
 		char src[2] = { c, 0 };
 		concat(src);
 	}
+	int printf(const char * szFormat, ...);
+	int vprintf(const char * szFormat, va_list);
+	/** Nahrazeni znaku
+	* @param f Hledany znak
+	* @param r Nahrazeny znak
+	* @return Pocet nahrazeni
+	*/
+	int Replace(char f, char r);
+	int Find(char f);
+
 #endif
 	// unicode section
 #if defined(ENABLE_AUTOCONV_FUNCTIONS) || defined(_UNICODE)

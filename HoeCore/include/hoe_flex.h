@@ -103,7 +103,7 @@ public:
 	/* Number of characters read into yy_ch_buf, not including EOB
 	 * characters.
 	 */
-	int yy_n_chars;
+	size_t yy_n_chars;
 
 	/* Whether we "own" the buffer - i.e., we know we created it,
 	 * and can realloc() it to grow it, and should free() it to
@@ -179,7 +179,7 @@ protected:
 	 * instead of setting up a fresh yyin.  A bit of a hack ...
 	 */
 	int yy_did_buffer_switch_on_eof;
-	int yy_n_chars;		/* number of characters read into yy_ch_buf */
+	size_t yy_n_chars;		/* number of characters read into yy_ch_buf */
 	YY_CHAR * yytext_ptr;
 
 public:

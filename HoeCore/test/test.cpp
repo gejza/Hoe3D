@@ -45,6 +45,7 @@ int HoeTest::BaseTest::RunAll()
 		if (!s_tests[i])
 			break;
 		BaseTest* t = s_tests[i];
+
 		printf("=== %2d: Running: %s (%s) ===\n", i+1, t->m_name, t->m_desc);
 		switch (t->Run())
 		{
@@ -75,9 +76,27 @@ int HoeTest::BaseTest::RunAll()
 	return 0;
 }
 
+int HoeTest::BaseTest::RunTest(const char* test)
+{
+	int nok = 0, nfail = 0, nwarn = 0;
+
+	for (int i=0;i < maxtests;i++)
+	{
+		if (!s_tests[i])
+			break;
+		BaseTest* t = s_tests[i];
+
+		if (HoeCore::string::cmp(t->m_name, test))
+			continue;
+		return t->Run();
+	}
+	return 0;
+}
+
 int main()
 {
-	return HoeTest::BaseTest::RunAll();
+	//return HoeTest::BaseTest::RunAll();
+	return HoeTest::BaseTest::RunTest("List");
 }
 
 

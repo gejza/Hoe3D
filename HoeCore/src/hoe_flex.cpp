@@ -82,7 +82,7 @@ int HoeFlex::yy_get_next_buffer()
 
 	else
 		{
-		int num_to_read =
+		size_t num_to_read =
 			m_buffer->yy_buf_size - number_to_move - 1;
 
 		while ( num_to_read <= 0 )
@@ -100,7 +100,7 @@ int HoeFlex::yy_get_next_buffer()
 
 			if ( b->yy_is_our_buffer )
 				{
-				int new_size = b->yy_buf_size * 2;
+				size_t new_size = b->yy_buf_size * 2;
 
 				if ( new_size <= 0 )
 					b->yy_buf_size += b->yy_buf_size / 8;
@@ -277,7 +277,7 @@ void HoeFlex::yyunput( int c, register YY_CHAR *yy_bp )
 	if ( yy_cp < m_buffer->yy_ch_buf + 2 )
 		{ /* need to shift things up to make room */
 		/* +2 for EOB chars. */
-		register int number_to_move = yy_n_chars + 2;
+		register size_t number_to_move = yy_n_chars + 2;
 		register YY_CHAR *dest = &m_buffer->yy_ch_buf[
 					m_buffer->yy_buf_size + 2];
 		register YY_CHAR *source =
