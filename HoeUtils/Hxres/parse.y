@@ -75,7 +75,7 @@ namespace:
 		'~' TK_Namespace
 		 { linker.PopNamespace(); }
 ;
-stream:	TK_Stream TK_name { pint  = linker.AddObject($2, ERT_Stream); } 
+stream:	TK_Stream TK_name { pint  = linker.AddObject($2, ERT_Stream, &lex); } 
 			'[' { /* start fvf */ } fvf ']' '\n'
 			stream_data
 		'~' TK_Stream '\n'
@@ -97,7 +97,7 @@ stream_data_item
 		| TK_real 
 ;	
 picture: 
-		TK_Picture TK_name '\n' { pint = linker.AddObject($2, ERT_Picture); }
+		TK_Picture TK_name '\n' { pint = linker.AddObject($2, ERT_Picture, &lex); }
 		  attributes
 		'~' TK_Picture '\n' { DONE(pint); }
 ;

@@ -4,6 +4,7 @@
 /* Scanner skeleton version:
  * Hoe edited flex.skl
  */
+
 #define FLEX_SCANNER
 #define YY_FLEX_MAJOR_VERSION FLEX_MAJOR_VERSION
 #define YY_FLEX_MINOR_VERSION FLEX_MINOR_VERSION
@@ -12,18 +13,21 @@
 #define FLEX_BETA
 #endif
 
-//%-
-#include <stdio.h>
-//%*
-
-
-#include <stdlib.h>
 #ifdef _WIN32
-//#include <windows.h>
+#include <windows.h>
 #endif
-//#include <hoe_types.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <assert.h>
+#include <hoe_types.h>
+#include <hoe_flex.h>
 
 #define yytext yytext_ptr
+
+namespace HoeCore {
+namespace flex {
 
 #if 0
 //%% YY_CHAR and YY_SC_TO_UI() go here
@@ -31,8 +35,6 @@
 //end %% YY_CHAR and YY_SC_TO_UI() go here
 
 #endif
-
-#include <hoe_flex.h>
 
 /* Return all but the first 'n' matched characters back to the input stream. */
 
@@ -94,6 +96,11 @@ int yyleng;
 %% code to copy yytext_ptr to yytext[] goes here, if %array
 /* end %% code to copy yytext_ptr to yytext[] goes here, if %array*/ \
 	yy_c_buf_p = yy_cp;
+
+} //namespace flex
+} //namespace HoeCore
+
+using namespace HoeCore::flex;
 
 //%% data tables for the DFA and the user's section 1 definitions go here
 %% data tables for the DFA and the user's section 1 definitions go here
@@ -177,6 +184,7 @@ static int yy_top_state ( void );
 		m_buffer->SetBol(yytext_ptr[yyleng - 1] == '\n'); \
 	YY_USER_ACTION
 #endif
+
 
 #ifdef YY_CLASS_DECL
 int YY_CLASS_NAME::YY_CLASS_DECL
@@ -275,7 +283,7 @@ do_action:	/* This label is used only to access EOF actions. */
 			 * back-up) that will match for the new input source.
 			 */
 			yy_n_chars = m_buffer->yy_n_chars;
-			m_buffer->yy_input_file = stdin;
+			//m_buffer->yy_input_file = stdin;
 			m_buffer->yy_buffer_status = YY_BUFFER_NORMAL;
 			}
 

@@ -5,7 +5,7 @@
 
 using namespace HoeCore;
 
-Compiler * Compiler::Create(HoeCore::String&, int type, Stream& s)
+Compiler * Compiler::Create(HoeCore::String&, int type, HoeCore::WriteStream& s)
 {
     switch (type)
     {
@@ -71,25 +71,7 @@ bool PictureCompiler::Func(const HoeCore::CString name, const VectorUniversal& v
 }
 
 /////
-File::File()
-{
-	f = NULL;
-}
 
-File::~File()
-{
-	if (f) fclose(f);
-}
-
-void File::Open(const HoeCore::CString s)
-{
-	f = fopen(s, "wb");
-}
-
-void File::Write(void* ptr, size_t size)
-{
-	if (f) fwrite(ptr, size, 1, f);
-}
 
 
 

@@ -38,6 +38,8 @@ size_t utf8len(const wchar_t * s);
 
 inline bool ifbegin(const tchar* begin, const tchar* str) { return false; }
 
+int find_last(const char* str,char f);
+
 float GetReal(const char* str);
 float GetReal(const wchar_t* str);
 int GetHex(const char* str);
@@ -103,6 +105,14 @@ public:
 	bool IsEmpty() const { return m_str[0] == 0; }
 	// operatory
 	operator const tchar * () const { return m_str;}
+
+	tchar& operator [](const int index)
+	{
+		static tchar fc = 0;
+		if (index < 0 || index >= maxsize)
+			return fc;
+		return m_str[index];
+	}
 #if defined(ENABLE_AUTOCONV_FUNCTIONS) || !defined(_UNICODE)
 	bool operator == (const char * s) const;
 	const String_s & operator = (const char * s)
@@ -126,7 +136,10 @@ public:
 	{
 		string::concat(m_str, maxsize, c);
 	}
-
+	int FindLast(char c) const
+	{
+		return string::find_last(m_str, c);
+	}
 #endif
 #if defined(ENABLE_AUTOCONV_FUNCTIONS) || defined(_UNICODE)
 	const String_s & operator = (const wchar_t * s)
@@ -152,7 +165,9 @@ public:
     {
         m_str = str.m_str;
     }
-	operator const tchar * () const { return m_str ? m_str:T(""); }
+	operator const tchar * () const { return GetPtr(); }
+	const tchar * GetPtr() const { return m_str ? m_str:T(""); }
+	size_t Length() const { return string::len(GetPtr()); }
 #if defined(ENABLE_AUTOCONV_FUNCTIONS) || !defined(_UNICODE)
 	bool operator == (const char * s) const
     {
@@ -203,13 +218,18 @@ public:
 	operator bool () const { return !IsEmpty(); }
 	size_t Length() const { return m_data ? string::len(m_data->str):0; }
 	//void Export(char *, size_t size) {}
-	operator const tchar * () const { return m_data ? m_data->str:T(""); }
+	const tchar * GetPtr() const { return m_data ? m_data->str:T(""); }
+	operator const tchar * () const { return GetPtr(); }
 	operator const CString () const { return CString(m_data ? m_data->str:T("")); }
 
 	// utf section
 #if defined(ENABLE_AUTOCONV_FUNCTIONS) || !defined(_UNICODE)
 	String(const char* s);
 	void Set(const char * s);
+	bool operator == (const char* s) const
+	{
+		return string::cmp(GetPtr(), s) == 0;
+	}
 	const String & operator = (const char * s)
 	{
 		Set(s); return *this;
@@ -243,6 +263,10 @@ public:
 #if defined(ENABLE_AUTOCONV_FUNCTIONS) || defined(_UNICODE)
 	String(const wchar_t* s);
 	void Set(const wchar_t * s);
+	bool operator == (const wchar_t* s) const
+	{
+		return string::cmp(GetPtr(), s) == 0;
+	}
 	const String & operator = (const wchar_t * s)
 	{
 		Set(s); return *this;
@@ -262,6 +286,8 @@ public:
 		concat(src);
 	}
 #endif
+
+	static String Empty;
 };
 
 } // namespace HoeCore

@@ -18,29 +18,13 @@ public:
 	virtual void Done() {}
 };
 
-class Stream
-{
-public:
-    virtual void Write(void* ptr, size_t size) = 0;
-};
-
-class File : public Stream
-{
-	FILE * f;
-public:
-	File();
-	~File();
-	void Open(const HoeCore::CString s);
-	virtual void Write(void* ptr, size_t size);
-};
-
 class Compiler : public PInterface
 {
 protected:
-	Stream& m_out;
+	HoeCore::WriteStream& m_out;
 public:
-	Compiler(Stream& out) : m_out(out) {}
-    static Compiler * Create(HoeCore::String& str, int type, Stream& s);
+	Compiler(HoeCore::WriteStream& out) : m_out(out) {}
+    static Compiler * Create(HoeCore::String& str, int type, HoeCore::WriteStream& s);
 
 };
 
@@ -48,7 +32,7 @@ class PictureCompiler : public Compiler
 {
 	Image im;
 public:
-	PictureCompiler(Stream& out) : Compiler(out) {}
+	PictureCompiler(HoeCore::WriteStream& out) : Compiler(out) {}
 	virtual bool AddProp(const HoeCore::CString name, const HoeCore::Universal& value);
 	virtual bool AddProp(const HoeCore::CString name, const VectorUniversal& value);
 	virtual bool Func(const HoeCore::CString name, const VectorUniversal& value);
@@ -59,7 +43,7 @@ public:
 class StreamCompiler : public Compiler
 {
 public:
-	StreamCompiler(Stream& out) : Compiler(out) {}
+	StreamCompiler(HoeCore::WriteStream& out) : Compiler(out) {}
 };
 
 enum EResourceType

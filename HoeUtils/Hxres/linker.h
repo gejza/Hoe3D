@@ -4,6 +4,7 @@
 
 #include "compiler.h"
 
+class Scaner;
 class Linker : public PInterface
 {
 public:
@@ -12,7 +13,9 @@ public:
 		HoeCore::String name;
 		int type;
 		Compiler * c;
-        File file;
+		HoeCore::File file;
+		HoeCore::String define_file;
+		int define_line;
 	};
 protected:
 	HoeCore::List<Obj> m_obj;
@@ -24,9 +27,10 @@ public:
 	void PushNamespace(const char * name);
 	void PopNamespace();
 
-	virtual Compiler * AddObject(const char * name, int type);
+	virtual Compiler * AddObject(const char * name, int type, Scaner* scan);
 	virtual int Link(const char * output);
 
+	Obj* Find(const char * name);
 };
 
 #endif // _HXRES_LINKER_H_

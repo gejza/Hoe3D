@@ -495,11 +495,27 @@
 			Name="Utils"
 			>
 			<File
+				RelativePath="..\src\hoe_log.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\include\hoe_log.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\hoe_mem.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\include\hoe_mem.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\hoe_time.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\include\hoe_time.h"
 				>
 			</File>
 		</Filter>
@@ -515,30 +531,42 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\hoe_structures.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\hoe_types.h"
 				>
 			</File>
+			<File
+				RelativePath="..\src\hoe_universal.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\include\hoe_universal.h"
+				>
+			</File>
 		</Filter>
-		<File
-			RelativePath="..\src\hoe_log.cpp"
+		<Filter
+			Name="Files"
 			>
-		</File>
-		<File
-			RelativePath="..\include\hoe_log.h"
-			>
-		</File>
-		<File
-			RelativePath="..\include\hoe_structures.h"
-			>
-		</File>
-		<File
-			RelativePath="..\src\hoe_universal.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\include\hoe_universal.h"
-			>
-		</File>
+			<File
+				RelativePath="..\src\hoe_file.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\include\hoe_file.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\hoe_stream.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\include\hoe_stream.h"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath="..\src\StdAfx.h"
 			>

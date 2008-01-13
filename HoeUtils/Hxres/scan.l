@@ -12,7 +12,7 @@ const char * GetString(const char* text, size_t l, HoeCore::StringPool& pool);
 %}
 
 string  \"[^\n"]+\"
-ws      [ \t]+
+ws      [ \t\r]+
 comment	\/\/.*
 alpha   [A-Za-z_]
 dig     [-+]?[0-9]+

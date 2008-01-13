@@ -224,7 +224,17 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="FLEX_STDAFX"
+						GeneratePreprocessedFile="0"
 						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="FLEX_STDAFX"
 					/>
 				</FileConfiguration>
 			</File>

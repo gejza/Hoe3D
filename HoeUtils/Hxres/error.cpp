@@ -25,3 +25,9 @@ ConvertError::ConvertError(const HoeCore::CString name,
 				(const tchar*)name,(const tchar*)from,(const tchar*)to); 
 }
 
+DefineError::DefineError(const HoeCore::CString name, Linker::Obj* obj)
+{
+	m_str.printf("Symbol %s is already defined on %s(%d)", name.GetPtr(), obj->define_file.GetPtr(),
+		obj->define_line);
+}
+

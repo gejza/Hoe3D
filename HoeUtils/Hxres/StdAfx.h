@@ -23,6 +23,7 @@
 #include <hoe_string.h>
 #include <hoe_structures.h>
 #include <hoe_universal.h>
+#include <hoe_file.h>
 
 #include <hoe_resfile.h>
 

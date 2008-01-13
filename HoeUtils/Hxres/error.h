@@ -1,5 +1,7 @@
 #pragma once
 
+#include "linker.h"
+
 class Error
 {
 protected:
@@ -23,5 +25,11 @@ public:
 	ConvertError(const HoeCore::CString name, 
 				 const HoeCore::CString from,
 				 const HoeCore::CString to);
+};
+
+class DefineError : public Error
+{
+public:
+	DefineError(const HoeCore::CString name, Linker::Obj* obj);
 };
 

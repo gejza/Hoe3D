@@ -13,6 +13,12 @@ typedef HANDLE HoeFileHandle;
 typedef FILE * HoeFileHandle;
 #endif
 
+// novy filesystem
+// presunout do hoe core
+// tm file
+// stream write a stream reader
+// resource manager pro nacitani z hoe3d
+
 class BaseConsole;
 
 class HoeFile : public XHoeFile

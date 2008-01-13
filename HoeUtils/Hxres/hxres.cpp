@@ -14,11 +14,13 @@ int yyparse(Linker& linker, HoeCore::StringPool& pool, Scaner& lex);
 
 class HoeFlexFileEx : public HoeCore::HoeFlexFile
 {
-	HoeCore::String_s<1024> name;
+	HoeCore::File m_file;
 public:
-	HoeFlexFileEx(const char * n) : HoeFlexFile(fopen(n,"rt")), name(n) {}
-	virtual ~HoeFlexFileEx() { fclose(file); }
-	virtual const char * GetIdentifier() { return name; }
+	HoeFlexFileEx(const char * n) : HoeFlexFile(m_file) 
+	{
+		m_file.Open(n);
+	}
+	virtual const HoeCore::String& GetIdentifier() const { return m_file.GetName(); }
 
 };
 
@@ -51,10 +53,11 @@ int main(int argc, char* argv[])
 		}
 	} catch (const Error& e)
 	{
-			fprintf(stderr, "%s(%d) : ", s.GetIdentifier(), s.GetLine());
+			fprintf(stderr, "%s(%d) : ", (const tchar*)s.GetIdentifier(), s.GetLine());
 			fprintf(stderr, e.GetStr());
 			fprintf(stderr, "\n");
 	}
+	getchar();
 	
 	return res;
 }

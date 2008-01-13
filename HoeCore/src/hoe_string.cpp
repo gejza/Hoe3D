@@ -143,6 +143,15 @@ void concat(char* dest, size_t sizeb, const char* src)
 	::strncat(dest, src, sizeb);
 }
 
+int find_last(const char* str,char f)
+{
+	int finded = -1;
+	for (int t=0;str[t];t++)
+		if (str[t] == f)
+			finded = t;
+	return finded;
+}
+
 float GetReal(const char* str) 
 {
 	return (float) ::atof(str);
@@ -232,6 +241,8 @@ int GetNumber(const wchar_t* str)
 }
 
 } // end namespace string
+
+String String::Empty;
 
 String::String()
 {

@@ -1,5 +1,7 @@
 #include "StdAfx.h"
 #include "linker.h"
+#include "error.h"
+#include "scan.h"
 
 Linker::Linker(void)
 {
@@ -9,17 +11,24 @@ Linker::~Linker(void)
 {
 }
 
-Compiler * Linker::AddObject(const char * name, int type)
+Compiler * Linker::AddObject(const char * name, int type, Scaner* scan)
 {
+	HoeCore::String n = m_ns;
+	if (!n.IsEmpty())
+		n += ':';
+	n += name;
+	Obj* prev;
+	if (prev = Find(n))
+		throw DefineError(n,prev);
+
 	Obj& o = m_obj.Add();
-	o.name = m_ns;
-	if (!o.name.IsEmpty())
-		o.name += ':';
-	o.name += name;
 	o.type = type;
+	o.name = n;
+	o.define_file = scan->GetIdentifier();
+	o.define_line = scan->GetLine();
 	HoeCore::String fn = o.name;
 	fn.Replace(':','_');
-	o.file.Open(fn); // otevrit tmp soubor
+	o.file.Open(fn, HoeCore::File::hftTemp); // otevrit tmp soubor
 	o.c = Compiler::Create(o.name, type,o.file);
 	return o.c;
 }
@@ -33,17 +42,34 @@ void Linker::PushNamespace(const char * name)
 
 void Linker::PopNamespace()
 {
+	int f = m_ns.FindLast(':');
+	if (f < 0)
+		m_ns = "";
+	else
+		m_ns[f] = '\0';
 }
 
 int Linker::Link(const char * output)
 {
-	FILE * f = fopen(output, "wt");
-	fprintf(f, "// Autogenerate file by Hoe Resource Compiler\n\n");
-	for (int i=0;i < m_obj.Count();i++)
+	HoeCore::File f;
+	f.Open(output, HoeCore::File::hftRewrite);
+	f.WriteString("// Autogenerate file by Hoe Resource Compiler\n\n");
+	for (uint i=0;i < m_obj.Count();i++)
 	{
 		Obj& o = m_obj.Get(i);
-		fprintf(f, "%s\tHOERES\tsoubor.txt\n", (const char*)o.name); 
+		f.WriteString(o.name);
+		f.WriteString("\tHOERES\tsoubor.txt\n"); 
 	}
-	fclose(f);
 	return 0;
 }
+
+Linker::Obj* Linker::Find(const char * name)
+{
+	for (uint i=0;i < m_obj.Count();i++)
+	{
+		if (m_obj[i].name == name)
+			return &(m_obj[i]);
+	}
+	return NULL;
+}
+
