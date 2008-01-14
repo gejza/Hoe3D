@@ -17,6 +17,9 @@ src/hoe_string.cpp \
 src/hoe_universal.cpp \
 src/hoe_fixed.cpp \
 src/hoe_mem.cpp \
+src/hoe_stream.cpp \
+src/hoe_file.cpp \
+src/hoe_time.cpp \
 src/hoe_flex.cpp
 
 ___bin_libHoeCore_a_LDFLAGS = -static

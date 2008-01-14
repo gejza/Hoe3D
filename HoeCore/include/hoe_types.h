@@ -60,6 +60,13 @@ typedef __int64 int64;
 typedef unsigned __int32 uint32;
 typedef unsigned __int16 uint16;
 typedef unsigned __int64 uint64;
+#else
+typedef int int32;
+typedef short int16;
+typedef long long int64;
+typedef unsigned int uint32;
+typedef unsigned short uint16;
+typedef unsigned long long uint64;
 #endif
 
 #undef T

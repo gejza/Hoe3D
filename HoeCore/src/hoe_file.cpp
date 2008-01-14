@@ -49,11 +49,13 @@ bool HoeCore::File::Open(const HoeCore::CString name, HoeCore::File::EHoeFileMod
 	const char * m;
 	switch (mode)
 	{
-	default:
 	case hftRead:
 		m = "rb";
 		break;
 	case hftWrite:
+	case hftAppend:
+	case hftTemp:
+	case hftRewrite:
 		m = "wb";
 		break;
 	default:

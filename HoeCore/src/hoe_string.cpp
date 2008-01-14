@@ -11,11 +11,13 @@ namespace string {
 
 int vsnprintf(char *dest, size_t n, const char * fmt, va_list vl)
 {
+    int ret;
 #ifdef _WIN32
-	return ::vsnprintf_s(dest, n, n-1, fmt, vl);
+	ret = ::vsnprintf_s(dest, n, n-1, fmt, vl);
 #else
-	return vsnprintf(dest, n, fmt, vl);
+	ret = ::vsnprintf(dest, n, fmt, vl);
 #endif
+    return ret;
 }
 
 int vsnprintf(wchar_t* dest, size_t n, const char *fmt, va_list vl)
@@ -69,7 +71,7 @@ int vsnprintf(wchar_t* dest, size_t n, const wchar_t* fmt, va_list vl)
 
 void copy(char * dest, const char * src, size_t cnt)
 {
-	strncpy(dest, src, cnt);
+	::strncpy(dest, src, cnt);
 }
 
 size_t utf8len(const wchar_t * s)

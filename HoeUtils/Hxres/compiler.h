@@ -36,7 +36,7 @@ public:
 	PictureCompiler(HoeCore::WriteStream& out) : Compiler(out) {}
 	virtual bool AddProp(const HoeCore::CString name, const HoeCore::Universal& value);
 	virtual bool AddProp(const HoeCore::CString name, const VectorUniversal& value);
-	virtual bool Func(const HoeCore::CString name, const VectorUniversal& value);
+	//virtual bool Func(const HoeCore::CString name, const VectorUniversal& value);
 
 	virtual void Done();
 };

@@ -77,6 +77,8 @@ inline int cmp(const wchar_t* s1, const char* s2)
 
 } // end namespace
 
+class String;
+
 template<size_t maxsize> class String_s
 {
 	tchar m_str[maxsize];
@@ -104,7 +106,9 @@ public:
 	// obecne funkce
 	bool IsEmpty() const { return m_str[0] == 0; }
 	// operatory
-	operator const tchar * () const { return m_str;}
+	operator const tchar * () const { return this->GetPtr();}
+	const tchar * GetPtr() const { return m_str;}
+	operator const String () const;
 
 	tchar& operator [](const int index)
 	{
@@ -206,6 +210,10 @@ class String
 public:
 	String();
 	String(const String& s);
+	template<int size>String(const String_s<size>& s)
+    {
+	    String((const tchar*)s);
+    }
 	~String();
 	//int printf(const char * szFormat, ...) { return 0; }
 	void Set(const String& s);
@@ -231,6 +239,10 @@ public:
 		return string::cmp(GetPtr(), s) == 0;
 	}
 	const String & operator = (const char * s)
+	{
+		Set(s); return *this;
+	}
+	template<int size>const String & operator = (const String_s<size>& s)
 	{
 		Set(s); return *this;
 	}
@@ -289,6 +301,16 @@ public:
 
 	static String Empty;
 };
+
+
+template<size_t maxsize> HOE_INLINE  String_s<maxsize>::operator const String () const
+{
+    return String(this->GetPtr());
+}
+
+
+
+
 
 } // namespace HoeCore
 

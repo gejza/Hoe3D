@@ -125,7 +125,7 @@ attribute
 ;
 func_params
 		: func_param
-		| func_params func_param
+		| func_params ',' func_param
 func_param
         : TK_name { vec.Set($1); }
         | TK_perc { vec.Set((float)$1); }

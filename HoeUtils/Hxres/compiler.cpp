@@ -69,11 +69,11 @@ void PictureCompiler::Done()
 	m_out.Write(&head, sizeof(head));
 }
 
-bool PictureCompiler::Func(const HoeCore::CString name, const VectorUniversal& value)
+/*bool PictureCompiler::Func(const HoeCore::CString name, const VectorUniversal& value)
 {
     printf("Running func %s width %d arguments.\n", (const tchar*)name, value.Count());
 	return false;
-}
+}*/
 
 /////
 
