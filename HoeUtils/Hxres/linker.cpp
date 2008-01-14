@@ -11,7 +11,7 @@ Linker::~Linker(void)
 {
 }
 
-Compiler * Linker::AddObject(const char * name, int type, Scaner* scan)
+Compiler * Linker::AddObject(const char * name, int type, const Scaner::Location& l)
 {
 	HoeCore::String n = m_ns;
 	if (!n.IsEmpty())
@@ -24,11 +24,11 @@ Compiler * Linker::AddObject(const char * name, int type, Scaner* scan)
 	Obj& o = m_obj.Add();
 	o.type = type;
 	o.name = n;
-	o.define_file = scan->GetIdentifier();
-	o.define_line = scan->GetLine();
+	o.location = l;
 	HoeCore::String fn = o.name;
 	fn.Replace(':','_');
-	o.file.Open(fn, HoeCore::File::hftTemp); // otevrit tmp soubor
+	fn += ".ors";
+	o.file.Open(fn, HoeCore::File::hftRewrite); // otevrit tmp soubor
 	o.c = Compiler::Create(o.name, type,o.file);
 	return o.c;
 }
@@ -58,7 +58,9 @@ int Linker::Link(const char * output)
 	{
 		Obj& o = m_obj.Get(i);
 		f.WriteString(o.name);
-		f.WriteString("\tHOERES\tsoubor.txt\n"); 
+		f.WriteString("\tHOERES\t");
+		f.WriteString(o.file.GetName());
+		f.WriteString("\n"); 
 	}
 	return 0;
 }
@@ -71,5 +73,33 @@ Linker::Obj* Linker::Find(const char * name)
 			return &(m_obj[i]);
 	}
 	return NULL;
+}
+
+// functions //
+bool AddPictures(Linker* link, const VectorUniversal& value)
+{
+	Scaner::Location loc = { "AddPictures", 0 };
+	// search folder
+	Compiler * c = link->AddObject("a", ERT_Picture, loc);
+	c->AddProp("File", "eee.jpg");
+	c->Done();
+	c = link->AddObject("b", ERT_Picture, loc);
+	c->AddProp("File", "eee.jpg");
+	c->Done();
+	c = link->AddObject("c", ERT_Picture, loc);
+	c->AddProp("File", "eee.jpg");
+	c->Done();
+
+	return true;
+}
+
+bool Linker::Func(const HoeCore::CString name, const VectorUniversal& value)
+{
+	if (name == T("AddPictures"))
+	{
+		return AddPictures(this, value);
+	}
+	throw UnknownError(name, "function");
+	return false;
 }
 

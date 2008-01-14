@@ -5,6 +5,11 @@
 
 using namespace HoeCore;
 
+void no_run(const HoeCore::CString str)
+{
+	throw InternalError(str);
+}
+
 Compiler * Compiler::Create(HoeCore::String&, int type, HoeCore::WriteStream& s)
 {
     switch (type)

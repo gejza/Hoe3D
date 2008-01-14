@@ -12,6 +12,16 @@ public:
 	DECLARE_FLEX_FUNCTIONS(FLEX_PARAM)
 #undef FLEX_PARAM
 public:
+	struct Location
+	{
+		HoeCore::String ident;
+		int line;
+	};
+	Location GetLocation()
+	{
+		Location l = { this->GetIdentifier(), this->GetLine() };
+		return l;
+	}
 };
 
 #endif // _HOE_UTIL_RESOURCE_COMPILER_SCAN_H_

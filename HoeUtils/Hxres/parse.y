@@ -24,7 +24,7 @@ static int yylex(union YYSTYPE * l, HoeCore::StringPool& pool, Scaner& lex)
 
 static int yyerror(Linker& linker, HoeCore::StringPool& pool, Scaner& lex, char* err)
 {
-	fprintf(stderr, "%s(%d) : ", lex.GetIdentifier(), lex.GetLine());
+	fprintf(stderr, "%s(%d) : ", (const tchar*)lex.GetIdentifier(), lex.GetLine());
 	fprintf(stderr, err, lex.GetText());
 	fprintf(stderr, "\n");
 	return 0;
@@ -66,7 +66,7 @@ resource
 		| index
 		| model
 		| namespace
-        /*| { pint = &linker; } attribute*/
+        | { pint = &linker; } attribute
 ;
 namespace:
 		TK_Namespace TK_name '\n'
@@ -75,7 +75,7 @@ namespace:
 		'~' TK_Namespace
 		 { linker.PopNamespace(); }
 ;
-stream:	TK_Stream TK_name { pint  = linker.AddObject($2, ERT_Stream, &lex); } 
+stream:	TK_Stream TK_name { pint  = linker.AddObject($2, ERT_Stream, lex.GetLocation()); } 
 			'[' { /* start fvf */ } fvf ']' '\n'
 			stream_data
 		'~' TK_Stream '\n'
@@ -97,16 +97,17 @@ stream_data_item
 		| TK_real 
 ;	
 picture: 
-		TK_Picture TK_name '\n' { pint = linker.AddObject($2, ERT_Picture, &lex); }
+		TK_Picture TK_name '\n' { pint = linker.AddObject($2, ERT_Picture, lex.GetLocation()); }
 		  attributes
 		'~' TK_Picture '\n' { DONE(pint); }
 ;
 attributes
 		: attribute
+		| '\n'
 		| attributes attribute
+		| attributes '\n'
 attribute
-		: '\n'
-		| TK_name '=' TK_name
+		: TK_name '=' TK_name
 			{ pint->AddProp($1, $3); } '\n' 
 		| TK_name '=' TK_string
 			{ pint->AddProp($1, $3); } '\n' 
@@ -115,19 +116,21 @@ attribute
 		| TK_name '=' TK_real
 			{ pint->AddProp($1, (Universal::TReal)$3); } '\n' 
 		| TK_name '=' TK_perc
-			{ pint->AddProp($1, Universal($3, Universal::TypePercent)); } '\n' 
+			{ pint->AddProp($1, Universal((Universal::TReal)$3, 
+								Universal::TypePercent)); } '\n' 
 		| TK_name '=' vector
 			{ pint->AddProp($1, vec); } '\n' 
-        | TK_name '(' func_param ')'
+        | TK_name '(' func_params ')'
             { pint->Func($1, vec); } '\n'
 ;
+func_params
+		: func_param
+		| func_params func_param
 func_param
         : TK_name { vec.Set($1); }
         | TK_perc { vec.Set((float)$1); }
         | TK_num { vec.Set($1); }
-        | func_param ',' TK_name { vec.Add($3); }
-        | func_param ',' TK_perc { vec.Add((float)$3); }
-        | func_param ',' TK_num { vec.Add($3); }
+        | TK_string { vec.Set($1); }
 ;
 index:	TK_Index TK_name '\n'
 		index_data

@@ -6,7 +6,8 @@
 
 typedef HoeCore::List<HoeCore::Universal> VectorUniversal;
 
-#define EMPTY_FUNC { return false; }
+void no_run(const HoeCore::CString str);
+#define EMPTY_FUNC { no_run(__FUNCTION__); return false; }
 
 class PInterface
 {

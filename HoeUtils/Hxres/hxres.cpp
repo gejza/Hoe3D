@@ -57,7 +57,6 @@ int main(int argc, char* argv[])
 			fprintf(stderr, e.GetStr());
 			fprintf(stderr, "\n");
 	}
-	getchar();
 	
 	return res;
 }

@@ -33,3 +33,9 @@ public:
 	DefineError(const HoeCore::CString name, Linker::Obj* obj);
 };
 
+class InternalError : public Error
+{
+public:
+	InternalError(const HoeCore::CString func);
+};
+

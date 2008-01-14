@@ -27,7 +27,22 @@ ConvertError::ConvertError(const HoeCore::CString name,
 
 DefineError::DefineError(const HoeCore::CString name, Linker::Obj* obj)
 {
-	m_str.printf("Symbol %s is already defined on %s(%d)", name.GetPtr(), obj->define_file.GetPtr(),
-		obj->define_line);
+	if (obj->location.ident == "")
+		m_str.printf("Symbol %s is already defined.", 
+			name.GetPtr());
+	else if (!obj->location.line)
+		m_str.printf("Symbol %s is already defined in %s", 
+			name.GetPtr(), 
+			obj->location.ident.GetPtr());
+	else
+		m_str.printf("Symbol %s is already defined in %s(%d)", 
+			name.GetPtr(), 
+			obj->location.ident.GetPtr(),
+			obj->location.line);
+}
+
+InternalError::InternalError(const HoeCore::CString func)
+{
+	m_str.printf("Internal error: Function %s has flag for never run.", func.GetPtr());
 }
 
