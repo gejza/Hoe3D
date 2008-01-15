@@ -77,86 +77,6 @@ inline int cmp(const wchar_t* s1, const char* s2)
 
 } // end namespace
 
-class String;
-
-template<size_t maxsize> class String_s
-{
-	tchar m_str[maxsize];
-public:
-	// konstruktory
-	String_s()
-	{
-		m_str[0] = 0;
-	}
-	String_s(const tchar * s)
-	{
-		string::copy(m_str, s, maxsize-1);
-	}
-	// funkce ze stdio (proto jsou v jinem coding stylu)
-	//int printf(const char * szFormat, ...) { return 0; }
-	/*{
-		int ret;
-		va_list args;
-		va_start(args, szFormat);
-		ret = Str::vsnprintf( m_str, maxsize-1, szFormat, args );
-		va_end(args);
-		return ret;
-	}*/
-	//int printf(const wchar_t * szFormat, ...) { return 0; }
-	// obecne funkce
-	bool IsEmpty() const { return m_str[0] == 0; }
-	// operatory
-	operator const tchar * () const { return this->GetPtr();}
-	const tchar * GetPtr() const { return m_str;}
-	operator const String () const;
-
-	tchar& operator [](const int index)
-	{
-		static tchar fc = 0;
-		if (index < 0 || index >= maxsize)
-			return fc;
-		return m_str[index];
-	}
-#if defined(ENABLE_AUTOCONV_FUNCTIONS) || !defined(_UNICODE)
-	bool operator == (const char * s) const;
-	const String_s & operator = (const char * s)
-	{
-		string::copy(m_str, s, maxsize-1);
-		return *this;
-	}
-	const String_s& operator += (char c)
-	{
-		concat(c); return *this;
-	}
-	const String_s& operator += (const char* str)
-	{
-		concat(str); return *this;
-	}
-	void concat(const char * str)
-	{
-		string::concat(m_str, maxsize, str);
-	}
-	void concat(char c)
-	{
-		string::concat(m_str, maxsize, c);
-	}
-	int FindLast(char c) const
-	{
-		return string::find_last(m_str, c);
-	}
-#endif
-#if defined(ENABLE_AUTOCONV_FUNCTIONS) || defined(_UNICODE)
-	const String_s & operator = (const wchar_t * s)
-	{
-		string::copy(m_str, s, maxsize-1);
-		return *this;
-	}
-	bool operator == (const wchar_t * s) const;
-	void concat(const wchar_t *);
-#endif
-
-};
-
 class CString
 {
     const tchar* m_str;
@@ -210,10 +130,6 @@ class String
 public:
 	String();
 	String(const String& s);
-	template<int size>String(const String_s<size>& s)
-    {
-	    String((const tchar*)s);
-    }
 	~String();
 	//int printf(const char * szFormat, ...) { return 0; }
 	void Set(const String& s);
@@ -239,10 +155,6 @@ public:
 		return string::cmp(GetPtr(), s) == 0;
 	}
 	const String & operator = (const char * s)
-	{
-		Set(s); return *this;
-	}
-	template<int size>const String & operator = (const String_s<size>& s)
 	{
 		Set(s); return *this;
 	}
@@ -302,14 +214,92 @@ public:
 	static String Empty;
 };
 
-
-template<size_t maxsize> HOE_INLINE  String_s<maxsize>::operator const String () const
+template<size_t maxsize> class String_s
 {
-    return String(this->GetPtr());
-}
+	tchar m_str[maxsize];
+public:
+	// konstruktory
+	String_s()
+	{
+		m_str[0] = 0;
+	}
+	String_s(const tchar * s)
+	{
+		string::copy(m_str, s, maxsize-1);
+	}
+	// obecne funkce
+	bool IsEmpty() const { return m_str[0] == 0; }
+	// operatory
+	operator const tchar * () const { return this->GetPtr();}
+	const tchar * GetPtr() const { return m_str;}
+	operator const String () const
+	{
+		return String(this->GetPtr());
+	}
+	tchar& operator [](const int index)
+	{
+		static tchar fc = 0;
+		if (index < 0 || index >= maxsize)
+			return fc;
+		return m_str[index];
+	}
+#if defined(ENABLE_AUTOCONV_FUNCTIONS) || !defined(_UNICODE)
+	bool operator == (const char * s) const;
+	const String_s & operator = (const char * s)
+	{
+		string::copy(m_str, s, maxsize-1);
+		return *this;
+	}
+	const String_s& operator += (char c)
+	{
+		concat(c); return *this;
+	}
+	const String_s& operator += (const char* str)
+	{
+		concat(str); return *this;
+	}
+	void concat(const char * str)
+	{
+		string::concat(m_str, maxsize, str);
+	}
+	void concat(char c)
+	{
+		string::concat(m_str, maxsize, c);
+	}
+	int FindLast(char c) const
+	{
+		return string::find_last(m_str, c);
+	}
+	int printf(const char * szFormat, ...)
+	{
+		int ret;
+		va_list args;
+		va_start(args, szFormat);
+		ret = string::vsnprintf( m_str, maxsize-1, szFormat, args );
+		va_end(args);
+		return ret;
+	}
+#endif
+#if defined(ENABLE_AUTOCONV_FUNCTIONS) || defined(_UNICODE)
+	const String_s & operator = (const wchar_t * s)
+	{
+		string::copy(m_str, s, maxsize-1);
+		return *this;
+	}
+	bool operator == (const wchar_t * s) const;
+	void concat(const wchar_t *);
+	int printf(const wchar_t * szFormat, ...)
+	{
+		int ret;
+		va_list args;
+		va_start(args, szFormat);
+		ret = string::vsnprintf( m_str, maxsize-1, szFormat, args );
+		va_end(args);
+		return ret;
+	}
+#endif
 
-
-
+};
 
 
 } // namespace HoeCore
