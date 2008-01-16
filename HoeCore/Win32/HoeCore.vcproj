@@ -227,7 +227,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
-			CharacterSet="1"
+			CharacterSet="0"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -528,6 +528,10 @@
 			</File>
 			<File
 				RelativePath="..\include\hoe_core.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\hoe_platform.h"
 				>
 			</File>
 			<File

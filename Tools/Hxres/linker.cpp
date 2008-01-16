@@ -2,6 +2,9 @@
 #include "linker.h"
 #include "error.h"
 #include "scan.h"
+#include "parse.tab.hpp"
+
+using namespace HoeRes;
 
 Linker::Linker(void)
 {
@@ -28,7 +31,7 @@ Compiler * Linker::AddObject(const char * name, int type, const Scaner::Location
 	HoeCore::String fn = o.name;
 	fn.Replace(':','_');
 	fn += ".ors";
-	o.file.Open(fn, HoeCore::File::hftRewrite); // otevrit tmp soubor
+	o.file.Open(fn, HoeCore::File::hftTemp); // otevrit tmp soubor
 	o.c = Compiler::Create(o.name, type,o.file);
 	return o.c;
 }
@@ -52,15 +55,22 @@ void Linker::PopNamespace()
 int Linker::Link(const char * output)
 {
 	HoeCore::File f;
+	HoeCore::Stream& s = f;
 	f.Open(output, HoeCore::File::hftRewrite);
-	f.WriteString("// Autogenerate file by Hoe Resource Compiler\n\n");
+
+	Res::MainNamespace head;
+	memset(&head, 0, sizeof(head));
+	head.id = Res::IDHRESHEADER;
+	head.size_struct = be_uint16(sizeof(head));
+	head.version_struct = be_uint16(Res::IDHRESVER);
+	head.num_symbols = le_uint32(m_obj.Count());
+	s.Write(&head, sizeof(head));
 	for (uint i=0;i < m_obj.Count();i++)
 	{
 		Obj& o = m_obj.Get(i);
-		f.WriteString(o.name);
-		f.WriteString("\tHOERES\t");
-		f.WriteString(o.file.GetName());
-		f.WriteString("\n"); 
+		Res::Symbol sym;
+		memset(&sym,0, sizeof(sym));
+		HoeCore::string::copy(sym.name, o.name, sizeof(sym.name));
 	}
 	return 0;
 }
@@ -76,24 +86,28 @@ Linker::Obj* Linker::Find(const char * name)
 }
 
 // functions //
-bool AddPictures(Linker* link, const VectorUniversal& value)
+void e(int, int);
+
+bool AddPictures(Linker* link, const Values& value)
 {
 	Scaner::Location loc = { "AddPictures", 0 };
-	// search folder
-	Compiler * c = link->AddObject("a", ERT_Picture, loc);
-	c->AddProp("File", "eee.jpg");
-	c->Done();
-	c = link->AddObject("b", ERT_Picture, loc);
-	c->AddProp("File", "eee.jpg");
-	c->Done();
-	c = link->AddObject("c", ERT_Picture, loc);
-	c->AddProp("File", "eee.jpg");
-	c->Done();
+	if (value.Count() != 1)
+		return false;
+	const HoeCore::CString name = value[0].GetStringValue();
+	for (HoeUtils::FindFile f(name);f;++f)
+	{
+		if (f.Get().attrib & _A_SUBDIR)
+			continue;
+
+		Compiler * c = link->AddObject(f.Get().name, ERT_Picture, loc);
+		c->AddProp("File", Value("eee.jpg", TK_string));
+		c->Done();
+	}
 
 	return true;
 }
 
-bool Linker::Func(const HoeCore::CString name, const VectorUniversal& value)
+bool Linker::Func(const HoeCore::CString name, const Values& value)
 {
 	if (name == T("AddPictures"))
 	{

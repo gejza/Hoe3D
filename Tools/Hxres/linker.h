@@ -32,7 +32,7 @@ public:
 	Obj* Find(const char * name);
 
 	// functions
-	virtual bool Func(const HoeCore::CString name, const VectorUniversal& value);
+	virtual bool Func(const HoeCore::CString name, const Values& value);
 
 };
 

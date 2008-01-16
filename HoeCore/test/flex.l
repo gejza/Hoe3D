@@ -2,6 +2,7 @@
 #include "test.h"
 #include <stdlib.h>
 #include <hoe_flex.h>
+#include <hoe_file.h>
 
 class HoeFlexTest : public HoeCore::HoeFlex
 {
@@ -20,12 +21,12 @@ public:
 
 DEFINE_TEST(TestFlex, "Flex parser")
 {
-	FILE * f = fopen("test.txt","rt");
+	HoeCore::File f;
+	f.Open("test.txt");
     HoeCore::HoeFlexFile buff(f);
 	HoeFlexTest fl;
 	fl.Switch(buff);
 	fl.Lex();
-	fclose(f);
 	return HoeTest::TEST_OK;
 } 
 

@@ -95,8 +95,8 @@ int HoeTest::BaseTest::RunTest(const char* test)
 
 int main()
 {
-	//return HoeTest::BaseTest::RunAll();
-	return HoeTest::BaseTest::RunTest("List");
+	return HoeTest::BaseTest::RunAll();
+	//return HoeTest::BaseTest::RunTest("Endian");
 }
 
 

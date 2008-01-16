@@ -16,6 +16,7 @@
 #include <string.h>
 #include <wchar.h>
 #include <stdlib.h>
+#include <io.h>
 
 #include <assert.h>
 //#include <tchar.h>
@@ -24,8 +25,10 @@
 #include <hoe_structures.h>
 #include <hoe_universal.h>
 #include <hoe_file.h>
+#include <hoe_platform.h>
 
 #include <hoe_resfile.h>
+#include <hoe_utils.h>
 
 // TODO: reference additional headers your program requires here
 

@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "../include/hoe_core.h"
 #include "../include/hoe_structures.h"
+#include "../include/hoe_platform.h"
 #include "test.h"
 
 struct TestItem
@@ -71,10 +72,44 @@ DEFINE_TEST(List, "Test list structure")
 	l.Add();
 	l.Add();
 	return HoeTest::TEST_OK;
-
 }
 
 END_TEST(List)
+
+DEFINE_TEST(Endian, "Test big endian and low endian")
+{
+	void * src = "12345678";
+	float f1 = 1.245f;
+	float f2 = be_num<float>(f1);
+	float f3 = be_num<float>(f2);
+	printf("Float puv: %f - %f - %f\n",f1,f2,f3);
+	Test<short>(src);
+	Test<long>(src);
+	Test<unsigned long>(src);
+	Test<int>(src);
+	Test<float>(src);
+	Test<double>(src);
+	Test<size_t>(src);
+
+	return HoeTest::TEST_OK;
+}
+
+template <typename TYPE> void Test(void*src)
+{
+	char buff[256];
+	TYPE n = *reinterpret_cast<TYPE*>(src);
+	TYPE bn = be_num<TYPE>(n);
+	TYPE ln = le_num<TYPE>(n);
+	memset(buff, 0, 200);
+	memcpy(buff, &bn, sizeof(TYPE));
+	printf("%s: %s\n", "Big", buff);
+	memcpy(buff, &ln, sizeof(TYPE));
+	printf("%s: %s\n", "Low", buff);
+
+}
+
+
+END_TEST(Endian)
 
 
 /*

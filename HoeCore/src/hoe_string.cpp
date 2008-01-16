@@ -400,7 +400,7 @@ int String::Replace(char f, char r)
 	if (!m_data)
 		return 0;
 	PrepareForModify(m_data->data.alloc,false);
-	char* s = m_data->str;
+	tchar* s = m_data->str;
 	while (*s)
 	{
 		if (*s == f)

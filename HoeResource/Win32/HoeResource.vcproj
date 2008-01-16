@@ -28,8 +28,8 @@
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="1"
-			CharacterSet="1"
+			ConfigurationType="4"
+			CharacterSet="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -80,14 +80,11 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLinkerTool"
-				GenerateDebugInformation="true"
+				Name="VCLibrarianTool"
+				OutputFile="..\..\bin\$(ProjectName)_d.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -97,12 +94,6 @@
 			/>
 			<Tool
 				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -271,7 +262,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
-			CharacterSet="1"
+			CharacterSet="0"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -505,6 +496,13 @@
 			<File
 				RelativePath="..\src\hsl_parser.l"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="Flex"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\hsl_parser.y"
@@ -608,28 +606,7 @@
 			>
 		</File>
 		<File
-			RelativePath="..\include\hoe_sl_parser.h"
-			>
-		</File>
-		<File
 			RelativePath="..\src\StdAfx.h"
-			>
-		</File>
-		<File
-			RelativePath="..\src\test.l"
-			>
-			<FileConfiguration
-				Name="Debug|Win32"
-				>
-				<Tool
-					Name="Flex"
-					Skeleton="..\..\HoeCore\template\hoe_flex.skl"
-					dep="..\..\HoeCore\template\hoe_flex.skl"
-				/>
-			</FileConfiguration>
-		</File>
-		<File
-			RelativePath="..\src\test.yy.cpp"
 			>
 		</File>
 	</Files>

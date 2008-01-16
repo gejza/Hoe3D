@@ -31,7 +31,7 @@ static int yyerror(Linker& linker, HoeCore::StringPool& pool, Scaner& lex, char*
 }
 
 PInterface * pint = NULL;
-VectorUniversal vec;
+Values vec;
 
 #define DONE(p) if (p) { pint->Done();pint = NULL; }
 
@@ -51,6 +51,9 @@ VectorUniversal vec;
 %token <real> TK_real  
 %token <real> TK_perc  
 %token <string> TK_string
+%token <string> TK_re
+%token <string> TK_wild
+%token <string> TK_expand
 
 %%
 file: 
@@ -108,29 +111,37 @@ attributes
 		| attributes '\n'
 attribute
 		: TK_name '=' TK_name
-			{ pint->AddProp($1, $3); } '\n' 
+			{ pint->AddProp($1, Value($3,TK_name)); } '\n' 
 		| TK_name '=' TK_string
-			{ pint->AddProp($1, $3); } '\n' 
+			{ pint->AddProp($1, Value($3, TK_string)); } '\n' 
+		| TK_name '=' TK_wild
+			{ pint->AddProp($1, Value($3, TK_wild)); } '\n' 
+		| TK_name '=' TK_re
+			{ pint->AddProp($1, Value($3, TK_re)); } '\n' 
+		| TK_name '=' TK_expand
+			{ pint->AddProp($1, Value($3, TK_expand)); } '\n' 
 		| TK_name '=' TK_num
-			{ pint->AddProp($1, $3); } '\n' 
+			{ pint->AddProp($1, Value($3, TK_num)); } '\n' 
 		| TK_name '=' TK_real
-			{ pint->AddProp($1, (Universal::TReal)$3); } '\n' 
+			{ pint->AddProp($1, Value((Universal::TReal)$3, TK_real)); } '\n' 
 		| TK_name '=' TK_perc
-			{ pint->AddProp($1, Universal((Universal::TReal)$3, 
-								Universal::TypePercent)); } '\n' 
+			{ pint->AddProp($1, Value((Universal::TReal)$3, TK_perc)); } '\n' 
 		| TK_name '=' vector
 			{ pint->AddProp($1, vec); } '\n' 
         | TK_name '(' func_params ')'
             { pint->Func($1, vec); } '\n'
 ;
 func_params
-		: func_param
+		: { vec.Delete(); } func_param
 		| func_params ',' func_param
 func_param
-        : TK_name { vec.Set($1); }
-        | TK_perc { vec.Set((float)$1); }
-        | TK_num { vec.Set($1); }
-        | TK_string { vec.Set($1); }
+        : TK_name { vec.Add(Value($1, TK_name)); }
+        | TK_perc { vec.Add(Value((float)$1, TK_perc)); }
+        | TK_num { vec.Add(Value($1, TK_num)); }
+        | TK_string { vec.Add(Value($1, TK_string)); }
+        | TK_re { vec.Add(Value($1, TK_re)); }
+        | TK_wild { vec.Add(Value($1, TK_wild)); }
+        | TK_expand { vec.Add(Value($1, TK_expand)); }
 ;
 index:	TK_Index TK_name '\n'
 		index_data
@@ -159,8 +170,8 @@ vector: '(' vector_item ')'
 ;
 vector_item
 		: TK_num 
-		  { vec.Set($1); }
+		  { vec.Set(Value($1, TK_num)); }
 		| vector_item ',' TK_num
-		  { vec.Add($3); }
+		  { vec.Add(Value($3, TK_num)); }
 ;
 %%

@@ -4,7 +4,17 @@
 
 #include "image.h"
 
-typedef HoeCore::List<HoeCore::Universal> VectorUniversal;
+class Value : public HoeCore::Universal
+{
+	int m_vt;
+public:
+	template <class TYPE>
+	Value(TYPE t, int vt) : HoeCore::Universal(t), m_vt(vt)
+	{
+	}
+};
+
+typedef HoeCore::List<Value> Values;
 
 void no_run(const HoeCore::CString str);
 #define EMPTY_FUNC { no_run(__FUNCTION__); return false; }
@@ -12,9 +22,9 @@ void no_run(const HoeCore::CString str);
 class PInterface
 {
 public:
-	virtual bool AddProp(const HoeCore::CString name, const HoeCore::Universal& value) EMPTY_FUNC
-	virtual bool AddProp(const HoeCore::CString name, const VectorUniversal& value) EMPTY_FUNC
-	virtual bool Func(const HoeCore::CString name, const VectorUniversal& value) EMPTY_FUNC
+	virtual bool AddProp(const HoeCore::CString name, const Value& value) EMPTY_FUNC
+	virtual bool AddProp(const HoeCore::CString name, const Values& value) EMPTY_FUNC
+	virtual bool Func(const HoeCore::CString name, const Values& value) EMPTY_FUNC
 
 	virtual void Done() {}
 };
@@ -34,8 +44,8 @@ class PictureCompiler : public Compiler
 	Image im;
 public:
 	PictureCompiler(HoeCore::WriteStream& out) : Compiler(out) {}
-	virtual bool AddProp(const HoeCore::CString name, const HoeCore::Universal& value);
-	virtual bool AddProp(const HoeCore::CString name, const VectorUniversal& value);
+	virtual bool AddProp(const HoeCore::CString name, const Value& value);
+	virtual bool AddProp(const HoeCore::CString name, const Values& value);
 	//virtual bool Func(const HoeCore::CString name, const VectorUniversal& value);
 
 	virtual void Done();

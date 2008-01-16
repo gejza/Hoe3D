@@ -42,7 +42,7 @@ bool CheckArg(const CString name, const Universal& value, Universal::Type type, 
 }
 
 // picture
-bool PictureCompiler::AddProp(const CString name, const Universal& value)
+bool PictureCompiler::AddProp(const CString name, const Value& value)
 {
 	if (name == "File")
 	{
@@ -55,7 +55,7 @@ bool PictureCompiler::AddProp(const CString name, const Universal& value)
 	return false;
 }
 
-bool PictureCompiler::AddProp(const HoeCore::CString name, const VectorUniversal& value)
+bool PictureCompiler::AddProp(const HoeCore::CString name, const Values& value)
 {
 	return false;
 }
