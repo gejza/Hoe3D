@@ -225,7 +225,7 @@ public:
 	}
 	String_s(const tchar * s)
 	{
-		string::copy(m_str, s, maxsize-1);
+		string::copy(m_str, s, maxsize);
 	}
 	// obecne funkce
 	bool IsEmpty() const { return m_str[0] == 0; }

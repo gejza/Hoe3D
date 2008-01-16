@@ -7,7 +7,7 @@
 namespace HoeMath {
 
 #ifdef _LINUX
-    typedef int64_t _int64;
+    typedef int64_t int64;
 #endif
 
 typedef int fxtype;
@@ -44,54 +44,54 @@ struct fixed
 	}
 	const fixed& operator *= (const fixed& a)
 	{
-		n = ((fxtype)(((_int64)(a.n) * (_int64)(n)) >> fxbits));
+		n = ((fxtype)(((int64)(a.n) * (int64)(n)) >> fxbits));
         return *this;
 	}
 	fixed operator * (const fixed& a) const
 	{
         fixed ret;
-		ret.n = ((fxtype)(((_int64)(a.n) * (_int64)(n)) >> fxbits));
+		ret.n = ((fxtype)(((int64)(a.n) * (int64)(n)) >> fxbits));
         return ret;
 	}
 	fixed operator * (const float a) const
 	{
         fixed ret;
-		ret.n = ((fxtype)(((_int64)(a * fxbase) * (_int64)(n)) >> fxbits));
+		ret.n = ((fxtype)(((int64)(a * fxbase) * (int64)(n)) >> fxbits));
         return ret;
 	}
 	fixed operator * (const int a) const
 	{
         fixed ret;
-		ret.n = ((fxtype)(((_int64)(a << fxbits) * (_int64)(n)) >> fxbits));
+		ret.n = ((fxtype)(((int64)(a << fxbits) * (int64)(n)) >> fxbits));
         return ret;
 	}
 	const fixed& operator /= (const fixed& a)
 	{
-		n = (fxtype)(((_int64)(n) << fxbits) / (_int64)(a.n));
+		n = (fxtype)(((int64)(n) << fxbits) / (int64)(a.n));
         return *this;
 	}
 	const fixed operator / (const fixed& a) const
 	{
         fixed ret;
-		ret.n = (fxtype)(((_int64)(n) << fxbits) / (_int64)(a.n));
+		ret.n = (fxtype)(((int64)(n) << fxbits) / (int64)(a.n));
         return ret;
 	}
 	const fixed operator / (const float a) const
 	{
         fixed ret;
-		ret.n = (fxtype)(((_int64)(n) << fxbits) / (_int64)(a * fxbase));
+		ret.n = (fxtype)(((int64)(n) << fxbits) / (int64)(a * fxbase));
         return ret;
 	}
 	const fixed operator / (const int a) const
 	{
         fixed ret;
-		ret.n = (fxtype)(((_int64)(n)) / (_int64)(a));
+		ret.n = (fxtype)(((int64)(n)) / (int64)(a));
         return ret;
 	}
 	const fixed operator / (const uint a) const
 	{
         fixed ret;
-		ret.n = (fxtype)(((_int64)(n)) / (_int64)(a));
+		ret.n = (fxtype)(((int64)(n)) / (int64)(a));
         return ret;
 	}
 	const fixed& operator += (const fixed& a)
@@ -163,28 +163,28 @@ struct fixed
 inline fixed operator * (const float a, const fixed& n)
 {
     fixed ret;
-	ret.n = ((fxtype)(((_int64)(a * fxbase) * (_int64)(n.n)) >> fxbits));
+	ret.n = ((fxtype)(((int64)(a * fxbase) * (int64)(n.n)) >> fxbits));
     return ret;
 }
 
 inline fixed operator * (const int a, const fixed& n)
 {
     fixed ret;
-	ret.n = ((fxtype)(((_int64)(a << fxbits) * (_int64)(n.n)) >> fxbits));
+	ret.n = ((fxtype)(((int64)(a << fxbits) * (int64)(n.n)) >> fxbits));
     return ret;
 }
 
 inline fixed operator * (const uint a, const fixed& n)
 {
     fixed ret;
-	ret.n = ((fxtype)(((_int64)(a << fxbits) * (_int64)(n.n)) >> fxbits));
+	ret.n = ((fxtype)(((int64)(a << fxbits) * (int64)(n.n)) >> fxbits));
     return ret;
 }
 
 /*inline fixed operator * (const byte a, const fixed& n)
 {
     fixed ret;
-	ret.n = ((fxtype)(((_int64)(a << fxbits) * (_int64)(n.n)) >> fxbits));
+	ret.n = ((fxtype)(((int64)(a << fxbits) * (int64)(n.n)) >> fxbits));
     return ret;
 }*/
 
@@ -192,7 +192,7 @@ inline fixed operator * (const uint a, const fixed& n)
 /*const fixed operator / (const int a, const fixed& n) const
 {
     fixed ret;
-	ret.n = (fxtype)(((_int64)(n) << (2*fxbits)) / (_int64)(n.n));
+	ret.n = (fxtype)(((int64)(n) << (2*fxbits)) / (int64)(n.n));
     return ret;
 }*/
 

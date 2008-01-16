@@ -78,7 +78,7 @@ END_TEST(List)
 
 DEFINE_TEST(Endian, "Test big endian and low endian")
 {
-	void * src = "12345678";
+	void * src = (void*)"12345678";
 	float f1 = 1.245f;
 	float f2 = be_num<float>(f1);
 	float f3 = be_num<float>(f2);
