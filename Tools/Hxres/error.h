@@ -30,7 +30,7 @@ public:
 class DefineError : public Error
 {
 public:
-	DefineError(const HoeCore::CString name, Linker::Obj* obj);
+	DefineError(const HoeCore::CString name, Namespace::Obj* obj);
 };
 
 class InternalError : public Error

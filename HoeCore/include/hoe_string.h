@@ -146,6 +146,15 @@ public:
 	operator const tchar * () const { return GetPtr(); }
 	operator const CString () const { return CString(m_data ? m_data->str:T("")); }
 
+	bool operator < (const String& str) const
+	{
+		return string::cmp(GetPtr(), str.GetPtr()) < 0;
+	}
+	bool operator > (const String& str) const
+	{
+		return string::cmp(GetPtr(), str.GetPtr()) > 0;
+	}
+
 	// utf section
 #if defined(ENABLE_AUTOCONV_FUNCTIONS) || !defined(_UNICODE)
 	String(const char* s);

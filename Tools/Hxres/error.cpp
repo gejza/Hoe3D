@@ -25,7 +25,7 @@ ConvertError::ConvertError(const HoeCore::CString name,
 				(const tchar*)name,(const tchar*)from,(const tchar*)to); 
 }
 
-DefineError::DefineError(const HoeCore::CString name, Linker::Obj* obj)
+DefineError::DefineError(const HoeCore::CString name, Namespace::Obj* obj)
 {
 	if (obj->location.ident == "")
 		m_str.printf("Symbol %s is already defined.", 

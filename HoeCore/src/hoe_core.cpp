@@ -343,6 +343,16 @@ const char * HoeCore::StringPool::Insert(const char * str)
 	return pi.str;
 }
 
+void HoeCore::StringPool::GetStats(StringStats* stat)
+{
+	memset(stat, 0, sizeof(StringStats));
+	HoeCore::MemoryPool::GetStats(stat);
+	stat->numstr = this->m_keys.Count();
+	for (uint i=0;i < m_keys.Count();i++)
+	{
+		stat->refs += m_keys[i].ref;
+	}
+}
 
 /////////////////////////////////////////////
 HoeCore::Table::Table(HoeCore::StringPool & pool)

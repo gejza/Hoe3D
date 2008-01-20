@@ -146,7 +146,7 @@
 				AdditionalIncludeDirectories="..\..\HoeResource\include;..\..\HoeCore\include;..\..\HoeUtils\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
@@ -212,6 +212,14 @@
 						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\parse.tab.hpp"
@@ -236,6 +244,7 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						PreprocessorDefinitions="FLEX_STDAFX"
+						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
 			</File>
@@ -284,6 +293,15 @@
 					<Tool
 						Name="Flex"
 						Lang="false"
+						Skeleton="..\..\HoeCore\template\hoe_flex.skl"
+						dep="..\..\HoeCore\template\hoe_flex.skl"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="Flex"
 						Skeleton="..\..\HoeCore\template\hoe_flex.skl"
 						dep="..\..\HoeCore\template\hoe_flex.skl"
 					/>

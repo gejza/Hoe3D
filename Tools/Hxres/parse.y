@@ -8,14 +8,17 @@
 	//%parse-param {int *randomness}
 
 %{
-#define YYDEBUG 1
-#define YYERROR_VERBOSE 1
 
 #include "StdAfx.h"
 #include "scan.h"
 #include "linker.h"
+#include "parse.tab.hpp"
+
+#define YYDEBUG 1
+#define YYERROR_VERBOSE 1
 
 using namespace HoeCore;
+using namespace HoeRes::Res;
 
 static int yylex(union YYSTYPE * l, HoeCore::StringPool& pool, Scaner& lex)
 { 
@@ -78,7 +81,7 @@ namespace:
 		'~' TK_Namespace
 		 { linker.PopNamespace(); }
 ;
-stream:	TK_Stream TK_name { pint  = linker.AddObject($2, ERT_Stream, lex.GetLocation()); } 
+stream:	TK_Stream TK_name { pint  = linker.AddObject($2, IDStream, lex.GetLocation()); } 
 			'[' { /* start fvf */ } fvf ']' '\n'
 			stream_data
 		'~' TK_Stream '\n'
@@ -100,7 +103,7 @@ stream_data_item
 		| TK_real 
 ;	
 picture: 
-		TK_Picture TK_name '\n' { pint = linker.AddObject($2, ERT_Picture, lex.GetLocation()); }
+		TK_Picture TK_name '\n' { pint = linker.AddObject($2, IDPicture, lex.GetLocation()); }
 		  attributes
 		'~' TK_Picture '\n' { DONE(pint); }
 ;

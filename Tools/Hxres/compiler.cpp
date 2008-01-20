@@ -4,6 +4,7 @@
 #include "error.h"
 
 using namespace HoeCore;
+using namespace HoeRes::Res;
 
 void no_run(const HoeCore::CString str)
 {
@@ -14,9 +15,9 @@ Compiler * Compiler::Create(HoeCore::String&, int type, HoeCore::WriteStream& s)
 {
     switch (type)
     {
-	case ERT_Picture:
+	case IDPicture:
 		return new PictureCompiler(s);
-	case ERT_Stream:
+	case IDStream:
 		return new StreamCompiler(s);
     default:
 		hoe_assert(!"Unknown compiler type.");

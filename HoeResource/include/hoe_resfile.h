@@ -10,13 +10,17 @@ namespace Res {
 enum {
 	IDHRESHEADER=MAKE_FOURCC('H','o','e','R'),
 	IDHRESVER=108,
+
+	IDNamespace=0x01,
+	IDPicture=0x10,
+	IDStream=0x20,
 };
 
 #pragma pack(push,1)
 
 struct HeadResource
 {
-	uint32 id;
+	uint32 id; 
 	uint16 size_struct;
 	uint16 version_struct;
 };

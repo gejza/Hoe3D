@@ -195,8 +195,14 @@ protected:
 			return this->hash > pi.hash;
 		}
     };
-	HoeCore::KeyList<PoolIndex, ConstString> m_keys;
+public:
+	struct StringStats : public Stats
+	{
+		uint numstr;
+		uint refs;
+	};
 protected:
+	HoeCore::KeyList<PoolIndex, ConstString> m_keys;
 public:
     StringPool();
     /** Zaindexuje novy string */
@@ -205,6 +211,7 @@ public:
     void Remove(const char * str);
 	const char * Strdup(const char * str);
     const HoeCore::KeyList<PoolIndex, ConstString> & GetKeys() { return m_keys; }
+	void GetStats(StringStats* stat);
 };
 
 class Table

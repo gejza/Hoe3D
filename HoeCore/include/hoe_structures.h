@@ -169,6 +169,22 @@ public:
 
 };
 
+template<typename TYPE> int qsort_cmp(const void * a, const void * b)
+{
+	const TYPE* A = reinterpret_cast<const TYPE*>(a);
+	const TYPE* B = reinterpret_cast<const TYPE*>(b);
+	if (*A < *B)
+		return -1;
+	else if (*A > *B)
+		return 1;
+	return 0;
+}
+
+template<typename TYPE> void qsort(TYPE * base, size_t nums)
+{
+	::qsort(base, nums, sizeof(TYPE), qsort_cmp<TYPE>); 
+}
+
 template<class C> class List : public SetBase<C>
 {
 public:
@@ -196,6 +212,46 @@ public:
         this->Delete();
         return Add();
     }
+	void QSort()
+	{
+		qsort<C>(this->m_ptr, this->m_count);
+	}
+
+	class Iterator
+	{
+		List<C>& m_list;
+		uint m_it;
+	public:
+		Iterator(List & list) : m_list(list)
+		{
+			m_it = 0;
+		}
+		void next()
+		{
+			if (valid())
+				m_it++;
+		}
+		void operator ++ (int)
+		{
+			next();
+		}
+		bool valid() const
+		{
+			return m_it < m_list.Count();
+		}
+		operator bool () const
+		{
+			return valid();
+		}
+		C* operator ->()
+		{
+			return &(m_list[m_it]);
+		}
+		C& operator *()
+		{
+			return m_list[m_it];
+		}
+	};
 };
 
 template<class C> class Stack : public SetBase<C>
@@ -324,6 +380,96 @@ public:
 				this->m_count--;
 			}
 		}
+	}
+};
+
+template<typename TYPE> class LList
+{
+protected:
+	struct LListItem
+	{
+		TYPE data;
+		LListItem * next;
+	};
+
+	HoeCore::MemoryPool* m_pool;
+	LListItem * m_first;
+public:
+	class Iterator
+	{
+		LListItem * m_it;
+	public:
+		Iterator(LList & list)
+		{
+			m_it = list.m_first;
+		}
+		void next()
+		{
+			if (m_it)
+				m_it = m_it->next;
+		}
+		void operator ++ (int)
+		{
+			next();
+		}
+		bool valid() const
+		{
+			return m_it != NULL;
+		}
+		operator bool () const
+		{
+			return valid();
+		}
+		TYPE* operator ->()
+		{
+			return &(m_it->data);
+		}
+		TYPE& operator *()
+		{
+			return m_it->data;
+		}
+	};
+public:
+	LList() : m_pool(NULL), m_first(NULL) {}
+	LList(HoeCore::MemoryPool& pool) : m_pool(&pool), m_first(NULL) {}
+	~LList()
+	{
+		Delete();
+	}
+	TYPE & Add()
+	{
+		return new (this->AddForNew()) TYPE();
+	}
+	void * AddForNew()
+	{
+		LListItem * li;
+		if (m_pool)
+			li = (LListItem*)m_pool->GetMem(sizeof(LListItem));
+		else
+			li = (LListItem*)malloc(sizeof(LListItem));
+		memset(li, 0, sizeof(LListItem));
+		//li->first 
+		li->next = m_first;
+		m_first = li;
+		return &li->data;
+	}
+	void Delete()
+	{
+		while (m_first)
+		{
+			m_first->data.~TYPE();
+			LListItem * tmp = m_first->next;
+			if (!m_pool)
+				free(m_first);
+			m_first = tmp;
+		}
+	}
+	uint Count()
+	{
+		uint cnt = 0;
+		for (Iterator it(*this);it;it++)
+			cnt++;
+		return cnt;
 	}
 };
 

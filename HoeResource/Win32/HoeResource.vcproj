@@ -496,13 +496,6 @@
 			<File
 				RelativePath="..\src\hsl_parser.l"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="Flex"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\hsl_parser.y"
@@ -556,38 +549,6 @@
 					/>
 				</FileConfiguration>
 			</File>
-			<Filter
-				Name="Generated"
-				>
-				<File
-					RelativePath="..\src\hsl_parser.tab.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\src\hsl_parser.tab.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\src\hsl_parser.yy.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource File"

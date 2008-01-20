@@ -31,6 +31,47 @@ float SysFloatTime(void)
 	return 0;
 }
 
+void scanns(int l, HoeCore::ReadStream* s, const HoeCore::Endianness& end)
+{
+	HoeRes::Res::Namespace main;
+	s->Read(&main, sizeof(main));	
+	uint32 nums = end.num<uint32>(main.num_symbols);
+	for (uint32 i=0;i < nums;i++)
+	{
+		HoeRes::Res::Symbol sym;
+		s->Read(&sym, sizeof(sym));
+		uint32 id = end.num<uint32>(sym.type);
+		printf("%d:%s: %x\n", l, sym.name, id);
+		if (id == HoeRes::Res::IDNamespace)
+			scanns(l+1,s->CreateReader((size_t)end.num<uint64>(sym.position)),end);
+	}
+	s->Close();
+}
+
+void testfile()
+{
+	HoeCore::File f;
+	if (!f.Open("test.rc"))
+		return;
+	
+	HoeCore::ReadStream * s = f.CreateReader(0);
+	HoeRes::Res::MainNamespace main;
+	s->Read(&main, sizeof(main));	
+	uint32 nums = be_uint32(main.num_symbols);
+	HoeCore::Endianness end(be_uint32(main.flags));
+	printf("endianness: %s\n", end.GetPlatformString());
+	for (uint32 i=0;i < nums;i++)
+	{
+		HoeRes::Res::Symbol sym;
+		s->Read(&sym, sizeof(sym));
+		uint32 id = end.num<uint32>(sym.type);
+		printf("%s: %x\n", sym.name, id);
+		if (id == HoeRes::Res::IDNamespace)
+			scanns(1,s->CreateReader((size_t)end.num<uint64>(sym.position)),end);
+	}
+	s->Close();
+}
+
 int main(int argc, char* argv[])
 {
 	// parse
@@ -40,8 +81,8 @@ int main(int argc, char* argv[])
 	Scaner s;
 	s.Switch(fs);
 
-	Linker link;
 	HoeCore::StringPool pool;
+	Linker link(pool);
 	
 	int res = 0;
 	try {
@@ -53,10 +94,13 @@ int main(int argc, char* argv[])
 		}
 	} catch (const Error& e)
 	{
-			fprintf(stderr, "%s(%d) : ", (const tchar*)s.GetIdentifier(), s.GetLine());
-			fprintf(stderr, e.GetStr());
-			fprintf(stderr, "\n");
+		fprintf(stderr, "%s(%d) : ", (const tchar*)s.GetIdentifier(), s.GetLine());
+		fprintf(stderr, e.GetStr());
+		fprintf(stderr, "\n");
 	}
+
+	// open 
+	testfile();
 	
 	return res;
 }

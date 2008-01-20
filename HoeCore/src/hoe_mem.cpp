@@ -132,6 +132,20 @@ void * HoeCore::MemoryPool::Clone(const void * p, size_t s)
 	return pp;
 }
 
+void HoeCore::MemoryPool::GetStats(HoeCore::MemoryPool::Stats* stat)
+{
+	memset(stat, 0, sizeof(Stats));
+	PoolItem* pi = m_pool;
+	while (pi)
+	{
+		stat->numpools++;
+		stat->avail += pi->GetAvail();
+		stat->used += pi->size;
+		pi = pi->next;
+	}
+}
+
+
 
 
 

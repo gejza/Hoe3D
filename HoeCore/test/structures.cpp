@@ -17,8 +17,17 @@ struct TestItem
 	}
 	~TestItem()
 	{
-		printf("Destructor TestItem\n");
+		printf("Destructor TestItem %d\n", a);
 	}
+	bool operator < (const TestItem& o) const
+	{
+		return a < o.a;
+	}
+	bool operator > (const TestItem& o) const
+	{
+		return a > o.a;
+	}
+
 };
 
 DEFINE_TEST(Queue, "Test queue structure")
@@ -68,9 +77,16 @@ DEFINE_TEST(List, "Test list structure")
 	TestItem* ti = new (pool) TestItem;
 	ti->~TestItem();
 	HoeCore::List<TestItem> l;
-	l.Add();
-	l.Add();
-	l.Add();
+	l.Add().a = 3;
+	l.Add().a = 2;
+	l.Add().a = 5;
+	l.Add().a = 9;
+	l.Add().a = 5;
+	l.Add().a = 1;
+	l.Add().a = 5;
+	l.Add().a = 10;
+	l.Add().a = 5;
+	l.QSort();
 	return HoeTest::TEST_OK;
 }
 

@@ -10,6 +10,21 @@ namespace HoeCore {
 */
 void CrossMemMove(void * dest, void * src, size_t size);
 
+template<typename TYPE> void MemSwitch(TYPE* a, TYPE* b,  const TYPE ** ctrl = NULL)
+{
+	unsigned char buff[sizeof(TYPE)];
+	memcpy(buff, a, sizeof(TYPE));
+	memcpy(a, b, sizeof(TYPE));
+	memcpy(b, buff, sizeof(TYPE));
+	if (ctrl)
+	{
+		if (a == *ctrl)
+			*ctrl = b;
+		else if (b == *ctrl)
+			*ctrl = a;
+	}
+}
+
 /** Optimalizator pro alokovani malych objektu */
 class MemoryPool
 {
@@ -27,6 +42,13 @@ class MemoryPool
 	PoolItem * CreateNew(size_t size);
 	PoolItem * FindFree(size_t size);
 public:
+	struct Stats
+	{
+		size_t numpools;
+		size_t avail;
+		size_t used;
+	};
+
 	MemoryPool();
 	~MemoryPool();
 	/** Prirazeni pameti z poolu */
@@ -35,6 +57,9 @@ public:
 	void * Clone(const void * p, size_t s);
 	/** Uvolneni cele pameti */
 	void Free();
+	/** Statistiky */
+	void GetStats(Stats* stat);
+
 };
 
 } // namespace HoeCore

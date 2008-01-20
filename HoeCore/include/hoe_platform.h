@@ -5,6 +5,7 @@
 /* pro big endian */
 #if 1 // little endian
 #define LOW_ENDIAN 1
+#define LOW_IEEE_ENDIAN 1
 #endif
 
 #pragma warning( push )
@@ -92,8 +93,11 @@ template<> inline float le_num(float type)
 
 template<> inline float be_num(float type)
 {
-#if LOW_ENDIAN
-	return rewrite_cast<uint32, float>(be_num(rewrite_cast<float,uint32>(type)));
+#if LOW_IEEE_ENDIAN
+	return rewrite_cast<uint32, float>
+		(SwitchBytes<uint32,4>::Switch(
+			rewrite_cast<float,uint32>(type)
+				));
 #else
 	return type;
 #endif
@@ -101,10 +105,13 @@ template<> inline float be_num(float type)
 
 template<> inline double le_num(double type)
 {
-#if LOW_ENDIAN
+#if LOW_IEEE_ENDIAN
 	return type;
 #else
-	return rewrite_cast<uint64, double>(be_num(rewrite_cast<double,uint64>(type)));
+	return rewrite_cast<uint64, double>
+		(SwitchBytes<uint64,8>::Switch(
+			rewrite_cast<double,uint64>(type)
+				));
 #endif
 }
 
@@ -141,6 +148,55 @@ template<typename TYPE> void be_rep(TYPE& type)
 #define le_int32(n) le_num<int32>(n)
 #define le_int64(n) le_num<int64>(n)
 
+namespace HoeCore {
+
+class Endianness
+{
+	uint32 m_end;
+public:
+	enum {
+		LowNum = 0x00,
+		BigNum = 0x01,
+		LowIEEE = 0x00,
+		BigIEEE = 0x02,
+		Low = 0x00,
+		Big = 0x03,
+		Mask = 0x0f,
+	};
+
+	Endianness(uint32 e);
+	Endianness(const Endianness& e);
+	static uint32 GetPlatform();
+	uint32 Get() const;
+	template<typename TYPE> TYPE num(TYPE t) const
+	{
+		if (m_end & BigNum)
+			return be_num<TYPE>(t);
+		else
+			return le_num<TYPE>(t);
+	}
+	static const char * GetPlatformString(uint32 plat);
+	const char * GetPlatformString();
+};
+
+template<> inline float Endianness::num(float t) const
+{
+	if (m_end & BigIEEE)
+		return be_num<float>(t);
+	else
+		return le_num<float>(t);
+}
+
+template<> inline double Endianness::num(double t) const
+{
+	if (m_end & BigIEEE)
+		return be_num<double>(t);
+	else
+		return le_num<double>(t);
+}
+
+
+}; // namespace HoeCore
 
 #endif // _HOE_CORE_PLATFORM_H_
 
