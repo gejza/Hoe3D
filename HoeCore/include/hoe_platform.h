@@ -18,25 +18,23 @@ class SwitchBytes
 public:
 	static inline TYPE Switch(TYPE t)
 	{
-		const unsigned int fr = (sizeof(TYPE) - size) << 3; // odkud
-		const unsigned int to = (size-1) << 3; // kam
+		int fr = (sizeof(TYPE) - size) << 3; // odkud
+		int to = (size-1) << 3; // kam
 		const TYPE t1 = ((TYPE(0xff) << fr) & t);
-		if (to > fr)
+		if (2*size > sizeof(TYPE)+1)
 		{
 			const TYPE t2 = t1 << (to - fr);
 			//return (((TYPE(0xff) << fr) & t) << (to - fr))
 			//	| SwitchBytes<TYPE, size-1>::Switch(t);
             return t2 | SwitchBytes<TYPE, size-1>::Switch(t);
 		}
-		else if (fr > to)
+		else
 		{
 			const TYPE t2 = t1 >> (fr - to);
             return t2 | SwitchBytes<TYPE, size-1>::Switch(t);
 			/*return (((TYPE(0xff) << fr) & t) >> (fr - to))
 				| SwitchBytes<TYPE, size-1>::Switch(t);*/
 		}
-        else
-            return 0;
 	}
 };
 

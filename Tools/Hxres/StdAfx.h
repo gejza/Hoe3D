@@ -11,12 +11,13 @@
 
 #ifdef _WIN32
 #include <windows.h>
+#include <io.h>
 #endif
 #include <stdio.h>
 #include <string.h>
 #include <wchar.h>
 #include <stdlib.h>
-#include <io.h>
+#include <stdarg.h>
 
 #include <assert.h>
 //#include <tchar.h>

@@ -170,6 +170,14 @@ public:
 	{
 		return operator[]((const uint)index);
 	}
+	const String& operator += (const String& str)
+	{
+        if (IsEmpty())
+            Set(str);
+        else
+            concat(str.GetPtr()); 
+        return *this;
+	}
 
 	// utf section
 #if defined(ENABLE_AUTOCONV_FUNCTIONS) || !defined(_UNICODE)

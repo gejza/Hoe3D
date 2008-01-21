@@ -135,7 +135,7 @@ void ExportRes(HoeCore::String nsn, Namespace& ns,HoeCore::WriteStream& cpp)
 void LinkRes::Export(Namespace& ns)
 {
 	HoeCore::File fcpp;
-	HoeCore::String ncpp = m_name;
+	HoeCore::String ncpp = m_name.GetPtr(); //todo simple
 	ncpp += ".cpp";
 	if (!fcpp.Open(ncpp, HoeCore::File::hftRewrite))
 		return;

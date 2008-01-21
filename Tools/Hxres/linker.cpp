@@ -88,12 +88,10 @@ bool AddPictures(Linker* link, const Values& value)
 	const HoeCore::CString name = value[0].GetStringValue();
 	for (HoeUtils::FindFile f(name);f;++f)
 	{
-		if (f.Get().attrib & _A_SUBDIR)
-			continue;
 
-		const HoeCore::String n = HoeUtils::GetFileName(f.Get().name, false);
+		const HoeCore::String n = HoeUtils::GetFileName(f.GetName(), false);
 		Compiler * c = link->AddObject(n, HoeRes::Res::IDPicture, loc);
-		c->AddProp("File", Value(f.Get().name, TK_string));
+		c->AddProp("File", Value(f.GetName(), TK_string));
 		c->Done();
 	}
 
