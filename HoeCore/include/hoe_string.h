@@ -77,6 +77,8 @@ inline int cmp(const wchar_t* s1, const char* s2)
 
 } // end namespace
 
+class String;
+
 class CString
 {
     const tchar* m_str;
@@ -92,11 +94,16 @@ public:
 	operator const tchar * () const { return GetPtr(); }
 	const tchar * GetPtr() const { return m_str ? m_str:T(""); }
 	size_t Length() const { return string::len(GetPtr()); }
+	String Sub(int pos=0, int last=-1) const ;
 #if defined(ENABLE_AUTOCONV_FUNCTIONS) || !defined(_UNICODE)
 	bool operator == (const char * s) const
     {
         return string::cmp(m_str, s) == 0;
     }
+	int FindLast(char f) const
+	{
+		return string::find_last(GetPtr(), f);
+	}
 #endif
 #if defined(ENABLE_AUTOCONV_FUNCTIONS) || defined(_UNICODE)
 	bool operator == (const wchar_t * s) const
@@ -154,6 +161,15 @@ public:
 	{
 		return string::cmp(GetPtr(), str.GetPtr()) > 0;
 	}
+	tchar& operator [](const uint index)
+	{
+		static tchar fc = 0;
+		return m_data && index < m_data->data.alloc ? m_data->str[index]:fc;
+	}
+	tchar& operator [](const int index)
+	{
+		return operator[]((const uint)index);
+	}
 
 	// utf section
 #if defined(ENABLE_AUTOCONV_FUNCTIONS) || !defined(_UNICODE)
@@ -190,6 +206,10 @@ public:
 	*/
 	int Replace(char f, char r);
 	int Find(char f);
+	int FindLast(char f)
+	{
+		return string::find_last(GetPtr(), f);
+	}
 
 #endif
 	// unicode section
@@ -221,6 +241,8 @@ public:
 #endif
 
 	static String Empty;
+
+	friend class CString;
 };
 
 template<size_t maxsize> class String_s

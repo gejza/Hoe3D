@@ -3,6 +3,7 @@
 #include "../include/hoe_core.h"
 #include "../include/hoe_structures.h"
 #include "../include/hoe_mem.h"
+#include "../include/hoe_unicode.h"
 
 #define INDEX(x,y) ((y)*m_width+(x))
 
@@ -234,17 +235,35 @@ void HoeCore::TimeMeter::End()
 }
 
 ////////////////////////////////////
+inline dword MakeHash(dword h, char c)
+{
+	register dword g = h & 0xf0000000;
+	h = h ^ (g >> 24);
+	h = h ^ g;
+	h = h << 4;
+	return h + c;
+}
+
 dword HoeCore::HashString(const char * str)
 {
 	register dword hash = 0;
 	while (*str)
 	{
-		register dword g = hash & 0xf0000000;
-		hash = hash ^ (g >> 24);
-		hash = hash ^ g;
-		hash = hash << 4;
-		hash += *str;
-		str++;
+		hash = MakeHash(hash, *str++);
+	}
+	return hash;
+}
+
+dword HoeCore::HashString(const wchar_t * str)
+{
+	register dword hash = 0;
+	char buff[8];
+	while (*str)
+	{
+		char * p = buff;
+		size_t n = string::w2utf(p, *str++, 8);
+		for (size_t s = 0;s < n;s++)
+			hash = MakeHash(hash, buff[s]);
 	}
 	return hash;
 }

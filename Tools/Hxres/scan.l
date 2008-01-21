@@ -17,7 +17,7 @@ comment	\/\/.*
 alpha   [A-Za-z_]
 dig     [-+]?[0-9]+
 hex		"0x"[0-9A-Fa-f]+
-name    ({alpha}|\$)({alpha}|{dig}|[_\-/$:])*
+name    {alpha}({alpha}|{dig}|[_\-$:])*
 real1    [-+]?{dig}+\.({dig}+)?f?
 real2    [-+]?{dig}*\.{dig}+f?
 real	 {real1}|{real2}
@@ -39,8 +39,8 @@ real	 {real1}|{real2}
 {dig}|{hex}				l->num = HoeCore::string::GetNumber(yytext_ptr); return TK_num;
 {string}				l->string = GetString(yytext_ptr, yyleng, pool); return TK_string;
 "%"{string}				l->string = GetString(yytext_ptr+1, yyleng-1, pool); return TK_re;
-"!"{string}				l->string = GetString(yytext_ptr+1, yyleng-1, pool); return TK_wild;
-"@"{string}				l->string = GetString(yytext_ptr+1, yyleng-1, pool); return TK_expand;
+"@"{string}				l->string = GetString(yytext_ptr+1, yyleng-1, pool); return TK_wild;
+"!"{string}				l->string = GetString(yytext_ptr+1, yyleng-1, pool); return TK_expand;
 
 \n						return '\n';
 .						return yytext_ptr[0];

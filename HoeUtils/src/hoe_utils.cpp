@@ -40,5 +40,28 @@ FindFile& FindFile::operator ++ ()
 	return *this;
 }
 
+/////////////////////////////////////////////
+const HoeCore::String GetFileName(const HoeCore::CString path, bool withex)
+{
+	int rl = path.FindLast('/');
+	HoeCore::String str;
+#ifdef _WIN32
+	int wrl = path.FindLast('\\');
+	if (wrl > rl)
+		rl = wrl;
+#endif
+	if (rl < 0)
+		str = path;
+	else
+		str = path.Sub(rl+1);
+	if (!withex)
+	{
+		rl = str.FindLast('.');
+		if (rl >= 0)
+			str[rl] = T('\0');
+	}
+	return str;
+}
+
 } // namespace HoeUtils
 

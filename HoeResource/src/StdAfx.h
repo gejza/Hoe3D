@@ -25,5 +25,7 @@
 #include <wchar.h>
 #endif
 
+#include <hoe_types.h>
+
 #endif // _STDAFX_H_
 

@@ -89,6 +89,8 @@ public:
 };
 
 dword HashString(const char * str);
+dword HashString(const wchar_t * str);
+
 HOE_INLINE int FCALL RandInt(int from, int to)
 {
 	return (rand() % (to-from)) + from;

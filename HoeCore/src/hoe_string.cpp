@@ -244,6 +244,23 @@ int GetNumber(const wchar_t* str)
 
 } // end namespace string
 
+// CString
+String CString::Sub(int pos, int last) const
+{
+	int t = (int)Length();
+	if (pos > t)
+		return "";
+	if (last == -1 || last > t)
+		last = t;
+	if (pos >= last)
+		return "";
+	String s;
+	s.PrepareForModify(last-pos+1, true);
+	string::copy(s.m_data->str, GetPtr()+pos, (size_t)(last-pos));
+	return s;
+}
+
+// String
 String String::Empty;
 
 String::String()

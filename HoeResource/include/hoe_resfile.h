@@ -42,10 +42,10 @@ struct Symbol
 	uint64 position;
 };
 
-// -> prvni namespace
-// jine id, verze plati pro cely soubor
-
 #pragma pack(pop)
+
+const char * GetTypeName(uint id);
+
 
 } // namespace Res
 } // namespace HoeRes

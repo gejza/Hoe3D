@@ -76,7 +76,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="HoeResource_d.lib HoeUtils_d.lib HoeCore_d.lib"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="..\..\bin"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -162,6 +164,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="HoeResource.lib HoeUtils.lib HoeCore.lib"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -342,6 +345,18 @@
 		</File>
 		<File
 			RelativePath=".\linker.h"
+			>
+		</File>
+		<File
+			RelativePath=".\linkout.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\linkout.h"
+			>
+		</File>
+		<File
+			RelativePath=".\Readme.txt"
 			>
 		</File>
 		<File

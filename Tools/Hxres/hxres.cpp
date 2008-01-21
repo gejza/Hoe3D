@@ -41,7 +41,8 @@ void scanns(int l, HoeCore::ReadStream* s, const HoeCore::Endianness& end)
 		HoeRes::Res::Symbol sym;
 		s->Read(&sym, sizeof(sym));
 		uint32 id = end.num<uint32>(sym.type);
-		printf("%d:%s: %x\n", l, sym.name, id);
+		printf("%d:%s: %s\n", l, sym.name, 
+			HoeRes::Res::GetTypeName(id));
 		if (id == HoeRes::Res::IDNamespace)
 			scanns(l+1,s->CreateReader((size_t)end.num<uint64>(sym.position)),end);
 	}
@@ -65,7 +66,7 @@ void testfile()
 		HoeRes::Res::Symbol sym;
 		s->Read(&sym, sizeof(sym));
 		uint32 id = end.num<uint32>(sym.type);
-		printf("%s: %x\n", sym.name, id);
+		printf("0:%s: %s\n", sym.name, HoeRes::Res::GetTypeName(id));
 		if (id == HoeRes::Res::IDNamespace)
 			scanns(1,s->CreateReader((size_t)end.num<uint64>(sym.position)),end);
 	}
@@ -76,6 +77,9 @@ int main(int argc, char* argv[])
 {
 	// parse
 	// output = binary files + map
+
+	if ("a" == "ab")
+		return 0;
 
 	HoeFlexFileEx fs("test.txt");
 	Scaner s;

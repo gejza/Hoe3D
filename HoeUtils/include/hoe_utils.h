@@ -20,6 +20,8 @@ public:
 	struct _finddata_t& Get() { return m_fileinfo; }
 };
 
+const HoeCore::String GetFileName(const HoeCore::CString path, bool withex = true);
+
 } // namespace HoeUtils
 
 #endif // _HOE_UTILS_H_
