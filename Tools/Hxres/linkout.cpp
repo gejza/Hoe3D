@@ -101,9 +101,11 @@ void ExportNS(Namespace& ns, HoeCore::WriteStream& str,
 LinkRes::LinkRes(const HoeCore::CString name)
 	: m_name(name) 
 {
+	m_maxsize = 0;
+	m_maxnum = 0;
 }
 
-void ExportRes(HoeCore::String nsn, Namespace& ns,HoeCore::WriteStream& cpp)
+void LinkRes::ExportRes(HoeCore::String nsn, Namespace& ns,HoeCore::WriteStream& cpp)
 {
 	// operate obj
 	for (HoeCore::List<Namespace::Obj>::Iterator i(ns.GetObj());i;i++)
@@ -115,9 +117,12 @@ void ExportRes(HoeCore::String nsn, Namespace& ns,HoeCore::WriteStream& cpp)
 			name += ":";
 			name += i->name;
 		}
-		HoeCore::String f;
-		f.printf("{ \"%s\" },\n", name.GetPtr());
-		cpp.WriteString(f);
+		int fout;
+		size_t pos;
+		ExportFile(i->file, fout, pos); 
+		cpp.Print("{ ID%s, %d, 0x%x, T(\"%s\") },\n", 
+			HoeRes::Res::GetTypeName(i->type),
+			fout, pos, name.GetPtr());
 	}
 	for (HoeCore::LList<Namespace>::Iterator i(ns.GetNS());i;i++)
 	{
@@ -132,6 +137,32 @@ void ExportRes(HoeCore::String nsn, Namespace& ns,HoeCore::WriteStream& cpp)
 	}
 }
 
+void LinkRes::ExportFile(HoeCore::File &f, int& fo, size_t& pos)
+{
+	// find file
+	static int l = 0;
+	l = l % 4;
+	if (l >= m_rc.Count())
+	{
+		AddFile();
+	}
+	fo = l++;
+	f.Seek(0);
+	pos = m_rc[fo].file.Tell();
+	HoeCore::WriteStream& out = m_rc[fo].file;
+	out.Write(f);
+	out.CreateSpace(HoeCore::RandInt(10000, 1000000));
+}
+
+LinkRes::RF& LinkRes::AddFile()
+{
+	RF& rc = m_rc.Add();
+	rc.name.printf("res%d.obj", m_rc.Count());
+	rc.file.Open(rc.name,HoeCore::File::hftRewrite);
+	rc.size = 0;
+	return rc;
+}
+
 void LinkRes::Export(Namespace& ns)
 {
 	HoeCore::File fcpp;
@@ -140,9 +171,37 @@ void LinkRes::Export(Namespace& ns)
 	if (!fcpp.Open(ncpp, HoeCore::File::hftRewrite))
 		return;
 
-	fcpp.WriteString("// Auto generated file\n");
+	fcpp.WriteString(
+		"// Auto generated file index\n"
+		"#include <windows.h>\n"
+		"#include <hoe_types.h>\n"
+		"#include <hoe_resfile.h>\n"
+		"\n"
+		"using namespace HoeRes::Res;\n"
+		"\n"
+		"HoeRes::SymbolLink link[] = {"
+		);
 	
 	ExportRes("", ns, fcpp);
+	fcpp.WriteString("{0,0,0,0}};\n\n");
+
+	// export files
+	HoeCore::File frc;
+	HoeCore::String nrc = m_name.GetPtr(); //todo simple
+	nrc += ".rc";
+	if (!frc.Open(nrc, HoeCore::File::hftRewrite))
+		return;
+
+	frc.WriteString("// Auto generated file resources\n");
+	fcpp.WriteString("\nconst tchar * link_files[] = { ");
+	for (uint i=0;i < m_rc.Count();i++)
+	{
+		HoeCore::String n = HoeUtils::GetFileName(m_rc[i].name, false);
+		fcpp.Print("T(\"%s\"), ", n.GetPtr());
+		frc.Print("%s HOERES %s\n", n.GetPtr(), m_rc[i].name.GetPtr());
+	}
+	fcpp.WriteString(" NULL };\n");
+
 }
 
 

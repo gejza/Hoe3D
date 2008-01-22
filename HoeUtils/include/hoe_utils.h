@@ -18,7 +18,7 @@ public:
 	FindFile& operator ++ ();
 
 	// bbb
-	struct _finddata_t& Get() { return m_fileinfo; }
+	const HoeCore::CString GetName() { return m_fileinfo.name; }
 };
 #else
 class FindFile

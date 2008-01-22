@@ -96,6 +96,10 @@ public:
 	virtual ReadStream* CreateReader(size_t pos);
 };
 
+
+bool SetRootDir(const tchar * dir);
+const tchar * GetBaseDir(const tchar * path);
+
 } // namespace HoeCore
 
 

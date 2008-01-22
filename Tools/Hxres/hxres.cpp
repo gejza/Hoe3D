@@ -77,11 +77,14 @@ int main(int argc, char* argv[])
 {
 	// parse
 	// output = binary files + map
-
-	if ("a" == "ab")
-		return 0;
-
-	HoeFlexFileEx fs("test.txt");
+	if (argc < 2)
+	{
+		fprintf(stderr, "hxres <file>\n");
+		return 1;
+	}
+	
+	HoeCore::SetRootDir(HoeCore::GetBaseDir(argv[1]));
+	HoeFlexFileEx fs(argv[1]);
 	Scaner s;
 	s.Switch(fs);
 
@@ -94,7 +97,7 @@ int main(int argc, char* argv[])
 		if (!res)
 		{
 			printf("Linking...\n");
-			res = link.Link("test.rc");
+			res = link.Link(HoeUtils::GetFileName(argv[1],false));
 		}
 	} catch (const Error& e)
 	{
@@ -104,7 +107,7 @@ int main(int argc, char* argv[])
 	}
 
 	// open 
-	testfile();
+	//testfile();
 	
 	return res;
 }

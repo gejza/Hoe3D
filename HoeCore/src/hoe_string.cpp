@@ -257,6 +257,7 @@ String CString::Sub(int pos, int last) const
 	String s;
 	s.PrepareForModify(last-pos+1, true);
 	string::copy(s.m_data->str, GetPtr()+pos, (size_t)(last-pos));
+	s.m_data->str[last-pos] = '\0';
 	return s;
 }
 

@@ -33,6 +33,7 @@ public:
 	size_t WriteString(const HoeCore::CString str);
 	virtual void * CreateBuffer(size_t);
 	void CreateSpace(size_t);
+	int Print(const char* fmt, ...);
 };
 
 class Stream : public ReadStream, public WriteStream

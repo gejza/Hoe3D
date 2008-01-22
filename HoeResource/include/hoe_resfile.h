@@ -48,6 +48,15 @@ const char * GetTypeName(uint id);
 
 
 } // namespace Res
+
+struct SymbolLink
+{
+  int type;
+  int fn;
+  size_t pos;
+  const tchar* name;
+};
+
 } // namespace HoeRes
 
 #endif // _HOE_RESOURCE_DEF_FILE_

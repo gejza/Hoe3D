@@ -235,6 +235,37 @@ HoeCore::ReadStream* HoeCore::FileReader::CreateReader(size_t pos)
 	return m_file.CreateReader(pos);
 }
 
+// file utils
+bool HoeCore::SetRootDir(const tchar * dir)
+{
+#ifdef _WIN32
+	return (SetCurrentDirectory(dir) != FALSE);
+#endif
+#ifdef _LINUX
+	return (chdir(dir) == 0);
+#endif
+	return false;
+}
+
+const tchar * HoeCore::GetBaseDir(const tchar * path)
+{
+	static tchar basedir[ 1024 ];
+	int j;
+
+	HoeCore::string::copy( basedir, path, 1024 );
+
+	for (j=HoeCore::string::len(basedir)-1;j > 0;j--)
+	{
+ 		if (basedir[j] == '/' || basedir[j] == '\\')
+		{
+			basedir[j] = '\0';
+			return basedir;
+		}
+	}
+
+	return T(".");
+}
+
 
 
 

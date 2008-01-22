@@ -6,9 +6,6 @@
 
 BEGIN_HOEGAME
 
-bool SetRootDir(const tchar * dir);
-const tchar * GetBaseDir(const tchar * path);
-
 void RemoveEndLine(char * line);
 
 bool SetRootFromExe(const char * path);

@@ -58,6 +58,19 @@ size_t HoeCore::WriteStream::Write(ReadStream& str, size_t size)
 	return writed;
 }
 
+int HoeCore::WriteStream::Print(const char* fmt, ...)
+{
+	int ret;
+	HoeCore::String str;
+	va_list args;
+	va_start(args, fmt);
+	ret = str.vprintf(fmt, args);
+	va_end(args);
+	WriteString(str);
+	return ret;
+
+}
+
 
 
 
