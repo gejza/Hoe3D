@@ -42,8 +42,8 @@ Values vec;
 
 %union {
   const char * string;
-  double real;
-  long long num;
+  HoeCore::Universal::TReal real;
+  HoeCore::Universal::TDecimal num;
 }
 
 %token TK_Stream TK_StreamFile TK_Texture TK_TextureFile

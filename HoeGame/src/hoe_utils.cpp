@@ -20,7 +20,7 @@ BEGIN_HOEGAME
 
 bool SetRootFromExe(const tchar * path)
 {
-	return HoeCore::SetRootDir(GetBaseDir(path));
+	return HoeCore::SetRootDir(HoeCore::GetBaseDir(path));
 }
 
 void RemoveEndLine(char * line)

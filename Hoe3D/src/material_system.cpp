@@ -27,7 +27,7 @@ HoeMaterial * MaterialSystem::GetMaterial(const char * name)
 	char path[1024];
 	if (m_dir)
 	{
-		m_dir.Export(path, sizeof(path));
+        HoeCore::string::copy(path, m_dir, 1024);
 		size_t l = m_dir.Length();
 		if (path[l-1] != '/' && path[l-1] != '\\')
 		{

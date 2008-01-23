@@ -33,7 +33,7 @@ public:
 
 	// bbb
 	//struct _finddata_t& Get() { return m_fileinfo; }
-    const HoeCore::CString GetName();
+    const HoeCore::CString GetName() { return ""; }
 };
 #endif
 

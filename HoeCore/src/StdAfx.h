@@ -11,6 +11,10 @@
 #include <math.h>
 #endif
 
+#ifdef _LINUX
+#include <unistd.h>
+#endif
+
 #if defined (_MACOSX)
 #include <Carbon/Carbon.h>
 #endif

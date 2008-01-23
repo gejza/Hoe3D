@@ -198,7 +198,7 @@ int InfoSystem::c_fpstime(int argc, const tchar * argv[], void * param)
 	if (argc != 2)
 		return 1;
 
-	GetInfo()->SetFpsTime((float)HoeCore::string::atof(argv[1]));
+	GetInfo()->SetFpsTime((float)HoeCore::string::GetReal(argv[1]));
 
 	return 0;
 }

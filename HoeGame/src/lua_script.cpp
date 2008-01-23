@@ -750,7 +750,7 @@ int LuaScript::error(lua_State * L)
 			sprintf(mbuff,"%s",lua_toboolean(L,i) ? "true" : "false");
 		else
 			sprintf(mbuff,"%s:%p",lua_typename(L,lua_type(L,i)),lua_topointer(L,i));
-		buff.cat(mbuff);
+		buff += mbuff;
 	}
 	BaseConsole::Printf(buff);
 	HoeApp::GetApp<HoeApp>()->ShowMsg(T("Script error"), buff);

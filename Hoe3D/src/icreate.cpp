@@ -138,7 +138,7 @@ namespace icreate {
 		}
 
 		if (parse() == HOE_T_INT) {
-			height = HoeCore::string::atoi(parser_getstring());
+			height = HoeCore::string::GetNumber(parser_getstring());
 		}
 		else {
 			Con_Print("parse error: missing font height");
@@ -187,7 +187,7 @@ namespace icreate {
 		int type = parse();
 		float size = 1;
 		if (parse() == HOE_T_INT) {
-			size = (float)HoeCore::string::atof(parser_getstring());
+			size = (float)HoeCore::string::GetReal(parser_getstring());
 		}
 		else {
 			Con_Print("parse error: missing box size");

@@ -53,13 +53,13 @@ CPPFLAGS="$CXXFLAGS -fPIC -mmmx -msse -D_LINUX -O2 -D_USE_OPENGL_ -I../HoeCore/i
 
 LDFLAGS="$LDFLAGS -L/usr/X11R6/lib -L../bin"
 
-AC_OUTPUT( Makefile HoeCore/Makefile Hoe3D/Makefile HoeGame/Makefile
+AC_OUTPUT( Makefile 
+          HoeCore/Makefile 
           HoeResource/Makefile 
-          HoeEditor/Makefile 
+          Hoe3D/Makefile 
+          HoeGame/Makefile
           HoeUtils/Makefile
-          HoeUtils/lib/Makefile
-          HoeUtils/Hoe2DEditor/Makefile
-          HoeUtils/HoeStudio/Makefile
+          HoeEditor/Makefile 
           Tools/Makefile
           Tools/Hxres/Makefile
           HoeTutorials/Makefile

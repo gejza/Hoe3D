@@ -21,9 +21,7 @@
 #include <stdarg.h>
 #include <stdlib.h>
 
-#ifdef _UNICODE
 #include <wchar.h>
-#endif
 
 #include <hoe_types.h>
 #include <hoe_string.h>

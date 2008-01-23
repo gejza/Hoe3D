@@ -1,9 +1,11 @@
-## Process this file with automake to produce Makefile.in
-## $Id: Makefile.am,v 0.0.0.1 2001/01/19 07:39:13 sioux Exp $
 
-SUBDIRS = lib 
-#HoeStudio htex
-# Hoe2DEditor
+lib_LTLIBRARIES = ../bin/libHoeUtils.la
 
+___bin_libHoeUtils_la_CPPFLAGS = -D_NOXLIB -I../HoeCore/include
+
+___bin_libHoeUtils_la_SOURCES = src/hoe_utils.cpp
+#src/hsl_parser.tab.cpp src/hsl_parser.yy.cpp
+
+___bin_libHoeUtils_la_LDFLAGS = -static -lHoeCore
 
 

@@ -53,13 +53,12 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#ifdef _UNICODE
 #include <wchar.h>
-#endif
 
 #include <hoe_types.h>
 #include <hoe_math_ext.h>
 #include <hoe_core.h>
+#include <hoe_platform.h>
 
 // Memory managment
 //#include "mem_system.h"

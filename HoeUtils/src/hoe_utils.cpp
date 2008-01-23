@@ -4,6 +4,7 @@
 
 namespace HoeUtils {
 
+#ifdef _WIN32
 FindFile::FindFile(const HoeCore::CString mask)
 {
 	m_handle = _findfirst( mask, &m_fileinfo );
@@ -28,6 +29,25 @@ void FindFile::Next()
 		m_handle = -1;
 	}
 }
+#else
+FindFile::FindFile(const HoeCore::CString mask)
+{
+}
+
+FindFile::~FindFile()
+{
+}
+
+bool FindFile::IsValid()
+{
+    return false;
+}
+
+void FindFile::Next()
+{
+}
+#endif
+
 
 FindFile::operator bool ()
 {

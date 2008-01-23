@@ -20,14 +20,17 @@
 #include <string.h>
 #include <stdarg.h>
 #include <stdlib.h>
+#include <wchar.h>
+
+#ifdef _WIN32
 #include <io.h>
+#else
+#include <unistd.h>
+#endif 
 
 #include <hoe_types.h>
 #include <hoe_string.h>
 
-#ifdef _UNICODE
-#include <wchar.h>
-#endif
 
 #endif // _STDAFX_H_
 

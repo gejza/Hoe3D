@@ -12,7 +12,7 @@ class Universal
 {
 public:
 	// types
-	typedef long long TDecimal;
+	typedef long TDecimal;
 	typedef float TReal;
 
 	enum Type
@@ -77,13 +77,8 @@ public:
 	//float vec_GetFloat(size_t index) const;
 
 	// operators
-	const Universal & operator = (const char * value) { Set(value); return *this; }
-	const Universal & operator = (TReal value) { Set(value); return *this; }
-	const Universal & operator = (unsigned long value) { Set(value); return *this; }
-	const Universal & operator = (TDecimal value) { Set(value); return *this; }
-	const Universal & operator = (int value) { Set(value); return *this; }
-	const Universal & operator = (bool value) { Set(value); return *this; }
-	const Universal & operator = (const Universal & value) { Set(value); return *this; }
+	template<typename TYPE> 
+    const Universal & operator = (TYPE value) { Set(value); return *this; }
 
     operator const char * () const { return GetStringValue(); }
     operator const wchar_t * () const { return GetWideStringValue(); }

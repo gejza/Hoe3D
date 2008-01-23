@@ -145,6 +145,10 @@ template<typename TYPE> void be_rep(TYPE& type)
 #define le_int16(n) le_num<int16>(n)
 #define le_int32(n) le_num<int32>(n)
 #define le_int64(n) le_num<int64>(n)
+#define le_int(n) le_num<int>(n)
+#define le_uint(n) le_num<uint>(n)
+#define le_float(n) le_num<float>(n)
+#define le_byte(n) le_num<byte>(n)
 
 namespace HoeCore {
 

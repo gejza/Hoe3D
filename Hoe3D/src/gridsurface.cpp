@@ -843,10 +843,10 @@ void HOEAPI GridSurface::Dump(XHoeStreamWrite * stream)
 	assert(m_grids);
 	stream->WriteValue<uint>(le_uint(4));
 	// size
-	stream->Write<uint>(le_uint(m_width));
-	stream->Write<uint>(le_uint(m_height));
-	stream->Write<vfloat>(le_float(m_sizeX));
-	stream->Write<vfloat>(le_float(m_sizeY));
+	stream->WriteValue<uint>(le_uint(m_width));
+	stream->WriteValue<uint>(le_uint(m_height));
+	stream->WriteValue<float>(le_float(m_sizeX));
+	stream->WriteValue<float>(le_float(m_sizeY));
 	// struktura pro data
 	// pak jednotlive gridy
 
@@ -860,14 +860,14 @@ void HOEAPI GridSurface::Dump(XHoeStreamWrite * stream)
 		switch (d.type)
 		{
 		case TGridData::ePlane:
-			stream->Write<vfloat>(le_float(d.plane_heights[0]));
-			stream->Write<vfloat>(le_float(d.plane_heights[1]));
-			stream->Write<vfloat>(le_float(d.plane_heights[2]));
-			stream->Write<vfloat>(le_float(d.plane_heights[3]));
+			stream->WriteValue<float>(le_float(d.plane_heights[0]));
+			stream->WriteValue<float>(le_float(d.plane_heights[1]));
+			stream->WriteValue<float>(le_float(d.plane_heights[2]));
+			stream->WriteValue<float>(le_float(d.plane_heights[3]));
 			break;
 		case TGridData::eModel:
 			stream->WriteValue<byte>(le_byte((byte)d.modelid));
-			stream->Write<vfloat>(le_float(d.base_height));
+			stream->WriteValue<float>(le_float(d.base_height));
 			break;
 		};
 	}

@@ -31,7 +31,7 @@ int HoeStates::c_setwireframe(int argc, const tchar * argv[], void * param)
 	if (argc != 2)
 		return 1;
 
-	GetStates()->wireframe = HoeCore::string::atoi(argv[1]) != 0;
+	GetStates()->wireframe = HoeCore::string::GetNumber(argv[1]) != 0;
 	return 0; 
 }
 
