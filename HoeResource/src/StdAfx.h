@@ -26,6 +26,9 @@
 #endif
 
 #include <hoe_types.h>
+#include <hoe_string.h>
+#include <hoe_stream.h>
+#include <hoe_structures.h>
 
 #endif // _STDAFX_H_
 

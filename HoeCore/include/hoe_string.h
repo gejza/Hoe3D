@@ -38,7 +38,7 @@ size_t utf8len(const wchar_t * s);
 
 inline bool ifbegin(const tchar* begin, const tchar* str) { return false; }
 
-int find_last(const char* str,char f);
+int find_last(const tchar* str,tchar f);
 
 float GetReal(const char* str);
 float GetReal(const wchar_t* str);
@@ -100,7 +100,7 @@ public:
     {
         return string::cmp(m_str, s) == 0;
     }
-	int FindLast(char f) const
+	int FindLast(tchar f) const
 	{
 		return string::find_last(GetPtr(), f);
 	}

@@ -157,7 +157,7 @@ void LinkRes::ExportFile(HoeCore::File &f, int& fo, size_t& pos)
 LinkRes::RF& LinkRes::AddFile()
 {
 	RF& rc = m_rc.Add();
-	rc.name.printf("res%d.obj", m_rc.Count());
+	rc.name.printf("%sres%d.obj", m_name.GetPtr(), m_rc.Count());
 	rc.file.Open(rc.name,HoeCore::File::hftRewrite);
 	rc.size = 0;
 	return rc;
@@ -171,12 +171,14 @@ void LinkRes::Export(Namespace& ns)
 	if (!fcpp.Open(ncpp, HoeCore::File::hftRewrite))
 		return;
 
-	fcpp.WriteString(
-		"// Auto generated file index\n"
-		"#include <windows.h>\n"
-		"#include <hoe_types.h>\n"
-		"#include <hoe_resfile.h>\n"
-		"\n"
+	fcpp.WriteString("// Auto generated file index\n");
+	if (1)
+		fcpp.WriteString("#include \"StdAfx.h\"\n");
+	else
+		fcpp.WriteString("#include <windows.h>\n"
+			"#include <hoe_types.h>\n"
+			"#include <hoe_resfile.h>\n");
+	fcpp.WriteString("\n"
 		"using namespace HoeRes::Res;\n"
 		"\n"
 		"HoeRes::SymbolLink link[] = {"

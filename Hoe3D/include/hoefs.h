@@ -30,9 +30,6 @@ public:
 	{
 		return Write(&t, sizeof(T));
 	}
-	inline bool le_writebyte(byte b) { return WriteValue<byte>(le_byte(b)); }
-	inline bool le_writedword(dword dw) { return WriteValue<dword>(le_dword(dw)); }
-	inline bool le_writefloat(float f) { return WriteValue<float>(le_float(f)); }
 };
 class XHoeStreamRead
 {

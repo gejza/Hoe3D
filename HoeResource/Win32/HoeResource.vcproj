@@ -29,7 +29,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
-			CharacterSet="0"
+			CharacterSet="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -66,7 +66,7 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="1"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="4"
@@ -510,6 +510,18 @@
 		</File>
 		<File
 			RelativePath="..\include\HoeResource\fvf.h"
+			>
+		</File>
+		<File
+			RelativePath="..\src\resmgr.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\include\HoeResource\resmgr.h"
+			>
+		</File>
+		<File
+			RelativePath="..\src\StdAfx.cpp"
 			>
 		</File>
 		<File

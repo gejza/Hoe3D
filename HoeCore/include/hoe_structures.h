@@ -188,12 +188,13 @@ template<typename TYPE> void qsort(TYPE * base, size_t nums)
 template<class C> class List : public SetBase<C>
 {
 public:
-	void Add(C c)
+	C& Add(C c)
 	{
 		if (this->m_size == this->m_count)
 			Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
 		new (&this->m_ptr[this->m_count]) C(c);
 		this->m_count++;
+		return this->m_ptr[this->m_count-1];
 	}
 	C & Add()
 	{
