@@ -8,7 +8,7 @@ BEGIN_HOEGAME
 THoeVar * CVar::staticVars;
 HoeCore::String_s<1024> CVar::lastError;
 
-CVar::CVar(const char *_name, bool _value, int _flags)
+CVar::CVar(const tchar *_name, bool _value, int _flags)
 {
 	name = _name;
 	value.b = _value;
@@ -16,7 +16,7 @@ CVar::CVar(const char *_name, bool _value, int _flags)
 	Register();
 }
 
-CVar::CVar(const char *_name, int _value, int _flags)
+CVar::CVar(const tchar *_name, int _value, int _flags)
 {
 	name = _name;
 	value.i = _value;
@@ -24,7 +24,7 @@ CVar::CVar(const char *_name, int _value, int _flags)
 	Register();
 }
 
-CVar::CVar(const char *_name, float _value, int _flags)
+CVar::CVar(const tchar *_name, float _value, int _flags)
 {
 	name = _name;
 	value.f = _value;
@@ -33,7 +33,7 @@ CVar::CVar(const char *_name, float _value, int _flags)
 }
 
 
-CVar::CVar(const char *_name, const tchar *_value, int _flags)
+CVar::CVar(const tchar *_name, const tchar *_value, int _flags)
 {
 	name = _name;
 	if ((_flags & 0xff) == TVAR_SSTR)
@@ -51,7 +51,7 @@ CVar::CVar(const char *_name, const tchar *_value, int _flags)
 	Register();
 }
 
-CVar::CVar(const char * _name, const THoeVarIndex * _s, THoeVarValue * _val, size_t _size, int _flags)
+CVar::CVar(const tchar * _name, const THoeVarIndex * _s, THoeVarValue * _val, size_t _size, int _flags)
 {
 	name = _name;
 	vars = _val;
@@ -84,10 +84,10 @@ void CVar::Register()
 	}
 }
 
-CVar * CVar::GetVar(const char * name)
+CVar * CVar::GetVar(const tchar * name)
 {
 	for (THoeVar * v = staticVars;v;v=v->next)
-		if (strcmp(name,v->name)==0)
+		if (HoeCore::string::cmp(name,v->name)==0)
 			return static_cast<CVar*>(v);
 	return NULL;
 }
@@ -100,10 +100,10 @@ const tchar * CVar::GetStringValue()
 	case TVAR_BOOL:
 		return value.b ? T("true"):T("false");
 	case TVAR_INTEGER:
-		str.printf("%d", value.i);
+		str.printf(T("%d"), value.i);
 		return str;
 	case TVAR_FLOAT:
-		str.printf("%f", value.f);
+		str.printf(T("%f"), value.f);
 		return str;
 	case TVAR_STR:
 	case TVAR_SSTR:
@@ -113,7 +113,7 @@ const tchar * CVar::GetStringValue()
 	};
 }
 
-bool CVar::Set(const char * str)
+bool CVar::Set(const tchar * str)
 {
 	switch (flags & TVAR_TYPE)
 	{
@@ -131,10 +131,10 @@ bool CVar::Set(const char * str)
 		}
 		break;
 	case TVAR_INTEGER:
-		value.i = atoi(str);
+		value.i = HoeCore::string::GetNumber(str);
 		break;
 	case TVAR_FLOAT:
-		value.f = (float)atof(str);
+		value.f = HoeCore::string::GetReal(str);
 		break;
 	case TVAR_STR:
 	case TVAR_SSTR:
@@ -166,8 +166,8 @@ bool CVar::Set(float f)
 	case TVAR_STR:
 	case TVAR_SSTR:
 		{
-			char str[50];
-			sprintf(str, "%f", f);
+			HoeCore::String_s<50> str;
+			str.printf(str, T("%f"), f);
 			SetString(str);
 		}
 		break;
@@ -197,8 +197,8 @@ bool CVar::Set(int i)
 	case TVAR_STR:
 	case TVAR_SSTR:
 		{
-			char str[50];
-			sprintf(str, "%d", i);
+			HoeCore::String_s<50> str;
+			str.printf(str, T("%d"), i);
 			SetString(str);
 		}
 		break;
@@ -226,9 +226,9 @@ bool CVar::Set(bool b)
 	case TVAR_SSTR:
 		{
 			if (b)
-				SetString("true");
+				SetString(T("true"));
 			else
-				SetString("false");
+				SetString(T("false"));
 		}
 		break;
 	default:
@@ -238,7 +238,7 @@ bool CVar::Set(bool b)
 	return true;
 }
 
-bool CVar::SetStructItem(const char * str, int pos, int flags)
+bool CVar::SetStructItem(const tchar * str, int pos, int flags)
 {
 	switch (flags & TVAR_TYPE)
 	{
@@ -256,10 +256,10 @@ bool CVar::SetStructItem(const char * str, int pos, int flags)
 		}
 		break;
 	case TVAR_INTEGER:
-		vars[pos].i = atoi(str);
+		vars[pos].i = HoeCore::string::GetNumber(str);
 		break;
 	case TVAR_FLOAT:
-		vars[pos].f = (float)atof(str);
+		vars[pos].f = HoeCore::string::GetReal(str);
 		break;
 	/*case TVAR_STR:
 	case TVAR_SSTR:
@@ -303,7 +303,7 @@ bool CVar::SetStructItem(float f, int pos, int flags)
 	return true;
 }
 
-int GetBasePath(const char * path, char * name)
+int GetBasePath(const tchar * path, tchar * name)
 {
 	int ret=0;
 	while (*path && *path!='[' && *path != '.')
@@ -315,22 +315,22 @@ int GetBasePath(const char * path, char * name)
 	return ret;
 }
 
-static int Find(const char * p, const THoeVarIndex * ix)
+static int Find(const tchar * p, const THoeVarIndex * ix)
 {
 	for (int i=0;ix[i].name;i++)
 	{
-		if (ix[i].name[0]=='*' || strcmp(p, ix[i].name)==0)
+		if (ix[i].name[0]=='*' || HoeCore::string::cmp(p, ix[i].name)==0)
 			return i;
 	}
 	return -1;
 }
 
-bool CVar::ParseIndex(const char * idf, int &pos, int &flags, const THoeVarIndex *& ix) const
+bool CVar::ParseIndex(const tchar * idf, int &pos, int &flags, const THoeVarIndex *& ix) const
 {
 	pos = 0;
 	// spocitat data z indexu nebo vnoreneho indexu
 	ix = index;
-	char i_name[256];
+	tchar i_name[256];
 	while (ix)
 	{
 		if (*idf == '.') idf++;
@@ -339,7 +339,7 @@ bool CVar::ParseIndex(const char * idf, int &pos, int &flags, const THoeVarIndex
 		int i = Find(i_name, ix);
 		if (i==-1) 
 		{
-			lastError.printf( "Item %s not found.", i_name);
+			lastError.printf( T("Item %s not found."), i_name);
 			return false;
 		}
 		pos += ix[i].position;
@@ -353,7 +353,7 @@ bool CVar::ParseIndex(const char * idf, int &pos, int &flags, const THoeVarIndex
 		}
 		if (!ix[i].index)
 		{
-			lastError.printf("Item %s is not struct.", i_name);
+			lastError.printf(T("Item %s is not struct."), i_name);
 			return false;
 		}
 		ix = ix[i].index;
@@ -361,18 +361,18 @@ bool CVar::ParseIndex(const char * idf, int &pos, int &flags, const THoeVarIndex
 	return false;
 }
 
-void CVar::SetString(const char * str)
+void CVar::SetString(const tchar * str)
 {
 	if ((flags & 0xff) == TVAR_STR && value.str)
 		delete [] value.str;
 	if (str == NULL || str[0] == 0)
 	{
-		str = "";
+		str = T("");
 		flags = (flags & ~0xff) | TVAR_SSTR;
 	}
 	else
 	{
-		size_t l = strlen(str);
+		size_t l = HoeCore::string::len(str);
 		l++;
 		value.str = new tchar[l];
 		HoeCore::string::copy(value.str, str, l);
@@ -380,14 +380,14 @@ void CVar::SetString(const char * str)
 	}
 }
 
-CVar * CVar::GetFullVar(const char * path, int &pos, int &flags, const THoeVarIndex *& index)
+CVar * CVar::GetFullVar(const tchar * path, int &pos, int &flags, const THoeVarIndex *& index)
 {
-	char var_name[256];
+	tchar var_name[256];
 	path += GetBasePath(path, var_name);
 	CVar * v = GetVar(var_name);
 	if (!v)
 	{
-		lastError.printf("Var `%s' not exist.", var_name);
+		lastError.printf(T("Var `%s' not exist."), var_name);
 		return NULL;
 	}
 	// base bath
@@ -402,7 +402,7 @@ CVar * CVar::GetFullVar(const char * path, int &pos, int &flags, const THoeVarIn
 	return v;
 }
 
-bool CVar::SetVarValue(const char * path, const char * vs)
+bool CVar::SetVarValue(const tchar * path, const tchar * vs)
 {
 	int pos, flags;
 	const THoeVarIndex * index;
@@ -416,14 +416,14 @@ bool CVar::SetVarValue(const char * path, const char * vs)
 	{
 		if (vs == NULL)
 		{
-			lastError.printf( "Only string can set to structure var.");
+			lastError.printf( T("Only string can set to structure var."));
 			return false;
 		}
 		// parse string
 		while (*vs)
 		{
-			char name[256];
-			char val[256];
+			tchar name[256];
+			tchar val[256];
 			// parse
 			while (*vs == ' ' || *vs == ';' || *vs == '\t') vs++;
 			if (!*vs)
@@ -435,7 +435,7 @@ bool CVar::SetVarValue(const char * path, const char * vs)
 			vs += pi;
 			if (*vs++ != '=')
 			{
-				lastError = "Format error.";
+				lastError = T("Format error.");
 				return false;
 			}
 			pi = 0;
@@ -445,7 +445,7 @@ bool CVar::SetVarValue(const char * path, const char * vs)
 			int i = Find(name, index);
 			if (i==-1)
 			{
-				lastError.printf( "Item %s not found.", name);
+				lastError.printf( T("Item %s not found."), name);
 				return false;
 			}
 			if (!v->SetStructItem(val, pos + index[i].position, index[i].flags))
@@ -459,7 +459,7 @@ bool CVar::SetVarValue(const char * path, const char * vs)
 		return v->Set(vs);
 }
 
-bool CVar::SetVarValue(const char * path, float vf)
+bool CVar::SetVarValue(const tchar * path, float vf)
 {
 	int pos, flags;
 	const THoeVarIndex * index;
@@ -471,7 +471,7 @@ bool CVar::SetVarValue(const char * path, float vf)
 	// jestli je struktura, tak projit a nastavit vsechny
 	if ((flags & TVAR_TYPE) == TVAR_STRUCT)
 	{
-		lastError.printf( "Only string can set to structure var.");
+		lastError.printf(T("Only string can set to structure var."));
 		return false;
 	}
 	if (pos >= 0)
@@ -480,7 +480,9 @@ bool CVar::SetVarValue(const char * path, float vf)
 		return v->Set(vf);
 }
 
-int CVar::c_printvar(int argc, const char * argv[], void * param)
+#ifndef _UNICODE
+
+int CVar::c_printvar(int argc, const tchar * argv[], void * param)
 {
 	if (argc == 2)
 	{
@@ -497,32 +499,31 @@ int CVar::c_printvar(int argc, const char * argv[], void * param)
 	return 0;
 }
 
-int CVar::c_printallvars(int argc, const char * argv[], void * param)
+int CVar::c_printallvars(int argc, const tchar * argv[], void * param)
 {
-	FILE * f = NULL;
+	HoeCore::File f;
 	if (argc>=2)
 	{
-		f = fopen(argv[1], "wt");
+		f.Open(argv[1], HoeCore::File::hftRewrite);
 	}
 	for (THoeVar * v = staticVars;v;v=v->next)
 	{
 		CVar *var = reinterpret_cast<CVar*>(v);
-		if (f)
+		if (f.IsOpen())
 		{
-			fprintf(f, "%s=%s\n", var->GetName(), var->GetStringValue());
+			f.Print(T("%s=%s\n"), var->GetName(), var->GetStringValue());
 		}
 		else
 			BaseConsole::Printf(T("%s=%s"), var->GetName(), var->GetStringValue());
 	}
-	if (f)
+	if (f.IsOpen())
 	{
 		BaseConsole::Printf(T("Print vars to file %s."), argv[1]);
-		fclose(f);
 	}
 	return 0;
 }
 
-int CVar::c_setvar(int argc, const char * argv[], void * param)
+int CVar::c_setvar(int argc, const tchar * argv[], void * param)
 {
 	if (argc == 3)
 	{
@@ -574,5 +575,7 @@ int CVar::l_getvar(lua_State * L)
 	}
 	return 0;
 }
+
+#endif
 
 END_HOEGAME

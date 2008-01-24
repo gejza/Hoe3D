@@ -16,7 +16,7 @@ namespace Adventure {
 Kulission::Kulission(IHoeScene * scn) : BaseObject(scn)
 {
 	HoeCore::String_s<1000> cmd;
-	cmd.printf("generate model plane 1");
+	cmd.printf(T("generate model plane 1"));
 	m_model = (IHoeModel*)HoeGame::GetHoeEngine()->Create(cmd);
 	if (!m_model)
 		return;
@@ -107,19 +107,19 @@ bool Theatre::Load(const char * fname)
 		while (p = parser.GetNextProperty())
 		{
 			//gui->Set(p->GetName(), p->GetStringValue());
-			if (p->GetName() == "position")
+			if (p->GetName() == T("position"))
 			{
 				
 				k->SetPosition(p->GetValue().GetPtr<float>()[0],
 					p->GetValue().GetPtr<float>()[1],
 					p->GetValue().GetPtr<float>()[2]);
 			}
-			else if (p->GetName() == "size")
+			else if (p->GetName() == T("size"))
 			{
 				k->SetSize(p->GetValue().GetPtr<float>()[0],
 					p->GetValue().GetPtr<float>()[1]);
 			}
-			else if (p->GetName() == "texture")
+			else if (p->GetName() == T("texture"))
 			{
 				k->SetTexture(p->GetValue().GetStringValue());
 			}

@@ -60,6 +60,9 @@ bool HoeWin32::CreateWin(const tchar * title, int width, int height, bool fs)
 
 	if (!m_hWnd)
 	{
+		HoeCore::String_s<1024> str;
+		str.printf(T("Failed create window\nError: %d"), GetLastError());
+		this->ShowMsg(T("Error create window"), str);
 		return false;
 	}
 

@@ -9,13 +9,32 @@ IHoe3DEngine * g_hoeengine = NULL;
 
 HoeEngine::HoeEngine()
 {
-	m_lib = NULL;
-	m_loaded = false;
 }
 
 HoeEngine::~HoeEngine()
 {
 	Destroy();
+}
+
+void HoeEngine::Destroy()
+{
+	if (g_hoeengine)
+		g_hoeengine->Destroy();
+
+	g_hoeengine = NULL;
+	m_loaded = false;
+	// unload
+}
+
+// HoeEngineDLL
+HoeEngineDLL::HoeEngineDLL()
+{
+	m_lib = NULL;
+}
+
+HoeEngineDLL::~HoeEngineDLL()
+{
+	HoeEngine::~HoeEngine();
 
 #ifdef _WIN32
 	if (m_lib)
@@ -29,7 +48,7 @@ HoeEngine::~HoeEngine()
 
 }
 
-bool HoeEngine::Load(const tchar * dllname, Console * con, XHoeFS * fs, int sdkver)
+bool HoeEngineDLL::Load(Console * con, XHoeFS * fs, int sdkver)
 {
 	HOE_FUNCCREATE GetEngineInterface;
 	
@@ -39,11 +58,11 @@ bool HoeEngine::Load(const tchar * dllname, Console * con, XHoeFS * fs, int sdkv
 		return false;
 	}
 
-#ifdef _WIN32_WINNT
-	m_lib = LoadLibraryW(L"dllname");
+#ifdef _WIN32
+	m_lib = LoadLibraryW(m_dllname);
 	if (!m_lib)
 	{
-		con->Printf(T("Failed load library: %s"),dllname);
+		con->Printf(T("Failed load library: %s"),m_dllname);
 		return false;
 	}
 
@@ -71,9 +90,7 @@ bool HoeEngine::Load(const tchar * dllname, Console * con, XHoeFS * fs, int sdkv
 		return false;
 	}
 #endif
-	TRACE;
 	g_hoeengine = GetEngineInterface(HOESDK_VERSION,con,fs, NULL,0,0);
-	TRACE;
 	if (g_hoeengine)
 	{
 		m_loaded = true;
@@ -81,33 +98,6 @@ bool HoeEngine::Load(const tchar * dllname, Console * con, XHoeFS * fs, int sdkv
 	}
 	else
 		return false;
-}
-
-bool HoeEngine::LoadStatic(Console * con)
-{
-	TRACE
-#ifdef HOE_STATIC_ENGINE
-	TRACE;
-	g_hoeengine = CreateHoeEngine(HOESDK_VERSION, con, NULL, NULL, 0, 0);
-
-	if (g_hoeengine)
-	{
-		m_loaded = true;
-		return true;
-	}
-	else
-#endif
-		return false;
-}
-
-void HoeEngine::Destroy()
-{
-	if (g_hoeengine)
-		g_hoeengine->Destroy();
-
-	g_hoeengine = NULL;
-	m_loaded = false;
-	// unload
 }
 
 //////////////////////////////////////////////

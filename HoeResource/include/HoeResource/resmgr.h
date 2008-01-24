@@ -8,7 +8,7 @@ namespace HoeRes {
 class XResourceMgr
 {
 public:
-	virtual HoeCore::ReadStream * GetResource(const tchar* ns, const tchar* name) = 0;
+	virtual HoeCore::ReadStream * GetResource(const tchar* name, const tchar** ns = NULL) = 0;
 };
 
 class LinkedFile
@@ -45,7 +45,7 @@ public:
 		HoeRes::SymbolLink* sym,
 		const tchar ** files);
 	// add linkes x auto linkes
-	virtual HoeCore::ReadStream * GetResource(const tchar* ns, const tchar* name);
+	virtual HoeCore::ReadStream * GetResource(const tchar* name, const tchar** ns = NULL);
 	HoeCore::ReadStream * LoadSymbol(HoeRes::SymbolLink& sym);
 	LinkedFile& GetFile(int n);
 };

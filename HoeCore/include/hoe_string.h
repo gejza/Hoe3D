@@ -61,6 +61,8 @@ inline int scanf(const tchar *, const wchar_t *, ...)
 
 void concat(char* dest, size_t sizeb, char c);
 void concat(char* dest, size_t sizeb, const char* src);
+void concat(wchar_t* dest, size_t sizeb, wchar_t c);
+void concat(wchar_t* dest, size_t sizeb, const wchar_t* src);
 
 #ifdef ENABLE_AUTOCONV_FUNCTIONS
 int vsnprintf(char *, size_t, const wchar_t *, va_list);
@@ -72,6 +74,11 @@ inline int cmp(const wchar_t* s1, const char* s2)
 {
 	return -cmp(s2,s1);
 }
+void concat(char* dest, size_t sizeb, wchar_t c);
+void concat(char* dest, size_t sizeb, const wchar_t* src);
+void concat(wchar_t* dest, size_t sizeb, char c);
+void concat(wchar_t* dest, size_t sizeb, const char* src);
+
 
 #endif // ENABLE_AUTOCONV_FUNCTIONS
 

@@ -4,26 +4,27 @@
 
 BEGIN_HOEGAME 
 
-CVar HoeApp::m_width("width", 240, 0);
-CVar HoeApp::m_height("height", 320, 0);
-CVar HoeApp::m_fullscreen("fullscreen", false, 0);
-CVar HoeApp::m_enginedll("engine", ENGINE_DLL, TVAR_SSTR);
+CVar HoeApp::m_width(T("width"), 240, 0);
+CVar HoeApp::m_height(T("height"), 320, 0);
+CVar HoeApp::m_fullscreen(T("fullscreen"), false, 0);
+CVar HoeApp::m_enginedll(T("engine"), ENGINE_DLL, TVAR_SSTR);
 
 #ifdef _WIN32_WINNT
-HoeApp::HoeApp(HOE_INSTANCE hInst, Console * con) : HoeWin32(hInst)
+HoeApp::HoeApp(HOE_INSTANCE hInst, HoeEngine& engine, Console * con) : HoeWin32(hInst)
 #endif
 
 #ifdef _WIN32_WCE
-HoeApp::HoeApp(HOE_INSTANCE hInst, Console * con) : HoeMobile(hInst)
+HoeApp::HoeApp(HOE_INSTANCE hInst, HoeEngine& engine, Console * con) : HoeMobile(hInst)
 #endif
 
 #ifdef _LINUX
-HoeApp::HoeApp(HOE_INSTANCE, Console * con) : HoeLinux()
+HoeApp::HoeApp(HOE_INSTANCE, HoeEngine& engine, Console * con) : HoeLinux()
 #endif
 
 #ifdef _MACOSX
-HoeApp::HoeApp(HOE_INSTANCE, Console * con) : HoeMacOsX()
+HoeApp::HoeApp(HOE_INSTANCE, HoeEngine& engine, Console * con) : HoeMacOsX()
 #endif
+ , m_engine(engine)
 {
 	this->m_con = con;
 	m_lastError = NULL;
@@ -197,14 +198,7 @@ bool HoeApp::Init(const char * title, int sdkver)
 
 bool HoeApp::LoadEngine(int sdkver)
 {
-	TRACE;
-#ifdef HOE_STATIC_ENGINE
-	TRACE;
-	return m_engine.LoadStatic(m_con);
-#else	
-	TRACE;
-	return m_engine.Load(m_enginedll.GetString(), m_con, &m_fs, sdkver);
-#endif
+	return m_engine.Load(m_con, NULL, sdkver);
 }
 
 void HoeApp::OnUpdate(float time)

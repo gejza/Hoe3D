@@ -63,7 +63,8 @@ public:
 	void Set(void * p);
 
 	// getting functions
-	const char * GetStringValue() const;
+	const tchar * GetStringValue() const;
+	const char * GetUtfStringValue() const;
 	const wchar_t * GetWideStringValue() const;
 	bool GetBool() const;
 	TDecimal GetDecimal() const;
@@ -80,7 +81,7 @@ public:
 	template<typename TYPE> 
     const Universal & operator = (TYPE value) { Set(value); return *this; }
 
-    operator const char * () const { return GetStringValue(); }
+    operator const char * () const { return GetUtfStringValue(); }
     operator const wchar_t * () const { return GetWideStringValue(); }
 protected:
 	void Reset();

@@ -74,7 +74,7 @@ enum EVarFlags
 
 struct THoeVarIndex
 {
-	const char * name;
+	const tchar * name;
 	int position;
 	int flags;
 	THoeVarIndex * index;
@@ -92,7 +92,7 @@ struct THoeVarValue {
 
 struct THoeVar
 {
-	const char * name;
+	const tchar * name;
 	union {
 		THoeVarValue value;
 		struct {

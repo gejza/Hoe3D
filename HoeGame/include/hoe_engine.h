@@ -35,7 +35,6 @@ inline IHoe3DEngine *GetHoeEngine()
 class HoeEngine
 {
 protected:
-	HOE_LIBRARY m_lib; /** < Handle library */
 	bool m_loaded;
 public:
 	/** Kontruktor */
@@ -43,25 +42,46 @@ public:
 	/** Destruktor */
 	~HoeEngine();
 
-	/**
-	 * Nahráni enginu.
-	 * @param dllname Jméno knihovny
-	 * @param con Konzole hry
-	 */
-	bool Load(const tchar * dllname, Console * con, XHoeFS * fs, int sdkver);
-
-	/**
-	 * Nahráni enginu staticke verze.
-	 * @param con Konzole hry
-	 */
-	bool LoadStatic(Console * con);
-
 	static bool IsLoaded() { return GetHoeEngine() != NULL; }
+	virtual bool Load(Console * con, XHoeFS * fs, int sdkver) = 0;
+
 	/**
 	 * pokud je engine nahrán zavolá iHoe3Dengine->Destroy()
 	 */
 	void Destroy();
 };
+
+class HoeEngineDLL : public HoeEngine
+{
+protected:
+	HOE_LIBRARY m_lib; /** < Handle library */
+	const tchar* m_dllname;
+public:
+	HoeEngineDLL();
+	virtual ~HoeEngineDLL();
+	/**
+	 * Nahráni enginu.
+	 * @param dllname Jméno knihovny
+	 * @param con Konzole hry
+	 */
+	virtual bool Load(Console * con, XHoeFS * fs, int sdkver);
+};
+
+/*class HoeEngineStatic : public HoeEngine
+{
+public:
+	virtual bool Load(Console * con, XHoeFS * fs, int sdkver)
+	{
+		g_hoeengine = CreateHoeEngine(sdkver, con, fs, NULL, 0, 0);
+		if (g_hoeengine)
+		{
+			m_loaded = true;
+			return true;
+		}
+		else
+			return false;
+	}
+};*/
 
 class HoeEngineInfo
 {

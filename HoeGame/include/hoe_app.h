@@ -51,9 +51,9 @@ class HoeApp : public HoeMacOsX
 #endif
 {
 protected:
-	HoeEngine m_engine; 
+	HoeEngine& m_engine; 
 	Console * m_con;
-	HoeGame::FileSystem m_fs;
+	//HoeGame::FileSystem m_fs;
 
 	static CVar m_width;
 	static CVar m_height;
@@ -70,7 +70,7 @@ public:
 	 * Kontruktor
 	 * @param con Konzole hry
 	 */
-	HoeApp(HOE_INSTANCE,Console * con);
+	HoeApp(HOE_INSTANCE,HoeEngine& engine, Console * con);
 	/** Destruktor */
 	virtual ~HoeApp();
 
@@ -92,10 +92,10 @@ public:
 		return HoeGame::GetHoeEngine();
 	}
 
-	static FileSystem * GetFS()
+	/*static FileSystem * GetFS()
 	{
 		return &(GET_THIS(HoeApp)->m_fs);
-	}
+	}*/
 
 	virtual void OnUpdate(float time);
 

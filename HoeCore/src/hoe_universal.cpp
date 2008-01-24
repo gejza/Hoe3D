@@ -64,7 +64,17 @@ const char * Universal::GetTypeName(Universal::Type t)
 	};
 }
 
-const char * Universal::GetStringValue() const
+const tchar * Universal::GetStringValue() const
+{
+#ifdef _UNICODE
+	return GetWideStringValue();
+#else
+	return GetUtfStringValue();
+#endif
+}
+
+
+const char * Universal::GetUtfStringValue() const
 {
 	switch (type)
 	{

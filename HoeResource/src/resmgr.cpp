@@ -52,10 +52,9 @@ HoeRes::LinkedResourceMgr::LinkedResourceMgr(HINSTANCE inst,
 }
 
 HoeCore::ReadStream* 
-	HoeRes::LinkedResourceMgr::GetResource(const tchar* ns, const tchar* name)
+	HoeRes::LinkedResourceMgr::GetResource(const tchar* name, const tchar** ns)
 {
 	// find symbol
-
 
 	return LoadSymbol(m_sym[10]);
 }

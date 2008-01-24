@@ -74,6 +74,11 @@ void copy(char * dest, const char * src, size_t cnt)
 	::strncpy(dest, src, cnt);
 }
 
+void copy(wchar_t * dest, const wchar_t * src, size_t cnt)
+{
+	::wcsncpy(dest, src, cnt);
+}
+
 size_t utf8len(const wchar_t * s)
 {
 	size_t l = 0;

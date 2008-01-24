@@ -21,16 +21,16 @@ protected:
 
 	void Register();
 	void Init(const char * name, int flags);
-	void SetString(const char * str);
-	bool ParseIndex(const char * idf, int &pos, int &flags, const THoeVarIndex *& ix) const;
+	void SetString(const tchar * str);
+	bool ParseIndex(const tchar * idf, int &pos, int &flags, const THoeVarIndex *& ix) const;
 public:
-	CVar(const char * name, bool value, int flags=0);
-	CVar(const char * name, int value, int flags=0);
-	CVar(const char * name, float value, int flags=0);
-	CVar(const char * name, const tchar * value, int flags=0);
-	CVar(const char * name, const THoeVarIndex * s, THoeVarValue * val, size_t size, int flags=0);
+	CVar(const tchar * name, bool value, int flags=0);
+	CVar(const tchar * name, int value, int flags=0);
+	CVar(const tchar * name, float value, int flags=0);
+	CVar(const tchar * name, const tchar * value, int flags=0);
+	CVar(const tchar * name, const THoeVarIndex * s, THoeVarValue * val, size_t size, int flags=0);
 	~CVar();
-	const char * GetName() const { return name; }
+	const tchar * GetName() const { return name; }
 	const tchar * GetStringValue();
 	bool GetBool() const { return value.b; }
 	int GetInt() const { return value.i; }
@@ -53,27 +53,27 @@ public:
 	bool Set(int i);
 	bool Set(float f);
 	bool Set(bool b);
-	bool Set(const char * str);
+	bool Set(const tchar * str);
 
 	bool SetStructItem(int i, int idf, int flags=TVAR_INTEGER);
 	bool SetStructItem(float f, int idf, int flags=TVAR_FLOAT);
 	bool SetStructItem(bool b, int idf, int flags=TVAR_BOOL);
-	bool SetStructItem(const char * str, int idf, int flags=TVAR_STR);
+	bool SetStructItem(const tchar * str, int idf, int flags=TVAR_STR);
 
 	// statics
-	static CVar * GetVar(const char * name);
-	static CVar * GetFullVar(const char * path, int &pos, int &flags, const THoeVarIndex *& ix);
-	static bool SetVarValue(const char * path, const char * vs);
-	static bool SetVarValue(const char * path, float vf);
+	static CVar * GetVar(const tchar * name);
+	static CVar * GetFullVar(const tchar * path, int &pos, int &flags, const THoeVarIndex *& ix);
+	static bool SetVarValue(const tchar * path, const tchar * vs);
+	static bool SetVarValue(const tchar * path, float vf);
 
 	static const tchar * GetLastError() { return lastError; }
 
 	LUA_FUNCTION(l_setvar);
 	LUA_FUNCTION(l_getvar);
 
-	static int c_printvar(int argc, const char * argv[], void * param);
-	static int c_printallvars(int argc, const char * argv[], void * param);
-	static int c_setvar(int argc, const char * argv[], void * param);
+	static int c_printvar(int argc, const tchar * argv[], void * param);
+	static int c_printallvars(int argc, const tchar * argv[], void * param);
+	static int c_setvar(int argc, const tchar * argv[], void * param);
 };
 
 END_HOEGAME

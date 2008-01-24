@@ -85,7 +85,7 @@ int GenerateDump(EXCEPTION_POINTERS* pExceptionPointers)
 
     GetLocalTime( &stLocalTime );
 
-	szFileName.printf("%s-%04d%02d%02d-%02d%02d%02d-%ld-%ld.dmp", 
+	szFileName.printf(T("%s-%04d%02d%02d-%02d%02d%02d-%ld-%ld.dmp"), 
                szVersion, 
                stLocalTime.wYear, stLocalTime.wMonth, stLocalTime.wDay, 
                stLocalTime.wHour, stLocalTime.wMinute, stLocalTime.wSecond, 
