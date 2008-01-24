@@ -12,15 +12,17 @@ void * operator new[](size_t s, HoeCore::MemoryPool& pool)
 	return pool.GetMem(s);
 }
 
-/*void * operator new(size_t s, void* ptr)
+#ifdef __GNUC__
+void * operator new(size_t s, void* ptr)
 {
 	return ptr;
-}*/
+}
 
-/*void * operator new[](size_t s, void* ptr)
+void * operator new[](size_t s, void* ptr)
 {
 	return ptr;
-}*/
+}
+#endif
 
 void operator delete( void* , void* )
 {

@@ -34,7 +34,6 @@ HoeEngineDLL::HoeEngineDLL()
 
 HoeEngineDLL::~HoeEngineDLL()
 {
-	HoeEngine::~HoeEngine();
 
 #ifdef _WIN32
 	if (m_lib)
@@ -76,10 +75,10 @@ bool HoeEngineDLL::Load(Console * con, XHoeFS * fs, int sdkver)
 
 #ifdef _LINUX
 
-	m_lib = dlopen (dllname, RTLD_LAZY);
+	m_lib = dlopen (m_dllname, RTLD_LAZY);
 	if (!m_lib) {
 		//con->Printf("%s", "nepovedlo"/*dlerror()*/);
-		printf("chyba: %s\n",dlerror());
+		printf("error: %s\n",dlerror());
 		return false;
 	}
 
