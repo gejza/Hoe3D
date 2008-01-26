@@ -148,13 +148,13 @@ class LuaScript
 	static LuaScript * _this;
 protected:
 	lua_State* m_L;
-	IHoe3DEngine * engine;
+	IHoeEngine * engine;
 	ResourceMgr * resources;
 	FileSystem * filesystem;
 	//Lang * lang;
 public:
 	bool Connect(ResourceMgr * res);
-	bool Connect(IHoe3DEngine * eng);
+	bool Connect(IHoeEngine * eng);
 	bool Connect(Lang * l);
 	bool Connect(FileSystem * fs);
 	LuaScript();

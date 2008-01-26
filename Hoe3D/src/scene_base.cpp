@@ -1,7 +1,7 @@
 
 #include "StdAfx.h"
 #include "shared.h"
-#include "hoe2d.h"
+#include "2d.h"
 #include "../include/hoeinterfaces.h"
 #include "scene_base.h"
 #include "hoe.h"

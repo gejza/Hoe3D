@@ -16,7 +16,7 @@ protected:
 	int  m_cyClient;
 	int  m_cyChar;
 
-	IHoe3DEngine * m_enginstance;
+	IHoeEngine * m_enginstance;
 public:
 	HoeWin32(HOE_INSTANCE);
 	virtual ~HoeWin32();
@@ -32,7 +32,7 @@ public:
 	virtual void HandleError();
 
 	virtual void UpdateConsole();
-	virtual int GetMsg(IHoe3DEngine *);
+	virtual int GetMsg(IHoeEngine *);
 	virtual void Destroy();
 
 	virtual int ShowMsg(const tchar * caption, const tchar * msg);

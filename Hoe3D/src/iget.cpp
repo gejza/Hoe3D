@@ -17,7 +17,7 @@
 #include "camera.h"
 #include "states.h"
 #include "hoe_time.h"
-#include "hoe2d.h"
+#include "2d.h"
 #include "hoe_map.h"
 #include "hoe_input.h"
 #include "hoe_info.h"

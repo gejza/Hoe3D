@@ -5,7 +5,7 @@
 
 BEGIN_HOEGAME
 
-IHoe3DEngine * g_hoeengine = NULL;
+IHoeEngine * g_hoeengine = NULL;
 
 HoeEngine::HoeEngine()
 {

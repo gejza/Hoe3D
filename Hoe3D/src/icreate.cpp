@@ -18,7 +18,7 @@
 #include "sound.h"
 #include "states.h"
 #include "hoe_time.h"
-#include "hoe2d.h"
+#include "2d.h"
 #include "hoe_picture.h"
 #include "hoe_font.h"
 #include "particle_emitor.h"

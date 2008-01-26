@@ -5,7 +5,7 @@
 #include "../include/hoe3d.h"
 #include "render_target.h"
 
-class Hoe3D : public IHoe3DEngine 
+class Hoe3D : public IHoeEngine 
 {
 	class HoeBaseScene * m_active;
 	HoeRenderTarget m_rt; ///< Hlavni RenderTarget

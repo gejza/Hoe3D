@@ -97,7 +97,7 @@ public:
 protected:
 	IHoeFont * font; 
 	IHoePicture * background;
-	IHoe3DEngine * engine;
+	IHoeEngine * engine;
 	tchar cmdline[512];
 	EState state;
 	float height;
@@ -112,7 +112,7 @@ protected:
 	void Unacquire();
 public:
 	GuiConsole(Console &);
-	virtual bool Load(IHoe3DEngine *);
+	virtual bool Load(IHoeEngine *);
 	void Draw(IHoe2D *);
 
 	// cmd edit functions
@@ -128,7 +128,7 @@ public:
 	void Close(void);
 	void Update(float dtime);
 
-	void RegisterCommands(IHoe3DEngine *);
+	void RegisterCommands(IHoeEngine *);
 
 	static int c_openconsole(int argc, const tchar * argv[], void * param); 
 	static int c_closeconsole(int argc, const tchar * argv[], void * param);

@@ -101,7 +101,7 @@ void HoeWin32::SetTitle(const tchar * title)
 	SetWindowText(m_hWnd, title);
 }
 
-int HoeWin32::GetMsg(IHoe3DEngine * eng)
+int HoeWin32::GetMsg(IHoeEngine * eng)
 {
 	MSG	msg ;
 

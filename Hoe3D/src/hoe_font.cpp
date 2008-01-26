@@ -10,7 +10,7 @@
 #include "texture_system.h"
 #include "hoe_font.h"
 #include "unicode.h"
-#include "hoe2d.h"
+#include "2d.h"
 #ifndef _WIN32_WCE
 #include "freetype.h"
 #endif

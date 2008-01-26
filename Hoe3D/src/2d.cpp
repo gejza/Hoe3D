@@ -8,7 +8,7 @@
 #include "camera.h"
 #include "states.h"
 #include "hoe_picture.h"
-#include "hoe2d.h"
+#include "2d.h"
 
 #ifdef _HOE_D3DA_
 struct HOE2D_VERTEXCT

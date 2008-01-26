@@ -3,7 +3,7 @@
 #include "utils.h"
 #include "shared.h"
 #include "ref.h"
-#include "hoe2d.h"
+#include "2d.h"
 #include "camera.h"
 #include "states.h"
 #include "light_system.h"

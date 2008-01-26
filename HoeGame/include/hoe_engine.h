@@ -21,9 +21,9 @@
 
 BEGIN_HOEGAME
 
-extern IHoe3DEngine * g_hoeengine; /** < Ukazatel na engine */
+extern IHoeEngine * g_hoeengine; /** < Ukazatel na engine */
 
-inline IHoe3DEngine *GetHoeEngine()
+inline IHoeEngine *GetHoeEngine()
 {
 	return g_hoeengine;
 }
@@ -67,7 +67,7 @@ public:
 	virtual bool Load(Console * con, XHoeFS * fs, int sdkver);
 };
 
-/*class HoeEngineStatic : public HoeEngine
+class HoeEngineStatic : public HoeEngine
 {
 public:
 	virtual bool Load(Console * con, XHoeFS * fs, int sdkver)
@@ -81,7 +81,7 @@ public:
 		else
 			return false;
 	}
-};*/
+};
 
 class HoeEngineInfo
 {

@@ -1444,6 +1444,7 @@
 		</Configuration>
 		<Configuration
 			Name="DebugD3D8|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+			IntermediateDirectory="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)\$(ConfigurationName)"
 			ConfigurationType="1"
 			>
 			<Tool
@@ -1692,7 +1693,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="../../../Bin/Hoe3D_D3D9_d.lib"
+				OutputFile="../../Bin/Hoe3D_D3D9_d.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -2489,6 +2490,7 @@
 		</Configuration>
 		<Configuration
 			Name="DebugD3DM|Win32"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			>
@@ -2660,6 +2662,7 @@
 			OutputDirectory="$(SolutionDir)$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
+			CharacterSet="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -4177,9 +4180,7 @@
 					Name="DebugD3D9 (static)|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						CommandLine="flex -o$(InputDir)icreate_parser.c $(InputPath)&#x0D;&#x0A;"
-						Outputs="$(InputDir)icreate_parser.c"
+						Name="Flex"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -4278,6 +4279,14 @@
 		<Filter
 			Name="Hoe2D"
 			>
+			<File
+				RelativePath="..\src\2d.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\2d.h"
+				>
+			</File>
 			<File
 				RelativePath="..\src\cursor.cpp"
 				>
@@ -4508,14 +4517,6 @@
 			</File>
 			<File
 				RelativePath="..\src\freetype.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\hoe2d.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\hoe2d.h"
 				>
 			</File>
 			<File
@@ -5726,46 +5727,6 @@
 		<Filter
 			Name="Generated"
 			>
-			<File
-				RelativePath="..\src\icreate_parser.yyu.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\material_parser.c"
-				>
-				<FileConfiguration
-					Name="DebugD3D9|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DebugD3D9|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DebugD3D9|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DebugD3DM|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-			</File>
 		</Filter>
 		<Filter
 			Name="Shaders"

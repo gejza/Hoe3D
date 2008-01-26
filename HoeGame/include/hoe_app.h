@@ -86,7 +86,7 @@ public:
 		return GET_THIS(HoeApp)->m_con;
 	}
 
-	static IHoe3DEngine * GetEngine()
+	static IHoeEngine * GetEngine()
 	{
 		assert(HoeGame::GetHoeEngine());
 		return HoeGame::GetHoeEngine();

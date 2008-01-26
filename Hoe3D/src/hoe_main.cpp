@@ -13,7 +13,7 @@ class XHoeFS;
 extern ::XHoeConsole * _Con;
 
 ////////////////
-DLL_EXPORT IHoe3DEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * con, ::XHoeFS * _fs, void * p_memBase,int n_memSize, int flags)
+DLL_EXPORT IHoeEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * con, ::XHoeFS * _fs, void * p_memBase,int n_memSize, int flags)
 {
 	if (sdk_ver != HOESDK_VERSION)
 	{
@@ -23,7 +23,7 @@ DLL_EXPORT IHoe3DEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * co
 		return NULL;
 	}
 
-	IHoe3DEngine * ret;
+	IHoeEngine * ret;
 
 	if (IfExistHoe3DInstance())
 	{

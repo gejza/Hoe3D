@@ -143,7 +143,7 @@ GuiConsole::GuiConsole(Console & con)
 	m_histptr = 0;
 }
 
-bool GuiConsole::Load(IHoe3DEngine *eng)
+bool GuiConsole::Load(IHoeEngine *eng)
 {
 	engine = eng;
 	font = (IHoeFont *)eng->Create(T("font '../data/font.ttf' 12"));
@@ -306,7 +306,7 @@ void GuiConsole::Update(float dtime)
 	}
 }
 
-void GuiConsole::RegisterCommands(IHoe3DEngine * engine)
+void GuiConsole::RegisterCommands(IHoeEngine * engine)
 {
 	engine->RegisterCmd(T("openconsole"),GuiConsole::c_openconsole,this);
 	engine->RegisterCmd(T("closeconsole"),GuiConsole::c_closeconsole,this);
