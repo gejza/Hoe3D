@@ -90,7 +90,7 @@ bool Theatre::Create()
 	return true;
 }
 
-bool Theatre::Load(const char * fname)
+bool Theatre::Load(const tchar * fname)
 {
 	// nacteni kulis ze souboru
 	HoeGame::ObjectFileParser parser;

@@ -25,7 +25,7 @@ LRESULT CALLBACK HoeMobile::WndProc (HWND hwnd, UINT message, WPARAM wParam, LPA
 
 bool HoeMobile::RegisterApp()
 {
-     WNDCLASSW     wndclass ;
+     WNDCLASS     wndclass ;
      
      wndclass.style         = CS_HREDRAW | CS_VREDRAW; // | CS_OWNDCCS_HREDRAW | CS_VREDRAW ;
      wndclass.lpfnWndProc   = WndProc ;
@@ -38,7 +38,7 @@ bool HoeMobile::RegisterApp()
      wndclass.lpszMenuName  = NULL ;
      wndclass.lpszClassName = this->GetAppName();
      
-     return RegisterClassW (&wndclass) != FALSE;
+     return RegisterClass (&wndclass) != FALSE;
 }
 
 bool HoeMobile::CreateWin(const tchar * title, int width, int height, bool fs)
@@ -100,7 +100,7 @@ void HoeMobile::SetTitle(const char * title)
 	SetWindowTextW(m_hWnd, L"title");
 }
 
-int HoeMobile::GetMsg(IHoe3DEngine * eng)
+int HoeMobile::GetMsg(IHoeEngine * eng)
 {
 	MSG	msg ;
 

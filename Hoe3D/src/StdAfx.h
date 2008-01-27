@@ -15,12 +15,10 @@
 #include <tchar.h>
 
 #ifdef HOE_STATIC_ENGINE
-#define DLL_EXPORT
+#define LIB_EXTERN
 #else
-#define DLL_EXPORT extern "C" __declspec( dllexport )
+#define LIB_EXTERN extern "C" __declspec( dllexport )
 #endif
-
-#define DEFAULT_HOEFS_NAME "hoefs.dll"
 
 #pragma warning( disable : 4996)
 

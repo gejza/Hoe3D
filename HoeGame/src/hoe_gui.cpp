@@ -17,13 +17,13 @@ Item::Item()
 	m_show = true;
 }
 
-void Item::Set(const char * prop, const HoeCore::Universal & value)
+void Item::Set(const tchar * prop, const HoeCore::Universal & value)
 {
-	if (strcmp(prop,"rect")==0)
+	if (HoeCore::string::cmp(prop,"rect")==0)
 		SetRect(value);
-	else if (strcmp(prop,"name")==0)
+	else if (HoeCore::string::cmp(prop,"name")==0)
 		m_name = value.GetStringValue();
-	else if (strcmp(prop,"show")==0)
+	else if (HoeCore::string::cmp(prop,"show")==0)
 		m_show = value.GetBool();
 }
 
@@ -93,9 +93,9 @@ StaticPicture::StaticPicture()
   m_pic = NULL;
 }
 
-void StaticPicture::Set(const char * prop, const HoeCore::Universal & value)
+void StaticPicture::Set(const tchar * prop, const HoeCore::Universal & value)
 {
-	if (strcmp(prop,"picture") == 0)
+	if (HoeCore::string::cmp(prop,"picture") == 0)
 	{
 		// load
 		HoeCore::String_s<256> buff;
@@ -114,7 +114,7 @@ void StaticPicture::Draw(IHoe2D * h2d)
 
 /////////////////////////////////////////
 
-void ColorRect::Set(const char * prop, const HoeCore::Universal & value)
+void ColorRect::Set(const tchar * prop, const HoeCore::Universal & value)
 {
 
 }
@@ -266,9 +266,9 @@ void InfoPanel::Addf(const char * format, ...)
 	Add(szBuff);
 }
 
-void InfoPanel::Set(const char *prop, const HoeCore::Universal & value)
+void InfoPanel::Set(const tchar *prop, const HoeCore::Universal & value)
 {
-	if (strcmp(prop,"font")==0)
+	if (HoeCore::string::cmp(prop,"font")==0)
 	{
 		assert(GetHoeEngine());
 		m_font = (IHoeFont*)GetHoeEngine()->Create(value.GetStringValue());
@@ -395,13 +395,13 @@ void Font::SetText(const tchar * ptr)
 	}
 }
 
-void Font::Set(const char *prop, const HoeCore::Universal & value)
+void Font::Set(const tchar *prop, const HoeCore::Universal & value)
 {
-	if (strcmp(prop,"font")==0)
+	if (HoeCore::string::cmp(prop,"font")==0)
 	{
 		m_font = (IHoeFont*)GetHoeEngine()->Create(value.GetStringValue());
 	}
-	else if (strcmp(prop, "align_horizontal")==0)
+	else if (HoeCore::string::cmp(prop, "align_horizontal")==0)
 	{
 		switch (value.GetStringValue()[0])
 		{
@@ -413,7 +413,7 @@ void Font::Set(const char *prop, const HoeCore::Universal & value)
 			m_ax = ARight; break;
 		};
 	}
-	else if (strcmp(prop, "align_vertical")==0)
+	else if (HoeCore::string::cmp(prop, "align_vertical")==0)
 	{
 		switch (value.GetStringValue()[0])
 		{
@@ -425,7 +425,7 @@ void Font::Set(const char *prop, const HoeCore::Universal & value)
 			m_ay = ABottom; break;
 		};
 	}
-	else if (strcmp(prop, "text")==0)
+	else if (HoeCore::string::cmp(prop, "text")==0)
 	{
 		SetText(value.GetStringValue());
 	}
@@ -516,9 +516,9 @@ void Button::SetToolTip(const tchar * tt)
 	m_tt = tt;
 }
 
-void Button::Set(const char * prop, const HoeCore::Universal & value)
+void Button::Set(const tchar * prop, const HoeCore::Universal & value)
 {
-	if (strcmp(prop,"tooltipfont") == 0)
+	if (HoeCore::string::cmp(prop,"tooltipfont") == 0)
 	{
 		// load
 		SetToolTipFont((IHoeFont*)GetHoeEngine()->Create(value.GetStringValue()));
@@ -528,9 +528,9 @@ void Button::Set(const char * prop, const HoeCore::Universal & value)
 }
 
 ////////////////////////////////////
-void ButtonUsr::Set(const char * prop, const HoeCore::Universal & value)
+void ButtonUsr::Set(const tchar * prop, const HoeCore::Universal & value)
 {
-	if (strcmp(prop,"picture_act") == 0)
+	if (HoeCore::string::cmp(prop,"picture_act") == 0)
 	{
 		// load
 		HoeCore::String_s<256> buff;

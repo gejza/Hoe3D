@@ -2,12 +2,12 @@
 <VisualStudioPropertySheet
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="Hoe3D_mobile_debug"
+	Name="Hoe Windows Mobile Platform"
 	OutputDirectory="../../Bin_ce/"
-	InheritedPropertySheets=".\Hoe3D_base.vsprops"
+	InheritedPropertySheets=".\Hoe_base.vsprops"
 	>
 	<Tool
 		Name="VCCLCompilerTool"
-		PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;DEBUG;$(ARCHFAM);$(_ARCHFAM_);_WINCE"
+		PreprocessorDefinitions="_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;$(ARCHFAM);$(_ARCHFAM_);_WINCE"
 	/>
 </VisualStudioPropertySheet>

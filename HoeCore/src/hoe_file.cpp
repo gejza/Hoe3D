@@ -250,7 +250,7 @@ bool HoeCore::SetRootDir(const tchar * dir)
 const tchar * HoeCore::GetBaseDir(const tchar * path)
 {
 	static tchar basedir[ 1024 ];
-	int j;
+	size_t j;
 
 	HoeCore::string::copy( basedir, path, 1024 );
 

@@ -2,10 +2,10 @@
 <VisualStudioPropertySheet
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="Hoe3D_base"
+	Name="Hoe Static Library"
 	>
 	<Tool
 		Name="VCCLCompilerTool"
-		AdditionalIncludeDirectories="../../HoeCore/include/"
+		PreprocessorDefinitions="HOE_STATIC_ENGINE"
 	/>
 </VisualStudioPropertySheet>

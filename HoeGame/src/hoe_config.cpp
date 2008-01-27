@@ -313,7 +313,7 @@ int Config::Arg(int argc, tchar *argv[])
 
 
 ////////////////////////////////////////////////////////////
-void ConfigVars::Var(const char * varname, const char * value)
+void ConfigVars::Var(const tchar * varname, const tchar * value)
 {
 	if (!CVar::SetVarValue(varname, value))
 	{
@@ -327,7 +327,7 @@ void ConfigVars::PushVar(CVar & var)
 	//Set(var.GetName(), var.GetStringValue());
 }
 
-void ConfigVars::PushVar(const char * varname)
+void ConfigVars::PushVar(const tchar * varname)
 {
 	CVar * v = CVar::GetVar(varname);
 	if (v)

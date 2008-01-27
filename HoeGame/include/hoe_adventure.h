@@ -28,7 +28,7 @@ public:
 	virtual ~Theatre();
 	bool Create();
 	IHoeScene * GetScene() { return m_scene; }
-	bool Load(const char * fname);
+	bool Load(const tchar * fname);
 };
 
 };

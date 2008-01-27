@@ -14,7 +14,7 @@ protected:
 	HINSTANCE m_hInstance;
 	HWND m_hWnd;
 
-	IHoe3DEngine * m_enginstance;
+	IHoeEngine * m_enginstance;
 public:
 	HoeMobile(HOE_INSTANCE);
 	virtual ~HoeMobile();
@@ -30,7 +30,7 @@ public:
 	virtual void HandleError();
 
 	virtual void UpdateConsole();
-	virtual int GetMsg(IHoe3DEngine *);
+	virtual int GetMsg(IHoeEngine *);
 	virtual void Destroy();
 
 	virtual int ShowMsg(const tchar * caption, const tchar * msg);

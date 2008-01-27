@@ -38,7 +38,7 @@ class Base
 {
 public:
 	virtual EType GetType() = 0; 
-	virtual void Set(const char * prop, const HoeCore::Universal & value) = 0;
+	virtual void Set(const tchar * prop, const HoeCore::Universal & value) = 0;
 };
 
 class Item : public Base
@@ -49,7 +49,7 @@ protected:
 	HoeCore::String m_name;
 public:
 	Item();
-	virtual void Set(const char * prop, const HoeCore::Universal & value);
+	virtual void Set(const tchar * prop, const HoeCore::Universal & value);
 	virtual void Draw(IHoe2D * h2d) = 0;
 	virtual void Draw2(IHoe2D * h2d) {};
 	void SetRect(const THoeRect * Rect);
@@ -80,7 +80,7 @@ protected:
 public:
 	StaticPicture();
 	virtual EType GetType() { return EStatic; }
-	virtual void Set(const char * prop, const HoeCore::Universal & value);
+	virtual void Set(const tchar * prop, const HoeCore::Universal & value);
 	virtual void Draw(IHoe2D * h2d);
 	void SetPicture(IHoePicture * pic) { m_pic = pic; }
 	IHoePicture * GetPicture() { return m_pic; }
@@ -90,7 +90,7 @@ class ColorRect : public Item
 {
 public:
 	virtual EType GetType() { return EColorRect; }
-	virtual void Set(const char * prop, const HoeCore::Universal & value);
+	virtual void Set(const tchar * prop, const HoeCore::Universal & value);
 	virtual void Draw(IHoe2D * h2d);
 }; 
 
@@ -124,7 +124,7 @@ public:
 
 	bool Init(float min, float bottom, float left);
 	virtual void Draw(IHoe2D * hoe2d);
-	virtual void Set(const char * prop, const HoeCore::Universal & value);
+	virtual void Set(const tchar * prop, const HoeCore::Universal & value);
 
 	void Add(int id);
 	void Add(const char *);
@@ -153,7 +153,7 @@ public:
 	void SetToolTip(const tchar * tt);
 	void SetID(int id) { m_id = id; }
 	int GetID() { return m_id; }
-	virtual void Set(const char * prop, const HoeCore::Universal & value);
+	virtual void Set(const tchar * prop, const HoeCore::Universal & value);
 	void SetHandler(void * ctrl, Hoe2DControl::FUNC_CMD func)
 	{
 		m_ctrl = (Hoe2DControl *)ctrl; m_func = func;
@@ -165,7 +165,7 @@ class ButtonUsr : public Button
 protected:
 	IHoePicture * m_pic_active;
 public:
-	virtual void Set(const char * prop, const HoeCore::Universal & value);
+	virtual void Set(const tchar * prop, const HoeCore::Universal & value);
 	virtual void Draw(IHoe2D * h2d);
 };
 
@@ -204,7 +204,7 @@ public:
 	~Font();
 	virtual EType GetType() { return EText; }
 	virtual void Draw(IHoe2D * hoe2d);
-	virtual void Set(const char * prop, const HoeCore::Universal & value);
+	virtual void Set(const tchar * prop, const HoeCore::Universal & value);
 	void SetFont(IHoeFont * font) { m_font = font; }
 	void SetText(const tchar * ptr);
 	void SetTextOverlaper(void * ctrl, Hoe2DControl::FUNC_TEXTOVERLAP func)

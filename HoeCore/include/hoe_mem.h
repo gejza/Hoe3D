@@ -65,12 +65,24 @@ public:
 } // namespace HoeCore
 
 void * operator new(size_t, HoeCore::MemoryPool& pool);
-void * operator new(size_t, void *);
+//void * operator new(size_t, void *);
 void * operator new[](size_t, HoeCore::MemoryPool& pool);
-void * operator new[](size_t, void *);
+//void * operator new[](size_t, void *);
 // empty delete operators
-void operator delete( void* , void* );
 void operator delete( void* , HoeCore::MemoryPool& pool );
 
+#ifndef __PLACEMENT_NEW_INLINE
+inline void * operator new(size_t s, void* ptr)
+{
+	return ptr;
+}
+inline void * operator new[](size_t s, void* ptr)
+{
+	return ptr;
+}
+inline void operator delete( void* , void* )
+{
+}
+#endif
 
 #endif // _HOE_CORE_MEM_H_

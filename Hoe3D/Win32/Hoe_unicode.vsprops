@@ -2,11 +2,10 @@
 <VisualStudioPropertySheet
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="Hoe3D_win32_debug"
-	InheritedPropertySheets=".\Hoe3D_base.vsprops"
+	Name="Hoe Unicode"
 	>
-	<Tool
-		Name="VCLinkerTool"
-		AdditionalLibraryDirectories="../../bin"
+	<UserMacro
+		Name="UnicodePostfix"
+		Value="_u"
 	/>
 </VisualStudioPropertySheet>

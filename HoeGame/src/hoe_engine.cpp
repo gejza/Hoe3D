@@ -47,7 +47,7 @@ HoeEngineDLL::~HoeEngineDLL()
 
 }
 
-bool HoeEngineDLL::Load(Console * con, XHoeFS * fs, int sdkver)
+bool HoeEngineDLL::Load(Console * con, XHoeResMgr * fs, int sdkver)
 {
 	HOE_FUNCCREATE GetEngineInterface;
 	
@@ -58,7 +58,7 @@ bool HoeEngineDLL::Load(Console * con, XHoeFS * fs, int sdkver)
 	}
 
 #ifdef _WIN32
-	m_lib = LoadLibraryW(m_dllname);
+	m_lib = LoadLibrary(m_dllname);
 	if (!m_lib)
 	{
 		con->Printf(T("Failed load library: %s"),m_dllname);
@@ -89,7 +89,7 @@ bool HoeEngineDLL::Load(Console * con, XHoeFS * fs, int sdkver)
 		return false;
 	}
 #endif
-	g_hoeengine = GetEngineInterface(HOESDK_VERSION,con,fs, NULL,0,0);
+	g_hoeengine = GetEngineInterface(HOESDK_VERSION,con,fs, 0);
 	if (g_hoeengine)
 	{
 		m_loaded = true;

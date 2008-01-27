@@ -43,9 +43,9 @@ public:
 class ConfigVars : public Config
 {
 public:
-	virtual void Var(const char * varname, const char * value);
+	virtual void Var(const tchar * varname, const tchar * value);
 	void PushVar(CVar & var);
-	void PushVar(const char * varname);
+	void PushVar(const tchar * varname);
 };
 
 END_HOEGAME

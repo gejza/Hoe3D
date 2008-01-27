@@ -183,11 +183,11 @@ LRESULT CALLBACK HoeWin32::MsgProc (HWND hwnd,UINT message, WPARAM wParam, LPARA
 		this->OnSize(LOWORD (lParam), HIWORD (lParam));
 
          break;
-      case WM_PAINT :
+      case WM_PAINT:
 		this->OnPaint();
-          return 0 ;
+          break ;
 
-     case WM_DESTROY :
+     case WM_DESTROY:
 		 PostQuitMessage (0) ;
           return 0 ;
 

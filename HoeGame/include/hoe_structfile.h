@@ -73,7 +73,7 @@ public:
 	/**
 	* otevirani souboru
 	*/
-	bool Open(const char * fname);
+	bool Open(const tchar * fname);
 	/**
 	* zavreni souboru
 	*/

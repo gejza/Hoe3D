@@ -705,7 +705,7 @@ bool LuaScript::Connect(FileSystem * fs)
 	return true;
 }
 
-bool LuaScript::Connect(IHoe3DEngine *eng)
+bool LuaScript::Connect(IHoeEngine *eng)
 {
 	engine = eng;
 	lua_register(m_L,"hoe",LuaScript::hoe);

@@ -12,23 +12,6 @@ void * operator new[](size_t s, HoeCore::MemoryPool& pool)
 	return pool.GetMem(s);
 }
 
-#ifdef __GNUC__
-void * operator new(size_t s, void* ptr)
-{
-	return ptr;
-}
-
-void * operator new[](size_t s, void* ptr)
-{
-	return ptr;
-}
-#endif
-
-void operator delete( void* , void* )
-{
-	/* empty operator */
-}
-
 void operator delete( void* , HoeCore::MemoryPool& pool )
 {
 	/* empty operator */

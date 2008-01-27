@@ -35,11 +35,15 @@ ObjectFileParser::~ObjectFileParser()
 	Close();
 }
 
-bool ObjectFileParser::Open(const char *fname)
+bool ObjectFileParser::Open(const tchar *fname)
 {
 	setlocale(LC_NUMERIC, "C");
 
-	FILE * m_f = fopen(fname, "rt");
+#ifdef _UNICODE
+	FILE * m_f = _wfopen(fname, T("rt"));
+#else
+	FILE * m_f = fopen(fname, T("rt"));
+#endif
 	if (!m_f)
 		return false;
 	yyobjectrestart(m_f);

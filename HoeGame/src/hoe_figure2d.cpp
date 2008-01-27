@@ -52,10 +52,10 @@ bool Hoe2DFigureBase::Load(const tchar * fname)
 	return true;
 loaderror:
 	HoeCore::String_s<1024> errf;
-	errf.printf("%s(%d): error: %s", fname, parser.GetLineNum(), (const char*)err);
-	BaseConsole::Printf("%s", (const char*)errf);
+	errf.printf(T("%s(%d): error: %s"), fname, parser.GetLineNum(), (const tchar*)err);
+	BaseConsole::Printf(T("%s"), (const tchar*)errf);
 	// show error
-	HoeApp::GetApp<HoeApp>()->ShowMsg("Script error", errf);
+	HoeApp::GetApp<HoeApp>()->ShowMsg(T("Script error"), errf);
 
 	return false;
 }
@@ -63,7 +63,7 @@ loaderror:
 Gui::Base * Hoe2DFigure::CreateGUI(const char *type)
 {
 	Gui::Item * g = NULL;
-#define IS(t) (strcmp(type,t)==0)
+#define IS(t) (HoeCore::string::cmp(type,t)==0)
 	if (IS("static"))
 		g = new StaticPicture;
 	else if (IS("colorrect"))
@@ -117,7 +117,7 @@ Gui::Item * Hoe2DFigure::GetItem(const char * name, Gui::EType type)
 		if (type != Gui::ENone && m_list.Get(i)->GetType() != type)
 			continue;
 		const tchar * n = m_list.Get(i)->GetName();
-		if (n && strcmp(n,name)==0)
+		if (n && HoeCore::string::cmp(n,name)==0)
 			return m_list.Get(i);
 	}
 	return NULL;
