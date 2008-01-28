@@ -10,7 +10,6 @@
 #include "light_system.h"
 #include "model_loader.h"
 #include "model_generator.h"
-#include "resmgr.h"
 #include "camera.h"
 #include "hoe_model.h"
 #include "hoe_stream.h"
@@ -25,6 +24,7 @@
 #include "hoe.h"
 #include "hoe_tokens.h"
 #include <hoe_log.h>
+#include "hoe3d.h"
 #pragma hdrstop
 
 void parse_load(const tchar *str); 
@@ -282,7 +282,7 @@ IHoeResource * HOEAPI Hoe3D::Create(const tchar * str)
 	return ret;
 } 
 
-IHoePicture * Hoe3D::CreatePicture(int width, int height, dword * data)
+/*IHoePicture * Hoe3D::CreatePicture(int width, int height, dword * data)
 {
 	// create texture
 	HoePicture * pic = Get2D()->CreatePicture(NULL, NULL);
@@ -290,5 +290,5 @@ IHoePicture * Hoe3D::CreatePicture(int width, int height, dword * data)
 	HoeTexture * tex = GetTextureSystem()->CreateTexture(width, height, data);
 	pic->SetSource(tex);
 	return pic;
-}
+}*/
 

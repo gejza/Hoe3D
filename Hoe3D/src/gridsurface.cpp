@@ -837,7 +837,7 @@ bool GridSurface::GetCamber(const vfloat x1,const vfloat x2,const vfloat y1,cons
 	return true;
 }
 
-void HOEAPI GridSurface::Dump(XHoeStreamWrite * stream)
+void HOEAPI GridSurface::Dump(HoeCore::WriteStream * stream)
 {
 	// write version
 	assert(m_grids);
@@ -873,7 +873,7 @@ void HOEAPI GridSurface::Dump(XHoeStreamWrite * stream)
 	}
 }
 
-void HOEAPI GridSurface::LoadDump(XHoeStreamRead * stream)
+void HOEAPI GridSurface::LoadDump(HoeCore::ReadStream * stream)
 {
 	uint ver = stream->Read<uint>();
 	if (ver!=4)

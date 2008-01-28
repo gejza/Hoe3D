@@ -27,18 +27,16 @@
 #include <X11/Xlib.h>
 #include <dlfcn.h>
 
-#define DLL_EXPORT extern "C"
-#define DEFAULT_HOEFS_NAME "hoefs.so"
+#ifdef HOE_STATIC_ENGINE
+#define LIB_EXTERN
+#else
+#define LIB_EXTERN extern "C" 
+#endif
 
 #elif defined(_MACOSX)
 
 #include <Carbon/Carbon.h>
 
-#ifdef HOE_STATIC_ENGINE
-#define DLL_EXPORT
-#else
-#define DLL_EXPORT extern "C" 
-#endif
 
 #else
 #error Platform not defined!
@@ -57,6 +55,7 @@
 #include <hoe_math_ext.h>
 #include <hoe_core.h>
 #include <hoe_platform.h>
+#include <hoe_stream.h>
 
 // Memory managment
 //#include "mem_system.h"

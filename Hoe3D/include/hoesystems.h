@@ -10,7 +10,6 @@ enum HOESYSTEMS
 	HOE_SYS_INFO = 2,
 	HOE_SYS_INPUT = 3,
 	HOE_SYS_REF = 4,
-	HOE_SYS_RESMGR = 5,
 	HOE_SYSTEMS_FORCE_DWORD          =0x7fffffff
 };
 
@@ -34,15 +33,6 @@ public:
 	virtual void HOEAPI SetMaterialDir(const char * dir) = 0;
 };
 
-// file resources
-class IHoeResourceMgr : public IHoeSystem
-{
-public:
-	// 
-//	virtual 
-//	virtual IHoeTextureFile * HOEAPI GetTextureFile(HOE_HANDLE handle) = 0;
-//	virtual IHoeModelFile * HOEAPI GetModelFile(HOE_HANDLE handle) = 0;
-};
 
 /**
  * @brief 2D engine pro vykreslovani. Neziskava se pres funkci Create, 

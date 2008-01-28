@@ -13,7 +13,7 @@ class XHoeFS;
 extern ::XHoeConsole * _Con;
 
 ////////////////
-DLL_EXPORT IHoeEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * con, ::XHoeFS * _fs, void * p_memBase,int n_memSize, int flags)
+LIB_EXTERN IHoeEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * con, ::XHoeFS * _fs, void * p_memBase,int n_memSize, int flags)
 {
 	if (sdk_ver != HOESDK_VERSION)
 	{
@@ -25,7 +25,7 @@ DLL_EXPORT IHoeEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * con,
 
 	IHoeEngine * ret;
 
-	if (IfExistHoe3DInstance())
+	if (IfExistHoeInstance())
 	{
 		con->Con_Print(T("One instance of Hoe3D is loaded."));
 		return NULL;
@@ -71,7 +71,7 @@ public:
 	}
 };
 
-DLL_EXPORT IHoeEngineInfo * HOEAPI GetEngineInfo(int sdk_ver)
+LIB_EXTERN IHoeEngineInfo * HOEAPI GetEngineInfo(int sdk_ver)
 {
 	if (sdk_ver != HOESDK_VERSION)
 	{
@@ -81,7 +81,7 @@ DLL_EXPORT IHoeEngineInfo * HOEAPI GetEngineInfo(int sdk_ver)
 	return &info;
 }
 
-DLL_EXPORT int HOEAPI GetSDKVersion()
+LIB_EXTERN int HOEAPI GetSDKVersion()
 {
 	return HOESDK_VERSION;
 }

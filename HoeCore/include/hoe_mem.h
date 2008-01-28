@@ -71,7 +71,7 @@ void * operator new[](size_t, HoeCore::MemoryPool& pool);
 // empty delete operators
 void operator delete( void* , HoeCore::MemoryPool& pool );
 
-#ifndef __PLACEMENT_NEW_INLINE
+#if 0 
 inline void * operator new(size_t s, void* ptr)
 {
 	return ptr;

@@ -8,7 +8,6 @@
 #include "material_system.h"
 #include "light_system.h"
 #include "model_loader.h"
-#include "resmgr.h"
 #include "camera.h"
 #include "hoe_model.h"
 #include "hoe_stream.h"
@@ -26,6 +25,7 @@
 #include "physics.h"
 #include "hoe.h"
 #include "hoe_tokens.h"
+#include "hoe3d.h"
 
 IHoeSystem * HOEAPI Hoe3D::GetSystem(HOESYSTEMS sys)
 {
@@ -39,8 +39,6 @@ IHoeSystem * HOEAPI Hoe3D::GetSystem(HOESYSTEMS sys)
 		return ::GetInfo();
 	case HOE_SYS_INPUT:
 		return (IsInputLoaded()) ? ::GetInput():NULL;
-	case HOE_SYS_RESMGR:
-		return ::GetResMgr();
 	default:
 		Con_Print("error get system %d",sys);
 		return NULL;

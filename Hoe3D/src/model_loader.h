@@ -5,7 +5,6 @@
 #include "../include/hoefs.h"
 
 class FileSystem;
-class XHoeFile;
 class MaterialSystem;
 class HoeModel;
 class HoeStream;
@@ -15,7 +14,7 @@ struct tChunk;
 
 class ModelLoader
 {
-	HoeFileReader m_reader;
+    HoeCore::ReadStream * m_read;;
 
 	HoeLog * m_log;
 	int m_flags;

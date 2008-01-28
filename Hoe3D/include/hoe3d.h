@@ -214,10 +214,10 @@ typedef IHoeEngine * (HOEAPI *HOE_FUNCCREATE)(int sdk_ver, XHoeConsole * con, XH
 typedef IHoeEngineInfo * (HOEAPI *HOE_FUNCINFO)(int sdk_ver);
 typedef int (HOEAPI *HOE_FUNCGETSDKVER)();
 
-//#ifdef HOE_STATIC_ENGINE
+#ifdef HOE_STATIC_ENGINE
 IHoeEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * con, ::XHoeResMgr * fs, int flags);
 IHoeEngineInfo * HOEAPI GetEngineInfo(int sdk_ver);
 int HOEAPI GetSDKVersion();
-//#endif
+#endif
 
 #endif // _HOE_3D_

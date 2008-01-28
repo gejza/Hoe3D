@@ -20,7 +20,7 @@ ModelLoader::ModelLoader(HoeLog * log, int flags)
 {
 	m_log = log;
 	m_flags = flags;
-	m_reader = HoeFileReader(NULL,0);
+	m_read = NULL; 
 }
 
 

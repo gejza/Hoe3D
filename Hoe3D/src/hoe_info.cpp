@@ -138,7 +138,8 @@ void InfoSystem::EndFrame()
 
 void InfoSystem::Publish()
 {
-#ifndef UNICODE
+//#ifndef UNICODE
+#if 0
 	if (m_show)
 	{
 		float h = font->GetTextHeight();
