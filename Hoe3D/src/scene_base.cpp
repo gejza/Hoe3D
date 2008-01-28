@@ -65,7 +65,7 @@ IHoeCamera * HoeBaseScene::GetCamera()
 
 bool HoeBaseScene::IsActive()
 {
-	return (GetHoe3D()->GetActiveScene() == this);
+	return (GetHoe()->GetActiveScene() == this);
 }
 
 void HoeBaseScene::Delete()

@@ -83,7 +83,8 @@ bool HoeApp::Init(const tchar * title, int sdkver)
 	if (!HoeGame::GetHoeEngine()->Init(&his))
 		return false;
 
-	m_con->SetCallback(NULL);
+	if (m_con)
+		m_con->SetCallback(NULL);
 
 	if (!GetMsg(HoeGame::GetHoeEngine()))
 		exit(0);

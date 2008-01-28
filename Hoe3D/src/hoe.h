@@ -3,34 +3,23 @@
 #define _HOE_CLASS_
 
 #include "../include/hoe3d.h"
-#include "render_target.h"
+class HoeBaseScene;
 
-class Hoe3D : public IHoeEngine 
+class HoeEngine : public IHoeEngine 
 {
-	class HoeBaseScene * m_active;
-	HoeRenderTarget m_rt; ///< Hlavni RenderTarget
+protected:
+	HoeBaseScene * m_active;
 public:
-	Hoe3D(int flags);
-	~Hoe3D();
-	bool HOEAPI Init(THoeInitSettings *);
-	IHoeResource * HOEAPI Create(const tchar *);
-	virtual IHoePicture * HOEAPI CreatePicture(int width, int height, dword * data);
-	IHoeSystem * HOEAPI GetSystem(HOESYSTEMS sys);
-
+	HoeEngine(int flags);
+	virtual ~HoeEngine();
 	virtual int HOEAPI exec(const tchar *);
 	virtual bool HOEAPI RegisterCmd(const tchar * cmd, HOE_CMDFUNC func, void * par);
 	virtual bool HOEAPI RegisterVar(THoeVar * var);
-	
-	virtual void HOEAPI Process(const double);
-	virtual bool HOEAPI Frame();
-	virtual bool HOEAPI Resize(unsigned int width,unsigned int height);
-	
-	void HOEAPI Destroy();
 
-	virtual IHoeScene * HOEAPI CreateScene(HOE_TYPE_SCENE type);
 	virtual void HOEAPI SetActiveScene(IHoeScene * scene);
 	virtual IHoeScene * HOEAPI GetActiveScene();
-	
+
+	virtual void HOEAPI Process(const double dtime);
 	#ifdef _WIN32
 	/** Metoda pro vstup přes okenní zprávy. */
 	virtual LRESULT CALLBACK HOEAPI WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);

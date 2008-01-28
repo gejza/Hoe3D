@@ -8,10 +8,6 @@
 #include "light_system.h"
 #include "camera.h"
 
-class Hoe2DScene : public HoeBaseScene
-{
-};
-
 class HoeScene : public HoeBaseScene
 {
 protected:

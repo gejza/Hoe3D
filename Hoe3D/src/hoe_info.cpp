@@ -4,7 +4,7 @@
 #include "utils.h"
 #include "../include/hoeinterfaces.h"
 #include "hoe_time.h"
-#include "hoe_font.h"
+//#include "hoe_font.h"
 #include "config.h"
 #include "camera.h"
 #include "hoe_info.h"
@@ -47,6 +47,7 @@ bool InfoSystem::Init()
 
 bool InfoSystem::LoadFont(const tchar * fontname, int height)
 {
+/* todo
 	font = new HoeFont(fontname,height, 3.f);
 	if (!font->Init())
 	{
@@ -56,7 +57,8 @@ bool InfoSystem::LoadFont(const tchar * fontname, int height)
 		return false;
 	}
 	Show(true);
-	return true;
+	return true;*/
+	return false;
 }
 
 void InfoSystem::Show(bool show)

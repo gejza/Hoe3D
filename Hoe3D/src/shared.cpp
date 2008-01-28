@@ -7,7 +7,7 @@
 #endif 
 
 namespace shared {
-	Hoe3D * hoe3d = NULL;
+	HoeEngine * hoe = NULL;
 	Config * config = NULL;
 	Ref * ref = NULL;
 	ResourceMgr * resmgr = NULL;

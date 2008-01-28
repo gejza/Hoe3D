@@ -1,11 +1,21 @@
 
 #include "StdAfx.h"
+#include "shared.h"
 #include "hoe2d.h"
+#include "ref.h"
+#include "scene_base.h"
+
+
+
+
 
 /** Init funkce */
-bool HOEAPI Hoe2DEngine::Init(THoeInitSettings *)
+bool HOEAPI Hoe2DEngine::Init(THoeInitSettings * his)
 {
-	return false;
+	if (!::GetRef()->Init(his))
+		return false;;
+
+	return true;
 }
 
 /** Funkce co vytvari interface tridy */
@@ -14,33 +24,10 @@ IHoeInterface * HOEAPI Hoe2DEngine::Create(const tchar *)
 	return NULL;
 }
 
-IHoePicture * HOEAPI Hoe2DEngine::CreatePicture(int width, int height, dword * data)
-{
-	return 0;
-}
-
 /** Funkce pro pristup k systemum hoe */
 IHoeSystem * HOEAPI Hoe2DEngine::GetSystem(HOESYSTEMS sys)
 {
 	return 0;
-}
-
-/** Slouzi ke spusteni prikazu */
-int HOEAPI Hoe2DEngine::exec(const tchar *)
-{
-	return 0;
-}
-
-/** Zaregistrovani noveho prikazu */
-bool HOEAPI Hoe2DEngine::RegisterCmd(const tchar * cmd, HOE_CMDFUNC func, void * par)
-{
-	return false;
-}
-
-/** Zaregistrovani var */
-bool HOEAPI Hoe2DEngine::RegisterVar(THoeVar * var)
-{
-	return false;
 }
 
 /** Vypocita kolize a input */
@@ -54,41 +41,33 @@ bool HOEAPI Hoe2DEngine::Frame()
 	// scene preprocess
 	//if (m_active) m_active->Render();
 
-	::GetInfo()->BeginFrame();
+	/*::GetInfo()->BeginFrame();*/
 	::GetRef()->Begin();
 
 	if (m_active)
 	{
-		// render normal
-		m_rt.Setup();
-		
-		::GetStates()->Reset();
-		m_active->Render(0);
-
 		// render user 2d
-		::Get2D()->Begin();
+		//::Get2D()->Begin();
 		m_active->Paint2D();
 		// render stats & logos
-		::GetInfo()->Publish();
-		::Get2D()->End(); 
-
-		//HoeCursor::Draw();
-		m_rt.EndRender();
+		//::GetInfo()->Publish();
+		//::Get2D()->End(); 
 	}
     else
     {
         // set barva
-        ::GetRef()->SetBackgroundColor(0x80ff);
-        ::GetRef()->ClearBuffers(true, true);
+        //::GetRef()->SetBackgroundColor(0x80ff);
+        //::GetRef()->ClearBuffers(true, true);
     }
 
-	::GetInfo()->PreEndFrame();
+	//::GetInfo()->PreEndFrame();
 	::GetRef()->End();
-	::GetInfo()->EndFrame();
+	//::GetInfo()->EndFrame();
 	
 #ifdef _HOE_OPENGL_
 	checkgl("sumary check");
 #endif
+	
 
 	return true;
 }
@@ -101,17 +80,8 @@ bool HOEAPI Hoe2DEngine::Resize(unsigned int width,unsigned int height)
 
 IHoeScene * HOEAPI Hoe2DEngine::CreateScene(HOE_TYPE_SCENE type)
 {
-	return 0;
-}
 
-
-void HOEAPI Hoe2DEngine::SetActiveScene(IHoeScene * scene)
-{
-}
-
-IHoeScene * HOEAPI Hoe2DEngine::GetActiveScene()
-{
-	return 0;
+	return new Hoe2DScene();
 }
 
 /** Zrusi engine */

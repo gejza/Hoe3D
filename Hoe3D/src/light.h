@@ -13,7 +13,8 @@ class HoeLight : public IHoeLight
 #ifdef _HOE_OPENGL_
 	HoeMath::Vector4f pos;
 	HoeMath::Vector4f color;
-#else
+#endif
+#ifdef _HOE_D3DA_
 	D3DLight light;
 #endif
 	DebugObject obj;

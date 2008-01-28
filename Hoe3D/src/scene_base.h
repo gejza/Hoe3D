@@ -35,5 +35,9 @@ public:
 	bool IsActive();
 };
 
+class Hoe2DScene : public HoeBaseScene
+{
+};
+
 #endif // _HOE_BASE_SCENE_H_
 

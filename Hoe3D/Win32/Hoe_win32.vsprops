@@ -5,6 +5,10 @@
 	Name="Hoe Win32 Platform"
 	>
 	<Tool
+		Name="VCCLCompilerTool"
+		PreprocessorDefinitions="_WIN32_WINNT=0x0500"
+	/>
+	<Tool
 		Name="VCLinkerTool"
 		AdditionalLibraryDirectories="../../bin"
 	/>

@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USE_DD_;HOE2D;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -105,7 +105,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USE_DD_;HOE2D"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -145,6 +145,74 @@
 	<References>
 	</References>
 	<Files>
+		<Filter
+			Name="Hoe3D"
+			>
+			<File
+				RelativePath="..\src\2d.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\camera.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\cmdexec.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\config.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\hoe_info.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\hoe_input.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\hoe_input_winapi.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\ref.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\ref_base.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\scene_base.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\shared.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sound.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sound_ds.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\unicode.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\utils.cpp"
+				>
+			</File>
+		</Filter>
+		<File
+			RelativePath="..\src\hoe.cpp"
+			>
+		</File>
 		<File
 			RelativePath="..\src\hoe2d.cpp"
 			>
@@ -155,6 +223,14 @@
 		</File>
 		<File
 			RelativePath="..\src\hoe2d_main.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\src\ref_dd.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\src\ref_dd.h"
 			>
 		</File>
 	</Files>

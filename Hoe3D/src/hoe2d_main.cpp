@@ -38,7 +38,7 @@ LIB_EXTERN IHoeEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * con,
 	shared::fs = _fs;
 
 	ret = new Hoe3D(flags);*/
-	ret = new Hoe2DEngine();
+	ret = new Hoe2DEngine(flags);
 	ret->SysFloatTime = SysFloatTime;
 
 	return ret;

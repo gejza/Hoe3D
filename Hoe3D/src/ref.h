@@ -36,6 +36,11 @@ typedef RefD3D8 RefImpl;
 typedef RefD3DM RefImpl;
 #endif 
 
+#ifdef _USE_DD_
+#include "ref_dd.h"
+typedef RefDD RefImpl;
+#endif
+
 /**
 * @brief Nejvyssi Trida ref. 
 * Zajistuje spravne nahravani a odebrani shared pointru.

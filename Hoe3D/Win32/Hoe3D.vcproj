@@ -4065,6 +4065,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\hoe3d.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\hoe_main.cpp"
 				>
 			</File>
@@ -4172,13 +4176,6 @@
 						Name="VCCustomBuildTool"
 						CommandLine="flex -o$(InputDir)icreate_parser.c $(InputPath)&#x0D;&#x0A;"
 						Outputs="$(InputDir)icreate_parser.c"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DebugD3D9 (static)|Win32"
-					>
-					<Tool
-						Name="Flex"
 					/>
 				</FileConfiguration>
 				<FileConfiguration

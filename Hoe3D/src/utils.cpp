@@ -122,42 +122,21 @@ void QuitGame(bool hard, int code)
 
 
 //////////////////////////////
-#ifdef _HOE_D3D_
+#if defined (_HOE_D3D_) || defined(_HOE_DD_) || defined(_HOE_D3DM_)
 
-void d3derr(const char * file, dword line, const char * fnc, const char *ffnc,HRESULT hRes)
+void dxerr(const tchar * file, dword line, const tchar * fnc, const tchar *ffnc,HRESULT hRes)
 {
 	if (FAILED(hRes))
 	{
 		HoeCore::String_s<2048> buff;
-#ifdef _HOE_D3D9_
-		buff.printf("File: %s\nLine: %d\nIn Function: %s\nFunction: %s\nHRESULT: %s\nProgram will exit..", file, line, ffnc,fnc, DXGetErrorString9(hRes));
-#else
-		buff.printf("File: %s\nLine: %d\nIn Function: %s\nFunction: %s\nHRESULT: 0x%x\nProgram will exit..", file, line, ffnc,fnc, hRes);
-#endif
-		Con_Print("HRESULT failed!");
-		Con_Print("%s",buff);
-
-		MessageBox(GetActiveWindow(), buff, T("HRESULT failed!"), MB_OK);
-		// call stack
-		__debugbreak();
-	}
-}
-#endif
-#ifdef _HOE_D3DM_
-
-void d3derr(const char * file, dword line, const char * fnc, const char *ffnc,HRESULT hRes)
-{
-	if (FAILED(hRes))
-	{
-		HoeCore::String_s<2048> buff;
-		buff.printf("File: %s\n"
-			"Line: %d\n"
-			"In Function: %s\n"
-			"Function: %s\n"
-			"HRESULT: %s\n"
-			"Program will exit..", file, line, ffnc,fnc, Ref::GetErrorString(hRes));
-		Con_Print("HRESULT failed!");
-		Con_Print("%s",buff);
+		buff.printf(T("File: %s\n")
+			T("Line: %d\n")
+			T("In Function: %s\n")
+			T("Function: %s\n")
+			T("HRESULT: %s\n")
+			T("Program will exit.."), file, line, ffnc,fnc, Ref::GetErrorString(hRes));
+		Con_Print(T("HRESULT failed!"));
+		Con_Print(T("%s"),buff);
 
 		MessageBox(GetActiveWindow(), buff, T("HRESULT failed!"), MB_OK);
 		// call stack

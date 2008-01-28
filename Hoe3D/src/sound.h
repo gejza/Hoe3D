@@ -23,7 +23,7 @@
 	: public SoundSystemMobile
 #endif 
 
-#if defined (_USE_D3D9_) || defined (_USE_D3D8_) 
+#if defined (_USE_D3D9_) || defined (_USE_D3D8_) || defined(_USE_DD_)
 #include "sound_ds.h"
 typedef SoundSystemDS SoundSystemDevice;
 typedef HoeDSPlayer SoundPlayerBase;

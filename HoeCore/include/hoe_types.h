@@ -73,7 +73,8 @@ typedef unsigned long long uint64;
 
 #ifdef UNICODE
 	typedef wchar_t tchar;
-#define T(text) L##text
+#define TWCHAR(text) L ## text
+#define T(a) TWCHAR(a)
 #else
 	typedef char tchar;
 #define T(text) text

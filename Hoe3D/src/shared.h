@@ -4,7 +4,7 @@
 
 #include <hoe_types.h>
 
-class Hoe3D;
+class HoeEngine;
 class Config;
 class Ref;
 class ResourceMgr;
@@ -25,7 +25,7 @@ class CmdExec;
 class CodePage;
 
 namespace shared {
-	extern Hoe3D * hoe3d;
+	extern HoeEngine * hoe;
 	extern Config * config;
 	extern Ref * ref;
 	extern ResourceMgr * resmgr;
@@ -46,7 +46,7 @@ namespace shared {
 #define SET_SHARED_PTR(ptr) { hoe_assert(shared::ptr == NULL); shared::ptr = this; }
 #define UNSET_SHARED_PTR(ptr) { hoe_assert(shared::ptr == this); shared::ptr = NULL; }
 
-inline Hoe3D * GetHoe3D() SHARED_PTR(hoe3d)
+inline HoeEngine * GetHoe() SHARED_PTR(hoe)
 inline Config * GetConfig() SHARED_PTR(config)
 inline Ref * GetRef() SHARED_PTR(ref)
 inline ResourceMgr * GetResMgr() SHARED_PTR(resmgr)
@@ -63,7 +63,7 @@ inline HoeInput * GetInput() SHARED_PTR(input)
 inline CmdExec * GetExec() SHARED_PTR(exec)
 inline CodePage * GetCodePage() SHARED_PTR(codepage)
 
-inline bool IfExistHoe3DInstance() { return (shared::hoe3d != 0); }
+inline bool IfExistHoeInstance() { return (shared::hoe != 0); }
 inline bool IsInputLoaded() { return (shared::input != 0); }
 inline bool IsSoundLoaded() { return (shared::sound != 0); }
 

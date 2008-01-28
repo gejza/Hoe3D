@@ -14,6 +14,8 @@ using namespace HoeMath;
 uint HoeCamera::m_width = 0;
 uint HoeCamera::m_height = 0;
 
+#ifndef HOE2D
+
 HoeCamera::HoeCamera()
 {
 	//pos.part = NULL;
@@ -50,23 +52,6 @@ void HoeCamera::SetView(uint w,uint h)
 #ifdef _HOE_OPENGL_
  	glViewport(0, 0, w, h);    /* Reset The Current Viewport And Perspective Transformation */
 #endif
-}
-
-void HoeCamera::SetupMatrices()
-{
-#ifdef _HOE_OPENGL_
-	Ref::SetMatrix<Ref::MatrixViewProj>(matViewProj);
-
-	/*glMatrixMode(GL_PROJECTION);// Zvolí projekèní matici
-	glLoadMatrixf((const GLfloat *)matViewProj);
-	
-	glMatrixMode(GL_MODELVIEW);// Zvolí matici modelview
-	glLoadIdentity();*/
-#else
-	Ref::SetMatrix<Ref::MatrixView>(matView);
-	Ref::SetMatrix<Ref::MatrixProj>(matProj);
-#endif
-
 }
 
 void HoeCamera::Setup2DMatrices(const vfloat w,const vfloat h)
@@ -188,6 +173,23 @@ bool HoeCamera::BoundInFlustrum(const Vector3v & center, const HoeMath::Bounding
 	return true;
 }
 
+void HoeCamera::SetupMatrices()
+{
+#ifdef _HOE_OPENGL_
+	Ref::SetMatrix<Ref::MatrixViewProj>(matViewProj);
+
+	/*glMatrixMode(GL_PROJECTION);// Zvolí projekèní matici
+	glLoadMatrixf((const GLfloat *)matViewProj);
+	
+	glMatrixMode(GL_MODELVIEW);// Zvolí matici modelview
+	glLoadIdentity();*/
+#else
+	Ref::SetMatrix<Ref::MatrixView>(matView);
+	Ref::SetMatrix<Ref::MatrixProj>(matProj);
+#endif
+
+}
+
 void HoeCamera::Pick(const vfloat x, const vfloat y, HoeMath::Vector3v * vPickRayDir, HoeMath::Vector3v * vPickRayOrig)
 {
 	static Matrix4v m;
@@ -209,5 +211,7 @@ void HoeCamera::Pick(const vfloat x, const vfloat y, HoeMath::Vector3v * vPickRa
     vPickRayOrig->y = m._42;
     vPickRayOrig->z = m._43;
 }
+
+#endif
 
 

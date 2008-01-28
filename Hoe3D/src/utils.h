@@ -28,11 +28,11 @@ void Con_Print(const char *,...);
 void Con_Print(HoeLog * log, const char * szFormat,...);
 
 #ifdef _WIN32
-void d3derr(const char * file, dword line, const char * fnc, const char *ffnc, HRESULT hRes);
-#define checkres(hRes,fnc) if (FAILED(hRes)) d3derr(__FILE__, __LINE__, fnc,__FUNCTION__, hRes);
+void dxerr(const tchar * file, dword line, const tchar * fnc, const tchar *ffnc, HRESULT hRes);
+#define checkres(hRes,fnc) if (FAILED(hRes)) dxerr(T(__FILE__), __LINE__, T(fnc),T(__FUNCTION__), hRes);
 #endif
-void glerr(const char * file, dword line, const char * fnc, const char *ffnc,int code);
-#define checkgl(fnc) { register int code;if ((code=glGetError()) != GL_NO_ERROR) glerr(__FILE__, __LINE__, fnc,__FUNCTION__, code);}
+void glerr(const tchar * file, dword line, const tchar * fnc, const tchar *ffnc,int code);
+#define checkgl(fnc) { register int code;if ((code=glGetError()) != GL_NO_ERROR) glerr(T(__FILE__), __LINE__, T(fnc),T(__FUNCTION__), code);}
 
 
 /*#define TEST_OPENGL glEnableClientState(GL_VERTEX_ARRAY);\

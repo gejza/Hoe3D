@@ -3,7 +3,7 @@
 #include "shared.h"
 #include "config.h"
 #include "hoe_time.h"
-#include "hoe.h"
+#include "hoe3d.h"
 
 //-----------------------------------------------------------------------------
 // Global variables
