@@ -43,7 +43,7 @@ public:
 	~HoeEngine();
 
 	static bool IsLoaded() { return GetHoeEngine() != NULL; }
-	virtual bool Load(Console * con, XHoeResMgr * fs, int sdkver) = 0;
+	virtual bool Load(Console * con, HoeRes::XResourceMgr * fs, int sdkver) = 0;
 
 	/**
 	 * pokud je engine nahrán zavolá iHoe3Dengine->Destroy()
@@ -64,13 +64,13 @@ public:
 	 * @param dllname Jméno knihovny
 	 * @param con Konzole hry
 	 */
-	virtual bool Load(Console * con, XHoeResMgr * fs, int sdkver);
+	virtual bool Load(Console * con, HoeRes::XResourceMgr * fs, int sdkver);
 };
 
 class HoeEngineStatic : public HoeEngine
 {
 public:
-	virtual bool Load(Console * con, XHoeResMgr * fs, int sdkver)
+	virtual bool Load(Console * con, HoeRes::XResourceMgr * fs, int sdkver)
 	{
 		g_hoeengine = CreateHoeEngine(sdkver, con, fs, 0);
 		if (g_hoeengine)

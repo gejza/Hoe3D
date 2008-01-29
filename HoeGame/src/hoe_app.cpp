@@ -24,7 +24,6 @@ HoeApp::HoeApp(HOE_INSTANCE, HoeEngine& engine, Console * con) : HoeLinux()
 #ifdef _MACOSX
 HoeApp::HoeApp(HOE_INSTANCE, HoeEngine& engine, Console * con) : HoeMacOsX()
 #endif
- , m_engine(engine)
 {
 	this->m_con = con;
 	m_lastError = NULL;

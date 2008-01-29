@@ -53,6 +53,7 @@ public:
 	* Konec vykreslovani sceny. viz DIRECT3D help.
 	*/
 	void End();
+	LPDIRECTDRAWSURFACE7 GetSurface() { return m_pDDSBack; }
 	/**
 	* Vymazani bufferu
 	* @param target Smaze target buffer

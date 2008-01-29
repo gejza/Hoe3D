@@ -22,6 +22,7 @@
 #include <stdlib.h>
 
 #include <wchar.h>
+#include <new>
 
 #include <hoe_types.h>
 #include <hoe_string.h>

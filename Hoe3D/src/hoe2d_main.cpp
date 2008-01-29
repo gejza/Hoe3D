@@ -1,8 +1,8 @@
 
 #include "StdAfx.h"
 #include "hoe2d.h"
-/*#include "shared.h"
-#include "config.h"
+#include "shared.h"
+/*#include "config.h"
 #include "hoe_time.h"
 #include "hoe.h"*/
 
@@ -14,7 +14,7 @@ class XHoeResMgr;
 extern ::XHoeConsole * _Con;
 
 ////////////////
-LIB_EXTERN IHoeEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * con, ::XHoeResMgr * _fs, int flags)
+LIB_EXTERN IHoeEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * con, HoeRes::XResourceMgr * _fs, int flags)
 {
 	IHoeEngine * ret;
 	/*if (sdk_ver != HOESDK_VERSION)
@@ -25,19 +25,17 @@ LIB_EXTERN IHoeEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * con,
 		return NULL;
 	}
 
-
 	if (IfExistHoe3DInstance())
 	{
 		con->Con_Print(T("One instance of Hoe3D is loaded."));
 		return NULL;
 	}
 
-	_Con = con;
+	_Con = con;*/
 
-	assert(shared::fs == NULL);
-	shared::fs = _fs;
+	assert(shared::resmgr == NULL);
+	shared::resmgr = _fs;
 
-	ret = new Hoe3D(flags);*/
 	ret = new Hoe2DEngine(flags);
 	ret->SysFloatTime = SysFloatTime;
 

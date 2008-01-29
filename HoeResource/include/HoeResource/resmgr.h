@@ -4,6 +4,8 @@
 
 namespace HoeRes {
 
+struct SymbolLink;
+
 /** Interface pro resource manager */
 class XResourceMgr
 {

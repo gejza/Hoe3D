@@ -21,8 +21,6 @@ public:
 	void Begin();
 	void End();
 
-	HoePicture * CreatePicture(const tchar *, HoeLog * log);
-
     // user func
 	void SetRect(const vfloat w,const vfloat h);
 

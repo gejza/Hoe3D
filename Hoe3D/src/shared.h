@@ -8,7 +8,9 @@ class HoeEngine;
 class Config;
 class Ref;
 class ResourceMgr;
-class XHoeFS;
+namespace HoeRes {
+class XResourceMgr;
+};
 class TextureSystem;
 class MaterialSystem;
 class Hoe2D;
@@ -28,8 +30,7 @@ namespace shared {
 	extern HoeEngine * hoe;
 	extern Config * config;
 	extern Ref * ref;
-	extern ResourceMgr * resmgr;
-	extern XHoeFS * fs;
+	extern HoeRes::XResourceMgr * resmgr;
 	extern TextureSystem * ts;
 	extern HoeStates * states;
 	extern MaterialSystem * material;
@@ -49,9 +50,7 @@ namespace shared {
 inline HoeEngine * GetHoe() SHARED_PTR(hoe)
 inline Config * GetConfig() SHARED_PTR(config)
 inline Ref * GetRef() SHARED_PTR(ref)
-inline ResourceMgr * GetResMgr() SHARED_PTR(resmgr)
-inline XHoeFS * GetFileSystem() SHARED_PTR(fs)
-inline XHoeFS * GetFS() SHARED_PTR(fs)
+inline HoeRes::XResourceMgr * GetResMgr() SHARED_PTR(resmgr)
 inline TextureSystem * GetTextureSystem() SHARED_PTR(ts)
 inline HoeStates * GetStates() SHARED_PTR(states)
 inline MaterialSystem * GetMaterialSystem() SHARED_PTR(material)

@@ -20,8 +20,11 @@
 
 #define HOESDK_VERSION  (136 + HOE_INTERFACE_VER)
 
+namespace HoeRes {
+class XResourceMgr;
+};
+
 class IHoeInterface;
-class XHoeResMgr;
 
 struct THoeInitSettings
 {
@@ -210,12 +213,12 @@ public:
 	virtual const InfoDisplay * GetDisplay(const InfoDevice * dev, const InfoFormat * fmt, uint i) = 0;
 };
 
-typedef IHoeEngine * (HOEAPI *HOE_FUNCCREATE)(int sdk_ver, XHoeConsole * con, XHoeResMgr * fs, int flags);
+typedef IHoeEngine * (HOEAPI *HOE_FUNCCREATE)(int sdk_ver, XHoeConsole * con, HoeRes::XResourceMgr * fs, int flags);
 typedef IHoeEngineInfo * (HOEAPI *HOE_FUNCINFO)(int sdk_ver);
 typedef int (HOEAPI *HOE_FUNCGETSDKVER)();
 
 #ifdef HOE_STATIC_ENGINE
-IHoeEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * con, ::XHoeResMgr * fs, int flags);
+IHoeEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * con, HoeRes::XResourceMgr * fs, int flags);
 IHoeEngineInfo * HOEAPI GetEngineInfo(int sdk_ver);
 int HOEAPI GetSDKVersion();
 #endif

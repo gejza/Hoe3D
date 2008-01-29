@@ -4,10 +4,7 @@
 #include "hoe2d.h"
 #include "ref.h"
 #include "scene_base.h"
-
-
-
-
+#include "../include/hoefs.h"
 
 /** Init funkce */
 bool HOEAPI Hoe2DEngine::Init(THoeInitSettings * his)
@@ -19,8 +16,11 @@ bool HOEAPI Hoe2DEngine::Init(THoeInitSettings * his)
 }
 
 /** Funkce co vytvari interface tridy */
-IHoeInterface * HOEAPI Hoe2DEngine::Create(const tchar *)
+IHoeInterface * HOEAPI Hoe2DEngine::Create(const tchar * cmd)
 {
+	// create parser
+	GetResMgr()->GetResource(cmd);
+
 	return NULL;
 }
 

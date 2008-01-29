@@ -46,23 +46,15 @@ Hoe2D::~Hoe2D()
 void Hoe2D::Begin()
 {
     in_progress = true;
+#ifndef HOE2D
 	HoeCamera::Setup2DMatrices(m_maxX,m_maxY);
 	GetStates()->Setup2D();
-
-
+#endif
 }
 
 void Hoe2D::End()
 {
 	in_progress = false;
-}
-
-HoePicture * Hoe2D::CreatePicture(const tchar * name, HoeLog * log)
-{
-	HoePicture * ret = new HoePicture;
-	if (name)
-		ret->SetSource(GetTextureSystem()->GetTexture(name, log));
-	return ret;
 }
 
 ///////////////////////////////////////
@@ -71,8 +63,10 @@ void Hoe2D::SetRect(const vfloat w,const vfloat h)
 {
 	m_maxX = w;
 	m_maxY = h;
+#ifndef HOE2D
 	if (in_progress) //todo udelat kontrolu na nulove hodnoty
 		HoeCamera::Setup2DMatrices(w,h);
+#endif
 }
 
 void Hoe2D::PaintRect(const vfloat l,const vfloat r,const vfloat t,const vfloat b,unsigned long color,bool full)
@@ -139,6 +133,19 @@ void Hoe2D::PaintRect(const vfloat l,const vfloat r,const vfloat t,const vfloat 
 	checkres(hRes, "IDirect3dMobileDevice::ColorFill");
 	pbb->Release();
 #endif // _HOE_D3D9_
+#ifdef _HOE_DD_
+	DDBLTFX fx;
+	memset(&fx,0, sizeof(fx));
+	fx.dwSize = sizeof(fx);
+	fx.dwFillColor = color;
+	RECT rect;
+	rect.top = t;
+	rect.left = l;
+	rect.bottom = b;
+	rect.right = r;
+	HRESULT hRes = GetRef()->GetSurface()->Blt(&rect, NULL, NULL, DDBLT_COLORFILL,&fx);
+	checkres(hRes, "Blt");
+#endif
 
 }
 
@@ -186,8 +193,9 @@ void Hoe2D::Blt(const THoeRect * dest,IHoePicture * pic,const THoeRect * src)
 {
 	GetStates()->EnableTexture();
 	GetStates()->Setup2DAlphaTest();
-
+#ifndef HOE2D
 	GetTextureSystem()->SetTexture(0,reinterpret_cast<HoePicture *>(pic)->GetSource());
+#endif
 #ifdef _HOE_OPENGL_
 	glColor4f(1.f,1.f,1.f,1.f);
 	glBegin(GL_QUADS);// Zaèátek kreslení obdélníkù

@@ -4065,6 +4065,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\hoe3d.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\hoe3d.h"
 				>
 			</File>

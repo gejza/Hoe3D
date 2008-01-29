@@ -51,7 +51,6 @@ class HoeApp : public HoeMacOsX
 #endif
 {
 protected:
-	HoeEngine& m_engine; 
 	Console * m_con;
 	//HoeGame::FileSystem m_fs;
 

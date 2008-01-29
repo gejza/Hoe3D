@@ -201,6 +201,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\states.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\unicode.cpp"
 				>
 			</File>

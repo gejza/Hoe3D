@@ -41,6 +41,9 @@ typedef RefD3DM RefImpl;
 typedef RefDD RefImpl;
 #endif
 
+#include "2d.h"
+#include "states.h"
+
 /**
 * @brief Nejvyssi Trida ref. 
 * Zajistuje spravne nahravani a odebrani shared pointru.
@@ -50,6 +53,9 @@ typedef RefDD RefImpl;
 */
 class Ref : public RefImpl
 {
+protected:
+	HoeStates m_state;
+	Hoe2D m_2d;
 public:
 	/**
 	* Konstruktor

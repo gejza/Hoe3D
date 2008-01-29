@@ -47,7 +47,7 @@ HoeEngineDLL::~HoeEngineDLL()
 
 }
 
-bool HoeEngineDLL::Load(Console * con, XHoeResMgr * fs, int sdkver)
+bool HoeEngineDLL::Load(Console * con, HoeRes::XResourceMgr * fs, int sdkver)
 {
 	HOE_FUNCCREATE GetEngineInterface;
 	

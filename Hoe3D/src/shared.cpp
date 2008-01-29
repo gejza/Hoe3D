@@ -10,8 +10,7 @@ namespace shared {
 	HoeEngine * hoe = NULL;
 	Config * config = NULL;
 	Ref * ref = NULL;
-	ResourceMgr * resmgr = NULL;
-	XHoeFS * fs = NULL;
+	HoeRes::XResourceMgr * resmgr = NULL;
 	TextureSystem * ts = NULL;
 	HoeStates * states = NULL;
 	MaterialSystem * material = NULL;
