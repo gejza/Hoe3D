@@ -13,6 +13,9 @@
 		/>
 	</Platforms>
 	<ToolFiles>
+		<ToolFile
+			RelativePath="..\..\..\Common\bin\tools.rules"
+		/>
 	</ToolFiles>
 	<Configurations>
 		<Configuration
@@ -27,7 +30,19 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -92,7 +107,19 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -177,6 +204,24 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\icreate.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\icreate_parser.l"
+				>
+				<FileConfiguration
+					Name="DD Unicode Static Debug|Win32"
+					>
+					<Tool
+						Name="Flex"
+						Unicode="true"
+						Skeleton="..\..\HoeCore\template\hoe_flex.skl"
+						dep="..\..\HoeCore\template\hoe_flex.skl"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\src\ref.cpp"
 				>
 			</File>
@@ -212,6 +257,14 @@
 				RelativePath="..\src\utils.cpp"
 				>
 			</File>
+			<Filter
+				Name="Generated"
+				>
+				<File
+					RelativePath="..\src\icreate_parser.yy.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<File
 			RelativePath="..\src\hoe.cpp"

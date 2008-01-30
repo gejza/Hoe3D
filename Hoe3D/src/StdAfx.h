@@ -54,6 +54,7 @@
 #include <hoe_types.h>
 #include <hoe_math_ext.h>
 #include <hoe_core.h>
+#include <hoe_flex.h>
 #include <hoe_platform.h>
 #include <hoe_stream.h>
 

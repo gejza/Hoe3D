@@ -18,6 +18,7 @@
 #include <hoe3d.h>
 #include "hoe_game.h"
 #include "hoe_console.h"
+#include "hoe_vars.h"
 
 BEGIN_HOEGAME
 
@@ -36,6 +37,9 @@ class HoeEngine
 {
 protected:
 	bool m_loaded;
+	static CVar m_width;
+	static CVar m_height;
+	static CVar m_fullscreen;
 public:
 	/** Kontruktor */
 	HoeEngine();

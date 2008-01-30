@@ -52,7 +52,8 @@ class HoeApp : public HoeMacOsX
 {
 protected:
 	Console * m_con;
-	//HoeGame::FileSystem m_fs;
+	HoeGame::HoeEngine& m_engine;
+	HoeRes::XResourceMgr * m_fs;
 
 	static CVar m_width;
 	static CVar m_height;
@@ -69,7 +70,7 @@ public:
 	 * Kontruktor
 	 * @param con Konzole hry
 	 */
-	HoeApp(HOE_INSTANCE,HoeEngine& engine, Console * con);
+	HoeApp(HOE_INSTANCE,HoeEngine& engine, Console * con, HoeRes::XResourceMgr * fs);
 	/** Destruktor */
 	virtual ~HoeApp();
 

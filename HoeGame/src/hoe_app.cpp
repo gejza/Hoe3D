@@ -10,20 +10,21 @@ CVar HoeApp::m_fullscreen(T("fullscreen"), false, 0);
 CVar HoeApp::m_enginedll(T("engine"), ENGINE_DLL, TVAR_SSTR);
 
 #ifdef _WIN32_WINNT
-HoeApp::HoeApp(HOE_INSTANCE hInst, HoeEngine& engine, Console * con) : HoeWin32(hInst)
+HoeApp::HoeApp(HOE_INSTANCE hInst, HoeEngine& engine, Console * con, HoeRes::XResourceMgr * fs) : HoeWin32(hInst)
 #endif
 
 #ifdef _WIN32_WCE
-HoeApp::HoeApp(HOE_INSTANCE hInst, HoeEngine& engine, Console * con) : HoeMobile(hInst)
+HoeApp::HoeApp(HOE_INSTANCE hInst, HoeEngine& engine, Console * con, HoeRes::XResourceMgr * fs) : HoeMobile(hInst)
 #endif
 
 #ifdef _LINUX
-HoeApp::HoeApp(HOE_INSTANCE, HoeEngine& engine, Console * con) : HoeLinux()
+HoeApp::HoeApp(HOE_INSTANCE, HoeEngine& engine, Console * con, HoeRes::XResourceMgr * fs) : HoeLinux()
 #endif
 
 #ifdef _MACOSX
-HoeApp::HoeApp(HOE_INSTANCE, HoeEngine& engine, Console * con) : HoeMacOsX()
+HoeApp::HoeApp(HOE_INSTANCE, HoeEngine& engine, Console * con, HoeRes::XResourceMgr * fs) : HoeMacOsX()
 #endif
+	, m_engine(engine), m_fs(fs)
 {
 	this->m_con = con;
 	m_lastError = NULL;
@@ -198,7 +199,7 @@ bool HoeApp::Init(const char * title, int sdkver)
 
 bool HoeApp::LoadEngine(int sdkver)
 {
-	return m_engine.Load(m_con, NULL, sdkver);
+	return m_engine.Load(m_con, m_fs, sdkver);
 }
 
 void HoeApp::OnUpdate(float time)

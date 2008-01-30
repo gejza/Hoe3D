@@ -5,6 +5,7 @@
 #include "ref.h"
 #include "scene_base.h"
 #include "../include/hoefs.h"
+#include "icreate.h"
 
 /** Init funkce */
 bool HOEAPI Hoe2DEngine::Init(THoeInitSettings * his)
@@ -19,8 +20,13 @@ bool HOEAPI Hoe2DEngine::Init(THoeInitSettings * his)
 IHoeInterface * HOEAPI Hoe2DEngine::Create(const tchar * cmd)
 {
 	// create parser
-	GetResMgr()->GetResource(cmd);
+	HoeCore::HoeFlexMem buff(cmd);
+	ICParser p;
+	p.Switch(buff);
+	while (p.Lex());
 
+	HoeCore::ReadStream* rs = GetResMgr()->GetResource(cmd);
+	rs->Close();
 	return NULL;
 }
 

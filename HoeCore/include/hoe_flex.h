@@ -25,7 +25,7 @@ namespace HoeCore {
 namespace flex {
 
 /* Define the YY_CHAR type. */
-typedef char YY_CHAR;
+typedef tchar YY_CHAR;
 /* Promotes a YY_CHAR to an unsigned integer for use as an array index. */
 #define YY_SC_TO_UI(c) ((unsigned int) (unsigned short) c)
 #define YY_END_OF_BUFFER_CHAR 0
@@ -81,6 +81,7 @@ class String;
 
 class HoeFlexBuffer
 {
+protected:
 	/* Whether we're considered to be at the beginning of a line.
 	 * If so, '^' rules will be active on the next match, otherwise
 	 * not.
@@ -94,7 +95,7 @@ public:
 	void IncLineNo() { m_line++; }
 	int GetLine() { return m_line; }
 	virtual const HoeCore::String& GetIdentifier() const;
-	virtual size_t Input(char * buff, size_t max) = 0;
+	virtual size_t Input(tchar * buff, size_t max) = 0;
 
 	flex::YY_CHAR *yy_ch_buf;		/* input buffer */
 	flex::YY_CHAR *yy_buf_pos;		/* current position in input buffer */
@@ -165,10 +166,23 @@ protected:
 	HoeCore::ReadStream& m_in;
 public:
     HoeFlexFile(HoeCore::ReadStream& stream);
-	virtual const char * GetIdentifier() { return "test"; }
-	virtual size_t Input(char * buff, size_t max)
+	virtual const char * GetIdentifier() { return "File"; }
+	virtual size_t Input(tchar * buff, size_t max)
 	{
-		return m_in.Read(buff, max);
+		return m_in.Read(buff, max * sizeof(tchar));
+	}
+};
+
+class HoeFlexMem : public HoeCore::HoeFlexBuffer
+{
+	tchar * m_buff;
+public:
+	HoeFlexMem(const tchar* buff);
+	virtual ~HoeFlexMem() { delete[] m_buff; }
+	virtual const char * GetIdentifier() { return "Memory String"; }
+	virtual size_t Input(tchar * buff,size_t) /** No read next data */
+	{
+		return 0;
 	}
 };
 
@@ -193,7 +207,7 @@ public:
 		yy_c_buf_p = (flex::YY_CHAR *) 0;
 	}
 	
-	virtual int Echo(const char * buff, size_t size)
+	virtual int Echo(const tchar * buff, size_t size)
 	{
 		return 0;
 	}
@@ -207,7 +221,7 @@ public:
 	int yy_get_next_buffer ( void );
 	void yyunput ( int c, flex::YY_CHAR *buf_ptr );
 	int yyinput ( void );
-	void yy_fatal_error ( const char msg[] );
+	void yy_fatal_error ( const tchar msg[] );
 };
 
 #define DECLARE_FLEX_FUNCTIONS(param) int Lex(param); \

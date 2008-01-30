@@ -1,15 +1,10 @@
-%option prefix="yycreate"
 %{
-//#ifdef yywrap
-//#undef yywrap
-//#else
-//#define yyconfigwrap yywrap
-static int yywrap() { return 1; } 
-//#endif
-#include <stdlib.h>
+#include "StdAfx.h"
+#include "icreate.h"
+#define YY_CLASS_NAME ICParser
+//#define YY_CLASS_DECL Lex(HoeCore::StringPool& pool, union YYSTYPE * l)
 #include "hoe_tokens.h"
-#define _NOXLIB
-#include <hoe_types.h>
+
 //int mylineno = 0;
 //using namespace std;
 
@@ -53,20 +48,7 @@ name    ({alpha}|\$)({alpha}|{dig}|[_\-/$:@#%^&*])*
 
 %%
 
-void parse_load(const tchar *str)
-{
-	yy_scan_string ((const YY_CHAR *)str);
-} 
 
-int parse()
-{
-	return yylex();
-}
-
-const tchar *parser_getstring()
-{
-	return (const tchar*)yytext;
-}
 
 
 

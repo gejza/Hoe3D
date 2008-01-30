@@ -37,6 +37,30 @@ HoeFlexFile::HoeFlexFile(HoeCore::ReadStream& stream) : m_in(stream)
 
 }
 
+HoeFlexMem::HoeFlexMem(const tchar* buff)
+{
+	size_t l = HoeCore::string::len(buff);
+	m_buff = new tchar[l+2];
+	if (l)
+		HoeCore::string::copy(m_buff, buff, l);
+    m_buff[l+0] = YY_END_OF_BUFFER_CHAR;
+    m_buff[l+1] = YY_END_OF_BUFFER_CHAR;
+	this->yy_buf_size = l+2;
+
+    //	/* yy_ch_buf has to be 2 characters longer than the size given because
+    //	 * we need to put in 2 end-of-buffer characters.
+    //	 */
+
+	this->yy_ch_buf = (flex::YY_CHAR *) m_buff;
+    this->yy_is_our_buffer = 1;
+    this->yy_n_chars = l;
+    this->yy_buf_pos = &this->yy_ch_buf[0];
+    this->m_bol = true;
+    this->yy_buffer_status = YY_BUFFER_NEW;
+    this->yy_fill_buffer = 0;
+
+}
+
 ////////////////////////////////
 
 int HoeFlex::yy_get_next_buffer()
@@ -48,7 +72,7 @@ int HoeFlex::yy_get_next_buffer()
 
 	if ( yy_c_buf_p > &m_buffer->yy_ch_buf[yy_n_chars + 1] )
 		yy_fatal_error(
-		"fatal flex scanner internal error--end of buffer missed" );
+		T("fatal flex scanner internal error--end of buffer missed") );
 
 	if ( m_buffer->yy_fill_buffer == 0 )
 		{ /* Don't try to fill the buffer, so this is an EOF. */
@@ -122,7 +146,7 @@ int HoeFlex::yy_get_next_buffer()
 
 			if ( ! b->yy_ch_buf )
 				yy_fatal_error(
-				"fatal error - scanner input buffer overflow" );
+				T("fatal error - scanner input buffer overflow") );
 
 			yy_c_buf_p = &b->yy_ch_buf[yy_c_buf_p_offset];
 
@@ -197,7 +221,7 @@ void HoeFlex::Switch(HoeFlexBuffer& buff)
 	yy_did_buffer_switch_on_eof = 1;
 }
 
-void HoeFlex::yy_fatal_error ( const char msg[] )
+void HoeFlex::yy_fatal_error ( const tchar msg[] )
 {
 	throw msg;
 }
@@ -295,7 +319,7 @@ void HoeFlex::yyunput( int c, register flex::YY_CHAR *yy_bp )
 			yy_n_chars = m_buffer->yy_buf_size;
 
 		if ( yy_cp < m_buffer->yy_ch_buf + 2 )
-			this->yy_fatal_error( "flex scanner push-back overflow" );
+			this->yy_fatal_error( T("flex scanner push-back overflow") );
 		}
 
 	*--yy_cp = (flex::YY_CHAR) c;
