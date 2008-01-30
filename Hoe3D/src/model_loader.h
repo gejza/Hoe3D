@@ -14,7 +14,7 @@ struct tChunk;
 
 class ModelLoader
 {
-    HoeCore::ReadStream * m_read;;
+    HoeCore::ReadStream * m_reader;
 
 	HoeLog * m_log;
 	int m_flags;

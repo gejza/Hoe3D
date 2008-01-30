@@ -11,7 +11,7 @@ src/structfile_parser.cpp: src/structfile_parser.l
 	flex -o"src/structfile_parser.cpp" src/structfile_parser.l
 	
 
-___bin_libHoeGame_a_CPPFLAGS = -I../Hoe3D/include $(LUA_CFLAGS) -DHOE_NO_BASS
+___bin_libHoeGame_a_CPPFLAGS = -I../Hoe3D/include $(LUA_CFLAGS) -DHOE_NO_BASS -DHOE_STATIC_ENGINE
 
 ___bin_libHoeGame_a_SOURCES = src/hoe_app.cpp \
 src/hoe_baseapp.cpp \
@@ -20,7 +20,6 @@ src/hoe_config.cpp \
 src/hoe_console.cpp \
 src/hoe_engine.cpp \
 src/hoe_figure2d.cpp \
-src/hoe_fs.cpp \
 src/hoe_gui.cpp \
 src/hoe_input.cpp \
 src/hoe_inputkeys.cpp \
@@ -37,11 +36,11 @@ src/hoe_timer.cpp \
 src/hoe_utils.cpp \
 src/hoe_vars.cpp \
 src/hoe_view.cpp \
-src/lua_script.cpp \
 src/hoe_mem.cpp \
-src/hoe_structfile.cpp \
-src/config_parser.cpp src/lang_parser.cpp src/structfile_parser.cpp
+src/hoe_structfile.cpp 
 
+#src/lua_script.cpp \
+#src/config_parser.cpp src/lang_parser.cpp src/structfile_parser.cpp
 ___bin_libHoeGame_a_LDFLAGS = -static -lHoeCore
 
 

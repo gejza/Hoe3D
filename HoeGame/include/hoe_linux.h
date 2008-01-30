@@ -14,7 +14,7 @@ protected:
 	HOE_DISPLAY * dpy;
 	int screen;
 	HOE_WINDOW win;
-	IHoe3DEngine * m_enginstance;
+	IHoeEngine * m_enginstance;
 public:
 	HoeLinux();
 	virtual ~HoeLinux();
@@ -23,7 +23,7 @@ public:
 
 	virtual void HandleError();
 
-	virtual int GetMsg(IHoe3DEngine *);
+	virtual int GetMsg(IHoeEngine *);
 	virtual void Destroy();
 
 	virtual void OnSize(int width, int height) = 0;

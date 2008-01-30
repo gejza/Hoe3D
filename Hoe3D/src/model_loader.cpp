@@ -20,7 +20,7 @@ ModelLoader::ModelLoader(HoeLog * log, int flags)
 {
 	m_log = log;
 	m_flags = flags;
-	m_read = NULL; 
+	m_reader = NULL; 
 }
 
 
@@ -36,14 +36,14 @@ HoeModel * ModelLoader::LoadModel(const tchar * name, bool soft)
 	else
 		m_soft = false;
 
-	m_reader = GetFileSystem()->FindResource_(name,IDMDLHEADER);
+	m_reader = GetResMgr()->GetResource(name);
 	if (!m_reader) 
 	{
 		Con_Print("Error find model %s",name);
 		return NULL;
 	}
 
-	THoeFileDesc desc;
+	/*THoeFileDesc desc;
 	m_reader.GetFile()->GetDesc(&desc);
 	if (desc.version != IDMDLVER)
 	{
@@ -54,7 +54,7 @@ HoeModel * ModelLoader::LoadModel(const tchar * name, bool soft)
 	Con_Print("Loading model %s from file %s(%.2f)",
 		name,
 		desc.name,
-		desc.version * 0.01f);
+		desc.version * 0.01f);*/
 
 	return LoadModel();
 }

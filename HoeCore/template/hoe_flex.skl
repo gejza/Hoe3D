@@ -17,6 +17,10 @@
 #include <windows.h>
 #endif
 
+#ifdef _LINUX
+#define _NOXLIB
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

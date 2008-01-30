@@ -18,6 +18,7 @@
 #include <wchar.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include <new>
 
 #include <assert.h>
 //#include <tchar.h>

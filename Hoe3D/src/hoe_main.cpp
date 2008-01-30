@@ -9,11 +9,10 @@
 // Global variables
 //-----------------------------------------------------------------------------
 class XHoeConsole;
-class XHoeFS;
 extern ::XHoeConsole * _Con;
 
 ////////////////
-LIB_EXTERN IHoeEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * con, ::XHoeFS * _fs, void * p_memBase,int n_memSize, int flags)
+LIB_EXTERN IHoeEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * con, HoeRes::XResourceMgr * _fs, void * p_memBase,int n_memSize, int flags)
 {
 	if (sdk_ver != HOESDK_VERSION)
 	{
@@ -33,10 +32,10 @@ LIB_EXTERN IHoeEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * con,
 
 	_Con = con;
 
-	assert(shared::fs == NULL);
-	shared::fs = _fs;
+	assert(shared::resmgr == NULL);
+	shared::resmgr = _fs;
 
-	ret = new Hoe3D(flags);
+	ret = new Hoe3DEngine(flags);
 	ret->SysFloatTime = SysFloatTime;
 
 	return ret;

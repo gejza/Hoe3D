@@ -12,7 +12,7 @@ HoeLinux::~HoeLinux()
 {
 }
 
-int HoeLinux::GetMsg(IHoe3DEngine * engine)
+int HoeLinux::GetMsg(IHoeEngine * engine)
 {
 	// parse std input
     fd_set rfds;

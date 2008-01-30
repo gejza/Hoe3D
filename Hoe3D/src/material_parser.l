@@ -1,12 +1,6 @@
 %option prefix="yymaterial"
 
 %{
-//#ifdef yywrap
-//#undef yywrap
-//#else
-//#define yyconfigwrap yywrap
-static int yywrap() { return 1; } 
-//#endif
 
 #include <stdio.h>
 #include <stdlib.h>

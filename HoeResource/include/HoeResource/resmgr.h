@@ -13,6 +13,8 @@ public:
 	virtual HoeCore::ReadStream * GetResource(const tchar* name, const tchar** ns = NULL) = 0;
 };
 
+#ifdef _WIN32
+
 class LinkedFile
 {
 	int m_index;
@@ -51,6 +53,8 @@ public:
 	HoeCore::ReadStream * LoadSymbol(HoeRes::SymbolLink& sym);
 	LinkedFile& GetFile(int n);
 };
+
+#endif
 
 } // namespace HoeRes
 
