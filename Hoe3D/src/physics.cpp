@@ -6,7 +6,6 @@
 #include "../include/hoeinterfaces.h"
 #include "object_inspector.h"
 #include "physics.h"
-#include <hoe_math.h>
 
 Physics::Physics()
 {

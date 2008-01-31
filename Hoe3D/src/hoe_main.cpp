@@ -12,7 +12,7 @@ class XHoeConsole;
 extern ::XHoeConsole * _Con;
 
 ////////////////
-LIB_EXTERN IHoeEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * con, HoeRes::XResourceMgr * _fs, void * p_memBase,int n_memSize, int flags)
+LIB_EXTERN IHoeEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * con, HoeRes::XResourceMgr * _fs, int flags)
 {
 	if (sdk_ver != HOESDK_VERSION)
 	{

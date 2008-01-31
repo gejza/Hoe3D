@@ -41,10 +41,10 @@
 #endif
 
 #include <assert.h>
-#include <hoe_core.h>
-#include <hoe_types.h>
-#include <hoe_math.h>
-#include <hoe_file.h>
+#include <HoeCore/hoe_core.h>
+#include <HoeCore/hoe_types.h>
+#include <HoeCore/hoe_math.h>
+#include <HoeCore/hoe_file.h>
 
 #ifdef _WIN32
 //#define _WIN32_WINNT 0x0500

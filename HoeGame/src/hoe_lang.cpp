@@ -1,7 +1,7 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_lang.h"
-#include "../include/hoe_console.h"
+#include "../include/HoeGame/hoe_lang.h"
+#include "../include/HoeGame/hoe_console.h"
 
 extern "C" {
 int lang_load(FILE * f);

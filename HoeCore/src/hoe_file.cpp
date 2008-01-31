@@ -1,6 +1,6 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_file.h"
+#include "../include/HoeCore/hoe_file.h"
 
 HoeCore::File::~File()
 {

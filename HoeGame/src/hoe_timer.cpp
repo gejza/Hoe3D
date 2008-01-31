@@ -1,7 +1,7 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_timer.h"
-#include "../include/hoe_vars.h"
+#include "../include/HoeGame/hoe_timer.h"
+#include "../include/HoeGame/hoe_vars.h"
 
 BEGIN_HOEGAME
 

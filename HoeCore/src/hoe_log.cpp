@@ -1,8 +1,8 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_types.h"
-#include "../include/hoe_log.h"
-#include "../../HoeCore/include/hoe_string.h"
+#include "../include/HoeCore/hoe_types.h"
+#include "../include/HoeCore/hoe_log.h"
+#include "../include/HoeCore/hoe_string.h"
 
 void HoeLog::Log(const char * szFormat,...)
 {

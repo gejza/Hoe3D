@@ -10,7 +10,7 @@
 #define _REF_BASE_H_
 
 #include "../include/hoeinterfaces.h"
-#include <hoe_math.h>
+#include <HoeCore/hoe_math.h>
 
 /** 
 * @brief Zakladni trida ref.

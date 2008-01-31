@@ -28,8 +28,8 @@
 #include <unistd.h>
 #endif 
 
-#include <hoe_types.h>
-#include <hoe_string.h>
+#include <HoeCore/hoe_types.h>
+#include <HoeCore/hoe_string.h>
 
 
 #endif // _STDAFX_H_

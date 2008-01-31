@@ -1,6 +1,6 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_benchmark.h"
+#include "../include/HoeGame/hoe_benchmark.h"
 
 BEGIN_HOEGAME
 

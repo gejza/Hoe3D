@@ -1,6 +1,6 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_platform.h"
+#include "../include/HoeCore/hoe_platform.h"
 
 HoeCore::Endianness::Endianness(uint32 e)
 {

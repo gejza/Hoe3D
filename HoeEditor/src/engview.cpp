@@ -1,10 +1,10 @@
 
 #include "StdAfx.h"
-#include "../include/he/app.h"
-#include "../include/he/editor.h"
-#include "../include/he/engview.h"
-#include "../../HoeGame/include/hoe_utils.h"
-#include "../../HoeGame/include/hoe_engine.h"
+#include "../include/HoeEditor/app.h"
+#include "../include/HoeEditor/editor.h"
+#include "../include/HoeEditor/engview.h"
+#include <HoeGame/hoe_utils.h>
+#include <HoeGame/hoe_engine.h>
 
 namespace HoeEditor {
 
@@ -119,7 +119,7 @@ bool EngineView::InitUntry(XHoeFS * hfs, int sdkver)
 	}
 
 	wxLogMessage("* Load Engine from %s *",m_dllpath);
-	HoeGame::g_hoeengine = GetEngineInterface(HOESDK_VERSION,App::Get()->GetConsole(),hfs,NULL,0,HOEF_NOINPUT);
+	HoeGame::g_hoeengine = GetEngineInterface(HOESDK_VERSION,App::Get()->GetConsole(),hfs,HOEF_NOINPUT);
 #endif
 	if (HoeGame::g_hoeengine == NULL)
 		return false; 

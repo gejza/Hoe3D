@@ -2,7 +2,6 @@
 #ifndef _PARTICLE_EMITOR_H_
 #define _PARTICLE_EMITOR_H_
 
-#include <hoe_structures.h>
 #include "hoe_index.h"
 #include "hoe_stream.h"
 

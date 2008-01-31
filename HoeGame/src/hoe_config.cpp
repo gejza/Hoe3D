@@ -1,8 +1,8 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_config.h"
-#include "../include/hoe_vars.h"
-#include "../include/hoe_console.h"
+#include "../include/HoeGame/hoe_config.h"
+#include "../include/HoeGame/hoe_vars.h"
+#include "../include/HoeGame/hoe_console.h"
 
 extern "C" {
 int config_load(FILE * f);

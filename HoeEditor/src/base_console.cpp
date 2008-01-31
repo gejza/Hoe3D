@@ -1,6 +1,6 @@
 
 #include "StdAfx.h"
-#include "../include/he/base_console.h"
+#include "../include/HoeEditor/base_console.h"
 
 FILE * g_filelog = NULL;
 

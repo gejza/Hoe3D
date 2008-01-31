@@ -1,9 +1,9 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_core.h"
-#include "../include/hoe_structures.h"
-#include "../include/hoe_mem.h"
-#include "../include/hoe_unicode.h"
+#include "../include/HoeCore/hoe_core.h"
+#include "../include/HoeCore/hoe_structures.h"
+#include "../include/HoeCore/hoe_mem.h"
+#include "../include/HoeCore/hoe_unicode.h"
 
 #define INDEX(x,y) ((y)*m_width+(x))
 

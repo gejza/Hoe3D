@@ -9,7 +9,7 @@
 #ifndef _HOE_FIGURE_2D_H_
 #define _HOE_FIGURE_2D_H_
 
-#include <hoe_structures.h>
+#include <HoeCore/hoe_structures.h>
 #include <hoe3d.h>
 #include "hoe_game.h"
 #include "hoe_fs.h"

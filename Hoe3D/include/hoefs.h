@@ -7,7 +7,7 @@
 #ifndef _HOE_FILE_SYSTEM_H_
 #define _HOE_FILE_SYSTEM_H_
 
-#include "hoe_types.h"
+#include <HoeCore/hoe_types.h>
 #include "hoeinterfaces.h"
 
 #if 0

@@ -2,8 +2,8 @@
 #ifndef _HOE_UTIL_RESOURCE_COMPILER_SCAN_H_
 #define _HOE_UTIL_RESOURCE_COMPILER_SCAN_H_
 
-#include <hoe_flex.h>
-#include <hoe_core.h>
+#include <HoeCore/hoe_flex.h>
+#include <HoeCore/hoe_core.h>
 
 class Scaner : public HoeCore::HoeFlex
 {

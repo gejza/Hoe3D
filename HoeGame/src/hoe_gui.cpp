@@ -1,9 +1,9 @@
 
 #include "StdAfx.h"
 #include <hoe3d.h>
-#include "../include/hoe_inputkeys.h"
-#include "../include/hoe_gui.h"
-#include "../include/hoe_engine.h"
+#include "../include/HoeGame/hoe_inputkeys.h"
+#include "../include/HoeGame/hoe_gui.h"
+#include "../include/HoeGame/hoe_engine.h"
 
 BEGIN_HOEGAME
 namespace Gui {

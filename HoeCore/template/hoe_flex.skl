@@ -27,8 +27,8 @@
 #include <assert.h>
 #include <wchar.h>
 #include <stdarg.h>
-#include <hoe_types.h>
-#include <hoe_flex.h>
+#include <HoeCore/hoe_types.h>
+#include <HoeCore/hoe_flex.h>
 
 #define yytext yytext_ptr
 

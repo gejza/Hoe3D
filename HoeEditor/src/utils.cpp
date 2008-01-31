@@ -1,8 +1,8 @@
 
 #include "StdAfx.h"
-#include "../include/he/utils.h"
-#include "../include/he/app.h"
-#include "../include/he/editor.h"
+#include "../include/HoeEditor/utils.h"
+#include "../include/HoeEditor/app.h"
+#include "../include/HoeEditor/editor.h"
 
 wxString HoeEditor::FullPath(const wxString &dir, const wxString &relpath)
 {

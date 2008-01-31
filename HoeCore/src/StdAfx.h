@@ -29,7 +29,7 @@
 #include <wchar.h>
 
 #define ENABLE_AUTOCONV_FUNCTIONS 1
-#include "../include/hoe_types.h"
+#include "../include/HoeCore/hoe_types.h"
 
 #endif // _STDAFX_H_
 

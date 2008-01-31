@@ -1,6 +1,6 @@
 
 #include "StdAfx.h"
-#include "../include/he/panels.h"
+#include "../include/HoeEditor/panels.h"
 
 namespace HoeEditor {
 

@@ -3,7 +3,7 @@
 #define _HOE_CAMERA_H_
 
 #include "../include/hoeinterfaces.h"
-#include <hoe_math.h>
+#include <HoeCore/hoe_math.h>
 #include "map_utils.h"
 
 

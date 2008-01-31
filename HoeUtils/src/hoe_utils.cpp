@@ -1,6 +1,6 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_utils.h"
+#include "../include/HoeUtils/hoe_utils.h"
 
 namespace HoeUtils {
 

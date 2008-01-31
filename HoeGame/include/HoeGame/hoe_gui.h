@@ -3,8 +3,8 @@
 #define _HOE_GUI_UTILS_H_
 
 #include "hoe_game.h"
-#include <hoe_universal.h>
-#include <hoe_string.h>
+#include <HoeCore/hoe_universal.h>
+#include <HoeCore/hoe_string.h>
 
 BEGIN_HOEGAME
 

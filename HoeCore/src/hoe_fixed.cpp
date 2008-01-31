@@ -1,6 +1,6 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_fixed.h"
+#include "../include/HoeCore/hoe_fixed.h"
 
 /*
  * Tabulks pro výpoèet goniometrických

@@ -64,13 +64,14 @@ extern "C" {
 #include <string.h>
 #include <string>
 
-#include <hoe_types.h>
-#include <hoe_core.h>
-#include <hoe_math.h>
+#include <HoeCore/hoe_types.h>
+#include <HoeCore/hoe_core.h>
+#include <HoeCore/hoe_math.h>
+#include <HoeCore/hoe_stream.h>
 
 #include <hoe3d.h>
 
-#include <hoe_resource_mgr.h>
+#include <HoeGame/hoe_resource_mgr.h>
 
 #include "../../HoeUtils/lib/hoeUtils.h"
 

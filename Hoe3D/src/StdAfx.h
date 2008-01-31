@@ -1,6 +1,6 @@
 
-#ifndef _OS_SYSTEM_H_
-#define _OS_SYSTEM_H_
+#ifndef _HOE3D_STDAFX_H_
+#define _HOE3D_STDAFX_H_
 
 #ifdef _UNICODE
 #define No unicode support
@@ -51,15 +51,16 @@
 
 #include <wchar.h>
 
-#include <hoe_types.h>
-#include <hoe_math_ext.h>
-#include <hoe_core.h>
-#include <hoe_flex.h>
-#include <hoe_platform.h>
-#include <hoe_stream.h>
+#include <HoeCore/hoe_types.h>
+#include <HoeCore/hoe_math_ext.h>
+#include <HoeCore/hoe_core.h>
+#include <HoeCore/hoe_flex.h>
+#include <HoeCore/hoe_platform.h>
+#include <HoeCore/hoe_stream.h>
+#include <HoeCore/hoe_structures.h>
 
 #include <HoeResource/resmgr.h>
-#include <hoe_res.h>
+#include <HoeResource/hoe_res.h>
 
 // Memory managment
 //#include "mem_system.h"
@@ -72,4 +73,4 @@
 #endif 
 
 
-#endif //_OS_SYSTEM_H_
+#endif // _HOE3D_STDAFX_H_

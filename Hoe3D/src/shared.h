@@ -2,7 +2,7 @@
 #ifndef _SHARED_H_
 #define _SHARED_H_
 
-#include <hoe_types.h>
+#include <HoeCore/hoe_types.h>
 
 class HoeEngine;
 class Config;

@@ -2,8 +2,8 @@
 #include "../src/StdAfx.h"
 #include "test.h"
 
-#include "../include/hoe_fixed.h"
-#include "../include/hoe_math.h"
+#include "../include/HoeCore/hoe_fixed.h"
+#include "../include/HoeCore/hoe_math.h"
 
 #include <time.h>
 

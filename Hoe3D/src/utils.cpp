@@ -3,8 +3,6 @@
 #include "ref.h"
 #include "utils.h"
 #include "../include/hoeinterfaces.h"
-#include <hoe_math.h>
-#include <hoe_log.h>
 
 #ifdef _HOE_D3D9_
 #include <dxerr9.h>

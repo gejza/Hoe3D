@@ -1,7 +1,7 @@
 
 #define ENABLE_AUTOCONV_FUNCTIONS 1
 #include "StdAfx.h"
-#include "../include/hoe_structfile.h"
+#include "../include/HoeGame/hoe_structfile.h"
 #include <locale.h>
 
 void yyobjectrestart ( FILE *input_file );

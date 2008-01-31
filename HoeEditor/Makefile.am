@@ -14,11 +14,12 @@ src/figurefile_parser.cpp: src/figurefile_parser.l
 ___bin_libHoeEditor_la_CPPFLAGS = -I../Hoe3D/include -I../HoeGame/include $(WX_CPPFLAGS) $(GTK_CFLAGS) $(WX_CXXFLAGS_ONLY) $(WX_CFLAGS_ONLY)
 
 ___bin_libHoeEditor_la_SOURCES = src/app.cpp \
-src/engview.cpp src/editor.cpp \
-src/base_console.cpp \
+src/base_console.cpp src/editor.cpp \
 src/undolist.cpp \
 src/properties.cpp src/utils.cpp \
-src/panels.cpp src/resources.cpp src/log.cpp src/fs.cpp
+src/panels.cpp src/log.cpp 
+
+#src/engview.cpp src/editor.cpp src/resources.cpp src/fs.cpp
 
 ___bin_libHoeEditor_la_LDFLAGS = -static -lHoeCore -lHoeGame $(WX_LIBS)
 

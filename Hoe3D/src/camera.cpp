@@ -3,7 +3,7 @@
 #include "shared.h"
 #include "utils.h"
 #include "ref.h"
-#include <hoe_math.h>
+#include <HoeCore/hoe_math.h>
 #include "config.h"
 #include "camera.h"
 #include "hoe_time.h"

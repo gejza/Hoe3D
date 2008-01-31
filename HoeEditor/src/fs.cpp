@@ -1,7 +1,7 @@
 
 #include "StdAfx.h"
 //#include "editor_app.h"
-#include "../include/he/fs.h"
+#include "../include/HoeEditor/fs.h"
 #include "../../Hoe3D/include/hfmt/hres_file.h"
 
 bool HoeEditor::EditorFile::OpenRead(const wxString &p)

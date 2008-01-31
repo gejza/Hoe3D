@@ -10,12 +10,12 @@
 #define _HOE_HEIGHTMAP_H_
 
 #include "../include/hoeinterfaces.h"
-#include <hoe_math.h>
+#include <HoeCore/hoe_math.h>
 #include "hoe_index.h"
 #include "hoe_stream.h"
 #include "filesystem.h"
 #include "camera.h"
-#include <hoe_structures.h>
+#include <HoeCore/hoe_structures.h>
 
 /**
 * Trida vyskove mapy.

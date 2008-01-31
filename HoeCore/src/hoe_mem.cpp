@@ -1,6 +1,6 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_mem.h"
+#include "../include/HoeCore/hoe_mem.h"
 
 void * operator new(size_t s, HoeCore::MemoryPool& pool)
 {

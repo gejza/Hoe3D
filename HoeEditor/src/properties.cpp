@@ -1,6 +1,6 @@
 
 #include "StdAfx.h"
-#include "../include/he/properties.h"
+#include "../include/HoeEditor/properties.h"
 
 // -----------------------------------------------------------------------
 // wxSizeProperty

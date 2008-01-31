@@ -1,6 +1,6 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_app.h"
+#include "../include/HoeGame/hoe_app.h"
 
 BEGIN_HOEGAME 
 

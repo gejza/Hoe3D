@@ -1,6 +1,6 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_math_ext.h"
+#include "../include/HoeCore/hoe_math_ext.h"
 
 namespace HoeMath {
 

@@ -1,10 +1,10 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_console.h"
+#include "../include/HoeGame/hoe_console.h"
 #ifndef HOE_NO_BASS
-#include "../include/bassmod.h"
+#include "../include/HoeGame/bassmod.h"
 #endif
-#include "../include/hoe_music.h"
+#include "../include/HoeGame/hoe_music.h"
 
 BEGIN_HOEGAME
 

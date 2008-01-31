@@ -22,15 +22,15 @@
 
 #include <assert.h>
 //#include <tchar.h>
-#include <hoe_types.h>
-#include <hoe_string.h>
-#include <hoe_structures.h>
-#include <hoe_universal.h>
-#include <hoe_file.h>
-#include <hoe_platform.h>
+#include <HoeCore/hoe_types.h>
+#include <HoeCore/hoe_string.h>
+#include <HoeCore/hoe_structures.h>
+#include <HoeCore/hoe_universal.h>
+#include <HoeCore/hoe_file.h>
+#include <HoeCore/hoe_platform.h>
 
-#include <hoe_resfile.h>
-#include <hoe_utils.h>
+#include <HoeResource/hoe_resfile.h>
+#include <HoeUtils/hoe_utils.h>
 
 // TODO: reference additional headers your program requires here
 

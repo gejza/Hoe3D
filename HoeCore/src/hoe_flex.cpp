@@ -1,6 +1,6 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_flex.h"
+#include "../include/HoeCore/hoe_flex.h"
 
 ////////////////////////////////
 // scaner class

@@ -1,9 +1,9 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_core.h"
-#include "../include/hoe_string.h"
-#include "../include/hoe_universal.h"
-#include "../include/hoe_mem.h"
+#include "../include/HoeCore/hoe_core.h"
+#include "../include/HoeCore/hoe_string.h"
+#include "../include/HoeCore/hoe_universal.h"
+#include "../include/HoeCore/hoe_mem.h"
 
 namespace HoeCore {
 

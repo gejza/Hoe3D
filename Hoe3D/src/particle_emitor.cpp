@@ -7,7 +7,6 @@
 #include "../include/hoeinterfaces.h"
 #include "hoe_stream.h"
 #include "hoe_index.h"
-#include <hoe_math.h>
 #include "particle_emitor.h"
 #include "texture_system.h"
 #include "states.h"

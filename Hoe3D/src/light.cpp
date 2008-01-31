@@ -4,7 +4,6 @@
 #include "shared.h"
 #include "utils.h"
 #include "hoe_time.h"
-#include <hoe_math.h>
 #include "light.h"
 
 HoeLight::HoeLight(bool diRECT)

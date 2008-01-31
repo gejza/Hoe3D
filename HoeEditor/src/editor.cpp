@@ -1,11 +1,11 @@
 
 #include "StdAfx.h"
-#include "../include/he/app.h"
-#include "../include/he/editor.h"
-#include "../include/he/engview.h"
-#include "../include/he/panels.h"
-#include "../include/he/log.h"
-#include "../include/he/utils.h"
+#include "../include/HoeEditor/app.h"
+#include "../include/HoeEditor/editor.h"
+#include "../include/HoeEditor/engview.h"
+#include "../include/HoeEditor/panels.h"
+#include "../include/HoeEditor/log.h"
+#include "../include/HoeEditor/utils.h"
 
 // the event tables connect the wxWindows events with the functions (event
 // handlers) which process them. It can be also done at run-time, but for the

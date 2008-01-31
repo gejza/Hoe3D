@@ -5,7 +5,7 @@
 #include "ref.h"
 #include "states.h"
 #include "heightmap.h"
-#include "hoe_time.h"
+#include <HoeCore/hoe_time.h>
 
 /**
  *	Výšková mapa.

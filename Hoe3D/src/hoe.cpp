@@ -6,7 +6,7 @@
 #include "sound.h"
 #include "config.h"
 #include "camera.h"
-#include <hoe_math.h>
+#include <HoeCore/hoe_math.h>
 #include "hoe_time.h"
 #include "hoe_info.h"
 #include "hoe_input_winapi.h"

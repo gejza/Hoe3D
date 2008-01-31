@@ -1,9 +1,9 @@
 
 #include "StdAfx.h"
-#include "../include/he/editor.h"
-#include "../include/he/app.h"
-#include "../include/he/log.h"
-#include "../include/he/engview.h"
+#include "../include/HoeEditor/editor.h"
+#include "../include/HoeEditor/app.h"
+#include "../include/HoeEditor/log.h"
+#include "../include/HoeEditor/engview.h"
 //#include "mainframe.h"
 //#include "engine_view.h"
 //#include "code_edit.h"

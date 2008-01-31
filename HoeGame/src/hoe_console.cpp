@@ -2,8 +2,8 @@
 #define ENABLE_AUTOCONV_FUNCTIONS 1
 #include "StdAfx.h"
 #include <hoe3d.h>
-#include "../include/hoe_console.h"
-#include "../include/hoe_app.h"
+#include "../include/HoeGame/hoe_console.h"
+#include "../include/HoeGame/hoe_app.h"
 
 BEGIN_HOEGAME 
 

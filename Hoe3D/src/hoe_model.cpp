@@ -8,7 +8,6 @@
 #include "hoe_material.h"
 #include "hoe_model.h"
 #include "model_generator.h"
-#include <hoe_math.h>
 #include "shared.h"
 #include "states.h"
 #include "hoe_time.h"

@@ -1,7 +1,7 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_utils.h"
-#include "../include/hoe_console.h"
+#include "../include/HoeGame/hoe_utils.h"
+#include "../include/HoeGame/hoe_console.h"
 
 BEGIN_HOEGAME
 

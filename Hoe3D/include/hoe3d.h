@@ -14,8 +14,8 @@
 #ifndef _HOE_3D_
 #define _HOE_3D_
 
-#include "hoe_types.h"
-#include "hoe_math.h"
+#include <HoeCore/hoe_types.h>
+#include <HoeCore/hoe_math.h>
 #include "hoeinterfaces.h"
 
 #define HOESDK_VERSION  (136 + HOE_INTERFACE_VER)
@@ -217,10 +217,13 @@ typedef IHoeEngine * (HOEAPI *HOE_FUNCCREATE)(int sdk_ver, XHoeConsole * con, Ho
 typedef IHoeEngineInfo * (HOEAPI *HOE_FUNCINFO)(int sdk_ver);
 typedef int (HOEAPI *HOE_FUNCGETSDKVER)();
 
-#ifdef HOE_STATIC_ENGINE
-IHoeEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * con, HoeRes::XResourceMgr * fs, int flags);
-IHoeEngineInfo * HOEAPI GetEngineInfo(int sdk_ver);
-int HOEAPI GetSDKVersion();
+
+#ifndef LIB_EXTERN
+#define LIB_EXTERN
 #endif
+LIB_EXTERN IHoeEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * con, HoeRes::XResourceMgr * fs, int flags);
+LIB_EXTERN IHoeEngineInfo * HOEAPI GetEngineInfo(int sdk_ver);
+LIB_EXTERN int HOEAPI GetSDKVersion();
 
 #endif // _HOE_3D_
+

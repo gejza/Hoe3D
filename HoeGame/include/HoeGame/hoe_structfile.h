@@ -9,7 +9,7 @@
 #ifndef _HOE_STRUCT_FILE_H_
 #define _HOE_STRUCT_FILE_H_
 
-#include <hoe_structures.h>
+#include <HoeCore/hoe_structures.h>
 #include "hoe_game.h"
 #include "hoe_fs.h"
 #include "hoe_utils.h"

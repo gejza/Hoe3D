@@ -1,15 +1,15 @@
 
 #include "StdAfx.h"
-#include "../include/he/app.h"
-#include "../include/he/editor.h"
+#include "../include/HoeEditor/app.h"
+#include "../include/HoeEditor/editor.h"
 //#include "becher.h"
 #include <wx/arrimpl.cpp>
 //#include "editor_tools.h"
 //#include "plugin_editlevel.h"
 //#include "id.h"
-#include "../include/he/resources.h"
-#include "../include/he/engview.h"
-#include "../../HoeGame/include/hoe_engine.h"
+#include "../include/HoeEditor/resources.h"
+#include "../include/HoeEditor/engview.h"
+#include <HoeGame/hoe_engine.h>
 
 namespace HoeEditor {
 

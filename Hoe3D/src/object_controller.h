@@ -5,7 +5,6 @@
 #include "../include/hoeobject.h"
 #include "utils.h"
 #include "map_utils.h"
-#include <hoe_structures.h>
 
 class HoeModel;
 class HoeScene;

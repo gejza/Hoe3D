@@ -1,8 +1,8 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_adventure.h"
-#include "../include/hoe_engine.h"
-#include "../include/hoe_structfile.h"
+#include "../include/HoeGame/hoe_adventure.h"
+#include "../include/HoeGame/hoe_engine.h"
+#include "../include/HoeGame/hoe_structfile.h"
 
 BEGIN_HOEGAME
 namespace Adventure {

@@ -1,8 +1,8 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_stream.h"
-#include "../include/hoe_string.h"
-#include "../include/hoe_platform.h"
+#include "../include/HoeCore/hoe_stream.h"
+#include "../include/HoeCore/hoe_string.h"
+#include "../include/HoeCore/hoe_platform.h"
 
 HoeCore::BaseStream::BaseStream()
 {

@@ -1,6 +1,6 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_resfile.h"
+#include "../include/HoeResource/hoe_resfile.h"
 
 const char * HoeRes::Res::GetTypeName(uint id)
 {

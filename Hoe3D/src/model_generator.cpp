@@ -8,7 +8,6 @@
 #include "hoe_stream.h"
 #include "model_generator.h"
 #include "texture_system.h"
-#include <hoe_log.h>
 
 struct BoxVertex
 {

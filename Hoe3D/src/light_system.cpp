@@ -4,7 +4,6 @@
 #include "shared.h"
 #include "utils.h"
 #include "ref.h"
-#include <hoe_math.h>
 #include "light_system.h"
 #include "hoe_time.h"
 #include "config.h"

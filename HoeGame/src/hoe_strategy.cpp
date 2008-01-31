@@ -1,7 +1,7 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_strategy.h"
-#include "../include/hoe_stratmap.h"
+#include "../include/HoeGame/hoe_strategy.h"
+#include "../include/HoeGame/hoe_stratmap.h"
 
 BEGIN_HOEGAME
 namespace Strategy {

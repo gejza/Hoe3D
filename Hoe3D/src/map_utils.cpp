@@ -1,6 +1,5 @@
 
 #include "StdAfx.h"
-#include <hoe_math.h>
 #include "map_utils.h"
 
 void MapOrientation::Reset()

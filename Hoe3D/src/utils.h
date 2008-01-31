@@ -70,7 +70,7 @@ int string_ex(const char * ex,const char * str);
 void QuitGame(bool hard, int code);
 
 #include "cmdexec.h"
-#include <hoe_log.h>
+#include <HoeCore/hoe_log.h>
 
 #endif //_HOE_UTIL_H
 

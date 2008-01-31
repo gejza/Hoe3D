@@ -1,7 +1,7 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_vars.h"
-#include "../include/lua_script.h"
+#include "../include/HoeGame/hoe_vars.h"
+#include "../include/HoeGame/lua_script.h"
 
 BEGIN_HOEGAME
 

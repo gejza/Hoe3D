@@ -3,7 +3,6 @@
 #include "shared.h"
 #include "utils.h"
 #include "ref.h"
-#include <hoe_math.h>
 #include "hoe_stream.h"
 
 HoeStream::HoeStream(bool dynamic, bool soft)
