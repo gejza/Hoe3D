@@ -39,18 +39,20 @@ class WriteStream : virtual public BaseStream
 public:
 	virtual size_t Write(const void* ptr, size_t size) = 0;
 	virtual size_t Write(ReadStream& str, size_t size = 0);
-    template<typename TYPE> size_t WriteStruct(TYPE &t)
-    {
-        return Write(&t, sizeof(TYPE));
-    }
 	size_t WriteString(const HoeCore::CString str);
-    template<typename TYPE> size_t WriteValue(TYPE t)
-    {
-        return Write<TYPE>(t);
-    }
 	virtual void * CreateBuffer(size_t);
 	void CreateSpace(size_t);
 	int Print(const char* fmt, ...);
+
+    template<typename TYPE> size_t WriteStruct(TYPE &t)
+    {
+        return this->Write(&t, sizeof(TYPE));
+    }
+    template<typename TYPE> size_t WriteValue(TYPE t)
+    {
+        return this->WriteStruct<TYPE>(t);
+    }
+
 };
 
 class Stream : public ReadStream, public WriteStream
