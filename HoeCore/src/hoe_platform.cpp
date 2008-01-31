@@ -25,6 +25,11 @@ uint32 HoeCore::Endianness::GetPlatform()
 #else
 	en |= BigIEEE;
 #endif
+#if _UNICODE
+	en |= ByteChar;
+#else
+	en |= WChar;
+#endif
 	return en;
 }
 
@@ -33,20 +38,20 @@ uint32 HoeCore::Endianness::Get() const
 	return m_end; 
 }
 
-const char * HoeCore::Endianness::GetPlatformString(uint32 plat)
+const tchar * HoeCore::Endianness::GetPlatformString(uint32 plat)
 {
 	switch (plat)
 	{
 	case Low:
-		return "low";
+		return T("low");
 	case Big:
-		return "big";
+		return T("big");
 	default:
-		return "mixed";
+		return T("mixed");
 	};
 }
 
-const char * HoeCore::Endianness::GetPlatformString()
+const tchar * HoeCore::Endianness::GetPlatformString()
 {
 	return GetPlatformString(Get());
 }

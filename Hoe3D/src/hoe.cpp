@@ -29,16 +29,16 @@ HoeEngine::HoeEngine(int flags)
 	new Config();
 
 #ifdef _DEBUG
-	Con_Print("%s ver. %.2f.%d DEBUG",::GetConfig()->GetHoeDesc(),::GetConfig()->GetHoeVersion() / 100.f,HOESDK_VERSION);
+	Con_Print(T("%s ver. %.2f.%d DEBUG"),::GetConfig()->GetHoeDesc(),::GetConfig()->GetHoeVersion() / 100.f,HOESDK_VERSION);
 #else
-	Con_Print("%s ver. %.2f.%d",::GetConfig()->GetHoeDesc(),::GetConfig()->GetHoeVersion() / 100.f,HOESDK_VERSION);
+	Con_Print(T("%s ver. %.2f.%d"),::GetConfig()->GetHoeDesc(),::GetConfig()->GetHoeVersion() / 100.f,HOESDK_VERSION);
 #endif
 
-	char osdesc[100];
+	tchar osdesc[100];
 	::GetConfig()->GetOSDesc(osdesc);
-	Con_Print("%s",osdesc);
+	Con_Print(T("%s"),osdesc);
 
-	Con_Print("%s",::GetConfig()->GetBuild());
+	Con_Print(T("%s"),::GetConfig()->GetBuild());
 
 	this->SysFloatTime = ::SysFloatTime;
 
@@ -63,7 +63,7 @@ HoeEngine::HoeEngine(int flags)
 #endif
 	}
 
-	Con_Print("-- HOE CREATED --");
+	Con_Print(T("-- HOE CREATED --"));
 }
 HoeEngine::~HoeEngine()
 {

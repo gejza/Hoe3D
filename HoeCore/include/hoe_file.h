@@ -72,7 +72,7 @@ public:
 	uint Close();
 	virtual bool CanSeek() { return true; }
 	virtual void * CreateBuffer(size_t);
-	void Flush() {}
+	virtual void Flush();
 	virtual ReadStream* CreateReader(size_t pos);
 };
 

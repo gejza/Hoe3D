@@ -13,7 +13,7 @@
 HoeStates::HoeStates()
 {
 	SET_SHARED_PTR(states);
-	Con_Print("States system create");
+	Con_Print(T("States system create"));
 	wireframe = false;
 	GetExec()->Register(T("wireframe"),HoeStates::c_setwireframe,NULL);
 

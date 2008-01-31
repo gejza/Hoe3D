@@ -2,6 +2,7 @@
 #include "StdAfx.h"
 #include "../include/hoe_stream.h"
 #include "../include/hoe_string.h"
+#include "../include/hoe_platform.h"
 
 HoeCore::BaseStream::BaseStream()
 {
@@ -48,7 +49,7 @@ size_t HoeCore::WriteStream::Write(ReadStream& str, size_t size)
 		if (size && (size-writed) < 1024)
 			ntr = size - writed;
 		size_t rntr = str.Read(buff, ntr);
-		if (rntr)
+		if (!rntr)
 			break;
 		size_t rntw = Write(buff, rntr);
 		writed += rntw;
@@ -70,6 +71,13 @@ int HoeCore::WriteStream::Print(const char* fmt, ...)
 	return ret;
 
 }
+
+const HoeCore::Endianness& HoeCore::BaseStream::GetDataFormat() const
+{
+	static const HoeCore::Endianness end(HoeCore::Endianness::GetPlatform());
+	return end;
+}
+
 
 
 

@@ -977,6 +977,14 @@
 			>
 		</File>
 		<File
+			RelativePath="..\src\hoe_res.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\include\hoe_res.h"
+			>
+		</File>
+		<File
 			RelativePath="..\src\resmgr.cpp"
 			>
 		</File>

@@ -10,7 +10,7 @@
 // Debug printing support & ERRORS HTHROW
 //-----------------------------------------------------------------------------
 
-#define _tp Con_Print("Tracing point " __FILE__ " l: %d",__LINE__ );
+#define _tp Con_Print(T("Tracing point ") T(__FILE__) T(" l: %d"),__LINE__ );
 
 /*void HThrowDbg(char*, DWORD, HRESULT);
 void HThrow(HRESULT hr);
@@ -24,8 +24,8 @@ void HThrow(HRESULT hr);
 ///// Console /////////////////////
 class HoeLog;
 
-void Con_Print(const char *,...);
-void Con_Print(HoeLog * log, const char * szFormat,...);
+void Con_Print(const tchar *,...);
+void Con_Print(HoeLog * log, const tchar * szFormat,...);
 
 #ifdef _WIN32
 void dxerr(const tchar * file, dword line, const tchar * fnc, const tchar *ffnc, HRESULT hRes);

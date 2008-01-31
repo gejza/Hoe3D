@@ -43,7 +43,7 @@ bool SoundSystemDS::Init(THoeInitSettings * his)
     // Release the primary buffer, since it is not need anymore
     SAFE_RELEASE( pDSBPrimary );
 
-	Con_Print("DirectSoundCreate8 OK");
+	Con_Print(T("DirectSoundCreate8 OK"));
 
 	return true;
 }

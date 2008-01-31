@@ -59,6 +59,7 @@
 #include <hoe_stream.h>
 
 #include <HoeResource/resmgr.h>
+#include <hoe_res.h>
 
 // Memory managment
 //#include "mem_system.h"

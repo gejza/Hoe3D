@@ -42,7 +42,7 @@ public:
 	virtual XHoeKeyboard * HOEAPI RegisterKeyboard(XHoeKeyboard * keyb) = 0;
 	virtual XHoeMouse * HOEAPI RegisterMouse(MouseType mt, XHoeMouse * mouse) = 0;
 	virtual void HOEAPI SetWindowRect(float width, float height) = 0;
-	virtual const char * HOEAPI GetKeyName(int key) = 0;
+	virtual const tchar * HOEAPI GetKeyName(int key) = 0;
 };
 
 #endif // _HOE_INPUT_INTERFACE_H_

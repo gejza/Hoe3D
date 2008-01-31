@@ -59,7 +59,7 @@ int CmdExec::exec(const tchar *cmd)
 	TCmd * scmd = FindCmd(p);
 	if (!scmd)
 	{
-		Con_Print("unknown command '%s'",cmd);
+		Con_Print(T("unknown command '%s'"),cmd);
 		return -1;
 	}
 
@@ -97,7 +97,7 @@ int CmdExec::RunCmd(TCmd * tcmd,const tchar *cmd)
 
 		if (nump == 20)
 		{
-			Con_Print("Error: more parameters.");
+			Con_Print(T("Error: more parameters."));
 			return -2;
 		}
 		argv[nump] = p;
@@ -129,7 +129,7 @@ int c_fquit(int argc, const tchar * argv[], void * param)
 int c_help(int argc, const tchar * argv[], void * param)
 {
 	for (int i=1; i < argc;i++)
-		Con_Print("%d : %s",i,argv[i]);
+		Con_Print(T("%d : %s"),i,argv[i]);
 	return 0;
 }
 
@@ -138,9 +138,9 @@ int c_list(int argc, const tchar * argv[], void * param)
 	for (int i=0;i < numc;i++)
 	{
 		if (cmds[i].help)
-			Con_Print("%d. %s (%s)",i,cmds[i].cmd,cmds[i].help);
+			Con_Print(T("%d. %s (%s)"),i,cmds[i].cmd,cmds[i].help);
 		else
-			Con_Print("%d. %s",i,cmds[i].cmd);
+			Con_Print(T("%d. %s"),i,cmds[i].cmd);
 
 	}
 	return 0;

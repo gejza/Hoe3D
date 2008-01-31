@@ -163,7 +163,10 @@ public:
 		BigIEEE = 0x02,
 		Low = 0x00,
 		Big = 0x03,
-		Mask = 0x0f,
+		MaskEnd = 0x0f,
+		ByteChar = 0x00,
+		WChar = 0x10,
+		MaskChar = 0xf0,
 	};
 
 	Endianness(uint32 e);
@@ -177,8 +180,8 @@ public:
 		else
 			return le_num<TYPE>(t);
 	}
-	static const char * GetPlatformString(uint32 plat);
-	const char * GetPlatformString();
+	static const tchar * GetPlatformString(uint32 plat);
+	const tchar * GetPlatformString();
 };
 
 template<> inline float Endianness::num(float t) const

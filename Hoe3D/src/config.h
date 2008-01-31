@@ -19,16 +19,16 @@ public:
 	Config();
 	~Config();
 
-	static const char * GetHoeDesc();
+	static const tchar * GetHoeDesc();
 	static int GetHoeVersion()
 	{
 		return 92;
 	}
-	static const char * GetBuild()
+	static const tchar * GetBuild()
 	{
-		return "Build time: "__TIME__" "__DATE__;
+		return T("Build time: ") T(__TIME__) T(" ") T(__DATE__);
 	}
-	static void GetOSDesc(char *);
+	static void GetOSDesc(tchar *);
 	bool CheckTexture(dword &width,dword &height,HOEFORMAT &format);
 
 	bool Check(THoeInitSettings *);

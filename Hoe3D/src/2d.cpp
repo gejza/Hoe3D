@@ -35,7 +35,7 @@ Hoe2D::Hoe2D()
 	m_maxX = 0.0f;
 	m_maxY = 0.0f;
 
-	Con_Print("Hoe 2d system created");
+	Con_Print(T("Hoe 2d system created"));
 }
 
 Hoe2D::~Hoe2D()

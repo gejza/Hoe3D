@@ -92,14 +92,14 @@ void HoeInput::UninstallMouse()
 {
 }
 
-const char * HoeInput::GetKeyName(int key)
+const tchar * HoeInput::GetKeyName(int key)
 {
-#define HOE_KEY_DEFINE(hkey,vkey,small, upper, text) case hkey: return text;
+#define HOE_KEY_DEFINE(hkey,vkey,small, upper, text) case hkey: return T(text);
 	switch (key)
 	{
 #include "hoe_input_keymap.h"
 	default:
-		return "unknown";
+		return T("unknown");
 	};
 #undef HOE_KEY_DEFINE
 }

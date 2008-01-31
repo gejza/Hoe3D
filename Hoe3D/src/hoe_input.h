@@ -22,7 +22,7 @@ public:
 	virtual XHoeKeyboard * HOEAPI RegisterKeyboard(XHoeKeyboard * keyb);
 	virtual XHoeMouse * HOEAPI RegisterMouse(MouseType mt, XHoeMouse * mouse);
 	virtual void HOEAPI SetWindowRect(float width, float height);
-	virtual const char * HOEAPI GetKeyName(int key);
+	virtual const tchar * HOEAPI GetKeyName(int key);
 
 	virtual bool UseKeyb();
 	virtual bool InstallMouse(MouseType mt);

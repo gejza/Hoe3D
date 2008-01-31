@@ -55,8 +55,7 @@ HoeCore::ReadStream*
 	HoeRes::LinkedResourceMgr::GetResource(const tchar* name, const tchar** ns)
 {
 	// find symbol
-
-	return LoadSymbol(m_sym[10]);
+	return LoadSymbol(m_sym[0]);
 }
 
 HoeCore::ReadStream * HoeRes::LinkedResourceMgr::LoadSymbol(HoeRes::SymbolLink& sym)

@@ -28,7 +28,7 @@ void HoeLogConsole::Log(const char * szFormat,...)
 	HoeCore::string::vsnprintf( szBuff + lnsize, 1024 - lnsize, szFormat, args );
 	va_end(args);
 
-	Con_Print(szBuff);
+	//Con_Print(szBuff);
 }
 
 ///////////////////////////////////////

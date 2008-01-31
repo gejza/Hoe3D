@@ -34,7 +34,7 @@ bool HoeCore::File::Open(const HoeCore::CString name, HoeCore::File::EHoeFileMod
 	case hftTemp:
 		attr = FILE_ATTRIBUTE_TEMPORARY|FILE_FLAG_DELETE_ON_CLOSE;
 	case hftRewrite:
-		acces = GENERIC_WRITE;
+		acces = GENERIC_WRITE|GENERIC_READ;
 		creating = CREATE_ALWAYS;
 		break;
 	};
@@ -153,6 +153,17 @@ bool HoeCore::File::Skip(size_t size)
 #endif
 	m_pos += size;
 	return true;
+}
+
+void HoeCore::File::Flush()
+{
+	if (!IsOpen())
+		return;
+#ifdef WINDOWS_FILE_FUNC
+	FlushFileBuffers(m_file);
+#else
+	fflush(m_file);
+#endif
 }
 
 void HoeCore::File::Reset()

@@ -5,6 +5,7 @@
 namespace HoeCore {
 
 class CString;
+class Endianness;
 
 class BaseStream
 {
@@ -15,6 +16,7 @@ public:
 	virtual void Seek(size_t ptr) {}
 	virtual uint Close() = 0;
 	virtual size_t Tell() const;
+	virtual const Endianness& GetDataFormat() const;
 };
 
 class ReadStream : virtual public BaseStream
@@ -37,7 +39,7 @@ class WriteStream : virtual public BaseStream
 public:
 	virtual size_t Write(const void* ptr, size_t size) = 0;
 	virtual size_t Write(ReadStream& str, size_t size = 0);
-    template<typename TYPE> size_t Write(TYPE &t)
+    template<typename TYPE> size_t WriteStruct(TYPE &t)
     {
         return Write(&t, sizeof(TYPE));
     }

@@ -14,7 +14,7 @@
 
 RefDD::RefDD()
 {
-	Con_Print("------ Direct Draw ------");
+	Con_Print(T("------ Direct Draw ------"));
 	//m_pD3D = Direct3DMobileCreate( D3DM_SDK_VERSION );
     HRESULT hRes = DirectDrawCreateEx(NULL, (VOID**)&m_pDD, IID_IDirectDraw7, NULL);
 	checkres(hRes, "DirectDrawCreateEx");

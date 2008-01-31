@@ -130,8 +130,4 @@ template<class TYPE> HOE_INLINE void ConstPointerAdd(TYPE &p, uint stride)
 
 #endif // __cplusplus
 
-// sdilena funkce pro psani do konzole
-void Con_Print(const char *,...);
-
-
 #endif // _HOE_TYPES_H_

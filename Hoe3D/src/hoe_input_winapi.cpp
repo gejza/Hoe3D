@@ -30,12 +30,12 @@ HoeInputWin::HoeInputWin()
 	m_lastp.x = -1;
 	m_lastp.y = -1;
 
-	Con_Print("Win32 Input system created.");
+	Con_Print(T("Win32 Input system created."));
 }
 
-const char * HoeInputWin::GetName()
+const tchar * HoeInputWin::GetName()
 {
-	return "Windows Messages Input System";
+	return T("Windows Messages Input System");
 }
 
 bool HoeInputWin::Init(THoeInitSettings * his)

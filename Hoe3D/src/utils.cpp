@@ -14,7 +14,7 @@
 //////// Conzole /////////////
 XHoeConsole * _Con;
 
-void Con_Print(const wchar_t * szFormat,...)
+void Con_Print(const tchar * szFormat,...)
 {
 	if (_Con)
 	{
@@ -28,22 +28,6 @@ void Con_Print(const wchar_t * szFormat,...)
 
 		_Con->Con_Print(szBuff);
 	}
-}
-
-void Con_Print(const char * szFormat,...)
-{
-	/*if (_Con)
-	{
-		static char szBuff[1024];
-
-		va_list args;
-
-		va_start(args, szFormat);
-		vsnprintf( szBuff, 1024, szFormat, args );
-		va_end(args);
-
-		_Con->Con_Print(szBuff);
-	}*/
 }
 
 void Con_Print(int dlevel, const tchar * szFormat,...)
@@ -64,7 +48,7 @@ void Con_Print(int dlevel, const tchar * szFormat,...)
 	}
 }
 
-void Con_Print(HoeLog * log, const char * szFormat,...)
+void Con_Print(HoeLog * log, const tchar * szFormat,...)
 {
 	if (log)
 	{
@@ -82,13 +66,13 @@ void Con_Print(HoeLog * log, const char * szFormat,...)
 
 void Con_Print(HoeMath::Matrix4f &m)
 {
-	Con_Print("%f %f %f %f", m._11,m._12,m._13,m._14);
-	Con_Print("%f %f %f %f", m._21,m._22,m._23,m._24);
-	Con_Print("%f %f %f %f", m._31,m._32,m._33,m._34);
-	Con_Print("%f %f %f %f", m._41,m._42,m._43,m._44);
+	Con_Print(T("%f %f %f %f"), m._11,m._12,m._13,m._14);
+	Con_Print(T("%f %f %f %f"), m._21,m._22,m._23,m._24);
+	Con_Print(T("%f %f %f %f"), m._31,m._32,m._33,m._34);
+	Con_Print(T("%f %f %f %f"), m._41,m._42,m._43,m._44);
 }
 
-int string_ex(const char * ex,const char * str)
+int string_ex(const tchar * ex,const tchar * str)
 {
 	int i;
 	for (i=0;ex[i];i++)
@@ -109,13 +93,13 @@ void QuitGame(bool hard, int code)
 #ifdef _WIN32
 	if (!hard)
 	{
-		Con_Print("Call PostQuitMessage() with code: %d",code);
+		Con_Print(T("Call PostQuitMessage() with code: %d"),code);
 		PostQuitMessage(code);
 	}
 	else
 #endif
 	{
-		Con_Print("Call exit() with code: %d",code);
+		Con_Print(T("Call exit() with code: %d"),code);
 		exit(code);
 	}
 }

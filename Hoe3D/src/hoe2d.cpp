@@ -11,7 +11,7 @@
 bool HOEAPI Hoe2DEngine::Init(THoeInitSettings * his)
 {
 	if (!::GetRef()->Init(his))
-		return false;;
+		return false;
 
 	return true;
 }
@@ -23,10 +23,12 @@ IHoeInterface * HOEAPI Hoe2DEngine::Create(const tchar * cmd)
 	HoeCore::HoeFlexMem buff(cmd);
 	ICParser p;
 	p.Switch(buff);
-	while (p.Lex());
-
-	HoeCore::ReadStream* rs = GetResMgr()->GetResource(cmd);
-	rs->Close();
+	p.Lex(); p.Lex();
+	HoeCore::ReadStream* rs = GetResMgr()->GetResource(p.GetText());
+	if (!rs)
+		return NULL;
+	HoeRes::PictureLoader pl(rs);
+	
 	return NULL;
 }
 

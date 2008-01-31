@@ -28,7 +28,7 @@ class LinkRes
 	int m_maxnum;
 	HoeCore::List<RF> m_rc;
 
-	void ExportFile(HoeCore::File &f, int& fo, size_t& pos);
+	void ExportFile(HoeCore::File &f, int* fo, size_t* pos);
 	void ExportRes(HoeCore::String nsn, Namespace& ns,HoeCore::WriteStream& cpp);
 	RF& AddFile();
 public:

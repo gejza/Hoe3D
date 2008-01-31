@@ -119,7 +119,7 @@ void LinkRes::ExportRes(HoeCore::String nsn, Namespace& ns,HoeCore::WriteStream&
 		}
 		int fout;
 		size_t pos;
-		ExportFile(i->file, fout, pos); 
+		ExportFile(i->file, &fout, &pos); 
 		cpp.Print("{ ID%s, %d, 0x%x, T(\"%s\") },\n", 
 			HoeRes::Res::GetTypeName(i->type),
 			fout, pos, name.GetPtr());
@@ -137,7 +137,7 @@ void LinkRes::ExportRes(HoeCore::String nsn, Namespace& ns,HoeCore::WriteStream&
 	}
 }
 
-void LinkRes::ExportFile(HoeCore::File &f, int& fo, size_t& pos)
+void LinkRes::ExportFile(HoeCore::File &f, int* fo, size_t* pos)
 {
 	// find file
 	static int l = 0;
@@ -146,12 +146,13 @@ void LinkRes::ExportFile(HoeCore::File &f, int& fo, size_t& pos)
 	{
 		AddFile();
 	}
-	fo = l++;
+	*fo = l++;
+	f.Flush();
 	f.Seek(0);
-	pos = m_rc[fo].file.Tell();
-	HoeCore::WriteStream& out = m_rc[fo].file;
+	*pos = m_rc[*fo].file.Tell();
+	HoeCore::WriteStream& out = m_rc[*fo].file;
 	out.Write(f);
-	out.CreateSpace(HoeCore::RandInt(10000, 1000000));
+	//out.CreateSpace(HoeCore::RandInt(10000, 1000000));
 }
 
 LinkRes::RF& LinkRes::AddFile()

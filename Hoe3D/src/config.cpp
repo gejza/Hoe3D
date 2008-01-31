@@ -24,38 +24,39 @@ Config::~Config()
 	UNSET_SHARED_PTR(config);
 }
 
-const char * Config::GetHoeDesc()
+const tchar * Config::GetHoeDesc()
 {
 #if defined (_HOE_OPENGL_)
-	return "Hoe3D OpenGL";
+	return T("Hoe3D OpenGL");
 #elif defined (_HOE_D3D9_)
-	return "Hoe3D Direct3D9";
+	return T("Hoe3D Direct3D9");
 #elif defined (_HOE_D3D8_)
-	return "Hoe3D Direct3D8";
+	return T("Hoe3D Direct3D8");
 #elif defined (_HOE_D3DM_)
-	return "Hoe3D Direct3DMobile";
+	return T("Hoe3D Direct3DMobile");
 #elif defined (_HOE_DD_)
-	return "Hoe3D DirectDraw";
+	return T("Hoe2D DirectDraw");
 #else
 #error No ref defined.
 #endif
 }
 
-void Config::GetOSDesc(char * buff)
+void Config::GetOSDesc(tchar * b)
 {
 #if defined (_WIN32)
+	HoeCore::String_s<50> buff;
 	OSVERSIONINFO	vinfo;
 	vinfo.dwOSVersionInfoSize = sizeof(vinfo);
 
 	GetVersionEx ( &vinfo );
 	
-	sprintf(buff,"Windows version %d.%d.%d",vinfo.dwMajorVersion,vinfo.dwMinorVersion,vinfo.dwBuildNumber);
-
+	buff.printf(T("Windows version %d.%d.%d"),vinfo.dwMajorVersion,vinfo.dwMinorVersion,vinfo.dwBuildNumber);
+	HoeCore::string::copy(b, buff, 30);
 #elif defined (_LINUX)
 
-	sprintf(buff,"LINUX");
+	HoeCore::string::copy(b, "LINUX", 6);
 #elif defined (_MACOSX)
-	sprintf(buff,"Mac OS X");
+	HoeCore::string::copy(b, "Mac OS X", 9);
 #else
 #error "platform not defined..."
 #endif

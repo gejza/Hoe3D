@@ -20,7 +20,7 @@ enum {
 
 struct HeadResource
 {
-	uint32 id; 
+	uint32 id;
 	uint16 size_struct;
 	uint16 version_struct;
 };
@@ -32,6 +32,7 @@ struct Namespace : public HeadResource
 
 struct MainNamespace : public Namespace
 {
+	uint32 dataformat;
 	uint32 flags;
 };
 

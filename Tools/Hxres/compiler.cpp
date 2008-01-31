@@ -64,7 +64,7 @@ bool PictureCompiler::AddProp(const HoeCore::CString name, const Values& value)
 void PictureCompiler::Done()
 {
 	HoeRes::Res::HeadResource head;
-	head.id = 0;
+	head.id = HoeRes::Res::IDPicture;
 	head.size_struct = sizeof(head);
 	head.version_struct = 1;
 	m_out.Write(&head, sizeof(head));

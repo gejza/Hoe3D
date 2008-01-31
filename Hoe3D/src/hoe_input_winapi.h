@@ -14,7 +14,7 @@ class HoeInputWin : public HoeInput
 public:
 	HoeInputWin();
 	virtual bool Init(THoeInitSettings *);
-	virtual const char * GetName();
+	virtual const tchar * GetName();
 	virtual void Process(float time);
 	virtual bool InstallMouse(MouseType mt);
 	virtual void UninstallMouse();

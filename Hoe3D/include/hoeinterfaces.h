@@ -21,7 +21,7 @@ class IHoeInterface
 {
 public:
 	/** Metoda pro ziskani jmena objektu. */
-	virtual const char * GetName() { return "unknown";}
+	virtual const tchar * GetName() { return T("unknown");}
 	virtual void Release() {};
 };
 
