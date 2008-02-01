@@ -6,6 +6,12 @@
 
 namespace HoeRes {
 
+// picture, sound, video
+class MediaStream : public HoeCore::BaseStream
+{
+public:
+};
+
 class ResourceLoader
 {
 protected:
@@ -17,10 +23,22 @@ public:
 	size_t ReadHeader(uint32 id, Res::HeadResource* head, size_t size);
 };
 
-class PictureLoader : public ResourceLoader
+class MediaStreamPic : public MediaStream
 {
 public:
+	virtual HOEFORMAT GetFormat() = 0;
+	virtual uint GetPitch() = 0;
+	virtual void GetSize(THoeSizeu* size) = 0;
+	virtual uint GetRow(byte* ptr) = 0;
+};
+
+class PictureLoader : public ResourceLoader
+{
+	HOEFORMAT m_format;
+	uint m_codec;
+public:
 	PictureLoader(HoeCore::ReadStream* stream);
+	MediaStreamPic * GetData();
 };
 
 } // namespace HoeRes

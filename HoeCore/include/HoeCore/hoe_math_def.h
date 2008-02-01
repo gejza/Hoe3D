@@ -15,14 +15,6 @@
 #define floorf(d)       (FLOAT)floor(d)
 #endif
 
-#ifdef _WIN32_WCE
-typedef HoeMath::fixed vfloat;
-typedef HoeMath::fixed vdouble;
-#else
-typedef float vfloat;
-typedef double vdouble;
-#endif
-
 namespace HoeMath {
 
 struct Rect;

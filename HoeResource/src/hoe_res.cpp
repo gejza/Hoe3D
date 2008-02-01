@@ -1,6 +1,7 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_res.h"
+#include "../include/HoeResource/hoe_res.h"
+#include "hoe_jpg.h"
 
 HoeRes::ResourceLoader::ResourceLoader(HoeCore::ReadStream* stream)
 : m_stream(stream)
@@ -34,12 +35,34 @@ size_t HoeRes::ResourceLoader::ReadHeader(uint32 id, Res::HeadResource* head, si
 	return tor;
 }
 
+// nadrazena struktura
+
+
 HoeRes::PictureLoader::PictureLoader(HoeCore::ReadStream *stream)
 : ResourceLoader(stream)
 {
-	Res::HeadResource head;
+	Res::PictureInfo head;
 	ReadHeader(Res::IDPicture, &head, sizeof(head));
+	const HoeCore::Endianness& end = m_stream->GetDataFormat();
+	// prekopirovat
+	m_codec = end.num(head.codec);
+	m_format = (HOEFORMAT)end.num(head.format);
+
+	hoe_assert(m_codec == MAKE_FOURCC('J','P','E','G'));
+	// find codec
+	// vytahavat z kodeku data nebo je nahrat dovnitr?
+	// vytahavat
+
+	// picloader -> kodek -> resize -> texture 
 }
+
+HoeRes::MediaStreamPic* HoeRes::PictureLoader::GetData()
+{
+	// init
+	return new JPEGDecoder (*m_stream);
+}
+
+
 
 
 

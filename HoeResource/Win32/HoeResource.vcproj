@@ -964,7 +964,23 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_resfile.h"
+				RelativePath="..\include\HoeResource\hoe_resfile.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Codec"
+			>
+			<File
+				RelativePath="..\src\hoe_codec.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\hoe_jpg.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\hoe_jpg.h"
 				>
 			</File>
 		</Filter>
@@ -981,7 +997,7 @@
 			>
 		</File>
 		<File
-			RelativePath="..\include\hoe_res.h"
+			RelativePath="..\include\HoeResource\hoe_res.h"
 			>
 		</File>
 		<File

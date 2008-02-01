@@ -12,8 +12,8 @@ extern "C" {
 #define LUA_VERSION_NUM 500
 #endif
 
-#include "../include/lua_script.h"
-#include "../include/hoe_resource_mgr.h"
+#include "../include/HoeGame/lua_script.h"
+#include "../include/HoeGame/hoe_resource_mgr.h"
 //#include "../include/hoe_lang.h"
 #include "../include/hoe_fs.h"
 #include "../include/hoe_app.h"

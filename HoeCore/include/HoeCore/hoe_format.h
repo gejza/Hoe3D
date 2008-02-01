@@ -1,6 +1,8 @@
 #ifndef _HOE_FORMAT_H_
 #define _HOE_FORMAT_H_
 
+#include "hoe_types.h"
+
 #ifndef MAKEFOURCC
 #define MAKEFOURCC(ch0, ch1, ch2, ch3)                              \
                 ((unsigned long)(unsigned char)(ch0) | ((unsigned long)(unsigned char)(ch1) << 8) |   \

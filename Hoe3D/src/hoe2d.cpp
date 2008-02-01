@@ -16,6 +16,50 @@ bool HOEAPI Hoe2DEngine::Init(THoeInitSettings * his)
 	return true;
 }
 
+IDirectDrawSurface7 * srf = NULL; 
+
+class ResComp : public HoeRes::MediaStreamPic
+{
+	HoeRes::MediaStreamPic * m_stream;
+	byte * m_buff;
+public:
+	ResComp(HoeRes::MediaStreamPic* stream)
+		: m_stream(stream)
+	{
+		m_buff = new byte[stream->GetPitch()];
+	}
+	virtual ~ResComp()
+	{
+		delete [] m_buff;
+	}
+	virtual HOEFORMAT GetFormat() { return HOE_R5G6B5; }
+	virtual uint GetPitch() 
+	{
+		THoeSizeu s;
+		m_stream->GetSize(&s);
+		return s.width * 2;
+	}
+	virtual void GetSize(THoeSizeu* size) { m_stream->GetSize(size); }
+	virtual uint Close() { return 0; }
+	virtual uint GetRow(byte* ptr)
+	{
+		uint w = m_stream->GetRow(m_buff);
+		byte * f = m_buff;
+		byte * t = ptr;
+		for (uint x=0;x < w;x++)
+		{
+			const byte r = f[0] & 0xF8;
+			const byte g = f[1] & 0xFC;
+			const byte b = f[2] & 0xF8;
+			const short c = b >> 3 | g << 3 | r << 8;
+			t[1] = c >> 8;
+			t[0] = 0xFF & c;
+			f += 3; t += 2;
+		}
+		return w;
+	}
+};
+
 /** Funkce co vytvari interface tridy */
 IHoeInterface * HOEAPI Hoe2DEngine::Create(const tchar * cmd)
 {
@@ -28,7 +72,39 @@ IHoeInterface * HOEAPI Hoe2DEngine::Create(const tchar * cmd)
 	if (!rs)
 		return NULL;
 	HoeRes::PictureLoader pl(rs);
+	HoeRes::MediaStreamPic * pic = pl.GetData();
+	THoeSizeu rect;
+	pic->GetSize(&rect);
+	//byte * buff = new byte[pic->GetPitch()]
+	//for (uint 
+	DDSURFACEDESC2 desc;
+	memset(&desc,0,sizeof(desc));
+	desc.dwSize = sizeof(desc);
+	desc.dwFlags = DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH;
+    desc.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN;
+	desc.dwWidth = rect.width;
+	desc.dwHeight = rect.height;
+
+	HRESULT hRes = ::GetRef()->GetDD()->CreateSurface(&desc,&srf,0);
+	checkres(hRes,"IDirectDraw7::CreateSurface");
+
+    ZeroMemory(&desc, sizeof(desc));
+    desc.dwSize = sizeof(desc);
+	hRes = srf->Lock(NULL, &desc, DDLOCK_WRITEONLY|DDLOCK_WAIT, NULL);
+	checkres(hRes,"IDirectDrawSurface7::Lock");
 	
+	Ref::GetFormat(desc.ddpfPixelFormat);
+	ResComp c(pic);
+
+	byte * ptr = (byte*)desc.lpSurface;
+	for (uint y=0;y < rect.height;y++)
+	{
+		c.GetRow(ptr);
+		ptr += desc.lPitch;
+	}
+
+    srf->Unlock(NULL);
+
 	return NULL;
 }
 
@@ -51,6 +127,12 @@ bool HOEAPI Hoe2DEngine::Frame()
 
 	/*::GetInfo()->BeginFrame();*/
 	::GetRef()->Begin();
+
+	if (srf)
+	{
+		HRESULT hRes = ::GetRef()->GetSurface()->BltFast(0,0,srf,0,0);
+		checkres(hRes, "IDirectDrawSurface7::BltFast");
+	}
 
 	if (m_active)
 	{

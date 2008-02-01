@@ -25,4 +25,6 @@ Namespace name
  resources
 ~Namespace
 
+todo: vyhledavaci cesty, v hoe core
+
 

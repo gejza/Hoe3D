@@ -829,7 +829,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_fixed.h"
+				RelativePath="..\include\HoeCore\hoe_fixed.h"
 				>
 			</File>
 			<File
@@ -837,19 +837,19 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_math.h"
+				RelativePath="..\include\HoeCore\hoe_math.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_math.inl"
+				RelativePath="..\include\HoeCore\hoe_math.inl"
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_math_def.h"
+				RelativePath="..\include\HoeCore\hoe_math_def.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_math_ext.h"
+				RelativePath="..\include\HoeCore\hoe_math_ext.h"
 				>
 			</File>
 		</Filter>
@@ -862,7 +862,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_flex.h"
+				RelativePath="..\include\HoeCore\hoe_flex.h"
 				>
 			</File>
 			<File
@@ -878,7 +878,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_string.h"
+				RelativePath="..\include\HoeCore\hoe_string.h"
 				>
 			</File>
 			<File
@@ -886,7 +886,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_unicode.h"
+				RelativePath="..\include\HoeCore\hoe_unicode.h"
 				>
 			</File>
 		</Filter>
@@ -898,7 +898,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_log.h"
+				RelativePath="..\include\HoeCore\hoe_log.h"
 				>
 			</File>
 			<File
@@ -906,7 +906,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_mem.h"
+				RelativePath="..\include\HoeCore\hoe_mem.h"
 				>
 			</File>
 			<File
@@ -914,7 +914,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_time.h"
+				RelativePath="..\include\HoeCore\hoe_time.h"
 				>
 			</File>
 		</Filter>
@@ -926,7 +926,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\HoeCore\hoe_core.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\hoe_core.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\HoeCore\hoe_format.h"
 				>
 			</File>
 			<File
@@ -934,15 +942,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_platform.h"
+				RelativePath="..\include\HoeCore\hoe_platform.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_structures.h"
+				RelativePath="..\include\HoeCore\hoe_structures.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_types.h"
+				RelativePath="..\include\HoeCore\hoe_types.h"
 				>
 			</File>
 			<File
@@ -950,7 +958,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_universal.h"
+				RelativePath="..\include\HoeCore\hoe_universal.h"
 				>
 			</File>
 		</Filter>
@@ -962,7 +970,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_file.h"
+				RelativePath="..\include\HoeCore\hoe_file.h"
 				>
 			</File>
 			<File
@@ -970,7 +978,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_stream.h"
+				RelativePath="..\include\HoeCore\hoe_stream.h"
 				>
 			</File>
 		</Filter>

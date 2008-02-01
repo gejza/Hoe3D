@@ -6,7 +6,6 @@
 #include "ref.h"
 #include "shared.h"
 #include "utils.h"
-#include "hoe_format.h"
 #include "config.h"
 #include "../include/hoe3d.h"
 

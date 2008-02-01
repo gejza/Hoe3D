@@ -1,7 +1,7 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_unicode.h"
-#include "../include/hoe_string.h"
+#include "../include/HoeCore/hoe_unicode.h"
+#include "../include/HoeCore/hoe_string.h"
 
 ////////////////////////////////
 // string class

@@ -63,11 +63,15 @@ bool PictureCompiler::AddProp(const HoeCore::CString name, const Values& value)
 
 void PictureCompiler::Done()
 {
-	HoeRes::Res::HeadResource head;
+	HoeRes::Res::PictureInfo head;
 	head.id = HoeRes::Res::IDPicture;
 	head.size_struct = sizeof(head);
 	head.version_struct = 1;
+	head.format = MAKE_FOURCC('J','P','E','G');
+	head.codec = MAKE_FOURCC('J','P','E','G');
 	m_out.Write(&head, sizeof(head));
+	
+	im.Save(m_out);
 }
 
 /*bool PictureCompiler::Func(const HoeCore::CString name, const VectorUniversal& value)

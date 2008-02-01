@@ -25,6 +25,7 @@
 #include <new>
 
 #include <HoeCore/hoe_types.h>
+#include <HoeCore/hoe_format.h>
 #include <HoeCore/hoe_string.h>
 #include <HoeCore/hoe_stream.h>
 #include <HoeCore/hoe_structures.h>

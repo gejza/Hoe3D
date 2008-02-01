@@ -43,6 +43,13 @@ struct Symbol
 	uint64 position;
 };
 
+struct PictureInfo : public HeadResource
+{
+	uint32 codec;
+	uint32 format;
+	
+};
+
 #pragma pack(pop)
 
 const char * GetTypeName(uint id);

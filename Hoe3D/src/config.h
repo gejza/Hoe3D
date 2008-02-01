@@ -2,8 +2,6 @@
 #ifndef _HOE_CONFIG_
 #define _HOE_CONFIG_
 
-#include "hoe_format.h"
-
 struct THoeInitSettings;
 
 class Config

@@ -1,7 +1,7 @@
 
 #include "StdAfx.h"
 #include <hoe3d.h>
-#include "../include/hoe_wx.h"
+#include "../include/HoeGame/hoe_wx.h"
 
 BEGIN_HOEGAME
 namespace wx {

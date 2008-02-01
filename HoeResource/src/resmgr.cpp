@@ -1,6 +1,6 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_resfile.h"
+#include "../include/HoeResource/hoe_resfile.h"
 #include "../include/HoeResource/resmgr.h"
 
 // LinkedFile
@@ -33,6 +33,7 @@ HoeRes::LinkedReader::LinkedReader(byte * ptr) : m_ptr(ptr)
 size_t HoeRes::LinkedReader::Read(void* ptr, size_t size)
 {
 	memcpy(ptr, m_ptr, size);
+	m_ptr += size;
 	return size;
 }
 

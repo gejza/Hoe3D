@@ -52,6 +52,7 @@
 #include <wchar.h>
 
 #include <HoeCore/hoe_types.h>
+#include <HoeCore/hoe_format.h>
 #include <HoeCore/hoe_math_ext.h>
 #include <HoeCore/hoe_core.h>
 #include <HoeCore/hoe_flex.h>

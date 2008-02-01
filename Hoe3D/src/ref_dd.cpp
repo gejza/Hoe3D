@@ -170,6 +170,24 @@ const tchar * RefDD::GetErrorString(HRESULT hRes)
 }
 
 
+HOEFORMAT RefDD::GetFormat(DDPIXELFORMAT& pf)
+{
+#define IS_FS(r,g,b,a) (pf.dwRBitMask == r \
+						&& pf.dwGBitMask == g \
+						&& pf.dwBBitMask == b \
+						&& pf.dwRGBAlphaBitMask == a)
+	if (pf.dwFourCC)
+		return (HOEFORMAT) pf.dwFourCC;
+	switch (pf.dwRGBBitCount)
+	{
+	case 16:
+		if (IS_FS(0xf800, 0x07e0, 0x001f, 0))
+			return HOE_R5G6B5;
+		break;
+	};
+	return HOE_UNKNOWN;
+#undef IS_FS
+}
 
 #if 0
 bool RefD3DM::Init(THoeInitSettings * his)

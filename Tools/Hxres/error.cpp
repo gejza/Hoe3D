@@ -8,6 +8,15 @@ Error::Error(void)
 {
 }
 
+Error::Error(const tchar* format, ...)
+{
+	va_list va;
+	va_start(va, format);
+	m_str.vprintf(format, va);
+	va_end(va);
+}
+
+
 Error::~Error(void)
 {
 }

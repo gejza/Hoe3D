@@ -1,6 +1,6 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_settings.h"
+#include "../include/HoeGame/hoe_settings.h"
 
 extern "C" {
 #include "iniparser.h"

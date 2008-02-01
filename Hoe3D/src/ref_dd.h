@@ -53,6 +53,8 @@ public:
 	* Konec vykreslovani sceny. viz DIRECT3D help.
 	*/
 	void End();
+
+	LPDIRECTDRAW7 GetDD() { return m_pDD; } 
 	LPDIRECTDRAWSURFACE7 GetSurface() { return m_pDDSBack; }
 	/**
 	* Vymazani bufferu
@@ -73,6 +75,7 @@ public:
 	void Destroy();
 
 	// utils
+	static HOEFORMAT GetFormat(DDPIXELFORMAT& pf);
 	static const tchar * GetErrorString(HRESULT hRes);
 
 };

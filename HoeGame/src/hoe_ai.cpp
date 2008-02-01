@@ -1,6 +1,6 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_ai.h"
+#include "../include/HoeGame/hoe_ai.h"
 
 BEGIN_HOEGAME
 namespace AI {

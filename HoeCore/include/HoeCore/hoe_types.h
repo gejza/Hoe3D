@@ -87,22 +87,47 @@ typedef unsigned long long uint64;
 
 #ifdef __cplusplus
 
+namespace HoeMath {
+struct fixed;
+}; // namespace HoeMath
+
+#ifdef _WIN32_WCE
+typedef HoeMath::fixed vfloat;
+typedef HoeMath::fixed vdouble;
+#else
+typedef float vfloat;
+typedef double vdouble;
+#endif
+
 struct THoeRect
 {
-	float left; 
-	float top; 
-	float right; 
-	float bottom; 
+	vfloat left; 
+	vfloat top; 
+	vfloat right; 
+	vfloat bottom; 
 };
+
+template<typename TYPE> struct THoeSize
+{
+	TYPE height; 
+	TYPE width; 
+};
+
+typedef THoeSize<int> THoeSizei;
+typedef THoeSize<uint> THoeSizeu;
+typedef THoeSize<float> THoeSizef;
+typedef THoeSize<vfloat> THoeSizev;
+typedef THoeSize<vdouble> THoeSizevd;
+typedef THoeSize<double> THoeSized;
 
 struct THoeBox
 {
-	float left;
-	float right;
-	float top;
-	float bottom;
-	float front;
-	float back;
+	vfloat left;
+	vfloat right;
+	vfloat top;
+	vfloat bottom;
+	vfloat front;
+	vfloat back;
 };
 
 struct THoeParameter
