@@ -29,4 +29,13 @@ void Image::Save(HoeCore::WriteStream &stream)
 	stream.Write(m_f);
 }
 
+uint32 Image::GetFormat()
+{
+	if (m_filename.wmatch(T("*.jpg")))
+		return MAKE_FOURCC('J','P','E','G');
+	if (m_filename.wmatch(T("*.png")))
+		return MAKE_FOURCC('P','N','G',' ');
+	throw Error(T("Codec for file %s not found."), m_filename.GetPtr());
+}
+
 

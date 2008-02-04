@@ -247,6 +247,58 @@ int GetNumber(const wchar_t* str)
 	return n;
 }
 
+// util func
+template<typename CHARP, typename CHARS> bool wmatch(const CHARP* pat, const CHARS* str)
+{
+	// todo: spravne porovnani char a wchar <-
+	const CHARS* s;
+	const CHARP* p;
+	bool star = false;
+loopStart:
+	for (s = str, p = pat; *s; ++s, ++p) 
+	{
+		switch (*p) 
+		{
+		 case '?':
+			if (*s == '.') goto starCheck;
+			break;
+		 case '*':
+			star = true;
+			str = s, pat = p;
+			if (!*++pat) return true;
+			goto loopStart;
+		 default:
+			if (*s != *p)
+			   goto starCheck;
+			break;
+		} /* endswitch */
+	} /* endfor */
+	if (*p == '*') ++p;
+	return (!*p);
+
+starCheck:
+	if (!star) return false;
+	str++;
+	goto loopStart;
+}
+
+bool string::wmatch(const wchar_t* pattern, const wchar_t* str)
+{
+	return wmatch<wchar_t, wchar_t>(pattern, str);
+}
+bool string::wmatch(const char* pattern, const char* str)
+{
+	return wmatch<char, char>(pattern, str);
+}
+bool string::wmatch(const wchar_t* pattern, const char* str)
+{
+	return wmatch<wchar_t, char>(pattern, str);
+}
+bool string::wmatch(const char* pattern, const wchar_t* str)
+{
+	return wmatch<char, wchar_t>(pattern, str);
+}
+
 } // end namespace string
 
 // CString
@@ -435,5 +487,16 @@ int String::Replace(char f, char r)
 	}
 	return n;
 }
+
+bool String::wmatch(const wchar_t* pattern)
+{
+	return string::wmatch(pattern, this->GetPtr());
+}
+
+bool String::wmatch(const char* pattern)
+{
+	return string::wmatch(pattern, this->GetPtr());
+}
+
 
 } // namespace HoeCore

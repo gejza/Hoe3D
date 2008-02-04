@@ -18,6 +18,16 @@
 
 struct THoeInitSettings;
 
+class RefSurface : public RefSurfaceBase
+{
+public:
+	LPDIRECTDRAWSURFACE7 m_srf; 
+	bool Lock(LockRect* l);
+	void Unlock();
+
+	friend class RefDD;
+};
+
 /**
 * @brief Trida s implementaci zakladnich vlastnosti <b>D3D8</b>
 */
@@ -69,6 +79,8 @@ public:
 	void ColorFill(const vfloat l,const vfloat r,
 		const vfloat t,const vfloat b,unsigned long color,bool full);
 
+	bool CreateSurface(RefSurface* surf, uint width, uint height);
+	void Blt(RefSurface& surf, const THoeRect * dest, const THoeRect * src, int method);
 	/**
 	* Zruseni DIRECT3D
 	*/

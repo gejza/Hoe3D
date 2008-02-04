@@ -11,6 +11,7 @@ public:
 	virtual ~Image(void);
 	void SetSource(const HoeCore::CString& str);
 	void Save(HoeCore::WriteStream& stream);
+	uint32 GetFormat();
 };
 
 #endif // _HXRES_IMAGE_H_

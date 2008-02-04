@@ -109,7 +109,7 @@ void StaticPicture::Set(const tchar * prop, const HoeCore::Universal & value)
 void StaticPicture::Draw(IHoe2D * h2d)
 {
 	if (m_pic)
-		h2d->Blt(&m_rect, m_pic);
+		h2d->Blt(m_pic, &m_rect, 0);
 }
 
 /////////////////////////////////////////
@@ -302,7 +302,7 @@ void DigiCounter::Draw(IHoe2D * d2)
 	{
 		THoeRect r = {up-pp, m_rect.top, up, m_rect.bottom};
 		THoeRect r2={ 0, 0, 1*(60.0/64.0/4), 1*(60.0/64.0/3)};
-		d2->Blt(&r, p, &r2);
+		d2->Blt(p,&r, &r2);
 		i = i / 10;
 		up -= pp;
 	}
@@ -311,7 +311,7 @@ void DigiCounter::Draw(IHoe2D * d2)
 		THoeRect r = {up-pp, m_rect.top, up, m_rect.bottom};
 		int t=i%10;
 		THoeRect r2={ (t%4)*(60.0f/64.0f/4), (t/4)*(60.0f/64.0f/3), (t%4+1)*(60.0f/64.0f/4), (t/4+1)*(60.0f/64.0f/3)};
-		d2->Blt(&r, p, &r2);
+		d2->Blt(p,&r,&r2);
 		i = i / 10;
 		up -= pp;
 	}
@@ -319,7 +319,7 @@ void DigiCounter::Draw(IHoe2D * d2)
 	{
 		THoeRect r = {up-pp, m_rect.top, up, m_rect.bottom};
 		THoeRect r2={ 2*(60.0/64.0/4), 2*(60.0/64.0/3), 3*(60.0/64.0/4), 3*(60.0/64.0/3)};
-		d2->Blt(&r, p, &r2);
+		d2->Blt(p, &r, &r2);
 		i = i / 10;
 		up -= pp;
 	}
@@ -447,12 +447,17 @@ void Button::Draw(IHoe2D * h2d)
 {
 	if (m_show)
 	{
-		h2d->PaintRect(m_rect.left, m_rect.right, m_rect.top, m_rect.bottom, m_active ? 0xffff0000:0x80ff0000, true);
+		h2d->PaintRect(&m_rect, m_active ? 0xffff0000:0x80ff0000, true);
 		float widthr = (m_rect.right-m_rect.left) * 0.1f;
 		float heightr = (m_rect.bottom-m_rect.top) * 0.1f;
 		if (m_pic)
 		{
-			h2d->BltFast(m_rect.left+widthr, m_rect.right-widthr, m_rect.top+heightr, m_rect.bottom-heightr, m_pic);
+			THoeRect r = m_rect;
+			r.left+=widthr;
+			r.right-=widthr;
+			r.top+=heightr;
+			r.bottom-=heightr;
+			h2d->Blt(m_pic,&r,0);
 		}
 	}
 }
@@ -546,7 +551,7 @@ void ButtonUsr::Draw(IHoe2D * h2d)
 	if (m_show)
 	{
 		if (m_pic && m_pic_active)
-			h2d->BltFast(m_rect.left, m_rect.right, m_rect.top, m_rect.bottom, m_active ? m_pic_active:m_pic);
+			h2d->Blt(m_active ? m_pic_active:m_pic, &m_rect, 0);
 	}
 }
 

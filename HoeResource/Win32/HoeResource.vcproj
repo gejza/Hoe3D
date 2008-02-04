@@ -983,6 +983,14 @@
 				RelativePath="..\src\hoe_jpg.h"
 				>
 			</File>
+			<File
+				RelativePath="..\src\hoe_png.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\hoe_png.h"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath="..\src\fvf.cpp"

@@ -10,7 +10,6 @@
 
 class HoePicture : public IHoePicture
 {
-	const HoeTexture * m_tex;
 	dword m_flags;
 	union {
 		struct {
@@ -20,6 +19,7 @@ class HoePicture : public IHoePicture
 		};
 	};
 public:
+	RefSurface m_surf;
 	HoePicture();
 	void CreateRegions(uint x,uint y);
 	void SetActiveRegion(uint);
@@ -33,8 +33,8 @@ public:
 	//virtual void SetN(int nx,int ny);
 	//virtual int GetNumRECT();
 
-	void SetSource(const TextureSystem::HoeTexture * tex) { m_tex = tex; }
-	const TextureSystem::HoeTexture * GetSource() const { return m_tex;}
+	//void SetSource(const RefSurface * tex) { m_surf = tex; }
+	//const TextureSystem::HoeTexture * GetSource() const { return m_tex;}
 
 };
 

@@ -69,7 +69,7 @@ void Hoe2D::SetRect(const vfloat w,const vfloat h)
 #endif
 }
 
-void Hoe2D::PaintRect(const vfloat l,const vfloat r,const vfloat t,const vfloat b,unsigned long color,bool full)
+void Hoe2D::PaintRect(const THoeRect* dest,unsigned long color,bool full)
 {
 	GetStates()->DisableTexture();
 	if ((color & 0xff000000) == 0xff000000)
@@ -139,10 +139,10 @@ void Hoe2D::PaintRect(const vfloat l,const vfloat r,const vfloat t,const vfloat 
 	fx.dwSize = sizeof(fx);
 	fx.dwFillColor = color;
 	RECT rect;
-	rect.top = t;
-	rect.left = l;
-	rect.bottom = b;
-	rect.right = r;
+	rect.top = dest->top;
+	rect.left = dest->left;
+	rect.bottom = dest->bottom;
+	rect.right = dest->right;
 	HRESULT hRes = GetRef()->GetSurface()->Blt(&rect, NULL, NULL, DDBLT_COLORFILL,&fx);
 	checkres(hRes, "Blt");
 #endif
@@ -180,19 +180,13 @@ void Hoe2D::PaintLine(vfloat x1,vfloat y1,vfloat x2,vfloat y2,unsigned long c)
 #endif // _HOE_D3D9_
 }
 
-void Hoe2D::BltFast(const vfloat l,const vfloat r,const vfloat t,const vfloat b,IHoePicture * pic)
+void Hoe2D::Blt(IHoePicture * pic,const THoeRect * dest,const THoeRect * src)
 {
-	THoeRect src = { 0.0f,0.0f,1.0f,1.0f };
-//	reinterpret_cast<HoePicture*>(pic)->GetRect(&src);
-	const THoeRect dest = { l,t,r,b };
-	Blt(&dest,pic,&src);
+	// method?
 
-}
-
-void Hoe2D::Blt(const THoeRect * dest,IHoePicture * pic,const THoeRect * src)
-{
-	GetStates()->EnableTexture();
-	GetStates()->Setup2DAlphaTest();
+	::GetRef()->Blt(dynamic_cast<HoePicture *>(pic)->m_surf, dest, src, 0);
+	//GetStates()->EnableTexture();
+	//GetStates()->Setup2DAlphaTest();
 #ifndef HOE2D
 	GetTextureSystem()->SetTexture(0,reinterpret_cast<HoePicture *>(pic)->GetSource());
 #endif
@@ -221,12 +215,6 @@ void Hoe2D::Blt(const THoeRect * dest,IHoePicture * pic,const THoeRect * src)
 	D3DDevice()->DrawPrimitiveUP(D3DPT_TRIANGLEFAN,2,pv,sizeof(HOE2D_VERTEXCT));
 #endif // _HOE_D3D9_
 
-}
-
-void Hoe2D::Blt(const THoeRect * dest,IHoePicture * pic)
-{
-	const THoeRect src = { 0.0f,0.0f,1.0f,1.0f };
-	Blt(dest,pic,&src);
 }
 
 void Hoe2D::SetAlpha(bool set)

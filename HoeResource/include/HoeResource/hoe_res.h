@@ -30,6 +30,7 @@ public:
 	virtual uint GetPitch() = 0;
 	virtual void GetSize(THoeSizeu* size) = 0;
 	virtual uint GetRow(byte* ptr) = 0;
+	virtual uint GetPalette(HOECOLOR * palette) { return 0; }
 };
 
 class PictureLoader : public ResourceLoader
@@ -39,6 +40,25 @@ class PictureLoader : public ResourceLoader
 public:
 	PictureLoader(HoeCore::ReadStream* stream);
 	MediaStreamPic * GetData();
+};
+
+
+class FormatConv : public HoeRes::MediaStreamPic
+{
+	HoeRes::MediaStreamPic * m_stream;
+	byte * m_buff;
+	HOECOLOR m_colors[256];
+	HOEFORMAT m_inputformat;
+public:
+	HOECOLOR key;
+
+	FormatConv(HoeRes::MediaStreamPic* stream);
+	virtual ~FormatConv();
+	virtual HOEFORMAT GetFormat();
+	virtual uint GetPitch();
+	virtual void GetSize(THoeSizeu* size);
+	virtual uint Close();
+	virtual uint GetRow(byte* ptr);
 };
 
 } // namespace HoeRes

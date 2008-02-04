@@ -61,6 +61,11 @@ enum HOEFORMAT
 	HOE_JPEG				 = MAKEFOURCC('J', 'P', 'E', 'G'),
 	HOE_PNG 				 = MAKEFOURCC('P', 'N', 'G', ' '),
 
+	HOE_P1					 = 100001,
+	HOE_P2					 = 100002,
+	HOE_P4					 = 100004,
+	HOE_P8					 = 100008,
+
     HOE_FORCE_DWORD          =0x7fffffff
 };
 

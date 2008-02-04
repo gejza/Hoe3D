@@ -67,8 +67,9 @@ void PictureCompiler::Done()
 	head.id = HoeRes::Res::IDPicture;
 	head.size_struct = sizeof(head);
 	head.version_struct = 1;
-	head.format = MAKE_FOURCC('J','P','E','G');
-	head.codec = MAKE_FOURCC('J','P','E','G');
+
+	head.format = im.GetFormat();
+	head.codec = im.GetFormat();
 	m_out.Write(&head, sizeof(head));
 	
 	im.Save(m_out);

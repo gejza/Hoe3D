@@ -163,7 +163,12 @@ void GuiConsole::Draw(IHoe2D * h2d)
 
 	float h = height * maxheight;
 	h2d->SetRect(640,480);
-	h2d->BltFast(0,640,h - maxheight,h,background);
+	THoeRect rect;
+	rect.left = 0;
+	rect.right = 640;
+	rect.top = h - maxheight;
+	rect.bottom = h;
+	h2d->Blt(background,&rect,0);
 
 	bool blink = (((int)(engine->SysFloatTime() * 2)) % 2) == 0;
 

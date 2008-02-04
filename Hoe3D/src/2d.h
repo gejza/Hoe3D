@@ -25,12 +25,10 @@ public:
 	void SetRect(const vfloat w,const vfloat h);
 
 	// paint func
-	void PaintRect(const vfloat l,const vfloat r,const vfloat t,const vfloat b,unsigned long color,bool full);
+	void PaintRect(const THoeRect* dest,unsigned long color,bool full);
 	void PaintLine(vfloat x1,vfloat y1,vfloat x2,vfloat y2,unsigned long c);
 
-	void BltFast(const vfloat l,const vfloat r,const vfloat t,const vfloat b,IHoePicture *);
-	void Blt(const THoeRect * dest,IHoePicture *);
-	void Blt(const THoeRect * dest,IHoePicture *,const THoeRect * src);
+	void Blt(IHoePicture *,const THoeRect * dest,const THoeRect * src);
 	virtual void SetAlpha(bool set);
 };
 

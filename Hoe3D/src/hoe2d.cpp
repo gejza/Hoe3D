@@ -6,6 +6,7 @@
 #include "scene_base.h"
 #include "../include/hoefs.h"
 #include "icreate.h"
+#include "hoe_picture.h"
 
 /** Init funkce */
 bool HOEAPI Hoe2DEngine::Init(THoeInitSettings * his)
@@ -16,49 +17,7 @@ bool HOEAPI Hoe2DEngine::Init(THoeInitSettings * his)
 	return true;
 }
 
-IDirectDrawSurface7 * srf = NULL; 
-
-class ResComp : public HoeRes::MediaStreamPic
-{
-	HoeRes::MediaStreamPic * m_stream;
-	byte * m_buff;
-public:
-	ResComp(HoeRes::MediaStreamPic* stream)
-		: m_stream(stream)
-	{
-		m_buff = new byte[stream->GetPitch()];
-	}
-	virtual ~ResComp()
-	{
-		delete [] m_buff;
-	}
-	virtual HOEFORMAT GetFormat() { return HOE_R5G6B5; }
-	virtual uint GetPitch() 
-	{
-		THoeSizeu s;
-		m_stream->GetSize(&s);
-		return s.width * 2;
-	}
-	virtual void GetSize(THoeSizeu* size) { m_stream->GetSize(size); }
-	virtual uint Close() { return 0; }
-	virtual uint GetRow(byte* ptr)
-	{
-		uint w = m_stream->GetRow(m_buff);
-		byte * f = m_buff;
-		byte * t = ptr;
-		for (uint x=0;x < w;x++)
-		{
-			const byte r = f[0] & 0xF8;
-			const byte g = f[1] & 0xFC;
-			const byte b = f[2] & 0xF8;
-			const short c = b >> 3 | g << 3 | r << 8;
-			t[1] = c >> 8;
-			t[0] = 0xFF & c;
-			f += 3; t += 2;
-		}
-		return w;
-	}
-};
+RefSurface srf;
 
 /** Funkce co vytvari interface tridy */
 IHoeInterface * HOEAPI Hoe2DEngine::Create(const tchar * cmd)
@@ -72,40 +31,39 @@ IHoeInterface * HOEAPI Hoe2DEngine::Create(const tchar * cmd)
 	if (!rs)
 		return NULL;
 	HoeRes::PictureLoader pl(rs);
-	HoeRes::MediaStreamPic * pic = pl.GetData();
+	HoeRes::MediaStreamPic * ps = pl.GetData();
+	HoeRes::FormatConv cs(ps);
+
 	THoeSizeu rect;
-	pic->GetSize(&rect);
+	cs.GetSize(&rect);
 	//byte * buff = new byte[pic->GetPitch()]
 	//for (uint 
-	DDSURFACEDESC2 desc;
-	memset(&desc,0,sizeof(desc));
-	desc.dwSize = sizeof(desc);
-	desc.dwFlags = DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH;
-    desc.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN;
-	desc.dwWidth = rect.width;
-	desc.dwHeight = rect.height;
+	// create picture
+	HoePicture * pic = new HoePicture();
 
-	HRESULT hRes = ::GetRef()->GetDD()->CreateSurface(&desc,&srf,0);
-	checkres(hRes,"IDirectDraw7::CreateSurface");
-
-    ZeroMemory(&desc, sizeof(desc));
-    desc.dwSize = sizeof(desc);
-	hRes = srf->Lock(NULL, &desc, DDLOCK_WRITEONLY|DDLOCK_WAIT, NULL);
-	checkres(hRes,"IDirectDrawSurface7::Lock");
-	
-	Ref::GetFormat(desc.ddpfPixelFormat);
-	ResComp c(pic);
-
-	byte * ptr = (byte*)desc.lpSurface;
+	::GetRef()->CreateSurface(&pic->m_surf, rect.width, rect.height);
+	RefSurface::LockRect l;
+	pic->m_surf.Lock(&l);
 	for (uint y=0;y < rect.height;y++)
 	{
-		c.GetRow(ptr);
-		ptr += desc.lPitch;
+		cs.GetRow(l.ptr);
+		l.ptr += l.pitch;
 	}
-
-    srf->Unlock(NULL);
-
-	return NULL;
+    pic->m_surf.Unlock();
+    DDCOLORKEY              ddck;
+	register byte r,g,b,a;
+	r = cs.key.r & 0xF8;
+	g = cs.key.g & 0xF8;
+	b = cs.key.b & 0xF8;
+	const short c = 1 << 8 | b >> 3 | g << 2 | r << 7;
+    ddck.dwColorSpaceLowValue = 0;
+	//byte * t = (byte*)(&ddck.dwColorSpaceLowValue);
+	//t[1] = c >> 8;
+	//t[0] = 0xFF & c;
+    ddck.dwColorSpaceHighValue = ddck.dwColorSpaceLowValue;
+	HRESULT hRes = pic->m_surf.m_srf->SetColorKey(DDCKEY_SRCBLT, &ddck);
+	checkres(hRes,"SetColorKey");
+	return pic;
 }
 
 /** Funkce pro pristup k systemum hoe */
@@ -127,12 +85,6 @@ bool HOEAPI Hoe2DEngine::Frame()
 
 	/*::GetInfo()->BeginFrame();*/
 	::GetRef()->Begin();
-
-	if (srf)
-	{
-		HRESULT hRes = ::GetRef()->GetSurface()->BltFast(0,0,srf,0,0);
-		checkres(hRes, "IDirectDrawSurface7::BltFast");
-	}
 
 	if (m_active)
 	{

@@ -163,65 +163,6 @@ uint JPEGDecoder::GetRow(byte* ptr)
 
 } // namespace HoeRes
 
-#if 0
-
-bool TextureConverterJPG::Run()
-{
-	jpeg_decompress_struct * cinfo = (jpeg_decompress_struct *)jpginfo;
-
-	jpeg_set_src(cinfo,m_loader);
-
-	jpeg_read_header(cinfo, TRUE);
-	jpeg_start_decompress(cinfo);
-	row_stride = cinfo->output_width * cinfo->output_components;
-
-	m_width = cinfo->output_width;
-	m_height = cinfo->output_height;
-	m_format = HOE_R8G8B8;
-
-	GetConfig()->CheckTexture(m_width,m_height,m_format);
-	return true;
-}
-
-bool TextureConverterJPG::Get(byte * p,dword pitch)
-{
-	jpeg_decompress_struct * cinfo = (jpeg_decompress_struct *)jpginfo;
-
-	HOEFORMAT from = HOE_R8G8B8;
-	switch (cinfo->output_components)
-	{
-	case 1:
-		from = HOE_L8;
-		break;
-	case 3:
-		from = HOE_R8G8B8;
-		break;
-	default:
-		Con_Print("Error: JPEG format is not in 1 or 3 color components.");
-		return false;
-	};
-	HFConvert conv(m_width, from, m_format);
-	while (cinfo->output_scanline < m_height) {
-		byte * pd = conv.GetPointer(p + (pitch * cinfo->output_scanline));
-		jpeg_read_scanlines(cinfo, &pd, 1);
-		conv.Make();
-	}
-
-	jpeg_finish_decompress(cinfo);
-	jpeg_destroy_decompress(cinfo);
-	return true;
-}
-
-void TextureConverterJPG::Destroy()
-{
-	delete this;
-}
-
-//////////////////////////////////////////
-
-
-
-#endif
 
 
 

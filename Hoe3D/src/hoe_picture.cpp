@@ -3,17 +3,16 @@
 #include "ref.h"
 #include "utils.h"
 #include "camera.h"
-#include "texture_system.h"
+//#include "texture_system.h"
 //#include "2d.h"
-#include "hoe_format.h"
-#include "hoe_texture.h"
+//#include "hoe_texture.h"
 #include "hoe_picture.h"
 
 
 HoePicture::HoePicture()
 {
 	m_flags = 0;
-	m_tex = NULL;
+	//m_tex = NULL;
 	//texture = t;
 	//alpha = false;
 	//alpharef = 0;
@@ -53,12 +52,12 @@ void HoePicture::GetRect(THoeRect * rect) const
 
 unsigned int HoePicture::GetWidth() const
 {
-	return m_tex->GetWidth();
+	return 0;//m_tex->GetWidth();
 }
 
 unsigned int HoePicture::GetHeight() const
 {
-	return m_tex->GetHeight();
+	return 0;//m_tex->GetHeight();
 }
 
 /*int HoePicture::GetNumRECT()

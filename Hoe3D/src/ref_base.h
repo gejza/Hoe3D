@@ -12,6 +12,16 @@
 #include "../include/hoeinterfaces.h"
 #include <HoeCore/hoe_math.h>
 
+class RefSurfaceBase
+{
+public:
+	struct LockRect
+	{
+		byte * ptr;
+		dword pitch;
+	};
+};
+
 /** 
 * @brief Zakladni trida ref.
 */

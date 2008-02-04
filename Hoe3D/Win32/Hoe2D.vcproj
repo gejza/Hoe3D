@@ -204,6 +204,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\hoe_picture.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\icreate.h"
 				>
 			</File>

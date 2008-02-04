@@ -169,7 +169,6 @@ const tchar * RefDD::GetErrorString(HRESULT hRes)
 	return buff;
 }
 
-
 HOEFORMAT RefDD::GetFormat(DDPIXELFORMAT& pf)
 {
 #define IS_FS(r,g,b,a) (pf.dwRBitMask == r \
@@ -188,6 +187,62 @@ HOEFORMAT RefDD::GetFormat(DDPIXELFORMAT& pf)
 	return HOE_UNKNOWN;
 #undef IS_FS
 }
+
+bool RefDD::CreateSurface(RefSurface* surf, uint width, uint height)
+{
+	DDSURFACEDESC2 desc;
+	memset(&desc,0,sizeof(desc));
+	desc.dwSize = sizeof(desc);
+	desc.dwFlags = DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH | DDSD_PIXELFORMAT;
+    desc.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN;
+	desc.dwWidth = width;
+	desc.dwHeight = height;
+	desc.ddpfPixelFormat.dwSize = sizeof(DDPIXELFORMAT);
+	desc.ddpfPixelFormat.dwFlags = DDPF_RGB|DDPF_ALPHAPIXELS;
+	desc.ddpfPixelFormat.dwRGBBitCount = 16;
+	desc.ddpfPixelFormat.dwRBitMask = 0x00007c00;
+	desc.ddpfPixelFormat.dwGBitMask = 0x000003e0;
+	desc.ddpfPixelFormat.dwBBitMask = 0x0000001f;
+	desc.ddpfPixelFormat.dwRGBAlphaBitMask = 0x00008000;
+
+	// create surface srf w h
+	HRESULT hRes = m_pDD->CreateSurface(&desc,&surf->m_srf,0);
+	checkres(hRes,"IDirectDraw7::CreateSurface");
+	return true;
+}
+
+void RefDD::Blt(RefSurface& surf, const THoeRect * dest, const THoeRect * src, int method)
+{
+	RECT r;
+	if (src)
+	{
+		r.left = src->left;
+		r.top = src->top;
+		r.right = src->right;
+		r.bottom = src->bottom;
+	}
+	HRESULT hRes = m_pDDSBack->BltFast(dest->left,dest->top,surf.m_srf,src ? &r:0,DDBLTFAST_SRCCOLORKEY);
+	checkres(hRes, "IDirectDrawSurface7::BltFast");
+}
+
+///////////////////////////////
+bool RefSurface::Lock(LockRect* l)
+{
+	DDSURFACEDESC2 desc;
+	memset(&desc,0,sizeof(desc));
+    desc.dwSize = sizeof(desc);
+	HRESULT hRes = m_srf->Lock(NULL, &desc, DDLOCK_WRITEONLY|DDLOCK_WAIT, NULL);
+	checkres(hRes,"IDirectDrawSurface7::Lock");
+	l->ptr = (byte*)desc.lpSurface;
+	l->pitch = desc.lPitch;
+	return true;
+}
+
+void RefSurface::Unlock()
+{
+	m_srf->Unlock(NULL);
+}
+///////////////////////////////
 
 #if 0
 bool RefD3DM::Init(THoeInitSettings * his)

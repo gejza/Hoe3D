@@ -64,6 +64,10 @@ void concat(char* dest, size_t sizeb, const char* src);
 void concat(wchar_t* dest, size_t sizeb, wchar_t c);
 void concat(wchar_t* dest, size_t sizeb, const wchar_t* src);
 
+// matching func
+bool wmatch(const wchar_t* pattern, const wchar_t* str);
+bool wmatch(const char* pattern, const char* str);
+
 #ifdef ENABLE_AUTOCONV_FUNCTIONS
 int vsnprintf(char *, size_t, const wchar_t *, va_list);
 int vsnprintf(wchar_t *, size_t, const char *, va_list);
@@ -78,6 +82,9 @@ void concat(char* dest, size_t sizeb, wchar_t c);
 void concat(char* dest, size_t sizeb, const wchar_t* src);
 void concat(wchar_t* dest, size_t sizeb, char c);
 void concat(wchar_t* dest, size_t sizeb, const char* src);
+
+bool wmatch(const wchar_t* pattern, const char* str);
+bool wmatch(const char* pattern, const wchar_t* str);
 
 
 #endif // ENABLE_AUTOCONV_FUNCTIONS
@@ -225,6 +232,7 @@ public:
 	{
 		return string::find_last(GetPtr(), f);
 	}
+	bool wmatch(const char* pattern);
 
 #endif
 	// unicode section
@@ -253,6 +261,7 @@ public:
 		wchar_t src[2] = { c, 0 };
 		concat(src);
 	}
+	bool wmatch(const wchar_t* pattern);
 #endif
 
 	static String Empty;
