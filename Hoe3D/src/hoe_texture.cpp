@@ -3,7 +3,6 @@
 #include <assert.h>
 #include "utils.h"
 #include "ref.h"
-#include "hoe_format.h"
 #include "hoe_texture.h"
 
 HoeTexture::HoeTexture()
@@ -77,7 +76,7 @@ bool HoeTexture::BindData(byte * pix)
 		checkgl("glTexImage2D");
 		break;
 	default:
-		glTexImage2D(GL_TEXTURE_2D, 0, HoeFormatX(format), width, height, 0, (HoeFormatSizeAlpha(format) > 0) ? GL_RGBA:GL_RGB, GL_UNSIGNED_BYTE, pix);// Vlastní vytváøení textury
+		glTexImage2D(GL_TEXTURE_2D, 0, Ref::HoeFormatX(format), width, height, 0, (HoeFormatSizeAlpha(format) > 0) ? GL_RGBA:GL_RGB, GL_UNSIGNED_BYTE, pix);// Vlastní vytváøení textury
 		checkgl("glTexImage2D");
 		break;
 	}

@@ -3,7 +3,6 @@
 #include "shared.h"
 #include "utils.h"
 #include "ref.h"
-#include "hoe_format.h"
 
 const char * HoeFormatString(HOEFORMAT format)
 {

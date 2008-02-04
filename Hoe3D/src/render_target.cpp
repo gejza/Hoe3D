@@ -4,7 +4,6 @@
 #include "shared.h"
 #include "ref.h"
 #include "render_target.h"
-#include "hoe_format.h"
 #include "hoe_texture.h"
 #include "config.h"
 

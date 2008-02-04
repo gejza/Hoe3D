@@ -2,7 +2,6 @@
 #ifndef _HOE_TEXTURE_H_
 #define _HOE_TEXTURE_H_
 
-#include "hoe_format.h"
 #include "ref.h"
 
 class HoeLog;

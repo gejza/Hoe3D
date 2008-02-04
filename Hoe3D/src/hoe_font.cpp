@@ -5,7 +5,6 @@
 #include "ref.h"
 #include "config.h"
 #include "states.h"
-#include "hoe_format.h"
 #include "hoe_texture.h"
 #include "texture_system.h"
 #include "hoe_font.h"

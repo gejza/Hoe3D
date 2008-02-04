@@ -90,10 +90,6 @@ D3DFORMAT HoeFormatX(HOEFORMAT);
 HOEFORMAT HoeFormatX(D3DFORMAT);
 #endif // _HOE_D3D9_
 
-#ifdef _HOE_OPENGL_
-GLint HoeFormatX(HOEFORMAT);
-HOEFORMAT HoeFormatX(GLint);
-#endif // _HOE_OPENGL_
 
 #ifndef HOEFORMAT_ONLY_DEF
 

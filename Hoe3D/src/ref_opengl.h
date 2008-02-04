@@ -42,6 +42,15 @@ struct THoeInitSettings;
 
 typedef void (*GLPROCEDURE)(void);
 
+class RefSurface : public RefSurfaceBase
+{
+public:
+	bool Lock(LockRect* l);
+	void Unlock();
+
+	friend class RefOpenGL;
+};
+
 /**
 * @brief Trida s implementaci zakladnich vlastnosti <b>OpenGL</b>
 */
@@ -193,7 +202,12 @@ public:
 	*/
 	void Destroy();
 
+	bool CreateSurface(RefSurface* surf, uint width, uint height);
 
+	void Blt(RefSurface& surf, const THoeRect * dest, const THoeRect * src, int method);
+
+    static GLint HoeFormatX(HOEFORMAT);
+    static HOEFORMAT HoeFormatX(GLint);
 };
 
 #include "ref_opengl.inl"

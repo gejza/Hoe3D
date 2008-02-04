@@ -282,19 +282,19 @@ starCheck:
 	goto loopStart;
 }
 
-bool string::wmatch(const wchar_t* pattern, const wchar_t* str)
+bool wmatch(const wchar_t* pattern, const wchar_t* str)
 {
 	return wmatch<wchar_t, wchar_t>(pattern, str);
 }
-bool string::wmatch(const char* pattern, const char* str)
+bool wmatch(const char* pattern, const char* str)
 {
 	return wmatch<char, char>(pattern, str);
 }
-bool string::wmatch(const wchar_t* pattern, const char* str)
+bool wmatch(const wchar_t* pattern, const char* str)
 {
 	return wmatch<wchar_t, char>(pattern, str);
 }
-bool string::wmatch(const char* pattern, const wchar_t* str)
+bool wmatch(const char* pattern, const wchar_t* str)
 {
 	return wmatch<char, wchar_t>(pattern, str);
 }
