@@ -44,7 +44,6 @@ public:
 	void Render(const HoeScene * scene, float f, dword color) const ;
 	const HoeMath::BoundingBox3v & GetBound() const { return m_box; }
 
-	virtual bool HOEAPI GetParameter(const char * name, THoeParameter * parameter);
 	virtual IHoeModelModifier * HOEAPI GetModifier();
 
 	friend class ModelLoader;

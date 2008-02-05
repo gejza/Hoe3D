@@ -1,3 +1,6 @@
+
+#ifndef _HXRES_ERROR_H_
+#define _HXRES_ERROR_H_
 #pragma once
 
 #include "linker.h"
@@ -39,4 +42,8 @@ class InternalError : public Error
 public:
 	InternalError(const HoeCore::CString func);
 };
+
+
+#endif // _HXRES_ERROR_H_
+
 

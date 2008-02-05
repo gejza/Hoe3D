@@ -6,6 +6,26 @@
 using namespace HoeCore;
 using namespace HoeRes::Res;
 
+bool PInterface::AddProp(const HoeCore::CString name, const Value& value)
+{
+    throw UnknownError(name, "attribute");
+    return false;
+}
+
+bool PInterface::AddProp(const HoeCore::CString name, const Values& value)
+{
+    throw UnknownError(name, "attribute");
+    return false;
+}
+
+bool PInterface::Func(const HoeCore::CString name, 
+                  const HoeCore::CString ret,
+                  const Values& value)
+{
+    throw UnknownError(name, "function");
+    return false;
+}
+
 void no_run(const HoeCore::CString str)
 {
 	throw InternalError(str);
@@ -51,14 +71,12 @@ bool PictureCompiler::AddProp(const CString name, const Value& value)
         im.SetSource(value.GetStringValue());
 		return true;
 	}
-	else
-		throw UnknownError(name, "attribute");
-	return false;
+	return PInterface::AddProp(name, value);
 }
 
 bool PictureCompiler::AddProp(const HoeCore::CString name, const Values& value)
 {
-	return false;
+	return PInterface::AddProp(name, value);
 }
 
 void PictureCompiler::Done()

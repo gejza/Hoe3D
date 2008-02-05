@@ -16,15 +16,14 @@ public:
 
 typedef HoeCore::List<Value> Values;
 
-void no_run(const HoeCore::CString str);
-#define EMPTY_FUNC { no_run(__FUNCTION__); return false; }
-
 class PInterface
 {
 public:
-	virtual bool AddProp(const HoeCore::CString name, const Value& value) EMPTY_FUNC
-	virtual bool AddProp(const HoeCore::CString name, const Values& value) EMPTY_FUNC
-	virtual bool Func(const HoeCore::CString name, const Values& value) EMPTY_FUNC
+	virtual bool AddProp(const HoeCore::CString name, const Value& value);
+	virtual bool AddProp(const HoeCore::CString name, const Values& value);
+	virtual bool Func(const HoeCore::CString name, 
+                      const HoeCore::CString ret,
+                      const Values& value);
 
 	virtual void Done() {}
 };

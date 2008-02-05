@@ -58,21 +58,6 @@ void HoeModel::AddDefMaterial(HoeMaterial * mat)
 	m_mat[m_num_mat++] = mat;
 }
 
-bool HoeModel::GetParameter(const char * name, THoeParameter * par)
-{
-	assert(par);
-	if (strcmp("boundbox",name) == 0)
-	{
-		par->box.front = m_box.min.z;
-		par->box.back = m_box.max.z;
-		par->box.left = m_box.min.x;
-		par->box.right = m_box.max.x;
-		par->box.top = m_box.max.y;
-		par->box.bottom = m_box.min.y;
-		return true;
-	}
-	return false;
-}
 
 void HoeModel::Render(const HoeScene * scene, float f, dword color) const
 {
