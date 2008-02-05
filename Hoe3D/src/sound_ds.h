@@ -19,6 +19,18 @@
 
 #include <dsound.h>
 
+#ifdef _WIN32_WINNT
+typedef IDirectSound8 DirectSound;
+typedef IDirectSoundBuffer8 DirectSoundBuffer;
+typedef IDirectSound3DBuffer8 DirectSound3DBuffer;
+typedef IDirectSound3DListener8 DirectSound3DListener;
+#else
+typedef IDirectSound DirectSound;
+typedef IDirectSoundBuffer DirectSoundBuffer;
+typedef IDirectSound3DBuffer DirectSound3DBuffer;
+typedef IDirectSound3DListener DirectSound3DListener;
+#endif
+
 struct THoeInitSettings;
 
 /**
@@ -27,8 +39,8 @@ struct THoeInitSettings;
 
 class HoeDSBuffer
 {
-	IDirectSoundBuffer8 * m_buffer;
-	IDirectSound3DBuffer8 * m_3d; /**< DS buffer */
+	DirectSoundBuffer * m_buffer;
+	DirectSound3DBuffer * m_3d; /**< DS buffer */
  	LPVOID lpvWrite;
 	DWORD  dwLength;
 public:
@@ -47,8 +59,8 @@ public:
 	bool Create(int channels, int freq, int byts, long samples, bool ctrl3D);
 	byte * Lock();
 	void Unlock();
-	IDirectSoundBuffer8 * GetHandle() { return m_buffer; }
-	IDirectSound3DBuffer8 * GetHandle3D() { return m_3d; }
+	DirectSoundBuffer * GetHandle() { return m_buffer; }
+	DirectSound3DBuffer * GetHandle3D() { return m_3d; }
 };
 
 /**
@@ -80,8 +92,8 @@ public:
 
 class SoundSystemDS
 {
-	LPDIRECTSOUND8 m_pDS; /**< DirectSound objekt */
-	IDirectSound3DListener8 * m_listener;
+	DirectSound* m_pDS; /**< DirectSound objekt */
+	DirectSound3DListener * m_listener;
 public:
 	/** Konstruktor */
 	SoundSystemDS();
@@ -92,8 +104,8 @@ public:
 	 */
 	bool Init(THoeInitSettings *);
 
-	LPDIRECTSOUND8 GetHandle() { return m_pDS; }
-	IDirectSound3DListener8 * GetListener() { return m_listener; }
+	DirectSound* GetHandle() { return m_pDS; }
+	DirectSound3DListener* GetListener() { return m_listener; }
 	/** 
 	 * Uvolni z pameti vsechny zarizeni
 	 */

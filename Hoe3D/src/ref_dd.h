@@ -18,10 +18,20 @@
 
 struct THoeInitSettings;
 
+#ifdef _WIN32_WCE
+typedef IDirectDrawSurface DirectDrawSurface;
+typedef IDirectDraw DirectDraw;
+typedef DDSURFACEDESC DDSurfaceDesc;
+#else
+typedef IDirectDrawSurface7 DirectDrawSurface;
+typedef IDirectDraw7 DirectDraw;
+typedef DDSURFACEDESC2 DDSurfaceDesc;
+#endif
+
 class RefSurface : public RefSurfaceBase
 {
 public:
-	LPDIRECTDRAWSURFACE7 m_srf; 
+	DirectDrawSurface* m_srf; 
 	bool Lock(LockRect* l);
 	void Unlock();
 
@@ -35,9 +45,9 @@ class RefDD : public RefBase
 {
 protected:
 	HWND m_hWnd;  ///< Handle na okno
-	LPDIRECTDRAW7	m_pDD;        // DirectDraw object
-	LPDIRECTDRAWSURFACE7 m_pDDSPrimary;// DirectDraw primary surface
-	LPDIRECTDRAWSURFACE7 m_pDDSBack;   // DirectDraw back surface
+	DirectDraw*	m_pDD;        // DirectDraw object
+	DirectDrawSurface* m_pDDSPrimary;// DirectDraw primary surface
+	DirectDrawSurface* m_pDDSBack;   // DirectDraw back surface
 	int m_width;
 	int m_height;
 public:
@@ -64,8 +74,8 @@ public:
 	*/
 	void End();
 
-	LPDIRECTDRAW7 GetDD() { return m_pDD; } 
-	LPDIRECTDRAWSURFACE7 GetSurface() { return m_pDDSBack; }
+	DirectDraw* GetDD() { return m_pDD; } 
+	DirectDrawSurface* GetSurface() { return m_pDDSBack; }
 	/**
 	* Vymazani bufferu
 	* @param target Smaze target buffer

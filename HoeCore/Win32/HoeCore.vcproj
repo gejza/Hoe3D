@@ -280,6 +280,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
+				OutputFile="$(HoeOutputLib)\$(ProjectName)_u$(DebugPostfix).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -334,6 +335,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
+				OutputFile="$(HoeOutputLib)\$(ProjectName)_u$(DebugPostfix).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -584,11 +586,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\HoeCore\hoe_core.h"
+				RelativePath="..\include\hoe_core.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_core.h"
+				RelativePath="..\include\HoeCore\hoe_core.h"
 				>
 			</File>
 			<File

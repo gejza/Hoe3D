@@ -158,6 +158,14 @@ struct fixed
 	{
 		return n >> fxbits;
 	}
+	operator long () const
+	{
+		return n >> fxbits;
+	}
+	operator unsigned long () const
+	{
+		return n >> fxbits;
+	}
 };
 
 inline fixed operator * (const float a, const fixed& n)

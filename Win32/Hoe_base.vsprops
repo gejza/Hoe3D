@@ -31,10 +31,6 @@
 		Value="$(SolutionDir)\bin_tools\$(HoePlat)"
 	/>
 	<UserMacro
-		Name="UnicodePostfix"
-		Value=""
-	/>
-	<UserMacro
 		Name="HoeOutputPdb"
 		Value="$(SolutionDir)\pdb"
 	/>

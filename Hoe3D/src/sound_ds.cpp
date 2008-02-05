@@ -16,7 +16,7 @@ SoundSystemDS::SoundSystemDS()
 bool SoundSystemDS::Init(THoeInitSettings * his)
 {
 	HRESULT hRes;
-
+#ifndef _WIN32_WCE
 	// Create IDirectSound using the primary sound device
     hRes = DirectSoundCreate8( NULL, &m_pDS, NULL );
 	checkres(hRes,"DirectSoundCreate8");
@@ -44,7 +44,7 @@ bool SoundSystemDS::Init(THoeInitSettings * his)
     SAFE_RELEASE( pDSBPrimary );
 
 	Con_Print(T("DirectSoundCreate8 OK"));
-
+#endif
 	return true;
 }
 
@@ -63,15 +63,18 @@ HoeDSBuffer::HoeDSBuffer()
 HoeDSBuffer::~HoeDSBuffer()
 {
 	SAFE_RELEASE(m_buffer);
+#ifndef _WIN32_WCE
 	SAFE_RELEASE(m_3d);
+#endif
 }
 
 bool HoeDSBuffer::Create(int channels, int freq, int byts, long samples, bool ctrl3D)
 {
+  HRESULT hr; 
+#ifndef _WIN32_WCE
 	WAVEFORMATEX wfx; 
   DSBUFFERDESC dsbdesc; 
   LPDIRECTSOUNDBUFFER pDsb = NULL;
-  HRESULT hr; 
  
   // Set up WAV format structure. 
 
@@ -105,7 +108,7 @@ bool HoeDSBuffer::Create(int channels, int freq, int byts, long samples, bool ct
      pDsb->Release();
 	  //m_buffer = pDsb;
   } 
-  
+#endif
   return SUCCEEDED(hr);
 
 }
@@ -133,6 +136,7 @@ void HoeDSBuffer::Unlock()
       0);         // No wraparound size.
 
 m_buffer->SetCurrentPosition(0);
+#ifndef _WIN32_WCE
 if (m_3d)
 {
 	m_3d->SetMaxDistance(100.f, DS3D_IMMEDIATE);
@@ -144,6 +148,7 @@ HRESULT hr = m_buffer->Play(
 	
 	assert(SUCCEEDED(hr));
 }
+#endif
 
 }
 

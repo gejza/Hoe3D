@@ -57,7 +57,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\HoeResource\include;..\..\HoeCore\include"
-				PreprocessorDefinitions="_USE_DD_;HOE2D;"
+				PreprocessorDefinitions="_USE_DD_;HOE2D;HOE_STATIC_ENGINE"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -126,7 +126,7 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				AdditionalIncludeDirectories="..\..\HoeResource\include;..\..\HoeCore\include"
-				PreprocessorDefinitions="_USE_DD_;HOE2D;"
+				PreprocessorDefinitions="_USE_DD_;HOE2D;HOE_STATIC_ENGINE"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -139,7 +139,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(HoeOutputLib)\Hoe2D_DD$(UnicodePostfix)$(DebugPostfix).lib"
+				OutputFile="$(HoeOutputLib)\Hoe2D_DD_u$(DebugPostfix).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -202,7 +202,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\HoeResource\include;..\..\HoeCore\include"
-				PreprocessorDefinitions="_USE_DD_;HOE2D"
+				PreprocessorDefinitions="_USE_DD_;HOE2D;HOE_STATIC_ENGINE"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -272,7 +272,7 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				AdditionalIncludeDirectories="..\..\HoeResource\include;..\..\HoeCore\include"
-				PreprocessorDefinitions="_USE_DD_;HOE2D"
+				PreprocessorDefinitions="_USE_DD_;HOE2D;HOE_STATIC_ENGINE"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
