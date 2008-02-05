@@ -12,8 +12,10 @@ HoeRes::LinkedFile::LinkedFile(int n, const tchar* filename)
 
 HoeRes::LinkedFile::~LinkedFile()
 {
+#ifdef _WIN32_WINNT
 	if (m_g != INVALID_HANDLE_VALUE)
 		FreeResource(m_g);
+#endif
 }
 
 byte * HoeRes::LinkedFile::Get(HINSTANCE inst)

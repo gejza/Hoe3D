@@ -2,12 +2,19 @@
 <VisualStudioPropertySheet
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="Hoe Windows Mobile Platform"
-	OutputDirectory="../../Bin_ce/"
+	Name="Hoe Win32 Platform"
 	InheritedPropertySheets=".\Hoe_base.vsprops"
 	>
 	<Tool
 		Name="VCCLCompilerTool"
-		PreprocessorDefinitions="_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;$(ARCHFAM);$(_ARCHFAM_);_WINCE"
+		PreprocessorDefinitions="_WIN32_WINNT=0x0500"
+	/>
+	<Tool
+		Name="VCLinkerTool"
+		AdditionalLibraryDirectories="../../bin"
+	/>
+	<UserMacro
+		Name="HoePlat"
+		Value="x86"
 	/>
 </VisualStudioPropertySheet>

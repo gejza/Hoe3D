@@ -2,10 +2,10 @@
 <VisualStudioPropertySheet
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="Hoe Release"
+	Name="Hoe Tool"
 	>
 	<Tool
-		Name="VCCLCompilerTool"
-		PreprocessorDefinitions="NODEBUG;RELEASE;_NODEBUG;_RELEASE"
+		Name="VCLinkerTool"
+		OutputFile="$(HoeOutputTool)\$(ProjectName)$(UnicodePostfix)$(DebugPostfix).exe"
 	/>
 </VisualStudioPropertySheet>

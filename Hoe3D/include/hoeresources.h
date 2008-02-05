@@ -69,7 +69,6 @@ public:
 class IHoeModel : public IHoeResource
 {
 public:
-	virtual bool HOEAPI GetParameter(const char * name, THoeParameter * parameter) = 0;
 	virtual IHoeModelModifier * HOEAPI GetModifier() = 0;
 };
 

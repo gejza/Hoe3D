@@ -12,8 +12,10 @@ namespace string {
 int vsnprintf(char *dest, size_t n, const char * fmt, va_list vl)
 {
     int ret;
-#ifdef _WIN32
+#if defined _WIN32_WINNT
 	ret = ::vsnprintf_s(dest, n, n-1, fmt, vl);
+#elif defined _WIN32_WCE
+	ret = ::_vsnprintf(dest, n, fmt, vl);
 #else
 	ret = ::vsnprintf(dest, n, fmt, vl);
 #endif
@@ -62,8 +64,10 @@ int vsnprintf(char* dest, size_t n, const wchar_t *fmt, va_list vl)
 
 int vsnprintf(wchar_t* dest, size_t n, const wchar_t* fmt, va_list vl)
 {
-#ifdef _WIN32
+#if defined _WIN32_WINNT
 	return ::vswprintf_s(dest, n, fmt, vl);
+#elif defined _WIN32_WCE
+	return ::_vsnwprintf(dest, n, fmt, vl);
 #else
 	return ::vswprintf(dest, n, fmt, vl);
 #endif

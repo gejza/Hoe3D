@@ -20,9 +20,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
+			InheritedPropertySheets="..\..\Win32\Hoe_win32.vsprops;..\..\Win32\Hoe_debug.vsprops;..\..\Win32\Hoe_tool.vsprops"
 			CharacterSet="0"
 			>
 			<Tool
@@ -54,16 +53,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="0"
 				AdditionalIncludeDirectories="..\..\HoeResource\include;..\..\HoeCore\include;..\..\HoeUtils\include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				UsePrecompiledHeader="1"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="4"
+				PreprocessorDefinitions="_CONSOLE"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -77,11 +68,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="HoeResource_d.lib HoeUtils_d.lib HoeCore_d.lib"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\bin"
-				GenerateDebugInformation="true"
-				SubSystem="1"
-				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -110,9 +96,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
+			InheritedPropertySheets="..\..\Win32\Hoe_win32.vsprops;..\..\Win32\Hoe_release.vsprops;..\..\Win32\Hoe_tool.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="1"
 			>
@@ -146,12 +131,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\HoeResource\include;..\..\HoeCore\include;..\..\HoeUtils\include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
-				RuntimeLibrary="2"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="3"
+				PreprocessorDefinitions="_CONSOLE"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -165,12 +145,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="HoeResource.lib HoeUtils.lib HoeCore.lib"
-				LinkIncremental="1"
-				GenerateDebugInformation="true"
-				SubSystem="1"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
-				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"

@@ -249,7 +249,7 @@ HoeCore::ReadStream* HoeCore::FileReader::CreateReader(size_t pos)
 // file utils
 bool HoeCore::SetRootDir(const tchar * dir)
 {
-#ifdef _WIN32
+#ifdef _WIN32_WINNT
 	return (SetCurrentDirectory(dir) != FALSE);
 #endif
 #ifdef _LINUX

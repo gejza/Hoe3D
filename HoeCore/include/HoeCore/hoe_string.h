@@ -3,6 +3,13 @@
 #define _HOE_STRING_H_
 
 #define ENABLE_AUTOCONV_FUNCTIONS 1
+#ifndef _WIN32_WCE
+#define ENABLE_UTF8_FUNCTIONS 0
+#define ENABLE_WCHAR_FUNCTIONS 0
+#else
+#define ENABLE_UTF8_FUNCTIONS 1
+#define ENABLE_WCHAR_FUNCTIONS 1
+#endif
 ////////////////////////////////
 // string class
 namespace HoeCore {

@@ -11,6 +11,9 @@
 		<Platform
 			Name="Win32"
 		/>
+		<Platform
+			Name="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+		/>
 	</Platforms>
 	<ToolFiles>
 		<ToolFile
@@ -20,10 +23,8 @@
 	<Configurations>
 		<Configuration
 			Name="DD Unicode Static Debug|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets=".\Hoe_debug.vsprops;.\Hoe_lib.vsprops;.\Hoe_win32.vsprops;.\Hoe_unicode.vsprops;.\Hoe_base.vsprops"
+			InheritedPropertySheets="..\..\Win32\Hoe_win32.vsprops;..\..\Win32\Hoe_debug.vsprops;..\..\Win32\Hoe_unicode.vsprops"
 			CharacterSet="1"
 			>
 			<Tool
@@ -55,15 +56,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USE_DD_;HOE2D;"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="4"
+				AdditionalIncludeDirectories="..\..\HoeResource\include;..\..\HoeCore\include"
+				PreprocessorDefinitions="_USE_DD_;HOE2D;"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -76,7 +70,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(HoeOutputDir)\Hoe2D_DD$(UnicodePostfix)$(DebugPostfix).lib"
+				OutputFile="$(HoeOutputLib)\Hoe2D_DD$(UnicodePostfix)$(DebugPostfix).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -95,11 +89,86 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="DD Unicode Static Release|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			Name="DD Unicode Static Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 			ConfigurationType="4"
-			InheritedPropertySheets=".\Hoe_base.vsprops;.\Hoe_lib.vsprops;.\Hoe_release.vsprops;.\Hoe_unicode.vsprops;.\Hoe_win32.vsprops"
+			InheritedPropertySheets="..\..\Win32\Hoe_mobile.vsprops;..\..\Win32\Hoe_debug.vsprops;..\..\Win32\Hoe_unicode.vsprops"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="1"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				ExecutionBucket="7"
+				AdditionalIncludeDirectories="..\..\HoeResource\include;..\..\HoeCore\include"
+				PreprocessorDefinitions="_USE_DD_;HOE2D;"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(HoeOutputLib)\Hoe2D_DD$(UnicodePostfix)$(DebugPostfix).lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCCodeSignTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+			<DeploymentTool
+				ForceDirty="-1"
+				RemoteDirectory=""
+				RegisterOutput="0"
+				AdditionalFiles=""
+			/>
+			<DebuggerTool
+			/>
+		</Configuration>
+		<Configuration
+			Name="DD Unicode Static Release|Win32"
+			ConfigurationType="4"
+			InheritedPropertySheets="..\..\Win32\Hoe_win32.vsprops;..\..\Win32\Hoe_release.vsprops;..\..\Win32\Hoe_unicode.vsprops"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
 			>
@@ -132,12 +201,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USE_DD_;HOE2D"
-				RuntimeLibrary="2"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="3"
+				AdditionalIncludeDirectories="..\..\HoeResource\include;..\..\HoeCore\include"
+				PreprocessorDefinitions="_USE_DD_;HOE2D"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -150,7 +215,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(HoeOutputDir)\Hoe2D_DD$(UnicodePostfix)$(DebugPostfix).lib"
+				OutputFile="$(HoeOutputLib)\Hoe2D_DD$(UnicodePostfix)$(DebugPostfix).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -166,6 +231,84 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="DD Unicode Static Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+			ConfigurationType="4"
+			InheritedPropertySheets="..\..\Win32\Hoe_mobile.vsprops;..\..\Win32\Hoe_release.vsprops;..\..\Win32\Hoe_unicode.vsprops"
+			CharacterSet="1"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="1"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				ExecutionBucket="7"
+				AdditionalIncludeDirectories="..\..\HoeResource\include;..\..\HoeCore\include"
+				PreprocessorDefinitions="_USE_DD_;HOE2D"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(HoeOutputLib)\Hoe2D_DD$(UnicodePostfix)$(DebugPostfix).lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCCodeSignTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+			<DeploymentTool
+				ForceDirty="-1"
+				RemoteDirectory=""
+				RegisterOutput="0"
+				AdditionalFiles=""
+			/>
+			<DebuggerTool
 			/>
 		</Configuration>
 	</Configurations>
@@ -221,6 +364,40 @@
 						Name="Flex"
 						Unicode="true"
 						Skeleton="..\..\HoeCore\template\hoe_flex.skl"
+						Output="$(InputDir)\$(InputName).yyu.cpp"
+						dep="..\..\HoeCore\template\hoe_flex.skl"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DD Unicode Static Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="Flex"
+						Unicode="true"
+						Skeleton="..\..\HoeCore\template\hoe_flex.skl"
+						Output="$(InputDir)\$(InputName).yyu.cpp"
+						dep="..\..\HoeCore\template\hoe_flex.skl"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DD Unicode Static Release|Win32"
+					>
+					<Tool
+						Name="Flex"
+						Unicode="true"
+						Skeleton="..\..\HoeCore\template\hoe_flex.skl"
+						Output="$(InputDir)\$(InputName).yyu.cpp"
+						dep="..\..\HoeCore\template\hoe_flex.skl"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DD Unicode Static Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="Flex"
+						Unicode="true"
+						Skeleton="..\..\HoeCore\template\hoe_flex.skl"
+						Output="$(InputDir)\$(InputName).yyu.cpp"
 						dep="..\..\HoeCore\template\hoe_flex.skl"
 					/>
 				</FileConfiguration>
@@ -265,8 +442,40 @@
 				Name="Generated"
 				>
 				<File
-					RelativePath="..\src\icreate_parser.yy.cpp"
+					RelativePath="..\src\icreate_parser.yyu.cpp"
 					>
+					<FileConfiguration
+						Name="DD Unicode Static Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="0"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DD Unicode Static Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="0"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DD Unicode Static Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="0"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DD Unicode Static Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="0"
+						/>
+					</FileConfiguration>
 				</File>
 			</Filter>
 		</Filter>

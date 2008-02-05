@@ -2,14 +2,15 @@
 <VisualStudioPropertySheet
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="Base settings for Hoe"
+	Name="Hoe Release"
 	>
 	<Tool
 		Name="VCCLCompilerTool"
-		AdditionalIncludeDirectories="../../HoeCore/include/"
+		Optimization="2"
+		PreprocessorDefinitions="NODEBUG;RELEASE;_NODEBUG;_RELEASE"
 	/>
 	<UserMacro
-		Name="HoeOutputDir"
-		Value="..\..\bin"
+		Name="DebugPostfix"
+		Value=""
 	/>
 </VisualStudioPropertySheet>

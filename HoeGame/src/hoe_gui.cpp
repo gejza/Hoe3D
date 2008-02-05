@@ -476,7 +476,7 @@ void Button::Draw2(IHoe2D * h2d)
 	}
 }
 
-void Button::Move(const float x, const float y, bool & act)
+void Button::Move(const vfloat x, const vfloat y, bool & act)
 {
 	if (!act && m_show && m_rect.left <= x && m_rect.right >= x && m_rect.top <= y && m_rect.bottom >= y)
 	{
@@ -492,7 +492,7 @@ void Button::Move(const float x, const float y, bool & act)
 	}
 }
 
-bool Button::Click(const float x, const float y)
+bool Button::Click(const vfloat x, const vfloat y)
 {
 	if (m_show && m_rect.left <= x && m_rect.right >= x && m_rect.top <= y && m_rect.bottom >= y)
 	{

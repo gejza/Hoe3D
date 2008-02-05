@@ -87,11 +87,9 @@ typedef unsigned long long uint64;
 
 #ifdef __cplusplus
 
-namespace HoeMath {
-struct fixed;
-}; // namespace HoeMath
-
 #ifdef _WIN32_WCE
+#include "hoe_fixed.h"
+
 typedef HoeMath::fixed vfloat;
 typedef HoeMath::fixed vdouble;
 #else
@@ -128,14 +126,6 @@ struct THoeBox
 	vfloat bottom;
 	vfloat front;
 	vfloat back;
-};
-
-struct THoeParameter
-{
-	union {
-		THoeBox box;
-		THoeRect Rect;
-	};
 };
 
 #endif

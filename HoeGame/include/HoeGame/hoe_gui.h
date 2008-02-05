@@ -101,7 +101,7 @@ class InfoPanel : public Item
 	struct Info
 	{
 		bool visible;
-		float y;
+		vfloat y;
 		float totime;
 		HoeCore::String_s<512> info;
 		static int comp(const void *,const void *);
@@ -147,8 +147,8 @@ public:
 	virtual void Draw2(IHoe2D * h2d);
 	virtual void OnClick();
 	virtual void OnActivate(bool active);
-	void Move(const float x, const float y, bool & act);
-	bool Click(const float x, const float y);
+	void Move(const vfloat x, const vfloat y, bool & act);
+	bool Click(const vfloat x, const vfloat y);
 	void SetToolTipFont(IHoeFont * fnt);
 	void SetToolTip(const tchar * tt);
 	void SetID(int id) { m_id = id; }

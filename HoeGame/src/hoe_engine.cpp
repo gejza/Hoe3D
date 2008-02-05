@@ -65,8 +65,11 @@ bool HoeEngineDLL::Load(Console * con, HoeRes::XResourceMgr * fs, int sdkver)
 		return false;
 	}
 
+#ifdef _WIN32_WINNT
 	GetEngineInterface = (HOE_FUNCCREATE)GetProcAddress(m_lib,"_CreateHoeEngine@24");
-	if (!GetEngineInterface)
+#else
+	GetEngineInterface = (HOE_FUNCCREATE)GetProcAddress(m_lib,T("_CreateHoeEngine@24"));
+#endif	if (!GetEngineInterface)
 	{
 		con->Printf(T("Nelze ziskat export knihovny."));
 		return false;

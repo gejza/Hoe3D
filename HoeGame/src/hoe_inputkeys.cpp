@@ -1,4 +1,5 @@
 
+#include "StdAfx.h"
 #include "../include/HoeGame/hoe_inputkeys.h"
 
 #ifndef NULL
