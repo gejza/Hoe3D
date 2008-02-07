@@ -127,6 +127,7 @@
 				ExecutionBucket="7"
 				AdditionalIncludeDirectories="..\..\HoeResource\include;..\..\HoeCore\include"
 				PreprocessorDefinitions="_USE_DD_;HOE2D;HOE_STATIC_ENGINE"
+				RuntimeTypeInfo="true"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -348,6 +349,10 @@
 			</File>
 			<File
 				RelativePath="..\src\hoe_picture.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\hoe_time.cpp"
 				>
 			</File>
 			<File

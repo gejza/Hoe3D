@@ -24,7 +24,7 @@ bool time_initQPC()
     if( g_useQPC )
 	{
 		g_time_QPFTicksPerSec = qwTicksPerSec.QuadPart;
-		Con_Print("High-resolution timer init.");
+		Con_Print(T("High-resolution timer init."));
 	}
 	return g_useQPC;
 }

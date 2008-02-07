@@ -8,6 +8,11 @@
 	<Tool
 		Name="VCCLCompilerTool"
 		PreprocessorDefinitions="_WIN32_WCE;UNDER_CE;$(PLATFORMDEFINES);WINCE;$(ARCHFAM);$(_ARCHFAM_);_WINCE"
+		BufferSecurityCheck="false"
+	/>
+	<Tool
+		Name="VCLinkerTool"
+		TargetMachine="3"
 	/>
 	<UserMacro
 		Name="HoePlat"

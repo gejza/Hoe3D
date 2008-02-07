@@ -7,6 +7,7 @@
 #include "../include/hoefs.h"
 #include "icreate.h"
 #include "hoe_picture.h"
+#include "hoe_input.h"
 
 /** Init funkce */
 bool HOEAPI Hoe2DEngine::Init(THoeInitSettings * his)
@@ -71,7 +72,16 @@ IHoeInterface * HOEAPI Hoe2DEngine::Create(const tchar * cmd)
 /** Funkce pro pristup k systemum hoe */
 IHoeSystem * HOEAPI Hoe2DEngine::GetSystem(HOESYSTEMS sys)
 {
-	return 0;
+	switch (sys)
+	{
+	case HOE_SYS_REF:
+		return ::GetRef();
+	case HOE_SYS_INPUT:
+		return (IsInputLoaded()) ? ::GetInput():NULL;
+	default:
+		Con_Print(T("error get system %d"),sys);
+		return NULL;
+	};
 }
 
 /** Vypocita kolize a input */
@@ -138,6 +148,8 @@ void HOEAPI Hoe2DEngine::Destroy()
 /** Metoda pro vstup pøes okenní zprávy. */
 LRESULT CALLBACK HOEAPI Hoe2DEngine::WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	if (IsInputLoaded())
+		return ::GetInput()->WndProc(hwnd, message, wParam, lParam);
 	return 0;
 }
 

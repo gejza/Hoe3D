@@ -29,7 +29,34 @@ RefDD::RefDD()
 	//	i=i;
 	//}
 #endif
+#ifdef _WIN32_WCE
+	//m_pD3D = Direct3DMobileCreate( D3DM_SDK_VERSION );
+    HRESULT hRes = DirectDrawCreate(NULL, &m_pDD, NULL);
+	checkres(hRes, "DirectDrawCreate");
+#endif
 }
+
+static HRESULT PASCAL
+EnumFunction(LPDIRECTDRAWSURFACE pSurface,
+             LPDDSURFACEDESC lpSurfaceDesc,
+             LPVOID  lpContext)
+{
+    static BOOL bCalled = FALSE;
+
+    if (!bCalled) {
+
+        *((LPDIRECTDRAWSURFACE *)lpContext) = pSurface;
+        bCalled = TRUE;
+        return DDENUMRET_OK;
+    }
+    else {
+
+        OutputDebugString(L"DDEX1: Enumerated more than surface?");
+        pSurface->Release();
+        return DDENUMRET_CANCEL;
+    }
+}
+
 
 bool RefDD::Init(THoeInitSettings * his)
 {
@@ -37,6 +64,7 @@ bool RefDD::Init(THoeInitSettings * his)
     // Create the main DirectDraw object
     ///////////////////////////////////////////////////////////////////////////
 	HRESULT hRes;
+	DDSurfaceDesc ddsd;
 	m_hWnd = his->win;
 	
 	m_Fullscreen = GetConfig()->IsFullscreen();
@@ -44,6 +72,7 @@ bool RefDD::Init(THoeInitSettings * his)
 	m_Height = GetConfig()->GetHeightView();
 
     // Get exclusive mode
+#if 0
     hRes = m_pDD->SetCooperativeLevel(m_hWnd, DDSCL_NORMAL/*DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN*/);
 	checkres(hRes, "SetCooperativeLevel");
 
@@ -52,7 +81,6 @@ bool RefDD::Init(THoeInitSettings * his)
     checkres(hRes, "SetDisplayMode");
 	*/
     // Create the primary surface with 1 back buffer
-	DDSurfaceDesc ddsd;
     ZeroMemory(&ddsd, sizeof(ddsd));
     ddsd.dwSize = sizeof(ddsd);
     ddsd.dwFlags = DDSD_CAPS/* | DDSD_BACKBUFFERCOUNT*/;
@@ -62,7 +90,6 @@ bool RefDD::Init(THoeInitSettings * his)
     hRes = m_pDD->CreateSurface(&ddsd, &m_pDDSPrimary, NULL);
     checkres(hRes, "CreateSurface");
 
-#if 0
 	// Create a clipper object since this is for a Windowed render
 	LPDIRECTDRAWCLIPPER pClipper;
     hRes = m_pDD->CreateClipper(0, &pClipper, NULL);
@@ -84,12 +111,62 @@ bool RefDD::Init(THoeInitSettings * his)
     checkres(hRes, "CreateSurface");
 #endif
 
+#ifdef _WIN32_WCE
+// Get exclusive mode
+    hRes = m_pDD->SetCooperativeLevel(m_hWnd, DDSCL_FULLSCREEN);
+	checkres(hRes, "SetCooperativeLevel");
+    DDCAPS ddCaps;
+    DDCAPS ddHelCaps;
+
+    m_pDD->GetCaps(&ddCaps, &ddHelCaps);
+    m_usebb = (bool)(ddCaps.ddsCaps.dwCaps & DDSCAPS_BACKBUFFER);
+	m_useflip = (bool)(ddCaps.ddsCaps.dwCaps & DDSCAPS_FLIP); 
+
+    // Create the primary surface with 1 back buffer
+    memset(&ddsd, 0, sizeof(ddsd));
+    ddsd.dwSize = sizeof(ddsd);
+    ddsd.dwFlags = DDSD_CAPS;;
+    ddsd.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE;;
+	if (m_usebb)
+	{
+		ddsd.dwFlags |= DDSD_BACKBUFFERCOUNT;
+		ddsd.dwBackBufferCount = 1;
+	}
+	if (m_useflip)
+	{
+		ddsd.ddsCaps.dwCaps |= DDSCAPS_FLIP;
+	}
+    hRes = m_pDD->CreateSurface(&ddsd, &m_pDDSPrimary, NULL);
+	checkres(hRes, "CreateSurface");
+    // Get a pointer to the back buffer
+	if (m_usebb)
+	{
+		hRes = m_pDDSPrimary->EnumAttachedSurfaces(&m_pDDSBack, EnumFunction);
+		checkres(hRes, "EnumAttachedSurfaces");
+	}
+	else
+	{
+		DDSurfaceDesc desc;
+		memset(&desc,0,sizeof(desc));
+		desc.dwSize = sizeof(desc);
+		desc.dwFlags = DDSD_HEIGHT | DDSD_WIDTH;
+		desc.dwWidth = 480;
+		desc.dwHeight = 640;
+		// create surface srf w h
+		hRes = m_pDD->CreateSurface(&desc,&m_pDDSBack,0);
+		checkres(hRes,"IDirectDraw::CreateSurface");
+
+	}
+#endif
+
+
+
 	return true;
 }
 
 bool RefDD::Begin()
 {
-	DDBLTFX fx;
+	/*DDBLTFX fx;
 	memset(&fx,0, sizeof(fx));
 	fx.dwSize = sizeof(fx);
 	fx.dwFillColor = 0x00ff;
@@ -98,7 +175,7 @@ bool RefDD::Begin()
 	rect.bottom = 480;
 	rect.right = 640;
 	HRESULT hRes = m_pDDSBack->Blt(&rect, NULL, NULL, DDBLT_COLORFILL,&fx);
-	checkres(hRes, "Blt");
+	checkres(hRes, "Blt");*/
 	return true;
 }
 
@@ -127,12 +204,22 @@ void RefDD::End()
 
 	SetBkColor( hdc, RGB( 0, 0, 255 ) );
 	SetTextColor( hdc, RGB( 255, 255, 0 ) );
-#if 0
-	TextOut( hdc, 10, 10, aaa, HoeCore::string::len(aaa));
-#endif
+ExtTextOut(hdc, 
+               10, 
+               10,
+               0,                        // fuOptions
+               NULL,                     // lprc
+               aaa, 
+               HoeCore::string::len(aaa),
+               NULL);                    // lpDx
+
 	m_pDDSBack->ReleaseDC(hdc);
-	hRes = m_pDDSPrimary->Blt(&g_rcScreen, m_pDDSBack,
-       &g_rcViewport, 0, NULL);
+    DDBLTFX                     ddbltfx;
+    memset(&ddbltfx, 0, sizeof(ddbltfx));
+    ddbltfx.dwSize = sizeof(ddbltfx);
+    ddbltfx.dwROP = SRCCOPY;
+	hRes = m_pDDSPrimary->Blt(NULL, m_pDDSBack,
+       NULL, DDBLT_ROP, &ddbltfx);
 	checkres(hRes, "Primary::Blt");
 
 }
@@ -164,6 +251,57 @@ const tchar * RefDD::GetErrorString(HRESULT hRes)
 	CASE_ERR(DDERR_OUTOFVIDEOMEMORY  )
 	CASE_ERR(DDERR_PRIMARYSURFACEALREADYEXISTS  )
 	CASE_ERR(DDERR_CURRENTLYNOTAVAIL)
+	CASE_ERR(DDERR_GENERIC)
+	CASE_ERR(DDERR_HEIGHTALIGN			        )
+	CASE_ERR(DDERR_INVALIDCLIPLIST			    )
+	CASE_ERR(DDERR_INVALIDMODE			        )
+	CASE_ERR(DDERR_INVALIDRECT			        )
+	CASE_ERR(DDERR_LOCKEDSURFACES			    )
+	CASE_ERR(DDERR_NOCLIPLIST			        )
+	CASE_ERR(DDERR_NOCOLORCONVHW			        )
+	CASE_ERR(DDERR_NOCOLORKEYHW			        )
+	CASE_ERR(DDERR_NOTFOUND				        )
+	CASE_ERR(DDERR_OVERLAPPINGRECTS			    )
+	CASE_ERR(DDERR_NORASTEROPHW			        )
+	CASE_ERR(DDERR_NOSTRETCHHW			        )
+	CASE_ERR(DDERR_NOVSYNCHW				        )
+	CASE_ERR(DDERR_NOZOVERLAYHW			        )
+	CASE_ERR(DDERR_OUTOFCAPS				        )
+	CASE_ERR(DDERR_PALETTEBUSY			        )
+	CASE_ERR(DDERR_COLORKEYNOTSET			    )
+	CASE_ERR(DDERR_SURFACEBUSY			        )
+	CASE_ERR(DDERR_CANTLOCKSURFACE               )
+	CASE_ERR(DDERR_SURFACELOST			        )
+	CASE_ERR(DDERR_TOOBIGHEIGHT			        )
+	CASE_ERR(DDERR_TOOBIGSIZE			        )
+	CASE_ERR(DDERR_TOOBIGWIDTH			        )
+	CASE_ERR(DDERR_UNSUPPORTED			        )
+	CASE_ERR(DDERR_UNSUPPORTEDFORMAT             )
+	CASE_ERR(DDERR_VERTICALBLANKINPROGRESS		)
+	CASE_ERR(DDERR_WASSTILLDRAWING			    )
+	CASE_ERR(DDERR_DIRECTDRAWALREADYCREATED		)
+	CASE_ERR(DDERR_REGIONTOOSMALL			    )
+	CASE_ERR(DDERR_CLIPPERISUSINGHWND		    )
+	CASE_ERR(DDERR_NOCLIPPERATTACHED			    )
+	CASE_ERR(DDERR_NOPALETTEATTACHED			    )
+	CASE_ERR(DDERR_NOPALETTEHW			        )
+	CASE_ERR(DDERR_NOBLTHW				        )
+	CASE_ERR(DDERR_OVERLAYNOTVISIBLE			    )
+	CASE_ERR(DDERR_NOOVERLAYDEST			        )
+	CASE_ERR(DDERR_INVALIDPOSITION			    )
+	CASE_ERR(DDERR_NOTAOVERLAYSURFACE		    )
+	CASE_ERR(DDERR_EXCLUSIVEMODEALREADYSET		)
+	CASE_ERR(DDERR_NOTFLIPPABLE)
+	CASE_ERR(DDERR_NOTLOCKED)
+	CASE_ERR(DDERR_CANTCREATEDC)
+	CASE_ERR(DDERR_NODC				            )
+	CASE_ERR(DDERR_WRONGMODE				        )
+	CASE_ERR(DDERR_IMPLICITLYCREATED			    )
+	CASE_ERR(DDERR_NOTPALETTIZED			        )
+	CASE_ERR(DDERR_DCALREADYCREATED			    )
+	CASE_ERR(DDERR_MOREDATA         			    )
+	CASE_ERR(DDERR_VIDEONOTACTIVE   		    	)
+	CASE_ERR(DDERR_DEVICEDOESNTOWNSURFACE   		)
 #undef CASE_ERR
 	}
 	static HoeCore::String_s<20> buff;
@@ -213,12 +351,13 @@ bool RefDD::CreateSurface(RefSurface* surf, uint width, uint height)
 
 	// create surface srf w h
 	HRESULT hRes = m_pDD->CreateSurface(&desc,&surf->m_srf,0);
-	checkres(hRes,"IDirectDraw7::CreateSurface");
+	checkres(hRes,"IDirectDraw::CreateSurface");
 	return true;
 }
 
 void RefDD::Blt(RefSurface& surf, const THoeRect * dest, const THoeRect * src, int method)
 {
+	HRESULT hRes;
 	RECT r;
 	if (src)
 	{
@@ -230,6 +369,37 @@ void RefDD::Blt(RefSurface& surf, const THoeRect * dest, const THoeRect * src, i
 #ifndef _WIN32_WCE
 	HRESULT hRes = m_pDDSBack->BltFast(dest->left,dest->top,surf.m_srf,src ? &r:0,DDBLTFAST_SRCCOLORKEY);
 	checkres(hRes, "IDirectDrawSurface7::BltFast");
+#else
+	RECT rd;
+	rd.left = dest->left;
+	rd.top = dest->top;
+	rd.right = dest->right;
+	rd.bottom = dest->bottom;
+	if (rd.bottom == -1 || rd.right == -1)
+	{
+		if (src)
+		{
+			rd.bottom = r.bottom - r.top + rd.top;
+			rd.right = r.right - r.left + rd.left;
+		}
+		else
+		{
+			DDSurfaceDesc desc;
+			memset(&desc, 0, sizeof(desc));
+			desc.dwSize = sizeof(desc);
+			hRes = surf.m_srf->GetSurfaceDesc(&desc);
+			checkres(hRes, "GetSurfaceDesc");
+			rd.bottom = desc.dwHeight + rd.top;
+			rd.right = desc.dwWidth + rd.left;
+		}
+	}
+    DDBLTFX                     ddbltfx;
+    memset(&ddbltfx, 0, sizeof(ddbltfx));
+    ddbltfx.dwSize = sizeof(ddbltfx);
+    ddbltfx.dwROP = SRCCOPY;
+	hRes = m_pDDSBack->Blt(&rd, surf.m_srf,
+		src ? &r:NULL, DDBLT_ROP, &ddbltfx);
+	checkres(hRes, "IDirectDrawSurface::Blt");
 #endif
 }
 

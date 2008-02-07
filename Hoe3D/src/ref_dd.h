@@ -50,6 +50,8 @@ protected:
 	DirectDrawSurface* m_pDDSBack;   // DirectDraw back surface
 	int m_width;
 	int m_height;
+	bool m_usebb;
+	bool m_useflip;
 public:
 	/**
 	* Konstruktor

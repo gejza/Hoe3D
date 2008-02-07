@@ -30,6 +30,9 @@
 #include <HoeCore/hoe_types.h>
 #include <HoeCore/hoe_flex.h>
 
+using namespace HoeCore::flex;
+
+
 #define yytext yytext_ptr
 
 namespace HoeCore {
@@ -37,7 +40,7 @@ namespace flex {
 
 #if 0
 //%% YY_CHAR and YY_SC_TO_UI() go here
-//%% YY_CHAR and YY_SC_TO_UI() go here
+%% YY_CHAR and YY_SC_TO_UI() go here
 //end %% YY_CHAR and YY_SC_TO_UI() go here
 
 #endif
@@ -106,8 +109,6 @@ int yyleng;
 } //namespace flex
 } //namespace HoeCore
 
-using namespace HoeCore::flex;
-
 //%% data tables for the DFA and the user's section 1 definitions go here
 %% data tables for the DFA and the user's section 1 definitions go here
 //end of %% data tables for the DFA and the user's section 1 definitions go here
@@ -117,14 +118,6 @@ using namespace HoeCore::flex;
  */
 
  int yywrap ( void ) { return 1; }
-
-#ifndef yytext_ptr
-static void yy_flex_strncpy ( YY_CHAR *, const YY_CHAR *, int );
-#endif
-
-#ifdef YY_NEED_STRLEN
-static int yy_flex_strlen ( const YY_CHAR * );
-#endif
 
 #if YY_STACK_USED
 static int yy_start_stack_ptr = 0;
@@ -198,8 +191,8 @@ int YY_CLASS_NAME::YY_CLASS_DECL
 int YY_CLASS_NAME::Lex()
 #endif
 {
-	register yy_state_type yy_current_state;
-	register YY_CHAR *yy_cp, *yy_bp;
+	register HoeCore::flex::yy_state_type yy_current_state;
+	register HoeCore::flex::YY_CHAR *yy_cp, *yy_bp;
 	register int yy_act;
 	const int yy_start = 1;
 
@@ -394,8 +387,7 @@ do_action:	/* This label is used only to access EOF actions. */
 		}
 
 	default:
-		YY_FATAL_ERROR(
-			"fatal flex scanner internal error--no action found" );
+		YY_FATAL_ERROR(T("fatal flex scanner internal error--no action found"));
 	} /* end of action switch */
 		} /* end of scanning one token */
 	} /* end of yylex */
