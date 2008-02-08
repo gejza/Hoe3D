@@ -51,21 +51,11 @@ IHoeInterface * HOEAPI Hoe2DEngine::Create(const tchar * cmd)
 		l.ptr += l.pitch;
 	}
     pic->m_surf.Unlock();
-#ifdef _HOE_DD_
-    DDCOLORKEY              ddck;
-	register byte r,g,b,a;
-	r = cs.key.r & 0xF8;
-	g = cs.key.g & 0xF8;
-	b = cs.key.b & 0xF8;
-	const short c = 1 << 8 | b >> 3 | g << 2 | r << 7;
-    ddck.dwColorSpaceLowValue = 0;
-	//byte * t = (byte*)(&ddck.dwColorSpaceLowValue);
-	//t[1] = c >> 8;
-	//t[0] = 0xFF & c;
-    ddck.dwColorSpaceHighValue = ddck.dwColorSpaceLowValue;
-	HRESULT hRes = pic->m_surf.m_srf->SetColorKey(DDCKEY_SRCBLT, &ddck);
+
+    pic->m_surf.m_cc.dwColorSpaceLowValue = cs.dwkey;
+    pic->m_surf.m_cc.dwColorSpaceHighValue = pic->m_surf.m_cc.dwColorSpaceLowValue;
+	HRESULT hRes = pic->m_surf.m_srf->SetColorKey(DDCKEY_SRCBLT, &pic->m_surf.m_cc);
 	checkres(hRes,"SetColorKey");
-#endif
 	return pic;
 }
 

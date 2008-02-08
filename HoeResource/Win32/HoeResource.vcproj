@@ -605,7 +605,7 @@
 			Name="Codec"
 			>
 			<File
-				RelativePath="..\src\hoe_codec.h"
+				RelativePath="..\include\HoeResource\codec.h"
 				>
 			</File>
 			<File

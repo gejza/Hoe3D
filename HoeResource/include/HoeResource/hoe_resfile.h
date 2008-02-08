@@ -43,11 +43,19 @@ struct Symbol
 	uint64 position;
 };
 
+struct ChunkInfo
+{
+	union {
+		char cid[4];
+		uint32 iud;
+	};
+	uint32 size;
+};
+
 struct PictureInfo : public HeadResource
 {
 	uint32 codec;
-	uint32 format;
-	
+	uint32 numchunk;	
 };
 
 #pragma pack(pop)

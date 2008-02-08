@@ -115,12 +115,10 @@ bool RefDD::Init(THoeInitSettings * his)
 // Get exclusive mode
     hRes = m_pDD->SetCooperativeLevel(m_hWnd, DDSCL_FULLSCREEN);
 	checkres(hRes, "SetCooperativeLevel");
-    DDCAPS ddCaps;
-    DDCAPS ddHelCaps;
 
-    m_pDD->GetCaps(&ddCaps, &ddHelCaps);
-    m_usebb = (bool)(ddCaps.ddsCaps.dwCaps & DDSCAPS_BACKBUFFER);
-	m_useflip = (bool)(ddCaps.ddsCaps.dwCaps & DDSCAPS_FLIP); 
+    m_pDD->GetCaps(&m_caps, NULL);
+    m_usebb = (bool)(m_caps.ddsCaps.dwCaps & DDSCAPS_BACKBUFFER);
+	m_useflip = (bool)(m_caps.ddsCaps.dwCaps & DDSCAPS_FLIP); 
 
     // Create the primary surface with 1 back buffer
     memset(&ddsd, 0, sizeof(ddsd));
@@ -219,7 +217,7 @@ ExtTextOut(hdc,
     ddbltfx.dwSize = sizeof(ddbltfx);
     ddbltfx.dwROP = SRCCOPY;
 	hRes = m_pDDSPrimary->Blt(NULL, m_pDDSBack,
-       NULL, DDBLT_ROP, &ddbltfx);
+       NULL, /*DDBLT_ROP*/0, &ddbltfx);
 	checkres(hRes, "Primary::Blt");
 
 }
@@ -342,12 +340,12 @@ bool RefDD::CreateSurface(RefSurface* surf, uint width, uint height)
 	desc.dwWidth = width;
 	desc.dwHeight = height;
 	desc.ddpfPixelFormat.dwSize = sizeof(DDPIXELFORMAT);
-	desc.ddpfPixelFormat.dwFlags = DDPF_RGB|DDPF_ALPHAPIXELS;
+	desc.ddpfPixelFormat.dwFlags = DDPF_RGB/*|DDPF_ALPHAPIXELS*/;
 	desc.ddpfPixelFormat.dwRGBBitCount = 16;
-	desc.ddpfPixelFormat.dwRBitMask = 0x00007c00;
-	desc.ddpfPixelFormat.dwGBitMask = 0x000003e0;
+	desc.ddpfPixelFormat.dwRBitMask = 0x0000f800;
+	desc.ddpfPixelFormat.dwGBitMask = 0x000007e0;
 	desc.ddpfPixelFormat.dwBBitMask = 0x0000001f;
-	desc.ddpfPixelFormat.dwRGBAlphaBitMask = 0x00008000;
+	desc.ddpfPixelFormat.dwRGBAlphaBitMask = 0x00000000;
 
 	// create surface srf w h
 	HRESULT hRes = m_pDD->CreateSurface(&desc,&surf->m_srf,0);
@@ -397,8 +395,9 @@ void RefDD::Blt(RefSurface& surf, const THoeRect * dest, const THoeRect * src, i
     memset(&ddbltfx, 0, sizeof(ddbltfx));
     ddbltfx.dwSize = sizeof(ddbltfx);
     ddbltfx.dwROP = SRCCOPY;
+	ddbltfx.ddckSrcColorkey = surf.m_cc;
 	hRes = m_pDDSBack->Blt(&rd, surf.m_srf,
-		src ? &r:NULL, DDBLT_ROP, &ddbltfx);
+		src ? &r:NULL, /*DDBLT_ROP,,DDBLT_KEYSRC*/ DDBLT_KEYSRCOVERRIDE, &ddbltfx);
 	checkres(hRes, "IDirectDrawSurface::Blt");
 #endif
 }

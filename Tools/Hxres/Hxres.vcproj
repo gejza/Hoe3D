@@ -55,6 +55,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..\HoeResource\include;..\..\HoeCore\include;..\..\HoeUtils\include"
 				PreprocessorDefinitions="_CONSOLE"
+				DebugInformationFormat="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -67,7 +68,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="HoeResource_d.lib HoeUtils_d.lib HoeCore_d.lib"
+				AdditionalDependencies="HoeResource_d.lib HoeUtils_d.lib HoeCore_d.lib libpngd.lib libjpeg_d.lib zlibd.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -312,6 +313,18 @@
 		<File
 			RelativePath=".\compiler.h"
 			>
+		</File>
+		<File
+			RelativePath="..\..\..\Common_src\jpeg-6b\jmemmgr.c"
+			>
+			<FileConfiguration
+				Name="Debug|Win32"
+				>
+				<Tool
+					Name="VCCLCompilerTool"
+					UsePrecompiledHeader="0"
+				/>
+			</FileConfiguration>
 		</File>
 		<File
 			RelativePath=".\linker.cpp"

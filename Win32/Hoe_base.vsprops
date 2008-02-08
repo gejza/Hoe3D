@@ -21,6 +21,7 @@
 	<Tool
 		Name="VCLinkerTool"
 		AdditionalLibraryDirectories="$(HoeOutputLib)"
+		ProgramDatabaseFile="$(HoeOutputPdb)\$(HoePlat)-$(TargetName).pdb"
 	/>
 	<UserMacro
 		Name="HoeOutputLib"

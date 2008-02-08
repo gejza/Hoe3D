@@ -35,7 +35,6 @@ public:
 
 class PictureLoader : public ResourceLoader
 {
-	HOEFORMAT m_format;
 	uint m_codec;
 public:
 	PictureLoader(HoeCore::ReadStream* stream);
@@ -51,6 +50,7 @@ class FormatConv : public HoeRes::MediaStreamPic
 	HOEFORMAT m_inputformat;
 public:
 	HOECOLOR key;
+	dword dwkey;
 
 	FormatConv(HoeRes::MediaStreamPic* stream);
 	virtual ~FormatConv();

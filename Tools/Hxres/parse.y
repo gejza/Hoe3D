@@ -134,7 +134,7 @@ attribute
         | TK_name '(' func_params ')'
             { pint->Func($1, NULL, vec); } '\n'
         | TK_name '=' TK_name '(' func_params ')'
-            { pint->Func($1, $3, vec); } '\n'
+            { pint->Func($3, $1, vec); } '\n'
 ;
 func_params
 		: { vec.Delete(); } func_param

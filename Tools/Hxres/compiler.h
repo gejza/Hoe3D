@@ -46,6 +46,9 @@ public:
 	virtual bool AddProp(const HoeCore::CString name, const Value& value);
 	virtual bool AddProp(const HoeCore::CString name, const Values& value);
 	//virtual bool Func(const HoeCore::CString name, const VectorUniversal& value);
+	virtual bool Func(const HoeCore::CString name, 
+                      const HoeCore::CString ret,
+                      const Values& value);
 
 	virtual void Done();
 };

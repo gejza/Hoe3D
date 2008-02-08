@@ -2,7 +2,7 @@
 #ifndef _HOE_RESOURCE_PNG_H_
 #define _HOE_RESOURCE_PNG_H_
 
-#include "hoe_codec.h"
+#include "../include/HoeResource/codec.h"
 
 typedef struct png_struct_def png_struct;
 typedef struct png_info_struct png_info;

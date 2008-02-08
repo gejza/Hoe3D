@@ -47,129 +47,21 @@ HoeRes::PictureLoader::PictureLoader(HoeCore::ReadStream *stream)
 	const HoeCore::Endianness& end = m_stream->GetDataFormat();
 	// prekopirovat
 	m_codec = end.num(head.codec);
-	m_format = (HOEFORMAT)end.num(head.format);
-
 }
 
 HoeRes::MediaStreamPic* HoeRes::PictureLoader::GetData()
 {
-	if (m_codec == MAKE_FOURCC('J','P','E','G'))
-		return new JPEGDecoder (*m_stream);
-	if (m_codec == MAKE_FOURCC('P','N','G',' '))
-		return new PNGDecoder (*m_stream);
+	return CreatePicDecoder(*m_stream, m_codec);
+}
+
+HoeRes::PicCodec* HoeRes::CreatePicDecoder(HoeCore::ReadStream& stream, uint32 codec)
+{
+	if (codec == MAKE_FOURCC('J','P','E','G'))
+		return new JPEGDecoder (stream);
+	if (codec == MAKE_FOURCC('P','N','G',' '))
+		return new PNGDecoder (stream);
 	return NULL;
-}
 
-// prohledani do sirky?
-struct Reli
-{
-	HOECOLOR min;
-	HOECOLOR max;
-	float destmin;
-	float destmax;
-};
-
-float GetDist(HOECOLOR& a, HOECOLOR& b)
-{
-	float r = float(a.r) - float(b.r);
-	float g = float(a.g) - float(b.g);
-	float bb = float(a.b) - float(b.b);
-	return sqrtf(r*r+g*g+bb*bb);
-}
-
-
-float GetMinDist(HOECOLOR& min, HOECOLOR& max, HOECOLOR& c)
-{
-#define GET_INTE(sl) if (min.sl > c.sl) m.sl = min.sl; else if (max.sl < c.sl) m.sl = max.sl; else m.sl = c.sl;
-	// vytvorit nejvzdalenejsi vektor
-	HOECOLOR m;
-	GET_INTE(r);
-	GET_INTE(g);
-	GET_INTE(b);
-#undef GET_INTE
-	return GetDist(m,c);
-}
-
-float GetMaxDist(HOECOLOR& min, HOECOLOR& max, HOECOLOR& c)
-{
-	// vytvorit nejvzdalenejsi vektor
-	HOECOLOR m;
-	m.r = (min.r + max.r) / 2 > c.r ? max.r:min.r;
-	m.g = (min.g + max.g) / 2 > c.g ? max.g:min.g;
-	m.b = (min.b + max.b) / 2 > c.b ? max.b:min.b;
-	return GetDist(m,c);
-}
-
-float FindMax(HOECOLOR& min, HOECOLOR&max, HOECOLOR* cls, int num_cls, byte refalpha)
-{
-	float m = 100000.f;
-	for (int i=0;i < num_cls;i++)
-	{
-		if (cls[i].a < refalpha) continue;
-		float d = GetMaxDist(min, max, cls[i]);
-		if (d < m) m = d;
-	}
-	return m;
-}
-
-float FindMin(HOECOLOR& min, HOECOLOR&max, HOECOLOR* cls, int num_cls, byte refalpha)
-{
-	float m = 100000.f;
-	for (int i=0;i < num_cls;i++)
-	{
-		if (cls[i].a < refalpha) continue;
-		float d = GetMinDist(min, max, cls[i]);
-		if (d < m) m = d;
-	}
-	return m;
-}
-
-bool FindDiff(Reli& r, Reli& bst, HOECOLOR* cls, int num_cls, byte refalpha)
-{
-	if (r.destmin > bst.destmin) // best
-		bst = r;
-	if (r.destmax < bst.destmin) // optimize
-		return false;
-	if (r.min.r >= r.max.r || r.min.g >= r.max.g || r.min.b >= r.max.b) // end
-		return false;
-
-	// zkusit pro kazdou krychlu
-	Reli t;
-#define RECUR(red, rb, green, gb, blue, bb) \
-				t = r; \
-				t.red.r = (r.min.r + r.max.r) / 2 + rb; \
-				t.green.g = (r.min.g + r.max.g) / 2 + gb; \
-				t.blue.b = (r.min.b + r.max.b) / 2 + bb; \
-				t.destmin = FindMin(t.min, t.max, cls, num_cls, refalpha); \
-				t.destmax = FindMax(t.min, t.max, cls, num_cls, refalpha); \
-				FindDiff(t, bst, cls, num_cls, refalpha);
-	RECUR(min,1,min,1,min,1);
-	RECUR(min,1,min,1,max,0);
-	RECUR(min,1,max,0,min,1);
-	RECUR(min,1,max,0,max,0);
-	RECUR(max,0,min,1,min,1);
-	RECUR(max,0,min,1,max,0);
-	RECUR(max,0,max,0,min,1);
-	RECUR(max,0,max,0,max,0);
-#undef RECUR
-	return true;
-}
-
-float FindDiffestColor(HOECOLOR& c, HOECOLOR* cls, int num_cls, byte refalpha)
-{
-	Reli r;
-	r.max.r = 0xff;
-	r.max.g = 0xff;
-	r.max.b = 0xff;
-	r.min.r = 0;
-	r.min.g = 0;
-	r.min.b = 0;
-	r.destmin = 0; // vysplhat co nejvice nahoru
-	r.destmax = FindMax(r.min, r.max, cls, num_cls, refalpha);
-	Reli bst = r;
-	FindDiff(r, bst, cls, num_cls, refalpha);
-	c = bst.max;
-	return 0.f;
 }
 
 //////////////////////////////////////////
@@ -190,20 +82,9 @@ HoeRes::FormatConv::FormatConv(HoeRes::MediaStreamPic* stream)
 			nap += m_colors[n].a;
 		}
 		byte nref = nap / np;
-		// find
-		// jak najit nejvzdaleneji hodnotu?
-		// pro kazdou barvu zvlast....
 
-		// upravit paletu
-		FindDiffestColor(key, m_colors, np, nref);
-		for (uint n=0;n < np;n++)
-		{
-			if (m_colors[n].a < nref)
-				m_colors[n] = key;
-		}
-
+		// get color key
 	}
-
 }
 
 HoeRes::FormatConv::~FormatConv()
@@ -233,6 +114,36 @@ uint HoeRes::FormatConv::Close()
 	return 0; 
 }
 
+template<int a,int r, int g, int b> struct MaskARGB
+{
+	enum {
+		// ~
+		BlueMask = dword((1 << b) - 1) /*& ~dword((1 << b) - 1)*/,
+		GreenMask = dword((1 << (b+g)) - 1) & ~dword((1 << b) - 1),
+		RedMask = dword((1 << (b+g+r)) - 1) & ~dword((1 << b+g) - 1),
+		AlphaMask = dword((1 << (b+g+r+a)) - 1) & ~dword((1 << b+g+r) - 1),
+
+		BlueShift = b - 8,
+		GreenShift = (g+b) - 8,
+		RedShift = (g+b+r) - 8,
+		AlphaShift = (g+b+r+a) - 8,
+		DW = 0x8fffffff,
+	};
+	static inline dword getdw(HOECOLOR& c)
+	{
+		dword dw = 0;
+		if (a > 0)
+			dw  |= (c.a & ~((1 << 8-a)-1)) << AlphaShift;
+		dword dwb	= (c.b & ~((1 << 8-b)-1)) >> 3; 
+		dword dwg	= (c.g & ~((1 << 8-g)-1)) << GreenShift; 
+		dword dwr	= (c.r & ~((1 << 8-r)-1)) << RedShift;
+		return dwb | dwg | dwr;
+	}
+};
+
+typedef MaskARGB<1,5,5,5> MaskA1R5G5B5;
+typedef MaskARGB<0,5,6,5> MaskR5G6B5;
+
 uint HoeRes::FormatConv::GetRow(byte* ptr)
 {
 	uint w = m_stream->GetRow(m_buff);
@@ -240,27 +151,25 @@ uint HoeRes::FormatConv::GetRow(byte* ptr)
 	byte * t = ptr;
 	for (uint x=0;x < w;x++)
 	{
-		register byte r,g,b,a;
+		HOECOLOR c;
 		if (m_inputformat == HOE_P8)
 		{
-			r = m_colors[*f].r & 0xF8;
-			g = m_colors[*f].g & 0xF8;
-			b = m_colors[*f].b & 0xF8;
-			a = m_colors[*f].a & 0x80;  f++;
+			c = m_colors[*f];  f++;
 		}
 		else if (m_inputformat == HOE_R8G8B8)
 		{
-			r = f[0] & 0xF8;g = f[1] & 0xF8;b = f[2] & 0xF8;
-			a = 0x80;
+			c.r = f[0];c.g = f[1];c.b = f[2];
+			c.a = 0x80;
 			f += 3;
 		}
 		else
 			hoe_assert(!"Format not found");
-		const short c = a << 8 | b >> 3 | g << 2 | r << 7;
-		t[1] = c >> 8;
-		t[0] = 0xFF & c;
+		const dword cc = MaskR5G6B5::getdw(c);
+		t[1] = (0xff00&cc) >> 8;
+		t[0] = 0xFF & cc;
 		t += 2;
 	}
+	dwkey = MaskR5G6B5::getdw(key);
 	return w;
 }
 

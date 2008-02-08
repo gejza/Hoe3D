@@ -2,7 +2,7 @@
 #ifndef _HOE_RESOURCE_JPEG_H_
 #define _HOE_RESOURCE_JPEG_H_
 
-#include "hoe_codec.h"
+#include "../include/HoeResource/codec.h"
 
 namespace HoeRes {
 

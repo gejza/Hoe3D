@@ -32,6 +32,8 @@ class RefSurface : public RefSurfaceBase
 {
 public:
 	DirectDrawSurface* m_srf; 
+	DDCOLORKEY m_cc;
+
 	bool Lock(LockRect* l);
 	void Unlock();
 
@@ -48,6 +50,7 @@ protected:
 	DirectDraw*	m_pDD;        // DirectDraw object
 	DirectDrawSurface* m_pDDSPrimary;// DirectDraw primary surface
 	DirectDrawSurface* m_pDDSBack;   // DirectDraw back surface
+    DDCAPS m_caps;
 	int m_width;
 	int m_height;
 	bool m_usebb;
