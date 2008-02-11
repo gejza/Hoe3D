@@ -33,12 +33,59 @@ public:
 	virtual uint GetPalette(HOECOLOR * palette) { return 0; }
 };
 
+// nadrazena struktura
+class ChunkCache
+{
+	struct Chunk : public Res::ChunkInfo
+	{
+		byte * data;
+		size_t pos;
+	};
+	HoeCore::MemoryPool& m_pool;
+	typedef HoeCore::LList<Chunk> ChunkList;
+	ChunkList m_chunks;
+	HoeCore::ReadStream* m_stream;
+	bool m_ownstream;
+public:
+	ChunkCache(HoeCore::MemoryPool& pool) : m_pool(pool), m_chunks(pool), m_stream(0),
+		m_ownstream(false)
+	{
+	}
+	~ChunkCache()
+	{
+		if (m_ownstream) m_stream->Close();
+	}
+	bool Read(HoeCore::ReadStream* stream, uint num);
+	bool GetChunk(uint32 id, byte** data, uint32* size);
+};
+
 class PictureLoader : public ResourceLoader
 {
 	uint m_codec;
+	HoeCore::MemoryPool m_pool;
+	ChunkCache m_chunks;
 public:
 	PictureLoader(HoeCore::ReadStream* stream);
 	MediaStreamPic * GetData();
+	bool GetChunk(uint32 id, byte** data, uint32* size) 
+	{ 
+		return m_chunks.GetChunk(id, data, size); 
+	}
+	template<typename TYPE> bool GetChunk(uint32 id, TYPE** t)
+	{
+		uint32 s;
+		if (!GetChunk(id, reinterpret_cast<byte**>(d), &s)) return false;
+		if (s != sizeof(TYPE)) return false;
+		return true;
+	}
+	template<typename TYPE> bool GetChunk(uint32 id, TYPE& t)
+	{
+		uint32 s; byte* b;
+		if (!GetChunk(id, &b, &s)) return false;
+		if (s != sizeof(TYPE)) return false;
+		memcpy(&t, b, sizeof(TYPE));
+		return true;
+	}
 };
 
 

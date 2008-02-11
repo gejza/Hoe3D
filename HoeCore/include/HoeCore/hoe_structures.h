@@ -439,7 +439,7 @@ public:
 	}
 	TYPE & Add()
 	{
-		return new (this->AddForNew()) TYPE();
+		return *new (this->AddForNew()) TYPE();
 	}
 	void * AddForNew()
 	{

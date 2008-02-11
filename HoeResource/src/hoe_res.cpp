@@ -36,18 +36,77 @@ size_t HoeRes::ResourceLoader::ReadHeader(uint32 id, Res::HeadResource* head, si
 	return tor;
 }
 
-// nadrazena struktura
-
-
 HoeRes::PictureLoader::PictureLoader(HoeCore::ReadStream *stream)
-: ResourceLoader(stream)
+: ResourceLoader(stream), m_chunks(m_pool)
 {
 	Res::PictureInfo head;
 	ReadHeader(Res::IDPicture, &head, sizeof(head));
 	const HoeCore::Endianness& end = m_stream->GetDataFormat();
 	// prekopirovat
 	m_codec = end.num(head.codec);
+	uint nch = end.num(head.numchunk);
+	// read chunks
+	m_chunks.Read(stream, nch);
+	// chunk, cache, pokud nejde na streamu skipovat -> nacitat data dovnitr
+	// pokud ano, ukladat jen pointry na data (pokud velikost vetsi nez konstanta)
 }
+
+bool HoeRes::ChunkCache::Read(HoeCore::ReadStream* stream, uint num)
+{
+	const int lim = 32;
+	const HoeCore::Endianness& end = stream->GetDataFormat();
+	const bool canseek = stream->CanSeek();
+	bool reqstream = false;
+	size_t ft = stream->Tell();
+	while (num--)
+	{
+		Chunk& ch = m_chunks.Add();
+		stream->Read(&ch, sizeof(Res::ChunkInfo));
+		ch.size = end.num(ch.size);
+		if (canseek && ch.size > 32)
+		{
+			ch.data = NULL;
+			ch.pos = stream->Tell();
+			stream->Skip(ch.size);
+			reqstream = true;
+		}
+		else
+		{
+			ch.pos = canseek ? stream->Tell():(size_t)-1;
+			ch.data = (byte*)m_pool.GetMem(ch.size);
+			stream->Read(ch.data, ch.size);
+		}
+	}
+	if (reqstream)
+	{
+		m_stream = stream->CreateReader(ft);
+		m_ownstream = m_stream != 0;
+		if (!m_stream)
+			m_stream = stream;
+	}
+	return true;
+}
+
+bool HoeRes::ChunkCache::GetChunk(uint32 id, byte** data, uint32* size)
+{
+	for (ChunkList::Iterator it(m_chunks);it;it++)
+	{
+		if (it->iud == id)
+		{
+			*size = it->size;
+			if (it->data == NULL)
+			{
+				hoe_assert(m_stream);
+				it->data = (byte*)m_pool.GetMem(it->size);
+				m_stream->Read(it->data, it->size);
+			}
+			*data = it->data;
+			return true;
+		}
+	}
+	return false;
+}
+
 
 HoeRes::MediaStreamPic* HoeRes::PictureLoader::GetData()
 {

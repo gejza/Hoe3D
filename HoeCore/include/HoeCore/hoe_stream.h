@@ -14,6 +14,7 @@ public:
 	virtual ~BaseStream();
 	virtual bool CanSeek() { return false; }
 	virtual void Seek(size_t ptr) {}
+	virtual void Skip(size_t ptr) {}
 	virtual uint Close() = 0;
 	virtual size_t Tell() const;
 	virtual const Endianness& GetDataFormat() const;
@@ -30,6 +31,21 @@ public:
             throw; // todo
         return t;
     }
+	virtual void Skip(size_t ptr) 
+	{
+		if (CanSeek()) Seek(ptr+Tell());
+		else 
+		{
+			byte buff[1024];
+			while (ptr > 0)
+			{
+				size_t nr = ptr;
+				if (nr > 1024) nr = 1024;
+				this->Read(buff, nr);
+				ptr -= nr;
+			}
+		}
+	}
 	virtual ReadStream* CreateReader(size_t pos) { return NULL; }
 	ReadStream* CreateReader() { return CreateReader(Tell()); }
 };
@@ -42,6 +58,12 @@ public:
 	size_t WriteString(const HoeCore::CString str);
 	virtual void * CreateBuffer(size_t);
 	void CreateSpace(size_t);
+	virtual void Skip(size_t ptr) 
+	{
+		if (CanSeek()) Seek(ptr+Tell());
+		else CreateSpace(ptr);
+	}
+
 	int Print(const char* fmt, ...);
 
     template<typename TYPE> size_t WriteStruct(TYPE &t)
@@ -57,6 +79,11 @@ public:
 
 class Stream : public ReadStream, public WriteStream
 {
+public:
+	virtual void Skip(size_t ptr) 
+	{
+		ReadStream::Skip(ptr);
+	}
 };
 
 } // namespace HoeCore

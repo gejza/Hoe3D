@@ -142,17 +142,16 @@ size_t HoeCore::File::Tell() const
 	return pos;
 }
 
-bool HoeCore::File::Skip(size_t size)
+void HoeCore::File::Skip(size_t size)
 {
 	if (!IsOpen())
-		return false;
+		return;
 #ifdef WINDOWS_FILE_FUNC
 	SetFilePointer(m_file,(long)size,0,FILE_CURRENT);
 #else
 	fseek(m_file,(long)size,SEEK_CUR);
 #endif
 	m_pos += size;
-	return true;
 }
 
 void HoeCore::File::Flush()

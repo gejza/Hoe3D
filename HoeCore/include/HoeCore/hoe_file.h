@@ -65,7 +65,7 @@ public:
 	bool Open();
 	virtual void Seek(size_t ptr);
 	virtual size_t Tell() const;
-	virtual bool Skip(size_t size);
+	virtual void Skip(size_t size);
 	virtual size_t Read(void* ptr, size_t size);
 	virtual size_t Write(const void* ptr, size_t size);
 	void Reset();

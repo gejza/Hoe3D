@@ -120,7 +120,7 @@ void PictureCompiler::Done()
 		memcpy(chunk.cid, "CKEY", 4);
 		chunk.size = sizeof(HOECOLOR);
 		m_out.WriteStruct(chunk);
-		m_out.WriteStruct(ck);
+		m_out.Write(&ck, sizeof(HOECOLOR));
 	}
 
 	byte ar;
@@ -131,7 +131,7 @@ void PictureCompiler::Done()
 		memcpy(chunk.cid, "AREF", 4);
 		chunk.size = 1;
 		m_out.WriteStruct(chunk);
-		m_out.WriteStruct(ar);
+		m_out.Write(&ar,1);
 	}
 
 	im.Save(m_out);

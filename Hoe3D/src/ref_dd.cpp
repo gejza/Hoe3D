@@ -365,7 +365,7 @@ void RefDD::Blt(RefSurface& surf, const THoeRect * dest, const THoeRect * src, i
 		r.bottom = src->bottom;
 	}
 #ifndef _WIN32_WCE
-	HRESULT hRes = m_pDDSBack->BltFast(dest->left,dest->top,surf.m_srf,src ? &r:0,DDBLTFAST_SRCCOLORKEY);
+	hRes = m_pDDSBack->BltFast(dest->left,dest->top,surf.m_srf,src ? &r:0,DDBLTFAST_SRCCOLORKEY);
 	checkres(hRes, "IDirectDrawSurface7::BltFast");
 #else
 	RECT rd;
