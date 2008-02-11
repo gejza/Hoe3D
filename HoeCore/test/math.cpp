@@ -18,7 +18,8 @@ template<class TYPE> float compute(float c)
 
 DEFINE_TEST(MathFixed, "Decription of test")
 {
-	printf("float fix\n");
+	 
+    printf("float fix\n");
 	float ab = 0.f;
 	for (float f = 100.f;f < 30000.f;f+=101.f)
 	{

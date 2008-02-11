@@ -9,6 +9,9 @@
 #include "hoe_picture.h"
 #include "hoe_input.h"
 
+
+
+
 /** Init funkce */
 bool HOEAPI Hoe2DEngine::Init(THoeInitSettings * his)
 {
@@ -52,10 +55,15 @@ IHoeInterface * HOEAPI Hoe2DEngine::Create(const tchar * cmd)
 	}
     pic->m_surf.Unlock();
 
-    pic->m_surf.m_cc.dwColorSpaceLowValue = cs.dwkey;
+    /*pic->m_surf.m_cc.dwColorSpaceLowValue = cs.dwkey;
     pic->m_surf.m_cc.dwColorSpaceHighValue = pic->m_surf.m_cc.dwColorSpaceLowValue;
 	HRESULT hRes = pic->m_surf.m_srf->SetColorKey(DDCKEY_SRCBLT, &pic->m_surf.m_cc);
-	checkres(hRes,"SetColorKey");
+	checkres(hRes,"SetColorKey");*/
+    HOECOLOR ck;
+    if (pl.GetChunk(MAKE_FOURCC('C','K','E','Y'), ck))
+    {
+        pic->m_surf.SetColorKey(ck);
+    }
 	return pic;
 }
 

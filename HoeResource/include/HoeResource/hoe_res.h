@@ -74,7 +74,7 @@ public:
 	template<typename TYPE> bool GetChunk(uint32 id, TYPE** t)
 	{
 		uint32 s;
-		if (!GetChunk(id, reinterpret_cast<byte**>(d), &s)) return false;
+		if (!GetChunk(id, reinterpret_cast<byte**>(t), &s)) return false;
 		if (s != sizeof(TYPE)) return false;
 		return true;
 	}

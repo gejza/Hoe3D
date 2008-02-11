@@ -2,7 +2,7 @@
 #ifndef _HOE_RESOURCE_CODEC_H_
 #define _HOE_RESOURCE_CODEC_H_
 
-#include "../include/HoeResource/hoe_res.h"
+#include "hoe_res.h"
 
 namespace HoeRes {
 

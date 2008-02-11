@@ -47,6 +47,7 @@ class RefSurface : public RefSurfaceBase
 public:
 	bool Lock(LockRect* l);
 	void Unlock();
+    bool SetColorKey(const HOECOLOR&) { return false; }
 
 	friend class RefOpenGL;
 };

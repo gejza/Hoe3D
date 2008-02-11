@@ -93,10 +93,12 @@ int HoeTest::BaseTest::RunTest(const char* test)
 	return 0;
 }
 
-int main()
+int main(int argc, const char* argv[])
 {
-	//return HoeTest::BaseTest::RunAll();
-	return HoeTest::BaseTest::RunTest("List");
+    if (argc < 2)
+	    return HoeTest::BaseTest::RunAll();
+    else
+        return HoeTest::BaseTest::RunTest(argv[1]);
 }
 
 

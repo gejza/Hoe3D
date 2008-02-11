@@ -2,7 +2,6 @@
 #include "StdAfx.h"
 #include "hoe2d.h"
 #include "shared.h"
-#include "hoe_input_winapi.h"
 /*#include "config.h"
 #include "hoe_time.h"
 #include "hoe.h"*/
@@ -36,8 +35,6 @@ LIB_EXTERN IHoeEngine * HOEAPI CreateHoeEngine(int sdk_ver, ::XHoeConsole * con,
 
 	assert(shared::resmgr == NULL);
 	shared::resmgr = _fs;
-
-	new HoeInputWin();
 
 	ret = new Hoe2DEngine(flags);
 	ret->SysFloatTime = SysFloatTime;

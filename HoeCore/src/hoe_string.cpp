@@ -19,6 +19,8 @@ int vsnprintf(char *dest, size_t n, const char * fmt, va_list vl)
 #else
 	ret = ::vsnprintf(dest, n, fmt, vl);
 #endif
+    if (ret < 0)
+        return n;
     return ret;
 }
 
@@ -64,13 +66,16 @@ int vsnprintf(char* dest, size_t n, const wchar_t *fmt, va_list vl)
 
 int vsnprintf(wchar_t* dest, size_t n, const wchar_t* fmt, va_list vl)
 {
+    int ret;
 #if defined _WIN32_WINNT
-	return ::vswprintf_s(dest, n, fmt, vl);
+	ret = ::vswprintf_s(dest, n, fmt, vl);
 #elif defined _WIN32_WCE
-	return ::_vsnwprintf(dest, n, fmt, vl);
+	ret = ::_vsnwprintf(dest, n, fmt, vl);
 #else
-	return ::vswprintf(dest, n, fmt, vl);
+	ret = ::vswprintf(dest, n, fmt, vl);
 #endif
+    if (ret < 0)
+        return n;
 }
 
 void copy(char * dest, const char * src, size_t cnt)
@@ -415,11 +420,13 @@ void String::PrepareForModify(size_t n, bool canempty)
 {
 	if (!m_data)
 	{
+        ::printf("create data %ld\n", n);
 		m_data = CreateStringData(n);
 		m_data->str[0] = 0;
 	}
 	else if (m_data->data.IsShared())
 	{
+        ::printf("unshared data %ld\n", n);
 		StringDataPtr * data = CreateStringData(n);
 		if (!canempty)
 			string::copy(data->str, m_data->str, n);
@@ -428,6 +435,7 @@ void String::PrepareForModify(size_t n, bool canempty)
 	}
 	else if (n > m_data->data.alloc)
 	{
+        ::printf("realloc data %ld\n", n);
 		m_data = (StringDataPtr*)realloc(m_data, sizeof(StringData)+(n+1)*sizeof(tchar));
 		m_data->data.alloc = (n+1);
 	}
@@ -462,13 +470,23 @@ int String::vprintf(const char * szFormat, va_list vl)
 {
 	// todo optimalizovat
 	size_t max = string::len(szFormat);
+	max = size_t(max * 1.7);
 	int ret = 0;
-	do 
+	while (1)
 	{
-		max = size_t(max * 1.5);
-		PrepareForModify(max, false);
+		PrepareForModify(max+1, false);
+        ::printf("Test with %ld - %s\n", max,szFormat);
+        hoe_assert(m_data->str);
 		ret = string::vsnprintf(m_data->str, max, szFormat, vl);
-	} while (ret == -1);
+        ::printf("Test for %ld, ret: %d\n", max, ret);
+        if (ret >= 0 && ret < max)
+            break;
+        if (ret > max)
+            max = ret + 1;
+        else
+	        max = size_t(max * 1.5) + 1;
+	}
+    ::printf("Done-%s\n", this->GetPtr());
 	return ret;
 }
 

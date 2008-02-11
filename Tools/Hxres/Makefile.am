@@ -14,7 +14,7 @@ hxres_SOURCES = hxres.cpp parse.tab.cpp scan.yy.cpp linker.cpp compiler.cpp imag
 
 hxres_CPPFLAGS = -D_NOXLIB -I../../HoeCore/include -I../../HoeUtils/include -I../../HoeResource/include
 
-hxres_LDFLAGS = -L../../bin -ll -lHoeUtils -lHoeResource -lHoeCore -ldl 
+hxres_LDFLAGS = -L../../bin -ll -lHoeUtils -lHoeResource -lHoeCore -ldl -ljpeg -lpng 
 
 scan.yy.cpp: scan.l ../../HoeCore/template/hoe_flex.skl
 	flex -S ../../HoeCore/template/hoe_flex.skl -o scan.yy.cpp scan.l
