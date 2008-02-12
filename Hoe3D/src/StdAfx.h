@@ -62,6 +62,7 @@
 
 #include <HoeResource/resmgr.h>
 #include <HoeResource/hoe_res.h>
+#include <HoeResource/color.h>
 
 // Memory managment
 //#include "mem_system.h"

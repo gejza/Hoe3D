@@ -8,9 +8,25 @@
 #define LOW_IEEE_ENDIAN 1
 #endif
 
-#pragma warning( push )
-#pragma warning( disable: 4293 )
+//#pragma warning( push )
+//#pragma warning( disable: 4293 )
 
+template<typename V, typename S> V safe_lshift(V v, S s)
+{
+	if (s > 0)
+		return v << s;
+	if (s < 0)
+		return v >> (-s);
+	return v;
+}
+template<typename V, typename S> V safe_rshift(V v, S s)
+{
+	if (s > 0)
+		return v >> s;
+	if (s < 0)
+		return v << (-s);
+	return v;
+}
 
 template<typename TYPE, int size>
 class SwitchBytes
@@ -23,14 +39,14 @@ public:
 		const TYPE t1 = ((TYPE(0xff) << fr) & t);
 		if (2*size > sizeof(TYPE)+1)
 		{
-			const TYPE t2 = t1 << (to - fr);
+			const TYPE t2 = safe_lshift(t1, (to - fr));
 			//return (((TYPE(0xff) << fr) & t) << (to - fr))
 			//	| SwitchBytes<TYPE, size-1>::Switch(t);
             return t2 | SwitchBytes<TYPE, size-1>::Switch(t);
 		}
 		else
 		{
-			const TYPE t2 = t1 >> (fr - to);
+			const TYPE t2 = safe_rshift(t1, (fr - to));
             return t2 | SwitchBytes<TYPE, size-1>::Switch(t);
 			/*return (((TYPE(0xff) << fr) & t) >> (fr - to))
 				| SwitchBytes<TYPE, size-1>::Switch(t);*/
@@ -38,7 +54,7 @@ public:
 	}
 };
 
-#pragma warning( pop )
+//#pragma warning( pop )
 
 // specialization for 0
 template<typename TYPE>

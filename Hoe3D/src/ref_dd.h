@@ -30,12 +30,14 @@ typedef DDSURFACEDESC2 DDSurfaceDesc;
 
 class RefSurface : public RefSurfaceBase
 {
+	DDCOLORKEY m_ck;
 public:
 	DirectDrawSurface* m_srf; 
-	DDCOLORKEY m_cc;
 
 	bool Lock(LockRect* l);
 	void Unlock();
+
+	bool SetColorKey(const HOECOLOR& c);
 
 	friend class RefDD;
 };

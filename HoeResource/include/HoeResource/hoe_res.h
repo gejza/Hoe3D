@@ -96,9 +96,6 @@ class FormatConv : public HoeRes::MediaStreamPic
 	HOECOLOR m_colors[256];
 	HOEFORMAT m_inputformat;
 public:
-	HOECOLOR key;
-	dword dwkey;
-
 	FormatConv(HoeRes::MediaStreamPic* stream);
 	virtual ~FormatConv();
 	virtual HOEFORMAT GetFormat();
@@ -106,6 +103,7 @@ public:
 	virtual void GetSize(THoeSizeu* size);
 	virtual uint Close();
 	virtual uint GetRow(byte* ptr);
+	void SetColorKey(HOECOLOR& c, byte alpharef);
 };
 
 } // namespace HoeRes

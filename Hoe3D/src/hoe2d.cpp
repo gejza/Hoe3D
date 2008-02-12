@@ -38,6 +38,15 @@ IHoeInterface * HOEAPI Hoe2DEngine::Create(const tchar * cmd)
 	HoeRes::MediaStreamPic * ps = pl.GetData();
 	HoeRes::FormatConv cs(ps);
 
+	HOECOLOR ck;
+	bool setck;
+    if (setck = pl.GetChunk(MAKE_FOURCC('C','K','E','Y'), ck))
+    {
+		byte aref = 0xa0;
+		pl.GetChunk(MAKE_FOURCC('A','R','E','F'), aref);
+        cs.SetColorKey(ck, aref);
+    }
+
 	THoeSizeu rect;
 	cs.GetSize(&rect);
 	//byte * buff = new byte[pic->GetPitch()]
@@ -55,12 +64,7 @@ IHoeInterface * HOEAPI Hoe2DEngine::Create(const tchar * cmd)
 	}
     pic->m_surf.Unlock();
 
-    /*pic->m_surf.m_cc.dwColorSpaceLowValue = cs.dwkey;
-    pic->m_surf.m_cc.dwColorSpaceHighValue = pic->m_surf.m_cc.dwColorSpaceLowValue;
-	HRESULT hRes = pic->m_surf.m_srf->SetColorKey(DDCKEY_SRCBLT, &pic->m_surf.m_cc);
-	checkres(hRes,"SetColorKey");*/
-    HOECOLOR ck;
-    if (pl.GetChunk(MAKE_FOURCC('C','K','E','Y'), ck))
+    if (setck)
     {
         pic->m_surf.SetColorKey(ck);
     }
