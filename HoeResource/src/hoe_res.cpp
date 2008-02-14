@@ -207,5 +207,46 @@ void HoeRes::FormatConv::SetColorKey(HOECOLOR& c, byte alpharef)
 	}
 }
 
+//////////////////////////////////////////
+// zoom konvertor
+HoeRes::DoubleZoom::DoubleZoom(HoeRes::MediaStreamPic* stream)
+	: m_stream(stream)
+{
+	m_num = 2;
+	m_buff = new byte[stream->GetPitch()];
+	m_readline = 0;
+	stream->GetSize(&m_size);
+}
 
+HoeRes::DoubleZoom::~DoubleZoom()
+{
+	delete [] m_buff;
+}
 
+void HoeRes::DoubleZoom::GetSize(THoeSizeu* size)
+{
+	size->width = m_size.width * 2;
+	size->height = m_size.height * 2;
+}
+
+uint HoeRes::DoubleZoom::GetRow(byte* ptr)
+{
+	if (m_readline >= (m_size.height * 2))
+		return 0;
+	if (m_readline % 2 == 0)
+	{
+		m_stream->GetRow(m_buff);
+	}
+
+	byte * pb = m_buff;
+	for (int i=m_size.width;i > 0;i--)
+	{
+		ptr[0] = ptr[2] = pb[0];
+		ptr[1] = ptr[3] = pb[1];
+		ptr += 4;
+		pb += 2;
+	}
+
+	m_readline++;
+	return m_size.width * 2;
+}

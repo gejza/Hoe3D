@@ -31,13 +31,16 @@ typedef DDSURFACEDESC2 DDSurfaceDesc;
 class RefSurface : public RefSurfaceBase
 {
 	DDCOLORKEY m_ck;
-public:
+	uint m_width;
+	uint m_height;
 	DirectDrawSurface* m_srf; 
-
+public:
 	bool Lock(LockRect* l);
 	void Unlock();
 
 	bool SetColorKey(const HOECOLOR& c);
+	uint GetWidth() const { return m_width; }
+	uint GetHeight() const { return m_height; }
 
 	friend class RefDD;
 };

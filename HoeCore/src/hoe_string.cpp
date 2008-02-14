@@ -76,6 +76,7 @@ int vsnprintf(wchar_t* dest, size_t n, const wchar_t* fmt, va_list vl)
 #endif
     if (ret < 0)
         return n;
+	return ret;
 }
 
 void copy(char * dest, const char * src, size_t cnt)

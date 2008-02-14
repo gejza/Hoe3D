@@ -37,6 +37,7 @@ IHoeInterface * HOEAPI Hoe2DEngine::Create(const tchar * cmd)
 	HoeRes::PictureLoader pl(rs);
 	HoeRes::MediaStreamPic * ps = pl.GetData();
 	HoeRes::FormatConv cs(ps);
+	HoeRes::DoubleZoom dz(&cs);
 
 	HOECOLOR ck;
 	bool setck;
@@ -48,7 +49,7 @@ IHoeInterface * HOEAPI Hoe2DEngine::Create(const tchar * cmd)
     }
 
 	THoeSizeu rect;
-	cs.GetSize(&rect);
+	dz.GetSize(&rect);
 	//byte * buff = new byte[pic->GetPitch()]
 	//for (uint 
 	// create picture
@@ -59,7 +60,7 @@ IHoeInterface * HOEAPI Hoe2DEngine::Create(const tchar * cmd)
 	pic->m_surf.Lock(&l);
 	for (uint y=0;y < rect.height;y++)
 	{
-		cs.GetRow(l.ptr);
+		dz.GetRow(l.ptr);
 		l.ptr += l.pitch;
 	}
     pic->m_surf.Unlock();

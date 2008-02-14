@@ -42,6 +42,11 @@ struct fixed
 		n = a << fxbits;
 		return *this;
 	}
+	fixed& operator = (const uint a)
+	{
+		n = a << fxbits;
+		return *this;
+	}
 	const fixed& operator *= (const fixed& a)
 	{
 		n = ((fxtype)(((int64)(a.n) * (int64)(n)) >> fxbits));

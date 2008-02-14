@@ -389,30 +389,22 @@ template<typename TYPE> class LList
 protected:
 	struct LListItem
 	{
-		TYPE data;
 		LListItem * next;
+		LListItem * prev;
+		union {
+			byte data[1];
+		};
 	};
 
 	HoeCore::MemoryPool* m_pool;
 	LListItem * m_first;
+	LListItem * m_last;
 public:
-	class Iterator
+	class BaseIterator
 	{
+	protected:
 		LListItem * m_it;
 	public:
-		Iterator(LList & list)
-		{
-			m_it = list.m_first;
-		}
-		void next()
-		{
-			if (m_it)
-				m_it = m_it->next;
-		}
-		void operator ++ (int)
-		{
-			next();
-		}
 		bool valid() const
 		{
 			return m_it != NULL;
@@ -423,16 +415,57 @@ public:
 		}
 		TYPE* operator ->()
 		{
-			return &(m_it->data);
+			return reinterpret_cast<TYPE*>(m_it->data);
 		}
 		TYPE& operator *()
 		{
-			return m_it->data;
+			return *reinterpret_cast<TYPE*>(m_it->data);
+		}
+		template<typename C> C& cast()
+		{
+			return dynamic_cast<C&>(this->operator*());
+		}
+		void next()
+		{
+			if (m_it)
+				m_it = m_it->next;
+		}
+		void operator ++ (int)
+		{
+			next();
+		}
+		void prev()
+		{
+			if (m_it)
+				m_it = m_it->prev;
+		}
+		void operator -- (int)
+		{
+			prev();
+		}
+
+	};
+	class Iterator : public BaseIterator
+	{
+	public:
+		Iterator(LList & list)
+		{
+			m_it = list.m_first;
+		}
+	};
+	class BackIterator : public BaseIterator
+	{
+	public:
+		BackIterator(LList & list)
+		{
+			m_it = list.m_last;
 		}
 	};
 public:
-	LList() : m_pool(NULL), m_first(NULL) {}
-	LList(HoeCore::MemoryPool& pool) : m_pool(&pool), m_first(NULL) {}
+	LList()
+		: m_pool(NULL), m_first(NULL), m_last(NULL) {}
+	LList(HoeCore::MemoryPool& pool) 
+		: m_pool(&pool), m_first(NULL), m_last(NULL) {}
 	~LList()
 	{
 		Delete();
@@ -441,24 +474,36 @@ public:
 	{
 		return *new (this->AddForNew()) TYPE();
 	}
-	void * AddForNew()
+	void * AddForNew(size_t num = 0)
 	{
 		LListItem * li;
-		if (m_pool)
-			li = (LListItem*)m_pool->GetMem(sizeof(LListItem));
+		if (num == 0)
+			num = sizeof(LListItem)-1 + sizeof(TYPE);
 		else
-			li = (LListItem*)malloc(sizeof(LListItem));
-		memset(li, 0, sizeof(LListItem));
-		//li->first 
-		li->next = m_first;
-		m_first = li;
-		return &li->data;
+			num = sizeof(LListItem)-1 + num;
+		if (m_pool)
+			li = (LListItem*)m_pool->GetMem(num);
+		else
+			li = (LListItem*)malloc(num);
+		memset(li, 0, num);
+		if (this->m_last)
+		{
+			this->m_last->next = li;
+			LListItem * p = this->m_last;
+			this->m_last = li;
+			//li->prev = p;
+		}
+		else
+		{
+			this->m_first = this->m_last = li;
+		}
+		return li->data;
 	}
 	void Delete()
 	{
 		while (m_first)
 		{
-			m_first->data.~TYPE();
+			reinterpret_cast<TYPE*>(m_first->data)->~TYPE();
 			LListItem * tmp = m_first->next;
 			if (!m_pool)
 				free(m_first);

@@ -52,12 +52,12 @@ void HoePicture::GetRect(THoeRect * rect) const
 
 unsigned int HoePicture::GetWidth() const
 {
-	return 0;//m_tex->GetWidth();
+	return m_surf.GetWidth();
 }
 
 unsigned int HoePicture::GetHeight() const
 {
-	return 0;//m_tex->GetHeight();
+	return m_surf.GetHeight();
 }
 
 /*int HoePicture::GetNumRECT()

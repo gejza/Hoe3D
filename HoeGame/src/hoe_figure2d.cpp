@@ -60,65 +60,61 @@ loaderror:
 	return false;
 }
 
+
+
 Gui::Base * Hoe2DFigure::CreateGUI(const char *type)
 {
 	Gui::Item * g = NULL;
 #define IS(t) (HoeCore::string::cmp(type,t)==0)
 	if (IS("static"))
-		g = new StaticPicture;
+		g = NewItem<StaticPicture>();
 	else if (IS("colorrect"))
-		g = new ColorRect;
+		g = NewItem<ColorRect>();
 	else if (IS("button"))
-		g = new Button;
+		g = NewItem<Button>();
 	else if (IS("buttonusr"))
-		g = new ButtonUsr;
+		g = NewItem<ButtonUsr>();
 	else if (IS("digicounter"))
-		g = new DigiCounter;
+		g = NewItem<DigiCounter>();
 	else if (IS("infopanel"))
-		g = new InfoPanel;
+		g = NewItem<InfoPanel>();
 	else if (IS("text"))
-		g = new Font;
+		g = NewItem<Font>();
 	else
 		return NULL;
 
-	m_list.Add(g);
 	return g;
 }
 
 void Hoe2DFigure::Clear()
 {
-	for (uint i=0;i < m_list.Count();i++)
-	{
-		Gui::Item * item = m_list.Get(i);
-		delete item;
-	}
-	m_list.SetCount(0);
+	m_list.Delete();
 }
 
 void Hoe2DFigure::Draw(IHoe2D *hoe2d)
 {
 	hoe2d->SetRect(800,600);
-	for (uint i=0;i<m_list.Count();i++)
+	for (ItemList::Iterator i(m_list);i;i++)
 	{
-		if (m_list.Get(i)->GetShow())
-			m_list.Get(i)->Draw(hoe2d);
+		if (i->GetShow())
+			i->Draw(hoe2d);
 	}
-	for (uint i=0;i<m_list.Count();i++)
+	for (ItemList::Iterator i(m_list);i;i++)
 	{
-		if (m_list.Get(i)->GetShow())
-			m_list.Get(i)->Draw2(hoe2d);
+		if (i->GetShow())
+			i->Draw2(hoe2d);
 	}
 }
 
 Gui::Item * Hoe2DFigure::GetItem(const char * name, Gui::EType type)
 {
-	for (uint i=0;i<m_list.Count();i++)
+	for (ItemList::Iterator i(m_list);i;i++)
 	{
-		if (type != Gui::ENone && m_list.Get(i)->GetType() != type)
+		if (type != Gui::ENone && i->GetType() != type)
 			continue;
-		const tchar * n = m_list.Get(i)->GetName();
+		const tchar * n = i->GetName();
 		if (n && HoeCore::string::cmp(n,name)==0)
-			return m_list.Get(i);
+			return &(*i);
 	}
 	return NULL;
 }
@@ -138,19 +134,19 @@ Gui::Item * Hoe2DFigure::ReqItem(const char * name, Gui::EType type)
 
 void Hoe2DFigure::Move(const float x, const float y, bool & act)
 {
-	for (int i=m_list.Count()-1;i>=0;i--)
+	for (ItemList::BackIterator i(m_list);i;i--)
 	{
-		if (m_list.Get(i)->GetType() == Gui::EButton)
-			dynamic_cast<Gui::Button*>(m_list.Get(i))->Move(x,y, act);
+		if (i->GetType() == Gui::EButton)
+			i.cast<Gui::Button>().Move(x,y, act);
 	}
 }
 
 bool Hoe2DFigure::Click(const float x, const float y)
 {
-	for (int i=m_list.Count()-1;i>=0;i--)
+	for (ItemList::BackIterator i(m_list);i;i--)
 	{
-		if (m_list.Get(i)->GetType() == Gui::EButton
-			&& dynamic_cast<Gui::Button*>(m_list.Get(i))->Click(x,y))
+		if (i->GetType() == Gui::EButton
+			&& i.cast<Gui::Button>().Click(x,y))
 			return true;
 	}
 	return false;

@@ -333,6 +333,8 @@ HOEFORMAT RefDD::GetFormat(DDPIXELFORMAT& pf)
 
 bool RefDD::CreateSurface(RefSurface* surf, uint width, uint height)
 {
+	surf->m_width = width;
+	surf->m_height = height;
 	DDSurfaceDesc desc;
 	memset(&desc,0,sizeof(desc));
 	desc.dwSize = sizeof(desc);
@@ -382,13 +384,8 @@ void RefDD::Blt(RefSurface& surf, const THoeRect * dest, const THoeRect * src, i
 		}
 		else
 		{
-			DDSurfaceDesc desc;
-			memset(&desc, 0, sizeof(desc));
-			desc.dwSize = sizeof(desc);
-			hRes = surf.m_srf->GetSurfaceDesc(&desc);
-			checkres(hRes, "GetSurfaceDesc");
-			rd.bottom = desc.dwHeight + rd.top;
-			rd.right = desc.dwWidth + rd.left;
+			rd.bottom = surf.GetHeight() + rd.top;
+			rd.right = surf.GetWidth() + rd.left;
 		}
 	}
     DDBLTFX                     ddbltfx;

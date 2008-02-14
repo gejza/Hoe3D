@@ -106,6 +106,23 @@ public:
 	void SetColorKey(HOECOLOR& c, byte alpharef);
 };
 
+class DoubleZoom : public HoeRes::MediaStreamPic
+{
+	HoeRes::MediaStreamPic * m_stream;
+	int m_num;
+	byte* m_buff;
+	int m_readline;
+	THoeSizeu m_size;
+public:
+	DoubleZoom(HoeRes::MediaStreamPic* stream);
+	virtual ~DoubleZoom();
+	virtual HOEFORMAT GetFormat() { return m_stream->GetFormat(); }
+	virtual uint GetPitch() { return m_stream->GetFormat() * 2; }
+	virtual void GetSize(THoeSizeu* size);
+	virtual uint Close() { return 0; }
+	virtual uint GetRow(byte* ptr);
+};
+
 } // namespace HoeRes
 
 #endif // _HOE_RESOURCE_RES_H_

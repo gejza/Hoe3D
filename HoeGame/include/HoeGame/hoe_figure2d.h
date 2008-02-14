@@ -45,8 +45,11 @@ class Hoe2DFigure : public Hoe2DFigureBase
 {
 protected:
 	// seznam vykresleni
-	HoeCore::List<Gui::Item*> m_list;
+	HoeCore::MemoryPool m_pool;
+	typedef HoeCore::LList<Gui::Item> ItemList;
+	ItemList m_list;
 public:
+	Hoe2DFigure() : m_list(m_pool) {}
 	virtual ~Hoe2DFigure() { Clear(); }
 	void Clear();
 	virtual Gui::Base * CreateGUI(const char * type);
@@ -55,7 +58,12 @@ public:
 	Gui::Item * ReqItem(const char * name, Gui::EType type);
 	void Move(const float x, const float y, bool & act);
 	bool Click(const float x, const float y);
-	const HoeCore::List<Gui::Item*> & GetItems() const { return m_list; }
+	const HoeCore::LList<Gui::Item> & GetItems() const { return m_list; }
+
+	template<typename TYPE> TYPE * NewItem()
+	{
+		return new (m_list.AddForNew(sizeof(TYPE))) TYPE;
+	}
 };
 
 END_HOEGAME

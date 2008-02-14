@@ -834,7 +834,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_figure2d.h"
+				RelativePath="..\include\HoeGame\hoe_figure2d.h"
 				>
 			</File>
 			<File
@@ -842,7 +842,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_gui.h"
+				RelativePath="..\include\HoeGame\hoe_gui.h"
 				>
 			</File>
 		</Filter>
