@@ -8,8 +8,8 @@ namespace HoeRes {
 
 class ColorConv
 {
-	dword (__fastcall *m_to)(const HOECOLOR& c);
-	void (__fastcall *m_from)(HOECOLOR& c, const dword dw);
+    dword (FCALL* m_to)(const HOECOLOR& c);
+	void (FCALL* m_from)(HOECOLOR& c, const dword dw);
 
 	HOEFORMAT m_fromformat, m_toformat;
 	uint m_fromnum, m_tonum;

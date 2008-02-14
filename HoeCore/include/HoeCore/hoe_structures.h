@@ -450,7 +450,7 @@ public:
 	public:
 		Iterator(LList & list)
 		{
-			m_it = list.m_first;
+			this->m_it = list.m_first;
 		}
 	};
 	class BackIterator : public BaseIterator
@@ -458,7 +458,7 @@ public:
 	public:
 		BackIterator(LList & list)
 		{
-			m_it = list.m_last;
+			this->m_it = list.m_last;
 		}
 	};
 public:
@@ -491,7 +491,7 @@ public:
 			this->m_last->next = li;
 			LListItem * p = this->m_last;
 			this->m_last = li;
-			//li->prev = p;
+			li->prev = p;
 		}
 		else
 		{

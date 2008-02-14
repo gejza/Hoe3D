@@ -18,24 +18,24 @@ template<int a,int r, int g, int b> struct ColorARGB
 
 		NumBits = (g+b+r+a),
 	};
-	static inline dword _fastcall conv2dw(const HOECOLOR& c)
+	static inline dword FCALL conv2dw(const HOECOLOR& c)
 	{
 		dword dw = 0;
 		if (a > 0)
-			dw  |= safe_lshift(c.a & ~((1 << (8-a))-1),AlphaShift);
-		return dw | safe_lshift(c.r & ~((1 << (8-r))-1),RedShift)
-			| safe_lshift(c.g & ~((1 << (8-g))-1),GreenShift)
-			| safe_lshift(c.b & ~((1 << (8-b))-1),BlueShift); 
+			dw  |= safe_lshift(c.a & ~((1 << (8-a))-1),(int)AlphaShift);
+		return dw | safe_lshift(c.r & ~((1 << (8-r))-1),(int)RedShift)
+			| safe_lshift(c.g & ~((1 << (8-g))-1),(int)GreenShift)
+			| safe_lshift(c.b & ~((1 << (8-b))-1),(int)BlueShift); 
 	}
-	static inline void _fastcall conv2c(HOECOLOR& c, const dword dw)
+	static inline void FCALL conv2c(HOECOLOR& c, const dword dw)
 	{
 		if (a > 0)
-			c.a = safe_rshift(dw & AlphaMask, AlphaShift);
+			c.a = safe_rshift(dw & AlphaMask, (int)AlphaShift);
 		else
 			c.a = 0xff;
-		c.r = safe_rshift(dw & RedMask, RedShift);
-		c.g = safe_rshift(dw & GreenMask, GreenShift);
-		c.b = safe_rshift(dw & BlueMask, BlueShift);
+		c.r = safe_rshift(dw & RedMask, (int)RedShift);
+		c.g = safe_rshift(dw & GreenMask, (int)GreenShift);
+		c.b = safe_rshift(dw & BlueMask, (int)BlueShift);
 	}
 };
 

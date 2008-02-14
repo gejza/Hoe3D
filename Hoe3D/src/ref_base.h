@@ -14,12 +14,17 @@
 
 class RefSurfaceBase
 {
+protected:
+	uint m_width;
+	uint m_height;
 public:
 	struct LockRect
 	{
 		byte * ptr;
 		dword pitch;
 	};
+	uint GetWidth() const { return m_width; }
+	uint GetHeight() const { return m_height; }
 };
 
 /** 
