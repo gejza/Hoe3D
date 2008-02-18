@@ -425,7 +425,7 @@ void String::PrepareForModify(size_t n, bool canempty)
 		m_data = CreateStringData(n);
 		m_data->str[0] = 0;
 	}
-	else if (m_data->data.IsShared())
+	else if (m_data->data.IsShared() || n > m_data->data.alloc)
 	{
         ::printf("unshared data %ld\n", n);
 		StringDataPtr * data = CreateStringData(n);
@@ -433,12 +433,6 @@ void String::PrepareForModify(size_t n, bool canempty)
 			string::copy(data->str, m_data->str, n);
 		m_data->data.Unlock();
 		m_data = data;
-	}
-	else if (n > m_data->data.alloc)
-	{
-        ::printf("realloc data %ld\n", n);
-		m_data = (StringDataPtr*)realloc(m_data, sizeof(StringData)+(n+1)*sizeof(tchar));
-		m_data->data.alloc = (n+1);
 	}
 }
 

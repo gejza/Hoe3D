@@ -25,7 +25,7 @@ src/hoe_platform.cpp
 
 ___bin_libHoeCore_a_LDFLAGS = -static
 
-HoeCoreTest_SOURCES = `ls test/*.cpp`
+HoeCoreTest_SOURCES = test/test.cpp test/string.cpp
 
 HoeCoreTest_CPPFLAGS = -D_NOXLIB 
 
@@ -33,4 +33,7 @@ HoeCoreTest_LDFLAGS = -L../bin -lHoeCore
 
 test/flex.cpp: template/hoe_flex.skl test/flex.l
 	flex -Stemplate/hoe_flex.skl -otest/flex.cpp test/flex.l
+
+TestDynString: HoeCoreTest
+	./HoeCoreTest DynString
 

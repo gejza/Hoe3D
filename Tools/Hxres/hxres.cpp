@@ -82,6 +82,9 @@ int main(int argc, char* argv[])
 		fprintf(stderr, "hxres <file>\n");
 		return 1;
 	}
+
+	yydebug = 1;
+
 	
 	HoeCore::SetRootDir(HoeCore::GetBaseDir(argv[1]));
 	HoeFlexFileEx fs(argv[1]);

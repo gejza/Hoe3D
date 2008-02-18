@@ -24,5 +24,7 @@ public:
 	}
 };
 
+extern int yydebug;
+
 #endif // _HOE_UTIL_RESOURCE_COMPILER_SCAN_H_
 
