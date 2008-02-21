@@ -72,7 +72,7 @@ bool RefDD::Init(THoeInitSettings * his)
 	m_Height = GetConfig()->GetHeightView();
 
     // Get exclusive mode
-#if 0
+#ifdef _WIN32_WINNT
     hRes = m_pDD->SetCooperativeLevel(m_hWnd, DDSCL_NORMAL/*DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN*/);
 	checkres(hRes, "SetCooperativeLevel");
 
@@ -179,15 +179,6 @@ bool RefDD::Begin()
 
 void RefDD::End()
 {
-	RECT g_rcWindow;             // Saves the window size & pos.
-	RECT g_rcViewport;           // Pos. & size to blt from
-	RECT g_rcScreen;             // Screen pos. for blt 
-	// Get the dimensions of the viewport and screen bounds
-	GetClientRect(m_hWnd, &g_rcViewport);
-	GetClientRect(m_hWnd, &g_rcScreen);
-	ClientToScreen(m_hWnd, (POINT*)&g_rcScreen.left);
-	ClientToScreen(m_hWnd, (POINT*)&g_rcScreen.right);
-
 	HDC hdc;
 	HRESULT hRes;
 	hRes = m_pDDSBack->GetDC(&hdc);
@@ -212,12 +203,30 @@ ExtTextOut(hdc,
                NULL);                    // lpDx
 
 	m_pDDSBack->ReleaseDC(hdc);
+
+#if 0
     DDBLTFX                     ddbltfx;
     memset(&ddbltfx, 0, sizeof(ddbltfx));
     ddbltfx.dwSize = sizeof(ddbltfx);
     ddbltfx.dwROP = SRCCOPY;
 	hRes = m_pDDSPrimary->Blt(NULL, m_pDDSBack,
        NULL, /*DDBLT_ROP*/0, &ddbltfx);
+#else
+	RECT g_rcWindow;             // Saves the window size & pos.
+	RECT g_rcViewport;           // Pos. & size to blt from
+	RECT g_rcScreen;             // Screen pos. for blt 
+	// Get the dimensions of the viewport and screen bounds
+	GetClientRect(m_hWnd, &g_rcViewport);
+	GetClientRect(m_hWnd, &g_rcScreen);
+	ClientToScreen(m_hWnd, (POINT*)&g_rcScreen.left);
+	ClientToScreen(m_hWnd, (POINT*)&g_rcScreen.right);
+
+
+	hRes = m_pDDSPrimary->Blt(&g_rcScreen, m_pDDSBack,
+                              &g_rcViewport, DDBLT_WAIT,
+                              NULL);
+
+#endif
 	checkres(hRes, "Primary::Blt");
 
 }
@@ -367,7 +376,8 @@ void RefDD::Blt(RefSurface& surf, const THoeRect * dest, const THoeRect * src, i
 		r.bottom = src->bottom;
 	}
 #ifndef _WIN32_WCE
-	hRes = m_pDDSBack->BltFast(dest->left,dest->top,surf.m_srf,src ? &r:0,DDBLTFAST_SRCCOLORKEY);
+	hRes = m_pDDSBack->BltFast(dest->left,dest->top,
+			surf.m_srf,src ? &r:0,0);
 	checkres(hRes, "IDirectDrawSurface7::BltFast");
 #else
 	RECT rd;

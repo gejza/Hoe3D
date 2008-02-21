@@ -36,8 +36,9 @@ IHoeInterface * HOEAPI Hoe2DEngine::Create(const tchar * cmd)
 		return NULL;
 	HoeRes::PictureLoader pl(rs);
 	HoeRes::MediaStreamPic * ps = pl.GetData();
-	HoeRes::FormatConv cs(ps);
-	HoeRes::DoubleZoom dz(&cs);
+	//HoeRes::FormatConv cs(ps);
+	//HoeRes::DoubleZoom dz(&cs);
+	HoeRes::FormatConv dz(ps);
 
 	HOECOLOR ck;
 	bool setck;
@@ -45,7 +46,7 @@ IHoeInterface * HOEAPI Hoe2DEngine::Create(const tchar * cmd)
     {
 		byte aref = 0xa0;
 		pl.GetChunk(MAKE_FOURCC('A','R','E','F'), aref);
-        cs.SetColorKey(ck, aref);
+        dz.SetColorKey(ck, aref);
     }
 
 	THoeSizeu rect;

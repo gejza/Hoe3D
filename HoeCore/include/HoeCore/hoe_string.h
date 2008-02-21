@@ -208,6 +208,10 @@ public:
 	{
 		return string::cmp(GetPtr(), s) == 0;
 	}
+	bool operator != (const char* s) const
+	{
+		return string::cmp(GetPtr(), s) != 0;
+	}
 	const String & operator = (const char * s)
 	{
 		Set(s); return *this;
@@ -249,6 +253,10 @@ public:
 	bool operator == (const wchar_t* s) const
 	{
 		return string::cmp(GetPtr(), s) == 0;
+	}
+	bool operator != (const wchar_t* s) const
+	{
+		return string::cmp(GetPtr(), s) != 0;
 	}
 	const String & operator = (const wchar_t * s)
 	{

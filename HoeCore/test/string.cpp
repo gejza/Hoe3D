@@ -33,8 +33,7 @@ DEFINE_TEST(DynString, "Test synamic string")
     str1.printf("(%d)%s",r++, str2.GetPtr());
     str2.printf("(%d)%s",r++, str1.GetPtr());
 
-    ::printf("%s\n", str2.GetPtr());
-    if (strlen(str2) != 3)
+    if (str2 != "(8)(7)(6)(5)(4)(3)(2)1")
 		return HoeTest::TEST_FAILED;
 
 	return HoeTest::TEST_OK;

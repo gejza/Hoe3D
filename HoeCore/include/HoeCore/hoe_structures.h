@@ -354,7 +354,10 @@ public:
 		if (!n)
 			this->m_index++;
 		else if (n==(this->m_count-this->m_index-1))
+		{
 			this->m_count--;
+			this->m_ptr[this->m_count].~C();
+		}
 		// vyzaduje posunuti pameti
 		else if (this->m_index)
 		{

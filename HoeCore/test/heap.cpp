@@ -1,8 +1,8 @@
 
 #include "../src/StdAfx.h"
 #include <stdlib.h>
-#include "../include/hoe_core.h"
-#include "../include/hoe_structures.h"
+#include "../include/HoeCore/hoe_core.h"
+#include "../include/HoeCore/hoe_structures.h"
 
 
 struct Tile

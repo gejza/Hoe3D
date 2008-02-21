@@ -1,9 +1,9 @@
 
 #include "../src/StdAfx.h"
 #include <stdlib.h>
-#include "../include/hoe_core.h"
-#include "../include/hoe_structures.h"
-#include "../include/hoe_platform.h"
+#include "../include/HoeCore/hoe_core.h"
+#include "../include/HoeCore/hoe_structures.h"
+#include "../include/HoeCore/hoe_platform.h"
 #include "test.h"
 
 struct TestItem
@@ -11,13 +11,17 @@ struct TestItem
 	int a,b,c,d;
     int aa[16];
 	HoeCore::String str;
+	static int numinstances;
 	TestItem()
 	{
-		printf("Constructor TestItem\n");
+		printf("Constructor(%d) TestItem\n", numinstances);
+		numinstances++;
 	}
 	~TestItem()
 	{
-		printf("Destructor TestItem %d\n", a);
+		numinstances--;
+		assert(numinstances >= 0);
+		printf("Destructor(%d) TestItem %d\n", numinstances, a);
 	}
 	bool operator < (const TestItem& o) const
 	{
@@ -30,9 +34,22 @@ struct TestItem
 
 };
 
+int TestItem::numinstances = 0;
+
+HoeTest::ETestStatus checkleaks()
+{
+	if (TestItem::numinstances)
+	{
+		printf("Detect bad %d calls destructor.\n", TestItem::numinstances);
+		TestItem::numinstances = 0;
+		return HoeTest::TEST_WARNING;
+	}
+	return HoeTest::TEST_OK;
+}
+
 DEFINE_TEST(Queue, "Test queue structure")
 {
-    // test queue
+	{ // test queue
     HoeCore::Queue<TestItem> q;
     for (int i=0;i < 10;i++)
     {
@@ -55,7 +72,7 @@ DEFINE_TEST(Queue, "Test queue structure")
 	q.Remove(5);
 	print("Remove 5 index..",q);
     
-	return HoeTest::TEST_OK;
+	} return checkleaks();
 }
 
 void print(const char *str, HoeCore::Queue<TestItem> &q)
@@ -73,6 +90,7 @@ END_TEST(Queue)
 
 DEFINE_TEST(List, "Test list structure")
 {
+	{
 	HoeCore::MemoryPool pool;
 	TestItem* ti = new (pool) TestItem;
 	ti->~TestItem();
@@ -87,7 +105,7 @@ DEFINE_TEST(List, "Test list structure")
 	l.Add().a = 10;
 	l.Add().a = 5;
 	l.QSort();
-	return HoeTest::TEST_OK;
+	} return checkleaks();
 }
 
 END_TEST(List)
