@@ -268,6 +268,11 @@ dword HoeCore::HashString(const wchar_t * str)
 	return hash;
 }
 
+void HoeCore::GenerateRandom()
+{
+	srand( (unsigned)time( NULL ) );
+}
+
 // algorithm
 bool HoeCore::Algorythm::Dajkrs::Process(TGraphPoint * from, TGraphPoint * to)
 {

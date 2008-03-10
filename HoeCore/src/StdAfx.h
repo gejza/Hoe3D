@@ -25,6 +25,7 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <new>
+#include <time.h>
 
 #include <wchar.h>
 

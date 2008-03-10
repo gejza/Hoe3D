@@ -63,7 +63,6 @@ protected:
 
 	virtual bool LoadEngine(int sdkver);
 	virtual bool Frame(float time);
-	virtual bool Frame();
 public:
 	static CVar m_enginedll;
 	/** 
@@ -78,6 +77,7 @@ public:
 	virtual void Run();
 	virtual void OnSize(int width, int height);
 	virtual void OnPaint();
+	virtual bool Frame();
 
 	virtual const tchar * GetTitle();
 
@@ -97,7 +97,7 @@ public:
 		return &(GET_THIS(HoeApp)->m_fs);
 	}*/
 
-	virtual void OnUpdate(float time);
+	virtual void OnUpdate(vfloat time);
 
 	void DestroyEngine();
 };

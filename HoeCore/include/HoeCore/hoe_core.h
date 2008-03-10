@@ -108,6 +108,8 @@ HOE_INLINE float FCALL RandFloat(float max)
 	return (float)(((double)rand() / (double)RAND_MAX) * max);
 }
 
+void GenerateRandom();
+
 // algoritmy
 namespace Algorythm {
 

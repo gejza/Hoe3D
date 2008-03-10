@@ -51,11 +51,22 @@ bool HoeWin32::CreateWin(const tchar * title, int width, int height, bool fs)
 	}
 	else
 	{
+		// prepositat
+
 		m_hWnd = CreateWindow (this->GetAppName(), title,
-							WS_OVERLAPPEDWINDOW,
+							 WS_OVERLAPPED     | 
+                             WS_CAPTION        | 
+                             WS_SYSMENU        | 
+                             WS_MINIMIZEBOX,
 							CW_USEDEFAULT, CW_USEDEFAULT,
 							width,height,//CW_USEDEFAULT, CW_USEDEFAULT,
 							NULL, NULL, m_hInstance, NULL) ;
+		RECT rect;
+		if (GetClientRect(m_hWnd, &rect))
+		{
+			SetWindowPos(m_hWnd, 0, 0, 0, 2*width - rect.right, 2*height-rect.bottom,
+				SWP_NOCOPYBITS|SWP_NOMOVE|SWP_NOREDRAW|SWP_NOREPOSITION|SWP_NOSENDCHANGING);
+		}
 	}
 
 	if (!m_hWnd)
@@ -187,6 +198,8 @@ LRESULT CALLBACK HoeWin32::MsgProc (HWND hwnd,UINT message, WPARAM wParam, LPARA
 		this->OnPaint();
           break ;
 
+	  case WM_SIZING:
+		  return TRUE;
      case WM_DESTROY:
 		 PostQuitMessage (0) ;
           return 0 ;
