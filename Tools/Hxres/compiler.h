@@ -59,6 +59,21 @@ public:
 	StreamCompiler(HoeCore::WriteStream& out) : Compiler(out) {}
 };
 
+class FontCompiler : public Compiler
+{
+	Image im;
+public:
+	FontCompiler(HoeCore::WriteStream& out) : Compiler(out) {}
+	virtual bool AddProp(const HoeCore::CString name, const Value& value);
+	virtual bool AddProp(const HoeCore::CString name, const Values& value);
+	//virtual bool Func(const HoeCore::CString name, const VectorUniversal& value);
+	virtual bool Func(const HoeCore::CString name, 
+                      const HoeCore::CString ret,
+                      const Values& value);
+
+	virtual void Done();
+};
+
 enum EResourceType
 {
 	ERT_Picture,

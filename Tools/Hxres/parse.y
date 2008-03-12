@@ -48,7 +48,7 @@ Values vec;
 
 %token TK_Stream TK_StreamFile TK_Texture TK_TextureFile
 %token TK_Material TK_MaterialFile TK_IndexFile
-%token TK_Picture TK_Model TK_Index TK_Namespace
+%token TK_Picture TK_Model TK_Index TK_Namespace TK_Font
 %token <string>TK_name  
 %token <num> TK_num  
 %token <real> TK_real  
@@ -71,6 +71,7 @@ resource
 		| picture
 		| index
 		| model
+		| font
 		| namespace
         | { pint = &linker; } attribute
 ;
@@ -180,5 +181,10 @@ vector_item
 		  { vec.Set(Value($1, TK_num)); }
 		| vector_item ',' TK_num
 		  { vec.Add(Value($3, TK_num)); }
+;
+font
+		: TK_Font TK_name '\n' { pint = linker.AddObject($2, IDFont, lex.GetLocation()); }
+			attributes
+		'~' TK_Font '\n'  { DONE(pint); }
 ;
 %%

@@ -14,6 +14,8 @@ enum {
 	IDNamespace=0x01,
 	IDPicture=0x10,
 	IDStream=0x20,
+	IDIndex=0x30,
+	IDFont=0x40,
 };
 
 #pragma pack(push,1)

@@ -39,6 +39,8 @@ Compiler * Compiler::Create(HoeCore::String&, int type, HoeCore::WriteStream& s)
 		return new PictureCompiler(s);
 	case IDStream:
 		return new StreamCompiler(s);
+	case IDFont:
+		return new FontCompiler(s);
     default:
 		hoe_assert(!"Unknown compiler type.");
         return NULL;

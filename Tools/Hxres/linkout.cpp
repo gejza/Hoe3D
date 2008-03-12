@@ -182,7 +182,7 @@ void LinkRes::Export(Namespace& ns)
 	fcpp.WriteString("\n"
 		"using namespace HoeRes::Res;\n"
 		"\n"
-		"HoeRes::SymbolLink link[] = {"
+		"HoeRes::SymbolLink g_link[] = {"
 		);
 	
 	ExportRes("", ns, fcpp);
@@ -196,7 +196,7 @@ void LinkRes::Export(Namespace& ns)
 		return;
 
 	frc.WriteString("// Auto generated file resources\n");
-	fcpp.WriteString("\nconst tchar * link_files[] = { ");
+	fcpp.WriteString("\nconst tchar * g_link_files[] = { ");
 	for (uint i=0;i < m_rc.Count();i++)
 	{
 		HoeCore::String n = HoeUtils::GetFileName(m_rc[i].name, false);

@@ -33,6 +33,7 @@ real	 {real1}|{real2}
 "Model"					return TK_Model;
 "Namespace"             return TK_Namespace;
 "Texture"               return TK_Texture;
+"Font"					return TK_Font;
 {name}					l->string = pool.Insert(yytext_ptr); return TK_name;
 {real}					l->real = HoeCore::string::GetReal(yytext_ptr); return TK_real;
 ({real}|{dig})"%"		l->real = HoeCore::string::GetReal(yytext_ptr) * 0.01; return TK_perc;

@@ -35,8 +35,8 @@ class MemoryPool
 		size_t size;
 		size_t max;
 		inline size_t GetAvail() { return max - size; }
-		void * GetMem(size_t s);
-		void * Clone(const void * p, size_t s);
+		void * GetMem(size_t s, size_t aligment);
+		void * Clone(const void * p, size_t s, size_t aligment);
 	};
 	PoolItem * m_pool;
 	PoolItem * CreateNew(size_t size);
@@ -52,9 +52,9 @@ public:
 	MemoryPool();
 	~MemoryPool();
 	/** Prirazeni pameti z poolu */
-	void * GetMem(size_t s);
+	void * GetMem(size_t s, size_t aligment=1);
 	/** Zkopirovani pameti do poolu */
-	void * Clone(const void * p, size_t s);
+	void * Clone(const void * p, size_t s, size_t aligment=1);
 	/** Uvolneni cele pameti */
 	void Free();
 	/** Statistiky */

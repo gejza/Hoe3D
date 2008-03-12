@@ -485,7 +485,7 @@ public:
 		else
 			num = sizeof(LListItem)-1 + num;
 		if (m_pool)
-			li = (LListItem*)m_pool->GetMem(num);
+			li = (LListItem*)m_pool->GetMem(num,sizeof(void*));
 		else
 			li = (LListItem*)malloc(num);
 		memset(li, 0, num);

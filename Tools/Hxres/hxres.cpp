@@ -83,7 +83,7 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	yydebug = 1;
+	//yydebug = 1;
 
 	
 	HoeCore::SetRootDir(HoeCore::GetBaseDir(argv[1]));

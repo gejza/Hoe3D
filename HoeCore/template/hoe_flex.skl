@@ -40,7 +40,7 @@ namespace flex {
 
 #if 0
 //%% YY_CHAR and YY_SC_TO_UI() go here
-//%% YY_CHAR and YY_SC_TO_UI() go here
+%% YY_CHAR and YY_SC_TO_UI() go here
 //end %% YY_CHAR and YY_SC_TO_UI() go here
 
 #endif

@@ -202,7 +202,7 @@ bool HoeApp::LoadEngine(int sdkver)
 	return m_engine.Load(m_con, m_fs, sdkver);
 }
 
-void HoeApp::OnUpdate(float time)
+void HoeApp::OnUpdate(vfloat time)
 {
 }
 

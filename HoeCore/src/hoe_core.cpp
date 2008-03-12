@@ -270,7 +270,7 @@ dword HoeCore::HashString(const wchar_t * str)
 
 void HoeCore::GenerateRandom()
 {
-	srand( (unsigned)time( NULL ) );
+	srand( SysFloatTime() * 1000 );
 }
 
 // algorithm

@@ -75,7 +75,7 @@ bool HoeRes::ChunkCache::Read(HoeCore::ReadStream* stream, uint num)
 		else
 		{
 			ch.pos = canseek ? stream->Tell():(size_t)-1;
-			ch.data = (byte*)m_pool.GetMem(ch.size);
+			ch.data = (byte*)m_pool.GetMem(ch.size,1);
 			stream->Read(ch.data, ch.size);
 		}
 	}

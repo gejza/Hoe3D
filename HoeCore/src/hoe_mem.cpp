@@ -4,12 +4,12 @@
 
 void * operator new(size_t s, HoeCore::MemoryPool& pool)
 {
-	return pool.GetMem(s);
+	return pool.GetMem(s, sizeof(void*)); // todo default
 }
 
 void * operator new[](size_t s, HoeCore::MemoryPool& pool)
 {
-	return pool.GetMem(s);
+	return pool.GetMem(s, sizeof(void*));
 }
 
 void operator delete( void* , HoeCore::MemoryPool& pool )
@@ -45,17 +45,22 @@ void HoeCore::CrossMemMove(void * dest, void * src, size_t size)
 
 /////////////////////////////////////////////////
 // Pools
-void * HoeCore::MemoryPool::PoolItem::GetMem(size_t s)
+void * HoeCore::MemoryPool::PoolItem::GetMem(size_t s, size_t aligment)
 {
-	if (s > (max-size)) return NULL;
+	// aligment
+	if (s+aligment-1 > (max-size)) return NULL;
+	if (aligment > 1) // find aligment
+	{
+		while (size % aligment != 0) size++;
+	}
 	void * ret = base + size;
 	size += s;
 	return ret;
 }
 
-void * HoeCore::MemoryPool::PoolItem::Clone(const void * p, size_t s)
+void * HoeCore::MemoryPool::PoolItem::Clone(const void * p, size_t s, size_t aligment)
 {
-	void * pp = GetMem(s);
+	void * pp = GetMem(s, aligment);
 	memcpy(pp, p, s);
 	return pp;
 }
@@ -65,7 +70,7 @@ HoeCore::MemoryPool::PoolItem * HoeCore::MemoryPool::CreateNew(size_t size)
 	PoolItem pi = {0};
 	pi.max = size + sizeof(PoolItem);
 	pi.base = new char[pi.max];
-	return reinterpret_cast<PoolItem*>(pi.Clone(&pi, sizeof(PoolItem)));
+	return reinterpret_cast<PoolItem*>(pi.Clone(&pi, sizeof(PoolItem), sizeof(PoolItem*)));
 }
 
 HoeCore::MemoryPool::PoolItem * HoeCore::MemoryPool::FindFree(size_t size)
@@ -99,20 +104,20 @@ HoeCore::MemoryPool::~MemoryPool()
 	Free();
 }
 
-void * HoeCore::MemoryPool::GetMem(size_t s)
+void * HoeCore::MemoryPool::GetMem(size_t s, size_t aligment)
 {
-	PoolItem * b = FindFree(s);
-	if (b) { return b->GetMem(s); }
+	PoolItem * b = FindFree(s+aligment-1);
+	if (b) { return b->GetMem(s,aligment); }
 	// vytvorit
 	b = CreateNew(s > 10000 ? s*2:10000);
 	b->next = m_pool;
 	m_pool = b;
-	return b->GetMem(s);
+	return b->GetMem(s,aligment);
 }
 
-void * HoeCore::MemoryPool::Clone(const void * p, size_t s)
+void * HoeCore::MemoryPool::Clone(const void * p, size_t s, size_t aligment)
 {
-	void * pp = GetMem(s);
+	void * pp = GetMem(s, aligment);
 	memcpy(pp, p, s);
 	return pp;
 }

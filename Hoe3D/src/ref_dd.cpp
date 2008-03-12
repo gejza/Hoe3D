@@ -67,9 +67,15 @@ bool RefDD::Init(THoeInitSettings * his)
 	DDSurfaceDesc ddsd;
 	m_hWnd = his->win;
 	
+#ifdef _WIN32_WCE
+	m_Fullscreen = true;
+	m_Width = 480;
+	m_Height = 640;
+#else
 	m_Fullscreen = GetConfig()->IsFullscreen();
 	m_Width = GetConfig()->GetWidthView();
 	m_Height = GetConfig()->GetHeightView();
+#endif
 
     // Get exclusive mode
 #ifdef _WIN32_WINNT
@@ -179,8 +185,8 @@ bool RefDD::Begin()
 
 void RefDD::End()
 {
-	HDC hdc;
 	HRESULT hRes;
+	/*HDC hdc;
 	hRes = m_pDDSBack->GetDC(&hdc);
 	checkres(hRes, "GetDC");
 	static int v = 0;
@@ -202,31 +208,38 @@ ExtTextOut(hdc,
                HoeCore::string::len(aaa),
                NULL);                    // lpDx
 
-	m_pDDSBack->ReleaseDC(hdc);
+	m_pDDSBack->ReleaseDC(hdc);*/
 
-#if 0
-    DDBLTFX                     ddbltfx;
-    memset(&ddbltfx, 0, sizeof(ddbltfx));
-    ddbltfx.dwSize = sizeof(ddbltfx);
-    ddbltfx.dwROP = SRCCOPY;
-	hRes = m_pDDSPrimary->Blt(NULL, m_pDDSBack,
-       NULL, /*DDBLT_ROP*/0, &ddbltfx);
+	if (m_Fullscreen)
+	{
+		DDBLTFX                     ddbltfx;
+		memset(&ddbltfx, 0, sizeof(ddbltfx));
+		ddbltfx.dwSize = sizeof(ddbltfx);
+		ddbltfx.dwROP = SRCCOPY;
+		hRes = m_pDDSPrimary->Blt(NULL, m_pDDSBack,
+		   NULL, /*DDBLT_ROP*/0, &ddbltfx);
+	}
+	else
+#ifdef _WIN32_WINNT
+	{
+		RECT g_rcWindow;             // Saves the window size & pos.
+		RECT g_rcViewport;           // Pos. & size to blt from
+		RECT g_rcScreen;             // Screen pos. for blt 
+		// Get the dimensions of the viewport and screen bounds
+		GetClientRect(m_hWnd, &g_rcViewport);
+		GetClientRect(m_hWnd, &g_rcScreen);
+		ClientToScreen(m_hWnd, (POINT*)&g_rcScreen.left);
+		ClientToScreen(m_hWnd, (POINT*)&g_rcScreen.right);
+
+
+		hRes = m_pDDSPrimary->Blt(&g_rcScreen, m_pDDSBack,
+								  &g_rcViewport, DDBLT_WAIT,
+								  NULL);
+	}
 #else
-	RECT g_rcWindow;             // Saves the window size & pos.
-	RECT g_rcViewport;           // Pos. & size to blt from
-	RECT g_rcScreen;             // Screen pos. for blt 
-	// Get the dimensions of the viewport and screen bounds
-	GetClientRect(m_hWnd, &g_rcViewport);
-	GetClientRect(m_hWnd, &g_rcScreen);
-	ClientToScreen(m_hWnd, (POINT*)&g_rcScreen.left);
-	ClientToScreen(m_hWnd, (POINT*)&g_rcScreen.right);
-
-
-	hRes = m_pDDSPrimary->Blt(&g_rcScreen, m_pDDSBack,
-                              &g_rcViewport, DDBLT_WAIT,
-                              NULL);
-
+	hoe_assert(!"No run in windowed mode");
 #endif
+
 	checkres(hRes, "Primary::Blt");
 
 }
