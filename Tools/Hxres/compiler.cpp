@@ -1,6 +1,7 @@
 
 #include "StdAfx.h"
 #include "compiler.h"
+#include "comp_font.h"
 #include "error.h"
 
 using namespace HoeCore;

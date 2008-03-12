@@ -10,7 +10,7 @@
 bin_PROGRAMS = hxres
 
 # the application source, library search path, and link libraries
-hxres_SOURCES = hxres.cpp parse.tab.cpp scan.yy.cpp linker.cpp compiler.cpp image.cpp error.cpp linkout.cpp
+hxres_SOURCES = hxres.cpp parse.tab.cpp scan.yy.cpp linker.cpp compiler.cpp image.cpp error.cpp linkout.cpp comp_font.cpp
 
 hxres_CPPFLAGS = -D_NOXLIB -I../../HoeCore/include -I../../HoeUtils/include -I../../HoeResource/include
 
