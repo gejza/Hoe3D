@@ -28,6 +28,7 @@
 #include <HoeCore/hoe_structures.h>
 #include <HoeCore/hoe_universal.h>
 #include <HoeCore/hoe_file.h>
+#include <HoeCore/hoe_unicode.h>
 #include <HoeCore/hoe_platform.h>
 
 #include <HoeResource/hoe_resfile.h>

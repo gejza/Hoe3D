@@ -8,13 +8,12 @@ using namespace HoeRes::Res;
 
 bool FontCompiler::AddProp(const CString name, const Value& value)
 {
-	/*if (name == "File")
+	if (name == "FontDef")
 	{
 		CheckArg(name, value, Universal::TypeString);
-        im.SetSource(value.GetStringValue());
-		return true;
+		return m_fontdef.Load(value);
 	}
-	if (name == "AlphaRef")
+	/*if (name == "AlphaRef")
 	{
 		CheckArg(name, value, Universal::TypeDecimal);
         im.SetAlphaRef(value.GetUnsigned());
@@ -39,6 +38,16 @@ bool FontCompiler::Func(const HoeCore::CString name,
 	return PInterface::Func(name, ret, value);
 }
 
+bool FontCompiler::AddObject(const Compiler* cmp)
+{
+	switch (cmp->GetType())
+	{
+	case HoeRes::Res::IDPicture:
+
+		return true;
+	};
+	return PInterface::AddObject(cmp);
+}
 
 void FontCompiler::Done()
 {
@@ -86,7 +95,86 @@ void FontCompiler::Done()
 	return false;
 }*/
 
+class TextReader
+{
+	HoeCore::ReadStream& m_stream;
+	char m_buff[1000];
+	int m_from, m_max;
+public:
+	TextReader(HoeCore::ReadStream& stream) : m_stream(stream), m_from(0), m_max(0)
+	{
+		m_from = 0;
+		m_max = m_stream.Read(m_buff, sizeof(m_buff)-1);
+		m_buff[m_max] = 0;
+		if (m_max >= 3 && m_buff[0] == 0xef && m_buff[1] == 0xbb && m_buff[2] == 0xbf)
+			m_from = 3;
+	}
+	int FindEnd()
+	{
+		for (int i=m_from;i < m_max;i++)
+		{
+			switch (m_buff[i])
+			{
+			case '\n':
+			case '\r':
+				return i;
+			};
+		}
+		return -1;
+	}
+	template<typename TYPE> bool ReadLine(TYPE& str)
+	{
+		str = "";
+		while (1)
+		{
+			int i=FindEnd();
+			if (i >= 0) // todo
+			{
+				bool crlf = m_buff[i] == '\r' && m_buff[i+1] == '\n';
+				m_buff[i] = 0;
+				str.concat(m_buff+m_from);
+				m_from = i+1;
+				if (crlf) m_from++;
+				return true;
+			}
+			if (m_from < m_max)
+				str.concat(m_buff[m_from]);
+			m_from = 0;
+			m_max = m_stream.Read(m_buff, sizeof(m_buff)-1);
+			m_buff[m_max] = 0;
+			if (!m_max)
+				return !str.IsEmpty();
+		}
+	}
+};
 /////
+bool FontCompiler::FontDef::Load(const char *path)
+{
+	HoeCore::File f;
+	if (!f.Open(path))
+	{
+		throw Error("Failed open file '%s'.", path);
+	}
+	// reader
+	TextReader t(f);
+	HoeCore::String_s<100> line;
+	wchar_t c;
+	int l=0;
+	while (t.ReadLine(line))
+	{
+		l++;
+		const char* p = line.GetPtr();
+		c = HoeCore::string::utf2w(p);
+		if (c == 0xfeff)
+			c = HoeCore::string::utf2w(p);
+		if (*p++ != ':')
+			throw Error("Missing ':' on line %d.", l);
+		int n=HoeCore::string::GetNumber(p);
+
+	}
+
+	return true;
+}
 
 
 

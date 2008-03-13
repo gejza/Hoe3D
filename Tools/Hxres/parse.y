@@ -33,10 +33,13 @@ static int yyerror(Linker& linker, HoeCore::StringPool& pool, Scaner& lex, char*
 	return 0;
 }
 
-PInterface * pint = NULL;
+HoeCore::Stack<PInterface*> pint;
+// spec int
 Values vec;
 
-#define DONE(p) if (p) { pint->Done();pint = NULL; }
+#define NEWOBJ(p) pint.Push(p)
+#define GETOBJ() pint.Top()
+#define DONE() { pint.Top()->Done();pint.Pop(); }
 
 %}
 
@@ -73,7 +76,7 @@ resource
 		| model
 		| font
 		| namespace
-        | { pint = &linker; } attribute
+        | { NEWOBJ(&linker); } attribute
 ;
 namespace:
 		TK_Namespace TK_name '\n'
@@ -82,7 +85,7 @@ namespace:
 		'~' TK_Namespace
 		 { linker.PopNamespace(); }
 ;
-stream:	TK_Stream TK_name { pint  = linker.AddObject($2, IDStream, lex.GetLocation()); } 
+stream:	TK_Stream TK_name { NEWOBJ(linker.AddObject($2, IDStream, lex.GetLocation())); } 
 			'[' { /* start fvf */ } fvf ']' '\n'
 			stream_data
 		'~' TK_Stream '\n'
@@ -104,9 +107,9 @@ stream_data_item
 		| TK_real 
 ;	
 picture: 
-		TK_Picture TK_name '\n' { pint = linker.AddObject($2, IDPicture, lex.GetLocation()); }
+		TK_Picture TK_name '\n' { NEWOBJ(linker.AddObject($2, IDPicture, lex.GetLocation())); }
 		  attributes
-		'~' TK_Picture '\n' { DONE(pint); }
+		'~' TK_Picture '\n' { DONE(); }
 ;
 attributes
 		: attribute
@@ -115,29 +118,29 @@ attributes
 		| attributes '\n'
 attribute
 		: TK_name '=' TK_name
-			{ pint->AddProp($1, Value($3,TK_name)); } '\n' 
+			{ GETOBJ()->AddProp($1, Value($3,TK_name)); } '\n' 
 		| TK_name '=' TK_string
-			{ pint->AddProp($1, Value($3, TK_string)); } '\n' 
+			{ GETOBJ()->AddProp($1, Value($3, TK_string)); } '\n' 
 		| TK_name '=' TK_wild
-			{ pint->AddProp($1, Value($3, TK_wild)); } '\n' 
+			{ GETOBJ()->AddProp($1, Value($3, TK_wild)); } '\n' 
 		| TK_name '=' TK_re
-			{ pint->AddProp($1, Value($3, TK_re)); } '\n' 
+			{ GETOBJ()->AddProp($1, Value($3, TK_re)); } '\n' 
 		| TK_name '=' TK_expand
-			{ pint->AddProp($1, Value($3, TK_expand)); } '\n' 
+			{ GETOBJ()->AddProp($1, Value($3, TK_expand)); } '\n' 
 		| TK_name '=' TK_num
-			{ pint->AddProp($1, Value($3, TK_num)); } '\n' 
+			{ GETOBJ()->AddProp($1, Value($3, TK_num)); } '\n' 
 		| TK_name '=' TK_real
-			{ pint->AddProp($1, Value((Universal::TReal)$3, TK_real)); } '\n' 
+			{ GETOBJ()->AddProp($1, Value((Universal::TReal)$3, TK_real)); } '\n' 
 		| TK_name '=' TK_perc
-			{ pint->AddProp($1, Value((Universal::TReal)$3, TK_perc)); } '\n' 
+			{ GETOBJ()->AddProp($1, Value((Universal::TReal)$3, TK_perc)); } '\n' 
 		| TK_name '=' vector
-			{ pint->AddProp($1, vec); } '\n' 
+			{ GETOBJ()->AddProp($1, vec); } '\n' 
         | TK_name '(' func_params ')'
-            { pint->Func($1, NULL, vec); } '\n'
+            { GETOBJ()->Func($1, NULL, vec); } '\n'
         | TK_name '=' TK_name '(' func_params ')'
-            { pint->Func($3, $1, vec); } '\n'
+            { GETOBJ()->Func($3, $1, vec); } '\n'
         | TK_name '=' TK_name '(' ')'
-            { vec.Delete(); pint->Func($3, $1, vec); } '\n'
+            { vec.Delete(); GETOBJ()->Func($3, $1, vec); } '\n'
 ;
 func_params
 		: { vec.Delete(); } func_param
@@ -183,8 +186,25 @@ vector_item
 		  { vec.Add(Value($3, TK_num)); }
 ;
 font
-		: TK_Font TK_name '\n' { pint = linker.AddObject($2, IDFont, lex.GetLocation()); }
-			attributes
-		'~' TK_Font '\n'  { DONE(pint); }
+		: TK_Font TK_name '\n' 
+			{ 
+				NEWOBJ(linker.AddObject($2, IDFont, lex.GetLocation())); 
+				linker.PushNamespace($2);
+			}
+			font_attr		
+		'~' TK_Font '\n'  { DONE(); linker.PopNamespace(); }
 ;
+font_attr
+		: attribute
+		| '\n'
+		| font_attr attribute
+		| font_attr '\n'
+		| TK_Picture '\n' 
+			{ 
+				Compiler* c = linker.AddObject("picture", IDPicture, lex.GetLocation());
+				GETOBJ()->AddObject(c);
+				NEWOBJ(c);
+			}
+		  attributes
+		'~' TK_Picture '\n' { DONE(); }
 %%

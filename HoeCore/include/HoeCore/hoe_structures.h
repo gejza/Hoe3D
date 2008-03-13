@@ -271,13 +271,18 @@ public:
 		this->m_count++;
 		return this->m_ptr[this->m_count-1];
 	}
+	void* PushNew()
+	{
+		return &Push();
+	}
 	const C & Pop()
 	{
 		this->m_count--;
 		return this->m_ptr[this->m_count];
 	}
-	const C & GetTop()
+	const C & Top()
 	{
+		hoe_assert(this->m_count);
 		return this->m_ptr[this->m_count-1];
 	}
 };

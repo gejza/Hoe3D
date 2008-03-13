@@ -306,14 +306,46 @@
 				>
 			</File>
 		</Filter>
-		<File
-			RelativePath=".\compiler.cpp"
+		<Filter
+			Name="Compiler"
 			>
-		</File>
-		<File
-			RelativePath=".\compiler.h"
+			<File
+				RelativePath=".\comp_font.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\comp_font.h"
+				>
+			</File>
+			<File
+				RelativePath=".\compiler.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\compiler.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Linker"
 			>
-		</File>
+			<File
+				RelativePath=".\linker.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\linker.h"
+				>
+			</File>
+			<File
+				RelativePath=".\linkout.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\linkout.h"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath="..\..\..\Common_src\jpeg-6b\jmemmgr.c"
 			>
@@ -325,22 +357,6 @@
 					UsePrecompiledHeader="0"
 				/>
 			</FileConfiguration>
-		</File>
-		<File
-			RelativePath=".\linker.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\linker.h"
-			>
-		</File>
-		<File
-			RelativePath=".\linkout.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\linkout.h"
-			>
 		</File>
 		<File
 			RelativePath=".\Readme.txt"

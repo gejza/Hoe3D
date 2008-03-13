@@ -14,7 +14,10 @@ const char * HoeRes::Res::GetTypeName(uint id)
 		return "Picture";
 	case HoeRes::Res::IDStream:
 		return "Stream";
+	case HoeRes::Res::IDFont:
+		return "Font";
 	default:
+		hoe_assert(!"Not implemented");
 		return "unknown";
 	};
 }

@@ -23,6 +23,7 @@ public:
 		delete this; 
 		return 0; 
 	}
+	virtual bool End() { return false; }
 };
 
 PicCodec* CreatePicDecoder(HoeCore::ReadStream& stream, uint32 codec);

@@ -27,6 +27,14 @@ bool PInterface::Func(const HoeCore::CString name,
     return false;
 }
 
+bool PInterface::AddObject(const Compiler* cmp)
+{
+    throw Error("Error add %s object.", 
+		HoeRes::Res::GetTypeName(cmp->GetType()));
+    return false;
+}
+
+
 void no_run(const HoeCore::CString str)
 {
 	throw InternalError(str);
@@ -34,23 +42,26 @@ void no_run(const HoeCore::CString str)
 
 Compiler * Compiler::Create(HoeCore::String&, int type, HoeCore::WriteStream& s)
 {
+	Compiler * ret;
     switch (type)
     {
 	case IDPicture:
-		return new PictureCompiler(s);
+		ret = new PictureCompiler(s); break;
 	case IDStream:
-		return new StreamCompiler(s);
+		ret = new StreamCompiler(s); break;
 	case IDFont:
-		return new FontCompiler(s);
+		ret = new FontCompiler(s); break;
     default:
 		hoe_assert(!"Unknown compiler type.");
         return NULL;
     };
+	ret->m_type = type;
+	return ret;
 }
 
 //////////////////////////////////////////////////////////
 // Compilers
-bool CheckArg(const CString name, const Universal& value, Universal::Type type, bool th=true)
+bool Compiler::CheckArg(const CString name, const Universal& value, Universal::Type type, bool th)
 {
 	if (value.GetType() != type)
 	{

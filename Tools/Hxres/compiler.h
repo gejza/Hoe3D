@@ -16,6 +16,8 @@ public:
 
 typedef HoeCore::List<Value> Values;
 
+class Compiler;
+
 class PInterface
 {
 public:
@@ -24,18 +26,23 @@ public:
 	virtual bool Func(const HoeCore::CString name, 
                       const HoeCore::CString ret,
                       const Values& value);
+	virtual bool AddObject(const Compiler* cmp);
 
 	virtual void Done() {}
 };
 
 class Compiler : public PInterface
 {
+	int m_type;
 protected:
 	HoeCore::WriteStream& m_out;
+	Compiler(HoeCore::WriteStream& out) : m_type(0), m_out(out) {}
 public:
-	Compiler(HoeCore::WriteStream& out) : m_out(out) {}
     static Compiler * Create(HoeCore::String& str, int type, HoeCore::WriteStream& s);
-
+	bool CheckArg(const HoeCore::CString name, 
+				const HoeCore::Universal& value, 
+				HoeCore::Universal::Type type, bool th=true);
+	int GetType() const { return m_type; }
 };
 
 class PictureCompiler : public Compiler

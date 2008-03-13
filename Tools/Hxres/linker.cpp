@@ -48,7 +48,7 @@ void Linker::PopNamespace()
 	if (m_nss.Count() <= 1)
 		throw Error("No namespace to pop.");
 	m_nss.Pop();
-	m_act = m_nss.GetTop();
+	m_act = m_nss.Top();
 }
 
 int Linker::Link(const char * output)
