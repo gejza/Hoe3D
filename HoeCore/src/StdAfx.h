@@ -29,6 +29,8 @@
 
 #include <wchar.h>
 
+#include <errno.h>
+
 #define ENABLE_AUTOCONV_FUNCTIONS 1
 #include "../include/HoeCore/hoe_types.h"
 

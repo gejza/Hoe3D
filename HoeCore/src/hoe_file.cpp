@@ -65,7 +65,13 @@ bool HoeCore::File::Open(const HoeCore::CString name, HoeCore::File::EHoeFileMod
 
 	m_file = fopen(m_name,m);
 	if (m_file != InvalidHandle)
+	{
 		opended = true;
+	}
+	else
+	{
+		printf("Error: %d\n", errno); // todo 
+	}
 #endif
 	m_refs = 1;
 	m_pos = 0;

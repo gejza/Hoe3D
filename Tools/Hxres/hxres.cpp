@@ -18,7 +18,8 @@ class HoeFlexFileEx : public HoeCore::HoeFlexFile
 public:
 	HoeFlexFileEx(const char * n) : HoeFlexFile(m_file) 
 	{
-		m_file.Open(n);
+		if (!m_file.Open(n))
+			throw Error("Failed open file %s", n);
 	}
 	virtual const HoeCore::String& GetIdentifier() const { return m_file.GetName(); }
 
@@ -86,8 +87,8 @@ int main(int argc, char* argv[])
 	//yydebug = 1;
 
 	
-	HoeCore::SetRootDir(HoeCore::GetBaseDir(argv[1]));
 	HoeFlexFileEx fs(argv[1]);
+	HoeCore::SetRootDir(HoeCore::GetBaseDir(argv[1]));
 	Scaner s;
 	s.Switch(fs);
 
