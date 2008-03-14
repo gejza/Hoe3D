@@ -91,11 +91,14 @@ IHoeInterface * Hoe2DEngine::CreateFont(const tchar *name)
 	if (!rs)
 		return NULL;
 	HoeRes::FontLoader fl(rs);
+	HoeFont* f = new HoeFont();
 	byte* ptr;
 	size_t s;
 	if (fl.GetChunk(MAKE_FOURCC('D','E','F',' '), &ptr, &s))
 	{
-		
+		// ptr -> pole
+		int np = s / (sizeof(wchar_t)+sizeof(int32));
+
 	}
 
 	return NULL;
