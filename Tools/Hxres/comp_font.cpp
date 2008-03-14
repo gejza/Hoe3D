@@ -51,42 +51,19 @@ bool FontCompiler::AddObject(const Compiler* cmp)
 
 void FontCompiler::Done()
 {
-	/*HoeRes::Res::PictureInfo head;
-	head.id = HoeRes::Res::IDPicture;
+	HoeRes::Res::FontInfo head;
+	head.id = HoeRes::Res::IDFont;
 	head.size_struct = sizeof(head);
 	head.version_struct = 1;
 
-	head.codec = im.GetFormat();
-	head.numchunk = 0;
-	if (im.HasAlphaRef(0))
-		head.numchunk++;
-	if (im.HasColorKey(0))
-		head.numchunk++;
+	head.numchunk = 1;
 	m_out.Write(&head, sizeof(head));
 	
-	HOECOLOR ck;
-	if (im.HasColorKey(&ck))
 	{
-		// write color key
-		HoeRes::Res::ChunkInfo chunk;
-		memcpy(chunk.cid, "CKEY", 4);
-		chunk.size = sizeof(HOECOLOR);
-		m_out.WriteStruct(chunk);
-		m_out.Write(&ck, sizeof(HOECOLOR));
-	}
+				void Write(HoeCore::WriteStream& out);
 
-	byte ar;
-	if (im.HasAlphaRef(&ar))
-	{
 		// write color key
-		HoeRes::Res::ChunkInfo chunk;
-		memcpy(chunk.cid, "AREF", 4);
-		chunk.size = 1;
-		m_out.WriteStruct(chunk);
-		m_out.Write(&ar,1);
 	}
-
-	im.Save(m_out);*/
 }
 
 /*bool FontCompiler::Func(const HoeCore::CString name, const VectorUniversal& value)
@@ -158,23 +135,32 @@ bool FontCompiler::FontDef::Load(const char *path)
 	// reader
 	TextReader t(f);
 	HoeCore::String_s<100> line;
-	wchar_t c;
 	int l=0;
 	while (t.ReadLine(line))
 	{
 		l++;
 		const char* p = line.GetPtr();
-		c = HoeCore::string::utf2w(p);
-		if (c == 0xfeff)
-			c = HoeCore::string::utf2w(p);
+		CharDef& ch = m_chd.Add();
+		ch.ch = HoeCore::string::utf2w(p);
+		if (ch.ch == 0xfeff)
+			ch.ch = HoeCore::string::utf2w(p);
 		if (*p++ != ':')
 			throw Error("Missing ':' on line %d.", l);
-		int n=HoeCore::string::GetNumber(p);
-
+		ch.size=HoeCore::string::GetNumber(p);
 	}
 
 	return true;
 }
+
+void FontCompiler::FontDef::Write(HoeCore::WriteStream& out)
+{
+	HoeRes::Res::ChunkInfo chunk; // todo dodelat endianes
+	memcpy(chunk.cid, "DEF ", 4);
+	chunk.size = m_chd.Count() * sizeof(CharDef);
+	out.WriteStruct(chunk);
+	out.Write(m_chd.GetBasePointer(), chunk.size);
+}
+
 
 
 

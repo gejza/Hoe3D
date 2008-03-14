@@ -6,7 +6,7 @@
 #include "hoe_png.h"
 
 HoeRes::ResourceLoader::ResourceLoader(HoeCore::ReadStream* stream)
-: m_stream(stream)
+: m_stream(stream), m_chunks(m_pool)
 {
 }
 
@@ -38,13 +38,28 @@ size_t HoeRes::ResourceLoader::ReadHeader(uint32 id, Res::HeadResource* head, si
 }
 
 HoeRes::PictureLoader::PictureLoader(HoeCore::ReadStream *stream)
-: ResourceLoader(stream), m_chunks(m_pool)
+: ResourceLoader(stream)
 {
 	Res::PictureInfo head;
 	ReadHeader(Res::IDPicture, &head, sizeof(head));
 	const HoeCore::Endianness& end = m_stream->GetDataFormat();
 	// prekopirovat
 	m_codec = end.num(head.codec);
+	uint nch = end.num(head.numchunk);
+	// read chunks
+	m_chunks.Read(stream, nch);
+	// chunk, cache, pokud nejde na streamu skipovat -> nacitat data dovnitr
+	// pokud ano, ukladat jen pointry na data (pokud velikost vetsi nez konstanta)
+
+}
+
+HoeRes::FontLoader::FontLoader(HoeCore::ReadStream *stream)
+: ResourceLoader(stream)
+{
+	Res::FontInfo head;
+	ReadHeader(Res::IDFont, &head, sizeof(head));
+	const HoeCore::Endianness& end = m_stream->GetDataFormat();
+	// prekopirovat
 	uint nch = end.num(head.numchunk);
 	// read chunks
 	m_chunks.Read(stream, nch);
@@ -89,26 +104,39 @@ bool HoeRes::ChunkCache::Read(HoeCore::ReadStream* stream, uint num)
 	return true;
 }
 
-bool HoeRes::ChunkCache::GetChunk(uint32 id, byte** data, uint32* size)
+HoeRes::ChunkCache::Chunk* HoeRes::ChunkCache::FindChunk(uint32 id)
 {
 	for (ChunkList::Iterator it(m_chunks);it;it++)
 	{
 		if (it->iud == id)
 		{
-			*size = it->size;
-			if (it->data == NULL)
-			{
-				hoe_assert(m_stream);
-				it->data = (byte*)m_pool.GetMem(it->size);
-				m_stream->Read(it->data, it->size);
-			}
-			*data = it->data;
-			return true;
+			return it;
 		}
 	}
-	return false;
+	return NULL;
 }
 
+bool HoeRes::ChunkCache::GetChunk(uint32 id, byte** data, uint32* size)
+{
+	Chunk* chunk = FindChunk(id);
+	if (!chunk) return false;
+	*size = it->size;
+	if (it->data == NULL)
+	{
+		hoe_assert(m_stream);
+		it->data = (byte*)m_pool.GetMem(it->size,4);
+		m_stream->Read(it->data, it->size);
+	}
+	*data = it->data;
+	return true;
+}
+
+size_t HoeRes::ChunkCache::GetChunkSize(uint32 id)
+{
+	Chunk* chunk = FindChunk(id);
+	if (!chunk) return 0;
+	return chunk->size;
+}
 
 HoeRes::MediaStreamPic* HoeRes::PictureLoader::GetData()
 {

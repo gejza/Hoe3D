@@ -30,8 +30,19 @@ IHoeInterface * HOEAPI Hoe2DEngine::Create(const tchar * cmd)
 	HoeCore::HoeFlexMem buff(cmd);
 	ICParser p;
 	p.Switch(buff);
-	p.Lex(); p.Lex();
-	HoeCore::ReadStream* rs = GetResMgr()->GetResource(p.GetText());
+	p.Lex();
+	HoeCore::String_s<200> t(p.GetText());
+	p.Lex();
+	if (t == T("picture"))
+		return CreatePic(p.GetText());
+	if (t == T("font"))
+		return CreateFont(p.GetText());
+	return NULL;
+}
+
+IHoeInterface * Hoe2DEngine::CreatePic(const tchar * name)
+{
+	HoeCore::ReadStream* rs = GetResMgr()->GetResource(name);
 	if (!rs)
 		return NULL;
 	HoeRes::PictureLoader pl(rs);
@@ -71,7 +82,25 @@ IHoeInterface * HOEAPI Hoe2DEngine::Create(const tchar * cmd)
         pic->m_surf.SetColorKey(ck);
     }
 	return pic;
+
 }
+
+IHoeInterface * Hoe2DEngine::CreateFont(const tchar *name)
+{
+	HoeCore::ReadStream* rs = GetResMgr()->GetResource(name);
+	if (!rs)
+		return NULL;
+	HoeRes::FontLoader fl(rs);
+	byte* ptr;
+	size_t s;
+	if (fl.GetChunk(MAKE_FOURCC('D','E','F',' '), &ptr, &s))
+	{
+		
+	}
+
+	return NULL;
+}
+
 
 /** Funkce pro pristup k systemum hoe */
 IHoeSystem * HOEAPI Hoe2DEngine::GetSystem(HOESYSTEMS sys)

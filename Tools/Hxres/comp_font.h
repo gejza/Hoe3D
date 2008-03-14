@@ -8,8 +8,15 @@ class FontCompiler : public Compiler
 {
 	class FontDef
 	{
+		struct CharDef
+		{
+			wchar_t ch;
+			int32 size;
+		};
+		HoeCore::List<CharDef> m_chd;
 	public:
 		bool Load(const char* path);
+		void Write(HoeCore::WriteStream& out);
 	} m_fontdef;
 public:
 	FontCompiler(HoeCore::WriteStream& out) : Compiler(out) {}

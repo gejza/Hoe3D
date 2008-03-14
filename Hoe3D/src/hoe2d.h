@@ -6,6 +6,9 @@
 
 class Hoe2DEngine : public HoeEngine
 {
+	/** Funkce co vytvari interface tridy */
+	IHoeInterface * CreatePic(const tchar *);
+	IHoeInterface * CreateFont(const tchar *);
 public:
 	Hoe2DEngine(int flags) : HoeEngine(flags) {}
 	/** Init funkce */

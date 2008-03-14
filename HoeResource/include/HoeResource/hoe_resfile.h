@@ -60,6 +60,11 @@ struct PictureInfo : public HeadResource
 	uint32 numchunk;	
 };
 
+struct FontInfo : public HeadResource
+{
+	uint32 numchunk;	
+};
+
 #pragma pack(pop)
 
 const char * GetTypeName(uint id);

@@ -36,7 +36,6 @@ public:
 	LinkedReader(byte * ptr);
 	virtual size_t Read(void* ptr, size_t size);
 	virtual uint Close();
-	virtual bool End();
 };
 
 class LinkedResourceMgr : public XResourceMgr

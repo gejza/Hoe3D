@@ -314,7 +314,10 @@ public:
 		return m_str[index];
 	}
 #if defined(ENABLE_AUTOCONV_FUNCTIONS) || !defined(_UNICODE)
-	bool operator == (const char * s) const;
+	bool operator == (const char * s) const
+	{
+		return string::cmp(m_str,s) == 0;
+	}
 	const String_s & operator = (const char * s)
 	{
 		string::copy(m_str, s, maxsize-1);
@@ -356,7 +359,10 @@ public:
 		string::copy(m_str, s, maxsize-1);
 		return *this;
 	}
-	bool operator == (const wchar_t * s) const;
+	bool operator == (const wchar_t * s) const
+	{
+		return string::cmp(m_str,s) == 0;
+	}
 	void concat(const wchar_t *);
 	int printf(const wchar_t * szFormat, ...)
 	{

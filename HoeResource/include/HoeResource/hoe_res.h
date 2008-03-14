@@ -12,27 +12,6 @@ class MediaStream : public HoeCore::BaseStream
 public:
 };
 
-class ResourceLoader
-{
-protected:
-	HoeCore::ReadStream* m_stream;
-public:
-	ResourceLoader(HoeCore::ReadStream* stream);
-	~ResourceLoader();
-
-	size_t ReadHeader(uint32 id, Res::HeadResource* head, size_t size);
-};
-
-class MediaStreamPic : public MediaStream
-{
-public:
-	virtual HOEFORMAT GetFormat() = 0;
-	virtual uint GetPitch() = 0;
-	virtual void GetSize(THoeSizeu* size) = 0;
-	virtual uint GetRow(byte* ptr) = 0;
-	virtual uint GetPalette(HOECOLOR * palette) { return 0; }
-};
-
 // nadrazena struktura
 class ChunkCache
 {
@@ -46,6 +25,7 @@ class ChunkCache
 	ChunkList m_chunks;
 	HoeCore::ReadStream* m_stream;
 	bool m_ownstream;
+	Chunk* FindChunk(uint32 id);
 public:
 	ChunkCache(HoeCore::MemoryPool& pool) : m_pool(pool), m_chunks(pool), m_stream(0),
 		m_ownstream(false)
@@ -57,16 +37,21 @@ public:
 	}
 	bool Read(HoeCore::ReadStream* stream, uint num);
 	bool GetChunk(uint32 id, byte** data, uint32* size);
+	size_t GetChunkSize(uint32 id) const;
 };
 
-class PictureLoader : public ResourceLoader
+class ResourceLoader
 {
-	uint m_codec;
+protected:
+	HoeCore::ReadStream* m_stream;
 	HoeCore::MemoryPool m_pool;
 	ChunkCache m_chunks;
 public:
-	PictureLoader(HoeCore::ReadStream* stream);
-	MediaStreamPic * GetData();
+	ResourceLoader(HoeCore::ReadStream* stream);
+	~ResourceLoader();
+
+	size_t ReadHeader(uint32 id, Res::HeadResource* head, size_t size);
+
 	bool GetChunk(uint32 id, byte** data, uint32* size) 
 	{ 
 		return m_chunks.GetChunk(id, data, size); 
@@ -86,6 +71,32 @@ public:
 		memcpy(&t, b, sizeof(TYPE));
 		return true;
 	}
+	size_t GetChunkSize(uint32 id) const { return m_chunks.GetChunkSize(id); }
+
+};
+
+class MediaStreamPic : public MediaStream
+{
+public:
+	virtual HOEFORMAT GetFormat() = 0;
+	virtual uint GetPitch() = 0;
+	virtual void GetSize(THoeSizeu* size) = 0;
+	virtual uint GetRow(byte* ptr) = 0;
+	virtual uint GetPalette(HOECOLOR * palette) { return 0; }
+};
+
+class PictureLoader : public ResourceLoader
+{
+	uint m_codec;
+public:
+	PictureLoader(HoeCore::ReadStream* stream);
+	MediaStreamPic * GetData();
+};
+
+class FontLoader : public ResourceLoader
+{
+public:
+	FontLoader(HoeCore::ReadStream* stream);
 };
 
 
