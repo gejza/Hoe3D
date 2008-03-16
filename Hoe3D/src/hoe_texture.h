@@ -14,8 +14,13 @@ public:
 		byte * data;
 		uint pitch;
 	};
+	struct FD
+	{
+		wchar_t ch;
+		int32 size;
+	};
 protected:
-	SysTexture m_texture;
+	//SysTexture m_texture;
 	HoeCore::String name;
 	uint width;
 	uint height;

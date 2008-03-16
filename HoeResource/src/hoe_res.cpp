@@ -110,7 +110,7 @@ HoeRes::ChunkCache::Chunk* HoeRes::ChunkCache::FindChunk(uint32 id)
 	{
 		if (it->iud == id)
 		{
-			return it;
+			return &it;
 		}
 	}
 	return NULL;
@@ -120,22 +120,16 @@ bool HoeRes::ChunkCache::GetChunk(uint32 id, byte** data, uint32* size)
 {
 	Chunk* chunk = FindChunk(id);
 	if (!chunk) return false;
-	*size = it->size;
-	if (it->data == NULL)
+	*size = chunk->size;
+	if (chunk->data == NULL)
 	{
 		hoe_assert(m_stream);
-		it->data = (byte*)m_pool.GetMem(it->size,4);
-		m_stream->Read(it->data, it->size);
+		chunk->data = (byte*)m_pool.GetMem(chunk->size,4);
+		m_stream->Seek(chunk->pos);
+		m_stream->Read(chunk->data, chunk->size);
 	}
-	*data = it->data;
+	*data = chunk->data;
 	return true;
-}
-
-size_t HoeRes::ChunkCache::GetChunkSize(uint32 id)
-{
-	Chunk* chunk = FindChunk(id);
-	if (!chunk) return 0;
-	return chunk->size;
 }
 
 HoeRes::MediaStreamPic* HoeRes::PictureLoader::GetData()
@@ -161,7 +155,7 @@ HoeRes::FormatConv::FormatConv(HoeRes::MediaStreamPic* stream)
 	m_buff = new byte[stream->GetPitch()];
 	// scan input format
 	m_inputformat = stream->GetFormat();
-	if (m_inputformat == HOE_P8)
+	if (m_inputformat == HOE_P8 || m_inputformat == HOE_P4)
 	{
 		uint np = m_stream->GetPalette(m_colors);
 		// najit referencni hodnotu pro alfu a volnou barvu
@@ -211,19 +205,21 @@ uint HoeRes::FormatConv::GetRow(byte* ptr)
 	HoeRes::ColorConv conv(m_inputformat, HOE_R5G6B5);
 	if (m_inputformat == HOE_P8)
 		conv.SetSrcPalette(m_colors, 256);
+	if (m_inputformat == HOE_P4)
+		conv.SetSrcPalette(m_colors, 16);
+
 
 	for (uint x=0;x < w;x++)
 	{
-		conv.Conv(t,f);
-		t += conv.NumDestByte();
-		f += conv.NumSrcByte();
+		conv.Conv(t+(x*conv.NumDestBit())/8,
+			f+(x*conv.NumSrcBit())/8,x);
 	}
 	return w;
 }
 
 void HoeRes::FormatConv::SetColorKey(HOECOLOR& c, byte alpharef)
 {
-	if (m_inputformat == HOE_P8)
+	if (m_inputformat == HOE_P8 || m_inputformat == HOE_P4)
 	{
 		for (int i=0;i < 256;i++)
 			if (m_colors[i].a < alpharef)

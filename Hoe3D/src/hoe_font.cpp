@@ -5,13 +5,16 @@
 #include "ref.h"
 #include "config.h"
 #include "states.h"
-#include "hoe_texture.h"
 #include "texture_system.h"
 #include "hoe_font.h"
 #include "unicode.h"
 #include "2d.h"
 #ifndef _WIN32_WCE
 #include "freetype.h"
+#endif
+#include "hoe_picture.h"
+#ifndef _HOE_DD_
+#include "hoe_texture.h"
 #endif
 
 HoeFont::HoeFont(const tchar* strFontName, uint dwHeight, vfloat scalpha, dword dwFlags)
@@ -25,11 +28,32 @@ HoeFont::HoeFont(const tchar* strFontName, uint dwHeight, vfloat scalpha, dword 
     m_tex = NULL;
 }
 
+HoeFont::HoeFont(HoePicture* pic, HoeRes::Res::FontInfo::FD* fd, size_t num)
+{
+	m_pic = pic;
+	uint h = pic->GetHeight();
+	memset(this->m_fTexCoords,0,sizeof(this->m_fTexCoords));
+	int lastx = 0;
+	for (int i=0;i < num;i++)
+	{
+		int index = m_cp.AddChar(fd[i].ch);
+		if (1 && fd[i].ch >= 'A' && fd[i].ch <= 'Z')
+		{
+			m_cp.AddAliasChar(fd[i].ch+'a'-'A', index);
+		}
+		this->m_fTexCoords[index].x1 = lastx;
+		lastx += fd[i].size;
+		this->m_fTexCoords[index].x2 = lastx;
+		this->m_fTexCoords[index].y1 = 0;
+		this->m_fTexCoords[index].y2 = h;
+	}
+}
+
 HoeFont::~HoeFont()
 {
 
 }
-
+#if 0
 bool HoeFont::Init()
 {
 	HoeFontRenderer * fr = GetFontRenderer(this->m_strFontName, this->m_dwFontHeight);
@@ -124,18 +148,7 @@ bool HoeFont::Init()
     return true;
 }
 
-bool HoeFont::Restore()
-{
-	return true;
-}
 
-void HoeFont::Invalidate()
-{
-}
-
-void HoeFont::Delete()
-{
-}
 
 #ifdef _HOE_D3D_
 
@@ -215,6 +228,28 @@ bool HoeFont::DrawText( vfloat sx, vfloat sy, dword dwColor,
 
 	return true;
 }
+#endif
+bool HoeFont::DrawText( vfloat sx, vfloat sy, dword dwColor, 
+                      const tchar* strText, dword dwFlags )
+{
+	while (*strText)
+	{
+		int c = m_cp.StringToIndex(strText);
+		THoeRect src,dest;
+		src.left = this->m_fTexCoords[c].x1;
+		src.right = this->m_fTexCoords[c].x2;
+		src.top = this->m_fTexCoords[c].y1;
+		src.bottom = this->m_fTexCoords[c].y2;
+		dest = src;
+		dest.left = sx;
+		dest.right = dest.left + src.right - src.left;
+		dest.top = sy;
+		dest.bottom = dest.top + src.bottom - src.top;
+		sx += src.right - src.left;
+		Get2D()->Blt(m_pic,&dest,&src);
+	}
+	return true;
+}
 
 void HoeFont::GetTextSize(const tchar *text,THoeFontSize * size)
 {
@@ -225,10 +260,11 @@ void HoeFont::GetTextSize(const tchar *text,THoeFontSize * size)
 		return;
 
 	int index = GetCodePage()->GetIndex('X');
-	float ty1 = this->m_fTexCoords[index].y1;
-	float ty2 = this->m_fTexCoords[index].y2;
+	vfloat ty1 = this->m_fTexCoords[index].y1;
+	vfloat ty2 = this->m_fTexCoords[index].y2;
 
 	//y = (ty2-ty1) * 256;
+	size->height = ty2-ty1;
 
 	while (*text)
 	{
@@ -236,14 +272,14 @@ void HoeFont::GetTextSize(const tchar *text,THoeFontSize * size)
 
 		size->width += m_fTexCoords[index].prex;
 
-		float tx1 = this->m_fTexCoords[index].x1;
-        float tx2 = this->m_fTexCoords[index].x2;
+		vfloat tx1 = this->m_fTexCoords[index].x1;
+        vfloat tx2 = this->m_fTexCoords[index].x2;
 
-        float w = (tx2-tx1) *  256;
+        float w = tx2-tx1;
  
-        size->width += w - (2 * m_dwSpacing);
+        size->width += w/* - (2 * m_dwSpacing)*/;
 	}
-	size->width += 2 * m_dwSpacing;
+	//size->width += 2 * m_dwSpacing;
 }
 
 vfloat HoeFont::GetTextHeight()
@@ -255,8 +291,18 @@ vfloat HoeFont::GetTextHeight()
 	return (ty2-ty1) * 255;
 }
 
+bool HoeFont::Restore()
+{
+	return true;
+}
 
+void HoeFont::Invalidate()
+{
+}
 
+void HoeFont::Delete()
+{
+}
 
 
 

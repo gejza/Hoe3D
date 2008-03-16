@@ -17,13 +17,13 @@ class ColorConv
 	uint m_numcolors;
 public:
 	ColorConv(HOEFORMAT from, HOEFORMAT to);
-	bool Conv(byte* dest, byte* src);
+	bool Conv(byte* dest, byte* src, int col);
 	void SetSrcPalette(HOECOLOR* c, uint num)
 	{
 		m_colors = c; m_numcolors = num;
 	}
-	uint NumSrcByte() { return m_fromnum; }
-	uint NumDestByte() { return m_tonum; }
+	uint NumSrcBit() { return m_fromnum; }
+	uint NumDestBit() { return m_tonum; }
 };
 
 dword CompileColor(HOEFORMAT fmt, const HOECOLOR& c);

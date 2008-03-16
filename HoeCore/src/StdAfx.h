@@ -28,8 +28,9 @@
 #include <time.h>
 
 #include <wchar.h>
-
+#ifndef _WIN32_WCE
 #include <errno.h>
+#endif
 
 #define ENABLE_AUTOCONV_FUNCTIONS 1
 #include "../include/HoeCore/hoe_types.h"

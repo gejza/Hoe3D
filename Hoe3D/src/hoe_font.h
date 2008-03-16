@@ -3,8 +3,9 @@
 #define _HOE_FONT_
 
 #include "../include/hoeinterfaces.h"
+#include "unicode.h"
 
-#include "hoe_texture.h"
+//#include "hoe_texture.h"
 
 // Font rendering flags
 #define HOEFONT_CENTERED_X  0x0001
@@ -13,6 +14,8 @@
 #define HOEFONT_FILTERED    0x0008
 #define HOEFONT_BACK		0x0010
 
+class HoeTexture;
+class HoePicture;
 
 struct HoeFontCoord
 {
@@ -33,7 +36,7 @@ struct THoeFontCharInfo
 };
 
 /** abstract class for render fonts */
-class HoeFontRenderer
+/*class HoeFontRenderer
 {
 public:
 	virtual bool GetCharInfo(wchar_t c, THoeFontCharInfo* info) = 0;
@@ -41,7 +44,7 @@ public:
 		vfloat sc_alpha, 
 		HoeTexture::LOCKRECT *lr) = 0;
 	virtual void Release() {}
-};
+};*/
 
 class HoeFont : public IHoeFont
 {
@@ -56,13 +59,17 @@ public:
     //dword   m_dwTexHeight;
 
 	HoeFontCoord m_fTexCoords[256];
-	class HoeTexture * m_tex;
+	HoeTexture * m_tex;
+	HoePicture * m_pic;
+
+	CodePage m_cp;
 
 	void CreateTexture();
 
-	HoeFontRenderer * GetFontRenderer(const tchar* fname, vfloat height) { return 0; }
+	//HoeFontRenderer * GetFontRenderer(const tchar* fname, vfloat height) { return 0; }
 public:
 	HoeFont(const tchar* strFontName, uint dwHeight, vfloat scaplha, dword dwFlags=0L);
+	HoeFont(HoePicture* pic, HoeRes::Res::FontInfo::FD* fd, size_t num);
 	~HoeFont();
 
 	// Initializing and destroying device-dependent objects

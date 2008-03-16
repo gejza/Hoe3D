@@ -5,21 +5,10 @@
 
 CodePage::CodePage()
 {
-	SET_SHARED_PTR(codepage);
-
 	memset(m_pages, 0, sizeof(m_pages));
 	memset(m_codes, 0, sizeof(m_codes));
 	m_num = 0;
 
-	// rozsireni tabulky o zakladni ascii znaky
-	for (wchar_t c = ' '; c <= 'z';c++)
-		AddChar(c);
-
-	GetExec()->Register(T("specialchars"), CodePage::c_specialchars, NULL, T("Register next unicode chars."));
-	//Register("quit",c_quit,NULL,"quit program");
-	//Register("quit!",c_fquit,NULL,"force quit");
-	//Register("help",c_help,NULL);
-	//Register("list",c_list,NULL,"List all commands.");
 }
 
 CodePage::~CodePage()
@@ -30,13 +19,20 @@ CodePage::~CodePage()
 		if (m_pages[i])
 			delete [] m_pages[i];
 	}
-
-	UNSET_SHARED_PTR(codepage);
 }
 
-void CodePage::AddChar(wchar_t ch)
+int CodePage::AddChar(wchar_t ch)
 {
 	// aaa
+	// addchar
+	assert(m_num < 0xfe);
+	AddAliasChar(ch, m_num);
+	m_codes[m_num] = ch;
+	return m_num++;
+}
+
+void CodePage::AddAliasChar(wchar_t ch, int index)
+{
 	register int page = (ch >> 8) & 0xff;
 	if (m_pages[page]==NULL)
 	{
@@ -45,11 +41,7 @@ void CodePage::AddChar(wchar_t ch)
 	}
 	else if (m_pages[page][ch&0xff])
 		return;
-	// addchar
-	assert(m_num < 0xfe);
-	m_pages[page][ch&0xff] = m_num;
-	m_codes[m_num] = ch;
-	m_num++;
+	m_pages[page][ch&0xff] = index;
 }
 
 wchar_t CodePage::UTFtoUnicode(const char *&p)
@@ -75,7 +67,27 @@ wchar_t CodePage::UTFtoUnicode(const char *&p)
 	return 'X';
 }
 
-int CodePage::c_specialchars(int argc, const tchar * argv[], void * param)
+MainCodePage::MainCodePage()
+{
+	SET_SHARED_PTR(codepage);
+
+	// rozsireni tabulky o zakladni ascii znaky
+	for (wchar_t c = ' '; c <= 'z';c++)
+		AddChar(c);
+
+	GetExec()->Register(T("specialchars"), MainCodePage::c_specialchars, NULL, T("Register next unicode chars."));
+	//Register("quit",c_quit,NULL,"quit program");
+	//Register("quit!",c_fquit,NULL,"force quit");
+	//Register("help",c_help,NULL);
+	//Register("list",c_list,NULL,"List all commands.");
+}
+
+MainCodePage::~MainCodePage()
+{
+	UNSET_SHARED_PTR(codepage);
+}
+
+int MainCodePage::c_specialchars(int argc, const tchar * argv[], void * param)
 {
 	for (int i=1;i < argc;i++)
 	{

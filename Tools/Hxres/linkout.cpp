@@ -141,12 +141,12 @@ void LinkRes::ExportFile(HoeCore::File &f, int* fo, size_t* pos)
 {
 	// find file
 	static int l = 0;
-	l = l % 4;
+	//l = l % 4;
 	if (l >= m_rc.Count())
 	{
 		AddFile();
 	}
-	*fo = l++;
+	*fo = 0;//l++;
 	f.Flush();
 	f.Seek(0);
 	*pos = m_rc[*fo].file.Tell();

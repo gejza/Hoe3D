@@ -59,11 +59,7 @@ void FontCompiler::Done()
 	head.numchunk = 1;
 	m_out.Write(&head, sizeof(head));
 	
-	{
-				void Write(HoeCore::WriteStream& out);
-
-		// write color key
-	}
+	m_fontdef.Write(m_out);
 }
 
 /*bool FontCompiler::Func(const HoeCore::CString name, const VectorUniversal& value)
@@ -140,7 +136,7 @@ bool FontCompiler::FontDef::Load(const char *path)
 	{
 		l++;
 		const char* p = line.GetPtr();
-		CharDef& ch = m_chd.Add();
+		HoeRes::Res::FontInfo::FD& ch = m_chd.Add();
 		ch.ch = HoeCore::string::utf2w(p);
 		if (ch.ch == 0xfeff)
 			ch.ch = HoeCore::string::utf2w(p);
@@ -156,7 +152,7 @@ void FontCompiler::FontDef::Write(HoeCore::WriteStream& out)
 {
 	HoeRes::Res::ChunkInfo chunk; // todo dodelat endianes
 	memcpy(chunk.cid, "DEF ", 4);
-	chunk.size = m_chd.Count() * sizeof(CharDef);
+	chunk.size = m_chd.Count() * sizeof(HoeRes::Res::FontInfo::FD);
 	out.WriteStruct(chunk);
 	out.Write(m_chd.GetBasePointer(), chunk.size);
 }

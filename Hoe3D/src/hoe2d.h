@@ -4,11 +4,14 @@
 
 #include "hoe.h"
 
+class HoePicture;
+class HoeFont;
+
 class Hoe2DEngine : public HoeEngine
 {
 	/** Funkce co vytvari interface tridy */
-	IHoeInterface * CreatePic(const tchar *);
-	IHoeInterface * CreateFont(const tchar *);
+	HoePicture * CreatePic(const tchar *);
+	HoeFont * CreateFont(const tchar *);
 public:
 	Hoe2DEngine(int flags) : HoeEngine(flags) {}
 	/** Init funkce */

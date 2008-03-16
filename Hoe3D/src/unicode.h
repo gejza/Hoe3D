@@ -18,7 +18,8 @@ public:
 			return 'x';
 	}
 	inline wchar_t GetChar(int index) { return m_codes[index]; }
-	void AddChar(wchar_t ch);
+	int AddChar(wchar_t ch);
+	void AddAliasChar(wchar_t ch, int index);
 	static wchar_t UTFtoUnicode(const char *&p);
 	int StringToIndex(const char *&p) { return GetIndex(UTFtoUnicode(p)); }
 	int StringToIndex(const wchar_t *&p) 
@@ -27,6 +28,13 @@ public:
 		p++; return ret;
 	}
 	int GetNumChars() { return m_num; } 
+};
+
+class MainCodePage : public CodePage
+{
+public:
+	MainCodePage();
+	~MainCodePage();
 	static int c_specialchars(int argc, const tchar * argv[], void * param);
 };
 

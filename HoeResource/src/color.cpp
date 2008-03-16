@@ -46,11 +46,15 @@ HoeRes::ColorConv::ColorConv(HOEFORMAT from, HOEFORMAT to)
 	{
 	case HOE_R8G8B8:
 		m_from = ColorARGB<0,8,8,8>::conv2c;
-		m_fromnum = ColorARGB<0,8,8,8>::NumBits / 8;
+		m_fromnum = ColorARGB<0,8,8,8>::NumBits;
+		break;
+	case HOE_P4:
+		m_from = NULL;
+		m_fromnum = 4;
 		break;
 	case HOE_P8:
 		m_from = NULL;
-		m_fromnum = 1;
+		m_fromnum = 8;
 		break;
 	default:
 		hoe_assert(!"Unknown format");
@@ -60,26 +64,29 @@ HoeRes::ColorConv::ColorConv(HOEFORMAT from, HOEFORMAT to)
 	{
 	case HOE_R5G6B5:
 		m_to = ColorARGB<0,5,6,5>::conv2dw;
-		m_tonum = ColorARGB<0,5,6,5>::NumBits / 8;
+		m_tonum = ColorARGB<0,5,6,5>::NumBits;
 		break;
 	default:
 		hoe_assert(!"Unknown format");
 	};
 }
 
-bool HoeRes::ColorConv::Conv(byte* dest, byte* src)
+bool HoeRes::ColorConv::Conv(byte* dest, byte* src, int col)
 {
 	hoe_assert(m_to);
 	HOECOLOR c;
-	if (m_fromformat == HOE_P8)
+	switch (m_fromformat)
 	{
+	case HOE_P4:
+		c = col%2==0 ? m_colors[(*src) >> 4]:m_colors[0xf& *src];
+		break;
+	case HOE_P8:
 		hoe_assert(*src < m_numcolors);
 		c = m_colors[*src];
-	}
-	else
-	{
+		break;
+	default:
 		hoe_assert(m_from);
-		switch (m_fromnum)
+		switch (m_fromnum>>3)
 		{
 		case 1:
 			m_from(c, src[0]); break;
@@ -93,7 +100,7 @@ bool HoeRes::ColorConv::Conv(byte* dest, byte* src)
 	}
 
 	dword dw = m_to(c);
-	switch (m_tonum)
+	switch (m_tonum>>3)
 	{
 	case 4:
 		*dest++ = dw & 0xff; dw >>= 8;

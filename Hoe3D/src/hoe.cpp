@@ -23,7 +23,7 @@ HoeEngine::HoeEngine(int flags)
 	m_active = NULL;
 	// 
 	new CmdExec();
-	new CodePage();
+	new MainCodePage();
 
 	// config create
 	new Config();

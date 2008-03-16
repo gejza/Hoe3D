@@ -37,7 +37,6 @@ public:
 	}
 	bool Read(HoeCore::ReadStream* stream, uint num);
 	bool GetChunk(uint32 id, byte** data, uint32* size);
-	size_t GetChunkSize(uint32 id) const;
 };
 
 class ResourceLoader
@@ -71,7 +70,6 @@ public:
 		memcpy(&t, b, sizeof(TYPE));
 		return true;
 	}
-	size_t GetChunkSize(uint32 id) const { return m_chunks.GetChunkSize(id); }
 
 };
 

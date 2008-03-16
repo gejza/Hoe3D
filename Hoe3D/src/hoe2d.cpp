@@ -8,7 +8,7 @@
 #include "icreate.h"
 #include "hoe_picture.h"
 #include "hoe_input.h"
-
+#include "hoe_font.h"
 
 
 
@@ -40,7 +40,7 @@ IHoeInterface * HOEAPI Hoe2DEngine::Create(const tchar * cmd)
 	return NULL;
 }
 
-IHoeInterface * Hoe2DEngine::CreatePic(const tchar * name)
+HoePicture * Hoe2DEngine::CreatePic(const tchar * name)
 {
 	HoeCore::ReadStream* rs = GetResMgr()->GetResource(name);
 	if (!rs)
@@ -85,23 +85,26 @@ IHoeInterface * Hoe2DEngine::CreatePic(const tchar * name)
 
 }
 
-IHoeInterface * Hoe2DEngine::CreateFont(const tchar *name)
+HoeFont * Hoe2DEngine::CreateFont(const tchar *name)
 {
 	HoeCore::ReadStream* rs = GetResMgr()->GetResource(name);
 	if (!rs)
 		return NULL;
 	HoeRes::FontLoader fl(rs);
-	HoeFont* f = new HoeFont();
+	HoeFont* f = NULL;
 	byte* ptr;
 	size_t s;
+	HoeCore::String_s<200> fn;
+	fn.printf(T("%s:picture"), name);
+	HoePicture* pic = CreatePic(fn);
+
 	if (fl.GetChunk(MAKE_FOURCC('D','E','F',' '), &ptr, &s))
 	{
-		// ptr -> pole
-		int np = s / (sizeof(wchar_t)+sizeof(int32));
-
+		f = new HoeFont(pic, (HoeRes::Res::FontInfo::FD*) ptr, 
+			s / (sizeof(wchar_t)+sizeof(int32)));
 	}
 
-	return NULL;
+	return f;
 }
 
 

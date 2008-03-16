@@ -32,6 +32,7 @@ public:
 struct THoeFontSize
 {
 	vfloat width;
+	vfloat height;
 };
 /**
  * @brief Pismo

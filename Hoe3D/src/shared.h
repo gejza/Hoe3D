@@ -24,7 +24,7 @@ class SoundSystem;
 class InfoSystem;
 class HoeInput;
 class CmdExec;
-class CodePage;
+class MainCodePage;
 
 namespace shared {
 	extern HoeEngine * hoe;
@@ -40,7 +40,7 @@ namespace shared {
 	extern InfoSystem * info;
 	extern HoeInput * input;
 	extern CmdExec * exec;
-	extern CodePage * codepage;
+	extern MainCodePage * codepage;
 }
 
 #define SHARED_PTR(ptr) { hoe_assert(shared::ptr);return shared::ptr;}
@@ -60,7 +60,7 @@ inline SoundSystem * GetSound() SHARED_PTR(sound)
 inline InfoSystem * GetInfo() SHARED_PTR(info)
 inline HoeInput * GetInput() SHARED_PTR(input) 
 inline CmdExec * GetExec() SHARED_PTR(exec)
-inline CodePage * GetCodePage() SHARED_PTR(codepage)
+inline MainCodePage * GetCodePage() SHARED_PTR(codepage)
 
 inline bool IfExistHoeInstance() { return (shared::hoe != 0); }
 inline bool IsInputLoaded() { return (shared::input != 0); }

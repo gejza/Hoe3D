@@ -110,8 +110,8 @@ bool RefDD::Init(THoeInitSettings * his)
 	// Get the backbuffer. For fullscreen mode, the backbuffer was created
         // along with the primary, but windowed mode still needs to create one.
     ddsd.dwFlags        = DDSD_WIDTH | DDSD_HEIGHT | DDSD_CAPS;
-    ddsd.dwWidth        = 640;
-    ddsd.dwHeight       = 480;
+    ddsd.dwWidth        = 240;
+    ddsd.dwHeight       = 320;
     ddsd.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN;
     hRes = m_pDD->CreateSurface(&ddsd, &m_pDDSBack, NULL);
     checkres(hRes, "CreateSurface");
@@ -210,16 +210,6 @@ ExtTextOut(hdc,
 
 	m_pDDSBack->ReleaseDC(hdc);*/
 
-	if (m_Fullscreen)
-	{
-		DDBLTFX                     ddbltfx;
-		memset(&ddbltfx, 0, sizeof(ddbltfx));
-		ddbltfx.dwSize = sizeof(ddbltfx);
-		ddbltfx.dwROP = SRCCOPY;
-		hRes = m_pDDSPrimary->Blt(NULL, m_pDDSBack,
-		   NULL, /*DDBLT_ROP*/0, &ddbltfx);
-	}
-	else
 #ifdef _WIN32_WINNT
 	{
 		RECT g_rcWindow;             // Saves the window size & pos.
@@ -237,7 +227,14 @@ ExtTextOut(hdc,
 								  NULL);
 	}
 #else
-	hoe_assert(!"No run in windowed mode");
+	{
+		DDBLTFX                     ddbltfx;
+		memset(&ddbltfx, 0, sizeof(ddbltfx));
+		ddbltfx.dwSize = sizeof(ddbltfx);
+		ddbltfx.dwROP = SRCCOPY;
+		hRes = m_pDDSPrimary->Blt(NULL, m_pDDSBack,
+		   NULL, /*DDBLT_ROP*/0, &ddbltfx);
+	}
 #endif
 
 	checkres(hRes, "Primary::Blt");

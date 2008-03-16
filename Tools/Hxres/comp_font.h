@@ -8,12 +8,7 @@ class FontCompiler : public Compiler
 {
 	class FontDef
 	{
-		struct CharDef
-		{
-			wchar_t ch;
-			int32 size;
-		};
-		HoeCore::List<CharDef> m_chd;
+		HoeCore::List<HoeRes::Res::FontInfo::FD> m_chd;
 	public:
 		bool Load(const char* path);
 		void Write(HoeCore::WriteStream& out);

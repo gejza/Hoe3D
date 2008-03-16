@@ -336,6 +336,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\hoe_font.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\hoe_info.cpp"
 				>
 			</File>

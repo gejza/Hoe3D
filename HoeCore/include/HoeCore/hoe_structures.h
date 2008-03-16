@@ -429,6 +429,10 @@ public:
 		{
 			return *reinterpret_cast<TYPE*>(m_it->data);
 		}
+		TYPE* operator &()
+		{
+			return reinterpret_cast<TYPE*>(m_it->data);
+		}
 		template<typename C> C& cast()
 		{
 			return dynamic_cast<C&>(this->operator*());

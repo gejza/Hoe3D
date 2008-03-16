@@ -63,6 +63,12 @@ struct PictureInfo : public HeadResource
 struct FontInfo : public HeadResource
 {
 	uint32 numchunk;	
+
+	struct FD
+	{
+		wchar_t ch;
+		int32 size;
+	};
 };
 
 #pragma pack(pop)
