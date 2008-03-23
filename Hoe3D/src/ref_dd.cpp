@@ -69,13 +69,11 @@ bool RefDD::Init(THoeInitSettings * his)
 	
 #ifdef _WIN32_WCE
 	m_Fullscreen = true;
-	m_Width = 480;
-	m_Height = 640;
 #else
-	m_Fullscreen = GetConfig()->IsFullscreen();
-	m_Width = GetConfig()->GetWidthView();
-	m_Height = GetConfig()->GetHeightView();
+	m_Fullscreen = his->fullscreen;
 #endif
+	m_Width = his->width;
+	m_Height = his->height;
 
     // Get exclusive mode
 #ifdef _WIN32_WINNT
@@ -110,8 +108,8 @@ bool RefDD::Init(THoeInitSettings * his)
 	// Get the backbuffer. For fullscreen mode, the backbuffer was created
         // along with the primary, but windowed mode still needs to create one.
     ddsd.dwFlags        = DDSD_WIDTH | DDSD_HEIGHT | DDSD_CAPS;
-    ddsd.dwWidth        = 240;
-    ddsd.dwHeight       = 320;
+    ddsd.dwWidth        = m_Width;
+    ddsd.dwHeight       = m_Height;
     ddsd.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN;
     hRes = m_pDD->CreateSurface(&ddsd, &m_pDDSBack, NULL);
     checkres(hRes, "CreateSurface");
@@ -154,8 +152,8 @@ bool RefDD::Init(THoeInitSettings * his)
 		memset(&desc,0,sizeof(desc));
 		desc.dwSize = sizeof(desc);
 		desc.dwFlags = DDSD_HEIGHT | DDSD_WIDTH;
-		desc.dwWidth = 480;
-		desc.dwHeight = 640;
+		desc.dwWidth = m_Width;
+		desc.dwHeight = m_Height;
 		// create surface srf w h
 		hRes = m_pDD->CreateSurface(&desc,&m_pDDSBack,0);
 		checkres(hRes,"IDirectDraw::CreateSurface");

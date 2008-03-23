@@ -198,6 +198,11 @@ public:
 	}
 	static const tchar * GetPlatformString(uint32 plat);
 	const tchar * GetPlatformString();
+
+	inline bool IsUnicode() const
+	{
+		return m_end & WChar;
+	}
 };
 
 template<> inline float Endianness::num(float t) const

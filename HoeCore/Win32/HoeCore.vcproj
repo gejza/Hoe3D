@@ -16,6 +16,9 @@
 		/>
 	</Platforms>
 	<ToolFiles>
+		<ToolFile
+			RelativePath="..\..\..\Common\bin\tools.rules"
+		/>
 	</ToolFiles>
 	<Configurations>
 		<Configuration
@@ -28,7 +31,19 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -80,7 +95,19 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="Bison"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -142,7 +169,19 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -194,7 +233,19 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="Bison"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -255,7 +306,19 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -308,7 +371,19 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="Bison"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -372,7 +447,19 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="NASM"
+			/>
+			<Tool
+				Name="Bison"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -424,7 +511,19 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
+				Name="HTML help"
+			/>
+			<Tool
+				Name="Flex"
+			/>
+			<Tool
+				Name="NASM"
+			/>
+			<Tool
 				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="Bison"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -640,6 +739,296 @@
 			<File
 				RelativePath="..\include\HoeCore\hoe_stream.h"
 				>
+			</File>
+			<File
+				RelativePath="..\src\parser_struct.l"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="Flex"
+						Lang="true"
+						Skeleton="../template/hoe_flex.skl"
+						dep="../template/hoe_flex.skl"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="Flex"
+						Lang="true"
+						Skeleton="../template/hoe_flex.skl"
+						dep="../template/hoe_flex.skl"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="Flex"
+						Lang="true"
+						Skeleton="../template/hoe_flex.skl"
+						dep="../template/hoe_flex.skl"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="Flex"
+						Lang="true"
+						Skeleton="../template/hoe_flex.skl"
+						dep="../template/hoe_flex.skl"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Win32"
+					>
+					<Tool
+						Name="Flex"
+						Unicode="true"
+						Lang="true"
+						Skeleton="../template/hoe_flex.skl"
+						Output="$(InputDir)\$(InputName).yyu.cpp"
+						dep="../template/hoe_flex.skl"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="Flex"
+						Unicode="true"
+						Lang="true"
+						Skeleton="../template/hoe_flex.skl"
+						Output="$(InputDir)\$(InputName).yyu.cpp"
+						dep="../template/hoe_flex.skl"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Win32"
+					>
+					<Tool
+						Name="Flex"
+						Unicode="true"
+						Lang="true"
+						Skeleton="../template/hoe_flex.skl"
+						Output="$(InputDir)\$(InputName).yyu.cpp"
+						dep="../template/hoe_flex.skl"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="Flex"
+						Unicode="true"
+						Lang="true"
+						Skeleton="../template/hoe_flex.skl"
+						Output="$(InputDir)\$(InputName).yyu.cpp"
+						dep="../template/hoe_flex.skl"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\src\parser_xml.l"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="Flex"
+						Lang="true"
+						Skeleton="../template/hoe_flex.skl"
+						dep="../template/hoe_flex.skl"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="Flex"
+						Lang="true"
+						Skeleton="../template/hoe_flex.skl"
+						dep="../template/hoe_flex.skl"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="Flex"
+						Lang="true"
+						Skeleton="../template/hoe_flex.skl"
+						dep="../template/hoe_flex.skl"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="Flex"
+						Lang="true"
+						Skeleton="../template/hoe_flex.skl"
+						dep="../template/hoe_flex.skl"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Win32"
+					>
+					<Tool
+						Name="Flex"
+						Unicode="true"
+						Lang="true"
+						Skeleton="../template/hoe_flex.skl"
+						Output="$(InputDir)\$(InputName).yyu.cpp"
+						dep="../template/hoe_flex.skl"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="Flex"
+						Unicode="true"
+						Lang="true"
+						Skeleton="../template/hoe_flex.skl"
+						Output="$(InputDir)\$(InputName).yyu.cpp"
+						dep="../template/hoe_flex.skl"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Win32"
+					>
+					<Tool
+						Name="Flex"
+						Unicode="true"
+						Lang="true"
+						Skeleton="../template/hoe_flex.skl"
+						Output="$(InputDir)\$(InputName).yyu.cpp"
+						dep="../template/hoe_flex.skl"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="Flex"
+						Unicode="true"
+						Lang="true"
+						Skeleton="../template/hoe_flex.skl"
+						Output="$(InputDir)\$(InputName).yyu.cpp"
+						dep="../template/hoe_flex.skl"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\include\HoeCore\struct_file.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Generated"
+			>
+			<File
+				RelativePath="..\src\parser_struct.yy.cpp"
+				>
+				<FileConfiguration
+					Name="Unicode Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\src\parser_struct.yyu.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\src\parser_xml.yy.cpp"
+				>
+				<FileConfiguration
+					Name="Unicode Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\src\parser_xml.yyu.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<File

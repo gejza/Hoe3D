@@ -34,6 +34,8 @@ Hoe2D::Hoe2D()
 	in_progress = false;
 	m_maxX = 0.0f;
 	m_maxY = 0.0f;
+	m_multX = 1.f;
+	m_multY = 1.f;
 
 	Con_Print(T("Hoe 2d system created"));
 }
@@ -67,6 +69,16 @@ void Hoe2D::SetRect(const vfloat w,const vfloat h)
 	if (in_progress) //todo udelat kontrolu na nulove hodnoty
 		HoeCamera::Setup2DMatrices(w,h);
 #endif
+	if (w > 0 && h > 0)
+	{
+		m_multX = GetRef()->GetWidth() / w;
+		m_multY = GetRef()->GetHeight() / h;
+	}
+	else
+	{
+		m_multX = 1.f;
+		m_multY = 1.f;
+	}
 }
 
 void Hoe2D::PaintRect(const THoeRect* dest,unsigned long color,bool full)
@@ -183,8 +195,14 @@ void Hoe2D::PaintLine(vfloat x1,vfloat y1,vfloat x2,vfloat y2,unsigned long c)
 void Hoe2D::Blt(IHoePicture * pic,const THoeRect * dest,const THoeRect * src)
 {
 	// method?
-
-	::GetRef()->Blt(dynamic_cast<HoePicture *>(pic)->m_surf, dest, src, 0);
+	if (m_maxX > 0)
+	{
+		THoeRect dest2;
+		MultRect(*dest, &dest2);
+		::GetRef()->Blt(dynamic_cast<HoePicture *>(pic)->m_surf, &dest2, src, 0);
+	}
+	else
+		::GetRef()->Blt(dynamic_cast<HoePicture *>(pic)->m_surf, dest, src, 0);
 	//GetStates()->EnableTexture();
 	//GetStates()->Setup2DAlphaTest();
 #ifndef HOE2D

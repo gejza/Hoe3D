@@ -451,6 +451,21 @@ void String::concat(const char * str)
 	}
 }
 
+void String::concat(const wchar_t * str)
+{
+	if (IsEmpty())
+	{
+		*this = str;
+	}
+	else
+	{
+		size_t s1 = string::len(m_data->str);
+		size_t s2 = string::len(str);
+		PrepareForModify(s1 + s2 + 1, false);
+		string::copy(m_data->str + s1, str, m_data->data.alloc - s1);
+	}
+}
+
 int String::printf(const char * szFormat, ...)
 {
 	int ret;

@@ -21,11 +21,11 @@
 #include "hoe_stream.h"
 #include "hoe_string.h"
 
+#define YY_BUF_SIZE 1024
+
 namespace HoeCore {
 namespace flex {
 
-/* Define the YY_CHAR type. */
-typedef tchar YY_CHAR;
 /* Promotes a YY_CHAR to an unsigned integer for use as an array index. */
 #define YY_SC_TO_UI(c) ((unsigned int) (unsigned short) c)
 #define YY_END_OF_BUFFER_CHAR 0
@@ -97,8 +97,8 @@ public:
 	virtual const HoeCore::String& GetIdentifier() const;
 	virtual size_t Input(tchar * buff, size_t max) = 0;
 
-	flex::YY_CHAR *yy_ch_buf;		/* input buffer */
-	flex::YY_CHAR *yy_buf_pos;		/* current position in input buffer */
+	tchar *yy_ch_buf;		/* input buffer */
+	tchar *yy_buf_pos;		/* current position in input buffer */
 
 	/* Size of input buffer in bytes, not including room for EOB
 	 * characters.
@@ -167,10 +167,7 @@ protected:
 public:
     HoeFlexFile(HoeCore::ReadStream& stream);
 	virtual const char * GetIdentifier() { return "File"; }
-	virtual size_t Input(tchar * buff, size_t max)
-	{
-		return m_in.Read(buff, max * sizeof(tchar));
-	}
+	virtual size_t Input(tchar * buff, size_t max);
 };
 
 class HoeFlexMem : public HoeCore::HoeFlexBuffer
@@ -190,21 +187,30 @@ class HoeFlex
 {
 protected:
 	HoeFlexBuffer * m_buffer;
-	flex::YY_CHAR yy_hold_char; /* yy_hold_char holds the character lost when yytext is formed. */
+	tchar yy_hold_char; /* yy_hold_char holds the character lost when yytext is formed. */
 	/* Points to current character in buffer. */
-	flex::YY_CHAR *yy_c_buf_p;
+	tchar *yy_c_buf_p;
 	/* Flag which is used to allow yywrap()'s to do buffer switches
 	 * instead of setting up a fresh yyin.  A bit of a hack ...
 	 */
 	int yy_did_buffer_switch_on_eof;
 	size_t yy_n_chars;		/* number of characters read into yy_ch_buf */
-	flex::YY_CHAR * yytext_ptr;
+	tchar * yytext_ptr;
+	int yyleng;
+	flex::yy_state_type yy_state_buf[YY_BUF_SIZE + 2];
+	flex::yy_state_type *yy_state_ptr;
+	flex::yy_state_type yy_last_accepting_state;
+	tchar *yy_last_accepting_cpos;
 
+	tchar *yy_full_match;
+	int yy_lp;
+
+	int yywrap ( void ) { return 1; }
 public:
 	HoeFlex()
 	{
 		m_buffer = NULL;
-		yy_c_buf_p = (flex::YY_CHAR *) 0;
+		yy_c_buf_p = (tchar *) 0;
 	}
 	
 	virtual int Echo(const tchar * buff, size_t size)
@@ -215,11 +221,11 @@ public:
 	int GetLine() { return m_buffer ? m_buffer->GetLine():0; }
 	const HoeCore::String& GetIdentifier() const
 	{ return m_buffer ? m_buffer->GetIdentifier():HoeCore::String::Empty; }
-	const flex::YY_CHAR * GetText() { return yytext_ptr; }
+	const tchar * GetText() { return yytext_ptr; }
 
 	#define YY_FLUSH_BUFFER yy_flush_buffer( m_buffer )
 	int yy_get_next_buffer ( void );
-	void yyunput ( int c, flex::YY_CHAR *buf_ptr );
+	void yyunput ( int c, tchar *buf_ptr );
 	int yyinput ( void );
 	void yy_fatal_error ( const tchar msg[] );
 };

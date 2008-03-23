@@ -23,6 +23,25 @@ inline size_t utf8len(const wchar_t c)
 		return 6;
 }
 
+inline size_t uft8len(const char c)
+{
+	if ((c & 0x80) == 0)
+		return 1;
+	if ((c & 0xC0) == 0x80)
+		return 0;
+	if ((c & 0xE0) == 0xC0)
+		return 2;
+	if ((c & 0xF0) == 0xE0)
+		return 3;
+	if ((c & 0xF8) == 0xF0)
+		return 4;
+	if ((c & 0xFC) == 0xF8)
+		return 5;
+	if ((c & 0xFE) == 0xFC)
+		return 6;
+	return 1;
+}
+
 inline wchar_t utf2w(const char *& src)
 {
 	register wchar_t ch = 0;
@@ -71,6 +90,9 @@ inline size_t w2utf(char *& dest, wchar_t c, size_t n)
 	};
 	return l;
 }
+
+size_t utf8cont(const char* utf, size_t num);
+size_t utf2w(wchar_t* w, const char* utf, size_t num);
 
 } // end namespace
 } // namespace HoeCore

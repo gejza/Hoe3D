@@ -30,17 +30,16 @@
 #include <HoeCore/hoe_types.h>
 #include <HoeCore/hoe_flex.h>
 
-using namespace HoeCore::flex;
-
-
 #define yytext yytext_ptr
+
+#define YY_CHAR tchar
 
 namespace HoeCore {
 namespace flex {
 
 #if 0
 //%% YY_CHAR and YY_SC_TO_UI() go here
-//%% YY_CHAR and YY_SC_TO_UI() go here
+%% YY_CHAR and YY_SC_TO_UI() go here
 //end %% YY_CHAR and YY_SC_TO_UI() go here
 
 #endif
@@ -66,9 +65,6 @@ namespace flex {
  */
 #define YY_CURRENT_BUFFER m_buffer
 #define YY_CURRENT_BUFFER_LVALUE m_buffer
-#define YY_BUF_SIZE 1024
-
-int yyleng;
 
 #define yy_new_buffer yy_create_buffer
 
@@ -100,7 +96,7 @@ int yyleng;
 %% code to fiddle yytext and yyleng for yymore() goes here
 /*end %% code to fiddle yytext and yyleng for yymore() goes here*/ \
 	yy_hold_char = *yy_cp; \
-	*yy_cp = (YY_CHAR) '\0'; \
+	*yy_cp = '\0'; \
 /*%% code to copy yytext_ptr to yytext[] goes here, if %array*/ \
 %% code to copy yytext_ptr to yytext[] goes here, if %array
 /* end %% code to copy yytext_ptr to yytext[] goes here, if %array*/ \
@@ -109,6 +105,9 @@ int yyleng;
 } //namespace flex
 } //namespace HoeCore
 
+using namespace HoeCore::flex;
+
+
 //%% data tables for the DFA and the user's section 1 definitions go here
 %% data tables for the DFA and the user's section 1 definitions go here
 //end of %% data tables for the DFA and the user's section 1 definitions go here
@@ -116,8 +115,6 @@ int yyleng;
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
  */
-
- int yywrap ( void ) { return 1; }
 
 #if YY_STACK_USED
 static int yy_start_stack_ptr = 0;
@@ -142,7 +139,7 @@ static int yy_top_state ( void );
 /* Echo output. */
 #define ECHO \
 	do { \
-	 int s = this->Echo( (YY_CHAR*)yytext_ptr, yyleng ); \
+	 int s = this->Echo( yytext_ptr, yyleng ); \
 	 if (s) return s; \
 	} while (0);
 
@@ -192,9 +189,9 @@ int YY_CLASS_NAME::Lex()
 #endif
 {
 	register HoeCore::flex::yy_state_type yy_current_state;
-	register HoeCore::flex::YY_CHAR *yy_cp, *yy_bp;
+	register tchar *yy_cp, *yy_bp;
 	register int yy_act;
-	const int yy_start = 1;
+	int yy_start = 1;
 
 //%% user's declarations go here
 %% user's declarations go here
@@ -405,7 +402,7 @@ do_action:	/* This label is used only to access EOF actions. */
 yy_state_type YY_CLASS_NAME::yy_get_previous_state()
 {
 	register yy_state_type yy_current_state;
-	register YY_CHAR *yy_cp;
+	register tchar *yy_cp;
 	const int yy_start = 1;
 
 //%% code to get the start state into yy_current_state goes here
@@ -463,7 +460,7 @@ yy_state_type YY_CLASS_NAME::yy_try_NUL_trans( yy_state_type yy_current_state )
 		yytext[yyleng] = yy_hold_char; \
 		yy_c_buf_p = yytext + n; \
 		yy_hold_char = *yy_c_buf_p; \
-		*yy_c_buf_p = (YY_CHAR) '\0'; \
+		*yy_c_buf_p = '\0'; \
 		yyleng = n; \
 		} \
 	while ( 0 )

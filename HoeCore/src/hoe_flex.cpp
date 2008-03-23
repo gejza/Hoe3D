@@ -1,6 +1,8 @@
 
 #include "StdAfx.h"
 #include "../include/HoeCore/hoe_flex.h"
+#include "../include/HoeCore/hoe_platform.h"
+#include "../include/HoeCore/hoe_unicode.h"
 
 ////////////////////////////////
 // scaner class
@@ -27,14 +29,31 @@ HoeFlexFile::HoeFlexFile(HoeCore::ReadStream& stream) : m_in(stream)
     //	 * we need to put in 2 end-of-buffer characters.
     //	 */
 
-	this->yy_ch_buf = (flex::YY_CHAR *) malloc(
-		( this->yy_buf_size + 2 ) * sizeof( flex::YY_CHAR ) );
+	this->yy_ch_buf = (tchar *) malloc(
+		( this->yy_buf_size + 2 ) * sizeof( tchar ) );
 
     this->yy_is_our_buffer = 1;
 
     Flush();
     this->yy_fill_buffer = 1;
 
+}
+
+size_t HoeFlexFile::Input(tchar * buff, size_t max)
+{
+	// pokud unicode tak nacitat i z utf
+#ifdef _UNICODE
+	if (!m_in.GetDataFormat().IsUnicode())
+	{
+		char cb[1024];
+		if (max > 1000) max = 1000;
+		size_t r = m_in.Read(cb, max);
+		size_t c = string::utf8cont(cb, r);
+		if (c) r += m_in.Read(cb+r, c);
+		return string::utf2w(buff, cb, r);
+	}
+#endif
+	return m_in.Read(buff, max * sizeof(tchar));
 }
 
 HoeFlexMem::HoeFlexMem(const tchar* buff)
@@ -51,7 +70,7 @@ HoeFlexMem::HoeFlexMem(const tchar* buff)
     //	 * we need to put in 2 end-of-buffer characters.
     //	 */
 
-	this->yy_ch_buf = (flex::YY_CHAR *) m_buff;
+	this->yy_ch_buf = m_buff;
     this->yy_is_our_buffer = 1;
     this->yy_n_chars = l;
     this->yy_buf_pos = &this->yy_ch_buf[0];
@@ -65,8 +84,8 @@ HoeFlexMem::HoeFlexMem(const tchar* buff)
 
 int HoeFlex::yy_get_next_buffer()
 {
-	register flex::YY_CHAR *dest = m_buffer->yy_ch_buf;
-	register flex::YY_CHAR *source = yytext_ptr;
+	register tchar *dest = m_buffer->yy_ch_buf;
+	register tchar *source = yytext_ptr;
 	register int number_to_move, i;
 	int ret_val;
 
@@ -134,11 +153,11 @@ int HoeFlex::yy_get_next_buffer()
 				else
 					b->yy_buf_size *= 2;
 
-				b->yy_ch_buf = (flex::YY_CHAR *)
+				b->yy_ch_buf = (tchar *)
 					/* Include room in for 2 EOB chars. */
 					realloc( (void *) b->yy_ch_buf,
 							( b->yy_buf_size + 2 ) *
-							sizeof( flex::YY_CHAR ) );
+							sizeof( tchar ) );
 				}
 			else
 				/* Can't grow it, we don't own it. */
@@ -284,7 +303,7 @@ int HoeFlex::yyinput()
 		}
 #endif
 	c = YY_SC_TO_UI(*yy_c_buf_p);
-	*yy_c_buf_p = (flex::YY_CHAR) '\0';	/* preserve yytext */
+	*yy_c_buf_p = '\0';	/* preserve yytext */
 	yy_hold_char = *++yy_c_buf_p;
 
 	m_buffer->SetBol(c == '\n');
@@ -294,9 +313,9 @@ int HoeFlex::yyinput()
 	return c;
 }
 
-void HoeFlex::yyunput( int c, register flex::YY_CHAR *yy_bp )
+void HoeFlex::yyunput( int c, register tchar *yy_bp )
 {
-	register flex::YY_CHAR *yy_cp = yy_c_buf_p;
+	register tchar *yy_cp = yy_c_buf_p;
 
 	/* undo effects of setting up yytext */
 	*yy_cp = yy_hold_char;
@@ -305,9 +324,9 @@ void HoeFlex::yyunput( int c, register flex::YY_CHAR *yy_bp )
 		{ /* need to shift things up to make room */
 		/* +2 for EOB chars. */
 		register size_t number_to_move = yy_n_chars + 2;
-		register flex::YY_CHAR *dest = &m_buffer->yy_ch_buf[
+		register tchar *dest = &m_buffer->yy_ch_buf[
 					m_buffer->yy_buf_size + 2];
-		register flex::YY_CHAR *source =
+		register tchar *source =
 				&m_buffer->yy_ch_buf[number_to_move];
 
 		while ( source > m_buffer->yy_ch_buf )
@@ -322,7 +341,7 @@ void HoeFlex::yyunput( int c, register flex::YY_CHAR *yy_bp )
 			this->yy_fatal_error( T("flex scanner push-back overflow") );
 		}
 
-	*--yy_cp = (flex::YY_CHAR) c;
+	*--yy_cp = (tchar) c;
 
 	// %% update yylineno here
 

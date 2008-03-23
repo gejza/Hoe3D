@@ -53,8 +53,6 @@ protected:
 	DirectDrawSurface* m_pDDSPrimary;// DirectDraw primary surface
 	DirectDrawSurface* m_pDDSBack;   // DirectDraw back surface
     DDCAPS m_caps;
-	int m_width;
-	int m_height;
 	bool m_usebb;
 	bool m_useflip;
 public:

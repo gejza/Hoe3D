@@ -232,6 +232,9 @@ bool HoeFont::DrawText( vfloat sx, vfloat sy, dword dwColor,
 bool HoeFont::DrawText( vfloat sx, vfloat sy, dword dwColor, 
                       const tchar* strText, dword dwFlags )
 {
+	// mult
+	sx *= Get2D()->m_multX;
+	sy *= Get2D()->m_multY;
 	while (*strText)
 	{
 		int c = m_cp.StringToIndex(strText);
@@ -246,7 +249,9 @@ bool HoeFont::DrawText( vfloat sx, vfloat sy, dword dwColor,
 		dest.top = sy;
 		dest.bottom = dest.top + src.bottom - src.top;
 		sx += src.right - src.left;
-		Get2D()->Blt(m_pic,&dest,&src);
+		//Get2D()->Blt(m_pic,&dest,&src);
+		::GetRef()->Blt(m_pic->m_surf, &dest, &src, 0);
+
 	}
 	return true;
 }

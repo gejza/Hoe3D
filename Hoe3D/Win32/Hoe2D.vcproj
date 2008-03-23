@@ -372,6 +372,7 @@
 					<Tool
 						Name="Flex"
 						Unicode="true"
+						Lang="true"
 						Skeleton="..\..\HoeCore\template\hoe_flex.skl"
 						Output="$(InputDir)\$(InputName).yyu.cpp"
 						dep="..\..\HoeCore\template\hoe_flex.skl"
@@ -383,6 +384,7 @@
 					<Tool
 						Name="Flex"
 						Unicode="true"
+						Lang="true"
 						Skeleton="..\..\HoeCore\template\hoe_flex.skl"
 						Output="$(InputDir)\$(InputName).yyu.cpp"
 						dep="..\..\HoeCore\template\hoe_flex.skl"
@@ -394,6 +396,7 @@
 					<Tool
 						Name="Flex"
 						Unicode="true"
+						Lang="true"
 						Skeleton="..\..\HoeCore\template\hoe_flex.skl"
 						Output="$(InputDir)\$(InputName).yyu.cpp"
 						dep="..\..\HoeCore\template\hoe_flex.skl"
@@ -405,6 +408,7 @@
 					<Tool
 						Name="Flex"
 						Unicode="true"
+						Lang="true"
 						Skeleton="..\..\HoeCore\template\hoe_flex.skl"
 						Output="$(InputDir)\$(InputName).yyu.cpp"
 						dep="..\..\HoeCore\template\hoe_flex.skl"

@@ -66,6 +66,8 @@ public:
 	}
 };
 
+
+
 END_HOEGAME
 
 #endif // _HOE_FIGURE_2D_H_

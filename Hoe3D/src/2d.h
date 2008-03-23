@@ -16,6 +16,9 @@ class Hoe2D : public IHoe2D
 
 	//HoeFreeType freetype;
 public:
+	vfloat m_multX;
+	vfloat m_multY;
+
 	Hoe2D();
 	~Hoe2D();
 	void Begin();
@@ -29,6 +32,13 @@ public:
 	void PaintLine(vfloat x1,vfloat y1,vfloat x2,vfloat y2,unsigned long c);
 
 	void Blt(IHoePicture *,const THoeRect * dest,const THoeRect * src);
+	void MultRect(const THoeRect &src, THoeRect* dest)
+	{
+		dest->top = src.top * m_multY;
+		dest->bottom = src.bottom * m_multY;
+		dest->left = src.left * m_multX;
+		dest->right = src.right * m_multX;
+	}
 	virtual void SetAlpha(bool set);
 };
 

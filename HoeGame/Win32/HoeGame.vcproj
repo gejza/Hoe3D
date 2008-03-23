@@ -606,7 +606,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_engine.h"
+				RelativePath="..\include\HoeGame\hoe_engine.h"
 				>
 			</File>
 			<File
@@ -614,7 +614,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_view.h"
+				RelativePath="..\include\HoeGame\hoe_view.h"
 				>
 			</File>
 		</Filter>
@@ -622,19 +622,55 @@
 			Name="strategy"
 			>
 			<File
+				RelativePath="..\src\hoe_land.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\include\HoeGame\hoe_land.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\hoe_strategy.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_strategy.h"
+				RelativePath="..\include\HoeGame\hoe_strategy.h"
 				>
 			</File>
 			<File
 				RelativePath="..\src\hoe_stratmap.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\include\hoe_stratmap.h"
 				>
 			</File>
 		</Filter>
@@ -643,10 +679,6 @@
 			>
 			<File
 				RelativePath="..\src\hoe_lang.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\include\hoe_lang.h"
 				>
 			</File>
 			<File
@@ -662,7 +694,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_app.h"
+				RelativePath="..\include\HoeGame\hoe_app.h"
 				>
 			</File>
 			<File
@@ -670,7 +702,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_baseapp.h"
+				RelativePath="..\include\HoeGame\hoe_baseapp.h"
 				>
 			</File>
 			<File
@@ -742,7 +774,11 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\include\hoe_linux.h"
+				RelativePath="..\include\HoeGame\hoe_linux.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\HoeGame\hoe_macosx.h"
 				>
 			</File>
 			<File
@@ -782,7 +818,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\include\hoe_mobile.h"
+				RelativePath="..\include\HoeGame\hoe_mobile.h"
 				>
 			</File>
 			<File
@@ -822,7 +858,15 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\include\hoe_win32.h"
+				RelativePath="..\include\HoeGame\hoe_win32.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\hoe_wx.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\include\HoeGame\hoe_wx.h"
 				>
 			</File>
 		</Filter>
@@ -854,15 +898,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_input.h"
-				>
-			</File>
-			<File
 				RelativePath="..\src\hoe_inputkeys.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\include\hoe_inputkeys.h"
 				>
 			</File>
 		</Filter>
@@ -938,7 +974,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\include\hoe_fs.h"
+				RelativePath="..\include\HoeGame\hoe_fs.h"
 				>
 			</File>
 			<File
@@ -946,7 +982,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_resource_mgr.h"
+				RelativePath="..\include\HoeGame\hoe_resource_mgr.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\HoeGame\hoe_stratmap.h"
 				>
 			</File>
 			<File
@@ -954,7 +994,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_structfile.h"
+				RelativePath="..\include\HoeGame\hoe_structfile.h"
 				>
 			</File>
 			<File
@@ -963,8 +1003,16 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Lua"
+			Name="Script"
 			>
+			<File
+				RelativePath="..\include\HoeGame\hoe_input.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\HoeGame\hoe_inputkeys.h"
+				>
+			</File>
 			<File
 				RelativePath="..\src\lua_script.cpp"
 				>
@@ -1034,7 +1082,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\include\lua_script.h"
+				RelativePath="..\include\HoeGame\lua_script.h"
 				>
 			</File>
 		</Filter>
@@ -1046,7 +1094,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_benchmark.h"
+				RelativePath="..\include\HoeGame\hoe_benchmark.h"
 				>
 			</File>
 			<File
@@ -1086,7 +1134,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\include\hoe_mem.h"
+				RelativePath="..\include\HoeGame\hoe_mem.h"
 				>
 			</File>
 			<File
@@ -1094,7 +1142,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_timer.h"
+				RelativePath="..\include\HoeGame\hoe_timer.h"
 				>
 			</File>
 			<File
@@ -1102,7 +1150,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_utils.h"
+				RelativePath="..\include\HoeGame\hoe_utils.h"
 				>
 			</File>
 		</Filter>
@@ -1110,11 +1158,11 @@
 			Name="Sound &amp; Music"
 			>
 			<File
-				RelativePath="..\src\hoe_music.cpp"
+				RelativePath="..\include\HoeGame\bassmod.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_music.h"
+				RelativePath="..\src\hoe_music.cpp"
 				>
 			</File>
 		</Filter>
@@ -1130,7 +1178,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_config.h"
+				RelativePath="..\include\HoeGame\hoe_config.h"
 				>
 			</File>
 			<File
@@ -1202,15 +1250,11 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\include\hoe_settings.h"
+				RelativePath="..\include\HoeGame\hoe_settings.h"
 				>
 			</File>
 			<File
 				RelativePath="..\src\hoe_vars.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\include\hoe_vars.h"
 				>
 			</File>
 		</Filter>
@@ -1226,7 +1270,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_ai.h"
+				RelativePath="..\include\HoeGame\hoe_ai.h"
 				>
 			</File>
 		</Filter>
@@ -1238,7 +1282,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_adventure.h"
+				RelativePath="..\include\HoeGame\hoe_adventure.h"
 				>
 			</File>
 		</Filter>
@@ -1247,55 +1291,23 @@
 			>
 		</File>
 		<File
-			RelativePath="..\include\hoe_console.h"
+			RelativePath="..\include\HoeGame\hoe_console.h"
 			>
 		</File>
 		<File
-			RelativePath="..\include\hoe_game.h"
+			RelativePath="..\include\HoeGame\hoe_game.h"
 			>
 		</File>
 		<File
-			RelativePath="..\src\hoe_land.cpp"
-			>
-			<FileConfiguration
-				Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-				ExcludedFromBuild="true"
-				>
-				<Tool
-					Name="VCCLCompilerTool"
-				/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-				ExcludedFromBuild="true"
-				>
-				<Tool
-					Name="VCCLCompilerTool"
-				/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Unicode Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-				ExcludedFromBuild="true"
-				>
-				<Tool
-					Name="VCCLCompilerTool"
-				/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Unicode Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-				ExcludedFromBuild="true"
-				>
-				<Tool
-					Name="VCCLCompilerTool"
-				/>
-			</FileConfiguration>
-		</File>
-		<File
-			RelativePath="..\include\hoe_land.h"
+			RelativePath="..\include\HoeGame\hoe_lang.h"
 			>
 		</File>
 		<File
-			RelativePath="..\include\hoe_object.h"
+			RelativePath="..\include\HoeGame\hoe_music.h"
+			>
+		</File>
+		<File
+			RelativePath="..\include\HoeGame\hoe_object.h"
 			>
 		</File>
 		<File
@@ -1303,15 +1315,11 @@
 			>
 		</File>
 		<File
-			RelativePath="..\include\hoe_scene.h"
+			RelativePath="..\include\HoeGame\hoe_scene.h"
 			>
 		</File>
 		<File
-			RelativePath="..\src\hoe_wx.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\include\hoe_wx.h"
+			RelativePath="..\include\HoeGame\hoe_vars.h"
 			>
 		</File>
 		<File
