@@ -11,7 +11,7 @@ Physics::Physics()
 {
 	SET_SHARED_PTR(physics);
 	m_oi = NULL;
-	Con_Print("Physics engine created v0.1!");
+	Con_Print(T("Physics engine created v0.1!"));
 }
 
 Physics::~Physics()

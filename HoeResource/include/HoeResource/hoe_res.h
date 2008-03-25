@@ -4,6 +4,8 @@
 
 #include "hoe_resfile.h"
 
+typedef struct z_stream_s z_stream;
+
 namespace HoeRes {
 
 // picture, sound, video
@@ -130,6 +132,34 @@ public:
 	virtual void GetSize(THoeSizeu* size);
 	virtual uint Close() { return 0; }
 	virtual uint GetRow(byte* ptr);
+};
+
+class StreamDeflate : public HoeCore::ReadStream
+{
+	HoeCore::ReadStream& m_stream;
+	HoeCore::Buffer m_buff;
+	HoeCore::Dynamic<z_stream> m_zs;
+	bool m_open;
+	// buffer
+public:
+	StreamDeflate(HoeCore::ReadStream& stream, int level);
+	virtual ~StreamDeflate();
+	virtual size_t Read(void* ptr, size_t size);
+	virtual uint Close(void);
+};
+
+class StreamInflate : public HoeCore::ReadStream
+{
+	HoeCore::ReadStream& m_stream;
+	HoeCore::Buffer m_buff;
+	HoeCore::Dynamic<z_stream> m_zs;
+	bool m_open;
+	// buffer
+public:
+	StreamInflate(HoeCore::ReadStream& stream);
+	virtual ~StreamInflate();
+	virtual size_t Read(void* ptr, size_t size);
+	virtual uint Close(void);
 };
 
 } // namespace HoeRes

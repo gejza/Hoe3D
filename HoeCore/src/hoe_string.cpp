@@ -67,9 +67,7 @@ int vsnprintf(char* dest, size_t n, const wchar_t *fmt, va_list vl)
 int vsnprintf(wchar_t* dest, size_t n, const wchar_t* fmt, va_list vl)
 {
     int ret;
-#if defined _WIN32_WINNT
-	ret = ::vswprintf_s(dest, n, fmt, vl);
-#elif defined _WIN32_WCE
+#if defined _WIN32
 	ret = ::_vsnwprintf(dest, n, fmt, vl);
 #else
 	ret = ::vswprintf(dest, n, fmt, vl);
@@ -87,16 +85,6 @@ void copy(char * dest, const char * src, size_t cnt)
 void copy(wchar_t * dest, const wchar_t * src, size_t cnt)
 {
 	::wcsncpy(dest, src, cnt);
-}
-
-size_t utf8len(const wchar_t * s)
-{
-	size_t l = 0;
-	while (*s)
-	{
-		l += utf8len(*s++);
-	}
-	return l;
 }
 
 void copy(wchar_t * dest, const char * src, size_t s)
@@ -485,10 +473,8 @@ int String::vprintf(const char * szFormat, va_list vl)
 	while (1)
 	{
 		PrepareForModify(max+1, false);
-        ::printf("Test with %ld - %s\n", max,szFormat);
         hoe_assert(m_data->str);
 		ret = string::vsnprintf(m_data->str, max, szFormat, vl);
-        ::printf("Test for %ld, ret: %d\n", max, ret);
         if (ret >= 0 && ret < max)
             break;
         if (ret > max)
@@ -496,11 +482,41 @@ int String::vprintf(const char * szFormat, va_list vl)
         else
 	        max = size_t(max * 1.5) + 1;
 	}
-    ::printf("Done-%s\n", this->GetPtr());
 	return ret;
 }
 
-int String::Replace(char f, char r)
+int String::printf(const wchar_t * szFormat, ...)
+{
+	int ret;
+	va_list args;
+	va_start(args, szFormat);
+	ret = this->vprintf(szFormat, args);
+	va_end(args);
+	return ret;
+}
+
+int String::vprintf(const wchar_t * szFormat, va_list vl)
+{
+	// todo optimalizovat
+	size_t max = string::len(szFormat);
+	max = size_t(max * 1.7);
+	int ret = 0;
+	while (1)
+	{
+		PrepareForModify(max+1, false);
+        hoe_assert(m_data->str);
+		ret = string::vsnprintf(m_data->str, max, szFormat, vl);
+        if (ret >= 0 && ret < max)
+            break;
+        if (ret > max)
+            max = ret + 1;
+        else
+	        max = size_t(max * 1.5) + 1;
+	}
+	return ret;
+}
+
+int String::Replace(tchar f, tchar r)
 {
 	// todo optimalizovat
 	int n = 0;
@@ -518,6 +534,15 @@ int String::Replace(char f, char r)
 		s++;
 	}
 	return n;
+}
+
+void String::Short(int max)
+{
+	// todo optimalizovat
+	if (!m_data || Length() <= max)
+		return;
+	PrepareForModify(m_data->data.alloc,false);
+	m_data->str[max] = T('\0');
 }
 
 bool String::wmatch(const wchar_t* pattern)

@@ -49,12 +49,12 @@ bool TGridModel::LoadModel(const tchar * name)
 {
 	if (name)
 	{
-		Con_Print("Loading gridsurface model %s",name);
+		Con_Print(T("Loading gridsurface model %s"),name);
 		ModelLoader ml(0, 0);
 		mod = ml.LoadModel(name, true);
 		if (!mod)
 		{
-			Con_Print("Failed load model %s",name);
+			Con_Print(T("Failed load model %s"),name);
 			return false;
 		}
 		// update radku atd
@@ -878,7 +878,7 @@ void HOEAPI GridSurface::LoadDump(HoeCore::ReadStream * stream)
 	uint ver = stream->Read<uint>();
 	if (ver!=4)
 	{
-		Con_Print("Error: GridSurface Dump - bad version (%d)",ver);
+		Con_Print(T("Error: GridSurface Dump - bad version (%d)"),ver);
 		return;
 	}
 	assert(ver==4);

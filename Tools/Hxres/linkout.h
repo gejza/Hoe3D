@@ -21,6 +21,7 @@ class LinkRes
 		HoeCore::String name;
 		HoeCore::File file;
 		int size;
+		unsigned long adler; // todo 64bit
 	};
 
 	const HoeCore::CString m_name;

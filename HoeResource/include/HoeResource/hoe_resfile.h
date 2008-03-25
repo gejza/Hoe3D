@@ -16,6 +16,7 @@ enum {
 	IDStream=0x20,
 	IDIndex=0x30,
 	IDFont=0x40,
+	IDFile=0x10000,
 };
 
 #pragma pack(push,1)
@@ -71,9 +72,22 @@ struct FontInfo : public HeadResource
 	};
 };
 
+struct FileInfo : public HeadResource
+{
+	uint64 size;
+	uint32 compress;
+	uint64 comp_size;
+
+	enum
+	{
+		CSPlain,
+		CSZlib,
+	};
+};
+
 #pragma pack(pop)
 
-const char * GetTypeName(uint id);
+const tchar * GetTypeName(uint id);
 
 
 } // namespace Res
@@ -84,6 +98,13 @@ struct SymbolLink
   int fn;
   size_t pos;
   const tchar* name;
+};
+
+struct SymbolFile
+{
+	const tchar* name;
+	size_t size;
+	unsigned long adler; // todo, overit 64bit
 };
 
 } // namespace HoeRes

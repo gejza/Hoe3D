@@ -25,7 +25,7 @@ class HoeInputDI : public HoeInput
 public:
 	HoeInputDI();
 	virtual bool Init(THoeInitSettings *);
-	virtual const char * GetName();
+	virtual const tchar * GetName();
 	virtual bool UseKeyb();
 	virtual bool InstallMouse(MouseType mt);
 	virtual void UninstallMouse();

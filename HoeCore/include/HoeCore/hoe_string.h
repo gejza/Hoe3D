@@ -41,8 +41,6 @@ inline size_t len(const wchar_t * s)
 	return wcslen(s);
 }
 
-size_t utf8len(const wchar_t * s);
-
 inline bool ifbegin(const tchar* begin, const tchar* str) { return false; }
 
 int find_last(const tchar* str,tchar f);
@@ -169,10 +167,18 @@ public:
 	bool IsEmpty() const { return !m_data || !m_data->str[0]; }
 	operator bool () const { return !IsEmpty(); }
 	size_t Length() const { return m_data ? string::len(m_data->str):0; }
+	void Short(int max);
 	//void Export(char *, size_t size) {}
 	const tchar * GetPtr() const { return m_data ? m_data->str:T(""); }
 	operator const tchar * () const { return GetPtr(); }
 	operator const CString () const { return CString(m_data ? m_data->str:T("")); }
+	/** Nahrazeni znaku
+	* @param f Hledany znak
+	* @param r Nahrazeny znak
+	* @return Pocet nahrazeni
+	*/
+	int Replace(tchar f, tchar r);
+
 
 	bool operator < (const String& str) const
 	{
@@ -232,12 +238,6 @@ public:
 	}
 	int printf(const char * szFormat, ...);
 	int vprintf(const char * szFormat, va_list);
-	/** Nahrazeni znaku
-	* @param f Hledany znak
-	* @param r Nahrazeny znak
-	* @return Pocet nahrazeni
-	*/
-	int Replace(char f, char r);
 	int Find(char f);
 	int FindLast(char f)
 	{
@@ -276,6 +276,8 @@ public:
 		wchar_t src[2] = { c, 0 };
 		concat(src);
 	}
+	int printf(const wchar_t * szFormat, ...);
+	int vprintf(const wchar_t * szFormat, va_list);
 	bool wmatch(const wchar_t* pattern);
 #endif
 

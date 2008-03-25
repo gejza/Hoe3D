@@ -10,7 +10,6 @@
 #include "hoe_time.h"
 
 #include "hoe.h"
-#include <hoe_math.h>
 #include "particle_emitor.h"
 
 ObjectController::ObjectController() : m_scale(1,1,1)
@@ -104,7 +103,7 @@ IHoeModel * ObjectController::GetModel()
 
 bool ObjectController::LoadModel(const tchar * cmd)
 {
-	model = (HoeModel*) GetHoe3D()->Create(cmd);
+	model = (HoeModel*) GetHoe()->Create(cmd);
 
 	return false;
 }

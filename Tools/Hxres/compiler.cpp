@@ -3,6 +3,7 @@
 #include "compiler.h"
 #include "comp_font.h"
 #include "error.h"
+#include <zlib.h>
 
 using namespace HoeCore;
 using namespace HoeRes::Res;
@@ -51,6 +52,8 @@ Compiler * Compiler::Create(HoeCore::String&, int type, HoeCore::WriteStream& s)
 		ret = new StreamCompiler(s); break;
 	case IDFont:
 		ret = new FontCompiler(s); break;
+	case IDFile:
+		ret = new FileCompiler(s); break;
     default:
 		hoe_assert(!"Unknown compiler type.");
         return NULL;
@@ -79,7 +82,7 @@ bool Compiler::CheckArg(const CString name, const Universal& value, Universal::T
 // picture
 bool PictureCompiler::AddProp(const CString name, const Value& value)
 {
-	if (name == "File")
+	if (name == "Source")
 	{
 		CheckArg(name, value, Universal::TypeString);
         im.SetSource(value.GetStringValue());
@@ -158,6 +161,47 @@ void PictureCompiler::Done()
 }*/
 
 /////
+
+// picture
+bool FileCompiler::AddProp(const CString name, const Value& value)
+{
+	if (name == "Source")
+	{
+		CheckArg(name, value, Universal::TypeString);
+		if (!m_f.Open(value.GetStringValue()))
+		{
+			throw Error(T("Failed open file %s"),value.GetStringValue());
+		}
+		return true;
+	}
+	return PInterface::AddProp(name, value);
+}
+
+
+
+
+void FileCompiler::Done()
+{
+	if (!m_f.Open())
+		throw Error(T("Property 'Source' must exist."));
+
+	HoeRes::Res::FileInfo* head = (HoeRes::Res::FileInfo*)m_out.CreateBuffer(sizeof(HoeRes::Res::FileInfo));
+	head->id = HoeRes::Res::IDFile;
+	head->size_struct = sizeof(head);
+	head->version_struct = 1;
+	if (1)
+	{
+		HoeRes::StreamDeflate def(m_f, Z_DEFAULT_COMPRESSION);
+		head->comp_size = m_out.Write(def);
+		head->compress = HoeRes::Res::FileInfo::CSZlib;
+	}
+	else
+	{
+		head->comp_size = 0;
+		head->compress = HoeRes::Res::FileInfo::CSPlain;
+	}
+	head->size = m_f.Tell();
+}
 
 
 

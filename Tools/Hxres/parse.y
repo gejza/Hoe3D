@@ -51,7 +51,7 @@ Values vec;
 
 %token TK_Stream TK_StreamFile TK_Texture TK_TextureFile
 %token TK_Material TK_MaterialFile TK_IndexFile
-%token TK_Picture TK_Model TK_Index TK_Namespace TK_Font
+%token TK_Picture TK_Model TK_Index TK_Namespace TK_Font TK_File
 %token <string>TK_name  
 %token <num> TK_num  
 %token <real> TK_real  
@@ -75,6 +75,7 @@ resource
 		| index
 		| model
 		| font
+		| fileobj
 		| namespace
         | { NEWOBJ(&linker); } attribute
 ;
@@ -207,4 +208,10 @@ font_attr
 			}
 		  attributes
 		'~' TK_Picture '\n' { DONE(); }
+;
+fileobj: 
+		TK_File TK_name '\n' { NEWOBJ(linker.AddObject($2, IDFile, lex.GetLocation())); }
+		  attributes
+		'~' TK_File '\n' { DONE(); }
+;
 %%

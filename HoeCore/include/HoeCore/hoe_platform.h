@@ -201,7 +201,7 @@ public:
 
 	inline bool IsUnicode() const
 	{
-		return m_end & WChar;
+		return (m_end & WChar) != 0;
 	}
 };
 

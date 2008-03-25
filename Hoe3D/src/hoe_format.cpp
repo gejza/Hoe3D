@@ -202,7 +202,7 @@ D3DFORMAT HoeFormatX(HOEFORMAT format)
 	case HOE_DXT5: return D3DFMT_DXT5;
 	case HOE_U8V8: return D3DFMT_V8U8;
 	default:
-		Con_Print("warning: %s format not convert to D3D",HoeFormatString(format));
+		Con_Print(T("warning: %s format not convert to D3D"),HoeFormatString(format));
 		assert(!"format not convert to D3D");
 		return D3DFMT_UNKNOWN;
 	}

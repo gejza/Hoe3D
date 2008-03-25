@@ -26,11 +26,11 @@ real	 {real1}|{real2}
 "<!--"[^-]*"-->"		/* skip */
 "<"[A-Za-z]+			parser.Begin(yytext_ptr+1); BEGIN(INITIAL);
 [a-z]+[ \t]*=[ \t]*\"[^\"]*\" this->SetProp(parser, yytext_ptr);
-">"						m_str = T(""); BEGIN(XMLTEXT);
-"/>"					parser.End();
-"</"[^>]+">"			if (m_str) parser.SetProp(m_textprop, m_str); parser.End(); BEGIN(INITIAL); // end
+">"						BEGIN(XMLTEXT);
+"/>"					BEGIN(XMLTEXT);parser.End();
+"</"[^>]+">"			parser.End(); BEGIN(INITIAL); // end
 
-<XMLTEXT>[^<]*			m_str += yytext_ptr;
+<XMLTEXT>[^<\r]*			parser.SetProp(m_textprop, yytext_ptr);
 
 %%
 

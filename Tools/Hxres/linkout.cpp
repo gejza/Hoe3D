@@ -137,21 +137,38 @@ void LinkRes::ExportRes(HoeCore::String nsn, Namespace& ns,HoeCore::WriteStream&
 	}
 }
 
+class Adler : public HoeCore::ReadStream
+{
+	HoeCore::ReadStream& m_s;
+public:
+	unsigned long adler;
+	Adler(HoeCore::ReadStream& s, unsigned long a) : m_s(s), adler(a) {}
+	virtual size_t Read(void* ptr, size_t size)
+	{
+		size_t s = m_s.Read(ptr, size);
+		adler = adler32(adler, (Bytef*)ptr, s);
+		return s;
+	}
+	virtual uint Close(void) { return m_s.Close(); }
+};
+
 void LinkRes::ExportFile(HoeCore::File &f, int* fo, size_t* pos)
 {
 	// find file
 	static int l = 0;
-	//l = l % 4;
+	//l = l % 8;
 	if (l >= m_rc.Count())
 	{
 		AddFile();
 	}
-	*fo = 0;//l++;
+	*fo = l++;
 	f.Flush();
 	f.Seek(0);
 	*pos = m_rc[*fo].file.Tell();
 	HoeCore::WriteStream& out = m_rc[*fo].file;
-	out.Write(f);
+	Adler a(f, m_rc[*fo].adler);
+	m_rc[*fo].size += out.Write(a);
+	m_rc[*fo].adler = a.adler;
 	//out.CreateSpace(HoeCore::RandInt(10000, 1000000));
 }
 
@@ -161,6 +178,7 @@ LinkRes::RF& LinkRes::AddFile()
 	rc.name.printf("%sres%d.obj", m_name.GetPtr(), m_rc.Count());
 	rc.file.Open(rc.name,HoeCore::File::hftRewrite);
 	rc.size = 0;
+	rc.adler = adler32(0L, Z_NULL, 0); 
 	return rc;
 }
 
@@ -196,14 +214,14 @@ void LinkRes::Export(Namespace& ns)
 		return;
 
 	frc.WriteString("// Auto generated file resources\n");
-	fcpp.WriteString("\nconst tchar * g_link_files[] = { ");
+	fcpp.WriteString("\nHoeRes::SymbolFile g_link_files[] = { ");
 	for (uint i=0;i < m_rc.Count();i++)
 	{
 		HoeCore::String n = HoeUtils::GetFileName(m_rc[i].name, false);
-		fcpp.Print("T(\"%s\"), ", n.GetPtr());
+		fcpp.Print("{ T(\"%s\"), %d, 0x%x }, \n", n.GetPtr(), m_rc[i].size, m_rc[i].adler);
 		frc.Print("%s HOERES %s\n", n.GetPtr(), m_rc[i].name.GetPtr());
 	}
-	fcpp.WriteString(" NULL };\n");
+	fcpp.WriteString("{0,0,0} };\n");
 
 }
 

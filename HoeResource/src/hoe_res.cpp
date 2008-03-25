@@ -274,3 +274,100 @@ uint HoeRes::DoubleZoom::GetRow(byte* ptr)
 	m_readline++;
 	return m_size.width * 2;
 }
+
+///// zlib /////////////////
+HoeRes::StreamDeflate::StreamDeflate(HoeCore::ReadStream& stream, int level) : m_stream(stream)
+{
+	/* allocate deflate state */
+	m_zs->zalloc = Z_NULL;
+	m_zs->zfree = Z_NULL;
+	m_zs->opaque = Z_NULL; 
+	int ret = deflateInit(&m_zs, level);
+	m_open = (ret == Z_OK);
+}
+
+HoeRes::StreamDeflate::~StreamDeflate()
+{
+	if (m_open) deflateEnd(&m_zs);
+}
+
+size_t HoeRes::StreamDeflate::Read(void* ptr, size_t size)
+{
+	if (!m_open)
+		return 0;
+	int ret;
+    /* run deflate() on input until output buffer not full, finish
+       compression if all of source has been read in */
+	m_zs->avail_out = size;
+	m_zs->next_out = (Bytef*)ptr;
+    do {
+		m_zs->next_in = m_buff.Get<Bytef*>(size);
+		m_zs->avail_in = m_stream.Read(m_buff.GetPtr(size), m_buff.GetSize());
+		ret = deflate(&m_zs, m_zs->avail_in == 0 ? Z_FINISH : Z_NO_FLUSH);
+    } while (m_zs->avail_out && ret == Z_OK);
+	if (ret != Z_OK)
+		Close();
+	return size - m_zs->avail_out;
+}
+
+uint HoeRes::StreamDeflate::Close(void)
+{
+	if (m_open)
+	{
+		uint ret = m_stream.Close();
+		deflateEnd(&m_zs);
+		m_open = false;
+		return ret;
+	}
+	return 0;
+}
+
+HoeRes::StreamInflate::StreamInflate(HoeCore::ReadStream& stream) : m_stream(stream)
+{
+	/* allocate inflate state */
+	m_zs->zalloc = Z_NULL;
+	m_zs->zfree = Z_NULL;
+	m_zs->opaque = Z_NULL;
+	m_zs->avail_in = 0;
+	m_zs->next_in = Z_NULL; 
+	int ret = inflateInit(&m_zs);
+	m_open = (ret == Z_OK);
+}
+
+HoeRes::StreamInflate::~StreamInflate()
+{
+	if (m_open) inflateEnd(&m_zs);
+}
+
+size_t HoeRes::StreamInflate::Read(void* ptr, size_t size)
+{
+	if (!m_open)
+		return 0;
+	int ret;
+	if (!m_zs->avail_in)
+	{
+		m_zs->next_in = m_buff.Get<Bytef*>(size);
+		m_zs->avail_in = m_stream.Read(m_buff.GetPtr(size), m_buff.GetSize());
+	}
+     /* run inflate() on input until output buffer not full */ 
+	m_zs->avail_out = size;
+	m_zs->next_out = (Bytef*)ptr;
+    ret = inflate(&m_zs, m_zs->avail_in == 0 ? Z_FINISH : Z_NO_FLUSH);
+	if (ret != Z_OK)
+		Close();
+	return size - m_zs->avail_out;
+}
+
+uint HoeRes::StreamInflate::Close(void)
+{
+	if (m_open)
+	{
+		uint ret = m_stream.Close();
+		inflateEnd(&m_zs);
+		m_open = false;
+		return ret;
+	}
+	return 0;
+}
+
+

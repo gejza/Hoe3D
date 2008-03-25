@@ -4,8 +4,8 @@
 #include "../include/HoeResource/resmgr.h"
 
 // LinkedFile
-HoeRes::LinkedFile::LinkedFile(int n, const tchar* filename) 
-	: m_index(n), m_filename(filename), 
+HoeRes::LinkedFile::LinkedFile(int n, const HoeRes::SymbolFile* sym) 
+	: m_index(n), m_sym(sym), 
 	  m_g(INVALID_HANDLE_VALUE), m_ptr(NULL) 
 {
 }
@@ -21,10 +21,16 @@ HoeRes::LinkedFile::~LinkedFile()
 byte * HoeRes::LinkedFile::Get(HINSTANCE inst)
 {
 	if (m_ptr) return m_ptr;
-	HRSRC sr = FindResource(inst,m_filename,T("HOERES"));
-	//DWORD dw = SizeofResource(hInstance,sr);
+	HRSRC sr = FindResource(inst,m_sym->name,T("HOERES"));
+	DWORD dw = SizeofResource(inst,sr);
+	hoe_assert(dw == m_sym->size);
 	m_g = LoadResource(inst,sr);
-	return m_ptr = (byte*)LockResource(m_g);
+	m_ptr = (byte*)LockResource(m_g);
+	// compute adler
+	unsigned long a = adler32(0L, NULL, 0L);
+	a = adler32(a, (Bytef*)m_ptr, dw);
+	hoe_assert(a == m_sym->adler);
+	return m_ptr;
 }
 
 // LinkedReader
@@ -48,8 +54,8 @@ uint HoeRes::LinkedReader::Close()
 // LinkedResourceMgr
 
 HoeRes::LinkedResourceMgr::LinkedResourceMgr(HINSTANCE inst, 
-		HoeRes::SymbolLink* sym,
-		const tchar * files[]) 
+		const HoeRes::SymbolLink* sym,
+		const HoeRes::SymbolFile* files) 
 	: m_inst(inst), m_sym(sym), m_files(files)
 {
 }
@@ -57,7 +63,7 @@ HoeRes::LinkedResourceMgr::LinkedResourceMgr(HINSTANCE inst,
 HoeCore::ReadStream* 
 	HoeRes::LinkedResourceMgr::GetResource(const tchar* name, const tchar** ns)
 {
-	for (HoeRes::SymbolLink* s=m_sym;s->name;s++)
+	for (const HoeRes::SymbolLink* s=m_sym;s->name;s++)
 	{
 		if (HoeCore::string::cmp(s->name, name) == 0)
 		{
@@ -68,7 +74,7 @@ HoeCore::ReadStream*
 	return NULL;
 }
 
-HoeCore::ReadStream * HoeRes::LinkedResourceMgr::LoadSymbol(HoeRes::SymbolLink& sym)
+HoeCore::ReadStream * HoeRes::LinkedResourceMgr::LoadSymbol(const HoeRes::SymbolLink& sym)
 {
 	LinkedFile& lf = GetFile(sym.fn);
 	byte * ptr = lf.Get(m_inst);
@@ -83,7 +89,7 @@ HoeRes::LinkedFile& HoeRes::LinkedResourceMgr::GetFile(int n)
 		if (i->GetIndex() == n)
 			return *i;
 	}
-	return m_openfiles.Add(LinkedFile(n, m_files[n]));
+	return m_openfiles.Add(LinkedFile(n, &m_files[n]));
 }
 
 

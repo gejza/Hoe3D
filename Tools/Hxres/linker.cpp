@@ -27,10 +27,11 @@ Compiler * Linker::AddObject(const char * name, int type, const Scaner::Location
 	o.type = type;
 	o.name = name;
 	o.location = l;
-	HoeCore::String fn = o.name;
+	HoeCore::String fn;
+	fn.printf(T("%s_%d.ors"), o.name.GetPtr(), HoeCore::RandInt(30000));
 	fn.Replace(':','_');
-	fn += ".ors";
-	o.file.Open(fn, HoeCore::File::hftTemp); // otevrit tmp soubor
+	bool b = o.file.Open(fn, HoeCore::File::hftTemp); // otevrit tmp soubor
+	hoe_assert(b);
 	o.c = Compiler::Create(o.name, type,o.file);
 	return o.c;
 }

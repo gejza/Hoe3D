@@ -33,7 +33,9 @@ class RefSurface : public RefSurfaceBase
 protected:
 	DDCOLORKEY m_ck;
 	DirectDrawSurface* m_srf; 
+	bool m_alpha;
 public:
+	RefSurface() : m_alpha(false) {}
 	bool Lock(LockRect* l);
 	void Unlock();
 

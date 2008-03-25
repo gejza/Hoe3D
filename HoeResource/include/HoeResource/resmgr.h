@@ -5,6 +5,7 @@
 namespace HoeRes {
 
 struct SymbolLink;
+struct SymbolFile;
 
 /** Interface pro resource manager */
 class XResourceMgr
@@ -18,11 +19,11 @@ public:
 class LinkedFile
 {
 	int m_index;
-	const tchar* m_filename;
+	const HoeRes::SymbolFile* m_sym;
 	HGLOBAL m_g;
 	byte* m_ptr;
 public:
-	LinkedFile(int n, const tchar* filename);
+	LinkedFile(int n, const HoeRes::SymbolFile* sym);
 	~LinkedFile();
 	int GetIndex() { return m_index; }
 	byte * Get(HINSTANCE inst);
@@ -42,15 +43,15 @@ class LinkedResourceMgr : public XResourceMgr
 {
 	HINSTANCE m_inst;
 	LinkedFileList m_openfiles;
-	HoeRes::SymbolLink* m_sym;
-	const tchar ** m_files;
+	const HoeRes::SymbolLink* m_sym;
+	const HoeRes::SymbolFile* m_files;
 public:
 	LinkedResourceMgr(HINSTANCE inst, 
-		HoeRes::SymbolLink* sym,
-		const tchar ** files);
+		const HoeRes::SymbolLink* sym,
+		const HoeRes::SymbolFile* files);
 	// add linkes x auto linkes
 	virtual HoeCore::ReadStream * GetResource(const tchar* name, const tchar** ns = NULL);
-	HoeCore::ReadStream * LoadSymbol(HoeRes::SymbolLink& sym);
+	HoeCore::ReadStream * LoadSymbol(const HoeRes::SymbolLink& sym);
 	LinkedFile& GetFile(int n);
 };
 

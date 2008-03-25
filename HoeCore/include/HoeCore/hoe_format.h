@@ -93,7 +93,7 @@ HOEFORMAT HoeFormatX(D3DFORMAT);
 
 #ifndef HOEFORMAT_ONLY_DEF
 
-const char * HoeFormatString(HOEFORMAT);
+const tchar * HoeFormatString(HOEFORMAT);
 int HoeFormatSize(HOEFORMAT);
 int HoeFormatSizeAlpha(HOEFORMAT);
 

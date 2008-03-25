@@ -20,6 +20,8 @@
 #include <stdarg.h>
 #include <new>
 
+#include <zlib.h>
+
 #include <assert.h>
 //#include <tchar.h>
 #include <HoeCore/hoe_types.h>

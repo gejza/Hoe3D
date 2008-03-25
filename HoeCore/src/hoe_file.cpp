@@ -139,6 +139,8 @@ void HoeCore::File::Seek(size_t ptr)
 size_t HoeCore::File::Tell() const
 {
 	size_t pos;
+	if (!IsOpen())
+		return m_pos;
 #ifdef WINDOWS_FILE_FUNC
 	pos = SetFilePointer(m_file,0,0,FILE_CURRENT);
 #else
@@ -165,7 +167,8 @@ void HoeCore::File::Flush()
 	if (!IsOpen())
 		return;
 #ifdef WINDOWS_FILE_FUNC
-	FlushFileBuffers(m_file);
+	BOOL b = FlushFileBuffers(m_file);
+	hoe_assert(b);
 #else
 	fflush(m_file);
 #endif

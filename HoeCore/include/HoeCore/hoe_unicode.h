@@ -23,7 +23,7 @@ inline size_t utf8len(const wchar_t c)
 		return 6;
 }
 
-inline size_t uft8len(const char c)
+inline size_t utf8len(const char c)
 {
 	if ((c & 0x80) == 0)
 		return 1;
@@ -92,6 +92,7 @@ inline size_t w2utf(char *& dest, wchar_t c, size_t n)
 }
 
 size_t utf8cont(const char* utf, size_t num);
+size_t utf8len(const wchar_t * s);
 size_t utf2w(wchar_t* w, const char* utf, size_t num);
 
 } // end namespace

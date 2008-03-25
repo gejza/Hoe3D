@@ -71,8 +71,8 @@ void Hoe2D::SetRect(const vfloat w,const vfloat h)
 #endif
 	if (w > 0 && h > 0)
 	{
-		m_multX = GetRef()->GetWidth() / w;
-		m_multY = GetRef()->GetHeight() / h;
+		m_multX = (vfloat)GetRef()->GetWidth() / w;
+		m_multY = (vfloat)GetRef()->GetHeight() / h;
 	}
 	else
 	{

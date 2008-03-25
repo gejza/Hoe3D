@@ -31,5 +31,8 @@
 #include <HoeCore/hoe_structures.h>
 #include <HoeCore/hoe_platform.h>
 
+#include <zlib.h>
+
+
 #endif // _STDAFX_H_
 

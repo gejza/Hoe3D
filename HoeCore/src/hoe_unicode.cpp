@@ -35,5 +35,15 @@ size_t utf2w(wchar_t* w, const char* utf, size_t num)
 	return nw;
 }
 
+size_t utf8len(const wchar_t * s)
+{
+	size_t l = 0;
+	while (*s)
+	{
+		l += utf8len(*s++);
+	}
+	return l;
+}
+
 } // end namespace string
 } // namespace HoeCore

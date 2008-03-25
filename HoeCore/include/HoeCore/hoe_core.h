@@ -157,8 +157,8 @@ bool Dajkrs::PGraphPoint::operator >(const HoeCore::Algorythm::Dajkrs::PGraphPoi
 struct KeyString
 {
     dword hash;
-    const char * key;
-    KeyString(const char * s)
+    const tchar * key;
+    KeyString(const tchar * s)
     {
         hash = HashString(s);
         key = s;
@@ -166,7 +166,7 @@ struct KeyString
     bool operator == (const KeyString& k) const
     {
         if (this->hash != k.hash) return false;
-        return strcmp(this->key, k.key) == 0;
+		return string::cmp(this->key, k.key) == 0;
     }
 };
 
@@ -178,17 +178,17 @@ protected:
 	struct ConstString
 	{
 		uint hash;
-		const char * str;
-		ConstString(const char * s);
+		const tchar * str;
+		ConstString(const tchar * s);
 	};
 	struct PoolIndex : public ConstString
     {
 		uint ref;
-		PoolIndex(const char * s);
+		PoolIndex(const tchar * s);
 		bool operator == (const ConstString& s)
 		{
 			if (s.hash != this->hash) return false;
-			return strcmp(s.str,this->str)==0;
+			return string::cmp(s.str,this->str)==0;
 		}
 		bool operator < (const PoolIndex& pi)
 		{
@@ -210,10 +210,11 @@ protected:
 public:
     StringPool();
     /** Zaindexuje novy string */
-    const char * Insert(const char * str);
+    const tchar * Insert(const tchar * str);
     /** Odebere jednu instanci */
     void Remove(const char * str);
 	const char * Strdup(const char * str);
+	const wchar_t * Strdup(const wchar_t * str);
     const HoeCore::KeyList<PoolIndex, ConstString> & GetKeys() { return m_keys; }
 	void GetStats(StringStats* stat);
 };
@@ -233,7 +234,7 @@ public:
 	HoeCore::Universal & Get(const HoeCore::KeyString& key);
 	const HoeCore::Universal & Get(const HoeCore::KeyString& key) const;
 	uint Count() const { return m_items.Count(); }
-	const char * GetKey(uint i) const { return m_items[i].key.key; }
+	const tchar * GetKey(uint i) const { return m_items[i].key.key; }
 	const HoeCore::Universal & GetValue(uint i) const { return m_items[i].value; }
 	bool IfExist(const HoeCore::KeyString& key) const;
     HoeCore::Universal & operator [](const HoeCore::KeyString& key) { return Get(key); }

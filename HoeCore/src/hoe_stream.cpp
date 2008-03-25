@@ -19,7 +19,7 @@ size_t HoeCore::BaseStream::Tell() const
 
 size_t HoeCore::WriteStream::WriteString(const HoeCore::CString str)
 {
-	return Write(str.GetPtr(), str.Length());
+	return Write(str.GetPtr(), str.Length()*sizeof(tchar));
 }
 
 void * HoeCore::WriteStream::CreateBuffer(size_t)
@@ -53,13 +53,13 @@ size_t HoeCore::WriteStream::Write(ReadStream& str, size_t size)
 			break;
 		size_t rntw = Write(buff, rntr);
 		writed += rntw;
-		if (rntw != ntr || rntr != ntr)
+		if (rntw != rntr)
 			break;
 	}
 	return writed;
 }
 
-int HoeCore::WriteStream::Print(const char* fmt, ...)
+int HoeCore::WriteStream::Print(const tchar* fmt, ...)
 {
 	int ret;
 	HoeCore::String str;

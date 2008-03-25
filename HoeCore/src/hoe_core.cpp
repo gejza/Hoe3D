@@ -315,13 +315,13 @@ bool HoeCore::Algorythm::Dajkrs::Process(TGraphPoint * from, TGraphPoint * to)
 }
 
 /////////////////////////////////////////////
-HoeCore::StringPool::ConstString::ConstString(const char * s) 
+HoeCore::StringPool::ConstString::ConstString(const tchar * s) 
 {
 	hash = HoeCore::HashString(s);
 	str = s;
 }
 
-HoeCore::StringPool::PoolIndex::PoolIndex(const char * s) : ConstString(s)
+HoeCore::StringPool::PoolIndex::PoolIndex(const tchar * s) : ConstString(s)
 {
 	ref = 1;
 }
@@ -334,6 +334,12 @@ const char * HoeCore::StringPool::Strdup(const char * str)
 {
 	size_t l = string::len(str)+1;
 	return reinterpret_cast<const char*>(Clone(str, l));
+}
+
+const wchar_t * HoeCore::StringPool::Strdup(const wchar_t * str)
+{
+	size_t l = string::len(str)+1;
+	return reinterpret_cast<const wchar_t*>(Clone(str, l * sizeof(wchar_t)));
 }
 
 void HoeCore::StringPool::Remove(const char * str)
@@ -353,7 +359,7 @@ void HoeCore::StringPool::Remove(const char * str)
 	}*/
 }
 
-const char * HoeCore::StringPool::Insert(const char * str)
+const tchar * HoeCore::StringPool::Insert(const tchar * str)
 {
 	PoolIndex * ppi = m_keys.Find(str);
 	if (ppi)

@@ -64,7 +64,7 @@ public:
 		else CreateSpace(ptr);
 	}
 
-	int Print(const char* fmt, ...);
+	int Print(const tchar* fmt, ...);
 
     template<typename TYPE> size_t WriteStruct(TYPE &t)
     {

@@ -28,7 +28,7 @@ public:
 	virtual void HOEAPI SetMaterialTexture(int n, const tchar * texturename);
 	virtual void HOEAPI SetTextureOverlap(int n, const THoeRect & rect);
 
-	virtual const char * GetName() { return "Model modifier";}
+	virtual const tchar * GetName() { return T("Model modifier");}
 	virtual void Release() { delete this; }
 };
 

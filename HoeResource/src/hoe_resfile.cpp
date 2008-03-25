@@ -2,23 +2,25 @@
 #include "StdAfx.h"
 #include "../include/HoeResource/hoe_resfile.h"
 
-const char * HoeRes::Res::GetTypeName(uint id)
+const tchar * HoeRes::Res::GetTypeName(uint id)
 {
 	switch (id)
 	{
 	case HoeRes::Res::IDHRESHEADER:
-		return "MainNamespace";
+		return T("MainNamespace");
 	case HoeRes::Res::IDNamespace:
-		return "Namespace";
+		return T("Namespace");
 	case HoeRes::Res::IDPicture:
-		return "Picture";
+		return T("Picture");
 	case HoeRes::Res::IDStream:
-		return "Stream";
+		return T("Stream");
 	case HoeRes::Res::IDFont:
-		return "Font";
+		return T("Font");
+	case HoeRes::Res::IDFile:
+		return T("File");
 	default:
 		hoe_assert(!"Not implemented");
-		return "unknown";
+		return T("unknown");
 	};
 }
 

@@ -1,4 +1,4 @@
-
+r
 /**
    @file    hoe_structfile.h
    @date    Apr 2007

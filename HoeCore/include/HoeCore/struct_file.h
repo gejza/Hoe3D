@@ -9,17 +9,9 @@ namespace HoeCore {
 class StructParserSAX
 {
 public:
-	void Begin(const tchar* name)
-	{
-		name = name;
-	}
-	void End()
-	{
-
-	}
-	void SetProp(const tchar* name, const tchar* value)
-	{
-	}
+	virtual void Begin(const tchar* name) = 0;
+	virtual void End() = 0;
+	virtual void SetProp(const tchar* name, const tchar* value) = 0;
 };
 
 class StructParser : public HoeCore::HoeFlex
@@ -32,9 +24,9 @@ class XMLParser : public HoeCore::HoeFlex
 {
 	void SetProp(StructParserSAX& parser, tchar* text);
 	const tchar* m_textprop;
-	HoeCore::String m_str;
 public:
 	XMLParser();
+	void SetTagText(const tchar* tag) { m_textprop = tag; }
 
 	DECLARE_FLEX_FUNCTIONS(StructParserSAX&)
 };

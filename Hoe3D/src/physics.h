@@ -14,7 +14,7 @@ class Physics : public IHoePhysics
 public:
 	Physics();
 	~Physics();
-	virtual const char * GetName() { return "Physics engine v1.0";}
+	virtual const tchar * GetName() { return T("Physics engine v1.0");}
 
 	virtual void HOEAPI SetPart(unsigned long partID);
 	virtual XHoeObject * HOEAPI RayTrace(const vfloat *,const vfloat *,unsigned long flags);

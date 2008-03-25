@@ -44,6 +44,34 @@ void HoeCore::CrossMemMove(void * dest, void * src, size_t size)
 }
 
 /////////////////////////////////////////////////
+HoeCore::Buffer::Buffer() : m_buff(0), m_alloc(0)
+{
+}
+
+HoeCore::Buffer::~Buffer()
+{
+	Free();
+}
+
+void * HoeCore::Buffer::GetPtr(size_t num)
+{
+	if (m_buff && num <= m_alloc)
+		return m_buff;
+	if (m_buff) Free();
+	return m_buff = malloc(m_alloc = num);
+}
+
+void HoeCore::Buffer::Free()
+{
+	if (m_buff)
+	{
+		free(m_buff);
+		m_buff = 0;
+		m_alloc = 0;
+	}
+}
+
+/////////////////////////////////////////////////
 // Pools
 void * HoeCore::MemoryPool::PoolItem::GetMem(size_t s, size_t aligment)
 {

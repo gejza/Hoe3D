@@ -21,12 +21,12 @@ HoeInputDI::HoeInputDI()
 	m_lpDIMous = NULL;
 	m_type = MT_ForceDW;
 
-	Con_Print("DirectInput system created.");
+	Con_Print(T("DirectInput system created."));
 }
 
-const char * HoeInputDI::GetName()
+const tchar * HoeInputDI::GetName()
 {
-	return "DirectInput System";
+	return T("DirectInput System");
 }
 
 bool HoeInputDI::Init(THoeInitSettings * his)
@@ -41,11 +41,11 @@ bool HoeInputDI::Init(THoeInitSettings * his)
 	if (FAILED(hRes))
 	{
 		m_lpDI = 0;
-		Con_Print("DirectInput8Create FAILED: 0x%x",hRes);
+		Con_Print(T("DirectInput8Create FAILED: 0x%x"),hRes);
 		return false;
 	}
 
-	Con_Print("DirectInput8Create OK");
+	Con_Print(T("DirectInput8Create OK"));
 
 	return true;
 }

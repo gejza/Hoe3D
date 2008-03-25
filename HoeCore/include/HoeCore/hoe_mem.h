@@ -25,6 +25,45 @@ template<typename TYPE> void MemSwitch(TYPE* a, TYPE* b,  const TYPE ** ctrl = N
 	}
 }
 
+template<size_t size> class Buffer_s
+{
+	byte m_buff[size];
+public:
+	byte * Get() { return m_buff; }
+	size_t GetSize() { return size; }
+};
+
+class Buffer
+{
+	void* m_buff;
+	size_t m_alloc;
+public:
+	Buffer();
+	~Buffer();
+	void * GetPtr(size_t num);
+	template<typename TYPE> TYPE Get(size_t num) 
+		{ return reinterpret_cast<TYPE>(this->GetPtr(num)); }
+	size_t GetSize() { return m_alloc; }
+	void Free();
+};
+
+template<typename TYPE> class Dynamic : private Buffer
+{
+public:
+	TYPE* operator ->()
+	{
+		return this->Get<TYPE*>(sizeof(TYPE));
+	}
+	TYPE& operator *()
+	{
+		return *this->Get<TYPE*>(sizeof(TYPE));
+	}
+	TYPE* operator &()
+	{
+		return this->Get<TYPE*>(sizeof(TYPE));
+	}
+};
+
 /** Optimalizator pro alokovani malych objektu */
 class MemoryPool
 {

@@ -41,7 +41,7 @@ public:
 	HoeGraphScene();
 	virtual void Render(TRenderParameters * rp);
 	/** Metoda pro ziskani jmena objektu. */
-	virtual const char * GetName() { return "GraphScene";}
+	virtual const tchar * GetName() { return T("GraphScene");}
 	virtual IHoeScenePhysics * HOEAPI GetScenePhysics() { return this; }
 	virtual IHoeSceneEnv * HOEAPI GetSceneEnv() { return this; }
 

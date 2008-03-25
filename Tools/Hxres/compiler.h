@@ -66,6 +66,15 @@ public:
 	StreamCompiler(HoeCore::WriteStream& out) : Compiler(out) {}
 };
 
+class FileCompiler : public Compiler
+{
+	HoeCore::File m_f;
+public:
+	FileCompiler(HoeCore::WriteStream& out) : Compiler(out) {}
+	virtual bool AddProp(const HoeCore::CString name, const Value& value);
+	virtual void Done();
+};
+
 enum EResourceType
 {
 	ERT_Picture,

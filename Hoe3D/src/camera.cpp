@@ -27,7 +27,7 @@ HoeCamera::HoeCamera()
 
 	Update();
 
-	Con_Print("camera created");
+	Con_Print(T("camera created"));
 }
 
 void HoeCamera::SetView(uint w,uint h)

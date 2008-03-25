@@ -410,10 +410,20 @@ void RefDD::Blt(RefSurface& surf, const THoeRect * dest, const THoeRect * src, i
     memset(&ddbltfx, 0, sizeof(ddbltfx));
     ddbltfx.dwSize = sizeof(ddbltfx);
     ddbltfx.dwROP = SRCCOPY;
-	ddbltfx.ddckSrcColorkey = surf.m_ck;
+	if (surf.m_alpha) ddbltfx.ddckSrcColorkey = surf.m_ck;
 	hRes = m_pDDSBack->Blt(&rd, surf.m_srf,
-		src ? &r:NULL, /*DDBLT_ROP,,DDBLT_KEYSRC*/ DDBLT_KEYSRCOVERRIDE, &ddbltfx);
+		src ? &r:NULL, /*DDBLT_ROP,,DDBLT_KEYSRC*/
+		surf.m_alpha ? DDBLT_KEYSRCOVERRIDE:DDBLT_ROP, &ddbltfx);
 	checkres(hRes, "IDirectDrawSurface::Blt");
+	// kontrola ze se nezvetsuje
+	if (src)
+	{
+		hoe_assert(((r.right-r.left)==(rd.right-rd.left)) && ((r.bottom-r.top)==(rd.bottom-rd.top)));
+	}
+	else
+	{
+		hoe_assert((rd.right-rd.left)==surf.GetWidth() && (rd.bottom-rd.top)==surf.GetHeight());
+	}
 #endif
 }
 
@@ -440,6 +450,7 @@ bool RefSurface::SetColorKey(const HOECOLOR& c)
 
 	m_ck.dwColorSpaceLowValue = HoeRes::CompileColor(HOE_R5G6B5,c);
 	m_ck.dwColorSpaceHighValue = m_ck.dwColorSpaceLowValue;
+	m_alpha = true;
 	HRESULT hRes = m_srf->SetColorKey(DDCKEY_SRCBLT, &m_ck);
 	checkres(hRes,"SetColorKey");	return true;}
 
