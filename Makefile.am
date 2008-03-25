@@ -3,6 +3,6 @@
 
 SUBDIRS = HoeCore HoeResource Hoe3D HoeGame HoeUtils HoeEditor Tools
 
-ACLOCAL_AMFLAGS = -I m4
+ACLOCAL_AMFLAGS = -I unix/macros
 
 EXTRA_DIST = unix/config.rpath m4/ChangeLog

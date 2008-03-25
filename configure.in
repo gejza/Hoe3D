@@ -5,6 +5,11 @@ AM_INIT_AUTOMAKE(Hoe, 1.0)
 sinclude(unix/macros/lua.m4)
 sinclude(unix/macros/wxwin.m4)
 sinclude(unix/macros/freetype2.m4)
+sinclude(unix/macros/libjpeg.m4)
+sinclude(unix/macros/libpng.m4)
+sinclude(unix/macros/x11.m4)
+sinclude(unix/macros/opengl.m4)
+sinclude(unix/macros/openal.m4)
 sinclude(unix/macros/ogg.m4)
 sinclude(unix/macros/vorbis.m4)
 sinclude(unix/macros/gtk-2.0.m4)
@@ -22,10 +27,16 @@ AM_PROG_LEX
 AM_PATH_GTK_2_0()
 CHECK_LUA()
 
+AC_CHECK_GL()
+AC_NGL_X11()
+AC_NGL_XF86VIDMODE()
+AM_PATH_OPENAL()
+AC_CHECK_LIBJPEG()
+AC_CHECK_LIBPNG()
 AC_CHECK_FT2()
 XIPH_PATH_VORBIS()
 XIPH_PATH_OGG()
-AM_PATH_XVID
+#AM_PATH_XVID
 
 #AC_ARG_ENABLE(...)
 #AC_ARG_WITH(...)
@@ -61,12 +72,4 @@ AC_OUTPUT( Makefile
           HoeUtils/Makefile
           HoeEditor/Makefile 
           Tools/Makefile
-          Tools/Hxres/Makefile
-          HoeTutorials/Makefile
-          HoeTutorials/FirstApp/Makefile
-          HoeTutorials/Paint2D/Makefile
-          HoeTutorials/Console/Makefile
-          HoeTutorials/Models/Makefile
-          HoeTutorials/Input/Makefile
-          HoeTutorials/Sound/Makefile
-          HoeTutorials/PathFinding/Makefile )
+          Tools/Hxres/Makefile)
