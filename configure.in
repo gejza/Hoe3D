@@ -28,7 +28,7 @@ AM_PATH_GTK_2_0()
 CHECK_LUA()
 
 AC_CHECK_GL()
-AC_NGL_X11()
+#AC_NGL_X11() //todo dodelat kontrolu
 AC_NGL_XF86VIDMODE()
 AM_PATH_OPENAL()
 AC_CHECK_LIBJPEG()
@@ -72,4 +72,5 @@ AC_OUTPUT( Makefile
           HoeUtils/Makefile
           HoeEditor/Makefile 
           Tools/Makefile
+          Tools/Hcgen/Makefile
           Tools/Hxres/Makefile)

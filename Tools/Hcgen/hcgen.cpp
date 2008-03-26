@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
 	p.Switch(fs);
 
 	// nacist
-
+	p.Parse(parser);
 
 
 	return 0;

@@ -22,9 +22,21 @@ src/hoe_file.cpp \
 src/hoe_time.cpp \
 src/hoe_unicode.cpp \
 src/hoe_flex.cpp \
-src/hoe_platform.cpp
+src/hoe_platform.cpp \
+src/parser_const.yy.cpp \
+src/parser_struct.yy.cpp
 
+#src/parser_xml.yy.cpp 
 ___bin_libHoeCore_a_LDFLAGS = -static
+
+src/parser_const.yy.cpp: src/parser_const.l template/hoe_flex.skl
+	flex -Stemplate/hoe_flex.skl -osrc/parser_const.yy.cpp src/parser_const.l
+
+src/parser_struct.yy.cpp: src/parser_struct.l template/hoe_flex.skl
+	flex -Stemplate/hoe_flex.skl -osrc/parser_struct.yy.cpp src/parser_struct.l
+
+src/parser_xml.yy.cpp: src/parser_xml.l template/hoe_flex.skl
+	flex -Stemplate/hoe_flex.skl -osrc/parser_xml.yy.cpp src/parser_xml.l
 
 HoeCoreTest_SOURCES = test/test.cpp test/string.cpp
 

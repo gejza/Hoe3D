@@ -16,8 +16,13 @@
 #include <io.h>
 #endif
 #include <stdio.h>
-#include <tchar.h>
+#include <wchar.h>
 #include <assert.h>
+#include <string.h>
+#include <malloc.h>
+#include <new>
+#include <stdarg.h>
+#include <stdlib.h>
 
 #include <HoeCore/hoe_types.h>
 #include <HoeCore/hoe_format.h>

@@ -14,8 +14,15 @@ public:
 
 class ConstParser : public HoeCore::HoeFlex
 {
+	DECLARE_FLEX_FUNCTIONS(void)
 public:
-	DECLARE_FLEX_FUNCTIONS(ConstParserSAX&)
+	bool Parse(ConstParserSAX&);
+	virtual int Echo(const tchar * buff, size_t size)
+	{
+		size_t t = fwrite(buff, 1, size, stdout);
+		putchar('\n');
+		return t; 
+	}
 };
  
 } // namespace HoeCore
