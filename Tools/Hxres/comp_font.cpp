@@ -1,7 +1,6 @@
 
 #include "StdAfx.h"
 #include "comp_font.h"
-#include "error.h"
 
 using namespace HoeCore;
 using namespace HoeRes::Res;
@@ -126,7 +125,7 @@ bool FontCompiler::FontDef::Load(const char *path)
 	HoeCore::File f;
 	if (!f.Open(path))
 	{
-		throw Error("Failed open file '%s'.", path);
+		throw HoeUtils::Error("Failed open file '%s'.", path);
 	}
 	// reader
 	TextReader t(f);
@@ -141,7 +140,7 @@ bool FontCompiler::FontDef::Load(const char *path)
 		if (ch.ch == 0xfeff)
 			ch.ch = HoeCore::string::utf2w(p);
 		if (*p++ != ':')
-			throw Error("Missing ':' on line %d.", l);
+			throw HoeUtils::Error("Missing ':' on line %d.", l);
 		ch.size=HoeCore::string::GetNumber(p);
 	}
 

@@ -1,11 +1,32 @@
+
 #include "StdAfx.h"
 #include "linker.h"
-#include "error.h"
 #include "scan.h"
 #include "parse.tab.hpp"
 #include "linkout.h"
 
 using namespace HoeRes;
+
+class DefineError : public HoeUtils::Error
+{
+public:
+	DefineError(const HoeCore::CString name, Namespace::Obj* obj)
+	{
+		if (obj->location.ident == "")
+			m_str.printf(T("Symbol %s is already defined."), 
+				name.GetPtr());
+		else if (!obj->location.line)
+			m_str.printf(T("Symbol %s is already defined in %s"), 
+				name.GetPtr(), 
+				obj->location.ident.GetPtr());
+		else
+			m_str.printf(T("Symbol %s is already defined in %s(%d)"), 
+				name.GetPtr(), 
+				obj->location.ident.GetPtr(),
+				obj->location.line);
+	}
+};
+
 
 Linker::Linker(HoeCore::MemoryPool& pool) : m_main("", pool), m_pool(pool)
 {
@@ -47,7 +68,7 @@ void Linker::PushNamespace(const char * name)
 void Linker::PopNamespace()
 {
 	if (m_nss.Count() <= 1)
-		throw Error("No namespace to pop.");
+		throw HoeUtils::Error("No namespace to pop.");
 	m_nss.Pop();
 	m_act = m_nss.Top();
 }
@@ -105,7 +126,7 @@ bool Linker::Func(const HoeCore::CString name, const Values& value)
 	{
 		return AddPictures(this, value);
 	}
-	throw UnknownError(name, "function");
+	throw HoeUtils::UnknownError(name, "function");
 	return false;
 }
 

@@ -1,9 +1,10 @@
 
-#ifndef _HXRES_ERROR_H_
-#define _HXRES_ERROR_H_
+#ifndef _HOE_UTILS_ERROR_H_
+#define _HOE_UTILS_ERROR_H_
 #pragma once
 
-#include "linker.h"
+namespace HoeUtils {
+
 
 class Error
 {
@@ -31,19 +32,14 @@ public:
 				 const HoeCore::CString to);
 };
 
-class DefineError : public Error
-{
-public:
-	DefineError(const HoeCore::CString name, Namespace::Obj* obj);
-};
-
 class InternalError : public Error
 {
 public:
 	InternalError(const HoeCore::CString func);
 };
 
+} // namespace HoeUtils
 
-#endif // _HXRES_ERROR_H_
+#endif // _HOE_UTILS_ERROR_H_
 
 

@@ -125,11 +125,19 @@
 	</References>
 	<Files>
 		<File
+			RelativePath="..\src\error.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\include\HoeUtils\error.h"
+			>
+		</File>
+		<File
 			RelativePath="..\src\hoe_utils.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\include\hoe_utils.h"
+			RelativePath="..\include\HoeUtils\hoe_utils.h"
 			>
 		</File>
 		<File

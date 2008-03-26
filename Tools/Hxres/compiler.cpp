@@ -2,21 +2,19 @@
 #include "StdAfx.h"
 #include "compiler.h"
 #include "comp_font.h"
-#include "error.h"
-#include <zlib.h>
 
 using namespace HoeCore;
 using namespace HoeRes::Res;
 
 bool PInterface::AddProp(const HoeCore::CString name, const Value& value)
 {
-    throw UnknownError(name, "attribute");
+    throw HoeUtils::UnknownError(name, "attribute");
     return false;
 }
 
 bool PInterface::AddProp(const HoeCore::CString name, const Values& value)
 {
-    throw UnknownError(name, "attribute");
+    throw HoeUtils::UnknownError(name, "attribute");
     return false;
 }
 
@@ -24,13 +22,13 @@ bool PInterface::Func(const HoeCore::CString name,
                   const HoeCore::CString ret,
                   const Values& value)
 {
-    throw UnknownError(name, "function");
+    throw HoeUtils::UnknownError(name, "function");
     return false;
 }
 
 bool PInterface::AddObject(const Compiler* cmp)
 {
-    throw Error("Error add %s object.", 
+    throw HoeUtils::Error("Error add %s object.", 
 		HoeRes::Res::GetTypeName(cmp->GetType()));
     return false;
 }
@@ -38,7 +36,7 @@ bool PInterface::AddObject(const Compiler* cmp)
 
 void no_run(const HoeCore::CString str)
 {
-	throw InternalError(str);
+	throw HoeUtils::InternalError(str);
 }
 
 Compiler * Compiler::Create(HoeCore::String&, int type, HoeCore::WriteStream& s)
@@ -70,7 +68,7 @@ bool Compiler::CheckArg(const CString name, const Universal& value, Universal::T
 	{
 		if (th)
 		{
-			throw ConvertError(name, 
+			throw HoeUtils::ConvertError(name, 
 				value.GetTypeName(),
 				Universal::GetTypeName(type));
 		}
@@ -170,7 +168,7 @@ bool FileCompiler::AddProp(const CString name, const Value& value)
 		CheckArg(name, value, Universal::TypeString);
 		if (!m_f.Open(value.GetStringValue()))
 		{
-			throw Error(T("Failed open file %s"),value.GetStringValue());
+			throw HoeUtils::Error(T("Failed open file %s"),value.GetStringValue());
 		}
 		return true;
 	}
@@ -183,7 +181,7 @@ bool FileCompiler::AddProp(const CString name, const Value& value)
 void FileCompiler::Done()
 {
 	if (!m_f.Open())
-		throw Error(T("Property 'Source' must exist."));
+		throw HoeUtils::Error(T("Property 'Source' must exist."));
 
 	HoeRes::Res::FileInfo* head = (HoeRes::Res::FileInfo*)m_out.CreateBuffer(sizeof(HoeRes::Res::FileInfo));
 	head->id = HoeRes::Res::IDFile;

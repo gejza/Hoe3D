@@ -5,7 +5,6 @@
 #include "scan.h"
 #define _NOXLIB
 #include "linker.h"
-#include "error.h"
 //class scaner
 //class parser
 //  class compiler
@@ -19,7 +18,7 @@ public:
 	HoeFlexFileEx(const char * n) : HoeFlexFile(m_file) 
 	{
 		if (!m_file.Open(n))
-			throw Error("Failed open file %s", n);
+			throw HoeUtils::Error("Failed open file %s", n);
 	}
 	virtual const HoeCore::String& GetIdentifier() const { return m_file.GetName(); }
 
@@ -103,7 +102,7 @@ int main(int argc, char* argv[])
 			printf("Linking...\n");
 			res = link.Link(HoeUtils::GetFileName(argv[1],false));
 		}
-	} catch (const Error& e)
+	} catch (const HoeUtils::Error& e)
 	{
 		fprintf(stderr, "%s(%d) : ", (const tchar*)s.GetIdentifier(), s.GetLine());
 		fprintf(stderr, e.GetStr());

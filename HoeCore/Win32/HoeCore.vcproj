@@ -693,11 +693,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_core.h"
+				RelativePath="..\include\HoeCore\hoe_core.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\HoeCore\hoe_core.h"
+				RelativePath="..\include\hoe_core.h"
 				>
 			</File>
 			<File
@@ -733,6 +733,10 @@
 			Name="Files"
 			>
 			<File
+				RelativePath="..\include\HoeCore\const_file.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\hoe_file.cpp"
 				>
 			</File>
@@ -747,6 +751,98 @@
 			<File
 				RelativePath="..\include\HoeCore\hoe_stream.h"
 				>
+			</File>
+			<File
+				RelativePath="..\src\parser_const.l"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="Flex"
+						Lang="true"
+						Skeleton="../template/hoe_flex.skl"
+						dep="../template/hoe_flex.skl"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="Flex"
+						Lang="true"
+						Skeleton="../template/hoe_flex.skl"
+						dep="../template/hoe_flex.skl"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="Flex"
+						Lang="true"
+						Skeleton="../template/hoe_flex.skl"
+						dep="../template/hoe_flex.skl"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="Flex"
+						Lang="true"
+						Skeleton="../template/hoe_flex.skl"
+						dep="../template/hoe_flex.skl"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Win32"
+					>
+					<Tool
+						Name="Flex"
+						Unicode="true"
+						Lang="true"
+						Skeleton="../template/hoe_flex.skl"
+						Output="$(InputDir)\$(InputName).yyu.cpp"
+						dep="../template/hoe_flex.skl"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="Flex"
+						Unicode="true"
+						Lang="true"
+						Skeleton="../template/hoe_flex.skl"
+						Output="$(InputDir)\$(InputName).yyu.cpp"
+						dep="../template/hoe_flex.skl"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Win32"
+					>
+					<Tool
+						Name="Flex"
+						Unicode="true"
+						Lang="true"
+						Skeleton="../template/hoe_flex.skl"
+						Output="$(InputDir)\$(InputName).yyu.cpp"
+						dep="../template/hoe_flex.skl"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="Flex"
+						Unicode="true"
+						Lang="true"
+						Skeleton="../template/hoe_flex.skl"
+						Output="$(InputDir)\$(InputName).yyu.cpp"
+						dep="../template/hoe_flex.skl"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\parser_struct.l"
@@ -944,6 +1040,150 @@
 		<Filter
 			Name="Generated"
 			>
+			<File
+				RelativePath="..\src\parser_const.yy.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\src\parser_const.yyu.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
 			<File
 				RelativePath="..\src\parser_struct.yy.cpp"
 				>

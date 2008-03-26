@@ -69,6 +69,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="HoeResource_d.lib HoeUtils_d.lib HoeCore_d.lib libpngd.lib libjpeg_d.lib zlibd.lib"
+				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -289,14 +290,6 @@
 		<Filter
 			Name="Utils"
 			>
-			<File
-				RelativePath=".\error.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\error.h"
-				>
-			</File>
 			<File
 				RelativePath=".\image.cpp"
 				>
