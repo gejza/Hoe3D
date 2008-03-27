@@ -19,9 +19,10 @@ public:
 	bool Parse(ConstParserSAX&);
 	virtual int Echo(const tchar * buff, size_t size)
 	{
-		size_t t = fwrite(buff, 1, size, stdout);
+		/*size_t t = fwrite(buff, 1, size, stdout);
 		putchar('\n');
-		return t; 
+		return t; */
+		return 0;
 	}
 };
  

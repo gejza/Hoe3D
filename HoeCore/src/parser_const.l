@@ -5,7 +5,7 @@
 #define YY_CLASS_NAME HoeCore::ConstParser
 
 enum Tokens {
-	TName = 1,
+	TName = 256,
 	TReal,
 };
 %}
@@ -29,7 +29,9 @@ real	 {real1}|{real2}
 
 
 {real}					return TReal;
-{alpha}[{alpha}\.]*{alpha}		return TName;
+{name}					return TName;
+.						return yytext[0];
+\n						return T('\n');
 
 %%
 
@@ -37,14 +39,18 @@ real	 {real1}|{real2}
 bool  YY_CLASS_NAME::Parse(ConstParserSAX& parser)
 {
 	int t;
-	while (t = Lex(parser))
+	while (t = Lex())
 	{
 		switch (t)
 		{
+		case '\n':
+			printf("nl\n"); break;
 		case TName:
 			 printf("n: %s\n", yytext); break;
 		case TReal:
 			 printf("real: %s\n", yytext); break;
+		default:
+			printf("ch: %c\n", (char)t);
 		};
 	}
 	return true;
