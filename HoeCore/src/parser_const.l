@@ -2,12 +2,16 @@
 %{
 #include "StdAfx.h"
 #include "../include/HoeCore/const_file.h"
+#include "../include/HoeCore/hoe_structures.h"
+#include "../include/HoeCore/hoe_mem.h"
+#include "../include/HoeCore/hoe_core.h"
 #define YY_CLASS_NAME HoeCore::ConstParser
 
 enum Tokens {
 	TName = 256,
 	TReal,
 };
+
 %}
 
 comment	\/\/.*
@@ -35,23 +39,40 @@ real	 {real1}|{real2}
 
 %%
 
+#define ERR(str) { parser.ParseError(T("Error: ") T(str)); return false; }
+
 // parse functions
 bool  YY_CLASS_NAME::Parse(ConstParserSAX& parser)
 {
-	int t;
-	while (t = Lex())
+	HoeCore::List<const tchar*> name;
+	HoeCore::StringPool pool;
+	while (int t = Lex())
 	{
-		switch (t)
+		if (t == '\n') continue;
+		if (t != TName) ERR("Name requied.");
+		// jmeno
+		name.Set(pool.Insert(yytext));
+		while ((t = Lex()) == '.')
 		{
-		case '\n':
-			printf("nl\n"); break;
+			if (Lex() != TName) ERR("Property requied.");
+			name.Add(pool.Insert(yytext));
+		}
+		if (t != '=') ERR("`=' requied.");
+		// value
+		switch (t = Lex())
+		{
+		case '\n': ERR("Value requied"); 
 		case TName:
-			 printf("n: %s\n", yytext); break;
 		case TReal:
-			 printf("real: %s\n", yytext); break;
+			parser.SetConst(name, HoeCore::string::GetReal(yytext));
+			break;
 		default:
-			printf("ch: %c\n", (char)t);
+			printf("Syntax error: %c\n", (char)t); break;
 		};
+		
+		t = Lex(); // end
+		if (t && t != '\n') ERR("End line requied.");
+		if (!t) return true;
 	}
 	return true;
 }

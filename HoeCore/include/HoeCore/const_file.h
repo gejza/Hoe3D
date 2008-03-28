@@ -3,13 +3,18 @@
 #define _HOE_CORE_CONST_FILE_H_
 
 #include "hoe_flex.h"
+#include "hoe_structures.h"
 
 namespace HoeCore {
+
+class Universal;
 
 class ConstParserSAX
 {
 public:
-	virtual void SetProp(const tchar* name, const tchar* value) {};
+	virtual void SetConst(const List<const tchar*>& name,
+		const Universal& value) = 0;
+	virtual void ParseError(const tchar* err) = 0;
 };
 
 class ConstParser : public HoeCore::HoeFlex

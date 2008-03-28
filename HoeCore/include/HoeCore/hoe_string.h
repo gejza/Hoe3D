@@ -13,6 +13,10 @@
 ////////////////////////////////
 // string class
 namespace HoeCore {
+
+//
+template<class C> class List;
+
 namespace string {
 
 #undef vsnprintf
@@ -73,6 +77,9 @@ void concat(wchar_t* dest, size_t sizeb, const wchar_t* src);
 bool wmatch(const wchar_t* pattern, const wchar_t* str);
 bool wmatch(const char* pattern, const char* str);
 
+int join(char* str, size_t s, const HoeCore::List<const char*>& n, const char* sep);
+int join(wchar_t* str, size_t s, const HoeCore::List<const wchar_t*>& n, const wchar_t* sep);
+
 #ifdef ENABLE_AUTOCONV_FUNCTIONS
 int vsnprintf(char *, size_t, const wchar_t *, va_list);
 int vsnprintf(wchar_t *, size_t, const char *, va_list);
@@ -90,7 +97,6 @@ void concat(wchar_t* dest, size_t sizeb, const char* src);
 
 bool wmatch(const wchar_t* pattern, const char* str);
 bool wmatch(const char* pattern, const wchar_t* str);
-
 
 #endif // ENABLE_AUTOCONV_FUNCTIONS
 
@@ -308,12 +314,20 @@ public:
 	{
 		return String(this->GetPtr());
 	}
+	operator const CString () const
+	{
+		return CString(this->GetPtr());
+	}
 	tchar& operator [](const int index)
 	{
 		static tchar fc = 0;
 		if (index < 0 || index >= maxsize)
 			return fc;
 		return m_str[index];
+	}
+	void Join(const List<const tchar*>& n, const tchar* sep = NULL)
+	{
+		string::join(m_str, maxsize, n, sep);
 	}
 #if defined(ENABLE_AUTOCONV_FUNCTIONS) || !defined(_UNICODE)
 	bool operator == (const char * s) const

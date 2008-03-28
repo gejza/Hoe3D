@@ -297,6 +297,69 @@ bool wmatch(const char* pattern, const wchar_t* str)
 	return wmatch<char, wchar_t>(pattern, str);
 }
 
+int join(char* str, size_t s, const List<const char*>& n, const char* sep)
+{
+	int w = 0;
+	s--; // pojistka zapsani posledniho znaku
+	size_t ls = sep ? string::len(sep):0;
+	for (int i=0;i < n.Count();i++)
+	{
+		if (i && sep)
+		{
+			if (str && s >= ls)
+			{
+				string::copy(str, sep, ls);
+				str += ls; s -= ls; 
+			}
+			else
+				str = NULL;
+			w++;
+		}
+
+		// name
+		size_t l = string::len(n[i]);
+		if (s >= l)
+		{
+			string::copy(str, n[i], l);
+			str += l; s -= l; 
+		}
+		w += l;
+	}
+	*str = 0; return w;
+}
+
+int join(wchar_t* str, size_t s, const List<const wchar_t*>& n, const wchar_t* sep)
+{
+	int w = 0;
+	s--; // pojistka zapsani posledniho znaku
+	size_t ls = sep ? string::len(sep):0;
+	for (int i=0;i < n.Count();i++)
+	{
+		if (i && sep)
+		{
+			if (str && s >= ls)
+			{
+				string::copy(str, sep, ls);
+				str += ls; s -= ls; 
+			}
+			else
+				str = NULL;
+			w++;
+		}
+
+		// name
+		size_t l = string::len(n[i]);
+		if (s >= l)
+		{
+			string::copy(str, n[i], l);
+			str += l; s -= l; 
+		}
+		w += l;
+	}
+	*str = 0; return w;
+}
+
+
 } // end namespace string
 
 // CString
