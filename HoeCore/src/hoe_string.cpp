@@ -472,13 +472,13 @@ void String::PrepareForModify(size_t n, bool canempty)
 {
 	if (!m_data)
 	{
-        ::printf("create data %ld\n", n);
+        //::printf("create data %ld\n", n);
 		m_data = CreateStringData(n);
 		m_data->str[0] = 0;
 	}
 	else if (m_data->data.IsShared() || n > m_data->data.alloc)
 	{
-        ::printf("unshared data %ld\n", n);
+        //::printf("unshared data %ld\n", n);
 		StringDataPtr * data = CreateStringData(n);
 		if (!canempty)
 			string::copy(data->str, m_data->str, n);
