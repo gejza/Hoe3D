@@ -36,6 +36,7 @@
 
 #include <HoeUtils/hoe_utils.h>
 #include <HoeUtils/error.h>
+#include <HoeUtils/text.h>
 
 #endif // _HCGEN_STD_AFX_H_
 

@@ -167,6 +167,22 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\consts.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\consts.h"
+				>
+			</File>
+			<File
+				RelativePath=".\gen.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\gen.h"
+				>
+			</File>
+			<File
 				RelativePath=".\hcgen.cpp"
 				>
 			</File>

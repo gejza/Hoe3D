@@ -158,6 +158,11 @@ struct KeyString
 {
     dword hash;
     const tchar * key;
+	KeyString()
+	{
+		hash = 0;
+		key = 0;
+	}
     KeyString(const tchar * s)
     {
         hash = HashString(s);

@@ -148,6 +148,14 @@
 			RelativePath="..\src\StdAfx.h"
 			>
 		</File>
+		<File
+			RelativePath="..\src\text.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\include\HoeUtils\text.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

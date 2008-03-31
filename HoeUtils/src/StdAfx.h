@@ -30,6 +30,7 @@
 
 #include <HoeCore/hoe_types.h>
 #include <HoeCore/hoe_string.h>
+#include <HoeCore/hoe_stream.h>
 
 
 #endif // _STDAFX_H_
