@@ -48,7 +48,7 @@ public:
 	uint GetWidth() const { return width; }
 	uint GetHeight() const { return height; }
 
-	SysTexture GetTexture() { return m_texture; }
+	SysTexture GetTexture() { return 0; }//m_texture; }
 
 	void FillEmpty();
 
