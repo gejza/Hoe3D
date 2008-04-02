@@ -9,8 +9,14 @@ void Consts::SetConst(const HoeCore::List<const tchar*>& name,
 	HoeCore::String_s<2048> n;
 	n.Join(name, T("."));
 	
-	Item * i = FindItem(name[0]);
-	Prop * p = FindProp(name[0]);
+	Item& i = m_items[name[0]];
+
+	printf("-\n");
+	for (ItemMap::Iterator ii(m_items);ii;ii++)
+	{
+		printf("n:%s\n", ii->name.GetPtr());
+	}
+	/*Prop * p = FindProp(name[0]);
 	if (!i)
 	{
 		i = &m_items.Add();
@@ -32,7 +38,7 @@ void Consts::SetConst(const HoeCore::List<const tchar*>& name,
 		v.longname = i->name;
 		v.value = value;
 		return;
-	}
+	}*/
 	
 }
 
@@ -41,25 +47,7 @@ void Consts::ParseError(const tchar* err)
 	throw HoeUtils::Error(T("Parse error: %s"), err);
 }
 
-Item * Consts::FindItem(const tchar* name)
-{
-	for (HoeCore::List<Item>::Iterator i=m_items;i;i++)
-	{
-		if (i->name == name)
-			return &i;
-	}
-	return NULL;
-}
 
-Prop * Consts::FindProp(const tchar* name)
-{
-	for (HoeCore::LList<Prop>::Iterator i=m_types;i;i++)
-	{
-		if (i->name == name)
-			return &i;
-	}
-	return NULL;
-}
 
 
 

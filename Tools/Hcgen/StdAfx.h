@@ -27,7 +27,7 @@
 #include <HoeCore/hoe_types.h>
 #include <HoeCore/hoe_format.h>
 #include <HoeCore/hoe_string.h>
-#include <HoeCore/hoe_structures.h>
+#include <HoeCore/map.h>
 #include <HoeCore/hoe_universal.h>
 #include <HoeCore/hoe_file.h>
 #include <HoeCore/hoe_unicode.h>

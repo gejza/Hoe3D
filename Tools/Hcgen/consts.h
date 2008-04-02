@@ -6,7 +6,7 @@ struct Prop
 {
 	HoeCore::String name;
 	HoeCore::Universal::Type type;
-	HoeCore::Set<Prop*> prop;
+	HoeCore::Map<Prop*, const HoeCore::CString> prop;
 };
 
 struct Value
@@ -19,21 +19,24 @@ struct Item
 {
 	HoeCore::String name;
 	Prop* prop; // typ promene
-	HoeCore::Set<Value> values; // hodnoty
-	Item() : prop(0) {}
+	HoeCore::Map<Value, const HoeCore::CString> values; // hodnoty
+	Item(const HoeCore::String& n) : name(n), prop(0) {}
+	bool operator == (const HoeCore::String& key)
+	{
+		return name == key;
+	}
 };
 ///////////////////////////////////////////
 
 class Consts : public HoeCore::ConstParserSAX
 {
-	HoeCore::LList<Prop> m_types;
-	HoeCore::List<Item> m_items;
+	HoeCore::Map<Prop, const HoeCore::CString> m_types;
+	typedef HoeCore::Map<Item, const HoeCore::String> ItemMap;
+	ItemMap m_items;
 public:
 	virtual void SetConst(const HoeCore::List<const tchar*>& name,
 		const HoeCore::Universal& value);
 	virtual void ParseError(const tchar* err);
-	Item * FindItem(const tchar* name);
-	Prop * FindProp(const tchar* name);
 };
 
 #endif // _HCGEN_CONSTS_H_

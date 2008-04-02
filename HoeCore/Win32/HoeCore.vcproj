@@ -697,10 +697,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\hoe_core.h"
-				>
-			</File>
-			<File
 				RelativePath="..\include\HoeCore\hoe_format.h"
 				>
 			</File>
@@ -710,10 +706,6 @@
 			</File>
 			<File
 				RelativePath="..\include\HoeCore\hoe_platform.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\HoeCore\hoe_structures.h"
 				>
 			</File>
 			<File
@@ -1467,6 +1459,18 @@
 						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
+			</File>
+		</Filter>
+		<Filter
+			Name="Structures"
+			>
+			<File
+				RelativePath="..\include\HoeCore\hoe_structures.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\HoeCore\map.h"
+				>
 			</File>
 		</Filter>
 		<File
