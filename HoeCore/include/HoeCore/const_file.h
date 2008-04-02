@@ -4,6 +4,7 @@
 
 #include "hoe_flex.h"
 #include "hoe_structures.h"
+#include "hoe_core.h"
 
 namespace HoeCore {
 
@@ -12,21 +13,32 @@ class Universal;
 class ConstParserSAX
 {
 public:
-	virtual void SetConst(const List<const tchar*>& name,
-		const Universal& value) = 0;
-	virtual void ParseError(const tchar* err) = 0;
+	typedef List<const tchar*> ValueName;
+	typedef List<Universal> Values;
+
+	virtual void SetConst(const ValueName& name,
+		const Universal& value); // run from sax parser
+	virtual void SetConst(const tchar* name,
+		const Universal& value);
+	virtual void SetConst(const ValueName& name, const tchar* type, const Values& params);
+	// gets
+	virtual bool GetConst(const ValueName& name, Universal& value); // run from sax parser
+	virtual bool GetConst(const tchar* name, Universal& value);
+	virtual void ParseError(const tchar* err) = 0; // run from sax parser
 };
 
-class ConstParser : public HoeCore::HoeFlex
+class ConstParser : public HoeFlex
 {
 	DECLARE_FLEX_FUNCTIONS(void)
+protected:
+	List<const tchar*> m_name;
+	StringPool m_pool;
+	int m_token;
 public:
 	bool Parse(ConstParserSAX&);
 	virtual int Echo(const tchar * buff, size_t size)
 	{
-		/*size_t t = fwrite(buff, 1, size, stdout);
-		putchar('\n');
-		return t; */
+		hoe_assert(!"Never run");
 		return 0;
 	}
 };

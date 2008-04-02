@@ -10,6 +10,7 @@
 enum Tokens {
 	TName = 256,
 	TReal,
+	TString,
 };
 
 %}
@@ -34,6 +35,7 @@ real	 {real1}|{real2}
 
 {real}					return TReal;
 {name}					return TName;
+{string}				return TString;
 .						return yytext[0];
 \n						return T('\n');
 
@@ -44,37 +46,77 @@ real	 {real1}|{real2}
 // parse functions
 bool  YY_CLASS_NAME::Parse(ConstParserSAX& parser)
 {
-	HoeCore::List<const tchar*> name;
-	HoeCore::StringPool pool;
-	while (int t = Lex())
+	m_token = Lex();
+	while (m_token)
 	{
-		if (t == '\n') continue;
-		if (t != TName) ERR("Name requied.");
+		if (m_token == '\n') continue;
+		if (m_token != TName) ERR("Name requied.");
 		// jmeno
-		name.Set(pool.Insert(yytext));
-		while ((t = Lex()) == '.')
+		m_name.Set(m_pool.Insert(yytext));
+		while ((m_token = Lex()) == '.')
 		{
 			if (Lex() != TName) ERR("Property requied.");
-			name.Add(pool.Insert(yytext));
+			m_name.Add(m_pool.Insert(yytext));
 		}
-		if (t != '=') ERR("`=' requied.");
+		if (m_token != '=') ERR("`=' requied.");
 		// value
-		switch (t = Lex())
+		switch (m_token = Lex())
 		{
 		case '\n': ERR("Value requied"); 
 		case TName:
+			// set as name -- muze byt vzorec nebo struktura
+			{
+				
+			}			
+			break;
 		case TReal:
-			parser.SetConst(name, HoeCore::string::GetReal(yytext));
+			parser.SetConst(m_name, HoeCore::string::GetReal(yytext));
+			break;
+		case TString:
+			yytext[yyleng-1] = T('\0');
+			parser.SetConst(m_name, yytext+1);
 			break;
 		default:
-			printf("Syntax error: %c\n", (char)t); break;
+			printf("Syntax error: %c\n", (char)m_token); break;
 		};
 		
-		t = Lex(); // end
-		if (t && t != '\n') ERR("End line requied.");
-		if (!t) return true;
+		if (m_token && m_token != T('\n')) ERR("End line requied.");
+		if (m_token == T('\n')) m_token = Lex();
 	}
 	return true;
+}
+
+// sax
+
+void HoeCore::ConstParserSAX::SetConst(const ValueName& name,
+	const Universal& value) // run from sax parser
+{
+	hoe_assert(name.Count());
+	HoeCore::String_s<2048> n;
+	n.Join(name, T("."));
+	this->SetConst(n, value);
+}
+
+void HoeCore::ConstParserSAX::SetConst(const tchar* name,
+		const Universal& value)
+{
+}
+
+void HoeCore::ConstParserSAX::SetConst(const ValueName& name, const tchar* type, const Values& params)
+{
+}
+
+bool HoeCore::ConstParserSAX::GetConst(const ValueName& name, Universal& value) // run from sax parser
+{
+	hoe_assert(name.Count());
+	HoeCore::String_s<2048> n;
+	n.Join(name, T("."));
+	return this->GetConst(n, value);
+}
+
+bool HoeCore::ConstParserSAX::GetConst(const tchar* name, Universal& value)
+{
+	return false;
 }
 
 

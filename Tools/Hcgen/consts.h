@@ -13,6 +13,7 @@ struct Value
 {
 	HoeCore::String longname;
 	HoeCore::Universal value;
+	Value(const HoeCore::String& name) : longname(name) {}
 };
 
 struct Item

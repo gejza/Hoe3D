@@ -19,3 +19,18 @@ features:
 		traditional - podobne jako strict, sporne hodnoty jsou jako universal, jina konstanta muze rozsirit strukturu
 		
 
+ulozeni promenych a hodnot
+
+values
+types
+structs
+
+typy:
+	struktura
+	string
+	double
+		float
+	int64 
+		int 8 - 64
+	trida - param THoeRect(0,0,100,100)
+
