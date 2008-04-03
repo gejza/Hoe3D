@@ -82,12 +82,25 @@ public:
 	{
 		return Get(index);
 	}
-	bool IsEmpty() { return this->m_count == 0; }
-	void Copy(const SetBase & base)
+	bool IsEmpty() const { return this->m_count == 0; }
+	void FastCopy(const SetBase & base)
 	{
 		if (base.m_count > this->m_count)
 			Resize(base.m_count);
 		memcpy(this->m_ptr, base.m_ptr, base.m_count * sizeof(C));
+	}
+	void Copy(const SetBase & base)
+	{
+		if (base.m_count > this->m_count)
+			Resize(base.m_count);
+		uint i;
+		for (i=0;i < this->m_count && i < base.m_count;i++)
+			this->m_ptr[i] = base.m_ptr[i];
+		for (;i < base.m_count;i++)
+			new (this->m_ptr+i) C(base.m_ptr[i]);
+		for (;i < this->m_count;i++)
+			this->m_ptr[i].~C();
+		this->m_count = base.m_count;
 	}
 	const SetBase & operator = (const SetBase & base)
 	{
@@ -285,10 +298,10 @@ public:
 		this->m_count--;
 		return this->m_ptr[this->m_count];
 	}
-	const C & Top()
+	const C & Top(int index=0)
 	{
-		hoe_assert(this->m_count);
-		return this->m_ptr[this->m_count-1];
+		hoe_assert(this->m_count > index);
+		return this->m_ptr[this->m_count-1-index];
 	}
 };
 
@@ -594,11 +607,11 @@ public:
 		// vlozit serazene
 		this->m_ptr[this->m_count] = c;this->m_count++;
 	}
-	C & Add(INDEX i)
+	C & Create(INDEX i)
 	{
 		if (this->m_size == this->m_count)
 			Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
-		this->m_ptr[this->m_count] = C(i);this->m_count++;
+		new (this->m_ptr+this->m_count) C(i);this->m_count++;
         return this->m_ptr[this->m_count-1];
 	}
     C * Find(const INDEX& index)

@@ -17,7 +17,6 @@ protected:
 	byte * m_data;
 	dword m_pitch;
 	HoeRes::PicCodec* m_codec; 
-	HoeRes::PicCodec* GetDecoder();
 public:
 	Image(void);
 	virtual ~Image(void);
@@ -26,6 +25,7 @@ public:
 	void Save(HoeCore::WriteStream& stream);
 	uint32 GetFormat();
 	byte * GetData(dword* pitch);
+	HoeRes::PicCodec* GetDecoder();
 
 	bool HasColorKey(HOECOLOR* ck) GET_FUNC(m_hascolorkey, ck, m_colorkey)
 	bool HasAlphaRef(byte* ar) GET_FUNC(m_hasalpha, ar, m_alpharef)

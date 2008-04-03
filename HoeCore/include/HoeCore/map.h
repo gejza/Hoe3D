@@ -11,7 +11,14 @@ template<typename TYPE, typename KEY> class Map : public SetBase<TYPE>
 public:
 	TYPE* Find(const KEY key)
 	{
-		for (size_t i=0;i < this->m_size;i++)
+		for (size_t i=0;i < this->m_count;i++)
+			if (this->m_ptr[i] == key)
+				return this->m_ptr + i;
+		return NULL;
+	}
+	const TYPE* Find(const KEY key) const
+	{
+		for (size_t i=0;i < this->m_count;i++)
 			if (this->m_ptr[i] == key)
 				return this->m_ptr + i;
 		return NULL;
@@ -31,14 +38,21 @@ public:
 		this->m_count++;
 		return *new (&this->m_ptr[this->m_count-1]) TYPE(key);
 	}
+	const TYPE& operator [] (const KEY key) const
+	{
+		// find
+		const TYPE* t = this->Find(key);
+		return *t;
+		// vyjimku...
+	}
 
 	// iterator
 	class Iterator
 	{
-		Map& m_map;
+		const Map& m_map;
 		uint m_it;
 	public:
-		Iterator(Map & map) : m_map(map)
+		Iterator(const Map & map) : m_map(map)
 		{
 			m_it = 0;
 		}

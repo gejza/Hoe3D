@@ -10,8 +10,9 @@
 enum Tokens {
 	TName = 256,
 	TReal,
+	TNumber,
 	TString,
-};
+}; // stejne jako const_file.cpp
 
 %}
 
@@ -20,9 +21,9 @@ comment2 ^#.*
 string  \"[^\n"]+\"
 ws      [ \t\r]+
 alpha   [A-Za-z_]
-dig     [-+]?[0-9]+
+dig     [0-9]+
 hex		"0x"[0-9A-Fa-f]+
-name    {alpha}({alpha}|{dig}|[_\-$:])*
+name    {alpha}({alpha}|[0-9]|[_\$:])*
 real1    [-+]?{dig}+\.({dig}+)?f?
 real2    [-+]?{dig}*\.{dig}+f?
 real	 {real1}|{real2}
@@ -36,6 +37,7 @@ real	 {real1}|{real2}
 {real}					return TReal;
 {name}					return TName;
 {string}				return TString;
+{dig}|{hex}				return TNumber;
 .						return yytext[0];
 \n						return T('\n');
 
@@ -46,77 +48,60 @@ real	 {real1}|{real2}
 // parse functions
 bool  YY_CLASS_NAME::Parse(ConstParserSAX& parser)
 {
-	m_token = Lex();
-	while (m_token)
+	int token = Lex();
+	while (token)
 	{
-		if (m_token == '\n') continue;
-		if (m_token != TName) ERR("Name requied.");
+		if (token == T('\n')) 
+		{
+			token = Lex();	
+			continue;
+		}
+		if (token != TName) ERR("Name requied.");
 		// jmeno
 		m_name.Set(m_pool.Insert(yytext));
-		while ((m_token = Lex()) == '.')
+		while ((token = Lex()) == '.')
 		{
 			if (Lex() != TName) ERR("Property requied.");
 			m_name.Add(m_pool.Insert(yytext));
 		}
-		if (m_token != '=') ERR("`=' requied.");
+		if (token != '=') ERR("`=' requied.");
 		// value
-		switch (m_token = Lex())
+		m_value.Delete();
+		while (token = Lex(), token && token != T('\n'))
 		{
-		case '\n': ERR("Value requied"); 
-		case TName:
-			// set as name -- muze byt vzorec nebo struktura
+			// add property
+			Token& t = m_value.Add();
+			memset(&t, 0, sizeof(Token));
+			t.token = token;
+			switch (token)
 			{
-				
-			}			
-			break;
-		case TReal:
-			parser.SetConst(m_name, HoeCore::string::GetReal(yytext));
-			break;
-		case TString:
-			yytext[yyleng-1] = T('\0');
-			parser.SetConst(m_name, yytext+1);
-			break;
-		default:
-			printf("Syntax error: %c\n", (char)m_token); break;
-		};
+			case TName:
+				t.str = m_pool.Insert(yytext);
+				break;
+			case TString:
+			{
+				tchar * s = (tchar*)m_pool.Strdup(yytext+1);
+				s[yyleng-2] = T('\0');
+				t.str = s;
+			}	break;
+			case TReal:
+				t.real = string::GetReal(yytext);
+				break;
+			case TNumber:
+				t.number = string::GetNumber(yytext);
+				break;
+			};
+		}
+		// process value
+		if (!m_value.Count())
+			ERR("Value requied.");
 		
-		if (m_token && m_token != T('\n')) ERR("End line requied.");
-		if (m_token == T('\n')) m_token = Lex();
+		// parse value
+		if (!ParseValue(parser))
+			return false;
+		
+		if (token == T('\n')) token = Lex();
 	}
 	return true;
 }
-
-// sax
-
-void HoeCore::ConstParserSAX::SetConst(const ValueName& name,
-	const Universal& value) // run from sax parser
-{
-	hoe_assert(name.Count());
-	HoeCore::String_s<2048> n;
-	n.Join(name, T("."));
-	this->SetConst(n, value);
-}
-
-void HoeCore::ConstParserSAX::SetConst(const tchar* name,
-		const Universal& value)
-{
-}
-
-void HoeCore::ConstParserSAX::SetConst(const ValueName& name, const tchar* type, const Values& params)
-{
-}
-
-bool HoeCore::ConstParserSAX::GetConst(const ValueName& name, Universal& value) // run from sax parser
-{
-	hoe_assert(name.Count());
-	HoeCore::String_s<2048> n;
-	n.Join(name, T("."));
-	return this->GetConst(n, value);
-}
-
-bool HoeCore::ConstParserSAX::GetConst(const tchar* name, Universal& value)
-{
-	return false;
-}
-
 

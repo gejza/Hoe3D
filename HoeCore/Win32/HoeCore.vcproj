@@ -592,6 +592,14 @@
 			Name="Math"
 			>
 			<File
+				RelativePath="..\src\expression.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\include\HoeCore\expression.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\hoe_fixed.cpp"
 				>
 			</File>
@@ -724,6 +732,10 @@
 		<Filter
 			Name="Files"
 			>
+			<File
+				RelativePath="..\src\const_file.cpp"
+				>
+			</File>
 			<File
 				RelativePath="..\include\HoeCore\const_file.h"
 				>

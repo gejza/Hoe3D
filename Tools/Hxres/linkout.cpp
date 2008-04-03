@@ -11,6 +11,7 @@ void ExportNS(Namespace& ns, HoeCore::WriteStream& str,
 LinkExport::LinkExport(const HoeCore::CString name)
 	: m_name(name) 
 {
+
 }
 
 void LinkExport::Export(Namespace& ns)
@@ -75,6 +76,8 @@ void ExportNS(Namespace& ns, HoeCore::WriteStream& str,
 	// Export objs
 	for (HoeCore::List<Namespace::Obj>::Iterator it(ns.GetObj());it;it++)
 	{
+		// export const?
+
 		Res::Symbol& sym = syms[nsym];
 		memset(&sym,0, sizeof(sym));
 		HoeCore::string::copy(sym.name, it->name, sizeof(sym.name));
@@ -103,6 +106,12 @@ LinkRes::LinkRes(const HoeCore::CString name)
 {
 	m_maxsize = 0;
 	m_maxnum = 0;
+
+	HoeCore::String_s<200> oc;
+	oc.printf("%s.const", name.GetPtr());
+	if (!m_fc.Open(oc,HoeCore::File::hftRewrite))
+		throw HoeUtils::Error(T("Failed open file '%s' for writing."), oc.GetPtr());
+
 }
 
 void LinkRes::ExportRes(HoeCore::String nsn, Namespace& ns,HoeCore::WriteStream& cpp)
@@ -123,6 +132,23 @@ void LinkRes::ExportRes(HoeCore::String nsn, Namespace& ns,HoeCore::WriteStream&
 		cpp.Print("{ ID%s, %d, 0x%x, T(\"%s\") },\n", 
 			HoeRes::Res::GetTypeName(i->type),
 			fout, pos, name.GetPtr());
+
+		// export constanc
+		const Compiler::ConstMap& cst = i->c->GetConsts();
+		if (!cst.IsEmpty())
+		{
+			name.Replace(T(':'), T('.'));
+			m_fc.Print("// %s\n", name.GetPtr());
+			
+			for (Compiler::ConstMap::Iterator iccm(cst);iccm;iccm++)
+			{
+				m_fc.Print("%s.%s = ", name.GetPtr(), iccm->name.GetPtr());
+				tchar buff[120];
+				iccm->value.Dump(buff, 100);
+				m_fc.Print("%s\n", buff);
+			}
+			m_fc.Print("\n");
+		}
 	}
 	for (HoeCore::LList<Namespace>::Iterator i(ns.GetNS());i;i++)
 	{

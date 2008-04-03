@@ -10,6 +10,7 @@ class Namespace;
 class LinkExport
 {
 	const HoeCore::CString m_name;
+
 public:
 	LinkExport(const HoeCore::CString name);
 	void Export(Namespace& ns);
@@ -23,6 +24,8 @@ class LinkRes
 		int size;
 		unsigned long adler; // todo 64bit
 	};
+	// const
+	HoeCore::File m_fc;
 
 	const HoeCore::CString m_name;
 	int m_maxsize;

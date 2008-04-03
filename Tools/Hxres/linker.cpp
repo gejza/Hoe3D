@@ -43,8 +43,10 @@ Compiler * Linker::AddObject(const char * name, int type, const Scaner::Location
 	Namespace::Obj* prev;
 	if (prev = m_act->Find(name))
 		throw DefineError(name,prev);
-
+	// fullname
+	// najit fullname
 	Namespace::Obj& o = m_act->CreateObj();
+	// konstanty
 	o.type = type;
 	o.name = name;
 	o.location = l;
@@ -75,6 +77,7 @@ void Linker::PopNamespace()
 
 int Linker::Link(const char * output)
 {
+	//todo provizrone na odzkouseni...
 	LinkRes link(output);
 	link.Export(m_main);
 	return 0;

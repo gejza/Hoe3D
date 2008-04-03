@@ -32,7 +32,6 @@ public:
 	Universal(TReal value, Type=TypeFloat);
 	Universal(unsigned long value);
 	Universal(TDecimal value);
-	Universal(int value);
 	Universal(bool value);
 	Universal(const Universal & value, HoeCore::MemoryPool* pool = NULL);
 	Universal(const void * v, size_t size, HoeCore::MemoryPool* pool = NULL);
@@ -80,9 +79,12 @@ public:
 	// operators
 	template<typename TYPE> 
     const Universal & operator = (TYPE value) { Set(value); return *this; }
+    const Universal & operator = (const Universal& value) { Set(value); return *this; }
 
     operator const char * () const { return GetUtfStringValue(); }
     operator const wchar_t * () const { return GetWideStringValue(); }
+
+	int Dump(tchar* buff, size_t n) const;
 protected:
 	void Reset();
 	void Clear();

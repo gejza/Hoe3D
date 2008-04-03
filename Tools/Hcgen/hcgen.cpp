@@ -54,14 +54,17 @@ int main(int argc, char* argv[])
 
 	try {
 		//yydebug = 1;
-		HoeFlexFileEx fs(argv[1]);
 		HoeCore::SetRootDir(HoeCore::GetBaseDir(argv[1]));
 		Consts parser;
-		HoeCore::ConstParser p;
-		p.Switch(fs);
 
 		// nacist
-		p.Parse(parser);
+		for (int i=1;i < argc;i++)
+		{
+			HoeCore::ConstParser p;
+			HoeFlexFileEx fs(argv[i]);
+			p.Switch(fs);
+			p.Parse(parser);
+		}
 
 		// generate
 		HoeCore::String_s<256> o;
@@ -70,6 +73,11 @@ int main(int argc, char* argv[])
 		if (!fo.Open(o, HoeCore::File::hftRewrite))
 			throw HoeUtils::Error(T("Failed open file %s for write."), o.GetPtr());
 		HGen(fo, parser);
+
+		o.printf(T("%s.cpp"), HoeUtils::GetFileName(argv[1],false).GetPtr());
+		if (!fo.Open(o, HoeCore::File::hftRewrite))
+			throw HoeUtils::Error(T("Failed open file %s for write."), o.GetPtr());
+		CppGen(fo, parser, HoeUtils::GetFileName(argv[1],false));
 
 	} catch (const HoeUtils::Error& err)
 	{

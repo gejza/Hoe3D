@@ -33,6 +33,7 @@
 #include <HoeCore/hoe_file.h>
 #include <HoeCore/hoe_unicode.h>
 #include <HoeCore/hoe_platform.h>
+#include <HoeCore/map.h>
 
 #include <HoeResource/hoe_resfile.h>
 #include <HoeResource/hoe_res.h>

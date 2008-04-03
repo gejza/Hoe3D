@@ -31,9 +31,22 @@ class ConstParser : public HoeFlex
 {
 	DECLARE_FLEX_FUNCTIONS(void)
 protected:
+	struct Token
+	{
+		int token;
+		union {
+			const tchar* str;
+			double real;
+			long number;
+		};
+	};
 	List<const tchar*> m_name;
+	List<Token> m_value;
 	StringPool m_pool;
-	int m_token;
+
+	// fnc
+	bool ParseValue(ConstParserSAX&);
+	bool GetValue(ConstParserSAX& parser, int& st, HoeCore::Universal& value);
 public:
 	bool Parse(ConstParserSAX&);
 	virtual int Echo(const tchar * buff, size_t size)

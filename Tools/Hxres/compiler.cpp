@@ -150,6 +150,13 @@ void PictureCompiler::Done()
 	}
 
 	im.Save(m_out);
+
+	// save constans
+	HoeRes::PicCodec * c = im.GetDecoder();
+	THoeSizeu res;
+	c->GetSize(&res);
+	AddConst(T("width"), (HoeCore::Universal::TDecimal)res.width);
+	AddConst(T("height"), (HoeCore::Universal::TDecimal)res.height);
 }
 
 /*bool PictureCompiler::Func(const HoeCore::CString name, const VectorUniversal& value)

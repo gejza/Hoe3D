@@ -15,16 +15,18 @@
 namespace HoeCore {
 
 //
-template<class C> class List;
+template<class C> class SetBase;
 
 namespace string {
 
 #undef vsnprintf
 
+int snprintf(char *, size_t, const char *, ...);
+int snprintf(wchar_t *, size_t, const wchar_t *, ...);
 int vsnprintf(char *, size_t, const char *, va_list);
 int vsnprintf(wchar_t *, size_t, const wchar_t *, va_list);
-void copy(char *, const char *, size_t);
-void copy(wchar_t *, const wchar_t *, size_t);
+int copy(char *, const char *, size_t);
+int copy(wchar_t *, const wchar_t *, size_t);
 
 inline int cmp(const char*s1, const char*s2)
 {
@@ -77,14 +79,16 @@ void concat(wchar_t* dest, size_t sizeb, const wchar_t* src);
 bool wmatch(const wchar_t* pattern, const wchar_t* str);
 bool wmatch(const char* pattern, const char* str);
 
-int join(char* str, size_t s, const HoeCore::List<const char*>& n, const char* sep);
-int join(wchar_t* str, size_t s, const HoeCore::List<const wchar_t*>& n, const wchar_t* sep);
+int join(char* str, size_t s, const HoeCore::SetBase<const char*>& n, const char* sep, int limit=0);
+int join(wchar_t* str, size_t s, const HoeCore::SetBase<const wchar_t*>& n, const wchar_t* sep, int limit=0);
 
 #ifdef ENABLE_AUTOCONV_FUNCTIONS
+int snprintf(char *, size_t, const wchar_t *, ...);
+int snprintf(wchar_t *, size_t, const char *, ...);
 int vsnprintf(char *, size_t, const wchar_t *, va_list);
 int vsnprintf(wchar_t *, size_t, const char *, va_list);
-void copy(char *, const wchar_t *, size_t);
-void copy(wchar_t *, const char *, size_t);
+int copy(char *, const wchar_t *, size_t);
+int copy(wchar_t *, const char *, size_t);
 int cmp(const char*, const wchar_t*);
 inline int cmp(const wchar_t* s1, const char* s2)
 {
@@ -325,9 +329,9 @@ public:
 			return fc;
 		return m_str[index];
 	}
-	void Join(const List<const tchar*>& n, const tchar* sep = NULL)
+	void Join(const SetBase<const tchar*>& n, const tchar* sep = NULL, int limit=0)
 	{
-		string::join(m_str, maxsize, n, sep);
+		string::join(m_str, maxsize, n, sep, limit);
 	}
 #if defined(ENABLE_AUTOCONV_FUNCTIONS) || !defined(_UNICODE)
 	bool operator == (const char * s) const

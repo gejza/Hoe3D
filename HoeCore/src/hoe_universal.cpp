@@ -353,7 +353,28 @@ void * Universal::GetPointer() const
 	return 0.f;
 }*/
 
-
+int Universal::Dump(tchar* buff, size_t n) const
+{
+	switch (GetType())
+	{
+	case TypeNone: 
+		return string::snprintf(buff, n, T("None"));
+	case TypeString:
+		return string::copy(buff, value.cstr, n);
+	case TypeWString:
+		return string::copy(buff, value.wstr, n);
+	case TypeDecimal:
+		return string::snprintf(buff, n, T("%d"), value.l);
+	case TypeUnsigned:
+		return string::snprintf(buff, n, T("%d"), value.ul);
+	case TypeFloat:
+		return string::snprintf(buff, n, T("%f"), value.f);
+	case TypeBool:
+		return string::snprintf(buff, n, value.b ? T("true"):T("false"));
+	default:
+		return string::snprintf(buff, n, T("unknown"));
+	}
+}
 
 } // namespace HoeCore
 

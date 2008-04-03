@@ -17,6 +17,7 @@ public:
 typedef HoeCore::List<Value> Values;
 
 class Compiler;
+class ConstGenerator;
 
 class PInterface
 {
@@ -34,8 +35,22 @@ public:
 class Compiler : public PInterface
 {
 	int m_type;
+public:
+	struct ConstValue
+	{
+		HoeCore::String name;
+		HoeCore::Universal value;
+		ConstValue(const HoeCore::CString n) : name(n) {}
+		bool operator == (const HoeCore::CString n) const
+		{
+			return name == n;
+		}
+	};
+	typedef HoeCore::Map<ConstValue, HoeCore::CString> ConstMap; 
+
 protected:
 	HoeCore::WriteStream& m_out;
+	ConstMap m_const;
 	Compiler(HoeCore::WriteStream& out) : m_type(0), m_out(out) {}
 public:
     static Compiler * Create(HoeCore::String& str, int type, HoeCore::WriteStream& s);
@@ -43,6 +58,11 @@ public:
 				const HoeCore::Universal& value, 
 				HoeCore::Universal::Type type, bool th=true);
 	int GetType() const { return m_type; }
+	void AddConst(const HoeCore::CString name, const HoeCore::Universal& value)
+	{
+		m_const[name].value = value;
+	}
+	const ConstMap GetConsts() { return m_const; }
 };
 
 class PictureCompiler : public Compiler

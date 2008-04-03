@@ -9,6 +9,16 @@
 namespace HoeCore {
 namespace string {
 
+int snprintf(char *dest, size_t n, const char * fmt, ...)
+{
+    int ret;
+	va_list args;
+	va_start(args, fmt);
+	ret = string::vsnprintf(dest, n, fmt, args);
+	va_end(args);
+    return ret;
+}
+
 int vsnprintf(char *dest, size_t n, const char * fmt, va_list vl)
 {
     int ret;
@@ -44,6 +54,18 @@ int vsnprintf(wchar_t* dest, size_t n, const char *fmt, va_list vl)
 	}
 }
 
+int snprintf(wchar_t *dest, size_t n, const char * fmt, ...)
+{
+    int ret;
+	va_list args;
+	va_start(args, fmt);
+	ret = string::vsnprintf(dest, n, fmt, args);
+	va_end(args);
+    return ret;
+}
+
+
+
 int vsnprintf(char* dest, size_t n, const wchar_t *fmt, va_list vl)
 {
 	const int size_buff = 2512;
@@ -64,6 +86,18 @@ int vsnprintf(char* dest, size_t n, const wchar_t *fmt, va_list vl)
 	}
 }
 
+int snprintf(char *dest, size_t n, const wchar_t * fmt, ...)
+{
+    int ret;
+	va_list args;
+	va_start(args, fmt);
+	ret = string::vsnprintf(dest, n, fmt, args);
+	va_end(args);
+    return ret;
+}
+
+
+
 int vsnprintf(wchar_t* dest, size_t n, const wchar_t* fmt, va_list vl)
 {
     int ret;
@@ -77,17 +111,31 @@ int vsnprintf(wchar_t* dest, size_t n, const wchar_t* fmt, va_list vl)
 	return ret;
 }
 
-void copy(char * dest, const char * src, size_t cnt)
+int snprintf(wchar_t *dest, size_t n, const wchar_t * fmt, ...)
+{
+    int ret;
+	va_list args;
+	va_start(args, fmt);
+	ret = string::vsnprintf(dest, n, fmt, args);
+	va_end(args);
+    return ret;
+}
+
+
+
+int copy(char * dest, const char * src, size_t cnt)
 {
 	::strncpy(dest, src, cnt);
+	return cnt;
 }
 
-void copy(wchar_t * dest, const wchar_t * src, size_t cnt)
+int copy(wchar_t * dest, const wchar_t * src, size_t cnt)
 {
 	::wcsncpy(dest, src, cnt);
+	return cnt;
 }
 
-void copy(wchar_t * dest, const char * src, size_t s)
+int copy(wchar_t * dest, const char * src, size_t s)
 {
 	s--;
 	while (s > 0)
@@ -99,6 +147,8 @@ void copy(wchar_t * dest, const char * src, size_t s)
 		s--;
 	}
 	*dest = '\0';
+	return s;
+
 }
 
 /*
@@ -107,7 +157,7 @@ U+00000080 - U+000007FF	110xxxxx 10xxxxxx
 U+00000800 - U+0000FFFF	1110xxxx 10xxxxxx 10xxxxxx
 */
 
-void copy(char * dest, const wchar_t * src, size_t n)
+int copy(char * dest, const wchar_t * src, size_t n)
 {
 	n--;
 	while (*src)
@@ -119,6 +169,7 @@ void copy(char * dest, const wchar_t * src, size_t n)
 		n-=l;
 	};
 	*dest = 0;
+	return n; //todo udelat spravne pocitani u vsech copy funkci
 }
 
 int cmp(const char* str1, const wchar_t* str2)
@@ -297,12 +348,15 @@ bool wmatch(const char* pattern, const wchar_t* str)
 	return wmatch<char, wchar_t>(pattern, str);
 }
 
-int join(char* str, size_t s, const List<const char*>& n, const char* sep)
+int join(char* str, size_t s, const SetBase<const char*>& n, const char* sep, int limit)
 {
 	int w = 0;
 	s--; // pojistka zapsani posledniho znaku
 	size_t ls = sep ? string::len(sep):0;
-	for (int i=0;i < n.Count();i++)
+	if (limit == 0 || limit > n.Count())
+		limit = n.Count();
+
+	for (int i=0;i < limit;i++)
 	{
 		if (i && sep)
 		{
@@ -328,12 +382,14 @@ int join(char* str, size_t s, const List<const char*>& n, const char* sep)
 	*str = 0; return w;
 }
 
-int join(wchar_t* str, size_t s, const List<const wchar_t*>& n, const wchar_t* sep)
+int join(wchar_t* str, size_t s, const List<const wchar_t*>& n, const wchar_t* sep, int limit)
 {
 	int w = 0;
 	s--; // pojistka zapsani posledniho znaku
 	size_t ls = sep ? string::len(sep):0;
-	for (int i=0;i < n.Count();i++)
+	if (limit == 0 || limit > n.Count())
+		limit = n.Count();
+	for (int i=0;i < limit;i++)
 	{
 		if (i && sep)
 		{

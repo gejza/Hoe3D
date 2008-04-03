@@ -2,42 +2,60 @@
 #ifndef _HCGEN_CONSTS_H_
 #define _HCGEN_CONSTS_H_
 
-struct Prop
-{
-	HoeCore::String name;
-	HoeCore::Universal::Type type;
-	HoeCore::Map<Prop*, const HoeCore::CString> prop;
-};
-
 struct Value
 {
 	HoeCore::String longname;
 	HoeCore::Universal value;
+	HoeCore::List<HoeCore::Universal> param;
+
 	Value(const HoeCore::String& name) : longname(name) {}
+	bool operator == (const tchar* key)
+	{
+		return longname == key;
+	}
 };
 
-struct Item
+struct Type
 {
 	HoeCore::String name;
-	Prop* prop; // typ promene
-	HoeCore::Map<Value, const HoeCore::CString> values; // hodnoty
-	Item(const HoeCore::String& n) : name(n), prop(0) {}
+	enum EType
+	{
+		TNone,
+		TStruct,
+		TUser,
+		TConst,
+	} type;
+	bool isroot;
+	HoeCore::KeyList<HoeCore::String, const HoeCore::String> str_child;
+	HoeCore::String usr_type;
+	HoeCore::Universal::Type cst_type;
+	Type(const HoeCore::String& n) 
+		: name(n), type(TNone), cst_type(HoeCore::Universal::TypeNone),
+		isroot(false) {}
 	bool operator == (const HoeCore::String& key)
 	{
 		return name == key;
 	}
+
 };
 ///////////////////////////////////////////
 
 class Consts : public HoeCore::ConstParserSAX
 {
-	HoeCore::Map<Prop, const HoeCore::CString> m_types;
-	typedef HoeCore::Map<Item, const HoeCore::String> ItemMap;
-	ItemMap m_items;
+	typedef HoeCore::Map<Type, const HoeCore::String> TypeMap;
+	typedef HoeCore::Map<Value, const tchar*> ValueMap;
+	ValueMap m_values;
+	TypeMap m_types;
 public:
-	virtual void SetConst(const HoeCore::List<const tchar*>& name,
+	virtual void SetConst(const ValueName& name,
 		const HoeCore::Universal& value);
+	virtual void SetConst(const ValueName& name, const tchar* type, const Values& params);
+	virtual bool GetConst(const tchar* name, HoeCore::Universal& value);
+	Type& GetProperty(const ValueName& name);
 	virtual void ParseError(const tchar* err);
+
+	const TypeMap& GetTypes() { return m_types; }
+	const ValueMap& GetValues() { return m_values; }
 };
 
 #endif // _HCGEN_CONSTS_H_

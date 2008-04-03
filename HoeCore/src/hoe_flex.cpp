@@ -215,8 +215,8 @@ int HoeFlex::yy_get_next_buffer()
 
 void HoeFlex::Switch(HoeFlexBuffer& buff)
 {
-	if ( m_buffer == &buff )
-		return;
+	/*if ( m_buffer == &buff )
+		return;*/
 
 	if ( m_buffer )
     {
