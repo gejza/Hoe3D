@@ -3,12 +3,9 @@
 #include "gen.h"
 #include "consts.h"
 
-#include "sizes.h"
-
 CGen::CGen(HoeCore::WriteStream& s) 
 	: IndentStream(s) 
 {
-	float z = sugar.ring.x;
 	
 }
 

@@ -78,7 +78,7 @@ bool Consts::GetConst(const tchar* name, HoeCore::Universal& value)
 
 void Consts::ParseError(const tchar* err)
 {
-	throw HoeUtils::Error(T("Parse error: %s"), err);
+	throw HoeUtils::Error(T("Syntax error: %s"), err);
 }
 
 

@@ -46,44 +46,48 @@ int main(int argc, char* argv[])
 {
 	// parse
 	// output = binary files + map
+	int i=0;
 	if (argc < 2)
 	{
 		fprintf(stderr, "hcgen <file>\n");
 		return 1;
 	}
 
-	try {
-		//yydebug = 1;
-		HoeCore::SetRootDir(HoeCore::GetBaseDir(argv[1]));
-		Consts parser;
+	
+	//yydebug = 1;
+	// nacist
+	Consts parser;
+	for (i=1;i < argc;i++)
+	{
+	
+		HoeFlexFileEx fs(argv[i]);
+		try {
+			HoeCore::SetRootDir(HoeCore::GetBaseDir(argv[1]));
 
-		// nacist
-		for (int i=1;i < argc;i++)
-		{
-			HoeCore::ConstParser p;
-			HoeFlexFileEx fs(argv[i]);
+				HoeCore::ConstParser p;
 			p.Switch(fs);
 			p.Parse(parser);
+
+		} catch (const HoeUtils::Error& err)
+		{
+			fprintf(stderr, "%s(%d): %s\n", argv[i], fs.GetLine(), err.GetStr().GetPtr());
+			return 1;
 		}
-
-		// generate
-		HoeCore::String_s<256> o;
-		o.printf(T("%s.h"), HoeUtils::GetFileName(argv[1],false).GetPtr());
-		HoeCore::File fo;
-		if (!fo.Open(o, HoeCore::File::hftRewrite))
-			throw HoeUtils::Error(T("Failed open file %s for write."), o.GetPtr());
-		HGen(fo, parser);
-
-		o.printf(T("%s.cpp"), HoeUtils::GetFileName(argv[1],false).GetPtr());
-		if (!fo.Open(o, HoeCore::File::hftRewrite))
-			throw HoeUtils::Error(T("Failed open file %s for write."), o.GetPtr());
-		CppGen(fo, parser, HoeUtils::GetFileName(argv[1],false));
-
-	} catch (const HoeUtils::Error& err)
-	{
-		fprintf(stderr, "%s\n", err.GetStr().GetPtr());
-		return 1;
 	}
+		
+
+	// generate
+	HoeCore::String_s<256> o;
+	o.printf(T("%s.h"), HoeUtils::GetFileName(argv[1],false).GetPtr());
+	HoeCore::File fo;
+	if (!fo.Open(o, HoeCore::File::hftRewrite))
+		throw HoeUtils::Error(T("Failed open file %s for write."), o.GetPtr());
+	HGen(fo, parser);
+
+	o.printf(T("%s.cpp"), HoeUtils::GetFileName(argv[1],false).GetPtr());
+	if (!fo.Open(o, HoeCore::File::hftRewrite))
+		throw HoeUtils::Error(T("Failed open file %s for write."), o.GetPtr());
+	CppGen(fo, parser, HoeUtils::GetFileName(argv[1],false));
 
 	return 0;
 }

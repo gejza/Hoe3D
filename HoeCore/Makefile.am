@@ -23,6 +23,8 @@ src/hoe_time.cpp \
 src/hoe_unicode.cpp \
 src/hoe_flex.cpp \
 src/hoe_platform.cpp \
+src/expression.cpp \
+src/const_file.cpp \
 src/parser_const.yy.cpp \
 src/parser_struct.yy.cpp
 
