@@ -7,47 +7,31 @@ enum Tokens {
 	TName = 256,
 	TReal,
 	TNumber,
+	TPixel,
 	TString,
 };
 
 #define ERR(str) do { parser.ParseError(T("Error: ") T(str)); return false; } while (0)
 
 
-bool HoeCore::ConstParser::ParseValue(HoeCore::ConstParserSAX& parser)
+bool HoeCore::ConstParser::ParseValue(HoeCore::ConstParserI& parser)
 {
-	// single
-	if (m_value.Count() == 1)
-	{
-		switch (m_value[0].token)
-		{
-		case TReal:
-			parser.SetConst(m_name, float(m_value[0].real));
-			return true;
-		case TNumber:
-			parser.SetConst(m_name, m_value[0].number);
-			return true;
-		case TString:
-			parser.SetConst(m_name, m_value[0].str);
-			return true;
-		};
-	}
-	// scan vice hodnot
 	int st = 0;
 	bool typed = false;
-	if (m_value.Count() >= 2)
+	if (m_value.Count() >= 2 && m_value[0].token == TName && m_value[1].token == T('('))
 	{
-		if (m_value[0].token == TName && m_value[1].token == T('('))
-			st = 2;
+		st = 2;
 		typed = true;
 	}
-	HoeCore::List<Universal> vv;
-par:
-	if (!GetValue(parser, st, vv.Add()))
+	HoeCore::List<HoeCore::Universal> vv;
+	int np = 0;
+next_par:
+	if (!GetValue(parser, typed ? m_value[0].str:NULL, st, vv.Add(), np++)) // 
 		return false;
 	if (typed && st < m_value.Count() && m_value[st].token == T(','))
 	{
 		st++;
-		goto par;
+		goto next_par;
 	}
 
 	if (typed)
@@ -70,7 +54,8 @@ par:
 	return true;
 }
 
-bool HoeCore::ConstParser::GetValue(ConstParserSAX& parser, int& st, HoeCore::Universal& value)
+bool HoeCore::ConstParser::GetValue(ConstParserI& parser, const tchar* type, int& st, 
+		HoeCore::Universal& value, int numv)
 {
 	// st + while
 	if (st >= m_value.Count())
@@ -78,11 +63,14 @@ bool HoeCore::ConstParser::GetValue(ConstParserSAX& parser, int& st, HoeCore::Un
 
 	double p = 0;
 	HoeCore::ExpInfix exp;
-	HoeCore::ConstParserSAX::ValueName tmp;
+	HoeCore::ConstParserI::ValueName tmp;
 	while (st < m_value.Count())
 	{
 		switch (m_value[st].token)
 		{
+		case TPixel:
+			exp.Add(parser.PixelFunc(m_name, type, numv, 
+				m_value[st].number)); break;
 		case TNumber:
 			exp.Add(m_value[st].number); break;
 		case TReal:
@@ -110,34 +98,18 @@ bool HoeCore::ConstParser::GetValue(ConstParserSAX& parser, int& st, HoeCore::Un
 			break;
 		default:
 			if (!exp.IsOper(m_value[st].token))
-			{
-
-				exp.Flush();
-				// konec
-				if (!exp.GetRes(value))
-					ERR("Syntax error");
-				return true;
-			}
+				goto endval;
 			else
 				exp.AddOperator(m_value[st].token);
 			break;
 		}
 		st++;
 	}
+			
+endval:
+	if (!exp.GetRes(value))
+		ERR("Syntax error");
 	// neco, operator, neco operator, neco
-/*
-operandy na vstupu posilej primo na vystup 
-operator na vstupu, ktery ma vyssi prioritu nez operator na vrcholu zasobniku (nebo je-li zasobnik prazdny), posli do zasobniku 
-je-li operator na vstupu nizsi nebo stejne priority jako v zasobniku, posli na vystup operator z vrcholu zasobniku; tento postup opakuj, dokud nenastane situace z predchoziho bodu (t.j. ze na vrcholu zasobniku je operator nizsi priority nez na vstupu nebo je zasobnik jiz prazdny) 
-levou zavorku, ktera se objevi na vstupu, presuneme do zasobniku a budeme ji povazovat za docasne relativni dno zasobniku; tim jsme zalozili novou vrstvu zasobniku 
-pravou zavorku, ktera se objevi na vstupu, povazujeme za docasny relativni ukoncujici symbol; vyvola odchod vsech symbolu az po nejblizsi relativni dno zasobniku a zrusi tak jeho vrchni vrstvu; obe zavorky (ktere se nyni priblizily na dosah) splnily svou funkci a mizi
-
-	from, to
-
-	a+b+c*d*e
-	ab+cd*e*+
-*/	
-
 	return true;
 }
 

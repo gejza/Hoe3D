@@ -111,6 +111,88 @@ public:
 	{
 		return m_ptr+i;
 	}
+	friend class Iterator;
+
+	class Iterator
+	{
+		SetBase<C>& m_set;
+		uint m_it;
+	public:
+		Iterator(SetBase & set) : m_set(set)
+		{
+			m_it = 0;
+		}
+		void next()
+		{
+			if (valid())
+				m_it++;
+		}
+		void operator ++ (int)
+		{
+			next();
+		}
+		bool valid() const
+		{
+			return m_it < m_set.m_count;
+		}
+		operator bool () const
+		{
+			return valid();
+		}
+		C* operator ->()
+		{
+			return m_set.m_ptr + m_it;
+		}
+		C& operator *()
+		{
+			return m_set.m_ptr[m_it];
+		}
+		C* operator &()
+		{
+			return m_set.m_ptr + m_it;
+		}
+
+	};
+	class CIterator
+	{
+		const SetBase<C>& m_set;
+		uint m_it;
+	public:
+		CIterator(const SetBase & set) : m_set(set)
+		{
+			m_it = 0;
+		}
+		void next()
+		{
+			if (valid())
+				m_it++;
+		}
+		void operator ++ (int)
+		{
+			next();
+		}
+		bool valid() const
+		{
+			return m_it < m_set.m_count;
+		}
+		operator bool () const
+		{
+			return valid();
+		}
+		const C* operator ->() const
+		{
+			return m_set.m_ptr + m_it;
+		}
+		const C& operator *() const
+		{
+			return m_set.m_ptr[m_it];
+		}
+		const C* operator &() const
+		{
+			return m_set.m_ptr + m_it;
+		}
+
+	};
 };
 
 /**
@@ -231,46 +313,7 @@ public:
 		qsort<C>(this->m_ptr, this->m_count);
 	}
 
-	class Iterator
-	{
-		List<C>& m_list;
-		uint m_it;
-	public:
-		Iterator(List & list) : m_list(list)
-		{
-			m_it = 0;
-		}
-		void next()
-		{
-			if (valid())
-				m_it++;
-		}
-		void operator ++ (int)
-		{
-			next();
-		}
-		bool valid() const
-		{
-			return m_it < m_list.Count();
-		}
-		operator bool () const
-		{
-			return valid();
-		}
-		C* operator ->()
-		{
-			return &(m_list[m_it]);
-		}
-		C& operator *()
-		{
-			return m_list[m_it];
-		}
-		C* operator &()
-		{
-			return &(m_list[m_it]);
-		}
 
-	};
 };
 
 template<class C> class Stack : public SetBase<C>

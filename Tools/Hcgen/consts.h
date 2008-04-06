@@ -53,6 +53,7 @@ public:
 	virtual bool GetConst(const tchar* name, HoeCore::Universal& value);
 	Type& GetProperty(const ValueName& name);
 	virtual void ParseError(const tchar* err);
+	virtual long PixelFunc(const ValueName& name, const tchar* type, int pos, long num);
 
 	const TypeMap& GetTypes() { return m_types; }
 	const ValueMap& GetValues() { return m_values; }

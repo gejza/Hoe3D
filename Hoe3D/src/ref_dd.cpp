@@ -383,14 +383,25 @@ void RefDD::Blt(RefSurface& surf, const THoeRect * dest, const THoeRect * src, i
 		r.right = src->right;
 		r.bottom = src->bottom;
 	}
-#ifndef _WIN32_WCE
-	hRes = m_pDDSBack->BltFast(dest->left,dest->top,
-			surf.m_srf,src ? &r:0,0);
-	checkres(hRes, "IDirectDrawSurface7::BltFast");
-#else
 	RECT rd;
 	rd.left = dest->left;
 	rd.top = dest->top;
+	if (rd.left < 0 && src)
+	{
+		r.left += -rd.left;
+		rd.left = 0;
+	}
+	if (rd.top < 0 && src)
+	{
+		r.top += -rd.top;
+		rd.top = 0;
+	}
+	// uprava prekryvu
+#ifndef _WIN32_WCE
+	hRes = m_pDDSBack->BltFast(rd.left,rd.top,
+			surf.m_srf,src ? &r:0,0);
+	checkres(hRes, "IDirectDrawSurface7::BltFast");
+#else
 	rd.right = dest->right;
 	rd.bottom = dest->bottom;
 	if (rd.bottom == -1 || rd.right == -1)

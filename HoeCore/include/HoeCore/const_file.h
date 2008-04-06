@@ -10,12 +10,24 @@ namespace HoeCore {
 
 class Universal;
 
-class ConstParserSAX
+class ConstParserI
 {
 public:
 	typedef List<const tchar*> ValueName;
 	typedef List<Universal> Values;
 
+	virtual void SetConst(const ValueName& name,
+		const Universal& value) = 0; // run from sax parser
+	virtual void SetConst(const ValueName& name, const tchar* type, const Values& params) = 0;
+	// gets
+	virtual bool GetConst(const ValueName& name, Universal& value) = 0; // run from sax parser
+	virtual void ParseError(const tchar* err) = 0; // run from sax parser
+	virtual long PixelFunc(const ValueName& name, const tchar* type, int pos, long num) = 0;
+};
+
+class ConstParserSAX : public ConstParserI
+{
+public:
 	virtual void SetConst(const ValueName& name,
 		const Universal& value); // run from sax parser
 	virtual void SetConst(const tchar* name,
@@ -25,6 +37,7 @@ public:
 	virtual bool GetConst(const ValueName& name, Universal& value); // run from sax parser
 	virtual bool GetConst(const tchar* name, Universal& value);
 	virtual void ParseError(const tchar* err) = 0; // run from sax parser
+	virtual long PixelFunc(const ValueName& name, const tchar* type, int pos, long num) { return num; }
 };
 
 class ConstParser : public HoeFlex
@@ -45,10 +58,11 @@ protected:
 	StringPool m_pool;
 
 	// fnc
-	bool ParseValue(ConstParserSAX&);
-	bool GetValue(ConstParserSAX& parser, int& st, HoeCore::Universal& value);
+	bool ParseValue(ConstParserI&);
+	bool GetValue(ConstParserI& parser, const tchar* type, int& st, 
+		HoeCore::Universal& value, int numv);
 public:
-	bool Parse(ConstParserSAX&);
+	bool Parse(ConstParserI&);
 	virtual int Echo(const tchar * buff, size_t size)
 	{
 		hoe_assert(!"Never run");

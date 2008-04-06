@@ -25,6 +25,7 @@ public:
 class CppGen : public CGen
 {
 	Consts& m_c;
+	int m_nl;
 public:
 	CppGen(HoeCore::WriteStream& s, Consts& c, const tchar* fn);
 	void TypeOut(const Type& ti, HoeCore::Stack<const tchar*>& name);

@@ -11,6 +11,7 @@ enum Tokens {
 	TName = 256,
 	TReal,
 	TNumber,
+	TPixel,
 	TString,
 }; // stejne jako const_file.cpp
 
@@ -38,6 +39,7 @@ real	 {real1}|{real2}
 {name}					return TName;
 {string}				return TString;
 {dig}|{hex}				return TNumber;
+{dig}px					return TPixel;
 .						return yytext[0];
 \n						return T('\n');
 
@@ -46,7 +48,7 @@ real	 {real1}|{real2}
 #define ERR(str) { parser.ParseError(T("Error: ") T(str)); return false; }
 
 // parse functions
-bool  YY_CLASS_NAME::Parse(ConstParserSAX& parser)
+bool  YY_CLASS_NAME::Parse(ConstParserI& parser)
 {
 	int token = Lex();
 	while (token)
@@ -87,6 +89,7 @@ bool  YY_CLASS_NAME::Parse(ConstParserSAX& parser)
 			case TReal:
 				t.real = string::GetReal(yytext);
 				break;
+			case TPixel:
 			case TNumber:
 				t.number = string::GetNumber(yytext);
 				break;

@@ -104,20 +104,20 @@ CppGen::CppGen(HoeCore::WriteStream& s, Consts& c, const tchar* fn)
 	}
 	// seradit podle zavislosti
 
-
 	for (uint i=0;i< c.GetTypes().Count();i++)
 	{
+		m_nl = 0;
 		const Type& t=c.GetTypes().Get(i);
 		if (!t.isroot)
 			continue;
 		
 		if (t.type == t.TStruct)
 		{
-			Print("%s_t %s = {\n", t.name.GetPtr(), t.name.GetPtr());
+			m_nl += Print("%s_t %s = { ", t.name.GetPtr(), t.name.GetPtr());
 			Indent(1);
 		}
 		if (t.type == t.TUser)
-			Print("%s %s = ", t.usr_type.GetPtr(), t.name.GetPtr());
+			m_nl += Print("%s %s = ", t.usr_type.GetPtr(), t.name.GetPtr());
 		
 		HoeCore::Stack<const tchar*> n;
 		n.Push(t.name);
@@ -126,9 +126,9 @@ CppGen::CppGen(HoeCore::WriteStream& s, Consts& c, const tchar* fn)
 		if (t.type == t.TStruct)
 		{
 			Indent(-1);
-			Print("}");
+			m_nl += Print("}");
 		}
-		Print(";\n");
+		m_nl += Print(";\n");
 	}
 	if (0) 
 	{
@@ -142,13 +142,15 @@ CppGen::CppGen(HoeCore::WriteStream& s, Consts& c, const tchar* fn)
 
 void CppGen::TypeOut(const Type& t, HoeCore::Stack<const tchar*>& name)
 {
+	HoeCore::String_s<2048> n;
+	n.Join(name, T("."));
+
 	if (t.type == t.TStruct)
 	{
 		// out
 		if (!t.isroot)
 		{
-			Print("\n{ ");
-			Indent(1);
+			m_nl += Print("/* %s */ {", n.GetPtr());
 		}
 		for (uint j=0;j < t.str_child.Count();j++)
 		{
@@ -160,38 +162,39 @@ void CppGen::TypeOut(const Type& t, HoeCore::Stack<const tchar*>& name)
 		}
 		if (!t.isroot)
 		{
-			Indent(-1);
-			Print("},\n");
+			m_nl += Print("},");
 		}
 		return;
 	}
-	HoeCore::String_s<2048> n;
-	n.Join(name, T("."));
 	const Value* v = m_c.GetValues().Find(n);
 	if (t.type == t.TUser)
 	{
 		// predelat po tomto
 			//Print("%s(", t.usr_type.GetPtr());
-		Print("{ ");
+		m_nl += Print("{ ");
 			if (v) for (uint i=0;i<v->param.Count();i++)
 			{
 				char buff[1024];
 				v->param[i].Dump(buff, 1024);
-				Print(i ? ", %s":"%s", buff);
+				m_nl += Print(i ? ", %s":"%s", buff);
 			}
 			//Print("),"); 
-			Print("}, ");
+			m_nl += Print("}, ");
 	} else if (t.type == t.TConst)
 	{
 		if (v) 
 		{
 			char buff[1024];
 			v->value.Dump(buff, 1024);
-			Print(v->value.GetType()==v->value.TypeString 
+			m_nl += Print(v->value.GetType()==v->value.TypeString 
 				? "\"%s\", ": "%s, ", buff);
 		}
 		else
-			Print("/*d*/0, ");
+			m_nl += Print("/*d*/0, ");
 	}
-
+	if (m_nl >= 55)
+	{
+		Print("\n\t");
+		m_nl = 0;
+	}
 }

@@ -149,7 +149,8 @@ void Hoe2D::PaintRect(const THoeRect* dest,unsigned long color,bool full)
 	DDBLTFX fx;
 	memset(&fx,0, sizeof(fx));
 	fx.dwSize = sizeof(fx);
-	fx.dwFillColor = color;
+	void*v=&color;
+	fx.dwFillColor = HoeRes::CompileColor(HOE_R5G6B5,*(HOECOLOR*)v);
 	RECT rect;
 	rect.top = dest->top;
 	rect.left = dest->left;

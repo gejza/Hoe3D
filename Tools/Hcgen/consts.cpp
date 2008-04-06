@@ -81,6 +81,53 @@ void Consts::ParseError(const tchar* err)
 	throw HoeUtils::Error(T("Syntax error: %s"), err);
 }
 
+struct CT
+{
+	const tchar* p;
+	int n;
+} c_cts[] = {
+	T("x"), 0,
+	T("width"), 0,
+	T("left"), 0,
+	T("right"), 0,
+	T("y"), 1,
+	T("height"), 1,
+	T("top"), 1,
+	T("bottom"), 1,
+	0, 0,
+};
+
+long Consts::PixelFunc(const ValueName& name, const tchar* type, int pos, long num)
+{
+	int p[2] = {0};
+	if (type && HoeCore::string::cmp(T("THoeRect"),type)==0)
+	{
+		p[pos%2]++;
+	}
+	else
+	{
+		for (ValueName::CIterator i(name);i;i++)
+		{
+			for (CT* ct=c_cts;ct->p;ct++)
+			{
+				if (HoeCore::string::cmp(*i, ct->p) == 0)
+				{
+					p[ct->n]++;
+				}
+			}
+		}
+	}
+	if ((p[0] && p[1]) || (!p[0] && !p[1]))
+		throw HoeUtils::Error("Symbol px is ambigous");
+
+	if (p[0])
+		return num * 2;
+	if (p[1])
+		return num * 2;
+	return num;
+}
+
+
 
 
 
