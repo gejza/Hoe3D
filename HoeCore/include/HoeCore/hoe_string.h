@@ -333,6 +333,15 @@ public:
 	{
 		string::join(m_str, maxsize, n, sep, limit);
 	}
+	int set(const tchar* str, size_t num)
+	{
+		string::copy(m_str, str, num);
+		if (num < maxsize)
+			m_str[num] = T('\0');
+		else
+			m_str[maxsize-1] = T('\0');
+		return num < maxsize ? num:maxsize;
+	}
 #if defined(ENABLE_AUTOCONV_FUNCTIONS) || !defined(_UNICODE)
 	bool operator == (const char * s) const
 	{

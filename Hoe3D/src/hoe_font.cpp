@@ -264,7 +264,7 @@ void HoeFont::GetTextSize(const tchar *text,THoeFontSize * size)
 	if (*text == '\0')
 		return;
 
-	int index = GetCodePage()->GetIndex('X');
+	int index = m_cp.GetIndex('X');
 	vfloat ty1 = this->m_fTexCoords[index].y1;
 	vfloat ty2 = this->m_fTexCoords[index].y2;
 
@@ -273,9 +273,9 @@ void HoeFont::GetTextSize(const tchar *text,THoeFontSize * size)
 
 	while (*text)
 	{
-		index = GetCodePage()->StringToIndex(text);
+		index = m_cp.StringToIndex(text);
 
-		size->width += m_fTexCoords[index].prex;
+		//size->width += m_fTexCoords[index].prex;
 
 		vfloat tx1 = this->m_fTexCoords[index].x1;
         vfloat tx2 = this->m_fTexCoords[index].x2;
@@ -285,6 +285,32 @@ void HoeFont::GetTextSize(const tchar *text,THoeFontSize * size)
         size->width += w/* - (2 * m_dwSpacing)*/;
 	}
 	//size->width += 2 * m_dwSpacing;
+}
+
+int HoeFont::GetTextInto(const tchar *text,const THoeFontSize& size)
+{
+	vfloat wdth = 0;
+	int nt = 0;
+	if (*text == '\0')
+		return nt;
+
+	int index;
+	while (*text)
+	{
+		index = m_cp.StringToIndex(text);
+
+		//wdth += m_fTexCoords[index].prex;
+
+		vfloat tx1 = this->m_fTexCoords[index].x1;
+        vfloat tx2 = this->m_fTexCoords[index].x2;
+
+        wdth += tx2-tx1;
+		if (wdth > size.width)
+			return nt;
+		nt++;
+	}
+	//size->width += 2 * m_dwSpacing;
+	return nt;
 }
 
 vfloat HoeFont::GetTextHeight()

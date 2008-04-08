@@ -82,6 +82,7 @@ public:
     virtual bool DrawText( vfloat x, vfloat y, dword dwColor, 
                       const tchar* strText, dword dwFlags=0L );
 	virtual void GetTextSize(const tchar *text,THoeFontSize * size);
+	virtual int GetTextInto(const tchar *text,const THoeFontSize& size);
 	virtual vfloat GetTextHeight();
 };
 
