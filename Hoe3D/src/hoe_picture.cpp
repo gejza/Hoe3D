@@ -12,6 +12,7 @@
 HoePicture::HoePicture()
 {
 	m_flags = 0;
+	m_rX = m_rY = 1;
 	//m_tex = NULL;
 	//texture = t;
 	//alpha = false;
@@ -52,12 +53,12 @@ void HoePicture::GetRect(THoeRect * rect) const
 
 unsigned int HoePicture::GetWidth() const
 {
-	return m_surf.GetWidth();
+	return m_surf.GetWidth() / m_rX;
 }
 
 unsigned int HoePicture::GetHeight() const
 {
-	return m_surf.GetHeight();
+	return m_surf.GetHeight() / m_rY;
 }
 
 /*int HoePicture::GetNumRECT()

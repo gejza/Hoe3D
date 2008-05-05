@@ -20,6 +20,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			InheritedPropertySheets="..\..\Win32\Hoe_win32.vsprops;..\..\Win32\Hoe_debug.vsprops;..\..\Win32\Hoe_tool.vsprops"
 			CharacterSet="0"

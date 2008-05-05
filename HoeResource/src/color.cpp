@@ -124,6 +124,21 @@ dword HoeRes::CompileColor(HOEFORMAT fmt, const HOECOLOR& c)
 	return 0;
 }
 
+dword HoeRes::CompileColor(HOEFORMAT fmt, const dword c)
+{
+	HOECOLOR cc;
+	cc.a = (c >> 24) & 0xff;
+	cc.r = (c >> 16) & 0xff;
+	cc.g = (c >> 8) & 0xff;
+	cc.b = (c) & 0xff;
+	switch (fmt)
+	{
+	case HOE_R5G6B5:
+		return ColorARGB<0,5,6,5>::conv2dw(cc);
+	};
+	return 0;
+}
+
 
 
 

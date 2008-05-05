@@ -398,8 +398,9 @@ void RefDD::Blt(RefSurface& surf, const THoeRect * dest, const THoeRect * src, i
 	}
 	// uprava prekryvu
 #ifndef _WIN32_WCE
+	// src color
 	hRes = m_pDDSBack->BltFast(rd.left,rd.top,
-			surf.m_srf,src ? &r:0,0);
+		surf.m_srf,src ? &r:0,surf.m_alpha ?  DDBLTFAST_SRCCOLORKEY:0 );
 	checkres(hRes, "IDirectDrawSurface7::BltFast");
 #else
 	rd.right = dest->right;

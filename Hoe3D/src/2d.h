@@ -31,7 +31,8 @@ public:
 	void PaintRect(const THoeRect* dest,unsigned long color,bool full);
 	void PaintLine(vfloat x1,vfloat y1,vfloat x2,vfloat y2,unsigned long c);
 
-	void Blt(IHoePicture *,const THoeRect * dest,const THoeRect * src);
+	virtual void Blt(IHoePicture *,const THoeRect * dest,const THoeRect * src);
+	virtual void Blt(IHoePicture *, vfloat x, vfloat y, int rx);
 	void MultRect(const THoeRect &src, THoeRect* dest)
 	{
 		dest->top = src.top * m_multY;

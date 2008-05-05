@@ -120,10 +120,10 @@ long Consts::PixelFunc(const ValueName& name, const tchar* type, int pos, long n
 	if ((p[0] && p[1]) || (!p[0] && !p[1]))
 		throw HoeUtils::Error("Symbol px is ambigous");
 
-	if (p[0])
+	/*if (p[0])
 		return num * 2;
 	if (p[1])
-		return num * 2;
+		return num * 2;*/
 	return num;
 }
 

@@ -5,6 +5,10 @@
 	Name="Hoe Tool"
 	>
 	<Tool
+		Name="VCCLCompilerTool"
+		AdditionalIncludeDirectories="..\..\HoeUtils\include"
+	/>
+	<Tool
 		Name="VCLinkerTool"
 		OutputFile="$(HoeOutputTool)\$(ProjectName)$(UnicodePostfix)$(DebugPostfix).exe"
 	/>

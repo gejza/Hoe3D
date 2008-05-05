@@ -27,6 +27,7 @@ public:
 };
 
 dword CompileColor(HOEFORMAT fmt, const HOECOLOR& c);
+dword CompileColor(HOEFORMAT fmt, const dword c);
 
 } // namespace HoeRes
 

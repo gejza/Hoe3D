@@ -62,7 +62,9 @@ public:
 	virtual int Link(const char * output);
 
 	// functions
-	virtual bool Func(const HoeCore::CString name, const Values& value);
+	virtual bool Func(const HoeCore::CString name, 
+                      const HoeCore::CString ret,
+                      const Values& value);
 
 };
 

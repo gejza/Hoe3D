@@ -8,6 +8,7 @@ namespace HoeUtils {
 FindFile::FindFile(const HoeCore::CString mask)
 {
 	m_handle = _findfirst( mask, &m_fileinfo );
+	m_dir = GetFileDir(mask);
 }
 
 FindFile::~FindFile()
@@ -28,6 +29,14 @@ void FindFile::Next()
 		_findclose(m_handle);
 		m_handle = -1;
 	}
+}
+
+const HoeCore::String FindFile::GetName()
+{
+	HoeCore::String str;
+	str = m_dir;
+	str.concat(m_fileinfo.name);
+	return str;
 }
 #else
 FindFile::FindFile(const HoeCore::CString mask)
@@ -80,6 +89,22 @@ const HoeCore::String GetFileName(const HoeCore::CString path, bool withex)
 		if (rl >= 0)
 			str[rl] = T('\0');
 	}
+	return str;
+}
+/////////////////////////////////////////////
+const HoeCore::String GetFileDir(const HoeCore::CString path)
+{
+	int rl = path.FindLast('/');
+	HoeCore::String str;
+#ifdef _WIN32
+	int wrl = path.FindLast('\\');
+	if (wrl > rl)
+		rl = wrl;
+#endif
+	if (rl < 0)
+		str = T("./");
+	else
+		str = path.Sub(0, rl+1);
 	return str;
 }
 

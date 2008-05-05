@@ -182,7 +182,7 @@ void LinkRes::ExportFile(HoeCore::File &f, int* fo, size_t* pos)
 {
 	// find file
 	static int l = 0;
-	//l = l % 8;
+	l = l % 6;
 	if (l >= m_rc.Count())
 	{
 		AddFile();

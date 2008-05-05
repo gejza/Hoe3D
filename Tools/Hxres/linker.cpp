@@ -116,14 +116,17 @@ bool AddPictures(Linker* link, const Values& value)
 
 		const HoeCore::String n = HoeUtils::GetFileName(f.GetName(), false);
 		Compiler * c = link->AddObject(n, HoeRes::Res::IDPicture, loc);
-		c->AddProp("File", Value(f.GetName(), TK_string));
+		// value + dir
+		c->AddProp("Source", Value(f.GetName().GetPtr(), TK_string));
 		c->Done();
 	}
 
 	return true;
 }
 
-bool Linker::Func(const HoeCore::CString name, const Values& value)
+bool Linker::Func(const HoeCore::CString name, 
+                      const HoeCore::CString ret,
+                      const Values& value)
 {
 	if (name == T("AddPictures"))
 	{

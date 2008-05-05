@@ -9,6 +9,7 @@ class FindFile
 {
 	intptr_t m_handle; 
 	struct _finddata_t m_fileinfo;
+	HoeCore::String m_dir;
 public:
 	FindFile(const HoeCore::CString mask);
 	~FindFile();
@@ -18,7 +19,7 @@ public:
 	FindFile& operator ++ ();
 
 	// bbb
-	const HoeCore::CString GetName() { return m_fileinfo.name; }
+	const HoeCore::String GetName();
 };
 #else
 class FindFile
@@ -38,6 +39,7 @@ public:
 #endif
 
 const HoeCore::String GetFileName(const HoeCore::CString path, bool withex = true);
+const HoeCore::String GetFileDir(const HoeCore::CString path);
 
 } // namespace HoeUtils
 

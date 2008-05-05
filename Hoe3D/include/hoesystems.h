@@ -48,6 +48,7 @@ public:
 	virtual	void PaintLine(vfloat x1,vfloat y1,vfloat x2,vfloat y2,unsigned long c) = 0;
 
 	virtual void Blt(IHoePicture *, const THoeRect* dest,const THoeRect * src) = 0;
+	virtual void Blt(IHoePicture *, vfloat x, vfloat y, int rx) = 0;
 	// dve moznosti alfy
 	// jedna je referencni (jako co je pruhledny a co ne)
 	// u te referencni je to podle hodnoty alfa v obraze

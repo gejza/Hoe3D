@@ -149,8 +149,7 @@ void Hoe2D::PaintRect(const THoeRect* dest,unsigned long color,bool full)
 	DDBLTFX fx;
 	memset(&fx,0, sizeof(fx));
 	fx.dwSize = sizeof(fx);
-	void*v=&color;
-	fx.dwFillColor = HoeRes::CompileColor(HOE_R5G6B5,*(HOECOLOR*)v);
+	fx.dwFillColor = HoeRes::CompileColor(HOE_R5G6B5,color);
 	RECT rect;
 	rect.top = dest->top;
 	rect.left = dest->left;
@@ -191,6 +190,22 @@ void Hoe2D::PaintLine(vfloat x1,vfloat y1,vfloat x2,vfloat y2,unsigned long c)
 	D3DDevice()->SetFVF(D3DFVF_XYZ|D3DFVF_DIFFUSE);
 	D3DDevice()->DrawPrimitiveUP(D3DPT_LINELIST,1,pv,sizeof(HOE2D_VERTEXC));
 #endif // _HOE_D3D9_
+}
+
+void Hoe2D::Blt(IHoePicture * pic, vfloat x, vfloat y, int rx)
+{
+	HoePicture *p = dynamic_cast<HoePicture *>(pic);
+	THoeRect dest = { x,y, -1, -1 };
+	THoeRect src;
+	const vfloat sx = p->m_surf.GetWidth() / p->m_rX;
+	const vfloat sy = p->m_surf.GetHeight() / p->m_rY;
+	int ry = rx / p->m_rX;
+	rx = rx % p->m_rX;
+	src.left = rx * sx;
+	src.right = src.left + sx;
+	src.top = ry * sy;
+	src.bottom = src.top + sy;
+	Blt(pic, &dest, &src);
 }
 
 void Hoe2D::Blt(IHoePicture * pic,const THoeRect * dest,const THoeRect * src)

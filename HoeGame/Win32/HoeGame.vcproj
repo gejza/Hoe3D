@@ -897,6 +897,14 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="Unicode Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Unicode Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
 					>
@@ -912,13 +920,6 @@
 			<File
 				RelativePath="..\src\hoe_gui.cpp"
 				>
-				<FileConfiguration
-					Name="Unicode Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\include\HoeGame\hoe_gui.h"
@@ -1041,6 +1042,15 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1356,6 +1366,15 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
+					Name="Unicode Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Unicode Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
 					>
@@ -1372,13 +1391,6 @@
 		<File
 			RelativePath="..\src\hoe_console.cpp"
 			>
-			<FileConfiguration
-				Name="Unicode Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-				>
-				<Tool
-					Name="VCCLCompilerTool"
-				/>
-			</FileConfiguration>
 		</File>
 		<File
 			RelativePath="..\include\HoeGame\hoe_console.h"

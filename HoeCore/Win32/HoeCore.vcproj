@@ -163,7 +163,7 @@
 		<Configuration
 			Name="Release|Win32"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\..\Win32\Hoe_release.vsprops;..\..\Win32\Hoe_win32.vsprops"
+			InheritedPropertySheets="..\..\Win32\Hoe_release.vsprops;..\..\Win32\Hoe_win32.vsprops;..\..\Win32\Hoe_utf8.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="1"
 			>
@@ -197,6 +197,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\include"
+				UsePrecompiledHeader="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -479,6 +480,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\include"
+				UsePrecompiledHeader="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -671,6 +673,14 @@
 			<File
 				RelativePath="..\src\hoe_log.cpp"
 				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\include\HoeCore\hoe_log.h"
