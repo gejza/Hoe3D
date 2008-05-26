@@ -1,9 +1,9 @@
 
 #include "StdAfx.h"
+#include "../include/HoeGame/hoe_structfile.h"
 #include "../include/HoeGame/hoe_figure2d.h"
 #include "../include/HoeGame/hoe_gui.h"
 #include "../include/HoeGame/hoe_app.h"
-#include "../include/HoeGame/hoe_structfile.h"
 
 BEGIN_HOEGAME
 
