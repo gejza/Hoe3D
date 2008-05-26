@@ -39,7 +39,7 @@ namespace flex {
 
 #if 0
 //%% YY_CHAR and YY_SC_TO_UI() go here
-//%% YY_CHAR and YY_SC_TO_UI() go here
+%% YY_CHAR and YY_SC_TO_UI() go here
 //end %% YY_CHAR and YY_SC_TO_UI() go here
 
 #endif
@@ -191,7 +191,7 @@ int YY_CLASS_NAME::Lex()
 	register HoeCore::flex::yy_state_type yy_current_state;
 	register tchar *yy_cp, *yy_bp;
 	register int yy_act;
-	int yy_start = 1;
+	yy_start = 1; // initial state
 
 //%% user's declarations go here
 %% user's declarations go here
@@ -403,7 +403,6 @@ yy_state_type YY_CLASS_NAME::yy_get_previous_state()
 {
 	register yy_state_type yy_current_state;
 	register tchar *yy_cp;
-	const int yy_start = 1;
 
 //%% code to get the start state into yy_current_state goes here
 %% code to get the start state into yy_current_state goes here

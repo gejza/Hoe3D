@@ -3,14 +3,19 @@
 #define _HOE_CORE_STRUCT_FILE_H_
 
 #include "hoe_flex.h"
+#include "hoe_structures.h"
 
 namespace HoeCore {
 
 class StructParserSAX
 {
+	HoeCore::String m_fn;
+	HoeCore::Stack<size_t> m_fns;
+protected:
+	const HoeCore::String& GetTagName() { return m_fn; }
 public:
-	virtual void Begin(const tchar* name) = 0;
-	virtual void End() = 0;
+	virtual void Begin(const tchar* name);
+	virtual void End();
 	virtual void SetProp(const tchar* name, const tchar* value) = 0;
 };
 

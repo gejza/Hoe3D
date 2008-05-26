@@ -502,6 +502,14 @@ void String::Set(const char * s)
 	string::copy(m_data->str, s, m_data->data.alloc);
 }
 
+void String::Strip(size_t max)
+{
+	if (Length() <= max)
+		return;
+	PrepareForModify(max, false);
+	m_data->str[max] = 0;
+}
+
 void String::Set(const wchar_t * s)
 {
 #ifdef _UNICODE

@@ -188,6 +188,8 @@ public:
 	* @return Pocet nahrazeni
 	*/
 	int Replace(tchar f, tchar r);
+	/** Useknuti stringu na maximalni delku */
+	void Strip(size_t max);
 
 
 	bool operator < (const String& str) const

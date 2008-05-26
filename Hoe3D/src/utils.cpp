@@ -103,6 +103,23 @@ void QuitGame(bool hard, int code)
 }
 
 
+#ifdef _WIN32
+void HoeDebugBreak()
+{
+    __try 
+    {
+        __debugbreak();
+    }
+    __except(GetExceptionCode() == EXCEPTION_BREAKPOINT ? 
+             EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH) 
+    {
+        // No debugger is attached, so return FALSE 
+        // and continue.
+        return;
+    }
+}
+#endif
+
 //////////////////////////////
 #if defined (_HOE_D3D_) || defined(_HOE_DD_) || defined(_HOE_D3DM_)
 
@@ -122,7 +139,7 @@ void dxerr(const tchar * file, dword line, const tchar * fnc, const tchar *ffnc,
 
 		MessageBox(GetActiveWindow(), buff, T("HRESULT failed!"), MB_OK);
 		// call stack
-		__debugbreak();
+		DebugBreak();
 	}
 }
 #endif
@@ -170,7 +187,7 @@ void glerr(const char * file, dword line, const char * fnc, const char *ffnc, in
 #ifdef _WIN32
 		MessageBox(GetActiveWindow(), buff, "glGetError failed!", MB_OK);
 		// call stack
-		__debugbreak();
+	   DebugBreak();
 #else
 		exit(1);
 #endif

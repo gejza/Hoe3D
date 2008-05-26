@@ -41,6 +41,7 @@ HoeFont::HoeFont(HoePicture* pic, HoeRes::Res::FontInfo::FD* fd, size_t num)
 		{
 			m_cp.AddAliasChar(fd[i].ch+'a'-'A', index);
 		}
+		// o tohle jde.. potreba jeste udelat kodovani male na velke
 		this->m_fTexCoords[index].x1 = lastx;
 		lastx += fd[i].size;
 		this->m_fTexCoords[index].x2 = lastx;

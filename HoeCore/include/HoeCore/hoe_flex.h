@@ -196,6 +196,7 @@ protected:
 	int yy_did_buffer_switch_on_eof;
 	size_t yy_n_chars;		/* number of characters read into yy_ch_buf */
 	tchar * yytext_ptr;
+	int yy_start; // aktualni status
 	int yyleng;
 	flex::yy_state_type yy_state_buf[YY_BUF_SIZE + 2];
 	flex::yy_state_type *yy_state_ptr;
