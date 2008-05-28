@@ -69,7 +69,8 @@ public:
 	//HoeFontRenderer * GetFontRenderer(const tchar* fname, vfloat height) { return 0; }
 public:
 	HoeFont(const tchar* strFontName, uint dwHeight, vfloat scaplha, dword dwFlags=0L);
-	HoeFont(HoePicture* pic, HoeRes::Res::FontInfo::FD* fd, size_t num);
+	HoeFont(HoePicture* pic, HoeRes::Res::FontInfo::FD* fd, size_t num,
+		HoeRes::Res::FontInfo::FDA* fda, size_t numa);
 	~HoeFont();
 
 	// Initializing and destroying device-dependent objects

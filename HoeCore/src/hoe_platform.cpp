@@ -33,6 +33,36 @@ uint32 HoeCore::Endianness::GetPlatform()
 	return en;
 }
 
+int HoeCore::Endianness::SetTextType(const byte* str)
+{
+	// scan bom
+	switch (str[0])
+	{
+	case 0xEF:
+		if (str[1] == 0xBB && str[2] == 0xBF)
+		{
+			m_end = (m_end & MaskChar);
+			return 3;
+		}
+		break;
+	case 0xFE:
+		if (str[1] == 0xFF)
+		{
+			m_end = (m_end & (MaskChar|MaskEnd)) | WChar | Big;
+			return 2;
+		}
+		break;
+	case 0xFF:
+		if (str[1] == 0xFE)
+		{
+			m_end = (m_end & (MaskChar|MaskEnd)) | WChar | Low;
+			return 2;
+		}
+		break;
+	};
+	return 0; // nenalezeno
+}
+
 uint32 HoeCore::Endianness::Get() const
 { 
 	return m_end; 

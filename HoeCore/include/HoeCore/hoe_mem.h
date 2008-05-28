@@ -29,8 +29,13 @@ template<size_t size> class Buffer_s
 {
 	byte m_buff[size];
 public:
-	byte * Get() { return m_buff; }
-	size_t GetSize() { return size; }
+	inline byte * Get() { return m_buff; }
+	inline size_t GetSize() { return size; }
+	inline void Shift(size_t offset, size_t s)
+	{
+		hoe_assert((offset+s) <= size);
+		CrossMemMove(m_buff, m_buff + offset, s);
+	}
 };
 
 class Buffer
@@ -40,11 +45,18 @@ class Buffer
 public:
 	Buffer();
 	~Buffer();
-	void * GetPtr(size_t num);
+	byte* GetPtr() { return reinterpret_cast<byte*>(m_buff); }
+	byte* GetPtr(size_t num);
+	byte* Realloc(size_t num);
 	template<typename TYPE> TYPE Get(size_t num) 
 		{ return reinterpret_cast<TYPE>(this->GetPtr(num)); }
 	size_t GetSize() { return m_alloc; }
 	void Free();
+	inline void Shift(size_t offset, size_t size)
+	{
+		hoe_assert(m_buff && (offset+size) <= m_alloc);
+		CrossMemMove(m_buff, reinterpret_cast<byte*>(m_buff) + offset, size);
+	}
 };
 
 template<typename TYPE> class Dynamic : private Buffer

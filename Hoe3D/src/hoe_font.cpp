@@ -28,7 +28,8 @@ HoeFont::HoeFont(const tchar* strFontName, uint dwHeight, vfloat scalpha, dword 
     m_tex = NULL;
 }
 
-HoeFont::HoeFont(HoePicture* pic, HoeRes::Res::FontInfo::FD* fd, size_t num)
+HoeFont::HoeFont(HoePicture* pic, HoeRes::Res::FontInfo::FD* fd, size_t num,
+				 HoeRes::Res::FontInfo::FDA* fda, size_t numa)
 {
 	m_pic = pic;
 	uint h = pic->GetHeight();
@@ -37,11 +38,14 @@ HoeFont::HoeFont(HoePicture* pic, HoeRes::Res::FontInfo::FD* fd, size_t num)
 	for (int i=0;i < num;i++)
 	{
 		int index = m_cp.AddChar(fd[i].ch);
-		if (1 && fd[i].ch >= 'A' && fd[i].ch <= 'Z')
+		// najit alias
+		if (fda)
 		{
-			m_cp.AddAliasChar(fd[i].ch+'a'-'A', index);
+			for (int ia=0;ia < numa;ia++)
+				if (fda[ia].index == i)
+					m_cp.AddAliasChar(fda[ia].alias, index);
 		}
-		// o tohle jde.. potreba jeste udelat kodovani male na velke
+
 		this->m_fTexCoords[index].x1 = lastx;
 		lastx += fd[i].size;
 		this->m_fTexCoords[index].x2 = lastx;

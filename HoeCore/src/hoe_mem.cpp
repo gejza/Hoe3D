@@ -53,12 +53,19 @@ HoeCore::Buffer::~Buffer()
 	Free();
 }
 
-void * HoeCore::Buffer::GetPtr(size_t num)
+byte * HoeCore::Buffer::GetPtr(size_t num)
 {
 	if (m_buff && num <= m_alloc)
-		return m_buff;
+		return reinterpret_cast<byte*>(m_buff);
 	if (m_buff) Free();
-	return m_buff = malloc(m_alloc = num);
+	return reinterpret_cast<byte*>(m_buff = malloc(m_alloc = num));
+}
+
+byte* HoeCore::Buffer::Realloc(size_t num)
+{
+	if (m_buff && num <= m_alloc)
+		return reinterpret_cast<byte*>(m_buff);
+	return reinterpret_cast<byte*>(m_buff = realloc(m_buff,m_alloc = num));
 }
 
 void HoeCore::Buffer::Free()

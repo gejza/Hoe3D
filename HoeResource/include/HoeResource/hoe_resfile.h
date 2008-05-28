@@ -65,10 +65,17 @@ struct FontInfo : public HeadResource
 {
 	uint32 numchunk;	
 
-	struct FD
+	struct FD // definice znaku
 	{
 		wchar_t ch;
 		int32 size;
+	};
+
+	// aliasy pro znaky
+	struct FDA
+	{
+		int32 index;
+		wchar_t alias;
 	};
 };
 

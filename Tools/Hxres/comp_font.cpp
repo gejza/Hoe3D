@@ -30,10 +30,17 @@ bool FontCompiler::Func(const HoeCore::CString name,
                       const HoeCore::CString ret,
                       const Values& value)
 {
-	/*if (name == "FindColorKey")
+	if (name == "ComplementFont")
 	{
-		return im.ComputeColorKey();
-	}*/
+		// doplneni aliasu
+		// no return value
+		if (ret != "")
+			throw HoeUtils::Error("Function ComplementFont not return value.");
+		if (value.Count() != 1)
+			throw HoeUtils::Error("Function ComplementFont requie one argument.");
+		CaseFoldingMap cfm(value[0].GetStringValue());
+		return m_fontdef.LoadAliases(cfm);
+	}
 	return PInterface::Func(name, ret, value);
 }
 
@@ -55,7 +62,7 @@ void FontCompiler::Done()
 	head.size_struct = sizeof(head);
 	head.version_struct = 1;
 
-	head.numchunk = 1;
+	head.numchunk = 2;
 	m_out.Write(&head, sizeof(head));
 	
 	m_fontdef.Write(m_out);
@@ -67,58 +74,6 @@ void FontCompiler::Done()
 	return false;
 }*/
 
-class TextReader
-{
-	HoeCore::ReadStream& m_stream;
-	char m_buff[1000];
-	int m_from, m_max;
-public:
-	TextReader(HoeCore::ReadStream& stream) : m_stream(stream), m_from(0), m_max(0)
-	{
-		m_from = 0;
-		m_max = m_stream.Read(m_buff, sizeof(m_buff)-1);
-		m_buff[m_max] = 0;
-		if (m_max >= 3 && m_buff[0] == 0xef && m_buff[1] == 0xbb && m_buff[2] == 0xbf)
-			m_from = 3;
-	}
-	int FindEnd()
-	{
-		for (int i=m_from;i < m_max;i++)
-		{
-			switch (m_buff[i])
-			{
-			case '\n':
-			case '\r':
-				return i;
-			};
-		}
-		return -1;
-	}
-	template<typename TYPE> bool ReadLine(TYPE& str)
-	{
-		str = "";
-		while (1)
-		{
-			int i=FindEnd();
-			if (i >= 0) // todo
-			{
-				bool crlf = m_buff[i] == '\r' && m_buff[i+1] == '\n';
-				m_buff[i] = 0;
-				str.concat(m_buff+m_from);
-				m_from = i+1;
-				if (crlf) m_from++;
-				return true;
-			}
-			if (m_from < m_max)
-				str.concat(m_buff[m_from]);
-			m_from = 0;
-			m_max = m_stream.Read(m_buff, sizeof(m_buff)-1);
-			m_buff[m_max] = 0;
-			if (!m_max)
-				return !str.IsEmpty();
-		}
-	}
-};
 /////
 bool FontCompiler::FontDef::Load(const char *path)
 {
@@ -128,13 +83,12 @@ bool FontCompiler::FontDef::Load(const char *path)
 		throw HoeUtils::Error("Failed open file '%s'.", path);
 	}
 	// reader
-	TextReader t(f);
-	HoeCore::String_s<100> line;
+	HoeCore::TextReadStream t(f);
+	const tchar* p;
 	int l=0;
-	while (t.ReadLine(line))
+	while (p = t.ReadLine())
 	{
 		l++;
-		const char* p = line.GetPtr();
 		HoeRes::Res::FontInfo::FD& ch = m_chd.Add();
 		ch.ch = HoeCore::string::utf2w(p);
 		if (ch.ch == 0xfeff)
@@ -147,6 +101,28 @@ bool FontCompiler::FontDef::Load(const char *path)
 	return true;
 }
 
+bool FontCompiler::FontDef::LoadAliases(CaseFoldingMap& map)
+{
+	// aliases
+	for (uint i=0;i < m_chd.Count();i++)
+	{
+		wchar_t a = map.Get(m_chd[i].ch);
+		if (!a)
+			continue;
+		// zjistit zda neni alias na pismeno ktere existuje
+		for (uint j=0;j < m_chd.Count();j++)
+			if (m_chd[j].ch == a)
+				goto next_char;
+		// zapsat alias
+		HoeRes::Res::FontInfo::FDA& fda = m_chad.Add();
+		fda.index = i;
+		fda.alias = a;
+next_char:
+		1; // pokracovani
+	}
+	return true;
+}
+
 void FontCompiler::FontDef::Write(HoeCore::WriteStream& out)
 {
 	HoeRes::Res::ChunkInfo chunk; // todo dodelat endianes
@@ -154,7 +130,57 @@ void FontCompiler::FontDef::Write(HoeCore::WriteStream& out)
 	chunk.size = m_chd.Count() * sizeof(HoeRes::Res::FontInfo::FD);
 	out.WriteStruct(chunk);
 	out.Write(m_chd.GetBasePointer(), chunk.size);
+
+	// write aliases
+	memcpy(chunk.cid, "DEFA", 4);
+	chunk.size = m_chad.Count() * sizeof(HoeRes::Res::FontInfo::FDA);
+	out.WriteStruct(chunk);
+	out.Write(m_chad.GetBasePointer(), chunk.size);
 }
+
+const tchar* GotoBehind(const tchar* p, tchar c)
+{
+	while (*p && *p != c) p++;
+	if (!*p) return p;
+	return p+1;
+}
+////////////////////////////////////////////////
+// font map
+CaseFoldingMap::CaseFoldingMap(const tchar* path)
+{
+	HoeCore::File f;
+	if (!f.Open(path))
+	{
+		throw HoeUtils::Error("Failed open file '%s'.", path);
+	}
+	// reader
+	HoeCore::TextReadStream t(f);
+	const tchar* p;
+	while (p = t.ReadLine())
+	{
+		// load font def
+		if (*p == T('#'))
+			continue;
+		int code = HoeCore::string::GetHex(p);
+		p = GotoBehind(p, ';');
+		// type
+		while (*p == ' ') p++;
+		if (*p != 'C' && *p != 'S')
+			continue;
+		
+		p = GotoBehind(p, ';');
+		p = GotoBehind(p, ' ');
+		int alias = HoeCore::string::GetHex(p);
+		if (code > 0xffff || alias > 0xffff)
+			continue; // nepodporovane znaky mimo utf-16
+
+		// pridat alias
+		m_charmap[code] = alias;
+		m_charmap[alias] = code;
+	}
+
+}
+
 
 
 

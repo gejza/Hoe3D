@@ -182,6 +182,7 @@ public:
 		MaskEnd = 0x0f,
 		ByteChar = 0x00,
 		WChar = 0x10,
+		WWChar = 0x30,
 		MaskChar = 0xf0,
 	};
 
@@ -198,6 +199,10 @@ public:
 	}
 	static const tchar * GetPlatformString(uint32 plat);
 	const tchar * GetPlatformString();
+	/** Funkce rozpozna kodovani textu Utf-8 nebo Utf-16 
+	* @return pocet proskenovanych bytu
+	*/
+	int SetTextType(const byte* str);
 
 	inline bool IsUnicode() const
 	{

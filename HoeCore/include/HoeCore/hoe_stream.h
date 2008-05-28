@@ -2,6 +2,9 @@
 #ifndef _HOE_CORE_STREAM_H_
 #define _HOE_CORE_STREAM_H_
 
+#include "hoe_mem.h"
+#include "hoe_platform.h"
+
 namespace HoeCore {
 
 class CString;
@@ -84,6 +87,43 @@ public:
 	{
 		ReadStream::Skip(ptr);
 	}
+};
+
+class BufferStream
+{
+public:
+	static const int StaticSize = 1000;
+private:
+	Buffer_s<StaticSize> m_buff;
+	Buffer m_dynbuff;
+	bool m_usedynamic;
+	ReadStream& m_stream;
+	size_t m_first, m_end; // zacatek a konec dat v bufferu
+	int m_countdynamic;
+	bool m_eos;
+public:
+	BufferStream(ReadStream& stream);
+	byte* GetPtr() 
+	{
+		if (!GetSize()) return ReadNext(StaticSize);
+		return (m_usedynamic ? m_dynbuff.GetPtr():m_buff.Get()) + m_first; 
+	}
+	size_t GetSize() { return m_end-m_first; }
+	void Shift(size_t size);
+	byte* ReadNext(size_t size);
+};
+
+class TextReadStream
+{
+	Endianness m_end;
+	BufferStream m_stream;
+	bool m_eos;
+public:
+	TextReadStream(ReadStream& stream);
+	const char* ReadLine();
+	const wchar_t* ReadWLine();
+	const Endianness& GetDataFormat() const { return m_end; }
+
 };
 
 } // namespace HoeCore

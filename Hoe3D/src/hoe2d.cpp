@@ -100,8 +100,15 @@ HoeFont * Hoe2DEngine::CreateFont(const tchar *name)
 
 	if (fl.GetChunk(MAKE_FOURCC('D','E','F',' '), &ptr, &s))
 	{
+		// get alias
+		byte* ptra = NULL;
+		size_t sa = 0;
+		if (!fl.GetChunk(MAKE_FOURCC('D','E','F','A'), &ptra, &sa))
+			ptra = NULL;
 		f = new HoeFont(pic, (HoeRes::Res::FontInfo::FD*) ptr, 
-			s / (sizeof(wchar_t)+sizeof(int32)));
+			s / sizeof(HoeRes::Res::FontInfo::FD),
+			(HoeRes::Res::FontInfo::FDA*) ptra,
+			sa / sizeof(HoeRes::Res::FontInfo::FDA));
 	}
 
 	return f;
