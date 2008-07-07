@@ -526,7 +526,8 @@ void String::Set(const wchar_t * s)
 
 String::StringDataPtr* String::CreateStringData(size_t n)
 {
-	StringDataPtr * data = (StringDataPtr*)malloc(sizeof(StringData)+(n+1)*sizeof(tchar));
+	const size_t an = sizeof(StringData) + (n+1)*sizeof(tchar);
+	StringDataPtr * data = (StringDataPtr*)malloc(an);
 	data->data.ref = 1;
 	data->data.alloc = (n+1);
 	return data;
@@ -536,13 +537,11 @@ void String::PrepareForModify(size_t n, bool canempty)
 {
 	if (!m_data)
 	{
-        //::printf("create data %ld\n", n);
 		m_data = CreateStringData(n);
 		m_data->str[0] = 0;
 	}
 	else if (m_data->data.IsShared() || n > m_data->data.alloc)
 	{
-        //::printf("unshared data %ld\n", n);
 		StringDataPtr * data = CreateStringData(n);
 		if (!canempty)
 			string::copy(data->str, m_data->str, n);
@@ -600,14 +599,17 @@ int String::vprintf(const char * szFormat, va_list vl)
 	while (1)
 	{
 		PrepareForModify(max+1, false);
-        hoe_assert(m_data->str);
-		ret = string::vsnprintf(m_data->str, max, szFormat, vl);
-        if (ret >= 0 && ret < max)
-            break;
-        if (ret > max)
-            max = ret + 1;
-        else
-	        max = size_t(max * 1.5) + 1;
+		hoe_assert(m_data->str);
+		va_list vnl;
+		va_copy(vnl, vl);
+		ret = string::vsnprintf(m_data->str, max, szFormat, vnl);
+		va_end(vnl);
+		if (ret >= 0 && ret < max)
+		    break;
+		if (ret > max)
+		    max = ret + 1;
+		else
+			max = size_t(max * 1.5) + 1;
 	}
 	return ret;
 }
@@ -631,14 +633,17 @@ int String::vprintf(const wchar_t * szFormat, va_list vl)
 	while (1)
 	{
 		PrepareForModify(max+1, false);
-        hoe_assert(m_data->str);
+        	hoe_assert(m_data->str);
+		va_list vnl;
+		va_copy(vnl, vl);
 		ret = string::vsnprintf(m_data->str, max, szFormat, vl);
-        if (ret >= 0 && ret < max)
-            break;
-        if (ret > max)
-            max = ret + 1;
-        else
-	        max = size_t(max * 1.5) + 1;
+		va_end(vnl);
+		if (ret >= 0 && ret < max)
+		    break;
+		if (ret > max)
+		    max = ret + 1;
+		else
+			max = size_t(max * 1.5) + 1;
 	}
 	return ret;
 }

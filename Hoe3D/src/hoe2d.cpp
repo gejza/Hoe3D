@@ -93,7 +93,7 @@ HoeFont * Hoe2DEngine::CreateFont(const tchar *name)
 	HoeRes::FontLoader fl(rs);
 	HoeFont* f = NULL;
 	byte* ptr;
-	size_t s;
+	uint s;
 	HoeCore::String_s<200> fn;
 	fn.printf(T("%s:picture"), name);
 	HoePicture* pic = CreatePic(fn);
@@ -102,7 +102,7 @@ HoeFont * Hoe2DEngine::CreateFont(const tchar *name)
 	{
 		// get alias
 		byte* ptra = NULL;
-		size_t sa = 0;
+		uint sa = 0;
 		if (!fl.GetChunk(MAKE_FOURCC('D','E','F','A'), &ptra, &sa))
 			ptra = NULL;
 		f = new HoeFont(pic, (HoeRes::Res::FontInfo::FD*) ptr, 

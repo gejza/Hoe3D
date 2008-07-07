@@ -19,7 +19,6 @@ src/hoe_benchmark.cpp \
 src/hoe_config.cpp \
 src/hoe_console.cpp \
 src/hoe_engine.cpp \
-src/hoe_figure2d.cpp \
 src/hoe_gui.cpp \
 src/hoe_input.cpp \
 src/hoe_inputkeys.cpp \
@@ -29,15 +28,13 @@ src/hoe_linux.cpp \
 src/hoe_music.cpp \
 src/hoe_resource_mgr.cpp \
 src/hoe_scene.cpp \
-src/hoe_adventure.cpp \
 src/hoe_strategy.cpp \
 src/hoe_stratmap.cpp \
 src/hoe_timer.cpp \
 src/hoe_utils.cpp \
 src/hoe_vars.cpp \
 src/hoe_view.cpp \
-src/hoe_mem.cpp \
-src/hoe_structfile.cpp 
+src/hoe_mem.cpp
 
 #src/lua_script.cpp \
 #src/config_parser.cpp src/lang_parser.cpp src/structfile_parser.cpp

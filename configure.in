@@ -62,7 +62,7 @@ fi
 
 CPPFLAGS="$CXXFLAGS -fPIC -mmmx -msse -D_LINUX -O2 -D_USE_OPENGL_ -I../HoeCore/include"
 
-LDFLAGS="$LDFLAGS -L/usr/X11R6/lib -L../bin"
+LDFLAGS="$LDFLAGS -L/usr/X11R6/lib"
 
 AC_OUTPUT( Makefile 
           HoeCore/Makefile 

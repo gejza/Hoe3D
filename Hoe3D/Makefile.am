@@ -8,7 +8,8 @@ src/icreate_parser.yy.cpp: src/icreate_parser.l ../HoeCore/template/hoe_flex.skl
 src/material_parser.yy.cpp: src/material_parser.l ../HoeCore/template/hoe_flex.skl
 	flex -S"../HoeCore/template/hoe_flex.skl" -o"src/material_parser.yy.cpp" src/material_parser.l
 
-Hoe3D: ../bin/Hoe2D.so
+Hoe2D: ../bin/Hoe2D.so
+Hoe3D: ../bin/Hoe3D.so
 
 ___bin_Hoe3D_so_SOURCES = \
 src/camera.cpp \
@@ -94,8 +95,6 @@ src/hoe_input_xwin.cpp \
 src/hoe2d_main.cpp \
 src/hoe_picture.cpp \
 src/hoe_time.cpp \
-src/particle_emitor.cpp \
-src/physics.cpp \
 src/ref.cpp \
 src/ref_base.cpp \
 src/ref_opengl.cpp \

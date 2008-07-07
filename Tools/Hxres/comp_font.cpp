@@ -114,9 +114,11 @@ bool FontCompiler::FontDef::LoadAliases(CaseFoldingMap& map)
 			if (m_chd[j].ch == a)
 				goto next_char;
 		// zapsat alias
-		HoeRes::Res::FontInfo::FDA& fda = m_chad.Add();
-		fda.index = i;
-		fda.alias = a;
+		{
+			HoeRes::Res::FontInfo::FDA& fda = m_chad.Add();
+			fda.index = i;
+			fda.alias = a;
+		}
 next_char:
 		1; // pokracovani
 	}

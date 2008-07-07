@@ -12,7 +12,7 @@ bin_PROGRAMS = hcgen
 # the application source, library search path, and link libraries
 hcgen_SOURCES = hcgen.cpp consts.cpp gen.cpp 
 
-hcgen_CPPFLAGS = -D_NOXLIB -I../../HoeCore/include -I../../HoeUtils/include -I../../HoeResource/include
+hcgen_CPPFLAGS = -D_NOXLIB -I../../HoeCore/include/HoeCore -I../../HoeUtils/include -I../../HoeResource/include
 
 hcgen_LDFLAGS = -L../../bin -ll -lHoeUtils -lHoeResource -lHoeCore
 
