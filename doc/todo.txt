@@ -1,3 +1,5 @@
+Rozdelit projektove soubory knihoven a configure
+
 Hoe3D:
 	Shadery
 	Fyzika
