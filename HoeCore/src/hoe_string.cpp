@@ -4,6 +4,10 @@
 #include "../include/HoeCore/hoe_string.h"
 #include "../include/HoeCore/hoe_unicode.h"
 
+#ifdef _WIN32
+#define va_copy(dest, src) (dest = src)
+#endif
+
 ////////////////////////////////
 // string class
 namespace HoeCore {

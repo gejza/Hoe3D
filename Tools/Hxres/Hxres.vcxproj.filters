@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Generated">
+      <UniqueIdentifier>{2fbe8941-6c79-4fe4-9b52-5677dfa9d6bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{301fc664-b125-42e3-9a0c-f6a42985c46d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parser">
+      <UniqueIdentifier>{f8296d09-c9df-46fa-861a-035fc7371de0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{439e7be5-829f-4825-8257-50c9abbb4cc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Compiler">
+      <UniqueIdentifier>{2537f722-b24a-471c-bf89-73484761efe6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Linker">
+      <UniqueIdentifier>{dcbea1d1-9d1b-4494-96e3-65f130518788}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="parse.tab.cpp">
+      <Filter>Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="scan.yy.cpp">
+      <Filter>Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="hxres.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="StdAfx.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="image.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="comp_font.cpp">
+      <Filter>Compiler</Filter>
+    </ClCompile>
+    <ClCompile Include="compiler.cpp">
+      <Filter>Compiler</Filter>
+    </ClCompile>
+    <ClCompile Include="linker.cpp">
+      <Filter>Linker</Filter>
+    </ClCompile>
+    <ClCompile Include="linkout.cpp">
+      <Filter>Linker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Common_src\jpeg-6b\jmemmgr.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="parse.tab.hpp">
+      <Filter>Generated</Filter>
+    </ClInclude>
+    <ClInclude Include="StdAfx.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="scan.h">
+      <Filter>Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="image.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="comp_font.h">
+      <Filter>Compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="compiler.h">
+      <Filter>Compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="linker.h">
+      <Filter>Linker</Filter>
+    </ClInclude>
+    <ClInclude Include="linkout.h">
+      <Filter>Linker</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="parse.y">
+      <Filter>Parser</Filter>
+    </None>
+    <None Include="scan.l">
+      <Filter>Parser</Filter>
+    </None>
+    <None Include="Readme.txt" />
+    <None Include="test.txt" />
+  </ItemGroup>
+</Project>

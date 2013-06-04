@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{945B955E-81E8-4716-ABBA-52ADE9B28A3D}</ProjectGuid>
+    <RootNamespace>HoeGame</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\Win32\Hoe_win32.props" />
+    <Import Project="..\..\Win32\Hoe_release.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\Win32\Hoe_win32.props" />
+    <Import Project="..\..\Win32\Hoe_debug.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\Hoe3D\include;..\..\HoeResource\include;..\..\HoeCore\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Lib>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\Hoe3D\include;..\..\HoeResource\include;..\..\HoeCore\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Lib>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\hoe_engine.cpp" />
+    <ClCompile Include="..\src\hoe_view.cpp" />
+    <ClCompile Include="..\src\hoe_land.cpp" />
+    <ClCompile Include="..\src\hoe_strategy.cpp" />
+    <ClCompile Include="..\src\hoe_stratmap.cpp" />
+    <ClCompile Include="..\src\hoe_lang.cpp" />
+    <ClCompile Include="..\src\hoe_app.cpp" />
+    <ClCompile Include="..\src\hoe_baseapp.cpp" />
+    <ClCompile Include="..\src\hoe_linux.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_mobile.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_win32.cpp" />
+    <ClCompile Include="..\src\hoe_wx.cpp" />
+    <ClCompile Include="..\src\hoe_figure2d.cpp" />
+    <ClCompile Include="..\src\hoe_gui.cpp" />
+    <ClCompile Include="..\src\hoe_input.cpp" />
+    <ClCompile Include="..\src\hoe_inputkeys.cpp" />
+    <ClCompile Include="..\src\hoe_fs.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_resource_mgr.cpp" />
+    <ClCompile Include="..\src\hoe_structfile.cpp" />
+    <ClCompile Include="..\src\lua_script.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_benchmark.cpp" />
+    <ClCompile Include="..\src\hoe_mem.cpp" />
+    <ClCompile Include="..\src\hoe_timer.cpp" />
+    <ClCompile Include="..\src\hoe_utils.cpp" />
+    <ClCompile Include="..\src\hoe_music.cpp" />
+    <ClCompile Include="..\src\hoe_config.cpp" />
+    <ClCompile Include="..\src\hoe_settings.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_vars.cpp" />
+    <ClCompile Include="..\src\hoe_ai.cpp" />
+    <ClCompile Include="..\src\hoe_adventure.cpp" />
+    <ClCompile Include="..\src\hoe_console.cpp" />
+    <ClCompile Include="..\src\hoe_scene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\HoeGame\hoe_engine.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_view.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_land.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_strategy.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_lang.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_app.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_baseapp.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_linux.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_macosx.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_mobile.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_win32.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_wx.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_figure2d.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_gui.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_fs.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_resource_mgr.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_stratmap.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_structfile.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_input.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_inputkeys.h" />
+    <ClInclude Include="..\include\HoeGame\lua_script.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_benchmark.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_mem.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_timer.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_utils.h" />
+    <ClInclude Include="..\include\HoeGame\bassmod.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_config.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_settings.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_ai.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_adventure.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_console.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_game.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_music.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_object.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_scene.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_vars.h" />
+    <ClInclude Include="..\src\StdAfx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\lang_parser.l" />
+    <None Include="..\src\structfile_parser.l" />
+    <None Include="..\src\config_parser.l" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\HoeCore\Win32\HoeCore.vcxproj">
+      <Project>{02382848-c357-45e3-bfaa-bcb7b197c6f6}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

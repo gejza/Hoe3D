@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{fef89af3-541c-4ffb-a7ef-fe0b564fb9c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="strategy">
+      <UniqueIdentifier>{0a06b1f4-55fd-4245-95c0-3c60fcf5f460}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lang">
+      <UniqueIdentifier>{02de0f73-bdf6-4ead-9df4-9be42fe788e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="app">
+      <UniqueIdentifier>{802a2f0f-96c0-4912-bfd9-45bbbe9994a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2d">
+      <UniqueIdentifier>{5bb41013-2a4f-4169-be63-9c96183caa92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="input">
+      <UniqueIdentifier>{a7a7907e-3af5-413f-9403-6b61b8d63d99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="fs">
+      <UniqueIdentifier>{f54814ae-a600-43b7-a084-82ff2d070cf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script">
+      <UniqueIdentifier>{7220a74e-5b27-4421-abfb-ff3af803fdcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{05d75f17-62c4-462e-b73b-0f497773e4f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound &amp; Music">
+      <UniqueIdentifier>{2e5d721d-47b8-4dd4-b91d-7f2e8719f1a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Config">
+      <UniqueIdentifier>{f711bdc9-0ebf-4df8-834e-9964fd453757}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated">
+      <UniqueIdentifier>{8594bcdc-abcb-4690-9ccc-b50f31b8038f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI">
+      <UniqueIdentifier>{e7c7738c-e318-4fd5-a951-60330a3a9f2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="adventure">
+      <UniqueIdentifier>{161c8494-d0a3-4880-9275-dbceb7e9a6ee}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\hoe_engine.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_view.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_land.cpp">
+      <Filter>strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_strategy.cpp">
+      <Filter>strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_stratmap.cpp">
+      <Filter>strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_lang.cpp">
+      <Filter>lang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_app.cpp">
+      <Filter>app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_baseapp.cpp">
+      <Filter>app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_linux.cpp">
+      <Filter>app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_mobile.cpp">
+      <Filter>app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_win32.cpp">
+      <Filter>app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_wx.cpp">
+      <Filter>app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_figure2d.cpp">
+      <Filter>2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_gui.cpp">
+      <Filter>2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_input.cpp">
+      <Filter>input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_inputkeys.cpp">
+      <Filter>input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_fs.cpp">
+      <Filter>fs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_resource_mgr.cpp">
+      <Filter>fs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_structfile.cpp">
+      <Filter>fs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lua_script.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_benchmark.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_mem.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_timer.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_utils.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_music.cpp">
+      <Filter>Sound &amp; Music</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_config.cpp">
+      <Filter>Config</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_settings.cpp">
+      <Filter>Config</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_vars.cpp">
+      <Filter>Config</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_ai.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_adventure.cpp">
+      <Filter>adventure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hoe_console.cpp" />
+    <ClCompile Include="..\src\hoe_scene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\HoeGame\hoe_engine.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_view.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_land.h">
+      <Filter>strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_strategy.h">
+      <Filter>strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_lang.h">
+      <Filter>lang</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_app.h">
+      <Filter>app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_baseapp.h">
+      <Filter>app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_linux.h">
+      <Filter>app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_macosx.h">
+      <Filter>app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_mobile.h">
+      <Filter>app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_win32.h">
+      <Filter>app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_wx.h">
+      <Filter>app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_figure2d.h">
+      <Filter>2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_gui.h">
+      <Filter>2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_fs.h">
+      <Filter>fs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_resource_mgr.h">
+      <Filter>fs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_stratmap.h">
+      <Filter>fs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_structfile.h">
+      <Filter>fs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_input.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_inputkeys.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\lua_script.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_benchmark.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_mem.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_timer.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_utils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\bassmod.h">
+      <Filter>Sound &amp; Music</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_config.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_settings.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_ai.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_adventure.h">
+      <Filter>adventure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoeGame\hoe_console.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_game.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_music.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_object.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_scene.h" />
+    <ClInclude Include="..\include\HoeGame\hoe_vars.h" />
+    <ClInclude Include="..\src\StdAfx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\lang_parser.l">
+      <Filter>lang</Filter>
+    </None>
+    <None Include="..\src\structfile_parser.l">
+      <Filter>fs</Filter>
+    </None>
+    <None Include="..\src\config_parser.l">
+      <Filter>Config</Filter>
+    </None>
+  </ItemGroup>
+</Project>
