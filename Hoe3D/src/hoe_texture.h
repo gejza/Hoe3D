@@ -20,7 +20,7 @@ public:
 		int32 size;
 	};
 protected:
-	//SysTexture m_texture;
+	SysTexture m_texture;
 	HoeCore::String name;
 	uint width;
 	uint height;

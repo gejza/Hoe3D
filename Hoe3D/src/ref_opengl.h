@@ -19,7 +19,7 @@
 #ifdef _LINUX
 #include <GL/glx.h>
 #include <X11/extensions/xf86vmode.h>
-#include <X11/extensions/xf86dga.h>
+#include <X11/extensions/Xxf86dga.h>
 #endif 
 #endif
 
