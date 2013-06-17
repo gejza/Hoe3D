@@ -20,7 +20,7 @@
 #include "hoe_console.h"
 #include "hoe_vars.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 extern IHoeEngine * g_hoeengine; /** < Ukazatel na engine */
 
@@ -100,7 +100,7 @@ public:
 	IHoeEngineInfo * GetInfo() { return m_info; }
 };
 
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _HOE_ENGINE_H_
 

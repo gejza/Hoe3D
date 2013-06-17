@@ -6,7 +6,7 @@
 #include <HoeCore/hoe_universal.h>
 #include <HoeCore/hoe_string.h>
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 namespace Gui {
 	class Base;
@@ -214,7 +214,7 @@ public:
 };
 
 } // namespace Gui
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _HOE_GUI_UTILS_H_
 

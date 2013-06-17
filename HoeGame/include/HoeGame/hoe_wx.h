@@ -4,7 +4,7 @@
 
 #include "hoe_game.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 namespace wx {
 
@@ -44,7 +44,7 @@ public:
 };
 
 } // namespace wx
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _HOE_WX_H_
 

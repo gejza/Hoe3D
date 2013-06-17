@@ -3,7 +3,7 @@
 #include <hoe3d.h>
 #include "../include/HoeGame/hoe_wx.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 namespace wx {
 
 HwndTable Dialog::s_hwnds;
@@ -91,5 +91,5 @@ INT_PTR CALLBACK Dialog::DialogProc(HWND hwndDlg,UINT uMsg,WPARAM wParam,LPARAM 
 }
 
 } // namespace wx
-END_HOEGAME
+} // namespace HoeGame
 

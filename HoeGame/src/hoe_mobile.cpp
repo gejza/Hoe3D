@@ -3,7 +3,7 @@
 #include "../include/HoeGame/hoe_mobile.h"
 #include "../include/HoeGame/hoe_engine.h"
 
-BEGIN_HOEGAME 
+namespace HoeGame { 
 
 
 HoeMobile::HoeMobile(HOE_INSTANCE hInst)/* : HoeBaseApp()*/
@@ -192,7 +192,7 @@ LRESULT CALLBACK HoeMobile::MsgProc (HWND hwnd,UINT message, WPARAM wParam, LPAR
 }
 
 
-END_HOEGAME
+} // namespace HoeGame
 
 extern "C" {
 // facked functions

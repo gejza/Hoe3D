@@ -6,7 +6,7 @@
 #include "hoe_baseapp.h"
 #include "hoe_console.h"
 
-BEGIN_HOEGAME 
+namespace HoeGame { 
 
 class HoeMacOsX : public HoeBaseApp
 {
@@ -39,7 +39,7 @@ public:
 	virtual int ShowMsg(const char * caption, const char *text) {}
 };
 
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _HOE_GAME_MACOSX_H_
 

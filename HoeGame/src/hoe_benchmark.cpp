@@ -2,7 +2,7 @@
 #include "StdAfx.h"
 #include "../include/HoeGame/hoe_benchmark.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 void Bench::Start(const tchar * name)
 {
@@ -30,5 +30,5 @@ void Bench::End(int num)
 
 
 
-END_HOEGAME
+} // namespace HoeGame
 

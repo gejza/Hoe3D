@@ -2,7 +2,7 @@
 #include "StdAfx.h"
 #include "../include/HoeGame/hoe_baseapp.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 HoeBaseApp * HoeBaseApp::this_ = NULL;
 
@@ -12,5 +12,5 @@ HoeBaseApp::HoeBaseApp()
 	this_ = this;
 }
 
-END_HOEGAME
+} // namespace HoeGame
 

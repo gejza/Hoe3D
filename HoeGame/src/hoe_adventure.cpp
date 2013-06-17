@@ -4,7 +4,7 @@
 #include "../include/HoeGame/hoe_engine.h"
 #include "../include/HoeGame/hoe_structfile.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 namespace Adventure {
 
 // klikaci objekty
@@ -140,5 +140,5 @@ loaderror:
 }
 
 }; // Adventure
-END_HOEGAME
+} // namespace HoeGame
 

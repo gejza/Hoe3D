@@ -6,7 +6,7 @@
 #include "hoe_baseapp.h"
 #include "hoe_console.h"
 
-BEGIN_HOEGAME 
+namespace HoeGame { 
 
 class HoeLinux : public HoeBaseApp
 {
@@ -38,7 +38,7 @@ public:
 	virtual int ShowMsg(const tchar * caption, const tchar *text) {}
 };
 
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _HOE_GAME_WIN32_H_
 

@@ -5,7 +5,7 @@
 #include <hoefs.h>
 #include "hoe_game.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 #ifdef _WIN32
 typedef HANDLE HoeFileHandle;
@@ -93,7 +93,7 @@ public:
 	bool GetLine(char * buff, size_t size);
 };
 
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _BASE_HOE_FS_H_
 

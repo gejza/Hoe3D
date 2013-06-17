@@ -6,7 +6,7 @@ extern "C" {
 #include "iniparser.h"
 }
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 Settings::Settings(const char * config_file)
 {
@@ -67,5 +67,5 @@ bool Settings::GetBool(const char * name,bool def)
 	return iniparser_getboolean(reinterpret_cast<dictionary *>(ini), (char*)name, def) != 0;
 }
 
-END_HOEGAME
+} // namespace HoeGame
 

@@ -31,15 +31,14 @@ static const char * GetLogname()
 #ifdef _WIN32
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPTSTR lpCmdLine,int nCmdShow)
 {
-	/*SetRootFromInstance(hInstance);
+	//SetRootFromInstance(hInstance);
 
 	Console con;
 	con.SetFileLogging(GetLogname());
-	//ConfigVars config;
-	//config.Load("tutorials.conf");
+	HoeGame::ConfigVars config;
+	config.Load("tutorials.conf");
 
-	return _hoemain(hInstance,&con);*/
-	return 0;
+	return _hoemain(hInstance,&con);
 }
 
 #else

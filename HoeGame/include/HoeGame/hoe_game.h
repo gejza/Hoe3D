@@ -30,9 +30,6 @@ typedef void * HOE_LIBRARY;
 typedef void* HOE_INSTANCE;
 #endif // _MACOSX
 
-#define BEGIN_HOEGAME namespace HoeGame { 
-#define END_HOEGAME  } // namespace HoeGame
-
 #define HOEGAMESDK "HoeGame v1.0"
 
 #define TRACET(text) fprintf(stderr,"trace point: %s on %s(%d) \n",text, __FILE__, __LINE__);

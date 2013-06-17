@@ -10,7 +10,7 @@ extern char *yyobjecttext;
 extern int yyobjectleng;
 extern int yyobjectlineno;
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 static int lex()
 {
@@ -261,6 +261,6 @@ void ObjectFileWriter::WriteLevel()
 			(m_level-l) > 10 ? 10:(m_level-l), m_file);
 }
 
-END_HOEGAME
+} // namespace HoeGame
 
 

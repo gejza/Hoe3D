@@ -9,7 +9,7 @@ int config_load(FILE * f);
 int config_parse(char ** text);
 }
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 Config::Config()
 {
@@ -336,4 +336,4 @@ void ConfigVars::PushVar(const tchar * varname)
 		BaseConsole::Printf("Warning: Unknown option %s", varname);
 }
 
-END_HOEGAME
+} // namespace HoeGame

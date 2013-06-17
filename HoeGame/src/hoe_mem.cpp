@@ -3,7 +3,7 @@
 #include "../include/HoeGame/hoe_mem.h"
 
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 Mem::Mem(dword hashsize)
 {
@@ -69,6 +69,6 @@ bool Mem::MemTest()
 	return true;
 }
 
-END_HOEGAME
+} // namespace HoeGame
 
 

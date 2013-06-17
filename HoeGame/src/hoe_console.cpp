@@ -5,7 +5,7 @@
 #include "../include/HoeGame/hoe_console.h"
 #include "../include/HoeGame/hoe_app.h"
 
-BEGIN_HOEGAME 
+namespace HoeGame { 
 
 #ifdef _UNICODE
 #define strlen wcslen
@@ -332,7 +332,7 @@ int GuiConsole::c_closeconsole(int argc, const tchar * argv[], void * param)
 
 }
 
-END_HOEGAME
+} // namespace HoeGame
 
 
 

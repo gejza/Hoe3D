@@ -5,7 +5,7 @@
 #include "hoe_game.h"
 #include "hoe_console.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 class ResourceMgr;
 class Lang;
@@ -182,7 +182,7 @@ private:
 };
 
 
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _HOE_LUA_SCRIPT_H_
 

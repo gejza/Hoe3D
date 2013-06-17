@@ -2,7 +2,7 @@
 #include "StdAfx.h"
 #include "../include/HoeGame/hoe_win32.h"
 
-BEGIN_HOEGAME 
+namespace HoeGame { 
 
 HoeWin32::HoeWin32(HOE_INSTANCE hInst)/* : HoeBaseApp()*/
 {
@@ -213,4 +213,4 @@ LRESULT CALLBACK HoeWin32::MsgProc (HWND hwnd,UINT message, WPARAM wParam, LPARA
 }
 
 
-END_HOEGAME
+} // namespace HoeGame

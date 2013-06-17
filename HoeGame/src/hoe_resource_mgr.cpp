@@ -3,7 +3,7 @@
 #include "../include/HoeGame/hoe_resource_mgr.h"
 #include "../include/HoeGame/hoe_app.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 ResourceMgr::ResourceMgr()
 {
@@ -79,4 +79,4 @@ IHoeResource * ResourceMgr::MissingResource(int id)
 	return NULL;
 }
 
-END_HOEGAME
+} // namespace HoeGame

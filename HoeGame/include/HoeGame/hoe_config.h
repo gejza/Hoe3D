@@ -5,7 +5,7 @@
 #include "hoe_game.h"
 #include "hoe_fs.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 class CVar;
 
@@ -48,7 +48,7 @@ public:
 	void PushVar(const tchar * varname);
 };
 
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _HOE_GAME_CONFIG_H_
 

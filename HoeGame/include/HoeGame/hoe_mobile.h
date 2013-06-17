@@ -6,7 +6,7 @@
 #include "hoe_baseapp.h"
 #include "hoe_console.h"
 
-BEGIN_HOEGAME 
+namespace HoeGame { 
 
 class HoeMobile : public HoeBaseApp
 {
@@ -44,7 +44,7 @@ public:
 	static LRESULT CALLBACK WndProc (HWND, UINT, WPARAM, LPARAM);
 };
 
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _HOE_GAME_WIN32_H_
 

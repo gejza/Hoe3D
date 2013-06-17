@@ -1,11 +1,11 @@
 
 #include "StdAfx.h"
-#include "../include/hoe_fs.h"
-#include "../include/hoe_console.h"
+#include "../include/HoeGame/hoe_fs.h"
+#include "../include/HoeGame/hoe_console.h"
 #include "../../Hoe3D/include/hfmt/hres_file.h"
-#include "../include/hoe_utils.h"
+#include "../include/HoeGame/hoe_utils.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 
 uint HoeFile::idcounter = 0;
@@ -405,4 +405,4 @@ bool TextFile::GetLine(char * buff, size_t size)
 	return true;
 }
 
-END_HOEGAME
+} // namespace HoeGame

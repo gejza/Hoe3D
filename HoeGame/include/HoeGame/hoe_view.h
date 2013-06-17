@@ -5,7 +5,7 @@
 #include "hoe_game.h"
 #include "hoe_strategy.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 class View
 {
@@ -130,7 +130,7 @@ public:
 	bool KeyDown(int);
 };
 
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _HOEGAME_VIEW_H_
 

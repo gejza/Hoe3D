@@ -21,7 +21,7 @@ IDirect3DDevice9 * RefD3D9::m_Dev = NULL;
 
 RefD3D9::RefD3D9()
 {
-	Con_Print("------ Direct X 9.0 ------");
+	Con_Print(T("------ Direct X 9.0 ------"));
 	m_pD3D = Direct3DCreate9(D3D_SDK_VERSION);
 
 	m_Adapter = D3DADAPTER_DEFAULT;
@@ -51,7 +51,7 @@ bool RefD3D9::Init(THoeInitSettings * his)
 	hRes = m_pD3D->GetAdapterIdentifier(m_Adapter,0,&ai);
 	if (hRes == D3DERR_INVALIDCALL)
 	{
-		Con_Print("IDirect3D9::GetAdapterIdentifier failed");
+		Con_Print(T("IDirect3D9::GetAdapterIdentifier failed"));
 		return false;
 	}
 	Con_Print("%s %s %s",ai.DeviceName,ai.Driver,ai.Description);
@@ -59,7 +59,7 @@ bool RefD3D9::Init(THoeInitSettings * his)
     hRes = m_pD3D->CheckDeviceType(m_Adapter,D3DDEVTYPE_HAL,D3DFMT_X8R8G8B8,D3DFMT_X8R8G8B8,FALSE);
 	if (hRes == D3DERR_INVALIDCALL)
 	{
-		Con_Print("HAL on adapter %s not supported!",m_Adapter);
+		Con_Print(T("HAL on adapter %s not supported!"),m_Adapter);
 		return false;
 	}
 

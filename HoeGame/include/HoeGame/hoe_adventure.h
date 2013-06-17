@@ -5,7 +5,7 @@
 #include "hoe_object.h"
 #include "hoe_view.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 namespace Adventure {
 
 class Kulission : public BaseObject
@@ -32,7 +32,7 @@ public:
 };
 
 };
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _HOE_ADVENTURE_H_
 

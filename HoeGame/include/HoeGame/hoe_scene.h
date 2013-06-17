@@ -4,7 +4,7 @@
 
 #include "hoe_figure2d.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 class GuiConsole;
 
@@ -17,7 +17,7 @@ public:
 	virtual void OnUnset();
 };
 
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _HOE_SCENE_H_
 

@@ -5,14 +5,14 @@
 #include "hoe_game.h"
 #include <HoeCore/hoe_math_ext.h>
 
-BEGIN_HOEGAME
+namespace HoeGame {
 namespace AI {
 
 
 
 
 }
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _HOE_GAME_AI_H_
 

@@ -6,7 +6,7 @@
 #endif
 #include "../include/HoeGame/hoe_music.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 ////////////////////////////////////////////////////
 //	HoeMusic_Module
@@ -195,4 +195,4 @@ void HoeMusic::Stop(){
 }
 ////////////////////////////////////////////////////
 
-END_HOEGAME
+} // namespace HoeGame

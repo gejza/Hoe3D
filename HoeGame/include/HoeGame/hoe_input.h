@@ -4,7 +4,7 @@
 
 #include "hoe_game.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 class KeyboardStdInput : public XHoeKeyboard
 {
@@ -48,7 +48,7 @@ public:
 	bool IsRightButtonDown() { return m_mouserightdown; }
 };
 
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _HOE_GAME_INPUT_H_
 

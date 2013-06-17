@@ -4,7 +4,7 @@
 
 #include "hoe_game.h"
 
-BEGIN_HOEGAME 
+namespace HoeGame { 
 
 class HoeBaseApp
 {
@@ -24,7 +24,7 @@ public:
 #define GET_THIS(app) ((app*)(app::this_))
 
 
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _HOE_BASE_APP_H_
 

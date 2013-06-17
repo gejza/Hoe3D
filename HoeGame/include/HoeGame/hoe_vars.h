@@ -5,7 +5,7 @@
 #include <HoeCore/hoe_string.h>
 #include "hoe_game.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 class CVarValue : public THoeVarValue
 {
@@ -77,7 +77,7 @@ public:
 	static int c_setvar(int argc, const tchar * argv[], void * param);
 };
 
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _HOE_GAME_VARS_H_
 

@@ -3,7 +3,7 @@
 #include "../include/HoeGame/hoe_vars.h"
 #include "../include/HoeGame/lua_script.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 THoeVar * CVar::staticVars;
 HoeCore::String_s<1024> CVar::lastError;
@@ -578,4 +578,4 @@ int CVar::l_getvar(lua_State * L)
 
 #endif
 
-END_HOEGAME
+} // namespace HoeGame

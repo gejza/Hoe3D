@@ -5,7 +5,7 @@
 #include <hoe3d.h>
 #include "hoe_game.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 class Bench
 {
@@ -15,7 +15,7 @@ public:
 	void End(int num);
 };
 
-END_HOEGAME
+} // namespace HoeGame
 
 
 #endif // _HOEGAME_BENCHMARK_H_

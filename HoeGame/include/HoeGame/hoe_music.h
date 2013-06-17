@@ -15,7 +15,7 @@ typedef unsigned long DWORD;
 typedef DWORD HSYNC;		// synchronizer handle 
 #endif
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 typedef DWORD HSYNC;
 
@@ -72,7 +72,7 @@ public:
 	void setFactor(float factor);
 };
 
-END_HOEGAME
+} // namespace HoeGame
 
 
 #endif

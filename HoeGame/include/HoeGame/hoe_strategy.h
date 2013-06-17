@@ -4,7 +4,7 @@
 
 #include "hoe_object.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 namespace Strategy {
 
 class StgObject : public BaseObject
@@ -32,7 +32,7 @@ public:
 };
 
 };
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _HOE_STRATEGY_H_
 

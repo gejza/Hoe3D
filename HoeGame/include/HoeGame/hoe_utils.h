@@ -4,7 +4,7 @@
 
 #include "hoe_game.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 void RemoveEndLine(char * line);
 
@@ -25,7 +25,7 @@ LONG WINAPI ExpFilter(EXCEPTION_POINTERS* pExp, DWORD dwExpCode);
 #define END_TRY(code)
 #endif
 
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _HOE_GAME_UTILS_H_
 

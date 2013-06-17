@@ -1,4 +1,3 @@
-r
 /**
    @file    hoe_structfile.h
    @date    Apr 2007
@@ -14,7 +13,7 @@ r
 #include "hoe_fs.h"
 #include "hoe_utils.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 class Property
 {
@@ -161,7 +160,7 @@ public:
 	void AddVector(const char * name, float a1,float a2,float a3,float a4);
 };
 
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _HOE_STRUCT_FILE_H_
 

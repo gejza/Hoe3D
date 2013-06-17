@@ -28,6 +28,7 @@
 
 #include <HoeCore/hoe_stream.h>
 #include <HoeGame/hoe_app.h>
+#include <HoeGame/hoe_config.h>
 #include <HoeResource/resmgr.h>
 
 extern const tchar * g_TutorialName;

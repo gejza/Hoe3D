@@ -5,7 +5,7 @@
 #include <hoe3d.h>
 #include "hoe_game.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 class StopWatch
 {
@@ -67,7 +67,7 @@ public:
 
 
 
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _HOEGAME_TIMER_H_
 

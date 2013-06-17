@@ -4,7 +4,7 @@
 
 #include "hoe_game.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 class ResourceMgr
 {
@@ -33,6 +33,6 @@ protected:
 	virtual IHoeResource * MissingResource(int id);
 };
 
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _RESOURCE_MGR_H_

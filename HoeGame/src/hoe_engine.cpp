@@ -3,7 +3,7 @@
 #include "../include/HoeGame/hoe_engine.h"
 
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 IHoeEngine * g_hoeengine = NULL;
 
@@ -159,7 +159,7 @@ void HoeEngineInfo::Unload()
 	m_info = NULL;
 }
 
-END_HOEGAME
+} // namespace HoeGame
 
 /*#ifndef STATIC_ENGINE
 vfloat SysFloatTime()

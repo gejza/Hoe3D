@@ -2,7 +2,7 @@
 #include "StdAfx.h"
 #include "../include/HoeGame/hoe_app.h"
 
-BEGIN_HOEGAME 
+namespace HoeGame { 
 
 CVar HoeApp::m_width(T("width"), 240, 0);
 CVar HoeApp::m_height(T("height"), 320, 0);
@@ -267,5 +267,5 @@ void HoeApp::DestroyEngine()
 	m_engine.Destroy(); 
 }
 
-END_HOEGAME 
+} // namespace HoeGame 
 

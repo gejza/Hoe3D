@@ -12,7 +12,7 @@
 #include "hoe_game.h"
 #include "hoe_gui.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 class HoeApp;
 
@@ -134,7 +134,7 @@ public:
 	static int c_closeconsole(int argc, const tchar * argv[], void * param);
 };
 
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _HOE_CONSOLE_H_
 

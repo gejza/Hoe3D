@@ -2,7 +2,7 @@
 #include "StdAfx.h"
 #include "../include/HoeGame/hoe_input.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 KeyboardStdInput::KeyboardStdInput()
 {
@@ -81,5 +81,5 @@ void MouseStdInput::_ButtonDown(int par)
 	}
 }
 
-END_HOEGAME
+} // namespace HoeGame
 

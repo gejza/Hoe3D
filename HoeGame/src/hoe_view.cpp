@@ -2,7 +2,7 @@
 #include "StdAfx.h"
 #include "../include/HoeGame/hoe_view.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 View::View()
 {
@@ -577,4 +577,4 @@ void StrightCameraViewCtrl::_KeyDown(int key)
 	KeyDown(key);
 }
 
-END_HOEGAME
+} // namespace HoeGame

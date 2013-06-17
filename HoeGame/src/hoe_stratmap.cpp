@@ -2,7 +2,7 @@
 #include "StdAfx.h"
 #include "../include/HoeGame/hoe_stratmap.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 namespace Strategy {
 
 ////////////////////
@@ -56,5 +56,5 @@ void Map::OnAddObject(StgObject * obj)
 }
 
 };
-END_HOEGAME
+} // namespace HoeGame
 

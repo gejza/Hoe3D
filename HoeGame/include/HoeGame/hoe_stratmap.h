@@ -6,7 +6,7 @@
 #include "hoe_view.h"
 #include "hoe_strategy.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 namespace Strategy {
 
@@ -31,7 +31,7 @@ public:
 
 };
 
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _HOE_STRATEGY_LEVEL_H_
 

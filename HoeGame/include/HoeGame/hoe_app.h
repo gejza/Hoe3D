@@ -32,7 +32,7 @@
 #endif
 
 
-BEGIN_HOEGAME 
+namespace HoeGame { 
 
 /**
  * @brief Hlavní aplikace
@@ -103,7 +103,7 @@ public:
 };
 
 
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _HOE_GAME_APP_H_
 

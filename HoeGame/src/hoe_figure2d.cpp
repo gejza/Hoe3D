@@ -5,7 +5,7 @@
 #include "../include/HoeGame/hoe_gui.h"
 #include "../include/HoeGame/hoe_app.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 using namespace Gui;
 
@@ -152,6 +152,6 @@ bool Hoe2DFigure::Click(const float x, const float y)
 	return false;
 }
 
-END_HOEGAME
+} // namespace HoeGame
 
 

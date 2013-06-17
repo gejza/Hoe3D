@@ -2,7 +2,7 @@
 #include "StdAfx.h"
 #include "../include/HoeGame/hoe_ai.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 namespace AI {
 
 /*void Path::Find(const HoeMath::Vector2 & s, const HoeMath::Vector2 & f, HoeMath::Polygon2 * p)
@@ -74,7 +74,7 @@ HoeMath::PolygonEx<HoeMath::Vector2v> * CreatePolygon(HoeCore::Set<HoeMath::Segm
 }
 
 }
-END_HOEGAME
+} // namespace HoeGame
 
 
 

@@ -8,7 +8,7 @@ int lang_load(FILE * f);
 int lang_parse(char *buffer);
 }
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 Lang::Lang()
 {
@@ -137,6 +137,6 @@ const char * Lang::GetString(int id)
 	return errmsg;
 }
 
-END_HOEGAME
+} // namespace HoeGame
 
 

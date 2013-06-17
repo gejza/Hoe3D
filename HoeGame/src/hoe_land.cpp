@@ -2,7 +2,7 @@
 #include "StdAfx.h"
 #include "../include/HoeGame/hoe_land.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 void LandPath::Insert(float x, float y, bool virt)
 {
@@ -165,7 +165,7 @@ float Land::Heuristic(const TGraphPoint * from, const TGraphPoint * to)
 #undef TILE
 
 
-END_HOEGAME
+} // namespace HoeGame
 
 
 

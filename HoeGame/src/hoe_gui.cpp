@@ -5,7 +5,7 @@
 #include "../include/HoeGame/hoe_gui.h"
 #include "../include/HoeGame/hoe_engine.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 namespace Gui {
 
 Item::Item()
@@ -556,5 +556,5 @@ void ButtonUsr::Draw(IHoe2D * h2d)
 }
 
 } // namespace Gui
-END_HOEGAME
+} // namespace HoeGame
 

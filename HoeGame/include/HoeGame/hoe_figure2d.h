@@ -16,7 +16,7 @@
 #include "hoe_utils.h"
 #include "hoe_gui.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 class FigureFile : public TextFile
 {
@@ -68,7 +68,7 @@ public:
 
 
 
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _HOE_FIGURE_2D_H_
 

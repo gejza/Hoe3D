@@ -5,7 +5,7 @@
 #include <hoe3d.h>
 #include "hoe_game.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 class Settings
 {
@@ -23,7 +23,7 @@ public:
 
 };
 
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _SETTINGS_H_
 

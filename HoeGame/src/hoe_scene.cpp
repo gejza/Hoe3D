@@ -3,7 +3,7 @@
 #include "../include/HoeGame/hoe_scene.h"
 
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 void Scene::Update(float dtime)
 {
@@ -17,5 +17,5 @@ void Scene::OnUnset()
 {
 }
 
-END_HOEGAME
+} // namespace HoeGame
 

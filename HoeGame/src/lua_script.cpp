@@ -15,10 +15,10 @@ extern "C" {
 #include "../include/HoeGame/lua_script.h"
 #include "../include/HoeGame/hoe_resource_mgr.h"
 //#include "../include/hoe_lang.h"
-#include "../include/hoe_fs.h"
-#include "../include/hoe_app.h"
+#include "../include/HoeGame/hoe_fs.h"
+#include "../include/HoeGame/hoe_app.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 LuaScript * LuaScript::_this = NULL;
 
@@ -911,7 +911,7 @@ int LuaScript::getlang(lua_State * L)
 } */
 
 
-END_HOEGAME
+} // namespace HoeGame
 
 
 

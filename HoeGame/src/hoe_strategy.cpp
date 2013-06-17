@@ -3,7 +3,7 @@
 #include "../include/HoeGame/hoe_strategy.h"
 #include "../include/HoeGame/hoe_stratmap.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 namespace Strategy {
 
 StgObject::StgObject(IHoeScene * scn) : BaseObject(scn)
@@ -63,5 +63,5 @@ void SelectObjContainer::Set(StgObject * obj)
 }
 
 };
-END_HOEGAME
+} // namespace HoeGame
 

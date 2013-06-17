@@ -3,8 +3,6 @@
 #include "../include/HoeGame/hoe_utils.h"
 #include "../include/HoeGame/hoe_console.h"
 
-BEGIN_HOEGAME
-
 #ifdef _WIN32
 #ifndef _WIN32_WCE
 #include <dbghelp.h>
@@ -13,6 +11,8 @@ BEGIN_HOEGAME
 #include <shellapi.h>
 #include <shlobj.h>
 #endif
+
+namespace HoeGame {
 
 #ifdef _LINUX
 #define MAX_PATH 512
@@ -123,4 +123,4 @@ LONG WINAPI ExpFilter(EXCEPTION_POINTERS* pExp, DWORD dwExpCode)
 
 #endif
 
-END_HOEGAME
+} // namespace HoeGame

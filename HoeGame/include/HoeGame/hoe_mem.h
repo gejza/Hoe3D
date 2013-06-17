@@ -4,7 +4,7 @@
 
 #include "hoe_game.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 
 
@@ -40,7 +40,7 @@ public:
 	static bool MemTest();
 };
 
-END_HOEGAME
+} // namespace HoeGame
 
 #endif // _HOE_GAME_MEM_H_
 

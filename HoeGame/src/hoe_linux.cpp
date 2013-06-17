@@ -2,7 +2,7 @@
 #include "StdAfx.h"
 #include "../include/HoeGame/hoe_linux.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 HoeLinux::HoeLinux()
 {
@@ -114,6 +114,6 @@ void HoeLinux::HandleError()
 //	m_engine.Destroy(); 
 //}
 
-END_HOEGAME
+} // namespace HoeGame
 
 

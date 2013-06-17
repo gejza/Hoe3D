@@ -90,18 +90,19 @@
     </ClCompile>
     <ClCompile Include="..\src\hoe_win32.cpp" />
     <ClCompile Include="..\src\hoe_wx.cpp" />
-    <ClCompile Include="..\src\hoe_figure2d.cpp" />
+    <ClCompile Include="..\src\hoe_figure2d.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\src\hoe_gui.cpp" />
     <ClCompile Include="..\src\hoe_input.cpp" />
     <ClCompile Include="..\src\hoe_inputkeys.cpp" />
     <ClCompile Include="..\src\hoe_fs.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\src\hoe_resource_mgr.cpp" />
     <ClCompile Include="..\src\hoe_structfile.cpp" />
     <ClCompile Include="..\src\lua_script.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\src\hoe_benchmark.cpp" />
@@ -165,10 +166,6 @@
     <None Include="..\src\config_parser.l" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Hoe3D\Win32\Hoe2D.vcxproj">
-      <Project>{8ab98612-b0e0-4261-b467-be7485d6ea3f}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
     <ProjectReference Include="..\..\HoeCore\Win32\HoeCore.vcxproj">
       <Project>{02382848-c357-45e3-bfaa-bcb7b197c6f6}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>

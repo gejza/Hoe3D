@@ -9,8 +9,7 @@
 
 #ifndef _HOE_INTERFACES_
 #define _HOE_INTERFACES_
-
-#include "HoeCore/hoe_types.h"
+#pragma once
 
 #define HOE_INTERFACE_VER  97
 

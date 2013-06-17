@@ -3,7 +3,7 @@
 #include "../include/HoeGame/hoe_timer.h"
 #include "../include/HoeGame/hoe_vars.h"
 
-BEGIN_HOEGAME
+namespace HoeGame {
 
 Timer::Timer()
 {
@@ -120,5 +120,5 @@ int CTimer::Update(const float t)
 	return passes;
 }
 
-END_HOEGAME
+} // namespace HoeGame
 
