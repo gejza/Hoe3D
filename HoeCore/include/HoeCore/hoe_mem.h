@@ -2,6 +2,7 @@
 #ifndef _HOE_CORE_MEM_H_
 #define _HOE_CORE_MEM_H_
 
+#include <new>
 #include <HoeCore/hoe_types.h>
 
 namespace HoeCore {
@@ -118,9 +119,7 @@ public:
 } // namespace HoeCore
 
 void * operator new(size_t, HoeCore::MemoryPool& pool);
-void * operator new(size_t, void *);
 void * operator new[](size_t, HoeCore::MemoryPool& pool);
-void * operator new[](size_t, void *);
 // empty delete operators
 void operator delete( void* , HoeCore::MemoryPool& pool );
 

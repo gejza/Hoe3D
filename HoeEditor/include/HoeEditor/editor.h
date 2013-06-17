@@ -13,7 +13,7 @@ class wxPanel;
 class XHoeFS;
 
 // musi byt nadefinovano v aplikaci
-extern const char * EditorName; 
+extern const tchar * EditorName; 
 
 namespace HoeEditor {
 

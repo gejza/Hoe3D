@@ -36,9 +36,7 @@
 #include <Carbon/Carbon.h>
 #endif
 
-#ifdef _UNICODE
 #include <wchar.h>
-#endif
 
 #include <assert.h>
 #include <HoeCore/hoe_core.h>

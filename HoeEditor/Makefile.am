@@ -1,6 +1,6 @@
 AUTOMAKE_OPTIONS = subdir-objects
 
-lib_LTLIBRARIES = ../bin/libHoeEditor.la
+lib_LIBRARIES = ../bin/libHoeEditor.a
 #bin_PROGRAMS = ../bin/Hoe3D.so
 
 src/config_parser.c: src/config_parser.l
@@ -11,9 +11,9 @@ src/figurefile_parser.cpp: src/figurefile_parser.l
 	flex -o"src/figurefile_parser.cpp" src/figurefile_parser.l
 	
 
-___bin_libHoeEditor_la_CPPFLAGS = -I../Hoe3D/include -I../HoeGame/include $(WX_CPPFLAGS) $(GTK_CFLAGS) $(WX_CXXFLAGS_ONLY) $(WX_CFLAGS_ONLY)
+___bin_libHoeEditor_a_CPPFLAGS = -I../Hoe3D/include -I../HoeGame/include $(WX_CPPFLAGS) $(GTK_CFLAGS) $(WX_CXXFLAGS_ONLY) $(WX_CFLAGS_ONLY)
 
-___bin_libHoeEditor_la_SOURCES = src/app.cpp \
+___bin_libHoeEditor_a_SOURCES = src/app.cpp \
 src/base_console.cpp src/editor.cpp \
 src/undolist.cpp \
 src/properties.cpp src/utils.cpp \
@@ -21,6 +21,6 @@ src/panels.cpp src/log.cpp
 
 #src/engview.cpp src/editor.cpp src/resources.cpp src/fs.cpp
 
-___bin_libHoeEditor_la_LDFLAGS = -static -lHoeCore -lHoeGame $(WX_LIBS)
+___bin_libHoeEditor_a_LDFLAGS = -static -lHoeCore -lHoeGame $(WX_LIBS)
 
 

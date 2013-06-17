@@ -39,7 +39,9 @@ bool HoeEditor::App::OnInit()
 	{
 		if (i==0)
 		{
-			wxSetWorkingDirectory(HoeUtils::GetFileDir(argv[0]).c_str());
+			//TODO
+			wxString dir = argv[0]; // HoeUtils::GetFileDir(argv[0]);
+			wxSetWorkingDirectory(dir);
 			continue;
 		}
 	}

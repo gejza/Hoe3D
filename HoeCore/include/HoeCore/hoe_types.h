@@ -71,8 +71,9 @@ typedef unsigned long long uint64;
 
 #undef T
 
-#ifdef UNICODE
+#ifdef _UNICODE
 	typedef wchar_t tchar;
+#error Unicode not supported
 #define TWCHAR(text) L ## text
 #define T(a) TWCHAR(a)
 #else
