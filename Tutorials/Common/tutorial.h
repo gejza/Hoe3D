@@ -35,7 +35,7 @@ extern const tchar * g_TutorialName;
 
 class HoeTutorial : public HoeGame::HoeApp, public HoeRes::XResourceMgr
 {
-	HoeGame::HoeEngineDLL m_engine;
+	HoeGame::HoeEngineStatic m_engine;
 public:
 	HoeTutorial(HOE_INSTANCE instance, HoeGame::Console * con);
 	virtual const tchar * GetAppName() { return g_TutorialName; }

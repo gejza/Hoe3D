@@ -1,5 +1,8 @@
 
 #include "StdAfx.h"
+#include "hoe3d.h"
+
+/*
 #include "shared.h"
 #include "utils.h"
 #include "ref.h"
@@ -31,6 +34,16 @@
 #include "scene.h"
 #include "hoe_picture.h"
 #include "unicode.h"
+*/
+
+Hoe3DEngine::Hoe3DEngine(int flags)
+	: HoeEngine(flags), m_rt(HoeRenderTarget::eMain)
+{
+	Con_Print("-- HOE CREATED --");
+}
+
+
+#if 0
 
 // libgw32c.a libz.a  procinfo.lib jpeg_d.lib  flexlib.lib 
 //#pragma comment (lib,"libjpeg.lib")
@@ -453,3 +466,5 @@ LRESULT CALLBACK Hoe3D::WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 	return 0;
 }
 #endif // _WIN32
+
+#endif

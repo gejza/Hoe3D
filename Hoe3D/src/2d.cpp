@@ -99,19 +99,19 @@ void Hoe2D::PaintRect(const THoeRect* dest,unsigned long color,bool full)
 	if (full)
 	{
         glBegin(GL_QUADS);// Zaèátek kreslení obdélníkù
-		glVertex2f( l, t);// Levý horní bod
-		glVertex2f( r, t);// Pravý horní bod
-		glVertex2f( r, b);// Pravý dolní bod
-		glVertex2f( l, b);// Levý dolní bod
+		glVertex2f( dest->left, dest->top);// Levý horní bod
+		glVertex2f( dest->right, dest->top);// Pravý horní bod
+		glVertex2f( dest->right, dest->bottom);// Pravý dolní bod
+		glVertex2f( dest->left, dest->bottom);// Levý dolní bod
 		glEnd();// Konec kreslení obdélníkù
 	}
 	else
 	{
 		glBegin(GL_LINES);
-		glVertex2d( l, t);glVertex2d( r, t);
-		glVertex2d( r, t);glVertex2d( r, b);
-		glVertex2d( r, b);glVertex2d( l, b);
-		glVertex2d( l, b);glVertex2d( l, t);
+		glVertex2d( dest->left, dest->top);glVertex2d( dest->right, dest->top);
+		glVertex2d( dest->right, dest->top);glVertex2d( dest->right, dest->bottom);
+		glVertex2d( dest->right, dest->bottom);glVertex2d( dest->left, dest->bottom);
+		glVertex2d( dest->left, dest->bottom);glVertex2d( dest->left, dest->top);
 		glEnd();
 	}
 #endif // _HOE_OPENGL_
@@ -222,7 +222,7 @@ void Hoe2D::Blt(IHoePicture * pic,const THoeRect * dest,const THoeRect * src)
 	//GetStates()->EnableTexture();
 	//GetStates()->Setup2DAlphaTest();
 #ifndef HOE2D
-	GetTextureSystem()->SetTexture(0,reinterpret_cast<HoePicture *>(pic)->GetSource());
+	GetTextureSystem()->SetTexture(0,(reinterpret_cast<HoePicture *>(pic))->m_surf);
 #endif
 #ifdef _HOE_OPENGL_
 	glColor4f(1.f,1.f,1.f,1.f);
