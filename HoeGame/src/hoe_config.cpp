@@ -4,10 +4,10 @@
 #include "../include/HoeGame/hoe_vars.h"
 #include "../include/HoeGame/hoe_console.h"
 
-extern "C" {
+//extern "C" {
 int config_load(FILE * f);
 int config_parse(char ** text);
-}
+//}
 
 namespace HoeGame {
 

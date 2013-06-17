@@ -33,20 +33,17 @@
 
 extern const tchar * g_TutorialName;
 
-class ResMgr : public HoeRes::XResourceMgr
-{
-public:
-	virtual HoeCore::ReadStream * GetResource(const tchar* name, const tchar** ns = NULL);
-};
-
-class HoeTutorial : public HoeGame::HoeApp
+class HoeTutorial : public HoeGame::HoeApp, public HoeRes::XResourceMgr
 {
 	HoeGame::HoeEngineDLL m_engine;
-	ResMgr m_res;
 public:
 	HoeTutorial(HOE_INSTANCE instance, HoeGame::Console * con);
 	virtual const tchar * GetAppName() { return g_TutorialName; }
 	virtual bool InitTutorial(HOE_TYPE_SCENE ts);
+	virtual HoeCore::ReadStream * GetResource(const tchar* name, const tchar** ns = NULL)
+	{
+		return NULL;
+	}
 };
 
 #endif // _HOE_TUTORIAL_APP_H_

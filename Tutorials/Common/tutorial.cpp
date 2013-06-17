@@ -4,7 +4,7 @@
 using namespace HoeGame;
 
 HoeTutorial::HoeTutorial(HOE_INSTANCE instance, HoeGame::Console * con)
-	: HoeApp(instance, m_engine, con, &m_res)
+	: HoeApp(instance, m_engine, con, this)
 {
 }
 
