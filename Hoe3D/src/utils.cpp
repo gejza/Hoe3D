@@ -174,13 +174,13 @@ void glerr(const char * file, dword line, const char * fnc, const char *ffnc, in
 		const char * strerr = glstrerror(code);
 		if (strerr)
 		{
-		snprintf(buff, sizeof(buff)-1,
-			"File: %s\nLine: %d\nIn Function: %s\nFunction: %s\nglGetError: %s\nProgram will exit..", file, line, ffnc,fnc, strerr);
+			HoeCore::string::snprintf(buff, sizeof(buff)-1,
+				"File: %s\nLine: %d\nIn Function: %s\nFunction: %s\nglGetError: %s\nProgram will exit..", file, line, ffnc,fnc, strerr);
 		}
 		else
 		{
-		snprintf(buff, sizeof(buff)-1,
-			"File: %s\nLine: %d\nIn Function: %s\nFunction: %s\nglGetError: %x\nProgram will exit..", file, line, ffnc,fnc, (int)code);
+			HoeCore::string::snprintf(buff, sizeof(buff)-1,
+				"File: %s\nLine: %d\nIn Function: %s\nFunction: %s\nglGetError: %x\nProgram will exit..", file, line, ffnc,fnc, (int)code);
 		}
 		Con_Print("glGetError return %x!", (int)code);
 		Con_Print("%s",buff);

@@ -3,7 +3,7 @@
 #include "shared.h"
 #include "utils.h"
 #include "config.h"
-#include "hoe_format.h"
+#include <HoeCore/hoe_format.h>
 #include "../include/hfmt/htex_file.h"
 #include "texture_loader.h"
 #include "texture_converter.h"

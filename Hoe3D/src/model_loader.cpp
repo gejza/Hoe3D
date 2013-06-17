@@ -11,9 +11,9 @@
 #include "texture_system.h"
 #include "material_system.h"
 #include "model_loader.h"
-#include <hoe_math.h>
+#include <HoeCore/hoe_math.h>
 #include "shared.h"
-#include <hoe_log.h>
+#include <HoeCore/hoe_log.h>
 
 
 ModelLoader::ModelLoader(HoeLog * log, int flags)

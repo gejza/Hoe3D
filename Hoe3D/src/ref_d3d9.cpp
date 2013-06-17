@@ -54,7 +54,7 @@ bool RefD3D9::Init(THoeInitSettings * his)
 		Con_Print(T("IDirect3D9::GetAdapterIdentifier failed"));
 		return false;
 	}
-	Con_Print("%s %s %s",ai.DeviceName,ai.Driver,ai.Description);
+	Con_Print(T("%s %s %s"),ai.DeviceName,ai.Driver,ai.Description);
 
     hRes = m_pD3D->CheckDeviceType(m_Adapter,D3DDEVTYPE_HAL,D3DFMT_X8R8G8B8,D3DFMT_X8R8G8B8,FALSE);
 	if (hRes == D3DERR_INVALIDCALL)

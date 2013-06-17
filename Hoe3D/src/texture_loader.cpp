@@ -2,7 +2,7 @@
 #include "StdAfx.h"
 #include "utils.h"
 #include "filesystem.h"
-#include "hoe_format.h"
+#include <HoeCore/hoe_format.h>
 #include "../include/hfmt/htex_file.h"
 #include "shared.h"
 #include "texture_loader.h"

@@ -19,7 +19,7 @@
 
 #include <dsound.h>
 
-#ifdef _WIN32_WINNT
+#ifdef _WIN32_WINNT1
 typedef IDirectSound8 DirectSound;
 typedef IDirectSoundBuffer8 DirectSoundBuffer;
 typedef IDirectSound3DBuffer8 DirectSound3DBuffer;

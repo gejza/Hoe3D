@@ -2,7 +2,7 @@
 #ifndef _TEXTURE_CONVERTER_H_
 #define _TEXTURE_CONVERTER_H_
 
-#include "hoe_format.h"
+#include <HoeCore/hoe_format.h>
 
 /**
  * TextureConverter

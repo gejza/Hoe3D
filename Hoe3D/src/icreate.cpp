@@ -13,7 +13,7 @@
 #include "camera.h"
 #include "hoe_model.h"
 #include "hoe_stream.h"
-#include <hoe_math.h>
+#include <HoeCore/hoe_math.h>
 #include "sound.h"
 #include "states.h"
 #include "hoe_time.h"
@@ -23,7 +23,7 @@
 #include "particle_emitor.h"
 #include "hoe.h"
 #include "hoe_tokens.h"
-#include <hoe_log.h>
+#include <HoeCore/hoe_log.h>
 #include "hoe3d.h"
 #pragma hdrstop
 

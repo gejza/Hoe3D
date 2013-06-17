@@ -114,13 +114,7 @@
     <ClCompile Include="..\src\texture_converter.cpp">
       <Filter>Textures</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\texture_jpg.cpp">
-      <Filter>Textures</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\texture_loader.cpp">
-      <Filter>Textures</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\texture_png.cpp">
       <Filter>Textures</Filter>
     </ClCompile>
     <ClCompile Include="..\src\texture_system.cpp">
@@ -163,9 +157,6 @@
       <Filter>Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\hoefile.cpp">
-      <Filter>Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\resmgr.cpp">
       <Filter>Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\hoe.cpp">
@@ -333,28 +324,16 @@
     <ClInclude Include="..\src\hoe_texture.h">
       <Filter>Textures</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\htex_file.h">
-      <Filter>Textures</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\texture_converter.h">
       <Filter>Textures</Filter>
     </ClInclude>
     <ClInclude Include="..\src\texture_hx.h">
       <Filter>Textures</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\texture_jpg.h">
-      <Filter>Textures</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\texture_loader.h">
       <Filter>Textures</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\texture_png.h">
-      <Filter>Textures</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\texture_system.h">
-      <Filter>Textures</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\tga.h">
       <Filter>Textures</Filter>
     </ClInclude>
     <ClInclude Include="..\src\cmdexec.h">
@@ -403,9 +382,6 @@
       <Filter>Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\hoefile.h">
-      <Filter>Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\resmgr.h">
       <Filter>Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\hoe.h">

@@ -95,7 +95,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugD3D9|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -555,19 +555,16 @@
     <ClCompile Include="..\src\ref_d3dmobile.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugD3D9 (static)|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugD3D9|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugGL|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\src\hoe_texture.cpp" />
     <ClCompile Include="..\src\texture_converter.cpp" />
-    <ClCompile Include="..\src\texture_jpg.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugD3D9 (static)|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugD3D9|Win32'">true</ExcludedFromBuild>
+    <ClCompile Include="..\src\texture_loader.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugGL|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\src\texture_loader.cpp" />
-    <ClCompile Include="..\src\texture_png.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugD3D9 (static)|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugD3D9|Win32'">true</ExcludedFromBuild>
+    <ClCompile Include="..\src\texture_system.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DebugGL|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\src\texture_system.cpp" />
     <ClCompile Include="..\src\cmdexec.cpp" />
     <ClCompile Include="..\src\hoe_format.cpp" />
     <ClCompile Include="..\src\hoe_info.cpp" />
@@ -588,7 +585,6 @@
     <ClCompile Include="..\src\model_loader.cpp" />
     <ClCompile Include="..\src\filesystem.cpp" />
     <ClCompile Include="..\src\hoefile.cpp" />
-    <ClCompile Include="..\src\resmgr.cpp" />
     <ClCompile Include="..\src\hoe.cpp" />
     <ClCompile Include="..\src\hoe3d.cpp" />
     <ClCompile Include="..\src\hoe_main.cpp" />
@@ -694,14 +690,10 @@
     <ClInclude Include="..\src\ref_d3d8.h" />
     <ClInclude Include="..\src\ref_d3dmobile.h" />
     <ClInclude Include="..\src\hoe_texture.h" />
-    <ClInclude Include="..\src\htex_file.h" />
     <ClInclude Include="..\src\texture_converter.h" />
     <ClInclude Include="..\src\texture_hx.h" />
-    <ClInclude Include="..\src\texture_jpg.h" />
     <ClInclude Include="..\src\texture_loader.h" />
-    <ClInclude Include="..\src\texture_png.h" />
     <ClInclude Include="..\src\texture_system.h" />
-    <ClInclude Include="..\src\tga.h" />
     <ClInclude Include="..\src\cmdexec.h" />
     <ClInclude Include="..\src\hoe_format.h" />
     <ClInclude Include="..\src\hoe_info.h" />
@@ -718,7 +710,6 @@
     <ClInclude Include="..\src\model_shader.h" />
     <ClInclude Include="..\src\filesystem.h" />
     <ClInclude Include="..\src\hoefile.h" />
-    <ClInclude Include="..\src\resmgr.h" />
     <ClInclude Include="..\src\hoe.h" />
     <ClInclude Include="..\src\hoe3d.h" />
     <ClInclude Include="..\src\StdAfx.h" />
