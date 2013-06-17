@@ -1,6 +1,6 @@
 
 #include "first_app.h"
-
+#include <HoeResource/resmgr.h>
 
 FirstApp::FirstApp(HOE_INSTANCE instance, HoeGame::Console * con) : HoeTutorial(instance, con)
 {

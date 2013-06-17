@@ -10,8 +10,6 @@
 #include <HoeCore/hoe_types.h>
 #include "hoeinterfaces.h"
 
-#if 0
-
 /// mod pro otevirani souboru
 enum EHoeFileMode
 {
@@ -237,7 +235,6 @@ public:
 
 class XHoeConsole;
 
-#endif
 
 #endif // _HOE_FILE_SYSTEM_H_
 

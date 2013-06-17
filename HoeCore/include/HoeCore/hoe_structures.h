@@ -212,7 +212,7 @@ public:
 		if (this->m_size == this->m_count)
 			this->Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
 		this->m_count++;
-		return *new (sizeof(CC), &this->m_ptr[this->m_count-1]) CC();
+		return *new (&this->m_ptr[this->m_count-1]) CC();
 	}
 	/** Odebrani vsech stejnych objektu */
 	void Remove(CC c)
@@ -583,7 +583,7 @@ public:
 			m_first = tmp;
 		}
 	}
-	uint Count()
+	uint Count() const
 	{
 		uint cnt = 0;
 		for (Iterator it(*this);it;it++)

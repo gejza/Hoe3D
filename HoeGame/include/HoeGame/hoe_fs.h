@@ -7,8 +7,6 @@
 
 BEGIN_HOEGAME
 
-#if 0
-
 #ifdef _WIN32
 typedef HANDLE HoeFileHandle;
 #else
@@ -81,8 +79,6 @@ public:
 	virtual void PrintList();
 
 };
-
-#endif
 
 class TextFile
 {

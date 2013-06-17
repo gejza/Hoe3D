@@ -67,6 +67,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -102,6 +103,9 @@
     <ClInclude Include="..\test\test.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="HoeCore.vcxproj">
+      <Project>{02382848-c357-45e3-bfaa-bcb7b197c6f6}</Project>
+    </ProjectReference>
     <ProjectReference Include="HoeCoreTest.vcxproj">
       <Project>{1bc4abd1-0e6c-4532-b9d5-5f5ae30464f4}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>

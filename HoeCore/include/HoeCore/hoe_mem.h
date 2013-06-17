@@ -2,6 +2,8 @@
 #ifndef _HOE_CORE_MEM_H_
 #define _HOE_CORE_MEM_H_
 
+#include <HoeCore/hoe_types.h>
+
 namespace HoeCore {
 
 /**

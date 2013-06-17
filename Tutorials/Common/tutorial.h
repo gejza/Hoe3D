@@ -26,19 +26,22 @@
 
 #include <assert.h>
 
-#include <hoe_core.h>
-#include <hoe3d.h>
-#include <hoe_core.h>
-#include <hoe_console.h>
-#include <hoe_engine.h>
-#include <hoe_config.h>
-#include <hoe_app.h>
-#include <hoe_utils.h>
+#include <HoeCore/hoe_stream.h>
+#include <HoeGame/hoe_app.h>
+#include <HoeResource/resmgr.h>
 
 extern const tchar * g_TutorialName;
 
+class ResMgr : public HoeRes::XResourceMgr
+{
+public:
+	virtual HoeCore::ReadStream * GetResource(const tchar* name, const tchar** ns = NULL);
+};
+
 class HoeTutorial : public HoeGame::HoeApp
 {
+	HoeGame::HoeEngineDLL m_engine;
+	ResMgr m_res;
 public:
 	HoeTutorial(HOE_INSTANCE instance, HoeGame::Console * con);
 	virtual const tchar * GetAppName() { return g_TutorialName; }

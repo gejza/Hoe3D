@@ -10,7 +10,7 @@
 #ifndef _HOE_INTERFACES_
 #define _HOE_INTERFACES_
 
-#include <HoeCore/hoe_types.h>
+#include "HoeCore/hoe_types.h"
 
 #define HOE_INTERFACE_VER  97
 

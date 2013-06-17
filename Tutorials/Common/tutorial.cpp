@@ -3,7 +3,8 @@
 
 using namespace HoeGame;
 
-HoeTutorial::HoeTutorial(HOE_INSTANCE instance, HoeGame::Console * con) : HoeApp(instance, con)
+HoeTutorial::HoeTutorial(HOE_INSTANCE instance, HoeGame::Console * con)
+	: HoeApp(instance, m_engine, con, &m_res)
 {
 }
 
@@ -13,7 +14,7 @@ bool HoeTutorial::InitTutorial(HOE_TYPE_SCENE ts)
 		return false;
 
 	GetEngine()->SetActiveScene(GetEngine()->CreateScene(ts));
-	HoeGetInfo(GetEngine())->LoadFont(T("../data/font.ttf"),12);
+	GetEngine()->GetInfo()->LoadFont(T("../data/font.ttf"),12);
 
 	return true;
 }
@@ -28,7 +29,7 @@ static const char * GetLogname()
 }
 
 #ifdef _WIN32
-int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPWSTR lpCmdLine,int nCmdShow)
+int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPTSTR lpCmdLine,int nCmdShow)
 {
 	/*SetRootFromInstance(hInstance);
 

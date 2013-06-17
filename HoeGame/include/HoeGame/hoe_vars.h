@@ -2,6 +2,7 @@
 #ifndef _HOE_GAME_VARS_H_
 #define _HOE_GAME_VARS_H_
 
+#include <HoeCore/hoe_string.h>
 #include "hoe_game.h"
 
 BEGIN_HOEGAME
