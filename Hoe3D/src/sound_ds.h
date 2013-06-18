@@ -18,18 +18,12 @@
 #define _HOE_DS8_
 
 #include <dsound.h>
+#pragma comment (lib,"dsound.lib")
 
-#ifdef _WIN32_WINNT1
 typedef IDirectSound8 DirectSound;
 typedef IDirectSoundBuffer8 DirectSoundBuffer;
 typedef IDirectSound3DBuffer8 DirectSound3DBuffer;
 typedef IDirectSound3DListener8 DirectSound3DListener;
-#else
-typedef IDirectSound DirectSound;
-typedef IDirectSoundBuffer DirectSoundBuffer;
-typedef IDirectSound3DBuffer DirectSound3DBuffer;
-typedef IDirectSound3DListener DirectSound3DListener;
-#endif
 
 struct THoeInitSettings;
 

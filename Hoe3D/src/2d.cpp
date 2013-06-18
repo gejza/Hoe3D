@@ -1,8 +1,8 @@
 
 #include "StdAfx.h"
+#include "ref.h"
 #include "shared.h"
 #include "utils.h"
-#include "ref.h"
 #include "texture_system.h"
 #include "config.h"
 #include "camera.h"
@@ -121,10 +121,10 @@ void Hoe2D::PaintRect(const THoeRect* dest,unsigned long color,bool full)
 	D3DDevice()->SetTextureStageState( 0, D3DTSS_ALPHAOP,   D3DTOP_DISABLE );
 	HOE2D_VERTEXC pv[] = 
 	{
-		{ l , t , 0.0f , color },
-		{ r , t , 0.0f , color },
-		{ r, b , 0.0f , color },
-		{ l, b , 0.0f , color }
+		{ dest->left , dest->top , 0.0f , color },
+		{ dest->right , dest->top , 0.0f , color },
+		{ dest->right, dest->bottom , 0.0f , color },
+		{ dest->left, dest->bottom , 0.0f , color }
 	};
 	D3DDevice()->SetFVF(D3DFVF_XYZ|D3DFVF_DIFFUSE);
 	D3DDevice()->DrawPrimitiveUP(D3DPT_TRIANGLEFAN,2,pv,sizeof(HOE2D_VERTEXC));
@@ -210,6 +210,8 @@ void Hoe2D::Blt(IHoePicture * pic, vfloat x, vfloat y, int rx)
 
 void Hoe2D::Blt(IHoePicture * pic,const THoeRect * dest,const THoeRect * src)
 {
+	// TODO
+	/*
 	// method?
 	if (m_maxX > 0)
 	{
@@ -219,10 +221,9 @@ void Hoe2D::Blt(IHoePicture * pic,const THoeRect * dest,const THoeRect * src)
 	}
 	else
 		::GetRef()->Blt(dynamic_cast<HoePicture *>(pic)->m_surf, dest, src, 0);
-	//GetStates()->EnableTexture();
-	//GetStates()->Setup2DAlphaTest();
+	*/
 #ifndef HOE2D
-	GetTextureSystem()->SetTexture(0,(reinterpret_cast<HoePicture *>(pic))->m_surf);
+	//TODO GetTextureSystem()->SetTexture(0,(reinterpret_cast<HoePicture *>(pic))->m_surf);
 #endif
 #ifdef _HOE_OPENGL_
 	glColor4f(1.f,1.f,1.f,1.f);

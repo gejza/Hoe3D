@@ -43,6 +43,9 @@ typedef D3DLIGHT9 D3DLight;
 
 struct THoeInitSettings;
 
+D3DFORMAT HoeFormatX(HOEFORMAT);
+HOEFORMAT HoeFormatX(D3DFORMAT);
+
 inline const D3DVECTOR & VECToD3D(const HoeMath::Vector3v &v)
 {
 	return *((D3DVECTOR*)&v);

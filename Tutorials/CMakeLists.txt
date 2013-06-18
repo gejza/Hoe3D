@@ -1,1 +1,6 @@
 add_subdirectory (FirstApp)
+add_subdirectory (Console)
+add_subdirectory (Input)
+add_subdirectory (Models)
+add_subdirectory (Paint2D)
+add_subdirectory (Sound)

@@ -84,13 +84,6 @@ struct HOECOLOR
 #define GET_GREEN_FLOAT(c) (((c & 0x0000ff00) >> 8) / 255.f)
 #define GET_BLUE_FLOAT(c) (((c & 0x000000ff) >> 0) / 255.f)
 
-
-#ifdef _HOE_D3D_
-D3DFORMAT HoeFormatX(HOEFORMAT);
-HOEFORMAT HoeFormatX(D3DFORMAT);
-#endif // _HOE_D3D9_
-
-
 #ifndef HOEFORMAT_ONLY_DEF
 
 const tchar * HoeFormatString(HOEFORMAT);

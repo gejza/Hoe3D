@@ -5,8 +5,8 @@
 #include "../include/hoeinterfaces.h"
 
 #ifdef _HOE_D3D9_
-#include <dxerr9.h>
-#pragma comment (lib,"dxerr9.lib")
+#include <dxerr.h>
+//#pragma comment (lib,"dxerr.lib")
 #endif
 
 //////// Conzole /////////////
@@ -133,7 +133,7 @@ void dxerr(const tchar * file, dword line, const tchar * fnc, const tchar *ffnc,
 			T("In Function: %s\n")
 			T("Function: %s\n")
 			T("HRESULT: %s\n")
-			T("Program will exit.."), file, line, ffnc,fnc, Ref::GetErrorString(hRes));
+			T("Program will exit.."), file, line, ffnc,fnc,  DXGetErrorString(hRes));
 		Con_Print(T("HRESULT failed!"));
 		Con_Print(T("%s"),buff);
 

@@ -48,6 +48,22 @@ name    ({alpha}|\$)({alpha}|{dig}|[_\-/$:@#%^&*])*
 
 %%
 
+ void parse_load(const tchar *str)
+ {
+	yy_scan_string (str);
+ } 
+ 
+ int parse()
+ {
+ 	return yylex();
+ }
+ 
+const tchar *parser_getstring()
+ {
+
+	return (const tchar*)yytext;
+ }
+
 
 
 
