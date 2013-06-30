@@ -194,7 +194,10 @@ void Hoe2D::PaintLine(vfloat x1,vfloat y1,vfloat x2,vfloat y2,unsigned long c)
 
 void Hoe2D::Blt(IHoePicture * pic, vfloat x, vfloat y, int rx)
 {
+	// TODO
+	/*
 	HoePicture *p = dynamic_cast<HoePicture *>(pic);
+	
 	THoeRect dest = { x,y, -1, -1 };
 	THoeRect src;
 	const vfloat sx = p->m_surf.GetWidth() / p->m_rX;
@@ -205,7 +208,13 @@ void Hoe2D::Blt(IHoePicture * pic, vfloat x, vfloat y, int rx)
 	src.right = src.left + sx;
 	src.top = ry * sy;
 	src.bottom = src.top + sy;
-	Blt(pic, &dest, &src);
+	this->Blt(pic, &dest, &src);
+	*/
+}
+
+void Hoe2D::Blt(IHoePicture *, vfloat x, vfloat y, vfloat w, vfloat h)
+{
+	// TODO
 }
 
 void Hoe2D::Blt(IHoePicture * pic,const THoeRect * dest,const THoeRect * src)

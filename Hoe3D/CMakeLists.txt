@@ -17,7 +17,7 @@ if(USE_OPENGL)
 	else()
 		add_definitions(-D_USE_OPENGL_)
 		set(HOE3D_LIBS ${Hoe3D_LIBS} ${OPENGL_LIBRARIES})
-		set(HOE3D_SOURCES ${HOE3D_SOURCES} 
+		set(HOE3D_SOURCES ${HOE3D_SOURCES}
 			src/ref_opengl.cpp
 			src/ref_opengl.h
 			src/ref_opengl.inl
@@ -34,7 +34,7 @@ if(USE_DIRECTX)
 	include_directories(${DirectX_INCLUDE_DIR})
 	add_definitions(-D_USE_D3D9_ -D_HOE_DS8_)
 	set(HOE3D_LIBS ${HOE3D_LIBS} ${DirectX_LIBRARY} ${DirectX_DXERR9_LIBRARY} ${DirectX_DXGUID_LIBRARY} ${DirectX_DINPUT8_LIBRARY})
-	set(HOE3D_SOURCES ${HOE3D_SOURCES} 
+	set(HOE3D_SOURCES ${HOE3D_SOURCES}
 		#src/ref_d3d8.cpp
 		#src/ref_d3d8.h
 		#src/ref_d3d8.inl
@@ -54,7 +54,23 @@ endif()
 
 find_package(VORBIS)
 
-add_library(Hoe3D 
+add_library(Hoe3D
+
+include/hoe3d.h
+include/hoeelements.h
+include/hoefs.h
+include/hoeinput.h
+include/hoeinputkeys.h
+include/hoeinterfaces.h
+include/hoeobject.h
+include/hoeresources.h
+include/hoescene.h
+include/hoesystems.h
+include/hfmt/hmap_file.h
+include/hfmt/hmodel_file.h
+include/hfmt/hres_file.h
+include/hfmt/htex_file.h
+
 src/StdAfx.h
 src/2d.cpp
 src/2d.h
@@ -208,6 +224,7 @@ ${HOE3D_SOURCES}
 ${FLEX_CreateParser_OUTPUTS}
 )
 
-target_link_libraries(Hoe3D ${HOE3D_LIBS}) 
+target_link_libraries(Hoe3D ${HOE3D_LIBS})
 
 # src/structures.cpp
+

@@ -10,3 +10,9 @@ if(WIN32)
    set_target_properties(FirstApp PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS")
    set_target_properties(FirstApp PROPERTIES LINK_FLAGS_MINSIZEREL "/SUBSYSTEM:WINDOWS")
 endif(WIN32)
+
+add_test(NAME FirstApp
+            WORKING_DIRECTORY ..
+            COMMAND FirstApp)
+
+ADD_HOE_TUTORIAL(FirstApp)

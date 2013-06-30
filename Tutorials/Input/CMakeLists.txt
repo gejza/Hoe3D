@@ -10,3 +10,5 @@ if(WIN32)
    set_target_properties(Input PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS")
    set_target_properties(Input PROPERTIES LINK_FLAGS_MINSIZEREL "/SUBSYSTEM:WINDOWS")
 endif(WIN32)
+
+ADD_HOE_TUTORIAL(Input)

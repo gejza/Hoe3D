@@ -1,0 +1,20 @@
+
+add_library(HoeResource
+  src/StdAfx.cpp
+  src/StdAfx.h
+  src/color.cpp
+  src/fvf.cpp
+  src/hoe_jpg.cpp
+  src/hoe_jpg.h
+  src/hoe_png.cpp
+  src/hoe_png.h
+  src/hoe_res.cpp
+  src/hoe_resfile.cpp
+  src/resmgr.cpp
+  include/HoeResource/codec.h
+  include/HoeResource/color.h
+  include/HoeResource/fvf.h
+  include/HoeResource/hoe_res.h
+  include/HoeResource/hoe_resfile.h
+  include/HoeResource/resmgr.h
+)

@@ -49,6 +49,7 @@ public:
 
 	virtual void Blt(IHoePicture *, const THoeRect* dest,const THoeRect * src) = 0;
 	virtual void Blt(IHoePicture *, vfloat x, vfloat y, int rx) = 0;
+	virtual void Blt(IHoePicture *, vfloat x, vfloat y, vfloat w, vfloat h) = 0;
 	// dve moznosti alfy
 	// jedna je referencni (jako co je pruhledny a co ne)
 	// u te referencni je to podle hodnoty alfa v obraze
