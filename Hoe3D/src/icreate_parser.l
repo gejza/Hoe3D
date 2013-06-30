@@ -1,4 +1,13 @@
+%option prefix="yyicreate"
+	//%option noyywrap
+
 %{
+#ifdef yywrap
+#undef yywrap
+#else
+#define YY_SKIP_YYWRAP 1
+static int yyicreatewrap() { return 1; } 
+#endif
 #include "StdAfx.h"
 #include "icreate.h"
 #define YY_CLASS_NAME ICParser
@@ -47,6 +56,22 @@ name    ({alpha}|\$)({alpha}|{dig}|[_\-/$:@#%^&*])*
 
 
 %%
+
+ void parse_load(const tchar *str)
+ {
+	yy_scan_string (str);
+ } 
+ 
+ int parse()
+ {
+ 	return yylex();
+ }
+ 
+const tchar *parser_getstring()
+ {
+
+	return (const tchar*)yytext;
+ }
 
 
 

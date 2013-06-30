@@ -33,6 +33,7 @@ public:
 
 	virtual void Blt(IHoePicture *,const THoeRect * dest,const THoeRect * src);
 	virtual void Blt(IHoePicture *, vfloat x, vfloat y, int rx);
+	virtual void Blt(IHoePicture *, vfloat x, vfloat y, vfloat w, vfloat h);
 	void MultRect(const THoeRect &src, THoeRect* dest)
 	{
 		dest->top = src.top * m_multY;

@@ -165,49 +165,6 @@ void HoeEngine::Process(const double dtime)
 	if (m_active) m_active->Process(dtime);
 
 }
-#if 0
-bool Hoe3D::Resize(unsigned int width,unsigned int height)
-{
-	HoeCamera::SetView(width,height);
-	return true;
-}
-
-void Hoe3D::Destroy()
-{
-	if (IsInputLoaded())
-	{
-		::GetInput()->Destroy();
-	}
-
-	::GetRef()->Destroy();
-	if (IsSoundLoaded())
-	{
-		::GetSound()->Destroy();
-	}
-	delete this;
-}
-
-IHoeScene * Hoe3D::CreateScene(HOE_TYPE_SCENE type)
-{
-	IHoeScene * scene = NULL;
-	switch (type)
-	{
-	case HOETS_2D:
-		scene = new Hoe2DScene();
-		break;
-	case HOETS_NORMAL:
-		scene = new HoeScene();
-		break;
-	case HOETS_GRAPH:
-		scene = new HoeGraphScene();
-		break;
-	default:
-		assert(false && "neimpletentovano");
-		return NULL;
-	};
-	return scene;
-}
-#endif
 
 void HoeEngine::SetActiveScene(IHoeScene * scene)
 {

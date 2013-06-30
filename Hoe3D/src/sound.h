@@ -11,18 +11,6 @@
 
 #include "../include/hoeinterfaces.h"
 
-#ifdef _HOE_OPENAL_
-	: public SoundSystemAl
-#endif
-
-#ifdef _HOE_DS8_
-	: public SoundSystemDS
-#endif 
-
-#ifdef _HOE_SOUNDM_
-	: public SoundSystemMobile
-#endif 
-
 #if defined (_USE_D3D9_) || defined (_USE_D3D8_) || defined(_USE_DD_)
 #include "sound_ds.h"
 typedef SoundSystemDS SoundSystemDevice;

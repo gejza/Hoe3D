@@ -16,7 +16,6 @@ public:
 	//virtual IHoePicture * HOEAPI CreatePicture(int width, int height, dword * data);
 	IHoeSystem * HOEAPI GetSystem(HOESYSTEMS sys);
 	
-	virtual void HOEAPI Process(const double);
 	virtual bool HOEAPI Frame();
 	virtual bool HOEAPI Resize(unsigned int width,unsigned int height);
 	
@@ -24,6 +23,8 @@ public:
 
 	virtual IHoeScene * HOEAPI CreateScene(HOE_TYPE_SCENE type);
 	
+protected:
+
 };
 
 #endif // _HOE3D_CLASS_

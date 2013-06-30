@@ -129,12 +129,22 @@ int snprintf(wchar_t *dest, size_t n, const wchar_t * fmt, ...)
 
 int copy(char * dest, const char * src, size_t cnt)
 {
+	size_t len = ::strlen(src) + 1;
+	if (cnt > len)
+	{
+		cnt = len;
+	}
 	::strncpy(dest, src, cnt);
 	return cnt;
 }
 
 int copy(wchar_t * dest, const wchar_t * src, size_t cnt)
 {
+	size_t len = ::wcslen(src) + 1;
+	if (cnt > len)
+	{
+		cnt = len;
+	}
 	::wcsncpy(dest, src, cnt);
 	return cnt;
 }

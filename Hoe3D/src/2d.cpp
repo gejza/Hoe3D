@@ -1,8 +1,8 @@
 
 #include "StdAfx.h"
+#include "ref.h"
 #include "shared.h"
 #include "utils.h"
-#include "ref.h"
 #include "texture_system.h"
 #include "config.h"
 #include "camera.h"
@@ -99,19 +99,19 @@ void Hoe2D::PaintRect(const THoeRect* dest,unsigned long color,bool full)
 	if (full)
 	{
         glBegin(GL_QUADS);// Zaèátek kreslení obdélníkù
-		glVertex2f( l, t);// Levý horní bod
-		glVertex2f( r, t);// Pravý horní bod
-		glVertex2f( r, b);// Pravý dolní bod
-		glVertex2f( l, b);// Levý dolní bod
+		glVertex2f( dest->left, dest->top);// Levý horní bod
+		glVertex2f( dest->right, dest->top);// Pravý horní bod
+		glVertex2f( dest->right, dest->bottom);// Pravý dolní bod
+		glVertex2f( dest->left, dest->bottom);// Levý dolní bod
 		glEnd();// Konec kreslení obdélníkù
 	}
 	else
 	{
 		glBegin(GL_LINES);
-		glVertex2d( l, t);glVertex2d( r, t);
-		glVertex2d( r, t);glVertex2d( r, b);
-		glVertex2d( r, b);glVertex2d( l, b);
-		glVertex2d( l, b);glVertex2d( l, t);
+		glVertex2d( dest->left, dest->top);glVertex2d( dest->right, dest->top);
+		glVertex2d( dest->right, dest->top);glVertex2d( dest->right, dest->bottom);
+		glVertex2d( dest->right, dest->bottom);glVertex2d( dest->left, dest->bottom);
+		glVertex2d( dest->left, dest->bottom);glVertex2d( dest->left, dest->top);
 		glEnd();
 	}
 #endif // _HOE_OPENGL_
@@ -121,10 +121,10 @@ void Hoe2D::PaintRect(const THoeRect* dest,unsigned long color,bool full)
 	D3DDevice()->SetTextureStageState( 0, D3DTSS_ALPHAOP,   D3DTOP_DISABLE );
 	HOE2D_VERTEXC pv[] = 
 	{
-		{ l , t , 0.0f , color },
-		{ r , t , 0.0f , color },
-		{ r, b , 0.0f , color },
-		{ l, b , 0.0f , color }
+		{ dest->left , dest->top , 0.0f , color },
+		{ dest->right , dest->top , 0.0f , color },
+		{ dest->right, dest->bottom , 0.0f , color },
+		{ dest->left, dest->bottom , 0.0f , color }
 	};
 	D3DDevice()->SetFVF(D3DFVF_XYZ|D3DFVF_DIFFUSE);
 	D3DDevice()->DrawPrimitiveUP(D3DPT_TRIANGLEFAN,2,pv,sizeof(HOE2D_VERTEXC));
@@ -194,7 +194,10 @@ void Hoe2D::PaintLine(vfloat x1,vfloat y1,vfloat x2,vfloat y2,unsigned long c)
 
 void Hoe2D::Blt(IHoePicture * pic, vfloat x, vfloat y, int rx)
 {
+	// TODO
+	/*
 	HoePicture *p = dynamic_cast<HoePicture *>(pic);
+	
 	THoeRect dest = { x,y, -1, -1 };
 	THoeRect src;
 	const vfloat sx = p->m_surf.GetWidth() / p->m_rX;
@@ -205,11 +208,19 @@ void Hoe2D::Blt(IHoePicture * pic, vfloat x, vfloat y, int rx)
 	src.right = src.left + sx;
 	src.top = ry * sy;
 	src.bottom = src.top + sy;
-	Blt(pic, &dest, &src);
+	this->Blt(pic, &dest, &src);
+	*/
+}
+
+void Hoe2D::Blt(IHoePicture *, vfloat x, vfloat y, vfloat w, vfloat h)
+{
+	// TODO
 }
 
 void Hoe2D::Blt(IHoePicture * pic,const THoeRect * dest,const THoeRect * src)
 {
+	// TODO
+	/*
 	// method?
 	if (m_maxX > 0)
 	{
@@ -219,10 +230,9 @@ void Hoe2D::Blt(IHoePicture * pic,const THoeRect * dest,const THoeRect * src)
 	}
 	else
 		::GetRef()->Blt(dynamic_cast<HoePicture *>(pic)->m_surf, dest, src, 0);
-	//GetStates()->EnableTexture();
-	//GetStates()->Setup2DAlphaTest();
+	*/
 #ifndef HOE2D
-	GetTextureSystem()->SetTexture(0,reinterpret_cast<HoePicture *>(pic)->GetSource());
+	//TODO GetTextureSystem()->SetTexture(0,(reinterpret_cast<HoePicture *>(pic))->m_surf);
 #endif
 #ifdef _HOE_OPENGL_
 	glColor4f(1.f,1.f,1.f,1.f);

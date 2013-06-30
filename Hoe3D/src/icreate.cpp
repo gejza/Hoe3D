@@ -103,7 +103,7 @@ namespace icreate {
 		return m;
 	}
 
-	static IHoePicture * CreatePicture()
+	/*static IHoePicture * CreatePicture()
 	{
 		HoeLog * log = NULL;
 		int flags = 0;
@@ -121,7 +121,7 @@ namespace icreate {
 		IHoePicture * pic = Get2D()->CreatePicture(picturename, log);
 		if (log) delete log;
 		return pic;
-	}
+	}*/
 
 	static IHoeFont * CreateFont()
 	{
@@ -212,7 +212,7 @@ namespace icreate {
 	}
 }
 
-IHoeResource * HOEAPI Hoe3D::Create(const tchar * str)
+IHoeResource * HOEAPI Hoe3DEngine::Create(const tchar * str)
 {
 	IHoeResource * ret = NULL;
 
@@ -223,9 +223,9 @@ IHoeResource * HOEAPI Hoe3D::Create(const tchar * str)
 	case HOE_T_MODEL:
 		ret = icreate::CreateModel();
 		break;
-	case HOE_T_PICTURE:
+	/*case HOE_T_PICTURE:
 		ret = icreate::CreatePicture();
-		break;
+		break;*/
 	case HOE_T_FONT:
 		ret = icreate::CreateFont();
 		break;

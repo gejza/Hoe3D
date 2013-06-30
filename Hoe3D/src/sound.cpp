@@ -17,10 +17,7 @@
 #include "utils.h"
 #include "sound.h"
 #include "../include/hoefs.h"
-//#ifndef _WIN32_WCE
-#if 0
 #include "sound_ogg.h"
-#endif
 
 #if defined (_HOE_DS8_) || defined (_HOE_OPENAL_) || defined (_HOE_SOUNDM_) 
 SoundSystem::SoundSystem()

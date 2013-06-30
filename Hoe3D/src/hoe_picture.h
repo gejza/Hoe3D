@@ -8,6 +8,16 @@
  */
 #define HOE_PICTURE_ARR 0x01
 
+#ifdef WIN32
+class RefSurface : public RefSurfaceBase
+{
+public:
+	bool Lock(LockRect* l);
+	void Unlock();
+    bool SetColorKey(const HOECOLOR&) { return false; }
+};
+#endif
+
 class HoePicture : public IHoePicture
 {
 	dword m_flags;
