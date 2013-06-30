@@ -2,7 +2,15 @@
 FLEX_TARGET(CreateParser src/icreate_parser.l  ${CMAKE_CURRENT_SOURCE_DIR}/src/icreate_parser.yy.cpp)
 #FLEX_TARGET(LangParser src/lang_parser.l  ${CMAKE_CURRENT_SOURCE_DIR}/src/lang_parser.yy.cpp)
 
-set(HOE3D_LIBS ${HOE3D_LIBS} Winmm.lib ${FLEX_LIBRARIES} ${FL_LIBRARY} dl ${X11_X11_LIB} ${X11_Xxf86vm_LIB} Xxf86dga)
+set(HOE3D_LIBS ${HOE3D_LIBS} ${FLEX_LIBRARIES} ${FL_LIBRARY})
+
+IF(WIN32)
+	set(HOE3D_LIBS ${Hoe3D_LIBS} Winmm)
+ENDIF()
+
+IF(UNIX)
+	set(HOE3D_LIBS ${Hoe3D_LIBS} ${X11_X11_LIB} ${X11_Xxf86vm_LIB} Xxf86dga dl)
+ENDIF()
 
 if(USE_OPENGL)
 	#########################################################
@@ -58,9 +66,10 @@ endif()
 FIND_PACKAGE(Freetype)
 INCLUDE_DIRECTORIES(${FREETYPE_INCLUDE_DIR_ft2build} ${FREETYPE_INCLUDE_DIR_freetype2})
 
-find_package(Vorbis)
-find_package(VorbisFile)
-SET(HOE3D_LIBS ${HOE3D_LIBS} ${VORBIS_LIBRARY} ${VorbisFile_LIBRARY})
+#find_package(Vorbis)
+#find_package(VorbisFile)
+FIND_PACKAGE(OggVorbis)
+SET(HOE3D_LIBS ${HOE3D_LIBS} ${OGG_LIBRARY} ${VORBIS_LIBRARY} ${VORBISFILE_LIBRARY})
 
 add_library(Hoe3D
 

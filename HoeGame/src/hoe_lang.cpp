@@ -3,10 +3,10 @@
 #include "../include/HoeGame/hoe_lang.h"
 #include "../include/HoeGame/hoe_console.h"
 
-extern "C" {
+//extern "C" {
 int lang_load(FILE * f);
 int lang_parse(char *buffer);
-}
+//}
 
 namespace HoeGame {
 
