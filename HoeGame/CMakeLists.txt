@@ -2,7 +2,8 @@
 FLEX_TARGET(ConfigParser src/config_parser.l  ${CMAKE_CURRENT_SOURCE_DIR}/src/config_parser.yy.cpp)
 FLEX_TARGET(LangParser src/lang_parser.l  ${CMAKE_CURRENT_SOURCE_DIR}/src/lang_parser.yy.cpp)
 
-add_library(HoeGame src/StdAfx.h
+SET(HOE_GAME_SOURCE
+src/StdAfx.h
 src/hoe_adventure.cpp
 src/hoe_ai.cpp
 src/hoe_app.cpp
@@ -29,18 +30,26 @@ src/hoe_timer.cpp
 src/hoe_utils.cpp
 src/hoe_vars.cpp
 src/hoe_view.cpp
-src/hoe_win32.cpp
-src/hoe_wx.cpp
 src/lua_script.cpp
 src/lang_parser.l
 src/config_parser.l
-src/structfile_parser.l
-${FLEX_ConfigParser_OUTPUTS}
-${FLEX_LangParser_OUTPUTS})
+src/structfile_parser.l)
 
 # src/hoe_linux.cpp
 # src/hoe_macosx.cpp
 # src/hoe_mobile.cpp
 
 # src/hoe_settings.cpp
+IF(WIN32)
+	SET(HOE_GAME_SOURCE ${HOE_GAME_SOURCE} src/hoe_win32.cpp src/hoe_wx.cpp)
+ENDIF()
+
+IF(UNIX)
+	SET(HOE_GAME_SOURCE ${HOE_GAME_SOURCE} src/hoe_linux.cpp)
+ENDIF()
+
+add_library(HoeGame
+	${HOE_GAME_SOURCE}
+	${FLEX_ConfigParser_OUTPUTS}
+	${FLEX_LangParser_OUTPUTS})
 

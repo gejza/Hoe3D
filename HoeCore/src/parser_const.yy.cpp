@@ -1,6 +1,6 @@
-#line 2 "C:/Users/dunghubel/GitHub/Hoe/HoeCore/src/parser_const.yy.cpp"
+#line 2 "/home/gejza/github/hoe/HoeCore/src/parser_const.yy.cpp"
 
-#line 4 "C:/Users/dunghubel/GitHub/Hoe/HoeCore/src/parser_const.yy.cpp"
+#line 4 "/home/gejza/github/hoe/HoeCore/src/parser_const.yy.cpp"
 
 #define  YY_INT_ALIGNED short int
 
@@ -521,7 +521,7 @@ enum Tokens {
 	TString,
 }; // stejne jako const_file.cpp
 
-#line 525 "C:/Users/dunghubel/GitHub/Hoe/HoeCore/src/parser_const.yy.cpp"
+#line 525 "/home/gejza/github/hoe/HoeCore/src/parser_const.yy.cpp"
 
 #define INITIAL 0
 
@@ -713,7 +713,7 @@ YY_DECL
     
 #line 32 "src/parser_const.l"
 
-#line 717 "C:/Users/dunghubel/GitHub/Hoe/HoeCore/src/parser_const.yy.cpp"
+#line 717 "/home/gejza/github/hoe/HoeCore/src/parser_const.yy.cpp"
 
 	if ( !(yy_init) )
 		{
@@ -863,7 +863,7 @@ YY_RULE_SETUP
 #line 46 "src/parser_const.l"
 ECHO;
 	YY_BREAK
-#line 867 "C:/Users/dunghubel/GitHub/Hoe/HoeCore/src/parser_const.yy.cpp"
+#line 867 "/home/gejza/github/hoe/HoeCore/src/parser_const.yy.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 

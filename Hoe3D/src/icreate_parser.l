@@ -1,4 +1,13 @@
+%option prefix="yyicreate"
+	//%option noyywrap
+
 %{
+#ifdef yywrap
+#undef yywrap
+#else
+#define YY_SKIP_YYWRAP 1
+static int yyicreatewrap() { return 1; } 
+#endif
 #include "StdAfx.h"
 #include "icreate.h"
 #define YY_CLASS_NAME ICParser

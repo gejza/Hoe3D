@@ -1,4 +1,6 @@
 
+ADD_DEFINITIONS(-D_NOXLIB)
+
 add_library(HoeResource
   src/StdAfx.cpp
   src/StdAfx.h
@@ -11,10 +13,10 @@ add_library(HoeResource
   src/hoe_res.cpp
   src/hoe_resfile.cpp
   src/resmgr.cpp
-  include/HoeResource/codec.h
-  include/HoeResource/color.h
-  include/HoeResource/fvf.h
-  include/HoeResource/hoe_res.h
-  include/HoeResource/hoe_resfile.h
-  include/HoeResource/resmgr.h
+  ../include/HoeResource/codec.h
+  ../include/HoeResource/color.h
+  ../include/HoeResource/fvf.h
+  ../include/HoeResource/hoe_res.h
+  ../include/HoeResource/hoe_resfile.h
+  ../include/HoeResource/resmgr.h
 )

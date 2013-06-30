@@ -9,6 +9,8 @@ set (HOE_VERSION_MINOR 0)
 
 if(WIN32)
 	add_definitions(-D_WIN32)
+else()
+	add_definitions(-D_LINUX)
 endif()
 
 #

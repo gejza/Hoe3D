@@ -2,13 +2,14 @@
 FLEX_TARGET(CreateParser src/icreate_parser.l  ${CMAKE_CURRENT_SOURCE_DIR}/src/icreate_parser.yy.cpp)
 #FLEX_TARGET(LangParser src/lang_parser.l  ${CMAKE_CURRENT_SOURCE_DIR}/src/lang_parser.yy.cpp)
 
-set(HOE3D_LIBS ${HOE3D_LIBS} Winmm.lib ${FLEX_LIBRARIES})
+set(HOE3D_LIBS ${HOE3D_LIBS} Winmm.lib ${FLEX_LIBRARIES} ${FL_LIBRARY} dl ${X11_X11_LIB} ${X11_Xxf86vm_LIB} Xxf86dga)
 
 if(USE_OPENGL)
 	#########################################################
 	# FIND OPENGL
 	#########################################################
 	find_package(OpenGL REQUIRED)
+	find_package(OpenAL REQUIRED)
 	include_directories(${OpenGL_INCLUDE_DIRS})
 	link_directories(${OpenGL_LIBRARY_DIRS})
 	add_definitions(${OpenGL_DEFINITIONS})
@@ -16,13 +17,15 @@ if(USE_OPENGL)
 		message(ERROR " OPENGL not found!")
 	else()
 		add_definitions(-D_USE_OPENGL_)
-		set(HOE3D_LIBS ${Hoe3D_LIBS} ${OPENGL_LIBRARIES})
+		set(HOE3D_LIBS ${Hoe3D_LIBS} ${OPENGL_LIBRARIES} ${OPENAL_LIBRARY})
 		set(HOE3D_SOURCES ${HOE3D_SOURCES}
 			src/ref_opengl.cpp
 			src/ref_opengl.h
 			src/ref_opengl.inl
 			src/ref_opengl_ext.cpp
 			src/ref_opengl_ext.h
+			src/sound_al.cpp
+			src/hoe_input_xwin.cpp
 		)
 	endif(NOT OPENGL_FOUND)
 endif()
@@ -52,24 +55,29 @@ if(USE_DIRECTX)
 	)
 endif()
 
-find_package(VORBIS)
+FIND_PACKAGE(Freetype)
+INCLUDE_DIRECTORIES(${FREETYPE_INCLUDE_DIR_ft2build} ${FREETYPE_INCLUDE_DIR_freetype2})
+
+find_package(Vorbis)
+find_package(VorbisFile)
+SET(HOE3D_LIBS ${HOE3D_LIBS} ${VORBIS_LIBRARY} ${VorbisFile_LIBRARY})
 
 add_library(Hoe3D
 
-include/hoe3d.h
-include/hoeelements.h
-include/hoefs.h
-include/hoeinput.h
-include/hoeinputkeys.h
-include/hoeinterfaces.h
-include/hoeobject.h
-include/hoeresources.h
-include/hoescene.h
-include/hoesystems.h
-include/hfmt/hmap_file.h
-include/hfmt/hmodel_file.h
-include/hfmt/hres_file.h
-include/hfmt/htex_file.h
+../include/hoe3d.h
+../include/hoeelements.h
+../include/hoefs.h
+../include/hoeinput.h
+../include/hoeinputkeys.h
+../include/hoeinterfaces.h
+../include/hoeobject.h
+../include/hoeresources.h
+../include/hoescene.h
+../include/hoesystems.h
+../include/hfmt/hmap_file.h
+../include/hfmt/hmodel_file.h
+../include/hfmt/hres_file.h
+../include/hfmt/htex_file.h
 
 src/StdAfx.h
 src/2d.cpp
@@ -110,7 +118,6 @@ src/hoe_input_di.h
 src/hoe_input_keymap.h
 src/hoe_input_winapi.cpp
 src/hoe_input_winapi.h
-#src/hoe_input_xwin.cpp
 src/hoe_input_xwin.h
 src/hoe_main.cpp
 #src/hoe_map.cpp
@@ -184,7 +191,6 @@ src/shared.cpp
 src/shared.h
 src/sound.cpp
 src/sound.h
-#src/sound_al.cpp
 src/sound_al.h
 src/sound_ds.h
 #src/sound_mobile.cpp

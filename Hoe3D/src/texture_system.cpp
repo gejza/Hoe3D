@@ -83,7 +83,7 @@ HoeTexture * TextureSystem::GetTexture(const tchar * name, HoeLog * log)
 				tex->Unlock();
 			}
 #endif // _HOE_D3D9_
-			Con_Print("create texture: %s",tex->name);
+			Con_Print("create texture: %s",tex->name.GetPtr());
 		}
 		conv->Destroy();
 	}

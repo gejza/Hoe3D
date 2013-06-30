@@ -1,6 +1,8 @@
 
 FLEX_TARGET(ConstParser src/parser_const.l  ${CMAKE_CURRENT_SOURCE_DIR}/src/parser_const.yy.cpp)
 
+ADD_DEFINITIONS(-D_NOXLIB)
+
 FILE(GLOB HOE_CORE_PUBLIC_HEADERS 
 	../include/HoeCore/const_file.h
 	../include/HoeCore/expression.h

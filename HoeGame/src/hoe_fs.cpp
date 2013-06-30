@@ -2,7 +2,7 @@
 #include "StdAfx.h"
 #include "../include/HoeGame/hoe_fs.h"
 #include "../include/HoeGame/hoe_console.h"
-#include "../../Hoe3D/include/hfmt/hres_file.h"
+#include "../../include/hfmt/hres_file.h"
 #include "../include/HoeGame/hoe_utils.h"
 
 namespace HoeGame {
