@@ -93,7 +93,7 @@ BOOL WINAPI DllMain(HINSTANCE,DWORD,LPVOID)
 }
 
 #endif // _WIN32
-#ifdef _LINUX
+#if defined (_LINUX) && !defined (HOE_STATIC_ENGINE)
 int main()
 {
     printf("Hoe3D engine\n");

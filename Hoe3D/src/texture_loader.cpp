@@ -18,14 +18,15 @@ TextureLoader::~TextureLoader()
 
 bool TextureLoader::Load(const tchar * name)
 {
-	m_reader = GetFileSystem()->FindResource_(name,IDTEXHEADER);
+	//TODO
+	/*m_reader = GetFileSystem()->FindResource_(name,IDTEXHEADER);
 	if (!m_reader)
 	{
 		return false;
 	}
 	if (!m_reader.Read(&m_head,sizeof(hft_texture)))
 		return false;
-
+	*/
 	return true;
 }
 

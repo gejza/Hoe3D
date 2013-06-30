@@ -58,9 +58,12 @@ HoeFont::~HoeFont()
 {
 
 }
-#if 0
+
 bool HoeFont::Init()
 {
+#if 0
+	//TODO
+	
 	HoeFontRenderer * fr = GetFontRenderer(this->m_strFontName, this->m_dwFontHeight);
 	if (!fr)
 		return false;
@@ -150,10 +153,11 @@ bool HoeFont::Init()
 	fr->Release();
 
 	Con_Print("Create font: %s %d",this->m_strFontName,this->m_dwFontHeight);
+#endif
     return true;
 }
 
-
+#if 0
 
 #ifdef _HOE_D3D_
 
@@ -254,8 +258,8 @@ bool HoeFont::DrawText( vfloat sx, vfloat sy, dword dwColor,
 		dest.top = sy;
 		dest.bottom = dest.top + src.bottom - src.top;
 		sx += src.right - src.left;
-		//Get2D()->Blt(m_pic,&dest,&src);
-		::GetRef()->Blt(m_pic->m_surf, &dest, &src, 0);
+		Get2D()->Blt(m_pic,&dest,&src);
+		//::GetRef()->Blt(m_pic->m_surf, &dest, &src, 0);
 
 	}
 	return true;

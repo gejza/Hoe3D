@@ -1,6 +1,6 @@
 
 #include "paint2d_app.h"
-#include <hoe_lang.h>
+#include <HoeGame/hoe_lang.h>
 
 const char * g_TutorialName = "paint2d";
 
@@ -35,8 +35,8 @@ Paint2DApp::Paint2DApp(HOE_INSTANCE instance, HoeGame::Console * con) : HoeTutor
 void Paint2DApp::_Paint(IHoe2D *h)
 {
 	h->SetRect(200,150);
-	h->BltFast(0,200,0,150,pic[0]);
-	h->BltFast(50,85,50,70,pic[1]);
+	h->Blt(pic[0],0,200,0,150);
+	h->Blt(pic[1],50,85,50,70);
 	//h->BltFast(0,200,150,300,pic[2]);
 	//h->BltFast(200,400,150,300,pic[3]);
 	h->SetRect(200,480);

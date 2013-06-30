@@ -11,7 +11,6 @@
 #include "camera.h"
 #include "hoe_model.h"
 #include "hoe_stream.h"
-#include <hoe_math.h>
 #include "sound.h"
 #include "camera.h"
 #include "states.h"
@@ -27,7 +26,7 @@
 #include "hoe_tokens.h"
 #include "hoe3d.h"
 
-IHoeSystem * HOEAPI Hoe3D::GetSystem(HOESYSTEMS sys)
+IHoeSystem * HOEAPI Hoe3DEngine::GetSystem(HOESYSTEMS sys)
 {
 	switch (sys)
 	{

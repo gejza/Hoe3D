@@ -4,7 +4,6 @@
 #include "ref.h"
 #include "../include/hoeinterfaces.h"
 #include "shared.h"
-#include "resmgr.h"
 #include "hoe_format.h"
 #include <hoe_math.h>
 #include "hmap_file.h"

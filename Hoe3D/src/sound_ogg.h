@@ -11,6 +11,8 @@
 
 #define HOE_OGG_PRESENT 1
 
+#include <vorbis/codec.h>
+#include <vorbis/vorbisfile.h> 
 /**
   @brief	Nacitani souboru z ogg. 
  */
@@ -19,6 +21,7 @@ class SoundSourceOgg : public SoundSource
 {
 protected:
 	FILE *f;
+	OggVorbis_File vf; 
 public:
 	/** Konstruktor */
 	SoundSourceOgg();

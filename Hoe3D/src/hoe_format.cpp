@@ -212,7 +212,7 @@ D3DFORMAT HoeFormatX(HOEFORMAT format)
 #ifdef _HOE_OPENGL_
 #include "glext.h"
 
-GLint HoeFormatX(HOEFORMAT format)
+GLint RefOpenGL::HoeFormatX(HOEFORMAT format)
 {
 	switch (format)
 	{

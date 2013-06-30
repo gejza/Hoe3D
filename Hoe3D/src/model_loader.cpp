@@ -63,7 +63,7 @@ HoeModel * ModelLoader::LoadModel()
 {
 	unsigned int ins;
 
-	m_reader.Read(&ins,4);
+	m_reader->Read(&ins,4);
 
 	int ver = (((ins >> 16) & 0xff) - '0') * 10 + (((ins >> 24) & 0xff) - '0');
 	if ((ins & 0xffff) != ('M' | ('S' << 8)) || ver != 10)
@@ -72,7 +72,7 @@ HoeModel * ModelLoader::LoadModel()
 		return NULL;
 	}
 
-	m_reader.Read(&ins,4);
+	m_reader->Read(&ins,4);
 	if (ins != hmsInfo)
 	{
 		Con_Print(m_log, "Error: missing model info");
@@ -80,11 +80,11 @@ HoeModel * ModelLoader::LoadModel()
 	}
 
 	hms_info info;
-	m_reader.Read(&info, sizeof(hms_info));
+	m_reader->Read(&info, sizeof(hms_info));
 
 	HoeModel * model = new HoeModel(info.num_streams, info.num_indices, info.num_materials);
 
-	m_reader.Read(&ins,4);
+	m_reader->Read(&ins,4);
 
 	if (ins == hmsResources)
 	{
@@ -92,7 +92,7 @@ HoeModel * ModelLoader::LoadModel()
 
 		while (1)
 		{
-			m_reader.Read(&ins,4);
+			m_reader->Read(&ins,4);
 			if (ins == 0)
 				break;
 
@@ -146,7 +146,7 @@ HoeModel * ModelLoader::LoadModel()
 
 		}
 		
-		m_reader.Read(&ins,4);
+		m_reader->Read(&ins,4);
 	}
 	
 	return model;
@@ -155,7 +155,9 @@ HoeModel * ModelLoader::LoadModel()
 
 HoeStream * ModelLoader::GetStream(int id)
 {
-	HoeFileReader reader = m_reader.GetFile()->FindChunk(id);
+	/*
+	//TODO
+	HoeFileReader reader = m_reader->GetFile()->FindChunk(id);
 	if (!reader)
 	{
 		LOG(m_log)->Log("Error: Resource %x not found",id);
@@ -191,11 +193,14 @@ HoeStream * ModelLoader::GetStream(int id)
 	stream->Unlock();
 
 	return stream;
+	*/
+	return NULL;
 }
 
 HoeIndex * ModelLoader::GetIndex(int id)
 {
-	HoeFileReader reader = m_reader.GetFile()->FindChunk(id);
+	/*
+	//TODO HoeFileReader reader = m_reader.GetFile()->FindChunk(id);
 	if (!reader)
 	{
 		LOG(m_log)->Log("Error: Resource %x not found",id);
@@ -224,10 +229,13 @@ HoeIndex * ModelLoader::GetIndex(int id)
 	index->Unlock();
 
 	return index;
+	*/
+	return NULL;
 }
 
 HoeMaterial * ModelLoader::GetMaterial(int id)
 {
+	/*
 	HoeFileReader reader = m_reader.GetFile()->FindChunk(id);
 	if (!reader)
 	{
@@ -265,6 +273,8 @@ HoeMaterial * ModelLoader::GetMaterial(int id)
 
 
 	return mat;
+	*/
+	return NULL;
 }
 
 
