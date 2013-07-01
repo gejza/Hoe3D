@@ -53,3 +53,4 @@ add_library(HoeGame
 	${FLEX_ConfigParser_OUTPUTS}
 	${FLEX_LangParser_OUTPUTS})
 
+target_link_libraries(HoeGame dl)

@@ -27,21 +27,22 @@ int _hoemain(HOE_INSTANCE instance, HoeGame::Console * con)
 
 InputApp::InputApp(HOE_INSTANCE instance, HoeGame::Console * con) : HoeTutorial(instance, con)
 {
-	f = NULL;
+	//f = NULL;
 }
 
 
 void InputApp::_Paint(IHoe2D *h)
 {
 	h->SetRect(640,480);
-	f->DrawText(100,100,0xffff0000,msg);
+	//f->DrawText(100,100,0xffff0000,msg);
+	printf("%s           \r", msg);
 }
 
 bool InputApp::LoadScene()
 {
-	f = (IHoeFont *)GetEngine()->Create("font '../data/font.ttf' 24");
-	if (f == NULL)
-		return false;
+	//f = (IHoeFont *)GetEngine()->Create("font '../data/font.ttf' 24");
+	//if (f == NULL)
+	//	return false;
 
 	strcpy(msg,"Hoe Tutorial Input!");
 	GetEngine()->GetActiveScene()->Set2DCallback(this);

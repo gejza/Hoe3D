@@ -1,7 +1,20 @@
 
 # It was noticed that when using MinGW gcc it is essential that 'core' is mentioned before 'base'.
 find_package(wxWidgets COMPONENTS core base REQUIRED)
+FIND_PACKAGE(GTK2)
+FIND_PACKAGE(GLIB2)
+#SET(HOE3D_LIBS ${HOE3D_LIBS} ${GTK2_LIBRARIES})
 
+
+INCLUDE_DIRECTORIES(
+	${GTK2_INCLUDE_DIR}
+	${GTK2_GDK_INCLUDE_DIR}
+	${GTK2_ATK_INCLUDE_DIR}
+	${GTK2_GDKCONFIG_INCLUDE_DIR}
+	${GTK2_CAIRO_INCLUDE_DIR}
+	${GTK2_PANGO_INCLUDE_DIR}
+	${GTK2_GDK_PIXBUF_INCLUDE_DIR}
+	${GLIB2_INCLUDE_DIRS})
 ##---------------------------------------------------
 ## Actual config file starts here
 ##---------------------------------------------------

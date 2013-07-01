@@ -1,3 +1,6 @@
+
+ADD_DEFINITIONS(-D_NOXLIB)
+
 #define a macro to simplify adding tests, then use it
 MACRO(ADD_HOE_TOOL name)
   #add_test (TutorialComp${arg} Tutorial ${arg})

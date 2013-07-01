@@ -52,6 +52,8 @@ void Paint2DApp::_Paint(IHoe2D *h)
 	dest.top = 10;
 	dest.bottom = 130;
 	h->PaintRect(&dest, 0xff56ff35, true);
+	dest.left = 100;
+	h->PaintRect(&dest, 0xffff0000, true);
 	f2->DrawText(50,250,0xff00ff00,"Mixle v Pixle");
 
 }

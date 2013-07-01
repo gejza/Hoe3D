@@ -30,6 +30,7 @@ include_directories(${LUA_INCLUDE_DIR})
 
 find_package(FLEX)
 
+
 #-- Add an Option to toggle the generation of the API documentation
 option(BUILD_DOCUMENTATION "Use Doxygen to create the HTML based API documentation" OFF)
 if(BUILD_DOCUMENTATION)

@@ -6,7 +6,7 @@
 
 class InputApp : public HoeTutorial, public XHoeKeyboard, public XHoeMouse, public XHoe2DCallback
 {
-	IHoeFont * f;
+	//IHoeFont * f;
 	char msg[256];
 
 public:

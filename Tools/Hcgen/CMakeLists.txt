@@ -8,7 +8,7 @@ add_executable(hcgen WIN32
   gen.h
   hcgen.cpp
 )
-target_link_libraries (hcgen HoeCore HoeUtils)
+target_link_libraries (hcgen HoeUtils HoeCore)
 
 ADD_HOE_TOOL(hcgen)
 

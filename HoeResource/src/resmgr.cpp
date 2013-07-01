@@ -3,6 +3,7 @@
 #include "../include/HoeResource/hoe_resfile.h"
 #include "../include/HoeResource/resmgr.h"
 
+#ifdef _WIN32
 // LinkedFile
 HoeRes::LinkedFile::LinkedFile(int n, const HoeRes::SymbolFile* sym) 
 	: m_index(n), m_sym(sym), 
@@ -92,5 +93,5 @@ HoeRes::LinkedFile& HoeRes::LinkedResourceMgr::GetFile(int n)
 	return m_openfiles.Add(LinkedFile(n, &m_files[n]));
 }
 
-
+#endif
 
