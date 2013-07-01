@@ -55,6 +55,8 @@ include (InstallRequiredSystemLibraries)
 #set (CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/License.txt")
 set (CPACK_PACKAGE_VERSION_MAJOR "${HOE_VERSION_MAJOR}")
 set (CPACK_PACKAGE_VERSION_MINOR "${HOE_VERSION_MINOR}")
+#SET (CPACK_PACKAGE_CONTACT
+SET (CPACK_DEBIAN_PACKAGE_MAINTAINER milan.dunghubel@gmail.com)
 include (CPack)
 
 
@@ -69,11 +71,16 @@ add_subdirectory (HoeGame)
 IF(BUILD_EDITOR)
 	add_subdirectory (HoeEditor)
 ENDIF()
-add_subdirectory (HoeUtils)
-add_subdirectory (Tools)
-IF(BUILD_TUTORIALS)
-	add_subdirectory (Tutorials)
-ENDIF()
+#add_subdirectory (HoeUtils)
+#add_subdirectory (Tools)
+#IF(BUILD_TUTORIALS)
+#	add_subdirectory (Tutorials)
+#ENDIF()
 
-
+#install(TARGETS mylibap
+#	RUNTIME
+#	DESTINATION bin)
+FILE(GLOB PUBLIC_HEADERS include/*.h include/*/*.h)
+install(FILES ${PUBLIC_HEADERS}
+	DESTINATION include)
 

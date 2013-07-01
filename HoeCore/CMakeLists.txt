@@ -57,3 +57,5 @@ add_library(HoeCore
 	src/struct_file.cpp
 	${FLEX_ConstParser_OUTPUTS}
 )
+
+install(TARGETS HoeCore ARCHIVE DESTINATION lib)
