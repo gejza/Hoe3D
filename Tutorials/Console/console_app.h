@@ -3,7 +3,7 @@
 #define _CONSOLE_APP_H_
 
 #include "../Common/tutorial.h"
-#include <hoe_figure2d.h>
+#include <HoeGame/hoe_figure2d.h>
 
 class Scene : public HoeGame::Hoe2DFigure , public XHoeKeyboard
 {

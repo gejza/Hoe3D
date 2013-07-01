@@ -5,7 +5,7 @@
 #include "../include/hoeinterfaces.h"
 #include "unicode.h"
 
-//#include "hoe_texture.h"
+#include "hoe_texture.h"
 
 // Font rendering flags
 #define HOEFONT_CENTERED_X  0x0001
@@ -36,15 +36,13 @@ struct THoeFontCharInfo
 };
 
 /** abstract class for render fonts */
-/*class HoeFontRenderer
+class HoeFontRenderer
 {
 public:
 	virtual bool GetCharInfo(wchar_t c, THoeFontCharInfo* info) = 0;
-	virtual void Render(wchar_t ch,uint texX, uint texY, HOEFORMAT format,
-		vfloat sc_alpha, 
-		HoeTexture::LOCKRECT *lr) = 0;
+	virtual void Render(wchar_t ch,uint texX, uint texY, HOEFORMAT format, vfloat sc_alpha, HoeTexture::LOCKRECT *lr) = 0;
 	virtual void Release() {}
-};*/
+};
 
 class HoeFont : public IHoeFont
 {
@@ -66,7 +64,7 @@ public:
 
 	void CreateTexture();
 
-	//HoeFontRenderer * GetFontRenderer(const tchar* fname, vfloat height) { return 0; }
+	HoeFontRenderer * GetFontRenderer(const tchar* fname, vfloat height) { return 0; }
 public:
 	HoeFont(const tchar* strFontName, uint dwHeight, vfloat scaplha, dword dwFlags=0L);
 	HoeFont(HoePicture* pic, HoeRes::Res::FontInfo::FD* fd, size_t num,

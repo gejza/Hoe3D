@@ -1,6 +1,6 @@
 
 #include "input_app.h"
-#include "hoe_inputkeys.h"
+#include <HoeGame/hoe_inputkeys.h>
 
 const char * g_TutorialName = "input";
 
@@ -46,9 +46,9 @@ bool InputApp::LoadScene()
 	strcpy(msg,"Hoe Tutorial Input!");
 	GetEngine()->GetActiveScene()->Set2DCallback(this);
 
-	HoeGetInput(GetEngine())->RegisterKeyboard(this);
-	HoeGetInput(GetEngine())->RegisterMouse(IHoeInput::MT_Background, this);
-	HoeGetInfo(GetEngine())->LoadFont("../data/font.ttf",12);
+	GetEngine()->GetInput()->RegisterKeyboard(this);
+	GetEngine()->GetInput()->RegisterMouse(IHoeInput::MT_Background, this);
+	GetEngine()->GetInfo()->LoadFont("../data/font.ttf",12);
 
 	return true;
 

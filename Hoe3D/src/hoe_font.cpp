@@ -61,9 +61,6 @@ HoeFont::~HoeFont()
 
 bool HoeFont::Init()
 {
-#if 0
-	//TODO
-	
 	HoeFontRenderer * fr = GetFontRenderer(this->m_strFontName, this->m_dwFontHeight);
 	if (!fr)
 		return false;
@@ -153,7 +150,6 @@ bool HoeFont::Init()
 	fr->Release();
 
 	Con_Print("Create font: %s %d",this->m_strFontName,this->m_dwFontHeight);
-#endif
     return true;
 }
 
