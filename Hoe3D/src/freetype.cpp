@@ -37,7 +37,7 @@ const char * HoeFreeType::GetError(FT_Error e)
 {
 	switch (e)
 	{
-	#include "freetype/fterrdef.h"
+	#include "freetype2/fterrdef.h"
 
 	default:
 		return "Unknown freetype error.";
