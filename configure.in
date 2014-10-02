@@ -16,6 +16,7 @@ AC_PROG_CXX
 AM_PROG_CC_C_O
 AC_PROG_LIBTOOL
 AM_PROG_LEX
+AX_PTHREAD
 #AM_GNU_GETTEXT
 #BISON_I18N
 
@@ -53,7 +54,7 @@ CPPFLAGS="$CXXFLAGS -fPIC -mmmx -msse -D_LINUX -D_USE_OPENGL_ -ggdb3 -I../HoeCor
 
 LDFLAGS="$LDFLAGS -L/usr/X11R6/lib -L../bin"
 
-AC_OUTPUT( Makefile HoeCore/Makefile Hoe3D/Makefile HoeGame/Makefile
+AC_OUTPUT( Doxyfile Makefile HoeCore/Makefile Hoe3D/Makefile HoeGame/Makefile
           HoeEditor/Makefile 
           HoeUtils/Makefile
           HoeUtils/lib/Makefile

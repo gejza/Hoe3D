@@ -3,7 +3,14 @@
 #define _HOE_STRUCTURES_H_
 
 
+
 namespace HoeCore {
+
+/**
+* Bezpecne presunuti pameti, 
+* vyhodne pokud se zdrojove a cilove casti prekryvaji
+*/
+void CrossMemMove(void * dest, void * src, size_t size);
 
 ///////////////////////////////
 // Ptr list
