@@ -3,7 +3,14 @@
 #define _HOE_STRUCTURES_H_
 
 
+
 namespace HoeCore {
+
+/**
+* Bezpecne presunuti pameti, 
+* vyhodne pokud se zdrojove a cilove casti prekryvaji
+*/
+void CrossMemMove(void * dest, void * src, size_t size);
 
 ///////////////////////////////
 // Ptr list
@@ -101,13 +108,13 @@ public:
 	void Add(CC c)
 	{
 		if (this->m_size == this->m_count)
-			Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
+			this->Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
 		this->m_ptr[this->m_count] = c;this->m_count++;
 	}
 	CC & Add()
 	{
 		if (this->m_size == this->m_count)
-			Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
+			this->Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
 		this->m_count++;
 		return this->m_ptr[this->m_count-1];
 	}
@@ -167,13 +174,13 @@ public:
 	void Add(C c)
 	{
 		if (this->m_size == this->m_count)
-			Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
+			this->Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
 		this->m_ptr[this->m_count] = c;this->m_count++;
 	}
 	C & Add()
 	{
 		if (this->m_size == this->m_count)
-			Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
+			this->Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
 		this->m_count++;
 		return this->m_ptr[this->m_count-1];
 	}
@@ -185,13 +192,13 @@ public:
 	void Push(const C &c)
 	{
 		if (this->m_size == this->m_count)
-			Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
+			this->Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
 		this->m_ptr[this->m_count] = c;this->m_count++;
 	}
 	C & Push()
 	{
 		if (this->m_size == this->m_count)
-			Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
+			this->Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
 		this->m_count++;
 		return this->m_ptr[this->m_count-1];
 	}
@@ -242,9 +249,9 @@ public:
 		if (this->m_size == this->m_count)
 		{
 			if (this->m_index)
-				Reindex();
+				this->Reindex();
 			else
-				Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
+				this->Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
 		}
 		this->m_ptr[this->m_count] = c;this->m_count++;
 	}
@@ -255,7 +262,7 @@ public:
 			if (m_index)
 				Reindex();
 			else
-				Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
+				this->Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
 		}
 		this->m_count++;
 		return this->m_ptr[this->m_count-1];
@@ -317,7 +324,7 @@ public:
     void Insert(C c)
     {
         if (this->m_size == this->m_count)
-            Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
+            this->Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
         int i=this->m_count++;
         this->m_ptr[i] = c;
         while (i > 0 && (this->m_ptr[(i-1)/2] > this->m_ptr[i]))
@@ -361,7 +368,7 @@ public:
 	void Add(C c)
 	{
 		if (this->m_size == this->m_count)
-			Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
+			this->Resize(this->m_size + (this->m_size/5>=1 ? this->m_size/5:1));
 		// vlozit serazene
 		this->m_ptr[this->m_count] = c;this->m_count++;
 	}

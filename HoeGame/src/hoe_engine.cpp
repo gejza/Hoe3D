@@ -23,8 +23,8 @@ HoeEngine::~HoeEngine()
 #endif	
 
 #ifdef _LINUX
-	if (m_lib)
-		dlclose(m_lib);
+//	if (m_lib)
+//		dlclose(m_lib);
 #endif
 
 }
