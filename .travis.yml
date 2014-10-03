@@ -4,7 +4,7 @@ compiler:
 cache:
   - apt: true
 before_install:
-    - sudo apt-get install libgl1-mesa-dev libogg-dev libvorbis-dev liblua5.1-dev libpng12-dev libgtk2.0-dev libfreetype6-dev libjpeg-dev libvorbis-dev libogg-dev libwxgtk2.8-dev libxxf86vm-dev libxxf86dga-dev mesa-common-dev libopenal-dev flex libfreetype6-dev
+    - sudo apt-get install libgl1-mesa-dev libogg-dev libvorbis-dev liblua5.1-dev libpng12-dev libgtk2.0-dev libfreetype6-dev libjpeg-dev libvorbis-dev libogg-dev libwxgtk2.8-dev libxxf86vm-dev libxxf86dga-dev mesa-common-dev libopenal-dev flex libfreetype6-dev libxvidcore-dev
 before_script:
   - travis_retry ./autogen.sh
 notifications:
