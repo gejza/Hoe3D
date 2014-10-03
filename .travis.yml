@@ -1,0 +1,19 @@
+language: cpp
+compiler:
+  - gcc
+before_install:
+  - echo $LANG
+  - echo $LC_ALL
+before_script:
+  - travis_retry ./configure
+notifications:
+  recipients:
+    - milan.dunghubel@gmail.com
+  email:
+    on_success: change
+    on_failure: always
+env:
+  - LANG="en_US.UTF-8"
+os:
+  - linux
+  - osx
