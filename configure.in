@@ -1,22 +1,10 @@
 AC_INIT(configure.in)
-AC_CONFIG_AUX_DIR(unix)
 AM_INIT_AUTOMAKE(Hoe, 1.0)
-
-sinclude(unix/macros/lua.m4)
-sinclude(unix/macros/wxwin.m4)
-sinclude(unix/macros/freetype2.m4)
-sinclude(unix/macros/ogg.m4)
-sinclude(unix/macros/vorbis.m4)
-sinclude(unix/macros/gtk-2.0.m4)
-sinclude(unix/macros/bison-i18n.m4)
-sinclude(unix/macros/gettext.m4)
-sinclude(unix/macros/xvid.m4)
 
 AC_PROG_CXX
 AM_PROG_CC_C_O
 AC_PROG_LIBTOOL
 AM_PROG_LEX
-AX_PTHREAD
 #AM_GNU_GETTEXT
 #BISON_I18N
 
