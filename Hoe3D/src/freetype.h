@@ -16,10 +16,10 @@
 #define _HOE_FREE_TYPE_H_
 
 #include <ft2build.h>
-#include <freetype2/freetype.h>
-#include <freetype2/ftglyph.h>
-#include <freetype2/ftoutln.h>
-#include <freetype2/fttrigon.h>
+#include FT_FREETYPE_H
+#include FT_GLYPH_H
+#include FT_OUTLINE_H
+#include FT_TRIGONOMETRY_H
 
 class HoeFreeType
 {
