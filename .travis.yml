@@ -1,9 +1,11 @@
 language: cpp
 compiler:
   - gcc
+before_install:
+  - sudo apt-get install libgl1-mesa-dev libogg-dev libvorbis-dev liblua5.1-dev libpng12-dev libgtk2.0-dev libfreetype6-dev libjpeg-dev libvorbis-dev libogg-dev libwxgtk2.8-dev
 before_script:
   - travis_retry ./bootstrap.sh
-  - travis_retry ./configure
+  - ./configure
 notifications:
   recipients:
     - milan.dunghubel@gmail.com
