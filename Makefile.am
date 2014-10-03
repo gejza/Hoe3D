@@ -7,3 +7,6 @@ SUBDIRS = HoeCore Hoe3D HoeGame
 ACLOCAL_AMFLAGS = -I m4
 
 EXTRA_DIST = unix/config.rpath m4/ChangeLog
+
+test:
+	@echo "Nothing to test"
