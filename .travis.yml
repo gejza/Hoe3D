@@ -1,10 +1,8 @@
 language: cpp
 compiler:
   - gcc
-before_install:
-  - echo $LANG
-  - echo $LC_ALL
 before_script:
+  - travis_retry ./bootstrap.sh
   - travis_retry ./configure
 notifications:
   recipients:
